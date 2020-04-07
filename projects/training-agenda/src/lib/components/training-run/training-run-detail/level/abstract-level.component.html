@@ -1,0 +1,21 @@
+<h1>{{ level?.title }}</h1>
+<ng-container [ngSwitch]="level?.type">
+  <kypo-assessment-level *ngSwitchCase="levelTypes.Assessment"
+                         [level]="level"
+                         [isLast]=isLast
+                         (next)="onNext()">
+  </kypo-assessment-level>
+  <kypo-game-level *ngSwitchCase="levelTypes.Game"
+                   [level]="level"
+                   [isLast]=isLast
+                   [sandboxId]="sandboxId"
+                   (next)="onNext()">
+  </kypo-game-level>
+  <kypo-info-level *ngSwitchCase="levelTypes.Info"
+                   [level]="level"
+                   [isLast]="isLast"
+                   (next)="onNext()">
+  </kypo-info-level>
+</ng-container>
+
+

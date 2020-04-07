@@ -1,0 +1,20 @@
+<kypo-controls [controls]="controls"
+               (itemClicked)="onControlAction($event)">
+</kypo-controls>
+<mat-divider></mat-divider>
+<div *ngIf="(stepperLevels | async).length > 0 else noLevels">
+ <kypo-levels-stepper [activeStep]="activeStep$ | async"
+                      [levels]="stepperLevels | async"
+                      [movingInProgress]="levelMovingInProgress"
+                      (levelSwap)="onLevelMoved($event)"
+                      (activeStepChange)="onActiveLevelChange($event)">
+ </kypo-levels-stepper>
+ <mat-divider></mat-divider>
+ <kypo-level-edit [level]="(stepperLevels | async)[activeStep$ | async].level" (levelChange)="onActiveLevelChanged($event)"></kypo-level-edit>
+</div>
+
+<ng-template #noLevels>
+ <h3>Start by clicking on Add button</h3>
+</ng-template>
+
+

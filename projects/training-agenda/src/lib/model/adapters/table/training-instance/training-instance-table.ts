@@ -3,16 +3,15 @@ import {TrainingInstance} from 'kypo-training-model';
 import {Column, Kypo2Table, Row, RowAction} from 'kypo2-table';
 import {TrainingInstanceRowAdapter} from '../rows/training-instance-row-adapter';
 import {defer, of} from 'rxjs';
-import {RouteFactory} from '../../routes/route-factory';
-import {TrainingInstanceOverviewService} from '../../../services/training-instance/training-instance-overview.service';
 import {EditAction} from 'kypo2-table';
 import {DeleteAction} from 'kypo2-table';
 import {DownloadAction} from 'kypo2-table';
-import {SandboxNavigator} from 'kypo-sandbox-agenda';
+import {TrainingNavigator} from '../../../../services/client/training-navigator.service';
+import {TrainingInstanceOverviewService} from '../../../../services/training-instance/training-instance-overview.service';
 
 export class TrainingInstanceTable extends Kypo2Table<TrainingInstanceRowAdapter> {
 
-  constructor(resource: KypoPaginatedResource<TrainingInstance>, service: TrainingInstanceOverviewService, sandboxNavigator: SandboxNavigator) {
+  constructor(resource: KypoPaginatedResource<TrainingInstance>, service: TrainingInstanceOverviewService, navigator: TrainingNavigator) {
     const columns = [
       new Column('id', 'Id', true),
       new Column('title', 'Title', true),
@@ -22,7 +21,7 @@ export class TrainingInstanceTable extends Kypo2Table<TrainingInstanceRowAdapter
       new Column('poolSize', 'Pool Size', false),
       new Column('accessToken', 'Access Token', false)
     ];
-    const rows = resource.elements.map(element => TrainingInstanceTable.createRow(element, service, sandboxNavigator));
+    const rows = resource.elements.map(element => TrainingInstanceTable.createRow(element, service, navigator));
     super(rows, columns);
     this.pagination = resource.pagination;
     this.filterLabel = 'Filter by title';
@@ -30,13 +29,13 @@ export class TrainingInstanceTable extends Kypo2Table<TrainingInstanceRowAdapter
     this.selectable = false;
   }
 
-  private static createRow(ti: TrainingInstance, service: TrainingInstanceOverviewService, sandboxNavigator: SandboxNavigator): Row<TrainingInstanceRowAdapter> {
+  private static createRow(ti: TrainingInstance, service: TrainingInstanceOverviewService, navigator: TrainingNavigator): Row<TrainingInstanceRowAdapter> {
     const row = new Row(new TrainingInstanceRowAdapter(ti), this.createActions(ti, service));
-    row.addLink('title', RouteFactory.toTrainingInstanceDetail(ti.id));
-    row.addLink('accessToken', RouteFactory.toTrainingInstanceAccessToken(ti.id));
+    row.addLink('title', navigator.toTrainingInstanceDetail(ti.id));
+    row.addLink('accessToken', navigator.toTrainingInstanceAccessToken(ti.id));
     if (ti.hasPool()) {
       row.element.poolSize = service.getPoolState(ti.poolId);
-      row.addLink('poolId', sandboxNavigator.toPool(ti.poolId));
+      row.addLink('poolId', navigator.toPool(ti.poolId));
     } else {
       row.element.poolSize = of('-');
     }

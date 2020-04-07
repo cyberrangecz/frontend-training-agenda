@@ -4,7 +4,7 @@ import {Injectable} from '@angular/core';
 import {
   ACCESS_TOKEN_PATH,
   PROGRESS_PATH,
-  RESULTS_PATH,
+  RESULTS_PATH, SANDBOX_POOL_PATH,
   SUMMARY_PATH,
   TRAINING_DEFINITION_EDIT_PATH,
   TRAINING_DEFINITION_NEW_PATH,
@@ -138,4 +138,7 @@ export class TrainingDefaultNavigator extends TrainingNavigator {
     return `${TRAINING_RUN_PATH}/${TRAINING_RUN_RESULTS_PATH}/${id}`;
   }
 
+  toPool(id: number | string): string {
+    return `${SANDBOX_POOL_PATH}/${id}`;
+  }
 }

@@ -94,4 +94,11 @@ export abstract class TrainingNavigator {
    */
   abstract toTrainingRunResult(id: number | string): string;
 
+  /**
+   * Returns route to pool detail
+   * @param poolId id of pool to navigate to
+   */
+  abstract toPool(poolId: number | string): string;
+
 }
+

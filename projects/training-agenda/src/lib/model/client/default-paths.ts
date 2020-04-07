@@ -18,4 +18,5 @@ export const TRAINING_RUN_ACCESS_SELECTOR = 'access-token';
 export const TRAINING_RUN_RESUME_PATH = 'resume';
 export const TRAINING_RUN_SELECTOR = 'trainingRunId';
 export const TRAINING_RUN_RESULTS_PATH = 'results';
+export const SANDBOX_POOL_PATH = 'pool';
 
