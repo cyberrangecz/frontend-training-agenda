@@ -1,0 +1,92 @@
+/**
+ * Service handling editing of training definition's levels and related operations.
+ * Serves as a layer between component and API service
+ * Subscribe to levels$, activeStep$ and activeLevelCanBeSaved$ to receive latest data updates.
+ */
+import {BehaviorSubject, Observable} from 'rxjs';
+import {AbstractLevelTypeEnum, Level} from 'kypo-training-model';
+
+export abstract class LevelEditService {
+
+  protected trainingDefinitionId: number;
+
+  protected levelsSubject$: BehaviorSubject<Level[]> = new BehaviorSubject([]);
+  /**
+   * All currently edited levels of training definition
+   */
+  levels$ = this.levelsSubject$.asObservable();
+
+  protected activeStepSubject$: BehaviorSubject<number> = new BehaviorSubject(0);
+
+  /**
+   * Index of selected level
+   */
+  activeStep$ = this.activeStepSubject$.asObservable();
+
+  protected activeLevelCanBeSavedSubject$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  /**
+   * True if selected level is valid and can be saved, false otherwise
+   */
+  activeLevelCanBeSaved$: Observable<boolean> = this.activeLevelCanBeSavedSubject$.asObservable();
+
+  protected unsavedLevelsSubject$: BehaviorSubject<Level[]> = new BehaviorSubject([]);
+
+  unsavedLevels$: Observable<Level[]> = this.unsavedLevelsSubject$.asObservable();
+
+  protected constructor() {
+  }
+
+  /**
+   * Initiates service with levels and related training definition id
+   * @param trainingDefinitionId id of training definition
+   * @param levels all levels associated with training definition id
+   */
+  abstract set(trainingDefinitionId: number, levels: Level[]);
+
+  abstract getLevelsCount(): number;
+
+  abstract setActiveLevel(levelIndex: number);
+
+  /**
+   * Performs necessary actions to initiate and update values related to active level change
+   * @param level new active level
+   */
+  abstract onActiveLevelChanged(level: Level);
+
+  /**
+   * Determines whether passed level can be saved. Optionally, if value is passed as an argument,
+   * it uses value of the argument.
+   * @param level level to determine
+   * @param value pre-determined result
+   */
+  abstract setLevelCanBeSaved(level: Level, value?: boolean);
+
+  abstract getSelected(): Level;
+
+  abstract navigateToLastLevel();
+
+  abstract navigateToPreviousLevel();
+
+  /**
+   * Creates new level with default values based on passed level type
+   * @param levelType enum of possible level types
+   */
+  abstract add(levelType: AbstractLevelTypeEnum): Observable<Level>;
+
+  /**
+   * Saves changes in edited level and optionally informs on result of the operation
+   */
+  abstract saveSelected(): Observable<any>;
+
+  /**
+   * Displays dialog to delete selected level and displays alert with result of the operation
+   */
+  abstract deleteSelected(): Observable<Level[]>;
+
+  /**
+   * Moves level from index to a new one. Updates optimistically and rollback is performed on error
+   * @param fromIndex current index of level
+   * @param toIndex new index of level
+   */
+  abstract move(fromIndex, toIndex): Observable<any>;
+}

@@ -1,0 +1,21 @@
+export const TRAINING_DEFINITION_PATH = 'training-definition';
+export const TRAINING_INSTANCE_PATH = 'training-instance';
+export const TRAINING_RUN_PATH = 'training-run';
+export const TRAINING_DEFINITION_NEW_PATH = 'create';
+export const TRAINING_DEFINITION_SELECTOR = 'trainingDefinitionId';
+export const TRAINING_DEFINITION_EDIT_PATH = 'edit';
+export const TRAINING_DEFINITION_PREVIEW_PATH = 'preview';
+export const TRAINING_INSTANCE_DETAIL_PATH = 'detail';
+export const TRAINING_INSTANCE_NEW_PATH = 'create';
+export const TRAINING_INSTANCE_EDIT_PATH = 'edit';
+export const TRAINING_INSTANCE_SELECTOR = 'trainingInstanceId';
+export const ACCESS_TOKEN_PATH = 'access-token';
+export const SUMMARY_PATH = 'summary';
+export const PROGRESS_PATH = 'progress';
+export const RESULTS_PATH = 'results';
+export const TRAINING_RUN_ACCESS_PATH = 'access';
+export const TRAINING_RUN_ACCESS_SELECTOR = 'access-token';
+export const TRAINING_RUN_RESUME_PATH = 'resume';
+export const TRAINING_RUN_SELECTOR = 'trainingRunId';
+export const TRAINING_RUN_RESULTS_PATH = 'results';
+
