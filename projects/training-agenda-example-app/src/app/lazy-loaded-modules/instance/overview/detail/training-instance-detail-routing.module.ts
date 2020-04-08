@@ -3,10 +3,10 @@ import {RouterModule, Routes} from '@angular/router';
 import {
   ACCESS_TOKEN_PATH,
   PROGRESS_PATH, RESULTS_PATH,
-  SUMMARY_PATH,
-  TrainingInstanceDetailBreadcrumbResolver,
+  SUMMARY_PATH, TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME,
+  TrainingInstanceDetailBreadcrumbResolver, TrainingInstanceDetailTitleResolver,
   TrainingInstanceResolver
-} from 'training-agenda';
+} from 'kypo-training-agenda';
 
 const routes: Routes = [
   {
@@ -17,16 +17,18 @@ const routes: Routes = [
   {
     path: SUMMARY_PATH,
     resolve: {
-      trainingInstance: TrainingInstanceResolver,
+      [TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME]: TrainingInstanceResolver,
       breadcrumb: TrainingInstanceDetailBreadcrumbResolver,
+      title: TrainingInstanceDetailTitleResolver
     },
     loadChildren: () => import('./summary/training-instance-summary.module').then(m => m.TrainingInstanceSummaryModule),
   },
   {
     path: PROGRESS_PATH,
     resolve: {
-      trainingInstance: TrainingInstanceResolver,
+      [TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME]: TrainingInstanceResolver,
       breadcrumb: TrainingInstanceDetailBreadcrumbResolver,
+      title: TrainingInstanceDetailTitleResolver
     },
     loadChildren: () => import('./progress/training-instance-progress.module').then(m => m.TrainingInstanceProgressModule),
   },
@@ -35,6 +37,7 @@ const routes: Routes = [
     resolve: {
       trainingInstance: TrainingInstanceResolver,
       breadcrumb: TrainingInstanceDetailBreadcrumbResolver,
+      title: TrainingInstanceDetailTitleResolver
     },
     loadChildren: () => import('./results/training-instance-results.module').then(m => m.TrainingInstanceResultsModule),
   },
@@ -43,6 +46,7 @@ const routes: Routes = [
     resolve: {
       trainingInstance: TrainingInstanceResolver,
       breadcrumb: TrainingInstanceDetailBreadcrumbResolver,
+      title: TrainingInstanceDetailTitleResolver
     },
     loadChildren: () => import('./token/access-token-detail.module').then(m => m.AccessTokenDetailModule),
   },

@@ -4,7 +4,7 @@ import {
   TRAINING_DEFINITION_EDIT_PATH,
   TRAINING_DEFINITION_NEW_PATH, TRAINING_DEFINITION_PREVIEW_PATH, TRAINING_DEFINITION_SELECTOR,
   TrainingDefinitionOverviewComponent
-} from 'training-agenda';
+} from 'kypo-training-agenda';
 
 const routes: Routes = [
   {

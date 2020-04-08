@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {AccessTokenDetailComponent} from 'training-agenda';
+import {AccessTokenDetailComponent} from 'kypo-training-agenda';
 
 const routes: Routes = [
   {

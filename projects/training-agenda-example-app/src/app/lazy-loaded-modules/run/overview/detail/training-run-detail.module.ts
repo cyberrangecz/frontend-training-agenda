@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {environment} from '../../../../../environments/environment';
 import {TrainingRunDetailRoutingModule} from './training-run-detail-routing.module';
-import {TrainingRunDetailGameModule} from 'training-agenda';
+import {TrainingRunDetailGameModule} from 'kypo-training-agenda';
 import {CommonModule} from '@angular/common';
 
 @NgModule({

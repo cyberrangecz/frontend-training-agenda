@@ -11,7 +11,7 @@ import {
   TRAINING_RUN_SELECTOR,
   TrainingRunOverviewComponent,
   TrainingRunResultsResolver
-} from 'training-agenda';
+} from 'kypo-training-agenda';
 
 const routes: Routes = [
   {
@@ -21,20 +21,29 @@ const routes: Routes = [
   {
     path: `${TRAINING_RUN_ACCESS_PATH}/:${TRAINING_RUN_ACCESS_SELECTOR}`,
     loadChildren: () => import('./detail/training-run-detail.module').then(m => m.TrainingRunDetailModule),
-    data: {breadcrumb: 'Game'},
+    data: {
+      breadcrumb: 'Game',
+      title: undefined
+    },
     resolve: { [TRAINING_RUN_ACCESS_INFO_DATA_ATTRIBUTE_NAME]: AccessTrainingRunResolver }
   },
   {
     path: `${TRAINING_RUN_RESUME_PATH}/:${TRAINING_RUN_SELECTOR}`,
     loadChildren: () => import('./detail/training-run-detail.module').then(m => m.TrainingRunDetailModule),
-    data: {breadcrumb: 'Game'},
+    data: {
+      breadcrumb: 'Game',
+      title: undefined
+    },
     resolve: { [TRAINING_RUN_ACCESS_INFO_DATA_ATTRIBUTE_NAME]: AccessTrainingRunResolver }
 
   },
   {
     path: `${TRAINING_RUN_RESULTS_PATH}/:${TRAINING_RUN_SELECTOR}`,
     loadChildren: () => import('./results/training-run-results.module').then(m => m.TrainingRunResultsModule),
-    data: {breadcrumb: 'Results'},
+    data: {
+      breadcrumb: 'Results',
+      title: 'Training Run Results'
+    },
     resolve: { [TRAINING_RUN_DATA_ATTRIBUTE_NAME]: TrainingRunResultsResolver }
   }
 ];

@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {environment} from '../../../../../environments/environment';
-import {TrainingDefinitionEditOverviewComponentsModule} from 'training-agenda';
+import {TrainingDefinitionEditOverviewComponentsModule} from 'kypo-training-agenda';
 import {CommonModule} from '@angular/common';
 import {TrainingDefinitionEditOverviewRoutingModule} from './training-definition-edit-overview-routing.module';
 

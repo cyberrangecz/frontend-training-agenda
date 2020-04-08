@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {TrainingRunResultsRoutingModule} from './training-run-results-routing.module';
 import {environment} from '../../../../../environments/environment';
-import {TrainingRunResultsComponentsModule} from 'training-agenda';
+import {TrainingRunResultsComponentsModule} from 'kypo-training-agenda';
 import {CommonModule} from '@angular/common';
 
 @NgModule({

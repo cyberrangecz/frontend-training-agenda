@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {environment} from '../../../../../../environments/environment';
 import {AccessTokenDetailRoutingModule} from './access-token-detail-routing.module';
-import {AccessTokenDetailComponentsModule} from 'training-agenda';
+import {AccessTokenDetailComponentsModule} from 'kypo-training-agenda';
 import {CommonModule} from '@angular/common';
 
 @NgModule({

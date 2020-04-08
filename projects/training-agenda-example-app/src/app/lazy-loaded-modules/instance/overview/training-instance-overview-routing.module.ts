@@ -7,8 +7,8 @@ import {
   TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME,
   TrainingInstanceBreadcrumbResolver,
   TrainingInstanceOverviewComponent,
-  TrainingInstanceResolver
-} from 'training-agenda';
+  TrainingInstanceResolver, TrainingInstanceTitleResolver
+} from 'kypo-training-agenda';
 
 const routes: Routes = [
   {
@@ -21,6 +21,7 @@ const routes: Routes = [
     resolve: {
       [TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME]: TrainingInstanceResolver,
       breadcrumb: TrainingInstanceBreadcrumbResolver,
+      title: TrainingInstanceTitleResolver
     }
   },
   {
@@ -29,6 +30,7 @@ const routes: Routes = [
     resolve: {
       [TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME]: TrainingInstanceResolver,
       breadcrumb: TrainingInstanceBreadcrumbResolver,
+      title: TrainingInstanceTitleResolver
     }
   },
   {
@@ -37,6 +39,7 @@ const routes: Routes = [
     resolve: {
       [TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME]: TrainingInstanceResolver,
       breadcrumb: TrainingInstanceBreadcrumbResolver,
+      title: TrainingInstanceTitleResolver
     }
   },
 ];

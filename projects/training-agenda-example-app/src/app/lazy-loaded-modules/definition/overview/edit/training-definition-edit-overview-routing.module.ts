@@ -4,8 +4,8 @@ import {
   TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME,
   TrainingDefinitionBreadcrumbResolver, TrainingDefinitionCanDeactivate,
   TrainingDefinitionEditOverviewComponent,
-  TrainingDefinitionResolver
-} from 'training-agenda';
+  TrainingDefinitionResolver, TrainingDefinitionTitleResolver
+} from 'kypo-training-agenda';
 
 const routes: Routes = [
   {
@@ -13,7 +13,8 @@ const routes: Routes = [
     component: TrainingDefinitionEditOverviewComponent,
     resolve: {
       [TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME]: TrainingDefinitionResolver,
-      breadcrumb: TrainingDefinitionBreadcrumbResolver
+      breadcrumb: TrainingDefinitionBreadcrumbResolver,
+      title: TrainingDefinitionTitleResolver
     },
     canDeactivate: [TrainingDefinitionCanDeactivate],
   },

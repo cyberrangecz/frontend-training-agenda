@@ -5,15 +5,18 @@ import {
   TrainingDefinitionBreadcrumbResolver,
   TrainingDefinitionResolver,
   TrainingPreviewComponent
-} from 'training-agenda';
+} from 'kypo-training-agenda';
 
 const routes: Routes = [
   {
     path: '',
     component: TrainingPreviewComponent,
+    data: {
+      title: undefined
+    },
     resolve: {
       [TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME]: TrainingDefinitionResolver,
-      breadcrumb: TrainingDefinitionBreadcrumbResolver
+      breadcrumb: TrainingDefinitionBreadcrumbResolver,
     }
   }
 ];

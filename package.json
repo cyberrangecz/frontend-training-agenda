@@ -7,7 +7,11 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "build-library": "ng build kypo-training-agenda --prod",
+    "create-package": "cd dist/kypo-training-agenda && npm pack",
+    "build-and-pack": "npm install && npm run build-library && npm run create-package",
+    "publish": "npm run build-and-pack && cd dist/kypo-training-agenda && npm publish --registry=http://kypo-storage.ics.muni.cz:8081/repository/npm-hosted"
   },
   "private": true,
   "dependencies": {

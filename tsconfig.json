@@ -19,9 +19,9 @@
       "dom"
     ],
     "paths": {
-      "training-agenda": [
-        "dist/training-agenda/training-agenda",
-        "dist/training-agenda"
+      "kypo-training-agenda": [
+        "dist/kypo-training-agenda/kypo-training-agenda",
+        "dist/kypo-training-agenda"
       ]
     }
   },
