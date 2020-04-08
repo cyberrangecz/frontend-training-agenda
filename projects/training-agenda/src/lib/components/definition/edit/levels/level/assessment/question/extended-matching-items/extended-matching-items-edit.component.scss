@@ -1,4 +1,3 @@
-@import "src/variables";
 .content {
   display: flex;
   flex-direction: column;
@@ -17,7 +16,7 @@
 
 p.required-switch-note {
   text-align: right;
-  color: $warn;
+  color: #f44336;
 }
 
 .emi-answers {

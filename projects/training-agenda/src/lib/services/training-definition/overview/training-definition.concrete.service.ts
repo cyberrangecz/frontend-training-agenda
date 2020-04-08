@@ -20,8 +20,8 @@ import {TrainingNotificationService} from '../../client/training-notification.se
 import {TrainingErrorHandler} from '../../client/training-error.handler';
 import {TrainingAgendaContext} from '../../internal/training-agenda-context.service';
 import {TrainingNavigator} from '../../client/training-navigator.service';
-import {TrainingDefinitionUploadDialogComponent} from '../../../components/training-definition/training-definition-overview/training-definition-upload-dialog/training-definition-upload-dialog.component';
-import {CloneDialogComponent} from '../../../components/training-definition/training-definition-overview/clone-dialog/clone-dialog.component';
+import {TrainingDefinitionUploadDialogComponent} from '../../../components/definition/overview/upload-dialog/training-definition-upload-dialog.component';
+import {CloneDialogComponent} from '../../../components/definition/overview/clone-dialog/clone-dialog.component';
 
 
 /**

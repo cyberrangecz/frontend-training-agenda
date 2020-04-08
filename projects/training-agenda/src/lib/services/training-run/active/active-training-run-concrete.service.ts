@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {EMPTY, merge, Observable, Subject, timer} from 'rxjs';
+import {concat, EMPTY, merge, Observable, Subject, timer} from 'rxjs';
 import {KypoPaginatedResource} from 'kypo-common';
 import {KypoRequestedPagination} from 'kypo-common';
 import {TrainingInstanceApi} from 'kypo-training-api';
@@ -17,6 +17,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {TrainingNotificationService} from '../../client/training-notification.service';
 import {TrainingErrorHandler} from '../../client/training-error.handler';
 import {TrainingAgendaContext} from '../../internal/training-agenda-context.service';
+import {SandboxInstance} from 'kypo-sandbox-model';
 
 /**
  * Basic implementation of layer between component and API service.
@@ -100,9 +101,12 @@ export class ActiveTrainingRunConcreteService extends ActiveTrainingRunService {
   }
 
   private callApiToDeleteSandbox(trainingRun: TrainingRun): Observable<KypoPaginatedResource<TrainingRun>> {
+    let sandboxToDelete: SandboxInstance;
     return this.sandboxApi.getSandbox(trainingRun.sandboxInstanceId)
       .pipe(
-        switchMap(sandbox => this.requestApi.createCleanupRequest(sandbox.allocationUnitId)),
+        tap(sandbox => sandboxToDelete = sandbox),
+        switchMap(_ => this.sandboxApi.unlockSandbox(sandboxToDelete.id, sandboxToDelete.lockId)),
+        switchMap(_ => this.requestApi.createCleanupRequest(sandboxToDelete.allocationUnitId)),
         tap(_ => this.notificationService.emit('success', 'Deleting of sandbox instance started'),
           err => this.errorHandler.emit(err, 'Deleting sandbox instance')
         ),

@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {TrainingRunResultsComponent} from '../../../../../../training-agenda/src/lib/components/run/results/training-run-results.component';
+import {TrainingRunResultsComponent} from 'training-agenda';
 
 const routes: Routes = [
   {

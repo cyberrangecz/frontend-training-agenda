@@ -10,6 +10,7 @@ import {KypoBaseComponent} from 'kypo-common';
 import {TrainingDefinitionEditControls} from './training-definition-edit-controls';
 import {KypoControlItem} from 'kypo-controls';
 import {TrainingAgendaContext} from '../../../services/internal/training-agenda-context.service';
+import {TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME} from '../../../model/client/activated-route-data-attributes';
 
 /**
  * Main smart component of training definition edit/new page.
@@ -44,7 +45,7 @@ export class TrainingDefinitionEditOverviewComponent extends KypoBaseComponent i
     this.activeRoute.data
       .pipe(
         takeWhile(_ => this.isAlive),
-      ).subscribe(data => this.editService.set(data.trainingDefinition));
+      ).subscribe(data => this.editService.set(data[TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME]));
     this.editMode$ = this.editService.editMode$.pipe(
       tap(isEditMode => this.controls = TrainingDefinitionEditControls.create(this.editService, isEditMode, this.saveDisabled$))
     );

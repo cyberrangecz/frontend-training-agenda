@@ -3,9 +3,9 @@ import {ModuleWithProviders, NgModule} from '@angular/core';
 import {Kypo2StepperModule} from 'kypo2-stepper';
 import {LevelModule} from './level/level.module';
 import {TrainingRunDetailComponentsModule} from './training-run-detail-components.module';
-import {TrainingRunDetailRoutingModule} from '../../../../../../training-agenda-example-app/src/app/lazy-loaded-modules/run/detail/training-run-detail-routing.module';
 import {TrainingRunLevelsDeactivateGuard} from '../../../services/can-deactivate/training-run-levels-can-deactivate.service';
 import {TrainingAgendaConfig} from '../../../model/client/training-agenda-config';
+import {Kypo2TopologyGraphConfig} from 'kypo2-topology-graph';
 
 /**
  * Module containing imports and providers for training run detail
@@ -15,7 +15,7 @@ import {TrainingAgendaConfig} from '../../../model/client/training-agenda-config
     CommonModule,
     LevelModule,
     Kypo2StepperModule,
-    TrainingRunDetailRoutingModule,
+    TrainingRunDetailComponentsModule
   ],
   declarations: [
   ],
@@ -23,12 +23,12 @@ import {TrainingAgendaConfig} from '../../../model/client/training-agenda-config
     TrainingRunLevelsDeactivateGuard
   ]
 })
-export class TrainingRunDetailModule {
-  static forRoot(config: TrainingAgendaConfig): ModuleWithProviders<TrainingRunDetailModule> {
+export class TrainingRunDetailGameModule {
+  static forRoot(config: TrainingAgendaConfig): ModuleWithProviders<TrainingRunDetailGameModule> {
     return {
-      ngModule: TrainingRunDetailModule,
+      ngModule: TrainingRunDetailGameModule,
       providers: [
-        TrainingRunDetailComponentsModule.forRoot(config).providers,
+        {provide: Kypo2TopologyGraphConfig, useValue: config.kypo2TopologyConfig},
         {provide: TrainingAgendaConfig, useValue: config},
       ]
     };

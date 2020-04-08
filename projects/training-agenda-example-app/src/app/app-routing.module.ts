@@ -12,7 +12,7 @@ const routes: Routes = [
   },
   {
     path: 'training-definition',
-    loadChildren: () => import('').then(m => m.),
+    loadChildren: () => import('./lazy-loaded-modules/definition/overview/training-definition-overview.module').then(m => m.TrainingDefinitionOverviewModule),
     data: {
       breadcrumb: 'Definition',
       title: 'Training Definition Overview'
@@ -20,7 +20,7 @@ const routes: Routes = [
   },
   {
     path: 'training-instance',
-    loadChildren: () => import('').then(m => m.),
+    loadChildren: () => import('./lazy-loaded-modules/instance/overview/training-instance-overview.module').then(m => m.TrainingInstanceOverviewModule),
     data: {
       breadcrumb: 'Instance',
       title: 'Training Instance Overview'
@@ -28,7 +28,7 @@ const routes: Routes = [
   },
   {
     path: 'training-run',
-    loadChildren: () => import('').then(m => m),
+    loadChildren: () => import('./lazy-loaded-modules/run/overview/training-run-overview.module').then(m => m.TrainingRunOverviewModule),
     data: {
       breadcrumb: 'Run',
       title: 'Training Run Overview'

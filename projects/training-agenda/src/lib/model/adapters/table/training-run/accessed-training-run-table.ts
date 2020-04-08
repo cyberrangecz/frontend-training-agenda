@@ -3,7 +3,7 @@ import {KypoPaginatedResource} from 'kypo-common';
 import {Column, Kypo2Table, Row, RowAction} from 'kypo2-table';
 import {defer, of} from 'rxjs';
 import {TraineeAccessTrainingRunActionEnum} from 'kypo-training-model';
-import {AccessedTrainingRunService} from '../../../services/training-run/accessed/accessed-training-run.service';
+import {AccessedTrainingRunService} from '../../../../services/training-run/accessed/accessed-training-run.service';
 
 /**
  * Helper class transforming paginated resource to class for common table component

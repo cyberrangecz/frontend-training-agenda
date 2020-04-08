@@ -1,6 +1,9 @@
 import {CommonModule} from '@angular/common';
 import {ModuleWithProviders, NgModule} from '@angular/core';
-import {Kypo2TrainingsVisualizationOverviewLibModule} from 'kypo2-trainings-visualization-overview-lib';
+import {
+  Kypo2TrainingsVisualizationOverviewLibConfig,
+  Kypo2TrainingsVisualizationOverviewLibModule
+} from 'kypo2-trainings-visualization-overview-lib';
 import {TrainingRunResultsMaterialModule} from './training-run-results-material.module';
 import {TrainingRunResultsComponent} from './training-run-results.component';
 import {TrainingAgendaConfig} from '../../../model/client/training-agenda-config';
@@ -12,17 +15,17 @@ import {TrainingAgendaConfig} from '../../../model/client/training-agenda-config
   imports: [
     CommonModule,
     TrainingRunResultsMaterialModule,
+    Kypo2TrainingsVisualizationOverviewLibModule
   ],
-  declarations: [TrainingRunResultsComponent],
-  providers: []
+  declarations: [TrainingRunResultsComponent]
 })
 export class TrainingRunResultsComponentsModule {
   static forRoot(config: TrainingAgendaConfig): ModuleWithProviders<TrainingRunResultsComponentsModule> {
     return {
       ngModule: TrainingRunResultsComponentsModule,
       providers: [
-        Kypo2TrainingsVisualizationOverviewLibModule.forRoot({kypo2TrainingsVisualizationRestBasePath: config.visualizationConfig.trainingBasePath}).providers,
-        {provide: TrainingAgendaConfig, useValue: config},
+        {provide: Kypo2TrainingsVisualizationOverviewLibConfig, useValue: {kypo2TrainingsVisualizationRestBasePath: config.visualizationConfig.trainingBasePath}},
+        {provide: TrainingAgendaConfig, useValue: config}
       ]
     };
   }

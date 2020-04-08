@@ -1,6 +1,5 @@
 import {ActivatedRouteSnapshot, CanDeactivate, RouterStateSnapshot, UrlTree} from '@angular/router';
 import {Observable} from 'rxjs';
-import {TrainingInstanceEditOverviewComponent} from '../../components/training-instance/training-instance-edit-overview/training-instance-edit-overview.component';
 import {Injectable} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {
@@ -9,6 +8,7 @@ import {
   CsirtMuDialogResultEnum
 } from 'csirt-mu-common';
 import {map} from 'rxjs/operators';
+import {TrainingInstanceEditOverviewComponent} from '../../components/instance/edit/training-instance-edit-overview.component';
 
 /**
  * Route guard determining if navigation outside of training instance edit page should proceed

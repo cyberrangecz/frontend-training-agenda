@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {TrainingInstanceSummaryComponent} from '../../../../../../../training-agenda/src/lib/components/instance/detail/summary/training-instance-summary.component';
+import {TrainingInstanceSummaryComponent} from 'training-agenda';
 
 const routes: Routes = [
   {

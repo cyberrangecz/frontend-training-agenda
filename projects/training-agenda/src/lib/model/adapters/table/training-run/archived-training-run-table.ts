@@ -1,10 +1,10 @@
 import {Column, Kypo2Table, Row, RowAction} from 'kypo2-table';
 import {TrainingRunRowAdapter} from '../rows/training-run-row-adapter';
 import {KypoPaginatedResource} from 'kypo-common';
-import {ArchivedTrainingRunService} from '../../../services/training-run/archived/archived-training-run.service';
 import {DeleteAction} from 'kypo2-table';
 import {defer, of} from 'rxjs';
 import {TrainingRun} from 'kypo-training-model';
+import {ArchivedTrainingRunService} from '../../../../services/training-run/archived/archived-training-run.service';
 
 export class ArchivedTrainingRunTable extends Kypo2Table<TrainingRunRowAdapter> {
 

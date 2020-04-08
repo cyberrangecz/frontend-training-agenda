@@ -16,6 +16,7 @@ import {KypoControlsModule} from 'kypo-controls';
 import {TrainingInstanceSummaryConcreteService} from '../../../../services/training-instance/summary/training-instance-summary-concrete.service';
 import {TrainingAgendaConfig} from '../../../../model/client/training-agenda-config';
 import {TrainingInstanceInfoComponent} from './info/training-instance-info.component';
+import {RouterModule} from '@angular/router';
 
 /**
  * Components and providers for training instance summaries.
@@ -25,6 +26,7 @@ import {TrainingInstanceInfoComponent} from './info/training-instance-info.compo
       CommonModule,
       FormsModule,
       KypoPipesModule,
+      RouterModule,
       TrainingInstanceSummaryMaterialModule,
       Kypo2TableModule,
       KypoControlsModule

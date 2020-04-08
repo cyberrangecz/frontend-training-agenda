@@ -1,5 +1,5 @@
 import {CommonModule} from '@angular/common';
-import {ModuleWithProviders, NgModule} from '@angular/core';
+import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {Kypo2TopologyGraphModule} from 'kypo2-topology-graph';
 import {MarkdownModule, MarkedOptions} from 'ngx-markdown';
@@ -14,7 +14,6 @@ import {InfoLevelComponent} from './info-level/info-level.component';
 import {LevelMaterialModule} from './level-material.module';
 import {HttpClient} from '@angular/common/http';
 import {NextLevelButtonComponent} from '../next-level-button/next-level-button.component';
-import {TrainingAgendaConfig} from '../../../../model/client/training-agenda-config';
 
 const markdownParserConfig = {
       loader: HttpClient,
@@ -39,6 +38,7 @@ const markdownParserConfig = {
   imports: [
     CommonModule,
     MarkdownModule.forRoot(markdownParserConfig),
+    Kypo2TopologyGraphModule,
     FormsModule,
     LevelMaterialModule,
   ],
@@ -65,13 +65,4 @@ const markdownParserConfig = {
   ]
 })
 export class LevelComponentsModule {
-  static forRoot(config: TrainingAgendaConfig): ModuleWithProviders<LevelComponentsModule> {
-    return {
-      ngModule: LevelComponentsModule,
-      providers: [
-        Kypo2TopologyGraphModule.forRoot(config.kypo2TopologyConfig).providers,
-        {provide: TrainingAgendaConfig, useValue: config},
-      ]
-    };
-  }
 }

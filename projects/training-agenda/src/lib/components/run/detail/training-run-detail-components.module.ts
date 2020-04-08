@@ -8,7 +8,6 @@ import {TrainingRunDetailMaterialModule} from './training-run-detail-material.mo
 import {TrainingRunDetailComponent} from './training-run-detail.component';
 import {TrainingTimerComponent} from './training-timer/training-timer.component';
 import {CsirtUserCardModule} from 'csirt-mu-layout';
-import {TrainingAgendaConfig} from '../../../model/client/training-agenda-config';
 
 /**
  * Contains all components of training run detail
@@ -17,6 +16,7 @@ import {TrainingAgendaConfig} from '../../../model/client/training-agenda-config
   imports: [
     CommonModule,
     TrainingRunDetailMaterialModule,
+    LevelComponentsModule,
     RouterModule,
     KypoPipesModule,
     Kypo2StepperModule,
@@ -32,13 +32,4 @@ import {TrainingAgendaConfig} from '../../../model/client/training-agenda-config
   ]
 })
 export class TrainingRunDetailComponentsModule {
-  static forRoot(config: TrainingAgendaConfig): ModuleWithProviders<TrainingRunDetailComponentsModule> {
-    return {
-      ngModule: TrainingRunDetailComponentsModule,
-      providers: [
-        LevelComponentsModule.forRoot(config).providers,
-        {provide: TrainingAgendaConfig, useValue: config},
-      ]
-    };
-  }
 }

@@ -4,6 +4,7 @@ import {KypoBaseComponent} from 'kypo-common';
 import {Observable} from 'rxjs';
 import {TrainingInstance} from 'kypo-training-model';
 import {map, takeWhile, tap} from 'rxjs/operators';
+import {TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME} from '../../../../model/client/activated-route-data-attributes';
 
 /**
  * Component displaying training instance results visualizations
@@ -33,7 +34,7 @@ export class TrainingInstanceResultsComponent extends KypoBaseComponent implemen
     this.trainingInstance$ = this.activeRoute.data
       .pipe(
         takeWhile(_ => this.isAlive),
-        map(data => data.trainingInstance),
+        map(data => data[TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME]),
         tap(_ => this.calculateVisualizationSize(window.innerWidth, window.innerHeight))
       );
   }

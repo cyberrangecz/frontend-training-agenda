@@ -9,6 +9,7 @@ import {KypoBaseComponent} from 'kypo-common';
 import {TrainingInstanceEditControls} from './training-instance-edit-controls';
 import {KypoControlItem} from 'kypo-controls';
 import {TrainingAgendaContext} from '../../../services/internal/training-agenda-context.service';
+import {TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME} from '../../../model/client/activated-route-data-attributes';
 
 /**
  * Main component of training instance edit/create page. Serves mainly as a smart component wrapper
@@ -41,7 +42,7 @@ export class TrainingInstanceEditOverviewComponent extends KypoBaseComponent imp
     this.activeRoute.data
       .pipe(
         takeWhile(_ => this.isAlive)
-      ).subscribe(data => this.editService.set(data.trainingInstance));
+      ).subscribe(data => this.editService.set(data[TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME]));
     this.editMode$ = this.editService.editMode$
       .pipe(
         tap(isEditMode => this.controls = TrainingInstanceEditControls.create(this.editService, isEditMode, this.editService.saveDisabled$))

@@ -8,6 +8,7 @@ import {TrainingInstanceSummaryControls} from './training-instance-summary-contr
 import {TrainingInstanceSummaryService} from '../../../../services/training-instance/summary/training-instance-summary.service';
 import {KypoControlItem} from 'kypo-controls';
 import {TrainingNavigator} from '../../../../services/client/training-navigator.service';
+import {TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME} from '../../../../model/client/activated-route-data-attributes';
 
 /**
  * Smart component of training instance summary
@@ -34,7 +35,7 @@ export class TrainingInstanceSummaryComponent extends KypoBaseComponent implemen
   ngOnInit() {
     this.trainingInstance$ = this.activeRoute.data
       .pipe(
-        map(data => data.trainingInstance),
+        map(data => data[TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME]),
         tap(ti => {
           this.service.set(ti);
           this.trainingInstanceAccessTokenLink = this.navigator.toTrainingInstanceAccessToken(ti.id);

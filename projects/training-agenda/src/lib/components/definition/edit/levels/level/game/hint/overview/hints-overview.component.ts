@@ -150,6 +150,18 @@ export class HintsOverviewComponent extends KypoBaseComponent implements OnInit,
   }
 
   /**
+   * Emits event if new hint is added or saved
+   */
+  onHintsChanged(hint: Hint = null) {
+    if (hint) {
+      this.stepperHints.items[this.selectedStep].hint = hint;
+    }
+    this.calculateHintPenaltySum();
+    this.calculateHasError();
+    this.hintsChange.emit(this.stepperHints.items.map(item => item.hint));
+  }
+
+  /**
    * Changes selected step to the one before removed or to first one if the first step is removed
    * @param {number} index index of the removed step
    */
@@ -163,18 +175,6 @@ export class HintsOverviewComponent extends KypoBaseComponent implements OnInit,
     if (this.stepperHints.items.length > 0) {
       this.stepperHints.items[this.stepperHints.items.length - 1].isActive = true;
     }
-  }
-
-  /**
-   * Emits event if new hint is added or saved
-   */
-  private onHintsChanged(hint: Hint = null) {
-    if (hint) {
-      this.stepperHints.items[this.selectedStep].hint = hint;
-    }
-    this.calculateHintPenaltySum();
-    this.calculateHasError();
-    this.hintsChange.emit(this.stepperHints.items.map(item => item.hint));
   }
 
 

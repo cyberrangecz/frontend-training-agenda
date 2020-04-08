@@ -14,6 +14,9 @@ import {TrainingRunResultsResolver} from '../../../services/resolvers/training-r
 import {RunningTrainingRunService} from '../../../services/training-run/running/running-training-run.service';
 import {TrainingAgendaConfig} from '../../../model/client/training-agenda-config';
 import {AccessTrainingRunComponent} from './access/access-training-run.component';
+import {TrainingAgendaContext} from '../../../services/internal/training-agenda-context.service';
+import {TrainingNavigator} from '../../../services/client/training-navigator.service';
+import {TrainingDefaultNavigator} from '../../../services/client/training-default-navigator.service';
 
 /**
  * Main module for trainee agenda. Contains components and top level routing
@@ -35,6 +38,8 @@ import {AccessTrainingRunComponent} from './access/access-training-run.component
   providers: [
     AccessTrainingRunResolver,
     TrainingRunResultsResolver,
+    TrainingAgendaContext,
+    {provide: TrainingNavigator, useClass: TrainingDefaultNavigator},
     {provide: RunningTrainingRunService, useClass: RunningTrainingRunConcreteService},
     {provide: AccessedTrainingRunService, useClass: AccessedTrainingRunConcreteService},
   ]

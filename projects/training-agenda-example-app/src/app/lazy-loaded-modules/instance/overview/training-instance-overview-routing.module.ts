@@ -1,9 +1,14 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {TrainingInstanceBreadcrumbResolver} from '../../../../../../training-agenda/src/lib/services/resolvers/training-instance-breadcrumb-resolver.service';
-import {TrainingInstanceResolver} from '../../../../../../training-agenda/src/lib/services/resolvers/training-instance-resolver.service';
-import {TrainingInstanceOverviewComponent} from '../../../../../../training-agenda/src/lib/components/instance/overview/training-instance-overview.component';
-
+import {
+  TRAINING_INSTANCE_DETAIL_PATH,
+  TRAINING_INSTANCE_EDIT_PATH,
+  TRAINING_INSTANCE_NEW_PATH, TRAINING_INSTANCE_SELECTOR,
+  TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME,
+  TrainingInstanceBreadcrumbResolver,
+  TrainingInstanceOverviewComponent,
+  TrainingInstanceResolver
+} from 'training-agenda';
 
 const routes: Routes = [
   {
@@ -11,26 +16,26 @@ const routes: Routes = [
     component: TrainingInstanceOverviewComponent,
   },
   {
-    path: `:id/${TRAINING_INSTANCE_DETAIL_PATH}`,
-    loadChildren: () => import('app/components/training-instance/training-instance-detail/training-instance-detail.module').then(m => m.TrainingInstanceDetailModule),
+    path: `:${TRAINING_INSTANCE_SELECTOR}/${TRAINING_INSTANCE_DETAIL_PATH}`,
+    loadChildren: () => import('./detail/training-instance-detail.module').then(m => m.TrainingInstanceDetailModule),
     resolve: {
-      trainingInstance: TrainingInstanceResolver,
+      [TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME]: TrainingInstanceResolver,
       breadcrumb: TrainingInstanceBreadcrumbResolver,
     }
   },
   {
     path: TRAINING_INSTANCE_NEW_PATH,
-    loadChildren: () => import('app/components/training-instance/training-instance-edit-overview/training-instance-edit-overview.module').then(m => m.TrainingInstanceEditOverviewModule),
+    loadChildren: () => import('./edit/training-instance-edit-overview.module').then(m => m.TrainingInstanceEditOverviewModule),
     resolve: {
-      trainingInstance: TrainingInstanceResolver,
+      [TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME]: TrainingInstanceResolver,
       breadcrumb: TrainingInstanceBreadcrumbResolver,
     }
   },
   {
-    path: `:id/${TRAINING_INSTANCE_EDIT_PATH}`,
-    loadChildren: () => import('app/components/training-instance/training-instance-edit-overview/training-instance-edit-overview.module').then(m => m.TrainingInstanceEditOverviewModule),
+    path: `:${TRAINING_INSTANCE_SELECTOR}/${TRAINING_INSTANCE_EDIT_PATH}`,
+    loadChildren: () => import('./edit/training-instance-edit-overview.module').then(m => m.TrainingInstanceEditOverviewModule),
     resolve: {
-      trainingInstance: TrainingInstanceResolver,
+      [TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME]: TrainingInstanceResolver,
       breadcrumb: TrainingInstanceBreadcrumbResolver,
     }
   },

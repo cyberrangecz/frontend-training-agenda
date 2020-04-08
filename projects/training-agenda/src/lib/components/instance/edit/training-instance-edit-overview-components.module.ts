@@ -17,6 +17,7 @@ import {PoolAssignComponent} from './pool-assign/pool-assign.component';
 import {KypoListModule} from 'kypo-list';
 import {TrainingInstanceCanDeactivate} from '../../../services/can-deactivate/training-instance-can-deactivate.service';
 import {TrainingAgendaConfig} from '../../../model/client/training-agenda-config';
+import {RouterModule} from '@angular/router';
 
 /**
  * Main module of training instance edit components and providers
@@ -27,6 +28,7 @@ import {TrainingAgendaConfig} from '../../../model/client/training-agenda-config
       FormsModule,
       ReactiveFormsModule,
       Kypo2UserAssignModule,
+      RouterModule,
       KypoListModule,
       FreeFormModule,
       KypoPipesModule,

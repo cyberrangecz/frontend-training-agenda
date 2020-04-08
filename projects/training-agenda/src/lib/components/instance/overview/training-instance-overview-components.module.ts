@@ -10,6 +10,9 @@ import {TrainingInstanceOverviewConcreteService} from '../../../services/trainin
 import {Kypo2TableModule} from 'kypo2-table';
 import {KypoControlsModule} from 'kypo-controls';
 import {TrainingAgendaConfig} from '../../../model/client/training-agenda-config';
+import {TrainingAgendaContext} from '../../../services/internal/training-agenda-context.service';
+import {TrainingNavigator} from '../../../services/client/training-navigator.service';
+import {TrainingDefaultNavigator} from '../../../services/client/training-default-navigator.service';
 
 /**
  * Main module of training instance agenda. Contains components and providers for displaying table of training instance
@@ -28,8 +31,10 @@ import {TrainingAgendaConfig} from '../../../model/client/training-agenda-config
     TrainingInstanceOverviewComponent,
   ],
   providers: [
+    TrainingAgendaContext,
     TrainingInstanceResolver,
     TrainingInstanceBreadcrumbResolver,
+    {provide: TrainingNavigator, useClass: TrainingDefaultNavigator},
     { provide: TrainingInstanceOverviewService, useClass: TrainingInstanceOverviewConcreteService }
   ]
 })

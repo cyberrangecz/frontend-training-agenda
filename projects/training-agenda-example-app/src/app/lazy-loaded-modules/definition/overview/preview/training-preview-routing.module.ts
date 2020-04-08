@@ -1,15 +1,18 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {TrainingDefinitionBreadcrumbResolver} from '../../../services/resolvers/training-definition-breadcrumb-resolver.service';
-import {TrainingDefinitionResolver} from '../../../services/resolvers/training-definition-resolver.service';
-import {TrainingPreviewComponent} from './training-preview.component';
+import {
+  TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME,
+  TrainingDefinitionBreadcrumbResolver,
+  TrainingDefinitionResolver,
+  TrainingPreviewComponent
+} from 'training-agenda';
 
 const routes: Routes = [
   {
     path: '',
     component: TrainingPreviewComponent,
     resolve: {
-      trainingDefinition: TrainingDefinitionResolver,
+      [TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME]: TrainingDefinitionResolver,
       breadcrumb: TrainingDefinitionBreadcrumbResolver
     }
   }

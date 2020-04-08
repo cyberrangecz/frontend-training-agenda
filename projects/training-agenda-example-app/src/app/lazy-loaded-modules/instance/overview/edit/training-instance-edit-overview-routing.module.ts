@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {TrainingInstanceEditOverviewComponent} from '../../../../../../training-agenda/src/lib/components/instance/edit/training-instance-edit-overview.component';
-import {TrainingInstanceCanDeactivate} from '../../../../../../training-agenda/src/lib/services/can-deactivate/training-instance-can-deactivate.service';
+import {TrainingInstanceCanDeactivate, TrainingInstanceEditOverviewComponent} from 'training-agenda';
 
 const routes: Routes = [
   {

@@ -70,7 +70,8 @@
             "styles": [
               "projects/training-agenda-example-app/src/styles.scss",
               "projects/training-agenda-example-app/src/theme.scss",
-              "projects/training-agenda-example-app/src/variable.scss"
+              "projects/training-agenda-example-app/src/variables.scss",
+              "node_modules/kypo2-trainings-visualization-overview-lib/styles.css"
             ],
             "scripts": []
           },

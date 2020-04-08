@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {AccessTokenDetailComponent} from '../../../../../../../training-agenda/src/lib/components/instance/detail/access-token/access-token-detail.component';
+import {AccessTokenDetailComponent} from 'training-agenda';
 
 const routes: Routes = [
   {

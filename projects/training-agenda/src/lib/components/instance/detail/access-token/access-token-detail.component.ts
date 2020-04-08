@@ -4,6 +4,7 @@ import {KypoBaseComponent} from 'kypo-common';
 import {map, takeWhile} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
+import {TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME} from '../../../../model/client/activated-route-data-attributes';
 
 /**
  * Displays access token of training instance for presentational purposes (to display on projector etc.)
@@ -26,7 +27,7 @@ export class AccessTokenDetailComponent extends KypoBaseComponent implements OnI
     this.trainingInstance$ = this.activeRoute.data
       .pipe(
         takeWhile(_ => this.isAlive),
-        map(data => data.trainingInstance)
+        map(data => data[TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME])
       );
   }
 }

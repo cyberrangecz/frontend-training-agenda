@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {Kypo2AuthService} from 'kypo2-auth';
-import {BehaviorSubject, Observable, ReplaySubject} from 'rxjs';
-import {filter, map, tap} from 'rxjs/operators';
+import {Observable} from 'rxjs';
+import {map, tap} from 'rxjs/operators';
 import {TrainingDefinitionChangeEvent} from '../../../model/events/training-definition-change-event';
 import {TrainingDefinition} from 'kypo-training-model';
 import {TrainingDefinitionApi} from 'kypo-training-api';
@@ -22,7 +22,6 @@ export class TrainingDefinitionEditConcreteService extends TrainingDefinitionEdi
   private editedSnapshot: TrainingDefinition;
 
   constructor(private router: Router,
-              private activeRoute: ActivatedRoute,
               private api: TrainingDefinitionApi,
               private authService: Kypo2AuthService,
               private errorHandler: TrainingErrorHandler,

@@ -108,7 +108,7 @@ export class FreeFormComponent extends KypoBaseComponent implements OnInit, OnCh
     this.itemsChange.emit({cleared: true, validity: this.freeFormItemFormGroup.formGroup.valid});
   }
 
-  private onChanged(index: number) {
+  onChanged(index: number) {
     this.freeFormItemFormGroup.formGroup.updateValueAndValidity();
     this.freeFormItemFormGroup.formGroup.markAsDirty();
     this.itemsChange.emit({items: this.items.value, index, validity: this.freeFormItemFormGroup.formGroup.valid});

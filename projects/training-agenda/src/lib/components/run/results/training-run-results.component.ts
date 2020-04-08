@@ -7,6 +7,7 @@ import {Observable} from 'rxjs';
 import {TrainingRun} from 'kypo-training-model';
 import {Kypo2TraineeModeInfo} from 'kypo2-trainings-visualization-overview-lib';
 import {VisualizationInfo} from '../../../model/adapters/visualizations/visualization-info';
+import {TRAINING_RUN_DATA_ATTRIBUTE_NAME} from '../../../model/client/activated-route-data-attributes';
 
 @Component({
   selector: 'kypo-training-run-results',
@@ -46,7 +47,7 @@ export class TrainingRunResultsComponent extends KypoBaseComponent implements On
     this.visualizationInfo$ = this.activatedRoute.data
       .pipe(
         takeWhile(_ => this.isAlive),
-        map(data => this.createTrainingVisualizationInfo(data.trainingRun))
+        map(data => this.createTrainingVisualizationInfo(data[TRAINING_RUN_DATA_ATTRIBUTE_NAME]))
       );
     this.traineeModeInfo$ = this.visualizationInfo$
       .pipe(

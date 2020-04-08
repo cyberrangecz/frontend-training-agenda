@@ -1,7 +1,12 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {TrainingInstanceResolver} from '../../../../../../training-agenda/src/lib/services/resolvers/training-instance-resolver.service';
-import {TrainingInstanceDetailBreadcrumbResolver} from '../../../../../../training-agenda/src/lib/services/resolvers/training-instance-detail-breadcrumb-resolver.service';
+import {
+  ACCESS_TOKEN_PATH,
+  PROGRESS_PATH, RESULTS_PATH,
+  SUMMARY_PATH,
+  TrainingInstanceDetailBreadcrumbResolver,
+  TrainingInstanceResolver
+} from 'training-agenda';
 
 const routes: Routes = [
   {
@@ -15,7 +20,7 @@ const routes: Routes = [
       trainingInstance: TrainingInstanceResolver,
       breadcrumb: TrainingInstanceDetailBreadcrumbResolver,
     },
-    loadChildren: () => import('app/components/training-instance/training-instance-detail/summary/training-instance-summary.module').then(m => m.TrainingInstanceSummaryModule),
+    loadChildren: () => import('./summary/training-instance-summary.module').then(m => m.TrainingInstanceSummaryModule),
   },
   {
     path: PROGRESS_PATH,
@@ -23,7 +28,7 @@ const routes: Routes = [
       trainingInstance: TrainingInstanceResolver,
       breadcrumb: TrainingInstanceDetailBreadcrumbResolver,
     },
-    loadChildren: () => import('app/components/training-instance/training-instance-detail/progress/training-instance-progress.module').then(m => m.TrainingInstanceProgressModule),
+    loadChildren: () => import('./progress/training-instance-progress.module').then(m => m.TrainingInstanceProgressModule),
   },
   {
     path: RESULTS_PATH,
@@ -31,7 +36,7 @@ const routes: Routes = [
       trainingInstance: TrainingInstanceResolver,
       breadcrumb: TrainingInstanceDetailBreadcrumbResolver,
     },
-    loadChildren: () => import('app/components/training-instance/training-instance-detail/results/training-instance-results.module').then(m => m.TrainingInstanceResultsModule),
+    loadChildren: () => import('./results/training-instance-results.module').then(m => m.TrainingInstanceResultsModule),
   },
   {
     path: ACCESS_TOKEN_PATH,
@@ -39,7 +44,7 @@ const routes: Routes = [
       trainingInstance: TrainingInstanceResolver,
       breadcrumb: TrainingInstanceDetailBreadcrumbResolver,
     },
-    loadChildren: () => import('app/components/training-instance/training-instance-detail/access-token-detail/access-token-detail.module').then(m => m.AccessTokenDetailModule),
+    loadChildren: () => import('./token/access-token-detail.module').then(m => m.AccessTokenDetailModule),
   },
 ];
 

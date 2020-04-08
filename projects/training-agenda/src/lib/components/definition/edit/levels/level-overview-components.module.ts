@@ -5,12 +5,12 @@ import {Kypo2StepperModule} from 'kypo2-stepper';
 import {KypoPipesModule} from 'kypo-common';
 import {LevelEditService} from '../../../../services/training-definition/edit/level-edit.service';
 import {FreeFormModule} from '../../../shared/free-form.module';
-import {LevelEditComponentsModule} from './level-edit/level-edit-components.module';
-import {LevelOverviewComponent} from './level-overview/level-overview.component';
-import {TrainingLevelStepperComponent} from './training-level-stepper/training-level-stepper.component';
 import {MatDividerModule} from '@angular/material/divider';
 import {KypoControlsModule} from 'kypo-controls';
 import {LevelEditConcreteService} from '../../../../services/training-definition/edit/level-edit-concrete.service';
+import {TrainingLevelStepperComponent} from './stepper/training-level-stepper.component';
+import {LevelOverviewComponent} from './overview/level-overview.component';
+import {LevelEditComponentsModule} from './level/level-edit-components.module';
 
 /**
  * Module containing component and providers for training definition levels' overview
@@ -38,6 +38,6 @@ import {LevelEditConcreteService} from '../../../../services/training-definition
     LevelOverviewComponent
   ],
 })
-export class LevelOverviewComponentModule {
+export class LevelOverviewComponentsModule {
 
 }

@@ -6,6 +6,7 @@ import {TrainingDefinition} from 'kypo-training-model';
 import {TrainingDefinitionApi} from 'kypo-training-api';
 import {KypoBaseComponent} from 'kypo-common';
 import {RunningTrainingRunService} from '../../../services/training-run/running/running-training-run.service';
+import {TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME} from '../../../model/client/activated-route-data-attributes';
 
 /**
  * Main component of training run preview. Initializes mock services with data of training definition to simulate
@@ -32,7 +33,7 @@ export class TrainingPreviewComponent extends KypoBaseComponent implements OnIni
     this.activeRoute.data
       .pipe(
         takeWhile(_ => this.isAlive),
-        map(data => data.trainingDefinition)
+        map(data => data[TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME])
       ).subscribe(training => {
         this.previewService.init(this.createMockTrainingRun(training));
     });

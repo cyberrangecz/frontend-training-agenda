@@ -2,17 +2,17 @@ import {TrainingDefinitionStateEnum} from 'kypo-training-model';
 import {Column, Kypo2Table, Row, RowAction, RowExpand} from 'kypo2-table';
 import {defer, of} from 'rxjs';
 import {KypoPaginatedResource} from 'kypo-common';
-import {TrainingDefinitionDetailComponent} from '../../../components/training-definition/training-definition-overview/training-definition-detail/training-definition-detail.component';
 import {TrainingDefinition} from 'kypo-training-model';
-import {TrainingDefinitionService} from '../../../services/training-definition/overview/training-definition.service';
 import {DeleteAction} from 'kypo2-table';
 import {EditAction} from 'kypo2-table';
 import {DownloadAction} from 'kypo2-table';
+import {TrainingDefinitionService} from '../../../../services/training-definition/overview/training-definition.service';
+import {TrainingDefinitionDetailComponent} from '../../../../components/definition/overview/detail/training-definition-detail.component';
 
 /**
  * Helper class transforming paginated resource to class for common table component
  */
-export class TrainingDefinitionTable extends Kypo2Table<TrainingDefinition>{
+export class TrainingDefinitionTable extends Kypo2Table<TrainingDefinition> {
 
   constructor(resource: KypoPaginatedResource<TrainingDefinition>, service: TrainingDefinitionService) {
     const columns = [

@@ -2,9 +2,9 @@ import {Column, Kypo2Table, Row, RowAction} from 'kypo2-table';
 import {defer, of} from 'rxjs';
 import {KypoPaginatedResource} from 'kypo-common';
 import {TrainingRunRowAdapter} from '../rows/training-run-row-adapter';
-import {ActiveTrainingRunService} from '../../../services/training-run/active/active-training-run.service';
 import {DeleteAction} from 'kypo2-table';
 import {TrainingRun} from 'kypo-training-model';
+import {ActiveTrainingRunService} from '../../../../services/training-run/active/active-training-run.service';
 
 /**
  * Helper class transforming paginated resource to class for common table component

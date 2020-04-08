@@ -4,6 +4,7 @@ import {KypoBaseComponent} from 'kypo-common';
 import {ActivatedRoute} from '@angular/router';
 import {Observable} from 'rxjs';
 import {TrainingInstance} from 'kypo-training-model';
+import {TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME} from '../../../../model/client/activated-route-data-attributes';
 
 /**
  * Component displaying progress visualization
@@ -26,7 +27,7 @@ export class TrainingInstanceProgressComponent extends KypoBaseComponent impleme
     this.trainingInstance$ = this.activeRoute.data
       .pipe(
         takeWhile(_ => this.isAlive),
-        map(data => data.trainingInstance)
+        map(data => data[TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME])
       );
   }
 }

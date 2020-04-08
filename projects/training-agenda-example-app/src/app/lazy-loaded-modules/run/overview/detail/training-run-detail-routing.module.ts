@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {TrainingRunLevelsDeactivateGuard} from '../../../services/guards/training-run-levels-guard.service';
-import {TrainingRunDetailComponent} from '../../../../../../training-agenda/src/lib/components/run/detail/training-run-detail.component';
+import {TrainingRunDetailComponent, TrainingRunLevelsDeactivateGuard} from 'training-agenda';
 
 const routes: Routes = [
   {

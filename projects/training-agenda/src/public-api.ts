@@ -8,15 +8,13 @@ export * from './lib/components/definition/edit/training-definition-edit-overvie
 export * from './lib/components/definition/preview/training-preview-components.module';
 export * from './lib/components/instance/overview/training-instance-overview-components.module';
 export * from './lib/components/instance/edit/training-instance-edit-overview-components.module';
-export * from './lib/components/instance/detail/access-token/access-token-detail-component.module';
+export * from './lib/components/instance/detail/access-token/access-token-detail-components.module';
 export * from './lib/components/instance/detail/summary/training-instance-summary-components.module';
 export * from './lib/components/instance/detail/progress/training-instance-progress-components.module';
 export * from './lib/components/instance/detail/results/training-instance-results-components.module';
 export * from './lib/components/run/overview/training-run-overview-components.module';
 export * from './lib/components/run/results/training-run-results-components.module';
-export * from './lib/components/run/detail/training-run-detail.module';
-
-// TODO ?
+export * from './lib/components/run/detail/training-run-detail-game.module';
 export * from './lib/components/instance/detail/training-instance-detail-components.module';
 
 
@@ -52,7 +50,7 @@ export * from './lib/services/resolvers/training-instance-resolver.service';
 export * from './lib/services/resolvers/training-run-resolver.service';
 export * from './lib/services/resolvers/training-run-results-resolver.service';
 
-// SERVICE - CANDEACTIVATE
+// SERVICE - CAN-DEACTIVATE
 
 export * from './lib/services/can-deactivate/training-definition-can-deactivate.service';
 export * from './lib/services/can-deactivate/training-instance-can-deactivate.service';

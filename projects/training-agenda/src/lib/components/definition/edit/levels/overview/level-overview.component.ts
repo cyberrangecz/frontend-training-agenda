@@ -9,7 +9,6 @@ import {
   SimpleChanges
 } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import {ActivatedRoute} from '@angular/router';
 import {Observable} from 'rxjs';
 import {map, takeWhile, tap} from 'rxjs/operators';
 import {LevelMoveEvent} from '../../../../../model/events/level-move-event';
@@ -41,8 +40,7 @@ export class LevelOverviewComponent extends KypoBaseComponent implements OnInit,
   controls: KypoControlItem[];
   levelMovingInProgress: boolean;
 
-  constructor(private activeRoute: ActivatedRoute,
-              private dialog: MatDialog,
+  constructor(private dialog: MatDialog,
               private levelService: LevelEditService) {
     super();
   }

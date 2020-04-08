@@ -1,8 +1,17 @@
 import {RouterModule, Routes} from '@angular/router';
 import {NgModule} from '@angular/core';
-import {TrainingRunOverviewComponent} from '../../../../../../training-agenda/src/lib/components/run/overview/training-run-overview.component';
-import {AccessTrainingRunResolver} from '../../../../../../training-agenda/src/lib/services/resolvers/training-run-resolver.service';
-import {TrainingRunResultsResolver} from '../../../../../../training-agenda/src/lib/services/resolvers/training-run-results-resolver.service';
+import {
+  AccessTrainingRunResolver,
+  TRAINING_RUN_ACCESS_INFO_DATA_ATTRIBUTE_NAME,
+  TRAINING_RUN_ACCESS_PATH,
+  TRAINING_RUN_ACCESS_SELECTOR,
+  TRAINING_RUN_DATA_ATTRIBUTE_NAME,
+  TRAINING_RUN_RESULTS_PATH,
+  TRAINING_RUN_RESUME_PATH,
+  TRAINING_RUN_SELECTOR,
+  TrainingRunOverviewComponent,
+  TrainingRunResultsResolver
+} from 'training-agenda';
 
 const routes: Routes = [
   {
@@ -11,22 +20,22 @@ const routes: Routes = [
   },
   {
     path: `${TRAINING_RUN_ACCESS_PATH}/:${TRAINING_RUN_ACCESS_SELECTOR}`,
-    loadChildren: () => import('app/components/training-run/training-run-detail/training-run-detail.module').then(m => m.TrainingRunDetailModule),
+    loadChildren: () => import('./detail/training-run-detail.module').then(m => m.TrainingRunDetailModule),
     data: {breadcrumb: 'Game'},
-    resolve: { trainingRunAccessInfo: AccessTrainingRunResolver }
+    resolve: { [TRAINING_RUN_ACCESS_INFO_DATA_ATTRIBUTE_NAME]: AccessTrainingRunResolver }
   },
   {
-    path: `${TRAINING_RUN_RESUME_PATH}/:${TRAINING_RUN_RESUME_SELECTOR}`,
-    loadChildren: () => import('app/components/training-run/training-run-detail/training-run-detail.module').then(m => m.TrainingRunDetailModule),
+    path: `${TRAINING_RUN_RESUME_PATH}/:${TRAINING_RUN_SELECTOR}`,
+    loadChildren: () => import('./detail/training-run-detail.module').then(m => m.TrainingRunDetailModule),
     data: {breadcrumb: 'Game'},
-    resolve: { trainingRunAccessInfo: AccessTrainingRunResolver }
+    resolve: { [TRAINING_RUN_ACCESS_INFO_DATA_ATTRIBUTE_NAME]: AccessTrainingRunResolver }
 
   },
   {
-    path: `${TRAINING_RUN_RESULTS_PATH}/:${TRAINING_RUN_RESULTS_SELECTOR}`,
-    loadChildren: () => import('app/components/training-run/training-run-results/training-run-results.module').then(m => m.TrainingRunResultsModule),
+    path: `${TRAINING_RUN_RESULTS_PATH}/:${TRAINING_RUN_SELECTOR}`,
+    loadChildren: () => import('./results/training-run-results.module').then(m => m.TrainingRunResultsModule),
     data: {breadcrumb: 'Results'},
-    resolve: { trainingRun: TrainingRunResultsResolver }
+    resolve: { [TRAINING_RUN_DATA_ATTRIBUTE_NAME]: TrainingRunResultsResolver }
   }
 ];
 

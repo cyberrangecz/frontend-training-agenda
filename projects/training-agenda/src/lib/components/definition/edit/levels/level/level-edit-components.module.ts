@@ -6,20 +6,20 @@ import {MarkdownEditorModule} from 'kypo2-markdown-editor';
 import {Kypo2StepperModule} from 'kypo2-stepper';
 import {FreeFormModule} from '../../../../shared/free-form.module';
 import {AbstractLevelEditComponent} from './abstract-level-edit.component';
-import {AssessmentLevelEditComponent} from './assessment-level-edit/assessment-level-edit.component';
-import {ExtendedMatchingItemsEditComponent} from './assessment-level-edit/question-edit/extended-matching-items-edit/extended-matching-items-edit.component';
-import {FreeFormQuestionEditComponent} from './assessment-level-edit/question-edit/free-form-question-edit/free-form-question-edit.component';
-import {MultipleChoiceQuestionEditComponent} from './assessment-level-edit/question-edit/multiple-choice-question-edit/multiple-choice-question-edit.component';
-import {QuestionEditComponent} from './assessment-level-edit/question-edit/question-edit/question-edit.component';
-import {QuestionsOverviewComponent} from './assessment-level-edit/question-edit/questions-overview/questions-overview.component';
-import {GameLevelEditComponent} from './game-level-edit/game-level-edit.component';
-import {HintDetailEditComponent} from './game-level-edit/hint-edit/hint-detail-edit/hint-detail-edit.component';
-import {HintsOverviewComponent} from './game-level-edit/hint-edit/hints-overview/hints-overview.component';
-import {InfoLevelEditComponent} from './info-level-edit/info-level-edit.component';
 import {LevelEditMaterialModule} from './level-edit-material.module';
 import {HttpClient} from '@angular/common/http';
 import {MarkedOptions} from 'ngx-markdown';
 import {KypoControlsModule} from 'kypo-controls';
+import {MultipleChoiceQuestionEditComponent} from './assessment/question/multiple-choice-question/multiple-choice-question-edit.component';
+import {ExtendedMatchingItemsEditComponent} from './assessment/question/extended-matching-items/extended-matching-items-edit.component';
+import {FreeFormQuestionEditComponent} from './assessment/question/free-form-question/free-form-question-edit.component';
+import {QuestionEditComponent} from './assessment/question/detail/question-edit.component';
+import {QuestionsOverviewComponent} from './assessment/question/overview/questions-overview.component';
+import {HintDetailEditComponent} from './game/hint/detail/hint-detail-edit.component';
+import {HintsOverviewComponent} from './game/hint/overview/hints-overview.component';
+import {AssessmentLevelEditComponent} from './assessment/assessment-level-edit.component';
+import {InfoLevelEditComponent} from './info/info-level-edit.component';
+import {GameLevelEditComponent} from './game/game-level-edit.component';
 
 const markdownConfig = {
     markdownParser: {

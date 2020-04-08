@@ -1,7 +1,6 @@
 mat-checkbox {
   margin: 0 10px;
 }
-@import "src/variables";
 
 .option mat-form-field {
   width: 30%;
@@ -30,7 +29,7 @@ mat-checkbox {
 }
 
 .warn {
-  color: $warn;
+  color: #f44336;
 }
 
 .right-panel mat-form-field {
