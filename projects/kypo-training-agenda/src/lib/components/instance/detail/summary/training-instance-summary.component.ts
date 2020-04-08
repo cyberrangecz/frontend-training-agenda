@@ -38,7 +38,7 @@ export class TrainingInstanceSummaryComponent extends KypoBaseComponent implemen
         map(data => data[TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME]),
         tap(ti => {
           this.service.set(ti);
-          this.trainingInstanceAccessTokenLink = this.navigator.toTrainingInstanceAccessToken(ti.id);
+          this.trainingInstanceAccessTokenLink = `/${this.navigator.toTrainingInstanceAccessToken(ti.id)}`;
           const disabled$ = this.service.hasStarted$.pipe(map(hasStated => !hasStated));
           this.controls = TrainingInstanceSummaryControls.create(this.service, disabled$, disabled$);
         })

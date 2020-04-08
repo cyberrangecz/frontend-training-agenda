@@ -33,9 +33,11 @@ export const environment = {
     visualizationConfig,
     kypo2TopologyConfig
   },
+
   trainingApiConfig: {
     trainingBasePath: trainingURL
   },
+
   sandboxApiConfig: {
     sandboxRestBasePath: sandboxesURL
   },
