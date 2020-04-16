@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy, Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {TrainingDefinition} from 'kypo-training-model';
-import {KypoBaseComponent} from 'kypo-common';
-import {CloneDialogFormGroup} from './clone-dialog-form-group';
-import {takeWhile} from 'rxjs/operators';
+import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { KypoBaseComponent } from 'kypo-common';
+import { TrainingDefinition } from 'kypo-training-model';
+import { takeWhile } from 'rxjs/operators';
+import { CloneDialogFormGroup } from './clone-dialog-form-group';
 
 /**
  * Displays dialog with a form to select name of cloned training definition
@@ -12,27 +12,29 @@ import {takeWhile} from 'rxjs/operators';
   selector: 'kypo-clone-dialog',
   templateUrl: './clone-dialog.component.html',
   styleUrls: ['./clone-dialog.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CloneDialogComponent extends KypoBaseComponent implements OnInit {
-
   cloneDialogFormGroup: CloneDialogFormGroup;
   valid = true;
 
-  constructor(public dialogRef: MatDialogRef<CloneDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: TrainingDefinition) {
+  constructor(
+    public dialogRef: MatDialogRef<CloneDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: TrainingDefinition
+  ) {
     super();
   }
 
-  get clonedDefinitionTitle() {return this.cloneDialogFormGroup.formGroup.get('clonedDefinitionTitle'); }
+  get clonedDefinitionTitle() {
+    return this.cloneDialogFormGroup.formGroup.get('clonedDefinitionTitle');
+  }
 
   ngOnInit() {
     this.cloneDialogFormGroup = new CloneDialogFormGroup();
-    this.clonedDefinitionTitle.setValue( 'Clone of ' + this.data.title);
+    this.clonedDefinitionTitle.setValue('Clone of ' + this.data.title);
     this.cloneDialogFormGroup.formGroup.valueChanges
-      .pipe(
-        takeWhile(_ => this.isAlive)
-      ).subscribe(_ => this.valid = this.cloneDialogFormGroup.formGroup.valid);
+      .pipe(takeWhile((_) => this.isAlive))
+      .subscribe((_) => (this.valid = this.cloneDialogFormGroup.formGroup.valid));
   }
 
   /**
@@ -40,9 +42,9 @@ export class CloneDialogComponent extends KypoBaseComponent implements OnInit {
    */
   confirm() {
     if (this.cloneDialogFormGroup.formGroup.valid) {
-    this.dialogRef.close({
-      title: this.clonedDefinitionTitle.value
-    });
+      this.dialogRef.close({
+        title: this.clonedDefinitionTitle.value,
+      });
     }
   }
 
@@ -52,5 +54,4 @@ export class CloneDialogComponent extends KypoBaseComponent implements OnInit {
   cancel() {
     this.dialogRef.close();
   }
-
 }

@@ -1,13 +1,13 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
-import {defer, Observable, of} from 'rxjs';
-import {map, take, takeWhile} from 'rxjs/operators';
-import {Kypo2Table, LoadTableEvent, TableActionEvent} from 'kypo2-table';
-import {ArchivedTrainingRunService} from '../../../../../services/training-run/archived/archived-training-run.service';
-import {KypoBaseComponent} from 'kypo-common';
-import {TrainingInstance} from 'kypo-training-model';
-import {KypoControlItem} from 'kypo-controls';
-import {TrainingRunRowAdapter} from '../../../../../model/adapters/table/rows/training-run-row-adapter';
-import {ArchivedTrainingRunTable} from '../../../../../model/adapters/table/training-run/archived-training-run-table';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { KypoBaseComponent } from 'kypo-common';
+import { KypoControlItem } from 'kypo-controls';
+import { TrainingInstance } from 'kypo-training-model';
+import { Kypo2Table, LoadTableEvent, TableActionEvent } from 'kypo2-table';
+import { defer, Observable, of } from 'rxjs';
+import { map, take, takeWhile } from 'rxjs/operators';
+import { TrainingRunRowAdapter } from '../../../../../model/adapters/table/rows/training-run-row-adapter';
+import { ArchivedTrainingRunTable } from '../../../../../model/adapters/table/training-run/archived-training-run-table';
+import { ArchivedTrainingRunService } from '../../../../../services/training-run/archived/archived-training-run.service';
 /**
  * Component for displaying archived (finished by trainee and with sandbox removed) training runs for organizer in real-time.
  */
@@ -15,10 +15,9 @@ import {ArchivedTrainingRunTable} from '../../../../../model/adapters/table/trai
   selector: 'kypo-archived-training-run-overview',
   templateUrl: './archived-training-run-overview.component.html',
   styleUrls: ['./archived-training-run-overview.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ArchivedTrainingRunOverviewComponent extends KypoBaseComponent implements OnInit {
-
   @Input() trainingInstance: TrainingInstance;
   @Input() isPollingActive: boolean;
 
@@ -27,8 +26,9 @@ export class ArchivedTrainingRunOverviewComponent extends KypoBaseComponent impl
   selectedTrainingRunIds: number[] = [];
   controls: KypoControlItem[];
 
-  constructor(
-    private service: ArchivedTrainingRunService) { super(); }
+  constructor(private service: ArchivedTrainingRunService) {
+    super();
+  }
 
   ngOnInit() {
     this.startPolling();
@@ -40,17 +40,11 @@ export class ArchivedTrainingRunOverviewComponent extends KypoBaseComponent impl
    * @param event event emitted by table
    */
   onTableAction(event: TableActionEvent<TrainingRunRowAdapter>) {
-    event.action.result$
-      .pipe(
-        take(1)
-      ).subscribe();
+    event.action.result$.pipe(take(1)).subscribe();
   }
 
   onControlsAction(control: KypoControlItem) {
-    control.result$
-      .pipe(
-        takeWhile(_ => this.isAlive)
-      ).subscribe();
+    control.result$.pipe(takeWhile((_) => this.isAlive)).subscribe();
   }
 
   /**
@@ -59,7 +53,7 @@ export class ArchivedTrainingRunOverviewComponent extends KypoBaseComponent impl
    */
   onRowSelection(event: TrainingRunRowAdapter[]) {
     this.selectedTrainingRunIds = [];
-    event.forEach( selectedRun => {
+    event.forEach((selectedRun) => {
       this.selectedTrainingRunIds.push(selectedRun.trainingRun.id);
     });
     this.initControls();
@@ -70,27 +64,24 @@ export class ArchivedTrainingRunOverviewComponent extends KypoBaseComponent impl
    * @param event event to load new data emitted by table
    */
   onTableLoadEvent(event: LoadTableEvent) {
-    this.service.getAll(this.trainingInstance.id, event.pagination)
-      .pipe(
-        takeWhile(_ => this.isAlive),
-      )
+    this.service
+      .getAll(this.trainingInstance.id, event.pagination)
+      .pipe(takeWhile((_) => this.isAlive))
       .subscribe();
   }
 
   private startPolling() {
     this.service.startPolling(this.trainingInstance);
-    this.trainingRuns$ = this.service.archivedTrainingRuns$
-      .pipe(
-        takeWhile(_ => this.isPollingActive),
-        map(resource => new ArchivedTrainingRunTable(resource, this.service))
-      );
+    this.trainingRuns$ = this.service.archivedTrainingRuns$.pipe(
+      takeWhile((_) => this.isPollingActive),
+      map((resource) => new ArchivedTrainingRunTable(resource, this.service))
+    );
     this.hasError$ = this.service.hasError$;
   }
 
   private initControls() {
-    const deleteLabel = this.selectedTrainingRunIds.length > 0
-      ? `Delete (${this.selectedTrainingRunIds.length})`
-      : 'Delete';
+    const deleteLabel =
+      this.selectedTrainingRunIds.length > 0 ? `Delete (${this.selectedTrainingRunIds.length})` : 'Delete';
     this.controls = [
       new KypoControlItem(
         'deleteMultiple',
@@ -98,7 +89,7 @@ export class ArchivedTrainingRunOverviewComponent extends KypoBaseComponent impl
         'warn',
         of(this.selectedTrainingRunIds.length <= 0),
         defer(() => this.service.deleteMultiple(this.selectedTrainingRunIds))
-      )
+      ),
     ];
   }
 }

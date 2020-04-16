@@ -17,7 +17,6 @@ export * from './lib/components/run/results/training-run-results-components.modu
 export * from './lib/components/run/detail/training-run-detail-game.module';
 export * from './lib/components/instance/detail/training-instance-detail-components.module';
 
-
 // COMPONENTS
 
 export * from './lib/components/definition/overview/training-definition-overview.component';

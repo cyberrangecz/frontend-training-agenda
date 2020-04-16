@@ -1,13 +1,13 @@
-import {ChangeDetectionStrategy, Component, Inject, OnInit, Optional} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {TrainingDefinition} from 'kypo-training-model';
-import {TrainingDefinitionInfo} from 'kypo-training-model';
-import {KypoBaseComponent, KypoRequestedPagination} from 'kypo-common';
-import {merge, Observable} from 'rxjs';
-import {KypoPaginatedResource} from 'kypo-common';
-import {takeWhile} from 'rxjs/operators';
-import {TrainingDefinitionOrganizerSelectConcreteService} from '../../../../services/training-instance/training-definition-selector/training-definition-organizer-select-concrete.service';
-import {TrainingAgendaContext} from '../../../../services/internal/training-agenda-context.service';
+import { ChangeDetectionStrategy, Component, Inject, OnInit, Optional } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { KypoBaseComponent, KypoRequestedPagination } from 'kypo-common';
+import { KypoPaginatedResource } from 'kypo-common';
+import { TrainingDefinition } from 'kypo-training-model';
+import { TrainingDefinitionInfo } from 'kypo-training-model';
+import { merge, Observable } from 'rxjs';
+import { takeWhile } from 'rxjs/operators';
+import { TrainingAgendaContext } from '../../../../services/internal/training-agenda-context.service';
+import { TrainingDefinitionOrganizerSelectConcreteService } from '../../../../services/training-instance/training-definition-selector/training-definition-organizer-select-concrete.service';
 
 /**
  * Popup dialog for associating training definitions with training instance
@@ -19,11 +19,10 @@ import {TrainingAgendaContext} from '../../../../services/internal/training-agen
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     { provide: 'releasedService', useClass: TrainingDefinitionOrganizerSelectConcreteService },
-    { provide: 'unreleasedService', useClass: TrainingDefinitionOrganizerSelectConcreteService }
-  ]
+    { provide: 'unreleasedService', useClass: TrainingDefinitionOrganizerSelectConcreteService },
+  ],
 })
 export class TrainingDefinitionSelectComponent extends KypoBaseComponent implements OnInit {
-
   readonly PAGE_SIZE;
 
   released$: Observable<KypoPaginatedResource<TrainingDefinitionInfo>>;
@@ -33,11 +32,13 @@ export class TrainingDefinitionSelectComponent extends KypoBaseComponent impleme
   isLoading$: Observable<boolean>;
   selected: TrainingDefinitionInfo;
 
-  constructor(@Optional() @Inject(MAT_DIALOG_DATA) public data: TrainingDefinition,
-              public dialogRef: MatDialogRef<TrainingDefinitionSelectComponent>,
-              private context: TrainingAgendaContext,
-              @Inject('releasedService') private releasedService: TrainingDefinitionOrganizerSelectConcreteService,
-              @Inject('unreleasedService') private unreleasedService: TrainingDefinitionOrganizerSelectConcreteService) {
+  constructor(
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: TrainingDefinition,
+    public dialogRef: MatDialogRef<TrainingDefinitionSelectComponent>,
+    private context: TrainingAgendaContext,
+    @Inject('releasedService') private releasedService: TrainingDefinitionOrganizerSelectConcreteService,
+    @Inject('unreleasedService') private unreleasedService: TrainingDefinitionOrganizerSelectConcreteService
+  ) {
     super();
     this.PAGE_SIZE = this.context.config.defaultPaginationSize;
     this.selected = this.data;
@@ -50,14 +51,14 @@ export class TrainingDefinitionSelectComponent extends KypoBaseComponent impleme
     this.unreleased$ = this.unreleasedService.resource$;
     this.unreleasedHasError$ = this.unreleasedService.hasError$;
     this.isLoading$ = merge(this.releasedService.isLoading$, this.unreleasedService.isLoading$);
-    this.releasedService.getAll(pagination, 'RELEASED')
-      .pipe(
-        takeWhile(_ => this.isAlive)
-      ).subscribe();
-    this.unreleasedService.getAll(pagination, 'UNRELEASED')
-      .pipe(
-        takeWhile(_ => this.isAlive)
-      ).subscribe();
+    this.releasedService
+      .getAll(pagination, 'RELEASED')
+      .pipe(takeWhile((_) => this.isAlive))
+      .subscribe();
+    this.unreleasedService
+      .getAll(pagination, 'UNRELEASED')
+      .pipe(takeWhile((_) => this.isAlive))
+      .subscribe();
   }
 
   /**
@@ -67,15 +68,15 @@ export class TrainingDefinitionSelectComponent extends KypoBaseComponent impleme
    */
   fetch(pagination: KypoRequestedPagination, released: boolean) {
     if (released) {
-      this.releasedService.getAll(pagination, 'RELEASED')
-        .pipe(
-          takeWhile(_ => this.isAlive)
-        ).subscribe();
+      this.releasedService
+        .getAll(pagination, 'RELEASED')
+        .pipe(takeWhile((_) => this.isAlive))
+        .subscribe();
     } else {
-      this.unreleasedService.getAll(pagination, 'UNRELEASED')
-        .pipe(
-          takeWhile(_ => this.isAlive)
-        ).subscribe();
+      this.unreleasedService
+        .getAll(pagination, 'UNRELEASED')
+        .pipe(takeWhile((_) => this.isAlive))
+        .subscribe();
     }
   }
 
@@ -85,7 +86,7 @@ export class TrainingDefinitionSelectComponent extends KypoBaseComponent impleme
   confirm() {
     const result = {
       type: 'confirm',
-      trainingDef: this.selected
+      trainingDef: this.selected,
     };
     this.dialogRef.close(result);
   }
@@ -96,7 +97,7 @@ export class TrainingDefinitionSelectComponent extends KypoBaseComponent impleme
   cancel() {
     const result = {
       type: 'cancel',
-      sandboxDef: null
+      sandboxDef: null,
     };
     this.dialogRef.close(result);
   }

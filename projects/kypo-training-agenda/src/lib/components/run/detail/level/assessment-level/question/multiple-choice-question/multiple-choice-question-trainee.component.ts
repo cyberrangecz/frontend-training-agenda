@@ -1,30 +1,28 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {MatCheckboxChange} from '@angular/material/checkbox';
-import {Question} from 'kypo-training-model';
-import {MultipleChoiceQuestion} from 'kypo-training-model';
-import {KypoBaseComponent} from 'kypo-common';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MatCheckboxChange } from '@angular/material/checkbox';
+import { KypoBaseComponent } from 'kypo-common';
+import { Question } from 'kypo-training-model';
+import { MultipleChoiceQuestion } from 'kypo-training-model';
 
 @Component({
   selector: 'kypo-trainee-multiple-choice-question',
   templateUrl: './multiple-choice-question-trainee.component.html',
   styleUrls: ['./multiple-choice-question-trainee.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 /**
  * Component displaying MCQ type of question in the assessment level of a trainees training run.
  * If is assessment is a test or question is required, it needs to be filled, otherwise it is optional.
  */
 export class MultipleChoiceQuestionTraineeComponent extends KypoBaseComponent implements OnInit {
-
   @Input() question: MultipleChoiceQuestion;
   @Input() index: number;
 
-  @Output() contentChanged: EventEmitter<{index: number, question: Question}> = new EventEmitter();
+  @Output() contentChanged: EventEmitter<{ index: number; question: Question }> = new EventEmitter();
 
   userAnswersIndexes: number[] = [];
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   /**
    * Checks whether mandatory questions were answered
@@ -53,7 +51,7 @@ export class MultipleChoiceQuestionTraineeComponent extends KypoBaseComponent im
     }
     this.contentChanged.emit({
       index: this.index,
-      question: this.question
+      question: this.question,
     });
   }
 
@@ -75,6 +73,4 @@ export class MultipleChoiceQuestionTraineeComponent extends KypoBaseComponent im
       this.userAnswersIndexes.splice(indexToRemove, 1);
     }
   }
-
-
 }

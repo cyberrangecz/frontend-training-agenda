@@ -8,12 +8,12 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
-import {LevelMoveEvent} from '../../../../../model/events/level-move-event';
-import {KypoBaseComponent} from 'kypo-common';
-import {Kypo2Stepper} from 'kypo2-stepper';
-import {StepperStateChange} from 'kypo2-stepper/lib/component/stepper-state-change';
-import {LevelStepperAdapter} from '../../../../../model/adapters/stepper/level-stepper-adapter';
+import { MatDialog } from '@angular/material/dialog';
+import { KypoBaseComponent } from 'kypo-common';
+import { Kypo2Stepper } from 'kypo2-stepper';
+import { StepperStateChange } from 'kypo2-stepper/lib/component/stepper-state-change';
+import { LevelStepperAdapter } from '../../../../../model/adapters/stepper/level-stepper-adapter';
+import { LevelMoveEvent } from '../../../../../model/events/level-move-event';
 
 /**
  * Stepper component for navigation between training definition levels
@@ -22,10 +22,9 @@ import {LevelStepperAdapter} from '../../../../../model/adapters/stepper/level-s
   selector: 'kypo-levels-stepper',
   templateUrl: './training-level-stepper.component.html',
   styleUrls: ['./training-level-stepper.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TrainingLevelStepperComponent extends KypoBaseComponent implements OnInit, OnChanges {
-
   @Input() levels: LevelStepperAdapter[];
   @Input() movingInProgress: boolean;
   @Input() activeStep: number;
@@ -33,16 +32,15 @@ export class TrainingLevelStepperComponent extends KypoBaseComponent implements 
   @Output() levelSwap: EventEmitter<LevelMoveEvent> = new EventEmitter();
   @Output() initialLevels: EventEmitter<LevelStepperAdapter[]> = new EventEmitter();
 
-  levelStepper: Kypo2Stepper<LevelStepperAdapter> = {items: []};
+  levelStepper: Kypo2Stepper<LevelStepperAdapter> = { items: [] };
 
-  private previousActiveStep =  -1;
+  private previousActiveStep = -1;
 
   constructor(public dialog: MatDialog) {
     super();
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges) {
     if ('levels' in changes) {

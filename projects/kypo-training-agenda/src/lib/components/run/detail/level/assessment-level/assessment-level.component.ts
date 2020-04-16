@@ -8,21 +8,21 @@ import {
   Output,
   QueryList,
   SimpleChanges,
-  ViewChildren
+  ViewChildren,
 } from '@angular/core';
-import {take} from 'rxjs/operators';
-import {AssessmentTypeEnum} from 'kypo-training-model';
-import {AssessmentLevel} from 'kypo-training-model';
-import {Question} from 'kypo-training-model';
-import {KypoBaseComponent} from 'kypo-common';
-import {TraineeQuestionComponent} from './question/trainee-question.component';
-import {TrainingRunAssessmentLevelService} from '../../../../../services/training-run/running/training-run-assessment-level.service';
+import { KypoBaseComponent } from 'kypo-common';
+import { AssessmentTypeEnum } from 'kypo-training-model';
+import { AssessmentLevel } from 'kypo-training-model';
+import { Question } from 'kypo-training-model';
+import { take } from 'rxjs/operators';
+import { TrainingRunAssessmentLevelService } from '../../../../../services/training-run/running/training-run-assessment-level.service';
+import { TraineeQuestionComponent } from './question/trainee-question.component';
 
 @Component({
   selector: 'kypo-assessment-level',
   templateUrl: './assessment-level.component.html',
   styleUrls: ['./assessment-level.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 /**
  * Component that displays assessment level in a trainees training run. If the questions are type of test, trainee needs
@@ -30,7 +30,6 @@ import {TrainingRunAssessmentLevelService} from '../../../../../services/trainin
  * answering the questions.
  */
 export class AssessmentLevelComponent extends KypoBaseComponent implements OnInit, OnChanges {
-
   @Input() level: AssessmentLevel;
   @Input() isLast: boolean;
   @Output() next: EventEmitter<void> = new EventEmitter();
@@ -67,7 +66,7 @@ export class AssessmentLevelComponent extends KypoBaseComponent implements OnIni
    */
   submit() {
     const results: Question[] = [];
-    this.questionComponents.forEach(component => {
+    this.questionComponents.forEach((component) => {
       component.saveChanges();
       results.push(component.question);
     });
@@ -82,19 +81,17 @@ export class AssessmentLevelComponent extends KypoBaseComponent implements OnIni
   }
 
   private sendSubmitRequest(answers: Question[]) {
-    this.assessmentService.submit(answers)
-      .pipe(
-        take(1)
-      ).subscribe(
-        _ => this.isSubmitted = true,
-        _ => this.isSubmitted = false);
+    this.assessmentService
+      .submit(answers)
+      .pipe(take(1))
+      .subscribe(
+        (_) => (this.isSubmitted = true),
+        (_) => (this.isSubmitted = false)
+      );
   }
 
   private checkCanSubmit() {
-    this.canSubmit = this.questionComponents
-      .toArray()
-      .every(component =>
-        component.canBeSubmitted());
+    this.canSubmit = this.questionComponents.toArray().every((component) => component.canBeSubmitted());
   }
 
   private initCanSubmit() {
@@ -102,7 +99,7 @@ export class AssessmentLevelComponent extends KypoBaseComponent implements OnIni
       this.canSubmit = false;
       return;
     } else {
-      if (this.level.questions.some(question => question.required)) {
+      if (this.level.questions.some((question) => question.required)) {
         this.canSubmit = false;
         return;
       }

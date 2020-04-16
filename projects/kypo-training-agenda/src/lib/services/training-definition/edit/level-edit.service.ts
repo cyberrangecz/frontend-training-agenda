@@ -3,11 +3,10 @@
  * Serves as a layer between component and API service
  * Subscribe to levels$, activeStep$ and activeLevelCanBeSaved$ to receive latest data updates.
  */
-import {BehaviorSubject, Observable} from 'rxjs';
-import {AbstractLevelTypeEnum, Level} from 'kypo-training-model';
+import { AbstractLevelTypeEnum, Level } from 'kypo-training-model';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 export abstract class LevelEditService {
-
   protected trainingDefinitionId: number;
 
   protected levelsSubject$: BehaviorSubject<Level[]> = new BehaviorSubject([]);
@@ -33,8 +32,7 @@ export abstract class LevelEditService {
 
   unsavedLevels$: Observable<Level[]> = this.unsavedLevelsSubject$.asObservable();
 
-  protected constructor() {
-  }
+  protected constructor() {}
 
   /**
    * Initiates service with levels and related training definition id

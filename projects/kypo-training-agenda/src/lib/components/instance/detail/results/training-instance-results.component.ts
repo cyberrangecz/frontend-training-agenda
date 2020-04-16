@@ -1,10 +1,10 @@
-import {ChangeDetectionStrategy, Component, HostListener, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {KypoBaseComponent} from 'kypo-common';
-import {Observable} from 'rxjs';
-import {TrainingInstance} from 'kypo-training-model';
-import {map, takeWhile, tap} from 'rxjs/operators';
-import {TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME} from '../../../../model/client/activated-route-data-attributes';
+import { ChangeDetectionStrategy, Component, HostListener, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { KypoBaseComponent } from 'kypo-common';
+import { TrainingInstance } from 'kypo-training-model';
+import { Observable } from 'rxjs';
+import { map, takeWhile, tap } from 'rxjs/operators';
+import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME } from '../../../../model/client/activated-route-data-attributes';
 
 /**
  * Component displaying training instance results visualizations
@@ -13,15 +13,13 @@ import {TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME} from '../../../../model/client/ac
   selector: 'kypo-training-instance-results',
   templateUrl: './training-instance-results.component.html',
   styleUrls: ['./training-instance-results.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TrainingInstanceResultsComponent extends KypoBaseComponent implements OnInit {
-
   trainingInstance$: Observable<TrainingInstance>;
-  vizSize: { width: number, height: number };
+  vizSize: { width: number; height: number };
 
-  constructor(
-    private activeRoute: ActivatedRoute) {
+  constructor(private activeRoute: ActivatedRoute) {
     super();
   }
 
@@ -31,12 +29,11 @@ export class TrainingInstanceResultsComponent extends KypoBaseComponent implemen
   }
 
   ngOnInit() {
-    this.trainingInstance$ = this.activeRoute.data
-      .pipe(
-        takeWhile(_ => this.isAlive),
-        map(data => data[TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME]),
-        tap(_ => this.calculateVisualizationSize(window.innerWidth, window.innerHeight))
-      );
+    this.trainingInstance$ = this.activeRoute.data.pipe(
+      takeWhile((_) => this.isAlive),
+      map((data) => data[TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME]),
+      tap((_) => this.calculateVisualizationSize(window.innerWidth, window.innerHeight))
+    );
   }
 
   private calculateVisualizationSize(windowWidth: number, windowHeight: number) {
@@ -44,5 +41,4 @@ export class TrainingInstanceResultsComponent extends KypoBaseComponent implemen
     const height = windowHeight / 2;
     this.vizSize = { width, height };
   }
-
 }

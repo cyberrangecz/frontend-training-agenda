@@ -1,4 +1,4 @@
-import {StepperStateChange} from 'kypo2-stepper';
+import { StepperStateChange } from 'kypo2-stepper';
 
 /**
  * Event representing change of position of a level in level stepper

@@ -1,22 +1,24 @@
-import {TrainingInstance} from 'kypo-training-model';
 import { FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { KypoValidators } from 'kypo-common';
+import { TrainingInstance } from 'kypo-training-model';
 
 /**
  * Training instance edit form group control
  */
 export class TrainingInstanceFormGroup {
-
   formGroup: FormGroup;
 
   constructor(trainingInstance: TrainingInstance) {
-    this.formGroup = new FormGroup({
-      startTime: new FormControl(trainingInstance.startTime, [Validators.required, this.dateValidator]),
-      endTime: new FormControl(trainingInstance.endTime, [Validators.required, this.dateValidator]),
-      title: new FormControl(trainingInstance.title, [KypoValidators.noWhitespace]),
-      trainingDefinition: new FormControl(trainingInstance.trainingDefinition, [Validators.required]),
-      accessToken: new FormControl(trainingInstance.accessToken, [KypoValidators.noWhitespace]),
-    }, { validators: this.dateSequenceValidator });
+    this.formGroup = new FormGroup(
+      {
+        startTime: new FormControl(trainingInstance.startTime, [Validators.required, this.dateValidator]),
+        endTime: new FormControl(trainingInstance.endTime, [Validators.required, this.dateValidator]),
+        title: new FormControl(trainingInstance.title, [KypoValidators.noWhitespace]),
+        trainingDefinition: new FormControl(trainingInstance.trainingDefinition, [Validators.required]),
+        accessToken: new FormControl(trainingInstance.accessToken, [KypoValidators.noWhitespace]),
+      },
+      { validators: this.dateSequenceValidator }
+    );
   }
 
   private dateSequenceValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
@@ -27,7 +29,7 @@ export class TrainingInstanceFormGroup {
       error = { startTimeAfterEndTime: true };
     }
     return error ? error : null;
-  }
+  };
 
   private dateValidator: ValidatorFn = (control: FormControl): ValidationErrors | null => {
     let error = null;
@@ -35,7 +37,7 @@ export class TrainingInstanceFormGroup {
       error = { dateInPast: true };
     }
     return error ? error : null;
-  }
+  };
 
   /**
    * Sets values from training instance to individual inputs
@@ -49,5 +51,3 @@ export class TrainingInstanceFormGroup {
     trainingInstance.accessToken = this.formGroup.get('accessToken').value;
   }
 }
-
-

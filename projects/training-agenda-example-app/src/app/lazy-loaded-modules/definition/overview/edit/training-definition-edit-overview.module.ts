@@ -1,16 +1,14 @@
-import {NgModule} from '@angular/core';
-import {environment} from '../../../../../environments/environment';
-import {TrainingDefinitionEditOverviewComponentsModule} from 'kypo-training-agenda';
-import {CommonModule} from '@angular/common';
-import {TrainingDefinitionEditOverviewRoutingModule} from './training-definition-edit-overview-routing.module';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { TrainingDefinitionEditOverviewComponentsModule } from 'kypo-training-agenda';
+import { environment } from '../../../../../environments/environment';
+import { TrainingDefinitionEditOverviewRoutingModule } from './training-definition-edit-overview-routing.module';
 
 @NgModule({
   imports: [
     CommonModule,
     TrainingDefinitionEditOverviewComponentsModule.forRoot(environment.trainingAgendaConfig),
-    TrainingDefinitionEditOverviewRoutingModule
-  ]
+    TrainingDefinitionEditOverviewRoutingModule,
+  ],
 })
-export class TrainingDefinitionEditOverviewModule {
-
-}
+export class TrainingDefinitionEditOverviewModule {}

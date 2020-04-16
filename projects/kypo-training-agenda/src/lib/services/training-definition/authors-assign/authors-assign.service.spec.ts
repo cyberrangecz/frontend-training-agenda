@@ -1,15 +1,14 @@
-import {async, TestBed} from '@angular/core/testing';
-import {AuthorsAssignService} from './authors-assign.service';
-import {ErrorHandlerService} from '../../shared/error-handler.service';
-import {UserApi} from 'kypo-training-api';
-import {asyncData} from 'kypo-common';
-import {KypoRequestedPagination} from 'kypo-common';
-import {KypoPaginatedResource} from 'kypo-common';
-import {KypoPagination} from 'kypo-common';
-import {User} from 'kypo2-auth';
-import {throwError} from 'rxjs';
-import {skip, take} from 'rxjs/operators';
-
+import { async, TestBed } from '@angular/core/testing';
+import { KypoRequestedPagination } from 'kypo-common';
+import { KypoPagination } from 'kypo-common';
+import { KypoPaginatedResource } from 'kypo-common';
+import { asyncData } from 'kypo-common';
+import { UserApi } from 'kypo-training-api';
+import { User } from 'kypo2-auth';
+import { throwError } from 'rxjs';
+import { skip, take } from 'rxjs/operators';
+import { ErrorHandlerService } from '../../shared/error-handler.service';
+import { AuthorsAssignService } from './authors-assign.service';
 
 describe('AuthorsAssignService', () => {
   let errorHandlerSpy: jasmine.SpyObj<ErrorHandlerService>;
@@ -23,9 +22,9 @@ describe('AuthorsAssignService', () => {
     TestBed.configureTestingModule({
       providers: [
         AuthorsAssignService,
-        {provide: UserApi, useValue: facadeSpy},
-        {provide: ErrorHandlerService, useValue: errorHandlerSpy}
-      ]
+        { provide: UserApi, useValue: facadeSpy },
+        { provide: ErrorHandlerService, useValue: errorHandlerSpy },
+      ],
     });
     service = TestBed.inject(AuthorsAssignService);
   }));
@@ -34,138 +33,130 @@ describe('AuthorsAssignService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should load authors from facade (called once)', done => {
-    facadeSpy.getAuthors.and.returnValue((asyncData(createMock())));
+  it('should load authors from facade (called once)', (done) => {
+    facadeSpy.getAuthors.and.returnValue(asyncData(createMock()));
     const pagination = createPagination();
-    service.getAssigned(0, pagination)
-      .subscribe(_ => done(),
-        fail);
+    service.getAssigned(0, pagination).subscribe((_) => done(), fail);
     expect(facadeSpy.getAuthors).toHaveBeenCalledTimes(1);
   });
 
-  it('should load designers from facade (called once)', done => {
-    facadeSpy.getDesignersNotInTD.and.returnValue((asyncData(createMock())));
-    service.getAvailableToAssign(0)
-      .subscribe(_ => done(),
-        fail);
+  it('should load designers from facade (called once)', (done) => {
+    facadeSpy.getDesignersNotInTD.and.returnValue(asyncData(createMock()));
+    service.getAvailableToAssign(0).subscribe((_) => done(), fail);
     expect(facadeSpy.getDesignersNotInTD).toHaveBeenCalledTimes(1);
   });
 
-  it('should assign designers through facade (called once)', done => {
+  it('should assign designers through facade (called once)', (done) => {
     facadeSpy.updateAuthors.and.returnValue(asyncData(null));
-    facadeSpy.getAuthors.and.returnValue((asyncData(createMock())));
+    facadeSpy.getAuthors.and.returnValue(asyncData(createMock()));
     const usersToAssign = createMock().elements;
-    const idsToAssign = usersToAssign.map(user => user.id);
-    service.assign(0, usersToAssign).subscribe(_ => done(),
-      fail);
+    const idsToAssign = usersToAssign.map((user) => user.id);
+    service.assign(0, usersToAssign).subscribe((_) => done(), fail);
     expect(facadeSpy.updateAuthors).toHaveBeenCalledTimes(1);
     expect(facadeSpy.updateAuthors).toHaveBeenCalledWith(0, idsToAssign, []);
   });
 
-  it('should refresh authors after assign action', done => {
+  it('should refresh authors after assign action', (done) => {
     facadeSpy.updateAuthors.and.returnValue(asyncData(null));
-    facadeSpy.getAuthors.and.returnValue((asyncData(createMock())));
+    facadeSpy.getAuthors.and.returnValue(asyncData(createMock()));
     const usersToAssign = createMock().elements;
-    service.assign(0, usersToAssign).subscribe(_ => {
-        expect(facadeSpy.getAuthors).toHaveBeenCalledTimes(1);
-        done();
-      },
-      fail);
+    service.assign(0, usersToAssign).subscribe((_) => {
+      expect(facadeSpy.getAuthors).toHaveBeenCalledTimes(1);
+      done();
+    }, fail);
   });
 
-  it('should unassign authors through facade (called once)', done => {
+  it('should unassign authors through facade (called once)', (done) => {
     facadeSpy.updateAuthors.and.returnValue(asyncData(null));
-    facadeSpy.getAuthors.and.returnValue((asyncData(createMock())));
+    facadeSpy.getAuthors.and.returnValue(asyncData(createMock()));
     const usersToUnassign = createMock().elements;
-    const idsToUnassign = usersToUnassign.map(user => user.id);
-    service.unassign(0, usersToUnassign).subscribe(_ => done(),
-      fail);
+    const idsToUnassign = usersToUnassign.map((user) => user.id);
+    service.unassign(0, usersToUnassign).subscribe((_) => done(), fail);
     expect(facadeSpy.updateAuthors).toHaveBeenCalledTimes(1);
     expect(facadeSpy.updateAuthors).toHaveBeenCalledWith(0, [], idsToUnassign);
   });
 
-  it('should refresh authors after unassign action', done => {
+  it('should refresh authors after unassign action', (done) => {
     facadeSpy.updateAuthors.and.returnValue(asyncData(null));
-    facadeSpy.getAuthors.and.returnValue((asyncData(createMock())));
+    facadeSpy.getAuthors.and.returnValue(asyncData(createMock()));
     const usersToUnassign = createMock().elements;
-    service.unassign(0, usersToUnassign).subscribe(_ => {
-        expect(facadeSpy.getAuthors).toHaveBeenCalledTimes(1);
-        done();
-      },
-      fail);
+    service.unassign(0, usersToUnassign).subscribe((_) => {
+      expect(facadeSpy.getAuthors).toHaveBeenCalledTimes(1);
+      done();
+    }, fail);
   });
 
-  it('should call error handler on err (getAvailableToAssign)', done => {
-    facadeSpy.getDesignersNotInTD.and.returnValue((throwError(null)));
-    service.getAvailableToAssign(0)
-      .subscribe(_ => fail,
-        err => {
+  it('should call error handler on err (getAvailableToAssign)', (done) => {
+    facadeSpy.getDesignersNotInTD.and.returnValue(throwError(null));
+    service.getAvailableToAssign(0).subscribe(
+      (_) => fail,
+      (err) => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         done();
-    });
+      }
+    );
   });
 
-  it('should call error handler on err (getAssigned)', done => {
-    facadeSpy.getAuthors.and.returnValue((throwError(null)));
-    service.getAssigned(0, null)
-      .subscribe(_ => fail,
-        err => {
-          expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
-          done();
-        });
+  it('should call error handler on err (getAssigned)', (done) => {
+    facadeSpy.getAuthors.and.returnValue(throwError(null));
+    service.getAssigned(0, null).subscribe(
+      (_) => fail,
+      (err) => {
+        expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
+        done();
+      }
+    );
   });
 
-  it('should call error handler on err (assign)', done => {
-    facadeSpy.updateAuthors.and.returnValue((throwError(null)));
-    service.assign(0, [])
-      .subscribe(_ => fail,
-        err => {
-          expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
-          done();
-        });
+  it('should call error handler on err (assign)', (done) => {
+    facadeSpy.updateAuthors.and.returnValue(throwError(null));
+    service.assign(0, []).subscribe(
+      (_) => fail,
+      (err) => {
+        expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
+        done();
+      }
+    );
   });
 
-  it('should call error handler on err (unassign)', done => {
-    facadeSpy.updateAuthors.and.returnValue((throwError(null)));
-    service.unassign(0, [])
-      .subscribe(_ => fail,
-        err => {
-          expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
-          done();
-        });
+  it('should call error handler on err (unassign)', (done) => {
+    facadeSpy.updateAuthors.and.returnValue(throwError(null));
+    service.unassign(0, []).subscribe(
+      (_) => fail,
+      (err) => {
+        expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
+        done();
+      }
+    );
   });
 
-
-  it ('should emit hasError on err', done => {
-    facadeSpy.getAuthors.and.returnValue((throwError(null)));
+  it('should emit hasError on err', (done) => {
+    facadeSpy.getAuthors.and.returnValue(throwError(null));
     const pagination = createPagination();
-    service.hasError$.pipe(skip(2)) // we ignore initial value and value emitted before the call is made
-      .subscribe(emitted => {
-          expect(emitted).toBeTruthy();
-          done();
-        },
-        fail);
-    service.getAssigned(0, pagination)
+    service.hasError$
+      .pipe(skip(2)) // we ignore initial value and value emitted before the call is made
+      .subscribe((emitted) => {
+        expect(emitted).toBeTruthy();
+        done();
+      }, fail);
+    service
+      .getAssigned(0, pagination)
       .pipe(take(1))
-      .subscribe(fail,
-        _ => _);
+      .subscribe(fail, (_) => _);
   });
 
-  it('should emit next value on getAuthors', done => {
+  it('should emit next value on getAuthors', (done) => {
     const mockData = createMock();
-    facadeSpy.getAuthors.and.returnValue((asyncData(mockData)));
+    facadeSpy.getAuthors.and.returnValue(asyncData(mockData));
     const pagination = createPagination();
-    service.assignedUsers$
-      .pipe(skip(1))
-      .subscribe(emitted => {
-          expect(emitted).toBe(mockData);
-          done();
-        },
-        fail);
-    service.getAssigned(0, pagination)
+    service.assignedUsers$.pipe(skip(1)).subscribe((emitted) => {
+      expect(emitted).toBe(mockData);
+      done();
+    }, fail);
+    service
+      .getAssigned(0, pagination)
       .pipe(take(1))
-      .subscribe(_ => _,
-        fail);
+      .subscribe((_) => _, fail);
   });
 
   function createPagination() {

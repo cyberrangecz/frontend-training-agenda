@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
-import {KypoPaginatedResourceService} from 'kypo-common';
-import {Observable} from 'rxjs';
-import {KypoPaginatedResource} from 'kypo-common';
-import {TrainingInstance} from 'kypo-training-model';
-import {KypoRequestedPagination} from 'kypo-common';
-import {TrainingRun} from 'kypo-training-model';
+import { Injectable } from '@angular/core';
+import { KypoPaginatedResourceService } from 'kypo-common';
+import { KypoPaginatedResource } from 'kypo-common';
+import { KypoRequestedPagination } from 'kypo-common';
+import { TrainingInstance } from 'kypo-training-model';
+import { TrainingRun } from 'kypo-training-model';
+import { Observable } from 'rxjs';
 
 /**
  * Layer between component and API service. Implement concrete service by extending this class.
@@ -13,7 +13,6 @@ import {TrainingRun} from 'kypo-training-model';
  */
 @Injectable()
 export abstract class ActiveTrainingRunService extends KypoPaginatedResourceService<TrainingRun> {
-
   /**
    * Starts polling in regular intervals
    * @param trainingInstance training instance associated with active training runs
@@ -24,7 +23,10 @@ export abstract class ActiveTrainingRunService extends KypoPaginatedResourceServ
    * @param trainingInstanceId id of associated training instance
    * @param pagination requested pagination
    */
-  abstract getAll(trainingInstanceId: number, pagination: KypoRequestedPagination): Observable<KypoPaginatedResource<TrainingRun>>;
+  abstract getAll(
+    trainingInstanceId: number,
+    pagination: KypoRequestedPagination
+  ): Observable<KypoPaginatedResource<TrainingRun>>;
 
   /**
    * Deletes sandbox associated with active training run

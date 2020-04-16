@@ -1,32 +1,31 @@
-import {TrainingDefinitionStateEnum} from 'kypo-training-model';
-import {Column, Kypo2Table, Row, RowAction, RowExpand} from 'kypo2-table';
-import {defer, of} from 'rxjs';
-import {KypoPaginatedResource} from 'kypo-common';
-import {TrainingDefinition} from 'kypo-training-model';
-import {DeleteAction} from 'kypo2-table';
-import {EditAction} from 'kypo2-table';
-import {DownloadAction} from 'kypo2-table';
-import {TrainingDefinitionService} from '../../../../services/training-definition/overview/training-definition.service';
-import {TrainingDefinitionDetailComponent} from '../../../../components/definition/overview/detail/training-definition-detail.component';
+import { KypoPaginatedResource } from 'kypo-common';
+import { TrainingDefinitionStateEnum } from 'kypo-training-model';
+import { TrainingDefinition } from 'kypo-training-model';
+import { Column, Kypo2Table, Row, RowAction, RowExpand } from 'kypo2-table';
+import { DeleteAction } from 'kypo2-table';
+import { EditAction } from 'kypo2-table';
+import { DownloadAction } from 'kypo2-table';
+import { defer, of } from 'rxjs';
+import { TrainingDefinitionDetailComponent } from '../../../../components/definition/overview/detail/training-definition-detail.component';
+import { TrainingDefinitionService } from '../../../../services/training-definition/overview/training-definition.service';
 
 /**
  * Helper class transforming paginated resource to class for common table component
  * @dynamic
  */
 export class TrainingDefinitionTable extends Kypo2Table<TrainingDefinition> {
-
   constructor(resource: KypoPaginatedResource<TrainingDefinition>, service: TrainingDefinitionService) {
     const columns = [
       new Column('id', 'id', true),
       new Column('title', 'title', true),
       new Column('state', 'state', true),
       new Column('estimatedDuration', 'estimated duration', true, 'estimatedDuration'),
-      new Column('lastEditTimeFormatted', 'last edit', true, 'lastEdited')
+      new Column('lastEditTimeFormatted', 'last edit', true, 'lastEdited'),
     ];
 
-    const rows = resource.elements.map(definition =>
-        new Row(definition, TrainingDefinitionTable.createActions(definition, service))
-      );
+    const rows = resource.elements.map(
+      (definition) => new Row(definition, TrainingDefinitionTable.createActions(definition, service))
+    );
     super(rows, columns);
 
     this.expand = new RowExpand(TrainingDefinitionDetailComponent);
@@ -54,7 +53,7 @@ export class TrainingDefinitionTable extends Kypo2Table<TrainingDefinition> {
       ),
       new RowAction(
         'clone',
-         'Clone',
+        'Clone',
         'file_copy',
         'primary',
         'Clone training definition',
@@ -74,7 +73,7 @@ export class TrainingDefinitionTable extends Kypo2Table<TrainingDefinition> {
         'Preview training run',
         of(false),
         defer(() => service.preview(td))
-      )
+      ),
     ];
   }
 
@@ -99,7 +98,8 @@ export class TrainingDefinitionTable extends Kypo2Table<TrainingDefinition> {
             'Archive training definition',
             of(false),
             defer(() => service.changeState(td, TrainingDefinitionStateEnum.Archived))
-          )];
+          ),
+        ];
       case TrainingDefinitionStateEnum.Unreleased:
         return [
           new RowAction(
@@ -110,7 +110,8 @@ export class TrainingDefinitionTable extends Kypo2Table<TrainingDefinition> {
             'Release training definition',
             of(false),
             defer(() => service.changeState(td, TrainingDefinitionStateEnum.Released))
-          )];
+          ),
+        ];
       default:
         return [];
     }

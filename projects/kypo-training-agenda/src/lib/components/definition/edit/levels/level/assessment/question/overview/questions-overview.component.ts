@@ -6,23 +6,23 @@ import {
   OnChanges,
   OnInit,
   Output,
-  SimpleChanges
+  SimpleChanges,
 } from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
-import {takeWhile} from 'rxjs/operators';
-import {QuestionChangeEvent} from '../../../../../../../../model/events/question-change-event';
-import {Question} from 'kypo-training-model';
-import {ExtendedMatchingItems} from 'kypo-training-model';
-import {FreeFormQuestion} from 'kypo-training-model';
-import {MultipleChoiceQuestion} from 'kypo-training-model';
-import {KypoBaseComponent} from 'kypo-common';
+import { MatDialog } from '@angular/material/dialog';
 import {
   CsirtMuConfirmationDialogComponent,
   CsirtMuConfirmationDialogConfig,
-  CsirtMuDialogResultEnum
+  CsirtMuDialogResultEnum,
 } from 'csirt-mu-common';
-import {defer, of} from 'rxjs';
-import {KypoControlItem, KypoControlMenuItem, KypoExpandableControlItem} from 'kypo-controls';
+import { KypoBaseComponent } from 'kypo-common';
+import { KypoControlItem, KypoControlMenuItem, KypoExpandableControlItem } from 'kypo-controls';
+import { ExtendedMatchingItems } from 'kypo-training-model';
+import { Question } from 'kypo-training-model';
+import { MultipleChoiceQuestion } from 'kypo-training-model';
+import { FreeFormQuestion } from 'kypo-training-model';
+import { defer, of } from 'rxjs';
+import { takeWhile } from 'rxjs/operators';
+import { QuestionChangeEvent } from '../../../../../../../../model/events/question-change-event';
 
 /**
  * Wrapper component for questions inside the assessment level
@@ -31,10 +31,9 @@ import {KypoControlItem, KypoControlMenuItem, KypoExpandableControlItem} from 'k
   selector: 'kypo-question-overview',
   templateUrl: './questions-overview.component.html',
   styleUrls: ['./questions-overview.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class QuestionsOverviewComponent extends KypoBaseComponent implements OnInit, OnChanges {
-
   @Input() questions: Question[];
   @Input() isTest: boolean;
   @Input() disabled: boolean;
@@ -53,21 +52,18 @@ export class QuestionsOverviewComponent extends KypoBaseComponent implements OnI
 
   ngOnChanges(changes: SimpleChanges) {
     if ('questions' in changes && this.questions) {
-        this.calculateHasError();
+      this.calculateHasError();
     }
     if ('isTest' in changes && !changes.isTest.isFirstChange()) {
       if (this.isTest && this.questions) {
-        this.questions.forEach(question => question.required = true);
+        this.questions.forEach((question) => (question.required = true));
         this.onQuestionChanged();
       }
     }
   }
 
   onControlAction(control: KypoControlItem) {
-    control.result$
-      .pipe(
-        takeWhile(_ => this.isAlive)
-      ).subscribe();
+    control.result$.pipe(takeWhile((_) => this.isAlive)).subscribe();
   }
 
   /**
@@ -129,57 +125,52 @@ export class QuestionsOverviewComponent extends KypoBaseComponent implements OnI
         `Do you want to delete question "${this.questions[index].title}"?`,
         'Cancel',
         'Delete'
-      )
+      ),
     });
 
-    dialogRef.afterClosed()
+    dialogRef
+      .afterClosed()
       .pipe(takeWhile(() => this.isAlive))
-      .subscribe(result => {
-      if (result === CsirtMuDialogResultEnum.CONFIRMED) {
-        this.questions.splice(index, 1);
-        this.onQuestionChanged();
-      }
-    });
+      .subscribe((result) => {
+        if (result === CsirtMuDialogResultEnum.CONFIRMED) {
+          this.questions.splice(index, 1);
+          this.onQuestionChanged();
+        }
+      });
   }
 
   private calculateHasError() {
-    this.questionsHasError = this.questions.some(question => !question.valid);
+    this.questionsHasError = this.questions.some((question) => !question.valid);
   }
 
   private initControls() {
     this.controls = [
-      new KypoExpandableControlItem(
-        'add',
-        'Add',
-        'primary',
-        of(false),
-        [
-          new KypoControlMenuItem(
-            'ffq',
-            'Free Form Question',
-            'primary',
-            of(false),
-            defer(() => this.addFFQ()),
-            'help_outline'
-          ),
-          new KypoControlMenuItem(
-            'mcq',
-            'Multiple Choice Question',
-            'primary',
-            of(false),
-            defer(() => this.addMCQ()),
-            'check_circle'
-          ),
-          new KypoControlMenuItem(
-            'emi',
-            'Extended Matching Items Questions',
-            'primary',
-            of(false),
-            defer(() => this.addEMI()),
-            'list_alt'
-          )
-        ]
-      )
+      new KypoExpandableControlItem('add', 'Add', 'primary', of(false), [
+        new KypoControlMenuItem(
+          'ffq',
+          'Free Form Question',
+          'primary',
+          of(false),
+          defer(() => this.addFFQ()),
+          'help_outline'
+        ),
+        new KypoControlMenuItem(
+          'mcq',
+          'Multiple Choice Question',
+          'primary',
+          of(false),
+          defer(() => this.addMCQ()),
+          'check_circle'
+        ),
+        new KypoControlMenuItem(
+          'emi',
+          'Extended Matching Items Questions',
+          'primary',
+          of(false),
+          defer(() => this.addEMI()),
+          'list_alt'
+        ),
+      ]),
     ];
   }
 }

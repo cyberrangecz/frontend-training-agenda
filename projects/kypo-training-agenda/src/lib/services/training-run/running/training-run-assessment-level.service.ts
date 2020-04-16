@@ -1,8 +1,7 @@
-import {Question} from 'kypo-training-model';
-import {Observable} from 'rxjs';
+import { Question } from 'kypo-training-model';
+import { Observable } from 'rxjs';
 
 export abstract class TrainingRunAssessmentLevelService {
-
   /**
    * Submit answers entered by trainee
    * @param answers answers entered by user

@@ -1,10 +1,9 @@
-import {TrainingInstance} from 'kypo-training-model';
-import {Pool} from 'kypo-sandbox-model';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {KypoPaginatedResource, KypoPaginatedResourceService, KypoRequestedPagination} from 'kypo-common';
+import { KypoPaginatedResource, KypoPaginatedResourceService, KypoRequestedPagination } from 'kypo-common';
+import { Pool } from 'kypo-sandbox-model';
+import { TrainingInstance } from 'kypo-training-model';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 export abstract class PoolAssignService extends KypoPaginatedResourceService<Pool> {
-
   protected selectedSubject$: BehaviorSubject<Pool> = new BehaviorSubject(undefined);
   selected$: Observable<Pool> = this.selectedSubject$.asObservable();
 
@@ -17,7 +16,7 @@ export abstract class PoolAssignService extends KypoPaginatedResourceService<Poo
 
   abstract assign(trainingInstance: TrainingInstance): Observable<any>;
 
-  abstract unassign(trainingInstance: TrainingInstance): Observable<any>
+  abstract unassign(trainingInstance: TrainingInstance): Observable<any>;
 
   select(selected: Pool) {
     this.selectedSubject$.next(selected);

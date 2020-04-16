@@ -1,8 +1,8 @@
-import {PoolAssignService} from '../../../../services/training-instance/pool-assign/pool-assign.service';
-import {defer, of} from 'rxjs';
-import {KypoControlItem} from 'kypo-controls';
-import {TrainingInstance} from 'kypo-training-model';
-import {map} from 'rxjs/operators';
+import { KypoControlItem } from 'kypo-controls';
+import { TrainingInstance } from 'kypo-training-model';
+import { defer, of } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { PoolAssignService } from '../../../../services/training-instance/pool-assign/pool-assign.service';
 
 /**
  * @dynamic
@@ -16,14 +16,11 @@ export class PoolAssignControls {
           'Unassign',
           'primary',
           of(false),
-          defer(() => service.unassign(trainingInstance)),
-        )
+          defer(() => service.unassign(trainingInstance))
+        ),
       ];
     } else {
-      const assignDisabled$ = service.selected$
-        .pipe(
-          map(selected => selected === undefined)
-        );
+      const assignDisabled$ = service.selected$.pipe(map((selected) => selected === undefined));
       return [
         new KypoControlItem(
           'assign',
@@ -31,7 +28,7 @@ export class PoolAssignControls {
           'primary',
           assignDisabled$,
           defer(() => service.assign(trainingInstance))
-        )
+        ),
       ];
     }
   }

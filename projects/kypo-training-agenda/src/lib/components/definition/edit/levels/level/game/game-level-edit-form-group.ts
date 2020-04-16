@@ -1,6 +1,6 @@
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {GameLevel} from 'kypo-training-model';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { KypoValidators } from 'kypo-common';
+import { GameLevel } from 'kypo-training-model';
 
 export const MAX_SCORE = 100;
 export const INCORRECT_FLAG_LIMIT = 100;
@@ -22,23 +22,20 @@ export class GameLevelEditFormGroup {
         Validators.required,
         Validators.pattern('^[0-9]*$'),
         Validators.min(0),
-        Validators.max(MAX_SCORE)
+        Validators.max(MAX_SCORE),
       ]),
       solutionPenalized: new FormControl(level.solutionPenalized),
       incorrectFlagLimit: new FormControl(level.incorrectFlagLimit, [
         Validators.required,
         Validators.pattern('^[0-9]*$'),
         Validators.min(1),
-        Validators.max(INCORRECT_FLAG_LIMIT)
+        Validators.max(INCORRECT_FLAG_LIMIT),
       ]),
-      flag: new FormControl(level.flag, [
-        KypoValidators.noWhitespace,
-        Validators.maxLength(MAX_FLAG)
-      ]),
+      flag: new FormControl(level.flag, [KypoValidators.noWhitespace, Validators.maxLength(MAX_FLAG)]),
       estimatedDuration: new FormControl(level.estimatedDuration, [
         Validators.pattern('^[0-9]*$'),
         Validators.min(1),
-        Validators.max(MAX_ESTIMATED_DURATION)
+        Validators.max(MAX_ESTIMATED_DURATION),
       ]),
     });
   }
@@ -56,6 +53,6 @@ export class GameLevelEditFormGroup {
     level.incorrectFlagLimit = this.formGroup.get('incorrectFlagLimit').value;
     level.flag = this.formGroup.get('flag').value;
     level.estimatedDuration = this.formGroup.get('estimatedDuration').value;
-    level.valid = this.formGroup.valid && level.hints.every(hint => hint.valid);
+    level.valid = this.formGroup.valid && level.hints.every((hint) => hint.valid);
   }
 }

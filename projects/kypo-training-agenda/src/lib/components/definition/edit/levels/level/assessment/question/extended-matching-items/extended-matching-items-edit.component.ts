@@ -9,16 +9,16 @@ import {
   Output,
   QueryList,
   SimpleChanges,
-  ViewChildren
+  ViewChildren,
 } from '@angular/core';
-import {FormArray, FormControl} from '@angular/forms';
-import {MatRadioButton} from '@angular/material/radio';
-import {takeWhile} from 'rxjs/operators';
-import {Question} from 'kypo-training-model';
-import {ExtendedMatchingItems} from 'kypo-training-model';
-import {KypoBaseComponent} from 'kypo-common';
-import {ExtendedMatchingItemsFormGroup} from './extended-matching-items-form-group';
+import { FormArray, FormControl } from '@angular/forms';
+import { MatRadioButton } from '@angular/material/radio';
+import { KypoBaseComponent } from 'kypo-common';
 import { KypoValidators } from 'kypo-common';
+import { Question } from 'kypo-training-model';
+import { ExtendedMatchingItems } from 'kypo-training-model';
+import { takeWhile } from 'rxjs/operators';
+import { ExtendedMatchingItemsFormGroup } from './extended-matching-items-form-group';
 
 /**
  * Component for editing a question of type Extended Matching Items
@@ -27,10 +27,9 @@ import { KypoValidators } from 'kypo-common';
   selector: 'kypo-extended-matching-items',
   templateUrl: './extended-matching-items-edit.component.html',
   styleUrls: ['./extended-matching-items-edit.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ExtendedMatchingItemsEditComponent extends KypoBaseComponent
-  implements OnInit, OnChanges, AfterViewInit {
+export class ExtendedMatchingItemsEditComponent extends KypoBaseComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() question: ExtendedMatchingItems;
   @Input() isTest: boolean;
   @Input() required: boolean;
@@ -39,7 +38,6 @@ export class ExtendedMatchingItemsEditComponent extends KypoBaseComponent
   extendedMatchingQuestionFormGroup: ExtendedMatchingItemsFormGroup;
   maxQuestionScore = Question.MAX_QUESTION_SCORE;
   maxQuestionPenalty = Question.MAX_QUESTION_PENALTY;
-
 
   @ViewChildren(MatRadioButton) radioButtons: QueryList<MatRadioButton>;
 
@@ -73,9 +71,8 @@ export class ExtendedMatchingItemsEditComponent extends KypoBaseComponent
       this.extendedMatchingQuestionFormGroup = new ExtendedMatchingItemsFormGroup(this.question);
       this.checkState();
       this.extendedMatchingQuestionFormGroup.formGroup.valueChanges
-        .pipe(
-          takeWhile(_ => this.isAlive)
-        ).subscribe(_ => this.questionChanged());
+        .pipe(takeWhile((_) => this.isAlive))
+        .subscribe((_) => this.questionChanged());
     }
     if ('isTest' in changes && !changes.isTest.isFirstChange()) {
       this.checkState();
@@ -127,7 +124,7 @@ export class ExtendedMatchingItemsEditComponent extends KypoBaseComponent
   clearAnswers() {
     this.correctAnswers.clear();
     if (this.radioButtons) {
-      this.radioButtons.forEach(button => (button.checked = false));
+      this.radioButtons.forEach((button) => (button.checked = false));
     }
     this.questionChanged();
   }
@@ -184,14 +181,10 @@ export class ExtendedMatchingItemsEditComponent extends KypoBaseComponent
    * @param colIndex index of a column in a matrix representing the EMI table
    */
   private deleteAnswersByCol(colIndex: number) {
-    const answersToDelete = this.correctAnswers.controls.filter(
-      answer => answer.value.y === colIndex
-    );
+    const answersToDelete = this.correctAnswers.controls.filter((answer) => answer.value.y === colIndex);
     if (answersToDelete.length > 0) {
-      answersToDelete.forEach(answerToDelete => {
-        const indexOfAnswerToDelete = this.correctAnswers.controls.indexOf(
-          answerToDelete
-        );
+      answersToDelete.forEach((answerToDelete) => {
+        const indexOfAnswerToDelete = this.correctAnswers.controls.indexOf(answerToDelete);
         if (indexOfAnswerToDelete > -1) {
           this.correctAnswers.removeAt(indexOfAnswerToDelete);
         }
@@ -204,13 +197,9 @@ export class ExtendedMatchingItemsEditComponent extends KypoBaseComponent
    * @param rowIndex index of a row in a matrix representing the EMI table
    */
   private deleteAnswerByRow(rowIndex: number) {
-    const answerToDelete = this.correctAnswers.controls.find(
-      answer => answer.value.x === rowIndex
-    );
+    const answerToDelete = this.correctAnswers.controls.find((answer) => answer.value.x === rowIndex);
     if (answerToDelete) {
-      const indexOfAnswerToDelete = this.correctAnswers.controls.indexOf(
-        answerToDelete
-      );
+      const indexOfAnswerToDelete = this.correctAnswers.controls.indexOf(answerToDelete);
       if (indexOfAnswerToDelete > -1) {
         this.correctAnswers.removeAt(indexOfAnswerToDelete);
       }
@@ -221,17 +210,13 @@ export class ExtendedMatchingItemsEditComponent extends KypoBaseComponent
    * Sets initial state of every radio button (checked / not checked) based on the correct answers coordinates
    */
   private setInitialStateOfRadioButtons() {
-    this.radioButtons.forEach(button => {
+    this.radioButtons.forEach((button) => {
       const buttonValue = {
         x: button.value.x,
-        y: button.value.y
+        y: button.value.y,
       };
 
-      if (
-        this.correctAnswers.value.find(
-          answer => answer.x === buttonValue.x && answer.y === buttonValue.y
-        )
-      ) {
+      if (this.correctAnswers.value.find((answer) => answer.x === buttonValue.x && answer.y === buttonValue.y)) {
         button.checked = true;
       }
     });

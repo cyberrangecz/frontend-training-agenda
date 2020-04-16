@@ -5,11 +5,11 @@
     <div class="questions">
       <div *ngFor="let question of level.questions; index as i" class="question">
         <mat-divider></mat-divider>
-        <kypo2-trainee-question
+        <kypo-trainee-question
           [question]="question"
           [index]="i + 1"
           (contentChanged)="onContentChanged()">
-        </kypo2-trainee-question>
+        </kypo-trainee-question>
       </div>
     </div>
   </div>

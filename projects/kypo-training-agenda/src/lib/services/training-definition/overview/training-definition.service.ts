@@ -1,9 +1,9 @@
-import {TrainingDefinitionStateEnum} from 'kypo-training-model';
-import {TrainingDefinition} from 'kypo-training-model';
-import {Observable} from 'rxjs';
-import {KypoRequestedPagination} from 'kypo-common';
-import {KypoPaginatedResource} from 'kypo-common';
-import {KypoPaginatedResourceService} from 'kypo-common';
+import { KypoRequestedPagination } from 'kypo-common';
+import { KypoPaginatedResource } from 'kypo-common';
+import { KypoPaginatedResourceService } from 'kypo-common';
+import { TrainingDefinitionStateEnum } from 'kypo-training-model';
+import { TrainingDefinition } from 'kypo-training-model';
+import { Observable } from 'rxjs';
 
 /**
  * A layer between a component and an API service. Implement a concrete service by extending this class.
@@ -12,7 +12,6 @@ import {KypoPaginatedResourceService} from 'kypo-common';
  * Subscribe to trainingDefinitions$ to receive latest data updates.
  */
 export abstract class TrainingDefinitionService extends KypoPaginatedResourceService<TrainingDefinition> {
-
   abstract create(): Observable<any>;
 
   abstract edit(trainingDefinition: TrainingDefinition): Observable<any>;
@@ -24,7 +23,10 @@ export abstract class TrainingDefinitionService extends KypoPaginatedResourceSer
    * @param pagination requested pagination
    * @param filter filter to be applied on training definition
    */
-  abstract getAll(pagination: KypoRequestedPagination, filter: string): Observable<KypoPaginatedResource<TrainingDefinition>>;
+  abstract getAll(
+    pagination: KypoRequestedPagination,
+    filter: string
+  ): Observable<KypoPaginatedResource<TrainingDefinition>>;
 
   /**
    * Deletes selected training definition

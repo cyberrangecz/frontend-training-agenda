@@ -1,23 +1,21 @@
-import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/router';
-import {EMPTY, Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {TrainingDefinition} from 'kypo-training-model';
-import {TrainingDefinitionResolver} from './training-definition-resolver.service';
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { TrainingDefinition } from 'kypo-training-model';
+import { EMPTY, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import {
   TRAINING_DEFINITION_EDIT_PATH,
   TRAINING_DEFINITION_NEW_PATH,
-  TRAINING_DEFINITION_SELECTOR
+  TRAINING_DEFINITION_SELECTOR,
 } from '../../../model/client/default-paths';
+import { TrainingDefinitionResolver } from './training-definition-resolver.service';
 
 /**
  * Router breadcrumb title provider
  */
 @Injectable()
 export class TrainingDefinitionBreadcrumbResolver implements Resolve<string> {
-
-  constructor(private trainingDefinitionResolver: TrainingDefinitionResolver) {
-  }
+  constructor(private trainingDefinitionResolver: TrainingDefinitionResolver) {}
 
   /**
    * Retrieves a breadcrumb title based on provided url
@@ -29,9 +27,7 @@ export class TrainingDefinitionBreadcrumbResolver implements Resolve<string> {
       return 'Create';
     } else if (route.paramMap.has(TRAINING_DEFINITION_SELECTOR)) {
       const resolved = this.trainingDefinitionResolver.resolve(route, state) as Observable<TrainingDefinition>;
-      return resolved.pipe(
-          map(td => td ? this.getBreadcrumbFromDefinition(td, state) : ''),
-        );
+      return resolved.pipe(map((td) => (td ? this.getBreadcrumbFromDefinition(td, state) : '')));
     }
     return EMPTY;
   }

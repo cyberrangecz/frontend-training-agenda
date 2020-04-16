@@ -1,11 +1,11 @@
-import {NgModule} from '@angular/core';
-import {SharedProvidersModule} from '../../shared-providers.module';
-import {KypoTrainingApiModule} from 'kypo-training-api';
-import {environment} from '../../../../environments/environment';
-import {TrainingInstanceOverviewRoutingModule} from './training-instance-overview-routing.module';
-import {TrainingInstanceOverviewComponentsModule} from 'kypo-training-agenda';
-import {CommonModule} from '@angular/common';
-import {KypoSandboxApiModule} from 'kypo-sandbox-api';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { KypoSandboxApiModule } from 'kypo-sandbox-api';
+import { TrainingInstanceOverviewComponentsModule } from 'kypo-training-agenda';
+import { KypoTrainingApiModule } from 'kypo-training-api';
+import { environment } from '../../../../environments/environment';
+import { SharedProvidersModule } from '../../shared-providers.module';
+import { TrainingInstanceOverviewRoutingModule } from './training-instance-overview-routing.module';
 
 @NgModule({
   imports: [
@@ -14,9 +14,7 @@ import {KypoSandboxApiModule} from 'kypo-sandbox-api';
     KypoTrainingApiModule.forRoot(environment.trainingApiConfig),
     KypoSandboxApiModule.forRoot(environment.sandboxApiConfig),
     TrainingInstanceOverviewRoutingModule,
-    TrainingInstanceOverviewComponentsModule.forRoot(environment.trainingAgendaConfig)
+    TrainingInstanceOverviewComponentsModule.forRoot(environment.trainingAgendaConfig),
   ],
 })
-export class TrainingInstanceOverviewModule {
-
-}
+export class TrainingInstanceOverviewModule {}

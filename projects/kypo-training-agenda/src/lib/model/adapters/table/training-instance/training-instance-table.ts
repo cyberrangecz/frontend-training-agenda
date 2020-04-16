@@ -1,20 +1,23 @@
-import {KypoPaginatedResource} from 'kypo-common';
-import {TrainingInstance} from 'kypo-training-model';
-import {Column, Kypo2Table, Row, RowAction} from 'kypo2-table';
-import {TrainingInstanceRowAdapter} from '../rows/training-instance-row-adapter';
-import {defer, of} from 'rxjs';
-import {EditAction} from 'kypo2-table';
-import {DeleteAction} from 'kypo2-table';
-import {DownloadAction} from 'kypo2-table';
-import {TrainingNavigator} from '../../../../services/client/training-navigator.service';
-import {TrainingInstanceOverviewService} from '../../../../services/training-instance/training-instance-overview.service';
+import { KypoPaginatedResource } from 'kypo-common';
+import { TrainingInstance } from 'kypo-training-model';
+import { Column, Kypo2Table, Row, RowAction } from 'kypo2-table';
+import { EditAction } from 'kypo2-table';
+import { DeleteAction } from 'kypo2-table';
+import { DownloadAction } from 'kypo2-table';
+import { defer, of } from 'rxjs';
+import { TrainingNavigator } from '../../../../services/client/training-navigator.service';
+import { TrainingInstanceOverviewService } from '../../../../services/training-instance/training-instance-overview.service';
+import { TrainingInstanceRowAdapter } from '../rows/training-instance-row-adapter';
 
 /**
  * @dynamic
  */
 export class TrainingInstanceTable extends Kypo2Table<TrainingInstanceRowAdapter> {
-
-  constructor(resource: KypoPaginatedResource<TrainingInstance>, service: TrainingInstanceOverviewService, navigator: TrainingNavigator) {
+  constructor(
+    resource: KypoPaginatedResource<TrainingInstance>,
+    service: TrainingInstanceOverviewService,
+    navigator: TrainingNavigator
+  ) {
     const columns = [
       new Column('id', 'Id', true),
       new Column('title', 'Title', true),
@@ -22,9 +25,9 @@ export class TrainingInstanceTable extends Kypo2Table<TrainingInstanceRowAdapter
       new Column('tdTitle', 'Training Definition', false),
       new Column('poolId', 'Pool ID', false),
       new Column('poolSize', 'Pool Size', false),
-      new Column('accessToken', 'Access Token', false)
+      new Column('accessToken', 'Access Token', false),
     ];
-    const rows = resource.elements.map(element => TrainingInstanceTable.createRow(element, service, navigator));
+    const rows = resource.elements.map((element) => TrainingInstanceTable.createRow(element, service, navigator));
     super(rows, columns);
     this.pagination = resource.pagination;
     this.filterLabel = 'Filter by title';
@@ -32,7 +35,11 @@ export class TrainingInstanceTable extends Kypo2Table<TrainingInstanceRowAdapter
     this.selectable = false;
   }
 
-  private static createRow(ti: TrainingInstance, service: TrainingInstanceOverviewService, navigator: TrainingNavigator): Row<TrainingInstanceRowAdapter> {
+  private static createRow(
+    ti: TrainingInstance,
+    service: TrainingInstanceOverviewService,
+    navigator: TrainingNavigator
+  ): Row<TrainingInstanceRowAdapter> {
     const row = new Row(new TrainingInstanceRowAdapter(ti), this.createActions(ti, service));
     row.addLink('title', navigator.toTrainingInstanceDetail(ti.id));
     row.addLink('accessToken', navigator.toTrainingInstanceAccessToken(ti.id));
@@ -61,7 +68,7 @@ export class TrainingInstanceTable extends Kypo2Table<TrainingInstanceRowAdapter
         'Download ZIP file containing all training instance data',
         of(false),
         defer(() => service.download(ti.id))
-      )
+      ),
     ];
   }
 }

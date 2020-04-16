@@ -1,11 +1,10 @@
-import {Kypo2Stepper} from 'kypo2-stepper';
-import {LevelStepperAdapter} from './level-stepper-adapter';
+import { Kypo2Stepper } from 'kypo2-stepper';
+import { LevelStepperAdapter } from './level-stepper-adapter';
 
 /**
  * Training run levels adapter to kypo stepper component
  */
 export class TrainingRunStepper implements Kypo2Stepper<LevelStepperAdapter> {
-
   activeLevelIndex: number;
   items: LevelStepperAdapter[];
 
@@ -18,7 +17,7 @@ export class TrainingRunStepper implements Kypo2Stepper<LevelStepperAdapter> {
   onActiveLevelUpdated(activeLevelIndex: number) {
     this.activeLevelIndex = activeLevelIndex;
     this.markCompletedLevels();
-    const current =  this.items[activeLevelIndex];
+    const current = this.items[activeLevelIndex];
     if (current) {
       current.isActive = true;
     }

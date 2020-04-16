@@ -9,20 +9,19 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
-import {Kypo2Stepper} from 'kypo2-stepper';
-import {takeWhile} from 'rxjs/operators';
-import {Hint} from 'kypo-training-model';
-import {KypoBaseComponent} from 'kypo-common';
+import { MatDialog } from '@angular/material/dialog';
 import {
   CsirtMuConfirmationDialogComponent,
   CsirtMuConfirmationDialogConfig,
-  CsirtMuDialogResultEnum
+  CsirtMuDialogResultEnum,
 } from 'csirt-mu-common';
-import { BehaviorSubject, defer, of } from 'rxjs';
+import { KypoBaseComponent } from 'kypo-common';
 import { KypoControlItem } from 'kypo-controls';
-import {HintStepperAdapter} from '../../../../../../../../model/adapters/stepper/hint-stepper-adapter';
-
+import { Hint } from 'kypo-training-model';
+import { Kypo2Stepper } from 'kypo2-stepper';
+import { BehaviorSubject, defer, of } from 'rxjs';
+import { takeWhile } from 'rxjs/operators';
+import { HintStepperAdapter } from '../../../../../../../../model/adapters/stepper/hint-stepper-adapter';
 
 /**
  * Main hint edit component. Contains stepper to navigate through existing hints and controls to create new hints
@@ -35,12 +34,11 @@ import {HintStepperAdapter} from '../../../../../../../../model/adapters/stepper
   providers: [
     {
       provide: STEPPER_GLOBAL_OPTIONS,
-      useValue: { showError: true }
-    }
-  ]
+      useValue: { showError: true },
+    },
+  ],
 })
 export class HintsOverviewComponent extends KypoBaseComponent implements OnInit, OnChanges {
-
   @Input() hints: Hint[];
   @Input() levelId: Hint[];
   @Input() levelMaxScore: number;
@@ -69,17 +67,14 @@ export class HintsOverviewComponent extends KypoBaseComponent implements OnInit,
     }
     if ('hints' in changes) {
       this.deleteDisabledSubject$.next(this.hints.length <= 0);
-      this.stepperHints.items = this.hints.map(hint => new HintStepperAdapter(hint));
+      this.stepperHints.items = this.hints.map((hint) => new HintStepperAdapter(hint));
       this.setInitialHintPenaltySum();
       this.calculateHasError();
     }
   }
 
   onControlAction(control: KypoControlItem) {
-    control.result$
-      .pipe(
-        takeWhile(_ => this.isAlive)
-      ).subscribe();
+    control.result$.pipe(takeWhile((_) => this.isAlive)).subscribe();
   }
 
   /**
@@ -113,13 +108,13 @@ export class HintsOverviewComponent extends KypoBaseComponent implements OnInit,
         `Do you want to delete hint "${hint.title}"?`,
         'Cancel',
         'Delete'
-      )
+      ),
     });
 
     dialogRef
       .afterClosed()
       .pipe(takeWhile(() => this.isAlive))
-      .subscribe(result => {
+      .subscribe((result) => {
         if (result === CsirtMuDialogResultEnum.CONFIRMED) {
           this.stepperHints.items.splice(index, 1);
           this.changeSelectedStepAfterRemoving(index);
@@ -158,7 +153,7 @@ export class HintsOverviewComponent extends KypoBaseComponent implements OnInit,
     }
     this.calculateHintPenaltySum();
     this.calculateHasError();
-    this.hintsChange.emit(this.stepperHints.items.map(item => item.hint));
+    this.hintsChange.emit(this.stepperHints.items.map((item) => item.hint));
   }
 
   /**
@@ -177,9 +172,8 @@ export class HintsOverviewComponent extends KypoBaseComponent implements OnInit,
     }
   }
 
-
   private calculateHasError() {
-    this.hintsHasErrors = this.hints.some(hint => !hint.valid);
+    this.hintsHasErrors = this.hints.some((hint) => !hint.valid);
   }
 
   /**
@@ -190,9 +184,7 @@ export class HintsOverviewComponent extends KypoBaseComponent implements OnInit,
     if (this.hints.length === 0) {
       this.penaltySum = 0;
     } else {
-      this.penaltySum = this.hints
-        .map(hint => hint.penalty)
-        .reduce((sum, currentPenalty) => sum + currentPenalty);
+      this.penaltySum = this.hints.map((hint) => hint.penalty).reduce((sum, currentPenalty) => sum + currentPenalty);
     }
   }
 
@@ -202,7 +194,7 @@ export class HintsOverviewComponent extends KypoBaseComponent implements OnInit,
    */
   private calculateHintPenaltySum() {
     let hintsPenaltySum = 0;
-    this.stepperHints.items.forEach(item => {
+    this.stepperHints.items.forEach((item) => {
       hintsPenaltySum += item.hint.penalty;
     });
     this.penaltySum = hintsPenaltySum;
@@ -223,7 +215,7 @@ export class HintsOverviewComponent extends KypoBaseComponent implements OnInit,
         'warn',
         this.deleteDisabledSubject$.asObservable(),
         defer(() => this.deleteActiveHint())
-      )
+      ),
     ];
   }
 }

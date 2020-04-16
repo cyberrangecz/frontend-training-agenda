@@ -1,21 +1,18 @@
-import {BehaviorSubject, Observable} from 'rxjs';
-import {GameLevel} from 'kypo-training-model';
-import {Hint} from 'kypo-training-model';
-import {FlagCheck} from 'kypo-training-model';
+import { MatDialog } from '@angular/material/dialog';
 import {
   CsirtMuConfirmationDialogComponent,
   CsirtMuConfirmationDialogConfig,
-  CsirtMuDialogResultEnum
+  CsirtMuDialogResultEnum,
 } from 'csirt-mu-common';
-import {MatDialog} from '@angular/material/dialog';
-import {RunningTrainingRunService} from './running-training-run.service';
-import {HintButton} from '../../../model/adapters/other/hint-button';
+import { GameLevel } from 'kypo-training-model';
+import { Hint } from 'kypo-training-model';
+import { FlagCheck } from 'kypo-training-model';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { HintButton } from '../../../model/adapters/other/hint-button';
+import { RunningTrainingRunService } from './running-training-run.service';
 
 export abstract class TrainingRunGameLevelService {
-
-  protected constructor(protected dialog: MatDialog,
-                        protected runningTrainingRunService: RunningTrainingRunService) {
-  }
+  protected constructor(protected dialog: MatDialog, protected runningTrainingRunService: RunningTrainingRunService) {}
 
   protected hintsSubject$: BehaviorSubject<HintButton[]>;
   hints$: Observable<HintButton[]>;
@@ -69,7 +66,7 @@ export abstract class TrainingRunGameLevelService {
     hints.forEach((hint, index) => {
       hintButtons.push(new HintButton(hint.isRevealed(), hint));
       if (hint.isRevealed()) {
-        this.addHintContent(hint, (index + 1));
+        this.addHintContent(hint, index + 1);
       }
     });
     this.hintsSubject$.next(hintButtons);
@@ -77,7 +74,7 @@ export abstract class TrainingRunGameLevelService {
 
   protected onHintRevealed(hint: Hint) {
     const hintButtons = this.hintsSubject$.getValue();
-    const hintToRevealIndex = hintButtons.findIndex(hintButton => hintButton.hint.id === hint.id);
+    const hintToRevealIndex = hintButtons.findIndex((hintButton) => hintButton.hint.id === hint.id);
     if (hintToRevealIndex !== -1) {
       const hintToReveal = hintButtons[hintToRevealIndex];
       hintToReveal.disable();
@@ -122,21 +119,16 @@ export abstract class TrainingRunGameLevelService {
 
   protected displayWrongFlagDialog(flagCheck: FlagCheck): Observable<CsirtMuDialogResultEnum> {
     let dialogMessage = 'You have submitted incorrect flag.\n';
-    dialogMessage += !this.isSolutionRevealedSubject$.getValue() && flagCheck.remainingAttempts > 0
-      ? `You have ${flagCheck.remainingAttempts} remaining attempts.`
-      : 'Please insert the flag according to revealed solution.';
+    dialogMessage +=
+      !this.isSolutionRevealedSubject$.getValue() && flagCheck.remainingAttempts > 0
+        ? `You have ${flagCheck.remainingAttempts} remaining attempts.`
+        : 'Please insert the flag according to revealed solution.';
 
     const dialogRef = this.dialog.open(CsirtMuConfirmationDialogComponent, {
-      data: new CsirtMuConfirmationDialogConfig(
-        'Incorrect Flag',
-        dialogMessage,
-        '',
-        'OK'
-      )
+      data: new CsirtMuConfirmationDialogConfig('Incorrect Flag', dialogMessage, '', 'OK'),
     });
     return dialogRef.afterClosed();
   }
-
 
   protected displayTakeHintDialog(hint: Hint): Observable<CsirtMuDialogResultEnum> {
     const dialogRef = this.dialog.open(CsirtMuConfirmationDialogComponent, {
@@ -146,24 +138,17 @@ export abstract class TrainingRunGameLevelService {
  It will cost you ${hint.penalty} points.`,
         'Cancel',
         'Reveal'
-      )
+      ),
     });
     return dialogRef.afterClosed();
   }
 
   protected displayRevealSolutionDialog(solutionPenalized: boolean): Observable<CsirtMuDialogResultEnum> {
     let dialogMessage = 'Do you want to reveal solution of this level?';
-    dialogMessage += solutionPenalized
-      ? '\n All your points will be subtracted.'
-      : '';
+    dialogMessage += solutionPenalized ? '\n All your points will be subtracted.' : '';
 
     const dialogRef = this.dialog.open(CsirtMuConfirmationDialogComponent, {
-      data: new CsirtMuConfirmationDialogConfig(
-        'Reveal Solution',
-        dialogMessage,
-        'Cancel',
-        'Reveal'
-      )
+      data: new CsirtMuConfirmationDialogConfig('Reveal Solution', dialogMessage, 'Cancel', 'Reveal'),
     });
     return dialogRef.afterClosed();
   }

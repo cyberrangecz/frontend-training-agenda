@@ -6,19 +6,19 @@ import {
   OnChanges,
   OnInit,
   Output,
-  SimpleChanges
+  SimpleChanges,
 } from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
-import {Observable} from 'rxjs';
-import {map, takeWhile, tap} from 'rxjs/operators';
-import {LevelMoveEvent} from '../../../../../model/events/level-move-event';
-import {Level} from 'kypo-training-model';
-import {TrainingDefinition} from 'kypo-training-model';
-import {LevelEditService} from '../../../../../services/training-definition/edit/level-edit.service';
-import {KypoBaseComponent} from 'kypo-common';
-import {LevelOverviewControls} from '../../../../../model/adapters/controls/definition/level-overview-controls';
-import {KypoControlItem} from 'kypo-controls';
-import {LevelStepperAdapter} from '../../../../../model/adapters/stepper/level-stepper-adapter';
+import { MatDialog } from '@angular/material/dialog';
+import { KypoBaseComponent } from 'kypo-common';
+import { KypoControlItem } from 'kypo-controls';
+import { TrainingDefinition } from 'kypo-training-model';
+import { Level } from 'kypo-training-model';
+import { Observable } from 'rxjs';
+import { map, takeWhile, tap } from 'rxjs/operators';
+import { LevelOverviewControls } from '../../../../../model/adapters/controls/definition/level-overview-controls';
+import { LevelStepperAdapter } from '../../../../../model/adapters/stepper/level-stepper-adapter';
+import { LevelMoveEvent } from '../../../../../model/events/level-move-event';
+import { LevelEditService } from '../../../../../services/training-definition/edit/level-edit.service';
 
 /**
  * Smart component for level stepper and level edit components
@@ -27,10 +27,9 @@ import {LevelStepperAdapter} from '../../../../../model/adapters/stepper/level-s
   selector: 'kypo-level-overview',
   templateUrl: './level-overview.component.html',
   styleUrls: ['./level-overview.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LevelOverviewComponent extends KypoBaseComponent implements OnInit, OnChanges {
-
   @Output() unsavedLevels: EventEmitter<Level[]> = new EventEmitter();
   @Output() levelsCount: EventEmitter<number> = new EventEmitter();
   @Input() trainingDefinition: TrainingDefinition;
@@ -40,23 +39,20 @@ export class LevelOverviewComponent extends KypoBaseComponent implements OnInit,
   controls: KypoControlItem[];
   levelMovingInProgress: boolean;
 
-  constructor(private dialog: MatDialog,
-              private levelService: LevelEditService) {
+  constructor(private dialog: MatDialog, private levelService: LevelEditService) {
     super();
   }
 
   ngOnInit() {
     this.activeStep$ = this.levelService.activeStep$;
-    this.stepperLevels = this.levelService.levels$
-      .pipe(
-        map(levels => levels.map(level => new LevelStepperAdapter(level))),
-        tap(_ => this.levelsCount.emit(this.levelService.getLevelsCount())),
-      );
+    this.stepperLevels = this.levelService.levels$.pipe(
+      map((levels) => levels.map((level) => new LevelStepperAdapter(level))),
+      tap((_) => this.levelsCount.emit(this.levelService.getLevelsCount()))
+    );
 
     this.levelService.unsavedLevels$
-      .pipe(
-        takeWhile(_ => this.isAlive),
-      ).subscribe(unsavedLevels => this.unsavedLevels.emit(unsavedLevels));
+      .pipe(takeWhile((_) => this.isAlive))
+      .subscribe((unsavedLevels) => this.unsavedLevels.emit(unsavedLevels));
     this.initControl();
   }
 
@@ -75,12 +71,8 @@ export class LevelOverviewComponent extends KypoBaseComponent implements OnInit,
   }
 
   onControlAction(control: KypoControlItem) {
-    control.result$
-      .pipe(
-        takeWhile(_ => this.isAlive)
-      ).subscribe();
+    control.result$.pipe(takeWhile((_) => this.isAlive)).subscribe();
   }
-
 
   /**
    * Call service to move level from original position to a new one
@@ -88,14 +80,14 @@ export class LevelOverviewComponent extends KypoBaseComponent implements OnInit,
    */
   onLevelMoved(event: LevelMoveEvent) {
     this.levelMovingInProgress = true;
-    this.levelService.move(event.stepperStateChange.previousIndex, event.stepperStateChange.currentIndex)
-      .pipe(
-        takeWhile(_ => this.isAlive)
-      ).subscribe(
-        _ => {
+    this.levelService
+      .move(event.stepperStateChange.previousIndex, event.stepperStateChange.currentIndex)
+      .pipe(takeWhile((_) => this.isAlive))
+      .subscribe(
+        (_) => {
           this.levelMovingInProgress = false;
         },
-        _ => this.levelMovingInProgress = false
+        (_) => (this.levelMovingInProgress = false)
       );
   }
 
@@ -108,14 +100,9 @@ export class LevelOverviewComponent extends KypoBaseComponent implements OnInit,
   }
 
   private initControl() {
-    const saveDisabled$ = this.levelService.activeLevelCanBeSaved$
-      .pipe(
-        map(canBeSaved => !canBeSaved)
-      );
+    const saveDisabled$ = this.levelService.activeLevelCanBeSaved$.pipe(map((canBeSaved) => !canBeSaved));
 
-    const deleteDisabled$ = this.levelService.levels$.pipe(
-      map(levels => levels.length <= 0)
-    );
+    const deleteDisabled$ = this.levelService.levels$.pipe(map((levels) => levels.length <= 0));
     this.controls = LevelOverviewControls.create(this.levelService, saveDisabled$, deleteDisabled$);
   }
 }

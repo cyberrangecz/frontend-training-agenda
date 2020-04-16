@@ -1,7 +1,7 @@
-import {BehaviorSubject, Observable, ReplaySubject} from 'rxjs';
-import {TrainingInstanceChangeEvent} from '../../../model/events/training-instance-change-event';
-import {TrainingInstance} from 'kypo-training-model';
-import {filter} from 'rxjs/operators';
+import { TrainingInstance } from 'kypo-training-model';
+import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
+import { filter } from 'rxjs/operators';
+import { TrainingInstanceChangeEvent } from '../../../model/events/training-instance-change-event';
 
 /**
  * Layer between component and API service. Implement concrete service by extending this class.
@@ -9,14 +9,14 @@ import {filter} from 'rxjs/operators';
  * Subscribe to trainingInstance$ to receive latest data updates.
  */
 export abstract class TrainingInstanceEditService {
-
   protected trainingInstanceSubject$: ReplaySubject<TrainingInstance> = new ReplaySubject();
 
   /**
    * Currently edited training instance
    */
-  trainingInstance$: Observable<TrainingInstance> = this.trainingInstanceSubject$.asObservable()
-    .pipe(filter(ti => ti !== undefined && ti !== null));
+  trainingInstance$: Observable<TrainingInstance> = this.trainingInstanceSubject$
+    .asObservable()
+    .pipe(filter((ti) => ti !== undefined && ti !== null));
 
   protected editModeSubject$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 

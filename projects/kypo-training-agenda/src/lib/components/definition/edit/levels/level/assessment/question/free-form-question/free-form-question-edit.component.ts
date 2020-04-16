@@ -6,22 +6,22 @@ import {
   OnChanges,
   OnInit,
   Output,
-  SimpleChanges
+  SimpleChanges,
 } from '@angular/core';
-import {FormArray, FormControl} from '@angular/forms';
-import {takeWhile} from 'rxjs/operators';
-import {Question} from 'kypo-training-model';
-import {FreeFormQuestion} from 'kypo-training-model';
-import {KypoBaseComponent} from 'kypo-common';
-import {FreeFormQuestionFormGroup} from './free-form-question-form-group';
+import { FormArray, FormControl } from '@angular/forms';
+import { KypoBaseComponent } from 'kypo-common';
 import { KypoValidators } from 'kypo-common';
-import {FreeFormItemsChangeEvent} from '../../../../../../../../model/adapters/other/free-form-items-change-event';
+import { Question } from 'kypo-training-model';
+import { FreeFormQuestion } from 'kypo-training-model';
+import { takeWhile } from 'rxjs/operators';
+import { FreeFormItemsChangeEvent } from '../../../../../../../../model/adapters/other/free-form-items-change-event';
+import { FreeFormQuestionFormGroup } from './free-form-question-form-group';
 
 @Component({
   selector: 'kypo-free-form-question-edit',
   templateUrl: './free-form-question-edit.component.html',
   styleUrls: ['./free-form-question-edit.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 /**
  * Component for editing a question of type Free Form
@@ -58,9 +58,8 @@ export class FreeFormQuestionEditComponent extends KypoBaseComponent implements 
         this.freeFormQuestionFormGroup = new FreeFormQuestionFormGroup(this.question);
         this.checkState();
         this.freeFormQuestionFormGroup.formGroup.valueChanges
-          .pipe(
-            takeWhile(_ => this.isAlive),
-          ).subscribe(_ => this.questionChanged());
+          .pipe(takeWhile((_) => this.isAlive))
+          .subscribe((_) => this.questionChanged());
       }
     }
     if ('isTest' in changes && !changes.isTest.isFirstChange()) {
@@ -99,7 +98,7 @@ export class FreeFormQuestionEditComponent extends KypoBaseComponent implements 
       this.answers.clear();
       this.answers.setValue(this.answers.value);
     } else {
-     this.answers.at(event.index).setValue(event.items[event.index]);
+      this.answers.at(event.index).setValue(event.items[event.index]);
     }
   }
 

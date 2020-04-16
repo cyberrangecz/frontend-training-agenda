@@ -1,22 +1,22 @@
-import {Injectable} from '@angular/core';
-import {EMPTY, merge, Observable, Subject, timer} from 'rxjs';
-import {KypoPaginatedResource} from 'kypo-common';
-import {TrainingRunApi} from 'kypo-training-api';
-import {TrainingInstanceApi} from 'kypo-training-api';
-import {KypoRequestedPagination} from 'kypo-common';
-import {retryWhen, switchMap, tap} from 'rxjs/operators';
-import {TrainingInstance} from 'kypo-training-model';
-import {ArchivedTrainingRunService} from './archived-training-run.service';
+import { Injectable } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import {
   CsirtMuConfirmationDialogComponent,
   CsirtMuConfirmationDialogConfig,
-  CsirtMuDialogResultEnum
+  CsirtMuDialogResultEnum,
 } from 'csirt-mu-common';
-import {MatDialog} from '@angular/material/dialog';
-import {TrainingRun} from 'kypo-training-model';
-import {TrainingNotificationService} from '../../client/training-notification.service';
-import {TrainingErrorHandler} from '../../client/training-error.handler';
-import {TrainingAgendaContext} from '../../internal/training-agenda-context.service';
+import { KypoPaginatedResource } from 'kypo-common';
+import { KypoRequestedPagination } from 'kypo-common';
+import { TrainingRunApi } from 'kypo-training-api';
+import { TrainingInstanceApi } from 'kypo-training-api';
+import { TrainingInstance } from 'kypo-training-model';
+import { TrainingRun } from 'kypo-training-model';
+import { EMPTY, merge, Observable, Subject, timer } from 'rxjs';
+import { retryWhen, switchMap, tap } from 'rxjs/operators';
+import { TrainingErrorHandler } from '../../client/training-error.handler';
+import { TrainingNotificationService } from '../../client/training-notification.service';
+import { TrainingAgendaContext } from '../../internal/training-agenda-context.service';
+import { ArchivedTrainingRunService } from './archived-training-run.service';
 
 /**
  * Basic implementation of layer between component and API service.
@@ -24,7 +24,6 @@ import {TrainingAgendaContext} from '../../internal/training-agenda-context.serv
  */
 @Injectable()
 export class ArchivedTrainingRunConcreteService extends ArchivedTrainingRunService {
-
   private lastPagination: KypoRequestedPagination;
   private retryPolling$: Subject<boolean> = new Subject();
   private trainingInstance: TrainingInstance;
@@ -61,17 +60,19 @@ export class ArchivedTrainingRunConcreteService extends ArchivedTrainingRunServi
    * @param trainingInstanceId which archived training runs should be requested
    * @param pagination requested pagination
    */
-  getAll(trainingInstanceId: number, pagination: KypoRequestedPagination): Observable<KypoPaginatedResource<TrainingRun>> {
+  getAll(
+    trainingInstanceId: number,
+    pagination: KypoRequestedPagination
+  ): Observable<KypoPaginatedResource<TrainingRun>> {
     this.onManualGetAll(pagination);
-    return this.trainingInstanceFacade.getAssociatedTrainingRuns(trainingInstanceId, pagination, false)
-      .pipe(
-        tap(
-          runs => {
-            this.resourceSubject$.next(runs);
-          },
-          err => this.onGetAllError()
-        )
-      );
+    return this.trainingInstanceFacade.getAssociatedTrainingRuns(trainingInstanceId, pagination, false).pipe(
+      tap(
+        (runs) => {
+          this.resourceSubject$.next(runs);
+        },
+        (err) => this.onGetAllError()
+      )
+    );
   }
 
   /**
@@ -80,12 +81,9 @@ export class ArchivedTrainingRunConcreteService extends ArchivedTrainingRunServi
    * @param id of archived training run to delete
    */
   delete(id: number): Observable<KypoPaginatedResource<TrainingRun>> {
-    return this.displayDialogToDelete()
-      .pipe(
-        switchMap(result => result === CsirtMuDialogResultEnum.CONFIRMED
-        ? this.callApiToDelete(id)
-        : EMPTY)
-      );
+    return this.displayDialogToDelete().pipe(
+      switchMap((result) => (result === CsirtMuDialogResultEnum.CONFIRMED ? this.callApiToDelete(id) : EMPTY))
+    );
   }
 
   /**
@@ -94,23 +92,18 @@ export class ArchivedTrainingRunConcreteService extends ArchivedTrainingRunServi
    * @param idsToDelete ids of archived training run to delete
    */
   deleteMultiple(idsToDelete: number[]): Observable<KypoPaginatedResource<TrainingRun>> {
-    return this.displayDialogToDelete(true)
-      .pipe(
-        switchMap(result => result === CsirtMuDialogResultEnum.CONFIRMED
-          ? this.callApiToDeleteMultiple(idsToDelete)
-          : EMPTY)
-      );
+    return this.displayDialogToDelete(true).pipe(
+      switchMap((result) =>
+        result === CsirtMuDialogResultEnum.CONFIRMED ? this.callApiToDeleteMultiple(idsToDelete) : EMPTY
+      )
+    );
   }
 
   protected repeatLastGetAllRequest(): Observable<KypoPaginatedResource<TrainingRun>> {
     this.hasErrorSubject$.next(false);
     return this.trainingInstanceFacade
-      .getAssociatedTrainingRuns(
-        this.trainingInstance.id,
-        this.lastPagination,
-        false
-      )
-      .pipe(tap({ error: err => this.onGetAllError() }));
+      .getAssociatedTrainingRuns(this.trainingInstance.id, this.lastPagination, false)
+      .pipe(tap({ error: (err) => this.onGetAllError() }));
   }
 
   private onGetAllError() {
@@ -118,11 +111,10 @@ export class ArchivedTrainingRunConcreteService extends ArchivedTrainingRunServi
   }
 
   protected createPoll(): Observable<KypoPaginatedResource<TrainingRun>> {
-    return timer(0, this.context.config.pollingPeriod)
-      .pipe(
-        switchMap( _ => this.repeatLastGetAllRequest()),
-        retryWhen(_ => this.retryPolling$)
-      );
+    return timer(0, this.context.config.pollingPeriod).pipe(
+      switchMap((_) => this.repeatLastGetAllRequest()),
+      retryWhen((_) => this.retryPolling$)
+    );
   }
 
   protected onManualGetAll(pagination: KypoRequestedPagination) {
@@ -140,12 +132,7 @@ export class ArchivedTrainingRunConcreteService extends ArchivedTrainingRunServi
       : 'Do you want to delete selected training runs?';
 
     const dialogRef = this.dialog.open(CsirtMuConfirmationDialogComponent, {
-      data: new CsirtMuConfirmationDialogConfig(
-        title,
-        message,
-        'Cancel',
-        'Delete'
-      )
+      data: new CsirtMuConfirmationDialogConfig(title, message, 'Cancel', 'Delete'),
     });
     return dialogRef.afterClosed();
   }
@@ -153,20 +140,18 @@ export class ArchivedTrainingRunConcreteService extends ArchivedTrainingRunServi
   private callApiToDelete(id: number): Observable<KypoPaginatedResource<TrainingRun>> {
     return this.trainingRunFacade.delete(id).pipe(
       tap({
-        error: err => this.errorHandler.emit(err, 'Deleting training run')
+        error: (err) => this.errorHandler.emit(err, 'Deleting training run'),
       }),
       switchMap(() => this.getAll(this.trainingInstance.id, this.lastPagination))
     );
   }
 
   private callApiToDeleteMultiple(idsToDelete: number[]): Observable<KypoPaginatedResource<TrainingRun>> {
-    return this.trainingRunFacade.deleteMultiple(idsToDelete)
-      .pipe(
-        tap({
-          error: err => this.errorHandler.emit(err, 'Deleting training runs')
-        }),
-        switchMap(() => this.getAll(this.trainingInstance.id, this.lastPagination))
-      );
+    return this.trainingRunFacade.deleteMultiple(idsToDelete).pipe(
+      tap({
+        error: (err) => this.errorHandler.emit(err, 'Deleting training runs'),
+      }),
+      switchMap(() => this.getAll(this.trainingInstance.id, this.lastPagination))
+    );
   }
-
 }

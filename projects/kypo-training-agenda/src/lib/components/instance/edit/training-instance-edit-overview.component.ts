@@ -1,15 +1,15 @@
-import {ChangeDetectionStrategy, Component, HostListener, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Observable} from 'rxjs';
-import {map, take, takeWhile, tap} from 'rxjs/operators';
-import {TrainingInstanceChangeEvent} from '../../../model/events/training-instance-change-event';
-import {TrainingInstance} from 'kypo-training-model';
-import {TrainingInstanceEditService} from '../../../services/training-instance/edit/training-instance-edit.service';
-import {KypoBaseComponent} from 'kypo-common';
-import {TrainingInstanceEditControls} from '../../../model/adapters/controls/instance/training-instance-edit-controls';
-import {KypoControlItem} from 'kypo-controls';
-import {TrainingAgendaContext} from '../../../services/internal/training-agenda-context.service';
-import {TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME} from '../../../model/client/activated-route-data-attributes';
+import { ChangeDetectionStrategy, Component, HostListener, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { KypoBaseComponent } from 'kypo-common';
+import { KypoControlItem } from 'kypo-controls';
+import { TrainingInstance } from 'kypo-training-model';
+import { Observable } from 'rxjs';
+import { map, take, takeWhile, tap } from 'rxjs/operators';
+import { TrainingInstanceEditControls } from '../../../model/adapters/controls/instance/training-instance-edit-controls';
+import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME } from '../../../model/client/activated-route-data-attributes';
+import { TrainingInstanceChangeEvent } from '../../../model/events/training-instance-change-event';
+import { TrainingAgendaContext } from '../../../services/internal/training-agenda-context.service';
+import { TrainingInstanceEditService } from '../../../services/training-instance/edit/training-instance-edit.service';
 
 /**
  * Main component of training instance edit/create page. Serves mainly as a smart component wrapper
@@ -18,10 +18,9 @@ import {TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME} from '../../../model/client/activ
   selector: 'kypo-training-instance-edit-overview',
   templateUrl: './training-instance-edit-overview.component.html',
   styleUrls: ['./training-instance-edit-overview.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TrainingInstanceEditOverviewComponent extends KypoBaseComponent implements OnInit {
-
   trainingInstance$: Observable<TrainingInstance>;
   editMode$: Observable<boolean>;
   tiTitle$: Observable<string>;
@@ -31,26 +30,32 @@ export class TrainingInstanceEditOverviewComponent extends KypoBaseComponent imp
   defaultPaginationSize: number;
   controls: KypoControlItem[];
 
-  constructor(private router: Router,
-              private activeRoute: ActivatedRoute,
-              private context: TrainingAgendaContext,
-              private editService: TrainingInstanceEditService) {
+  constructor(
+    private router: Router,
+    private activeRoute: ActivatedRoute,
+    private context: TrainingAgendaContext,
+    private editService: TrainingInstanceEditService
+  ) {
     super();
     this.defaultPaginationSize = this.context.config.defaultPaginationSize;
     this.trainingInstance$ = this.editService.trainingInstance$;
-    this.tiTitle$ = this.editService.trainingInstance$.pipe(map(ti => ti.title));
+    this.tiTitle$ = this.editService.trainingInstance$.pipe(map((ti) => ti.title));
     this.activeRoute.data
-      .pipe(
-        takeWhile(_ => this.isAlive)
-      ).subscribe(data => this.editService.set(data[TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME]));
-    this.editMode$ = this.editService.editMode$
-      .pipe(
-        tap(isEditMode => this.controls = TrainingInstanceEditControls.create(this.editService, isEditMode, this.editService.saveDisabled$))
-      );
+      .pipe(takeWhile((_) => this.isAlive))
+      .subscribe((data) => this.editService.set(data[TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME]));
+    this.editMode$ = this.editService.editMode$.pipe(
+      tap(
+        (isEditMode) =>
+          (this.controls = TrainingInstanceEditControls.create(
+            this.editService,
+            isEditMode,
+            this.editService.saveDisabled$
+          ))
+      )
+    );
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   /**
    * Shows dialog asking the user if he really wants to leave the page after refresh or navigating to another page
@@ -62,10 +67,7 @@ export class TrainingInstanceEditOverviewComponent extends KypoBaseComponent imp
 
   onControlsAction(control: KypoControlItem) {
     this.canDeactivateTIEdit = true;
-    control.result$
-      .pipe(
-        take( 1)
-      ).subscribe();
+    control.result$.pipe(take(1)).subscribe();
   }
 
   /**

@@ -1,8 +1,8 @@
-import {Observable} from 'rxjs';
-import {KypoRequestedPagination} from 'kypo-common';
-import {AccessedTrainingRun} from 'kypo-training-model';
-import {KypoPaginatedResource} from 'kypo-common';
-import {KypoPaginatedResourceService} from 'kypo-common';
+import { KypoRequestedPagination } from 'kypo-common';
+import { KypoPaginatedResource } from 'kypo-common';
+import { KypoPaginatedResourceService } from 'kypo-common';
+import { AccessedTrainingRun } from 'kypo-training-model';
+import { Observable } from 'rxjs';
 
 /**
  * Layer between component and API service. Implement concrete service by extending this class.
@@ -10,7 +10,6 @@ import {KypoPaginatedResourceService} from 'kypo-common';
  * You can use get methods to get paginated resources and other actions to modify data.
  */
 export abstract class AccessedTrainingRunService extends KypoPaginatedResourceService<AccessedTrainingRun> {
-
   /**
    * Requests paginated data
    * @param pagination requested pagination info

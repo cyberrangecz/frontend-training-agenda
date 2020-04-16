@@ -6,25 +6,24 @@ import {
   OnChanges,
   OnInit,
   Output,
-  SimpleChanges
+  SimpleChanges,
 } from '@angular/core';
-import {Validators} from '@angular/forms';
-import {takeWhile} from 'rxjs/operators';
-import {Hint} from 'kypo-training-model';
-import {KypoBaseComponent} from 'kypo-common';
-import {HintEditFormGroup} from './hint-edit-form-group';
+import { Validators } from '@angular/forms';
+import { KypoBaseComponent } from 'kypo-common';
+import { Hint } from 'kypo-training-model';
+import { takeWhile } from 'rxjs/operators';
+import { HintEditFormGroup } from './hint-edit-form-group';
 
 @Component({
   selector: 'kypo-hint-edit',
   templateUrl: './hint-detail-edit.component.html',
   styleUrls: ['./hint-detail-edit.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 /**
  * Component to edit new or existing game level hint
  */
 export class HintDetailEditComponent extends KypoBaseComponent implements OnInit, OnChanges {
-
   @Input() hint: Hint;
   @Input() levelMaxScore: number;
   @Input() hintsPenaltySum: number;
@@ -72,14 +71,12 @@ export class HintDetailEditComponent extends KypoBaseComponent implements OnInit
 
   private subscribeFormChanges() {
     this.hintConfigurationFormGroup.formGroup.valueChanges
-      .pipe(
-        takeWhile(_ => this.isAlive)
-      ).subscribe(_ => this.onHintChanged());
+      .pipe(takeWhile((_) => this.isAlive))
+      .subscribe((_) => this.onHintChanged());
   }
 
   private calculateMaxPenalty() {
     this.maxHintPenalty = this.levelMaxScore - (this.hintsPenaltySum - this.hint.penalty);
     this.hintPenalty.setValidators([Validators.required, Validators.min(0), Validators.max(this.maxHintPenalty)]);
   }
-
 }

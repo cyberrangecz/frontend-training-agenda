@@ -5,10 +5,7 @@ export class ClientNotificationService {
    * @param message message of alert
    * @param duration optional duration of the alert
    */
-  emit(
-    type: 'error' | 'warning' | 'info' | 'success',
-    message: string,
-    duration?: number): void {
+  emit(type: 'error' | 'warning' | 'info' | 'success', message: string, duration?: number): void {
     console.log(type + ' ' + message);
   }
 }

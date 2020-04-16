@@ -1,21 +1,20 @@
-import {TrainingInstance} from 'kypo-training-model';
-import {async, fakeAsync, TestBed, tick} from '@angular/core/testing';
-import {ErrorHandlerService} from '../../shared/error-handler.service';
-import {ArchivedTrainingRunConcreteService} from './archived-training-run-concrete.service';
-import {throwError} from 'rxjs';
-import {TrainingInstanceApi} from 'kypo-training-api';
-import {TrainingRunApi} from 'kypo-training-api';
-import {skip} from 'rxjs/operators';
-import {asyncData} from 'kypo-common';
-import {KypoRequestedPagination} from 'kypo-common';
-import {KypoPaginatedResource} from 'kypo-common';
-import {KypoPagination} from 'kypo-common';
-import {environment} from '../../../../environments/environment';
-import {AlertService} from '../../shared/alert.service';
-import {MatDialog} from '@angular/material/dialog';
+import { async, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { MatDialog } from '@angular/material/dialog';
+import { KypoPagination } from 'kypo-common';
+import { KypoPaginatedResource } from 'kypo-common';
+import { KypoRequestedPagination } from 'kypo-common';
+import { asyncData } from 'kypo-common';
+import { TrainingInstanceApi } from 'kypo-training-api';
+import { TrainingRunApi } from 'kypo-training-api';
+import { TrainingInstance } from 'kypo-training-model';
+import { throwError } from 'rxjs';
+import { skip } from 'rxjs/operators';
+import { environment } from '../../../../environments/environment';
+import { AlertService } from '../../shared/alert.service';
+import { ErrorHandlerService } from '../../shared/error-handler.service';
+import { ArchivedTrainingRunConcreteService } from './archived-training-run-concrete.service';
 
 describe('ArchivedTrainingRunConcreteService', () => {
-
   let errorHandlerSpy: jasmine.SpyObj<ErrorHandlerService>;
   let trainingInstanceFacadeSpy: jasmine.SpyObj<TrainingInstanceApi>;
   let trainingRunFacadeSpy: jasmine.SpyObj<TrainingRunApi>;
@@ -33,13 +32,13 @@ describe('ArchivedTrainingRunConcreteService', () => {
     TestBed.configureTestingModule({
       providers: [
         ArchivedTrainingRunConcreteService,
-        {provide: MatDialog, useValue: dialogSpy},
+        { provide: MatDialog, useValue: dialogSpy },
 
         { provide: TrainingInstanceApi, useValue: trainingInstanceFacadeSpy },
         { provide: ErrorHandlerService, useValue: errorHandlerSpy },
         { provide: AlertService, useValue: alertHandlerSpy },
-        { provide: TrainingRunApi, useValue: trainingRunFacadeSpy }
-      ]
+        { provide: TrainingRunApi, useValue: trainingRunFacadeSpy },
+      ],
     });
     service = TestBed.inject(ArchivedTrainingRunConcreteService);
   }));
@@ -48,20 +47,23 @@ describe('ArchivedTrainingRunConcreteService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should emit hasError observable on err', done => {
+  it('should emit hasError observable on err', (done) => {
     trainingInstanceFacadeSpy.getAssociatedTrainingRuns.and.returnValue(throwError(null));
 
     service.hasError$
       .pipe(
         skip(2) // we ignore initial value and value emitted before the call is made
-      ).subscribe(hasError => {
-        expect(hasError).toBeTruthy();
-        done();
-      },
-        _ => fail);
+      )
+      .subscribe(
+        (hasError) => {
+          expect(hasError).toBeTruthy();
+          done();
+        },
+        (_) => fail
+      );
     service.getAll(1, createPagination()).subscribe(
-      _ => fail,
-      _ => done()
+      (_) => fail,
+      (_) => done()
     );
   });
 
@@ -80,7 +82,8 @@ describe('ArchivedTrainingRunConcreteService', () => {
       asyncData(mockData),
       asyncData(mockData),
       asyncData(mockData),
-      throwError(null)); // throw error on fourth call
+      throwError(null)
+    ); // throw error on fourth call
     service.startPolling(new TrainingInstance());
     const subscription = service.archivedTrainingRuns$.subscribe();
     assertPoll(3);
@@ -100,7 +103,8 @@ describe('ArchivedTrainingRunConcreteService', () => {
       asyncData(mockData),
       asyncData(mockData),
       asyncData(mockData),
-      asyncData(mockData));
+      asyncData(mockData)
+    );
 
     service.startPolling(new TrainingInstance());
     const subscription = service.archivedTrainingRuns$.subscribe();

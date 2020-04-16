@@ -1,12 +1,14 @@
-import {KypoPaginatedResourceService} from 'kypo-common';
-import {Observable} from 'rxjs';
-import {KypoPaginatedResource} from 'kypo-common';
-import {TrainingInstance} from 'kypo-training-model';
-import {KypoRequestedPagination} from 'kypo-common';
+import { KypoPaginatedResourceService } from 'kypo-common';
+import { KypoPaginatedResource } from 'kypo-common';
+import { KypoRequestedPagination } from 'kypo-common';
+import { TrainingInstance } from 'kypo-training-model';
+import { Observable } from 'rxjs';
 
 export abstract class TrainingInstanceOverviewService extends KypoPaginatedResourceService<TrainingInstance> {
-
-  abstract getAll(pagination: KypoRequestedPagination, filter: string): Observable<KypoPaginatedResource<TrainingInstance>>;
+  abstract getAll(
+    pagination: KypoRequestedPagination,
+    filter: string
+  ): Observable<KypoPaginatedResource<TrainingInstance>>;
 
   abstract create(): Observable<any>;
 

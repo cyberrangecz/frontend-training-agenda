@@ -1,29 +1,35 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import {KypoControlItem} from 'kypo-controls';
-import {map, take, takeWhile, tap} from 'rxjs/operators';
-import {Pool} from 'kypo-sandbox-model';
-import {Observable} from 'rxjs';
-import {TrainingInstance} from 'kypo-training-model';
-import {PoolAssignService} from '../../../../services/training-instance/pool-assign/pool-assign.service';
-import {PoolAssignControls} from '../../../../model/adapters/controls/instance/pool-assign-controls';
-import {PoolAssignConcreteService} from '../../../../services/training-instance/pool-assign/pool-assign-concrete.service';
-import {KypoBaseComponent, KypoPaginatedResource, KypoRequestedPagination} from 'kypo-common';
-import {KypoListResourceMapping} from 'kypo-list';
-import {SandboxPoolListAdapter} from '../../../../model/adapters/list/sandbox-pool-list-adapter';
-import {TrainingNavigator} from '../../../../services/client/training-navigator.service';
-import {TrainingAgendaContext} from '../../../../services/internal/training-agenda-context.service';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
+import { KypoBaseComponent, KypoPaginatedResource, KypoRequestedPagination } from 'kypo-common';
+import { KypoControlItem } from 'kypo-controls';
+import { KypoListResourceMapping } from 'kypo-list';
+import { Pool } from 'kypo-sandbox-model';
+import { TrainingInstance } from 'kypo-training-model';
+import { Observable } from 'rxjs';
+import { map, take, takeWhile, tap } from 'rxjs/operators';
+import { PoolAssignControls } from '../../../../model/adapters/controls/instance/pool-assign-controls';
+import { SandboxPoolListAdapter } from '../../../../model/adapters/list/sandbox-pool-list-adapter';
+import { TrainingNavigator } from '../../../../services/client/training-navigator.service';
+import { TrainingAgendaContext } from '../../../../services/internal/training-agenda-context.service';
+import { PoolAssignConcreteService } from '../../../../services/training-instance/pool-assign/pool-assign-concrete.service';
+import { PoolAssignService } from '../../../../services/training-instance/pool-assign/pool-assign.service';
 
 @Component({
   selector: 'kypo-pool-assign',
   templateUrl: './pool-assign.component.html',
   styleUrls: ['./pool-assign.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    { provide: PoolAssignService, useClass: PoolAssignConcreteService }
-  ]
+  providers: [{ provide: PoolAssignService, useClass: PoolAssignConcreteService }],
 })
 export class PoolAssignComponent extends KypoBaseComponent implements OnInit, OnChanges {
-
   readonly PAGE_SIZE: number;
 
   @Input() trainingInstance: TrainingInstance;
@@ -35,13 +41,15 @@ export class PoolAssignComponent extends KypoBaseComponent implements OnInit, On
   selected$: Observable<SandboxPoolListAdapter>;
 
   controls: KypoControlItem[];
-  resourceMapping: KypoListResourceMapping = {id: 'id', title: 'title'};
+  resourceMapping: KypoListResourceMapping = { id: 'id', title: 'title' };
   poolDetailRoute: string;
   hasPool$: Observable<boolean>;
 
-  constructor(private assignService: PoolAssignService,
-              private context: TrainingAgendaContext,
-              private navigator: TrainingNavigator) {
+  constructor(
+    private assignService: PoolAssignService,
+    private context: TrainingAgendaContext,
+    private navigator: TrainingNavigator
+  ) {
     super();
     this.PAGE_SIZE = this.context.config.defaultPaginationSize;
   }
@@ -49,12 +57,11 @@ export class PoolAssignComponent extends KypoBaseComponent implements OnInit, On
   ngOnInit(): void {
     this.initList();
     this.initControls();
-    this.hasPool$ = this.assignService.assignedPool$
-      .pipe(
-        takeWhile(_ => this.isAlive),
-        tap(poolId => this.onPoolChanged(poolId)),
-        map(poolId => poolId !== undefined && poolId !== null)
-      );
+    this.hasPool$ = this.assignService.assignedPool$.pipe(
+      takeWhile((_) => this.isAlive),
+      tap((poolId) => this.onPoolChanged(poolId)),
+      map((poolId) => poolId !== undefined && poolId !== null)
+    );
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -66,17 +73,11 @@ export class PoolAssignComponent extends KypoBaseComponent implements OnInit, On
   }
 
   onControlsAction(controlItem: KypoControlItem) {
-    controlItem.result$
-      .pipe(
-        take(1)
-      ).subscribe();
+    controlItem.result$.pipe(take(1)).subscribe();
   }
 
   fetch(pagination: KypoRequestedPagination) {
-    this.assignService.getAll(pagination)
-      .pipe(
-        take(1)
-      ).subscribe();
+    this.assignService.getAll(pagination).pipe(take(1)).subscribe();
   }
 
   onSelectionChange(selected: SandboxPoolListAdapter) {
@@ -85,20 +86,13 @@ export class PoolAssignComponent extends KypoBaseComponent implements OnInit, On
 
   private initList() {
     const pagination = new KypoRequestedPagination(0, this.PAGE_SIZE, '', '');
-    this.pools$ = this.assignService.resource$
-      .pipe(
-        map(resource => this.mapToAdapter(resource))
-      );
+    this.pools$ = this.assignService.resource$.pipe(map((resource) => this.mapToAdapter(resource)));
     this.hasError$ = this.assignService.hasError$;
     this.isLoading$ = this.assignService.isLoading$;
-    this.selected$ = this.assignService.selected$
-      .pipe(
-        map(selected => selected ? new SandboxPoolListAdapter(selected) : undefined)
-      );
-    this.assignService.getAll(pagination)
-      .pipe(
-        take(1)
-      ).subscribe();
+    this.selected$ = this.assignService.selected$.pipe(
+      map((selected) => (selected ? new SandboxPoolListAdapter(selected) : undefined))
+    );
+    this.assignService.getAll(pagination).pipe(take(1)).subscribe();
   }
 
   private onPoolChanged(poolId: number) {
@@ -112,7 +106,7 @@ export class PoolAssignComponent extends KypoBaseComponent implements OnInit, On
   }
 
   private mapToAdapter(resource: KypoPaginatedResource<Pool>): KypoPaginatedResource<SandboxPoolListAdapter> {
-    const adapterElements = resource.elements.map(pool => new SandboxPoolListAdapter(pool));
-    return new KypoPaginatedResource<SandboxPoolListAdapter>(adapterElements, resource.pagination)
+    const adapterElements = resource.elements.map((pool) => new SandboxPoolListAdapter(pool));
+    return new KypoPaginatedResource<SandboxPoolListAdapter>(adapterElements, resource.pagination);
   }
 }

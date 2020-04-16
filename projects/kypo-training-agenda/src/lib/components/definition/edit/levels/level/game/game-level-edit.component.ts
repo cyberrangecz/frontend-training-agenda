@@ -6,13 +6,13 @@ import {
   OnChanges,
   OnInit,
   Output,
-  SimpleChanges
+  SimpleChanges,
 } from '@angular/core';
-import {takeWhile} from 'rxjs/operators';
-import {GameLevel} from 'kypo-training-model';
-import {Hint} from 'kypo-training-model';
-import {KypoBaseComponent} from 'kypo-common';
-import {GameLevelEditFormGroup} from './game-level-edit-form-group';
+import { KypoBaseComponent } from 'kypo-common';
+import { GameLevel } from 'kypo-training-model';
+import { Hint } from 'kypo-training-model';
+import { takeWhile } from 'rxjs/operators';
+import { GameLevelEditFormGroup } from './game-level-edit-form-group';
 
 /**
  * Component for editing new or existing game level
@@ -21,7 +21,7 @@ import {GameLevelEditFormGroup} from './game-level-edit-form-group';
   selector: 'kypo-game-level-edit',
   templateUrl: './game-level-edit.component.html',
   styleUrls: ['./game-level-edit.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GameLevelEditComponent extends KypoBaseComponent implements OnInit, OnChanges {
   @Input() level: GameLevel;
@@ -61,10 +61,7 @@ export class GameLevelEditComponent extends KypoBaseComponent implements OnInit,
   ngOnChanges(changes: SimpleChanges) {
     if ('level' in changes) {
       this.gameLevelConfigFormGroup = new GameLevelEditFormGroup(this.level);
-      this.gameLevelConfigFormGroup.formGroup.valueChanges
-        .pipe(
-          takeWhile(_ => this.isAlive)
-        ).subscribe(_ => {
+      this.gameLevelConfigFormGroup.formGroup.valueChanges.pipe(takeWhile((_) => this.isAlive)).subscribe((_) => {
         this.gameLevelConfigFormGroup.setToLevel(this.level);
         this.levelChange.emit(this.level);
       });

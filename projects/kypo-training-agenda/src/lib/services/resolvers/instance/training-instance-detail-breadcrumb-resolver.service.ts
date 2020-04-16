@@ -1,14 +1,13 @@
-import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/router';
-import {Observable} from 'rxjs';
-import {Injectable} from '@angular/core';
-import {ACCESS_TOKEN_PATH, PROGRESS_PATH, RESULTS_PATH, SUMMARY_PATH} from '../../../model/client/default-paths';
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { Observable } from 'rxjs';
+import { ACCESS_TOKEN_PATH, PROGRESS_PATH, RESULTS_PATH, SUMMARY_PATH } from '../../../model/client/default-paths';
 
 /**
  * Router breadcrumb title resolver
  */
 @Injectable()
 export class TrainingInstanceDetailBreadcrumbResolver implements Resolve<string> {
-
   /**
    * Retrieves a breadcrumb title based on provided url
    * @param route route snapshot
@@ -29,5 +28,4 @@ export class TrainingInstanceDetailBreadcrumbResolver implements Resolve<string>
     }
     return '';
   }
-
 }

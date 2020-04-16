@@ -13,6 +13,11 @@
     "build-and-pack": "npm install && npm run build-library && npm run create-package",
     "publish": "npm run build-and-pack && cd dist/kypo-training-agenda && npm publish --registry=http://kypo-storage.ics.muni.cz:8081/repository/npm-hosted"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "ng lint"
+    }
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~9.0.0",
@@ -76,6 +81,10 @@
     "karma-coverage-istanbul-reporter": "~2.1.0",
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.4.2",
+    "tslint-config-prettier": "1.18.0",
+    "tslint-plugin-prettier": "2.3.0",
+    "husky": "^4.2.5",
+    "prettier": "2.0.4",
     "ng-packagr": "^9.0.0",
     "protractor": "~5.4.3",
     "ts-node": "~8.3.0",
