@@ -1,12 +1,12 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import {FormArray, FormControl} from '@angular/forms';
-import {User} from 'kypo2-auth';
-import {takeWhile} from 'rxjs/operators';
-import {TrainingDefinitionChangeEvent} from '../../../../model/events/training-definition-change-event';
-import {TrainingDefinition} from 'kypo-training-model';
-import {KypoBaseComponent} from 'kypo-common';
-import {TrainingDefinitionEditFormGroup} from './training-definition-edit-form-group';
-import {FreeFormItemsChangeEvent} from '../../../../model/adapters/other/free-form-items-change-event';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { FormArray, FormControl } from '@angular/forms';
+import { KypoBaseComponent } from 'kypo-common';
+import { TrainingDefinition } from 'kypo-training-model';
+import { User } from 'kypo2-auth';
+import { takeWhile } from 'rxjs/operators';
+import { FreeFormItemsChangeEvent } from '../../../../model/adapters/other/free-form-items-change-event';
+import { TrainingDefinitionChangeEvent } from '../../../../model/events/training-definition-change-event';
+import { TrainingDefinitionEditFormGroup } from './training-definition-edit-form-group';
 
 /**
  * Component for creating new or editing already existing training definition
@@ -14,10 +14,9 @@ import {FreeFormItemsChangeEvent} from '../../../../model/adapters/other/free-fo
 @Component({
   selector: 'kypo-training-definition-edit',
   templateUrl: './training-definition-edit.component.html',
-  styleUrls: ['./training-definition-edit.component.css']
+  styleUrls: ['./training-definition-edit.component.css'],
 })
 export class TrainingDefinitionEditComponent extends KypoBaseComponent implements OnInit, OnChanges {
-
   @Input() trainingDefinition: TrainingDefinition;
   @Input() activeUser: User;
   @Output() edited: EventEmitter<TrainingDefinitionChangeEvent> = new EventEmitter();
@@ -29,8 +28,7 @@ export class TrainingDefinitionEditComponent extends KypoBaseComponent implement
     super();
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   get title() {
     return this.trainingDefinitionEditFormGroup.formGroup.get('title');
@@ -93,16 +91,17 @@ export class TrainingDefinitionEditComponent extends KypoBaseComponent implement
 
   private setupOnFormChangedEvent() {
     this.trainingDefinitionEditFormGroup.formGroup.valueChanges
-      .pipe(
-        takeWhile(_ => this.isAlive),
-      ).subscribe(_ => this.onChanged());
+      .pipe(takeWhile((_) => this.isAlive))
+      .subscribe((_) => this.onChanged());
   }
 
   private onChanged() {
     this.trainingDefinitionEditFormGroup.setValuesToTrainingDefinition(this.trainingDefinition);
-    this.edited.emit(new TrainingDefinitionChangeEvent(
-      this.trainingDefinition,
-      this.trainingDefinitionEditFormGroup.formGroup.valid && this.freeFormValid)
+    this.edited.emit(
+      new TrainingDefinitionChangeEvent(
+        this.trainingDefinition,
+        this.trainingDefinitionEditFormGroup.formGroup.valid && this.freeFormValid
+      )
     );
   }
 }

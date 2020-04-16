@@ -1,15 +1,13 @@
-import {StepItem, StepperItemState} from 'kypo2-stepper';
-import {Hint} from 'kypo-training-model';
+import { Hint } from 'kypo-training-model';
+import { StepItem, StepperItemState } from 'kypo2-stepper';
 
 export class HintStepperAdapter implements StepItem {
-
   private _hint: Hint;
   id: number;
   title: string;
   isActive: boolean;
   primaryIcon: string;
   state: StepperItemState;
-
 
   constructor(hint: Hint) {
     this._hint = hint;

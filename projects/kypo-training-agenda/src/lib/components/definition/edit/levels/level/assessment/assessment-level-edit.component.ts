@@ -6,13 +6,13 @@ import {
   OnChanges,
   OnInit,
   Output,
-  SimpleChanges
+  SimpleChanges,
 } from '@angular/core';
-import {takeWhile} from 'rxjs/operators';
-import {AssessmentLevel} from 'kypo-training-model';
-import {Question} from 'kypo-training-model';
-import {KypoBaseComponent} from 'kypo-common';
-import {AssessmentLevelEditFormGroup} from './assessment-level-edit-form-group';
+import { KypoBaseComponent } from 'kypo-common';
+import { AssessmentLevel } from 'kypo-training-model';
+import { Question } from 'kypo-training-model';
+import { takeWhile } from 'rxjs/operators';
+import { AssessmentLevelEditFormGroup } from './assessment-level-edit-form-group';
 
 /**
  * Component for editing new or existing assessment level
@@ -21,16 +21,14 @@ import {AssessmentLevelEditFormGroup} from './assessment-level-edit-form-group';
   selector: 'kypo-assessment-level-configuration',
   templateUrl: './assessment-level-edit.component.html',
   styleUrls: ['./assessment-level-edit.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AssessmentLevelEditComponent extends KypoBaseComponent implements OnInit, OnChanges {
-
   @Input() level: AssessmentLevel;
   @Output() levelChange: EventEmitter<AssessmentLevel> = new EventEmitter();
   assessmentFormGroup: AssessmentLevelEditFormGroup;
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   get title() {
     return this.assessmentFormGroup.formGroup.get('title');
@@ -48,10 +46,7 @@ export class AssessmentLevelEditComponent extends KypoBaseComponent implements O
   ngOnChanges(changes: SimpleChanges) {
     if ('level' in changes) {
       this.assessmentFormGroup = new AssessmentLevelEditFormGroup(this.level);
-      this.assessmentFormGroup.formGroup.valueChanges
-        .pipe(
-          takeWhile(_ => this.isAlive)
-        ).subscribe(_ => {
+      this.assessmentFormGroup.formGroup.valueChanges.pipe(takeWhile((_) => this.isAlive)).subscribe((_) => {
         this.assessmentFormGroup.setToLevel(this.level);
         this.levelChange.emit(this.level);
       });

@@ -1,10 +1,11 @@
-import {TrainingNavigator} from './training-navigator.service';
+import { TrainingNavigator } from './training-navigator.service';
 
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   ACCESS_TOKEN_PATH,
   PROGRESS_PATH,
-  RESULTS_PATH, SANDBOX_POOL_PATH,
+  RESULTS_PATH,
+  SANDBOX_POOL_PATH,
   SUMMARY_PATH,
   TRAINING_DEFINITION_EDIT_PATH,
   TRAINING_DEFINITION_NEW_PATH,
@@ -17,12 +18,11 @@ import {
   TRAINING_RUN_ACCESS_PATH,
   TRAINING_RUN_PATH,
   TRAINING_RUN_RESULTS_PATH,
-  TRAINING_RUN_RESUME_PATH
+  TRAINING_RUN_RESUME_PATH,
 } from '../../model/client/default-paths';
 
 @Injectable()
 export class TrainingDefaultNavigator extends TrainingNavigator {
-
   /**
    * Returns route to training definition overview page
    */

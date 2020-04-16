@@ -1,9 +1,8 @@
-import {Injectable} from '@angular/core';
-import {TrainingAgendaConfig} from '../../model/client/training-agenda-config';
+import { Injectable } from '@angular/core';
+import { TrainingAgendaConfig } from '../../model/client/training-agenda-config';
 
 @Injectable()
 export class TrainingAgendaContext {
-
   private readonly _config: TrainingAgendaConfig;
 
   get config(): TrainingAgendaConfig {
@@ -13,5 +12,4 @@ export class TrainingAgendaContext {
   constructor(config: TrainingAgendaConfig) {
     this._config = config;
   }
-
 }

@@ -1,16 +1,15 @@
-import {AccessedTrainingRun} from 'kypo-training-model';
-import {KypoPaginatedResource} from 'kypo-common';
-import {Column, Kypo2Table, Row, RowAction} from 'kypo2-table';
-import {defer, of} from 'rxjs';
-import {TraineeAccessTrainingRunActionEnum} from 'kypo-training-model';
-import {AccessedTrainingRunService} from '../../../../services/training-run/accessed/accessed-training-run.service';
+import { KypoPaginatedResource } from 'kypo-common';
+import { AccessedTrainingRun } from 'kypo-training-model';
+import { TraineeAccessTrainingRunActionEnum } from 'kypo-training-model';
+import { Column, Kypo2Table, Row, RowAction } from 'kypo2-table';
+import { defer, of } from 'rxjs';
+import { AccessedTrainingRunService } from '../../../../services/training-run/accessed/accessed-training-run.service';
 
 /**
  * Helper class transforming paginated resource to class for common table component
  * @dynamic
  */
 export class AccessedTrainingRunTable extends Kypo2Table<AccessedTrainingRun> {
-
   constructor(resource: KypoPaginatedResource<AccessedTrainingRun>, service: AccessedTrainingRunService) {
     const columns = [
       new Column('trainingInstanceTitle', 'title', false),
@@ -18,9 +17,9 @@ export class AccessedTrainingRunTable extends Kypo2Table<AccessedTrainingRun> {
       new Column('completedLevels', 'Completed Levels', false),
     ];
 
-    const rows = resource.elements.map(trainingRun =>
-      new Row(trainingRun, AccessedTrainingRunTable.createActions(trainingRun, service)
-      ));
+    const rows = resource.elements.map(
+      (trainingRun) => new Row(trainingRun, AccessedTrainingRunTable.createActions(trainingRun, service))
+    );
     super(rows, columns);
     this.pagination = resource.pagination;
     this.filterable = false;
@@ -46,7 +45,7 @@ export class AccessedTrainingRunTable extends Kypo2Table<AccessedTrainingRun> {
         'Access Results',
         of(trainingRun.action !== TraineeAccessTrainingRunActionEnum.Results),
         defer(() => service.results(trainingRun.trainingRunId))
-      )
+      ),
     ];
   }
 }

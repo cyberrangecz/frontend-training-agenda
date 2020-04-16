@@ -6,15 +6,15 @@ import {
   OnChanges,
   OnInit,
   Output,
-  SimpleChanges
+  SimpleChanges,
 } from '@angular/core';
-import {FormArray, FormControl, Validators} from '@angular/forms';
-import {MatCheckboxChange} from '@angular/material/checkbox';
-import {takeWhile} from 'rxjs/operators';
-import {Question} from 'kypo-training-model';
-import {MultipleChoiceQuestion} from 'kypo-training-model';
-import {KypoBaseComponent} from 'kypo-common';
-import {MultipleChoiceFormGroup} from './multiple-choice-question-edit-form-group';
+import { FormArray, FormControl, Validators } from '@angular/forms';
+import { MatCheckboxChange } from '@angular/material/checkbox';
+import { KypoBaseComponent } from 'kypo-common';
+import { Question } from 'kypo-training-model';
+import { MultipleChoiceQuestion } from 'kypo-training-model';
+import { takeWhile } from 'rxjs/operators';
+import { MultipleChoiceFormGroup } from './multiple-choice-question-edit-form-group';
 
 /**
  * Component for editing a question of type Multiple Choice Question
@@ -23,10 +23,9 @@ import {MultipleChoiceFormGroup} from './multiple-choice-question-edit-form-grou
   selector: 'kypo-multiple-choice-question-edit',
   templateUrl: './multiple-choice-question-edit.component.html',
   styleUrls: ['./multiple-choice-question-edit.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MultipleChoiceQuestionEditComponent extends KypoBaseComponent
-  implements OnInit, OnChanges {
+export class MultipleChoiceQuestionEditComponent extends KypoBaseComponent implements OnInit, OnChanges {
   @Input() question: MultipleChoiceQuestion;
   @Input() isTest: boolean;
   @Input() required: boolean;
@@ -63,9 +62,8 @@ export class MultipleChoiceQuestionEditComponent extends KypoBaseComponent
       this.multipleChoicesFormGroup = new MultipleChoiceFormGroup(this.question);
       this.checkState();
       this.multipleChoicesFormGroup.formGroup.valueChanges
-        .pipe(
-          takeWhile(_ => this.isAlive)
-        ).subscribe(_ => this.questionChanged());
+        .pipe(takeWhile((_) => this.isAlive))
+        .subscribe((_) => this.questionChanged());
     }
     if ('isTest' in changes && !changes.isTest.isFirstChange()) {
       this.checkState();

@@ -6,13 +6,13 @@ import {
   OnChanges,
   OnInit,
   Output,
-  SimpleChanges
+  SimpleChanges,
 } from '@angular/core';
-import {FormArray, FormControl} from '@angular/forms';
-import {KypoBaseComponent} from 'kypo-common';
+import { FormArray, FormControl } from '@angular/forms';
+import { KypoBaseComponent } from 'kypo-common';
 import { KypoValidators } from 'kypo-common';
-import {FreeFormItemsChangeEvent} from '../../../model/adapters/other/free-form-items-change-event';
-import {FreeFormItemFormGroup} from '../../../model/adapters/other/free-form-item-form-group';
+import { FreeFormItemFormGroup } from '../../../model/adapters/other/free-form-item-form-group';
+import { FreeFormItemsChangeEvent } from '../../../model/adapters/other/free-form-items-change-event';
 
 /**
  * Component coupling multiple form inputs with possibility to add more inputs and remove already existing.
@@ -22,10 +22,9 @@ import {FreeFormItemFormGroup} from '../../../model/adapters/other/free-form-ite
   selector: 'kypo-free-form',
   templateUrl: './free-form.component.html',
   styleUrls: ['./free-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FreeFormComponent extends KypoBaseComponent implements OnInit, OnChanges {
-
   @Input() formName: string;
   @Input() formPlaceholder: string;
   @Input() formData: string[];
@@ -43,7 +42,9 @@ export class FreeFormComponent extends KypoBaseComponent implements OnInit, OnCh
     return this.freeFormItemFormGroup.formGroup.get('items') as FormArray;
   }
 
-  constructor() { super(); }
+  constructor() {
+    super();
+  }
 
   ngOnInit() {
     this.initForm();
@@ -52,7 +53,7 @@ export class FreeFormComponent extends KypoBaseComponent implements OnInit, OnCh
   ngOnChanges(changes: SimpleChanges) {
     if ('formData' in changes) {
       if (this.freeFormItemFormGroup) {
-        this.freeFormItemFormGroup.formGroup.patchValue({items: this.formData});
+        this.freeFormItemFormGroup.formGroup.patchValue({ items: this.formData });
       } else {
         this.freeFormItemFormGroup = new FreeFormItemFormGroup(this.formData, this.required);
       }
@@ -86,7 +87,7 @@ export class FreeFormComponent extends KypoBaseComponent implements OnInit, OnCh
       items: this.items.value,
       index: this.items.length,
       isAdded: true,
-      validity: this.freeFormItemFormGroup.formGroup.valid
+      validity: this.freeFormItemFormGroup.formGroup.valid,
     });
   }
 
@@ -96,7 +97,12 @@ export class FreeFormComponent extends KypoBaseComponent implements OnInit, OnCh
    */
   removeItem(index: number) {
     this.items.removeAt(index);
-    this.itemsChange.emit({items: this.items.value, index, isDeleted: true, validity: this.freeFormItemFormGroup.formGroup.valid});
+    this.itemsChange.emit({
+      items: this.items.value,
+      index,
+      isDeleted: true,
+      validity: this.freeFormItemFormGroup.formGroup.valid,
+    });
   }
 
   /**
@@ -105,12 +111,12 @@ export class FreeFormComponent extends KypoBaseComponent implements OnInit, OnCh
   clear() {
     this.items.clear();
     this.freeFormItemFormGroup.formGroup.updateValueAndValidity();
-    this.itemsChange.emit({cleared: true, validity: this.freeFormItemFormGroup.formGroup.valid});
+    this.itemsChange.emit({ cleared: true, validity: this.freeFormItemFormGroup.formGroup.valid });
   }
 
   onChanged(index: number) {
     this.freeFormItemFormGroup.formGroup.updateValueAndValidity();
     this.freeFormItemFormGroup.formGroup.markAsDirty();
-    this.itemsChange.emit({items: this.items.value, index, validity: this.freeFormItemFormGroup.formGroup.valid});
+    this.itemsChange.emit({ items: this.items.value, index, validity: this.freeFormItemFormGroup.formGroup.valid });
   }
 }

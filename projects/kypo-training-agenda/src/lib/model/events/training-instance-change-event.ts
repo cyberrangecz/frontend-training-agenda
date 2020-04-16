@@ -1,4 +1,4 @@
-import {TrainingInstance} from 'kypo-training-model';
+import { TrainingInstance } from 'kypo-training-model';
 
 /**
  * Event representing training instance change (edit)

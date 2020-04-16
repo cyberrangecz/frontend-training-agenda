@@ -1,7 +1,7 @@
-import {ChangeDetectionStrategy, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
-import {KypoBaseComponent} from 'kypo-common';
-import {TraineeAccessTrainingFormGroup} from './trainee-access-training-form-group';
-import {MatButton} from '@angular/material/button';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { MatButton } from '@angular/material/button';
+import { KypoBaseComponent } from 'kypo-common';
+import { TraineeAccessTrainingFormGroup } from './trainee-access-training-form-group';
 
 /**
  * Component for trainee access to training run by inserting token
@@ -10,10 +10,9 @@ import {MatButton} from '@angular/material/button';
   selector: 'kypo-access-training-run',
   templateUrl: './access-training-run.component.html',
   styleUrls: ['./access-training-run.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AccessTrainingRunComponent extends KypoBaseComponent implements OnInit {
-
   @ViewChild('pin') accessTokenPinInput: ElementRef;
   @ViewChild('accessButton') accessButton: MatButton;
 
@@ -25,8 +24,12 @@ export class AccessTrainingRunComponent extends KypoBaseComponent implements OnI
     this.traineeAccessTrainingFormGroup = new TraineeAccessTrainingFormGroup();
   }
 
-  get accessTokenPrefix() {return this.traineeAccessTrainingFormGroup.formGroup.get('accessTokenPrefix'); }
-  get accessTokenPin() {return this.traineeAccessTrainingFormGroup.formGroup.get('accessTokenPin'); }
+  get accessTokenPrefix() {
+    return this.traineeAccessTrainingFormGroup.formGroup.get('accessTokenPrefix');
+  }
+  get accessTokenPin() {
+    return this.traineeAccessTrainingFormGroup.formGroup.get('accessTokenPin');
+  }
 
   /**
    * Emits event to access with inserted access token
@@ -65,5 +68,4 @@ export class AccessTrainingRunComponent extends KypoBaseComponent implements OnI
       this.accessTokenPrefix.setValue(this.accessTokenPrefix.value.slice(0, -1));
     }
   }
-
 }

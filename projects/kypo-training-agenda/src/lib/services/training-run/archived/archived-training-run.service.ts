@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {KypoPaginatedResource} from 'kypo-common';
-import {KypoRequestedPagination} from 'kypo-common';
-import {KypoPaginatedResourceService} from 'kypo-common';
-import {TrainingInstance} from 'kypo-training-model';
-import {TrainingRun} from 'kypo-training-model';
+import { Injectable } from '@angular/core';
+import { KypoPaginatedResource } from 'kypo-common';
+import { KypoRequestedPagination } from 'kypo-common';
+import { KypoPaginatedResourceService } from 'kypo-common';
+import { TrainingInstance } from 'kypo-training-model';
+import { TrainingRun } from 'kypo-training-model';
+import { Observable } from 'rxjs';
 
 /**
  * Layer between component and API service. Implement concrete service by extending this class.
@@ -14,7 +14,6 @@ import {TrainingRun} from 'kypo-training-model';
  */
 @Injectable()
 export abstract class ArchivedTrainingRunService extends KypoPaginatedResourceService<TrainingRun> {
-
   /**
    * @contract must be updated every time new data are received
    */
@@ -30,7 +29,10 @@ export abstract class ArchivedTrainingRunService extends KypoPaginatedResourceSe
    * @param trainingInstanceId id of associated training instance
    * @param pagination requested pagination
    */
-  abstract getAll(trainingInstanceId: number, pagination?: KypoRequestedPagination): Observable<KypoPaginatedResource<TrainingRun>>;
+  abstract getAll(
+    trainingInstanceId: number,
+    pagination?: KypoRequestedPagination
+  ): Observable<KypoPaginatedResource<TrainingRun>>;
 
   /**
    * Deletes archived training run
@@ -43,5 +45,4 @@ export abstract class ArchivedTrainingRunService extends KypoPaginatedResourceSe
    * @param idsToDelete ids of archived training runs
    */
   abstract deleteMultiple(idsToDelete: number[]): Observable<any>;
-
 }

@@ -1,29 +1,27 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Question} from 'kypo-training-model';
-import {ExtendedMatchingItems} from 'kypo-training-model';
-import {KypoBaseComponent} from 'kypo-common';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { KypoBaseComponent } from 'kypo-common';
+import { Question } from 'kypo-training-model';
+import { ExtendedMatchingItems } from 'kypo-training-model';
 
 @Component({
   selector: 'kypo-trainee-extended-matching-items',
   templateUrl: './extended-matching-items-trainee.component.html',
   styleUrls: ['./extended-matching-items-trainee.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 /**
  * Component displaying EMI type of question in the assessment level of a trainees training run.
  * If assessment is type of test or question is required, user needs to answer it, otherwise it is optional.
  */
 export class ExtendedMatchingItemsTraineeComponent extends KypoBaseComponent implements OnInit {
-
   @Input() question: ExtendedMatchingItems;
   @Input() index: number;
 
-  @Output() contentChanged: EventEmitter<{index: number, question: Question}> = new EventEmitter();
+  @Output() contentChanged: EventEmitter<{ index: number; question: Question }> = new EventEmitter();
 
-  usersAnswers: {x: number, y: number}[] = [];
+  usersAnswers: Array<{ x: number; y: number }> = [];
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   /**
    * Checks whether all questions were answered
@@ -53,10 +51,10 @@ export class ExtendedMatchingItemsTraineeComponent extends KypoBaseComponent imp
    */
   onAnswerChanged(i: number, j: number) {
     this.deleteAnswerByRow(i);
-    this.usersAnswers.push({x: i, y: j});
+    this.usersAnswers.push({ x: i, y: j });
     this.contentChanged.emit({
       index: this.index,
-      question: this.question
+      question: this.question,
     });
   }
 
@@ -65,7 +63,7 @@ export class ExtendedMatchingItemsTraineeComponent extends KypoBaseComponent imp
    * @param rowIndex index of a row in a matrix representing the EMI table
    */
   private deleteAnswerByRow(rowIndex: number) {
-    const answerToDelete = this.usersAnswers.find(answer => answer.x === rowIndex);
+    const answerToDelete = this.usersAnswers.find((answer) => answer.x === rowIndex);
     if (answerToDelete) {
       const indexOfAnswerToDelete = this.usersAnswers.indexOf(answerToDelete);
       if (indexOfAnswerToDelete > -1) {

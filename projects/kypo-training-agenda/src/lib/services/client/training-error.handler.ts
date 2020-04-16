@@ -1,10 +1,9 @@
-import {HttpErrorResponse} from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 
 /**
  * Handles errors emitted from training agenda services and components. Should be overridden by client
  */
 export abstract class TrainingErrorHandler {
-
   /**
    * Handles error and displays it in user friendly way
    * @param err http error

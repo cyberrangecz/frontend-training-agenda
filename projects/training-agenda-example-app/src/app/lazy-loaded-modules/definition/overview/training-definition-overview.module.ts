@@ -1,10 +1,10 @@
-import {NgModule} from '@angular/core';
-import {SharedProvidersModule} from '../../shared-providers.module';
-import {KypoTrainingApiModule} from 'kypo-training-api';
-import {environment} from '../../../../environments/environment';
-import {TrainingDefinitionOverviewRoutingModule} from './training-definition-overview-routing.module';
-import {TrainingDefinitionOverviewComponentsModule} from 'kypo-training-agenda';
-import {CommonModule} from '@angular/common';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { TrainingDefinitionOverviewComponentsModule } from 'kypo-training-agenda';
+import { KypoTrainingApiModule } from 'kypo-training-api';
+import { environment } from '../../../../environments/environment';
+import { SharedProvidersModule } from '../../shared-providers.module';
+import { TrainingDefinitionOverviewRoutingModule } from './training-definition-overview-routing.module';
 
 @NgModule({
   imports: [
@@ -12,9 +12,7 @@ import {CommonModule} from '@angular/common';
     SharedProvidersModule,
     TrainingDefinitionOverviewRoutingModule,
     KypoTrainingApiModule.forRoot(environment.trainingApiConfig),
-    TrainingDefinitionOverviewComponentsModule.forRoot(environment.trainingAgendaConfig)
-  ]
+    TrainingDefinitionOverviewComponentsModule.forRoot(environment.trainingAgendaConfig),
+  ],
 })
-export class TrainingDefinitionOverviewModule {
-
-}
+export class TrainingDefinitionOverviewModule {}

@@ -1,8 +1,8 @@
-import {Component, EventEmitter, OnInit} from '@angular/core';
-import {MatDialogRef} from '@angular/material/dialog';
-import {KypoBaseComponent} from 'kypo-common';
-import {Observable} from 'rxjs';
-import {FileUploadProgressService} from '../../../../services/training-definition/overview/file-upload-progress.service';
+import { Component, EventEmitter, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
+import { KypoBaseComponent } from 'kypo-common';
+import { Observable } from 'rxjs';
+import { FileUploadProgressService } from '../../../../services/training-definition/overview/file-upload-progress.service';
 
 /**
  * Component of training definition upload dialog window
@@ -10,22 +10,22 @@ import {FileUploadProgressService} from '../../../../services/training-definitio
 @Component({
   selector: 'kypo-training-upload-dialog',
   templateUrl: './training-definition-upload-dialog.component.html',
-  styleUrls: ['./training-definition-upload-dialog.component.css']
+  styleUrls: ['./training-definition-upload-dialog.component.css'],
 })
 export class TrainingDefinitionUploadDialogComponent extends KypoBaseComponent implements OnInit {
-
   selectedFile: File;
   uploadInProgress$: Observable<boolean>;
   onUpload$ = new EventEmitter<File>();
 
-  constructor(public dialogRef: MatDialogRef<TrainingDefinitionUploadDialogComponent>,
-              private uploadProgressService: FileUploadProgressService) {
+  constructor(
+    public dialogRef: MatDialogRef<TrainingDefinitionUploadDialogComponent>,
+    private uploadProgressService: FileUploadProgressService
+  ) {
     super();
     this.uploadInProgress$ = this.uploadProgressService.isInProgress$;
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   /**
    * Cancels the upload and closes the dialog window with no result

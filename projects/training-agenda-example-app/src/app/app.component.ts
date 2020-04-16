@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import {Kypo2AuthService, User} from 'kypo2-auth';
-import {Observable} from 'rxjs';
-import {Agenda, AgendaContainer} from 'csirt-mu-layout';
-import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
-import {filter, map} from 'rxjs/operators';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Agenda, AgendaContainer } from 'csirt-mu-layout';
+import { Kypo2AuthService, User } from 'kypo2-auth';
+import { Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   activeUser$: Observable<User>;
@@ -16,18 +16,14 @@ export class AppComponent {
   agendaContainers$: Observable<AgendaContainer[]>;
   notificationRoute = 'notifications';
 
-  constructor(private router: Router,
-              private activatedRoute: ActivatedRoute,
-              private auth: Kypo2AuthService,
-  ) {
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private auth: Kypo2AuthService) {
     this.activeUser$ = this.auth.activeUser$;
     this.title$ = this.getTitleFromRouter();
 
-    this.agendaContainers$ = this.auth.activeUser$
-      .pipe(
-        filter(user => user !== null && user !== undefined),
-        map(user => this.buildNav(user))
-      );
+    this.agendaContainers$ = this.auth.activeUser$.pipe(
+      filter((user) => user !== null && user !== undefined),
+      map((user) => this.buildNav(user))
+    );
   }
 
   private getTitleFromRouter(): Observable<string> {
@@ -35,7 +31,9 @@ export class AppComponent {
       filter((event) => event instanceof NavigationEnd),
       map(() => {
         let route = this.activatedRoute;
-        while (route.firstChild) { route = route.firstChild; }
+        while (route.firstChild) {
+          route = route.firstChild;
+        }
         return route;
       }),
       filter((route) => route.outlet === 'primary'),
@@ -56,13 +54,13 @@ export class AppComponent {
     const containers: AgendaContainer[] = [];
     const agendas: Agenda[] = [];
     const roles = user.roles;
-    if (roles.some(role => role.roleType === 'ROLE_TRAINING_DESIGNER')) {
+    if (roles.some((role) => role.roleType === 'ROLE_TRAINING_DESIGNER')) {
       agendas.push(new Agenda('Definition', 'training-definition'));
     }
-    if (roles.some(role => role.roleType === 'ROLE_TRAINING_ORGANIZER')) {
+    if (roles.some((role) => role.roleType === 'ROLE_TRAINING_ORGANIZER')) {
       agendas.push(new Agenda('Instance', 'training-instance'));
     }
-    if (roles.some(role => role.roleType === 'ROLE_TRAINING_TRAINEE')) {
+    if (roles.some((role) => role.roleType === 'ROLE_TRAINING_TRAINEE')) {
       agendas.push(new Agenda('Run', 'training-run'));
     }
     if (agendas.length > 0) {

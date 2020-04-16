@@ -1,15 +1,16 @@
-import {BehaviorSubject, Observable, ReplaySubject} from 'rxjs';
-import {TrainingDefinition} from 'kypo-training-model';
-import {filter} from 'rxjs/operators';
-import {TrainingDefinitionChangeEvent} from '../../../model/events/training-definition-change-event';
+import { TrainingDefinition } from 'kypo-training-model';
+import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
+import { filter } from 'rxjs/operators';
+import { TrainingDefinitionChangeEvent } from '../../../model/events/training-definition-change-event';
 
 export abstract class TrainingDefinitionEditService {
   protected trainingDefinitionSubject$: ReplaySubject<TrainingDefinition> = new ReplaySubject();
   /**
    * Currently edited training definition
    */
-  trainingDefinition$: Observable<TrainingDefinition> = this.trainingDefinitionSubject$.asObservable()
-    .pipe(filter(td => td !== undefined && td !== null));
+  trainingDefinition$: Observable<TrainingDefinition> = this.trainingDefinitionSubject$
+    .asObservable()
+    .pipe(filter((td) => td !== undefined && td !== null));
 
   protected editModeSubject$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   /**
@@ -41,5 +42,4 @@ export abstract class TrainingDefinitionEditService {
    * @param changeEvent training definition object and its validity
    */
   abstract change(changeEvent: TrainingDefinitionChangeEvent);
-
 }

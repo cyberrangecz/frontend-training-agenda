@@ -1,9 +1,8 @@
-import {TrainingInstance} from 'kypo-training-model';
-import {KypoDateTimeFormatPipe} from 'kypo-common';
-import {Observable} from 'rxjs';
+import { KypoDateTimeFormatPipe } from 'kypo-common';
+import { TrainingInstance } from 'kypo-training-model';
+import { Observable } from 'rxjs';
 
 export class TrainingInstanceRowAdapter {
-
   trainingInstance: TrainingInstance;
   id: number;
   title: string;
@@ -20,7 +19,9 @@ export class TrainingInstanceRowAdapter {
     this.title = trainingInstance.title;
     this.id = trainingInstance.id;
     this.accessToken = trainingInstance.accessToken;
-    this.date = `${datePipe.transform(this.trainingInstance.startTime)} - ${datePipe.transform(this.trainingInstance.endTime)}`;
+    this.date = `${datePipe.transform(this.trainingInstance.startTime)} - ${datePipe.transform(
+      this.trainingInstance.endTime
+    )}`;
     if (trainingInstance.hasPool()) {
       this.poolId = trainingInstance.poolId.toString();
     } else {

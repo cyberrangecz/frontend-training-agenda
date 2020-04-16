@@ -1,27 +1,15 @@
-import {CommonModule} from '@angular/common';
-import {NgModule} from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {FreeFormComponent} from './free-form/free-form.component';
-import {FreeFormMaterialModule} from './free-form-material.module';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FreeFormMaterialModule } from './free-form-material.module';
+import { FreeFormComponent } from './free-form/free-form.component';
 
 /**
  * Module wrapping collection of services and components shared across the application
  */
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    FreeFormMaterialModule,
-    ReactiveFormsModule,
-  ],
-  declarations: [
-    FreeFormComponent,
-  ],
-  exports: [
-    FreeFormComponent,
-  ],
+  imports: [CommonModule, FormsModule, FreeFormMaterialModule, ReactiveFormsModule],
+  declarations: [FreeFormComponent],
+  exports: [FreeFormComponent],
 })
-
-export class FreeFormModule {
-
-}
+export class FreeFormModule {}

@@ -1,21 +1,21 @@
-import {Injectable} from '@angular/core';
-import {BehaviorSubject, EMPTY, Observable} from 'rxjs';
-import {switchMap, tap} from 'rxjs/operators';
-import {AbstractLevelTypeEnum} from 'kypo-training-model';
-import {Level} from 'kypo-training-model';
-import {AssessmentLevel} from 'kypo-training-model';
-import {GameLevel} from 'kypo-training-model';
-import {InfoLevel} from 'kypo-training-model';
-import {TrainingDefinitionApi} from 'kypo-training-api';
-import {MatDialog} from '@angular/material/dialog';
+import { Injectable } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import {
   CsirtMuConfirmationDialogComponent,
   CsirtMuConfirmationDialogConfig,
-  CsirtMuDialogResultEnum
+  CsirtMuDialogResultEnum,
 } from 'csirt-mu-common';
-import {TrainingErrorHandler} from '../../client/training-error.handler';
-import {TrainingNotificationService} from '../../client/training-notification.service';
-import {LevelEditService} from './level-edit.service';
+import { TrainingDefinitionApi } from 'kypo-training-api';
+import { Level } from 'kypo-training-model';
+import { AssessmentLevel } from 'kypo-training-model';
+import { GameLevel } from 'kypo-training-model';
+import { InfoLevel } from 'kypo-training-model';
+import { AbstractLevelTypeEnum } from 'kypo-training-model';
+import { BehaviorSubject, EMPTY, Observable } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
+import { TrainingErrorHandler } from '../../client/training-error.handler';
+import { TrainingNotificationService } from '../../client/training-notification.service';
+import { LevelEditService } from './level-edit.service';
 
 /**
  * Service handling editing of training definition's levels and related operations.
@@ -24,11 +24,12 @@ import {LevelEditService} from './level-edit.service';
  */
 @Injectable()
 export class LevelEditConcreteService extends LevelEditService {
-
-  constructor(private api: TrainingDefinitionApi,
-              private dialog: MatDialog,
-              private errorHandler: TrainingErrorHandler,
-              private notificationService: TrainingNotificationService) {
+  constructor(
+    private api: TrainingDefinitionApi,
+    private dialog: MatDialog,
+    private errorHandler: TrainingErrorHandler,
+    private notificationService: TrainingNotificationService
+  ) {
     super();
   }
 
@@ -115,12 +116,11 @@ export class LevelEditConcreteService extends LevelEditService {
         added$ = this.addGameLevel();
         break;
       }
-      default: console.error('Unsupported type of level in add method od LevelEditService');
+      default:
+        console.error('Unsupported type of level in add method od LevelEditService');
     }
 
-    return added$.pipe(
-      tap(_ => this.navigateToLastLevel())
-    );
+    return added$.pipe(tap((_) => this.navigateToLastLevel()));
   }
 
   /**
@@ -131,17 +131,18 @@ export class LevelEditConcreteService extends LevelEditService {
     this.levelsSubject$.next(Array.from(this.levelsSubject$.value));
     const level = this.getSelected();
     this.setLevelCanBeSaved(level, false);
-    return this.sendRequestToSaveLevel(level)
-      .pipe(
-        tap(_ => {
+    return this.sendRequestToSaveLevel(level).pipe(
+      tap(
+        (_) => {
           this.onLevelSaved(level);
           this.notificationService.emit('success', `Level ${level.title} saved`);
         },
-          err => {
-            this.setLevelCanBeSaved(level);
-            this.errorHandler.emit(err, `Saving level ${level.title}`);
-          })
-      );
+        (err) => {
+          this.setLevelCanBeSaved(level);
+          this.errorHandler.emit(err, `Saving level ${level.title}`);
+        }
+      )
+    );
   }
 
   /**
@@ -149,12 +150,9 @@ export class LevelEditConcreteService extends LevelEditService {
    */
   deleteSelected(): Observable<Level[]> {
     const level = this.getSelected();
-    return this.displayDialogToDelete(level)
-      .pipe(
-        switchMap(result => result === CsirtMuDialogResultEnum.CONFIRMED
-        ? this.callApiToDelete(level)
-        : EMPTY)
-      );
+    return this.displayDialogToDelete(level).pipe(
+      switchMap((result) => (result === CsirtMuDialogResultEnum.CONFIRMED ? this.callApiToDelete(level) : EMPTY))
+    );
   }
 
   /**
@@ -165,14 +163,15 @@ export class LevelEditConcreteService extends LevelEditService {
   move(fromIndex, toIndex): Observable<any> {
     const levels = this.levelsSubject$.getValue();
     const from = levels[fromIndex];
-    return this.api.moveLevelTo(this.trainingDefinitionId, from.id, toIndex)
-      .pipe(
-        tap(_ => this.setActiveLevel(toIndex),
-    err => {
-            this.moveRollback(fromIndex);
-            this.errorHandler.emit(err, `Moving level "${from.title}"`);
-          })
-      );
+    return this.api.moveLevelTo(this.trainingDefinitionId, from.id, toIndex).pipe(
+      tap(
+        (_) => this.setActiveLevel(toIndex),
+        (err) => {
+          this.moveRollback(fromIndex);
+          this.errorHandler.emit(err, `Moving level "${from.title}"`);
+        }
+      )
+    );
   }
 
   private moveRollback(fromIndex: number) {
@@ -182,33 +181,33 @@ export class LevelEditConcreteService extends LevelEditService {
   }
 
   private addGameLevel(): Observable<GameLevel> {
-    return this.api.createGameLevel(this.trainingDefinitionId)
-      .pipe(
-        switchMap(basicLevelInfo => this.api.getLevel(basicLevelInfo.id) as Observable<GameLevel>),
-        tap(level => this.onLevelAdded(level),
-          err => this.errorHandler.emit(err, 'Adding game level')
-        )
-      );
+    return this.api.createGameLevel(this.trainingDefinitionId).pipe(
+      switchMap((basicLevelInfo) => this.api.getLevel(basicLevelInfo.id) as Observable<GameLevel>),
+      tap(
+        (level) => this.onLevelAdded(level),
+        (err) => this.errorHandler.emit(err, 'Adding game level')
+      )
+    );
   }
 
   private addInfoLevel(): Observable<InfoLevel> {
-    return this.api.createInfoLevel(this.trainingDefinitionId)
-      .pipe(
-        switchMap(basicLevelInfo => this.api.getLevel(basicLevelInfo.id) as Observable<InfoLevel>),
-        tap(level => this.onLevelAdded(level),
-          err => this.errorHandler.emit(err, 'Adding info level')
-        )
-      );
+    return this.api.createInfoLevel(this.trainingDefinitionId).pipe(
+      switchMap((basicLevelInfo) => this.api.getLevel(basicLevelInfo.id) as Observable<InfoLevel>),
+      tap(
+        (level) => this.onLevelAdded(level),
+        (err) => this.errorHandler.emit(err, 'Adding info level')
+      )
+    );
   }
 
   private addAssessmentLevel(): Observable<AssessmentLevel> {
-    return this.api.createAssessmentLevel(this.trainingDefinitionId)
-      .pipe(
-        switchMap(basicLevelInfo => this.api.getLevel(basicLevelInfo.id) as Observable<AssessmentLevel>),
-        tap(level => this.onLevelAdded(level),
-          err => this.errorHandler.emit(err, 'Adding assessment level')
-        )
-      );
+    return this.api.createAssessmentLevel(this.trainingDefinitionId).pipe(
+      switchMap((basicLevelInfo) => this.api.getLevel(basicLevelInfo.id) as Observable<AssessmentLevel>),
+      tap(
+        (level) => this.onLevelAdded(level),
+        (err) => this.errorHandler.emit(err, 'Adding assessment level')
+      )
+    );
   }
 
   private displayDialogToDelete(level: Level): Observable<CsirtMuDialogResultEnum> {
@@ -218,22 +217,22 @@ export class LevelEditConcreteService extends LevelEditService {
         `Do you want to delete level "${level.title}"?`,
         'Cancel',
         'Delete'
-      )
+      ),
     });
     return dialogRef.afterClosed();
   }
 
   private callApiToDelete(level: Level): Observable<Level[]> {
-    return this.api.deleteLevel(this.trainingDefinitionId, level.id)
-      .pipe(
-        tap(_ => this.onLevelDeleted(level.id),
-          err => this.errorHandler.emit(err, 'Deleting level "' + level.title + '"')
-        )
-      );
+    return this.api.deleteLevel(this.trainingDefinitionId, level.id).pipe(
+      tap(
+        (_) => this.onLevelDeleted(level.id),
+        (err) => this.errorHandler.emit(err, 'Deleting level "' + level.title + '"')
+      )
+    );
   }
 
   private onLevelDeleted(deletedId: number) {
-    this.levelsSubject$.next(this.levelsSubject$.getValue().filter(level => level.id !== deletedId));
+    this.levelsSubject$.next(this.levelsSubject$.getValue().filter((level) => level.id !== deletedId));
     this.navigateToPreviousLevel();
   }
 
@@ -243,10 +242,14 @@ export class LevelEditConcreteService extends LevelEditService {
 
   private sendRequestToSaveLevel(level: Level): Observable<any> {
     switch (true) {
-      case level instanceof InfoLevel: return this.saveInfoLevel(level as InfoLevel);
-      case level instanceof AssessmentLevel: return this.saveAssessmentLevel(level as AssessmentLevel);
-      case level instanceof GameLevel: return this.saveGameLevel(level as GameLevel);
-      default: console.error('Unsupported instance of level in save method od LevelEditService');
+      case level instanceof InfoLevel:
+        return this.saveInfoLevel(level as InfoLevel);
+      case level instanceof AssessmentLevel:
+        return this.saveAssessmentLevel(level as AssessmentLevel);
+      case level instanceof GameLevel:
+        return this.saveGameLevel(level as GameLevel);
+      default:
+        console.error('Unsupported instance of level in save method od LevelEditService');
     }
   }
 
@@ -270,10 +273,6 @@ export class LevelEditConcreteService extends LevelEditService {
   }
 
   private emitUnsavedLevels() {
-    this.unsavedLevelsSubject$.next(
-      this.levelsSubject$.getValue()
-        .filter(level => level.isUnsaved)
-    );
+    this.unsavedLevelsSubject$.next(this.levelsSubject$.getValue().filter((level) => level.isUnsaved));
   }
-
 }

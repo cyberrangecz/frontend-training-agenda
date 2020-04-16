@@ -1,16 +1,14 @@
-import {NgModule} from '@angular/core';
-import {environment} from '../../../../../../environments/environment';
-import {AccessTokenDetailRoutingModule} from './access-token-detail-routing.module';
-import {AccessTokenDetailComponentsModule} from 'kypo-training-agenda';
-import {CommonModule} from '@angular/common';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { AccessTokenDetailComponentsModule } from 'kypo-training-agenda';
+import { environment } from '../../../../../../environments/environment';
+import { AccessTokenDetailRoutingModule } from './access-token-detail-routing.module';
 
 @NgModule({
   imports: [
     CommonModule,
     AccessTokenDetailComponentsModule.forRoot(environment.trainingAgendaConfig),
-    AccessTokenDetailRoutingModule
-  ]
+    AccessTokenDetailRoutingModule,
+  ],
 })
-export class AccessTokenDetailModule {
-
-}
+export class AccessTokenDetailModule {}

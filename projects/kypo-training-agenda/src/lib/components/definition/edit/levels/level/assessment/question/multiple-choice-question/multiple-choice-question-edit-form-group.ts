@@ -1,7 +1,7 @@
-import {FormArray, FormControl, FormGroup, Validators,} from '@angular/forms';
-import {Question} from 'kypo-training-model';
-import {MultipleChoiceQuestion} from 'kypo-training-model';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { KypoValidators } from 'kypo-common';
+import { Question } from 'kypo-training-model';
+import { MultipleChoiceQuestion } from 'kypo-training-model';
 
 /**
  * Form control class for form in mcq edit component
@@ -14,20 +14,23 @@ export class MultipleChoiceFormGroup {
   constructor(mcq: MultipleChoiceQuestion) {
     this.formGroup = new FormGroup({
       title: new FormControl(mcq.title, KypoValidators.noWhitespace),
-      options: new FormArray(mcq.options.map(option => new FormControl(option, KypoValidators.noWhitespace)), Validators.required),
+      options: new FormArray(
+        mcq.options.map((option) => new FormControl(option, KypoValidators.noWhitespace)),
+        Validators.required
+      ),
       correctAnswersIndices: new FormControl(mcq.correctAnswersIndices, Validators.required),
       score: new FormControl(mcq.score, [
         Validators.required,
         Validators.pattern('^[0-9]*$'),
         Validators.min(0),
-        Validators.max(this.maxQuestionScore)
+        Validators.max(this.maxQuestionScore),
       ]),
       penalty: new FormControl(mcq.penalty, [
         Validators.required,
         Validators.pattern('^[0-9]*$'),
         Validators.min(0),
-        Validators.max(this.maxQuestionPenalty)
-      ])
+        Validators.max(this.maxQuestionPenalty),
+      ]),
     });
   }
 
@@ -49,9 +52,7 @@ export class MultipleChoiceFormGroup {
    * Adds validators to check whether correct answers were predefined if level is test
    */
   addAnswersValidator() {
-    this.formGroup
-      .get('correctAnswersIndices')
-      .setValidators(Validators.required);
+    this.formGroup.get('correctAnswersIndices').setValidators(Validators.required);
     this.formGroup.get('correctAnswersIndices').updateValueAndValidity();
   }
 

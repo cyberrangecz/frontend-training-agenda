@@ -1,22 +1,26 @@
-import {defer, Observable} from 'rxjs';
-import {TrainingDefinitionEditService} from '../../../../services/training-definition/edit/training-definition-edit.service';
-import {KypoControlItem} from 'kypo-controls';
+import { KypoControlItem } from 'kypo-controls';
+import { defer, Observable } from 'rxjs';
+import { TrainingDefinitionEditService } from '../../../../services/training-definition/edit/training-definition-edit.service';
 
 /**
  * @dynamic
  */
 export class TrainingDefinitionEditControls {
-
   static readonly SAVE_ACTION_ID = 'save';
   static readonly SAVE_AND_STAY_ACTION_ID = 'save_and_stay';
 
-  static create(service: TrainingDefinitionEditService, isEditMode: boolean, saveDisabled$: Observable<boolean>): KypoControlItem[] {
-    return isEditMode
-      ? this.editModeControls(service, saveDisabled$)
-      : this.createModeControls(service, saveDisabled$);
+  static create(
+    service: TrainingDefinitionEditService,
+    isEditMode: boolean,
+    saveDisabled$: Observable<boolean>
+  ): KypoControlItem[] {
+    return isEditMode ? this.editModeControls(service, saveDisabled$) : this.createModeControls(service, saveDisabled$);
   }
 
-  private static editModeControls(service: TrainingDefinitionEditService, saveDisabled$: Observable<boolean>): KypoControlItem[] {
+  private static editModeControls(
+    service: TrainingDefinitionEditService,
+    saveDisabled$: Observable<boolean>
+  ): KypoControlItem[] {
     return [
       new KypoControlItem(
         this.SAVE_ACTION_ID,
@@ -28,7 +32,10 @@ export class TrainingDefinitionEditControls {
     ];
   }
 
-  private static createModeControls(service: TrainingDefinitionEditService, saveDisabled$: Observable<boolean>): KypoControlItem[] {
+  private static createModeControls(
+    service: TrainingDefinitionEditService,
+    saveDisabled$: Observable<boolean>
+  ): KypoControlItem[] {
     return [
       new KypoControlItem(
         this.SAVE_ACTION_ID,

@@ -6,14 +6,14 @@ import {
   OnChanges,
   OnInit,
   Output,
-  SimpleChanges
+  SimpleChanges,
 } from '@angular/core';
-import {QuestionChangeEvent} from '../../../../../../../../model/events/question-change-event';
-import {Question} from 'kypo-training-model';
-import {ExtendedMatchingItems} from 'kypo-training-model';
-import {FreeFormQuestion} from 'kypo-training-model';
-import {MultipleChoiceQuestion} from 'kypo-training-model';
-import {KypoBaseComponent} from 'kypo-common';
+import { KypoBaseComponent } from 'kypo-common';
+import { Question } from 'kypo-training-model';
+import { ExtendedMatchingItems } from 'kypo-training-model';
+import { FreeFormQuestion } from 'kypo-training-model';
+import { MultipleChoiceQuestion } from 'kypo-training-model';
+import { QuestionChangeEvent } from '../../../../../../../../model/events/question-change-event';
 
 /**
  * Wrapper component of a specific question type edit component. Resolves type of the question and creates sub component accordingly
@@ -22,10 +22,9 @@ import {KypoBaseComponent} from 'kypo-common';
   selector: 'kypo-question-edit',
   templateUrl: './question-edit.component.html',
   styleUrls: ['./question-edit.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class QuestionEditComponent extends KypoBaseComponent implements OnInit, OnChanges {
-
   @Input() question: Question;
   @Input() isTest: boolean;
   @Input() index: number;
@@ -37,8 +36,7 @@ export class QuestionEditComponent extends KypoBaseComponent implements OnInit, 
   isMcq = false;
   isEmi = false;
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if ('question' in changes) {
@@ -67,5 +65,4 @@ export class QuestionEditComponent extends KypoBaseComponent implements OnInit, 
     this.isEmi = this.question instanceof ExtendedMatchingItems;
     this.isMcq = this.question instanceof MultipleChoiceQuestion;
   }
-
 }

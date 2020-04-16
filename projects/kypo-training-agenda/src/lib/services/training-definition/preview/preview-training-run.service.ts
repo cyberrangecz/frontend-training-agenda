@@ -1,19 +1,17 @@
-import {Injectable} from '@angular/core';
-import {from, Observable, of} from 'rxjs';
-import {Level} from 'kypo-training-model';
-import {AccessTrainingRunInfo} from 'kypo-training-model';
-import {RunningTrainingRunService} from '../../training-run/running/running-training-run.service';
-import {Router} from '@angular/router';
-import {TrainingNavigator} from '../../client/training-navigator.service';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { Level } from 'kypo-training-model';
+import { AccessTrainingRunInfo } from 'kypo-training-model';
+import { from, Observable, of } from 'rxjs';
+import { TrainingNavigator } from '../../client/training-navigator.service';
+import { RunningTrainingRunService } from '../../training-run/running/running-training-run.service';
 
 @Injectable()
 /**
  * Mocks behavior of training run service connected to backend for designers preview purposes
  */
 export class PreviewTrainingRunService extends RunningTrainingRunService {
-
-  constructor(private router: Router,
-              private navigator: TrainingNavigator) {
+  constructor(private router: Router, private navigator: TrainingNavigator) {
     super();
   }
 
@@ -47,7 +45,7 @@ export class PreviewTrainingRunService extends RunningTrainingRunService {
 
   getIsStepperDisplayed(): boolean {
     return this.isStepperDisplayed;
-}
+  }
 
   next(): Observable<any> {
     return this.isLast() ? this.finish() : this.nextLevel();
@@ -73,5 +71,4 @@ export class PreviewTrainingRunService extends RunningTrainingRunService {
     this.clear();
     return from(this.router.navigate([this.navigator.toTrainingDefinitionOverview()]));
   }
-
 }

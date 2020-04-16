@@ -7,29 +7,28 @@ import {
   OnInit,
   Output,
   SimpleChanges,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
-import {Question} from 'kypo-training-model';
-import {ExtendedMatchingItems} from 'kypo-training-model';
-import {FreeFormQuestion} from 'kypo-training-model';
-import {MultipleChoiceQuestion} from 'kypo-training-model';
-import {KypoBaseComponent} from 'kypo-common';
-import {ExtendedMatchingItemsTraineeComponent} from './extended-matching-items/extended-matching-items-trainee.component';
-import {FreeFormQuestionTraineeComponent} from './free-form-question/free-form-question-trainee.component';
-import {MultipleChoiceQuestionTraineeComponent} from './multiple-choice-question/multiple-choice-question-trainee.component';
+import { KypoBaseComponent } from 'kypo-common';
+import { Question } from 'kypo-training-model';
+import { ExtendedMatchingItems } from 'kypo-training-model';
+import { FreeFormQuestion } from 'kypo-training-model';
+import { MultipleChoiceQuestion } from 'kypo-training-model';
+import { ExtendedMatchingItemsTraineeComponent } from './extended-matching-items/extended-matching-items-trainee.component';
+import { FreeFormQuestionTraineeComponent } from './free-form-question/free-form-question-trainee.component';
+import { MultipleChoiceQuestionTraineeComponent } from './multiple-choice-question/multiple-choice-question-trainee.component';
 
 @Component({
-  selector: 'kypo2-trainee-question',
+  selector: 'kypo-trainee-question',
   templateUrl: './trainee-question.component.html',
   styleUrls: ['./trainee-question.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 /**
  * Wrapper component for displaying questions in training run's assessment level. It selects the correct component to
  * display based on the question type.
  */
 export class TraineeQuestionComponent extends KypoBaseComponent implements OnInit, OnChanges {
-
   @Input() question: Question;
   @Input() index: number;
 
@@ -39,13 +38,11 @@ export class TraineeQuestionComponent extends KypoBaseComponent implements OnIni
   @ViewChild(ExtendedMatchingItemsTraineeComponent) emiChild: ExtendedMatchingItemsTraineeComponent;
   @ViewChild(MultipleChoiceQuestionTraineeComponent) mcqChild: MultipleChoiceQuestionTraineeComponent;
 
-
   isEmi = false;
   isFfq = false;
   isMcq = false;
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if ('question' in changes) {
@@ -85,7 +82,7 @@ export class TraineeQuestionComponent extends KypoBaseComponent implements OnIni
    * Emits event containing question and its index to the parent component
    * @param event index and question
    */
-  onContentChanged(event: { index: number, question: Question }) {
+  onContentChanged(event: { index: number; question: Question }) {
     this.question = event.question;
     this.contentChanged.emit(event.index);
   }

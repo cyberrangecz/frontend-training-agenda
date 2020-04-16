@@ -1,15 +1,14 @@
-import {async, TestBed} from '@angular/core/testing';
-import {UserApi} from 'kypo-training-api';
-import {asyncData} from 'kypo-common';
-import {KypoRequestedPagination} from 'kypo-common';
-import {KypoPaginatedResource} from 'kypo-common';
-import {KypoPagination} from 'kypo-common';
-import {User} from 'kypo2-auth';
-import {throwError} from 'rxjs';
-import {skip, take} from 'rxjs/operators';
-import {OrganizersAssignService} from './organizers-assign.service';
-import {TrainingErrorHandler} from '../../client/training-error.handler';
-
+import { async, TestBed } from '@angular/core/testing';
+import { KypoPagination } from 'kypo-common';
+import { asyncData } from 'kypo-common';
+import { KypoRequestedPagination } from 'kypo-common';
+import { KypoPaginatedResource } from 'kypo-common';
+import { UserApi } from 'kypo-training-api';
+import { User } from 'kypo2-auth';
+import { throwError } from 'rxjs';
+import { skip, take } from 'rxjs/operators';
+import { TrainingErrorHandler } from '../../client/training-error.handler';
+import { OrganizersAssignService } from './organizers-assign.service';
 
 describe('OrganizersAssignService', () => {
   let errorHandlerSpy: jasmine.SpyObj<TrainingErrorHandler>;
@@ -23,9 +22,9 @@ describe('OrganizersAssignService', () => {
     TestBed.configureTestingModule({
       providers: [
         OrganizersAssignService,
-        {provide: UserApi, useValue: apiSpy},
-        {provide: TrainingErrorHandler, useValue: errorHandlerSpy}
-      ]
+        { provide: UserApi, useValue: apiSpy },
+        { provide: TrainingErrorHandler, useValue: errorHandlerSpy },
+      ],
     });
     service = TestBed.inject(OrganizersAssignService);
   }));
@@ -34,137 +33,130 @@ describe('OrganizersAssignService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should load available organizers from facade (called once)', done => {
-    apiSpy.getOrganizers.and.returnValue((asyncData(createMock())));
+  it('should load available organizers from facade (called once)', (done) => {
+    apiSpy.getOrganizers.and.returnValue(asyncData(createMock()));
     const pagination = createPagination();
-    service.getAssigned(0, pagination)
-      .subscribe(_ => done(),
-        fail);
+    service.getAssigned(0, pagination).subscribe((_) => done(), fail);
     expect(apiSpy.getOrganizers).toHaveBeenCalledTimes(1);
   });
 
-  it('should load assigned organizers from facade (called once)', done => {
-    apiSpy.getOrganizersNotInTI.and.returnValue((asyncData(createMock())));
-    service.getAvailableToAssign(0)
-      .subscribe(_ => done(),
-        fail);
+  it('should load assigned organizers from facade (called once)', (done) => {
+    apiSpy.getOrganizersNotInTI.and.returnValue(asyncData(createMock()));
+    service.getAvailableToAssign(0).subscribe((_) => done(), fail);
     expect(apiSpy.getOrganizersNotInTI).toHaveBeenCalledTimes(1);
   });
 
-  it('should assign organizers through facade (called once)', done => {
+  it('should assign organizers through facade (called once)', (done) => {
     apiSpy.updateOrganizers.and.returnValue(asyncData(null));
-    apiSpy.getOrganizers.and.returnValue((asyncData(createMock())));
+    apiSpy.getOrganizers.and.returnValue(asyncData(createMock()));
     const usersToAssign = createMock().elements;
-    const idsToAssign = usersToAssign.map(user => user.id);
-    service.assign(0, usersToAssign).subscribe(_ => done(),
-      fail);
+    const idsToAssign = usersToAssign.map((user) => user.id);
+    service.assign(0, usersToAssign).subscribe((_) => done(), fail);
     expect(apiSpy.updateOrganizers).toHaveBeenCalledTimes(1);
     expect(apiSpy.updateOrganizers).toHaveBeenCalledWith(0, idsToAssign, []);
   });
 
-  it('should refresh organizers after assign action', done => {
+  it('should refresh organizers after assign action', (done) => {
     apiSpy.updateOrganizers.and.returnValue(asyncData(null));
-    apiSpy.getOrganizers.and.returnValue((asyncData(createMock())));
+    apiSpy.getOrganizers.and.returnValue(asyncData(createMock()));
     const usersToAssign = createMock().elements;
-    service.assign(0, usersToAssign).subscribe(_ => {
-        expect(apiSpy.getOrganizers).toHaveBeenCalledTimes(1);
-        done();
-      },
-      fail);
+    service.assign(0, usersToAssign).subscribe((_) => {
+      expect(apiSpy.getOrganizers).toHaveBeenCalledTimes(1);
+      done();
+    }, fail);
   });
 
-  it('should unassign organizers through facade (called once)', done => {
+  it('should unassign organizers through facade (called once)', (done) => {
     apiSpy.updateOrganizers.and.returnValue(asyncData(null));
-    apiSpy.getOrganizers.and.returnValue((asyncData(createMock())));
+    apiSpy.getOrganizers.and.returnValue(asyncData(createMock()));
     const usersToUnassign = createMock().elements;
-    const idsToUnassign = usersToUnassign.map(user => user.id);
-    service.unassign(0, usersToUnassign).subscribe(_ => done(),
-      fail);
+    const idsToUnassign = usersToUnassign.map((user) => user.id);
+    service.unassign(0, usersToUnassign).subscribe((_) => done(), fail);
     expect(apiSpy.updateOrganizers).toHaveBeenCalledTimes(1);
     expect(apiSpy.updateOrganizers).toHaveBeenCalledWith(0, [], idsToUnassign);
   });
 
-  it('should refresh asssigned organizers after unassign action', done => {
+  it('should refresh asssigned organizers after unassign action', (done) => {
     apiSpy.updateOrganizers.and.returnValue(asyncData(null));
-    apiSpy.getOrganizers.and.returnValue((asyncData(createMock())));
+    apiSpy.getOrganizers.and.returnValue(asyncData(createMock()));
     const usersToUnassign = createMock().elements;
-    service.unassign(0, usersToUnassign).subscribe(_ => {
-        expect(apiSpy.updateOrganizers).toHaveBeenCalledTimes(1);
+    service.unassign(0, usersToUnassign).subscribe((_) => {
+      expect(apiSpy.updateOrganizers).toHaveBeenCalledTimes(1);
+      done();
+    }, fail);
+  });
+
+  it('should call error handler on err (getAvailableToAssign)', (done) => {
+    apiSpy.getOrganizersNotInTI.and.returnValue(throwError(null));
+    service.getAvailableToAssign(0).subscribe(
+      (_) => fail,
+      (err) => {
+        expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         done();
-      },
-      fail);
+      }
+    );
   });
 
-  it('should call error handler on err (getAvailableToAssign)', done => {
-    apiSpy.getOrganizersNotInTI.and.returnValue((throwError(null)));
-    service.getAvailableToAssign(0)
-      .subscribe(_ => fail,
-        err => {
-          expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
-          done();
-        });
+  it('should call error handler on err (getAssigned)', (done) => {
+    apiSpy.getOrganizers.and.returnValue(throwError(null));
+    service.getAssigned(0, null).subscribe(
+      (_) => fail,
+      (err) => {
+        expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
+        done();
+      }
+    );
   });
 
-  it('should call error handler on err (getAssigned)', done => {
-    apiSpy.getOrganizers.and.returnValue((throwError(null)));
-    service.getAssigned(0, null)
-      .subscribe(_ => fail,
-        err => {
-          expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
-          done();
-        });
+  it('should call error handler on err (assign)', (done) => {
+    apiSpy.updateOrganizers.and.returnValue(throwError(null));
+    service.assign(0, []).subscribe(
+      (_) => fail,
+      (err) => {
+        expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
+        done();
+      }
+    );
   });
 
-  it('should call error handler on err (assign)', done => {
-    apiSpy.updateOrganizers.and.returnValue((throwError(null)));
-    service.assign(0, [])
-      .subscribe(_ => fail,
-        err => {
-          expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
-          done();
-        });
+  it('should call error handler on err (unassign)', (done) => {
+    apiSpy.updateOrganizers.and.returnValue(throwError(null));
+    service.unassign(0, []).subscribe(
+      (_) => fail,
+      (err) => {
+        expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
+        done();
+      }
+    );
   });
 
-  it('should call error handler on err (unassign)', done => {
-    apiSpy.updateOrganizers.and.returnValue((throwError(null)));
-    service.unassign(0, [])
-      .subscribe(_ => fail,
-        err => {
-          expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
-          done();
-        });
-  });
-
-  it ('should emit hasError on err', done => {
-    apiSpy.getOrganizers.and.returnValue((throwError(null)));
+  it('should emit hasError on err', (done) => {
+    apiSpy.getOrganizers.and.returnValue(throwError(null));
     const pagination = createPagination();
-    service.hasError$.pipe(skip(2)) // we ignore initial value and value emitted before the call is made
-      .subscribe(emitted => {
-          expect(emitted).toBeTruthy();
-          done();
-        },
-        fail);
-    service.getAssigned(0, pagination)
+    service.hasError$
+      .pipe(skip(2)) // we ignore initial value and value emitted before the call is made
+      .subscribe((emitted) => {
+        expect(emitted).toBeTruthy();
+        done();
+      }, fail);
+    service
+      .getAssigned(0, pagination)
       .pipe(take(1))
-      .subscribe(fail,
-        _ => _);
+      .subscribe(fail, (_) => _);
   });
 
-  it('should emit next value on get assigned organizers', done => {
+  it('should emit next value on get assigned organizers', (done) => {
     const mockData = createMock();
-    apiSpy.getOrganizers.and.returnValue((asyncData(mockData)));
+    apiSpy.getOrganizers.and.returnValue(asyncData(mockData));
     const pagination = createPagination();
-    service.assignedUsers$
-      .pipe(skip(1))
-      .subscribe(emitted => {
-          expect(emitted).toBe(mockData);
-          done();
-        },
-        fail);
-    service.getAssigned(0, pagination)
+    service.assignedUsers$.pipe(skip(1)).subscribe((emitted) => {
+      expect(emitted).toBe(mockData);
+      done();
+    }, fail);
+    service
+      .getAssigned(0, pagination)
       .pipe(take(1))
-      .subscribe(_ => _,
-        fail);
+      .subscribe((_) => _, fail);
   });
 
   function createPagination() {

@@ -1,29 +1,26 @@
-import {Injectable} from '@angular/core';
-import {EMPTY, Observable, of} from 'rxjs';
-import {FlagCheck} from 'kypo-training-model';
-import {GameLevel} from 'kypo-training-model';
-import {Hint} from 'kypo-training-model';
-import {TrainingRunGameLevelService} from '../../training-run/running/training-run-game-level.service';
-import {switchMap, tap} from 'rxjs/operators';
-import {CsirtMuDialogResultEnum} from 'csirt-mu-common';
-import {MatDialog} from '@angular/material/dialog';
-import {RunningTrainingRunService} from '../../training-run/running/running-training-run.service';
-import {HintButton} from '../../../model/adapters/other/hint-button';
+import { Injectable } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { CsirtMuDialogResultEnum } from 'csirt-mu-common';
+import { FlagCheck } from 'kypo-training-model';
+import { GameLevel } from 'kypo-training-model';
+import { Hint } from 'kypo-training-model';
+import { EMPTY, Observable, of } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
+import { HintButton } from '../../../model/adapters/other/hint-button';
+import { RunningTrainingRunService } from '../../training-run/running/running-training-run.service';
+import { TrainingRunGameLevelService } from '../../training-run/running/training-run-game-level.service';
 
 @Injectable()
 /**
  * Mocks behavior of training run game level service connected to backend for designers preview purposes
  */
 export class PreviewGameLevelService extends TrainingRunGameLevelService {
-
-
-  constructor(protected dialog: MatDialog,
-              protected runningTrainingRunService: RunningTrainingRunService) {
+  constructor(protected dialog: MatDialog, protected runningTrainingRunService: RunningTrainingRunService) {
     super(dialog, runningTrainingRunService);
   }
 
   private _currentLevel: GameLevel;
-  private _remainingAttempts =  -1;
+  private _remainingAttempts = -1;
 
   init(level: GameLevel) {
     super.init(level);
@@ -32,21 +29,15 @@ export class PreviewGameLevelService extends TrainingRunGameLevelService {
   }
 
   revealSolution(level: GameLevel): Observable<string> {
-    return this.displayRevealSolutionDialog(level.solutionPenalized)
-      .pipe(
-        switchMap(result => result === CsirtMuDialogResultEnum.CONFIRMED
-          ? this.takeSolution()
-          : EMPTY)
-      );
+    return this.displayRevealSolutionDialog(level.solutionPenalized).pipe(
+      switchMap((result) => (result === CsirtMuDialogResultEnum.CONFIRMED ? this.takeSolution() : EMPTY))
+    );
   }
 
   revealHint(hint: Hint): Observable<Hint> {
-    return this.displayTakeHintDialog(hint)
-      .pipe(
-        switchMap(result => result === CsirtMuDialogResultEnum.CONFIRMED
-          ? this.takeHint(hint)
-          : EMPTY)
-      );
+    return this.displayTakeHintDialog(hint).pipe(
+      switchMap((result) => (result === CsirtMuDialogResultEnum.CONFIRMED ? this.takeHint(hint) : EMPTY))
+    );
   }
 
   submitFlag(flag: string): Observable<any> {
@@ -65,24 +56,19 @@ export class PreviewGameLevelService extends TrainingRunGameLevelService {
   }
 
   private takeSolution(): Observable<string> {
-    return of(this._currentLevel.solution)
-      .pipe(
-        tap(_ => this.onSolutionRevealed(this._currentLevel.solution))
-      );
+    return of(this._currentLevel.solution).pipe(tap((_) => this.onSolutionRevealed(this._currentLevel.solution)));
   }
 
   private takeHint(hintToTake: Hint): Observable<Hint> {
-    return of(this._currentLevel.hints.find(hint => hint.id === hintToTake.id))
-      .pipe(
-        tap(takenHint => this.onHintRevealed(takenHint))
-      );
+    return of(this._currentLevel.hints.find((hint) => hint.id === hintToTake.id)).pipe(
+      tap((takenHint) => this.onHintRevealed(takenHint))
+    );
   }
 
-  protected initSolutionState(level: GameLevel) {
-  }
+  protected initSolutionState(level: GameLevel) {}
 
   protected initHints(hints: Hint[]) {
-    const hintButtons = hints.map(hint => new HintButton(false, hint));
+    const hintButtons = hints.map((hint) => new HintButton(false, hint));
     this.hintsSubject$.next(hintButtons);
   }
 }

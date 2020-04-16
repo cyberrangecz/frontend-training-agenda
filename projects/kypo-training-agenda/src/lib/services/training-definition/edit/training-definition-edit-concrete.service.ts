@@ -1,15 +1,15 @@
-import {Injectable} from '@angular/core';
-import {Router} from '@angular/router';
-import {Kypo2AuthService} from 'kypo2-auth';
-import {Observable} from 'rxjs';
-import {map, tap} from 'rxjs/operators';
-import {TrainingDefinitionChangeEvent} from '../../../model/events/training-definition-change-event';
-import {TrainingDefinition} from 'kypo-training-model';
-import {TrainingDefinitionApi} from 'kypo-training-api';
-import {TrainingErrorHandler} from '../../client/training-error.handler';
-import {TrainingNotificationService} from '../../client/training-notification.service';
-import {TrainingNavigator} from '../../client/training-navigator.service';
-import {TrainingDefinitionEditService} from './training-definition-edit.service';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { TrainingDefinitionApi } from 'kypo-training-api';
+import { TrainingDefinition } from 'kypo-training-model';
+import { Kypo2AuthService } from 'kypo2-auth';
+import { Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
+import { TrainingDefinitionChangeEvent } from '../../../model/events/training-definition-change-event';
+import { TrainingErrorHandler } from '../../client/training-error.handler';
+import { TrainingNavigator } from '../../client/training-navigator.service';
+import { TrainingNotificationService } from '../../client/training-notification.service';
+import { TrainingDefinitionEditService } from './training-definition-edit.service';
 
 /**
  * Service handling editing of training definition and related operations.
@@ -18,15 +18,16 @@ import {TrainingDefinitionEditService} from './training-definition-edit.service'
  */
 @Injectable()
 export class TrainingDefinitionEditConcreteService extends TrainingDefinitionEditService {
-
   private editedSnapshot: TrainingDefinition;
 
-  constructor(private router: Router,
-              private api: TrainingDefinitionApi,
-              private authService: Kypo2AuthService,
-              private errorHandler: TrainingErrorHandler,
-              private navigator: TrainingNavigator,
-              private notificationService: TrainingNotificationService) {
+  constructor(
+    private router: Router,
+    private api: TrainingDefinitionApi,
+    private authService: Kypo2AuthService,
+    private errorHandler: TrainingErrorHandler,
+    private navigator: TrainingNavigator,
+    private notificationService: TrainingNotificationService
+  ) {
     super();
   }
 
@@ -50,18 +51,12 @@ export class TrainingDefinitionEditConcreteService extends TrainingDefinitionEdi
     if (this.editModeSubject$.getValue()) {
       return this.update();
     } else {
-      return this.create()
-        .pipe(
-          map(_ => this.router.navigate([this.navigator.toTrainingDefinitionOverview()]))
-        );
+      return this.create().pipe(map((_) => this.router.navigate([this.navigator.toTrainingDefinitionOverview()])));
     }
   }
 
   createAndStay(): Observable<any> {
-    return this.create()
-      .pipe(
-        map(id =>  this.router.navigate([this.navigator.toTrainingDefinitionEdit(id)]))
-      );
+    return this.create().pipe(map((id) => this.router.navigate([this.navigator.toTrainingDefinitionEdit(id)])));
   }
 
   /**
@@ -78,29 +73,28 @@ export class TrainingDefinitionEditConcreteService extends TrainingDefinitionEdi
   }
 
   private update(): Observable<number> {
-    return this.api.update(this.editedSnapshot)
-      .pipe(
-        tap(id => {
+    return this.api.update(this.editedSnapshot).pipe(
+      tap(
+        (id) => {
           this.notificationService.emit('success', 'Changes were saved');
           this.onSaved();
-          },
-            err => this.errorHandler.emit(err, 'Editing training definition')
-        )
-      );
+        },
+        (err) => this.errorHandler.emit(err, 'Editing training definition')
+      )
+    );
   }
 
   private create(): Observable<number> {
-   return this.api.create(this.editedSnapshot)
-      .pipe(
-        tap(
-          _ => {
-            this.notificationService.emit('success', 'Training was created');
-            this.onSaved();
-            },
-            err => this.errorHandler.emit(err, 'Creating new training definition')
-        ),
-        map(td => td.id)
-      );
+    return this.api.create(this.editedSnapshot).pipe(
+      tap(
+        (_) => {
+          this.notificationService.emit('success', 'Training was created');
+          this.onSaved();
+        },
+        (err) => this.errorHandler.emit(err, 'Creating new training definition')
+      ),
+      map((td) => td.id)
+    );
   }
 
   private onSaved() {

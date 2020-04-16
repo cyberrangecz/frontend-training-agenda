@@ -1,22 +1,21 @@
-import {async, fakeAsync, TestBed, tick} from '@angular/core/testing';
-import {ActiveTrainingRunConcreteService} from './active-training-run-concrete.service';
-import {ErrorHandlerService} from '../../shared/error-handler.service';
-import {TrainingInstanceApi} from 'kypo-training-api';
-import {skip} from 'rxjs/operators';
-import {throwError} from 'rxjs';
-import {asyncData} from 'kypo-common';
-import {environment} from '../../../../environments/environment';
-import {KypoRequestedPagination} from 'kypo-common';
-import {KypoPaginatedResource} from 'kypo-common';
-import {KypoPagination} from 'kypo-common';
-import {SandboxInstanceApi} from 'kypo-sandbox-api';
-import {AlertService} from '../../shared/alert.service';
-import {TrainingInstance} from 'kypo-training-model';
-import {MatDialog} from '@angular/material/dialog';
-import {PoolRequestApi} from 'kypo-sandbox-api';
+import { async, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { MatDialog } from '@angular/material/dialog';
+import { KypoRequestedPagination } from 'kypo-common';
+import { KypoPagination } from 'kypo-common';
+import { KypoPaginatedResource } from 'kypo-common';
+import { asyncData } from 'kypo-common';
+import { SandboxInstanceApi } from 'kypo-sandbox-api';
+import { PoolRequestApi } from 'kypo-sandbox-api';
+import { TrainingInstanceApi } from 'kypo-training-api';
+import { TrainingInstance } from 'kypo-training-model';
+import { throwError } from 'rxjs';
+import { skip } from 'rxjs/operators';
+import { environment } from '../../../../environments/environment';
+import { AlertService } from '../../shared/alert.service';
+import { ErrorHandlerService } from '../../shared/error-handler.service';
+import { ActiveTrainingRunConcreteService } from './active-training-run-concrete.service';
 
 describe('ActiveTrainingRunConcreteService', () => {
-
   let errorHandlerSpy: jasmine.SpyObj<ErrorHandlerService>;
   let alertServiceSpy: jasmine.SpyObj<AlertService>;
   let dialogSpy: jasmine.SpyObj<MatDialog>;
@@ -36,13 +35,13 @@ describe('ActiveTrainingRunConcreteService', () => {
     TestBed.configureTestingModule({
       providers: [
         ActiveTrainingRunConcreteService,
-        {provide: MatDialog, useValue: dialogSpy},
-        {provide: TrainingInstanceApi, useValue: trainingInstanceApiSpy},
-        {provide: PoolRequestApi, useValue: requestApiSpy},
-        {provide: SandboxInstanceApi, useValue: sandboxInstanceApiSpy },
-        {provide: ErrorHandlerService, useValue: errorHandlerSpy},
-        {provide: AlertService, useValue: alertServiceSpy}
-      ]
+        { provide: MatDialog, useValue: dialogSpy },
+        { provide: TrainingInstanceApi, useValue: trainingInstanceApiSpy },
+        { provide: PoolRequestApi, useValue: requestApiSpy },
+        { provide: SandboxInstanceApi, useValue: sandboxInstanceApiSpy },
+        { provide: ErrorHandlerService, useValue: errorHandlerSpy },
+        { provide: AlertService, useValue: alertServiceSpy },
+      ],
     });
     service = TestBed.inject(ActiveTrainingRunConcreteService);
   }));
@@ -51,20 +50,24 @@ describe('ActiveTrainingRunConcreteService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should emit hasError on err', done => {
+  it('should emit hasError on err', (done) => {
     const pagination = createPagination();
     trainingInstanceApiSpy.getAssociatedTrainingRuns.and.returnValue(throwError(null));
     service.hasError$
       .pipe(
         skip(2) // we ignore initial value and value emitted before the call is made
-      ).subscribe(hasError => {
-        expect(hasError).toBeTruthy();
-        done();
-      },
-      _ => fail);
-    service.getAll(0, pagination)
-      .subscribe(_ => fail,
-        _ => _);
+      )
+      .subscribe(
+        (hasError) => {
+          expect(hasError).toBeTruthy();
+          done();
+        },
+        (_) => fail
+      );
+    service.getAll(0, pagination).subscribe(
+      (_) => fail,
+      (_) => _
+    );
   });
 
   it('should start polling', fakeAsync(() => {
@@ -77,13 +80,14 @@ describe('ActiveTrainingRunConcreteService', () => {
     subscription.unsubscribe();
   }));
 
-  it('should stop polling on error', fakeAsync( () => {
+  it('should stop polling on error', fakeAsync(() => {
     const mockData = createMock();
     trainingInstanceApiSpy.getAssociatedTrainingRuns.and.returnValues(
       asyncData(mockData),
       asyncData(mockData),
       asyncData(mockData),
-      throwError(null)); // throw error on fourth call
+      throwError(null)
+    ); // throw error on fourth call
 
     service.startPolling(new TrainingInstance());
     const subscription = service.resource$.subscribe();
@@ -104,14 +108,15 @@ describe('ActiveTrainingRunConcreteService', () => {
       asyncData(mockData),
       asyncData(mockData),
       asyncData(mockData),
-      asyncData(mockData));
+      asyncData(mockData)
+    );
 
     service.startPolling(new TrainingInstance());
     const subscription = service.resource$.subscribe();
     assertPoll(3);
     tick(environment.organizerSummaryPollingPeriod);
     expect(trainingInstanceApiSpy.getAssociatedTrainingRuns).toHaveBeenCalledTimes(4);
-    tick( 5 * environment.organizerSummaryPollingPeriod);
+    tick(5 * environment.organizerSummaryPollingPeriod);
     expect(trainingInstanceApiSpy.getAssociatedTrainingRuns).toHaveBeenCalledTimes(4);
     service.getAll(0, pagination).subscribe();
     expect(trainingInstanceApiSpy.getAssociatedTrainingRuns).toHaveBeenCalledTimes(5);

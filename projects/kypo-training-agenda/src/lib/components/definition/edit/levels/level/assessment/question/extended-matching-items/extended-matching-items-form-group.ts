@@ -1,7 +1,7 @@
-import {FormArray, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
-import {Question} from 'kypo-training-model';
-import {ExtendedMatchingItems} from 'kypo-training-model';
+import { FormArray, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { KypoValidators } from 'kypo-common';
+import { Question } from 'kypo-training-model';
+import { ExtendedMatchingItems } from 'kypo-training-model';
 
 /**
  * Form control group for form in EMI edit component
@@ -13,23 +13,24 @@ export class ExtendedMatchingItemsFormGroup {
     this.formGroup = new FormGroup(
       {
         title: new FormControl(emi.title, KypoValidators.noWhitespace),
-        rows: new FormArray(emi.rows.map(row => new FormControl(row, KypoValidators.noWhitespace))),
-        cols: new FormArray(emi.cols.map(col => new FormControl(col, KypoValidators.noWhitespace))),
-        correctAnswers: new FormArray(emi.correctAnswers.map(answer => new FormControl(answer))),
+        rows: new FormArray(emi.rows.map((row) => new FormControl(row, KypoValidators.noWhitespace))),
+        cols: new FormArray(emi.cols.map((col) => new FormControl(col, KypoValidators.noWhitespace))),
+        correctAnswers: new FormArray(emi.correctAnswers.map((answer) => new FormControl(answer))),
         score: new FormControl(emi.score, [
           Validators.required,
           Validators.pattern('^[0-9]*$'),
           Validators.min(0),
-          Validators.max(Question.MAX_QUESTION_SCORE)
+          Validators.max(Question.MAX_QUESTION_SCORE),
         ]),
         penalty: new FormControl(emi.penalty, [
           Validators.required,
           Validators.pattern('^[0-9]*$'),
           Validators.min(0),
-          Validators.max(Question.MAX_QUESTION_PENALTY)
+          Validators.max(Question.MAX_QUESTION_PENALTY),
         ]),
       },
-    this.noSelectedAnswers);
+      this.noSelectedAnswers
+    );
   }
 
   /**
@@ -47,9 +48,7 @@ export class ExtendedMatchingItemsFormGroup {
     emi.valid = this.formGroup.valid;
   }
 
-  private noSelectedAnswers: ValidatorFn = (
-    control: FormGroup
-  ): ValidationErrors | null => {
+  private noSelectedAnswers: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
     let error = null;
     const correctAnswers = control.get('correctAnswers');
     const rows = control.get('rows');
@@ -57,7 +56,7 @@ export class ExtendedMatchingItemsFormGroup {
       error = { noSelectedAnswers: true };
     }
     return error ? error : null;
-  }
+  };
 
   /**
    * Adds correct answers validators (if level is test)

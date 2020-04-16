@@ -1,14 +1,14 @@
-import {Injectable} from '@angular/core';
-import {Router} from '@angular/router';
-import {from} from 'rxjs';
-import {Observable} from 'rxjs/internal/Observable';
-import {switchMap, tap} from 'rxjs/operators';
-import {Level} from 'kypo-training-model';
-import {AccessTrainingRunInfo} from 'kypo-training-model';
-import {TrainingRunApi} from 'kypo-training-api';
-import {RunningTrainingRunService} from './running-training-run.service';
-import {TrainingErrorHandler} from '../../client/training-error.handler';
-import {TrainingNavigator} from '../../client/training-navigator.service';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { TrainingRunApi } from 'kypo-training-api';
+import { AccessTrainingRunInfo } from 'kypo-training-model';
+import { Level } from 'kypo-training-model';
+import { from } from 'rxjs';
+import { Observable } from 'rxjs/internal/Observable';
+import { switchMap, tap } from 'rxjs/operators';
+import { TrainingErrorHandler } from '../../client/training-error.handler';
+import { TrainingNavigator } from '../../client/training-navigator.service';
+import { RunningTrainingRunService } from './running-training-run.service';
 
 /**
  * Main service for running training game. Holds levels and its state. Handles user general training run user actions and events.
@@ -16,11 +16,12 @@ import {TrainingNavigator} from '../../client/training-navigator.service';
  */
 @Injectable()
 export class RunningTrainingRunConcreteService extends RunningTrainingRunService {
-
-  constructor(private api: TrainingRunApi,
-              private errorHandler: TrainingErrorHandler,
-              private navigator: TrainingNavigator,
-              private router: Router) {
+  constructor(
+    private api: TrainingRunApi,
+    private errorHandler: TrainingErrorHandler,
+    private navigator: TrainingNavigator,
+    private router: Router
+  ) {
     super();
   }
 
@@ -50,7 +51,7 @@ export class RunningTrainingRunConcreteService extends RunningTrainingRunService
   }
 
   getActiveLevelPosition(): number {
-    return this.activeLevels.findIndex(level => level?.id === this.getActiveLevel()?.id);
+    return this.activeLevels.findIndex((level) => level?.id === this.getActiveLevel()?.id);
   }
 
   getStartTime(): Date {
@@ -88,19 +89,19 @@ export class RunningTrainingRunConcreteService extends RunningTrainingRunService
   }
 
   private callApiToNextLevel(): Observable<Level> {
-    return this.api.nextLevel(this.trainingRunId)
-      .pipe(
-        tap(level => this.setActiveLevel(level),
-          err => this.errorHandler.emit(err, 'Moving to next level'))
-      );
+    return this.api.nextLevel(this.trainingRunId).pipe(
+      tap(
+        (level) => this.setActiveLevel(level),
+        (err) => this.errorHandler.emit(err, 'Moving to next level')
+      )
+    );
   }
 
   private callApiToFinish(): Observable<any> {
-    return this.api.finish(this.trainingRunId)
-      .pipe(
-        tap({error: err => this.errorHandler.emit(err, 'Finishing training')}),
-        switchMap(_ => from(this.router.navigate( [this.navigator.toTrainingRunResult(this.trainingRunId)]))),
-        tap(_ => this.clear()),
-      );
+    return this.api.finish(this.trainingRunId).pipe(
+      tap({ error: (err) => this.errorHandler.emit(err, 'Finishing training') }),
+      switchMap((_) => from(this.router.navigate([this.navigator.toTrainingRunResult(this.trainingRunId)]))),
+      tap((_) => this.clear())
+    );
   }
 }

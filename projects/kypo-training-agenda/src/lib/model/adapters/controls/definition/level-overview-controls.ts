@@ -1,13 +1,12 @@
-import {LevelEditService} from '../../../../services/training-definition/edit/level-edit.service';
-import {defer, Observable, of} from 'rxjs';
-import {AbstractLevelTypeEnum} from 'kypo-training-model';
-import {KypoControlItem, KypoControlMenuItem, KypoExpandableControlItem} from 'kypo-controls';
+import { KypoControlItem, KypoControlMenuItem, KypoExpandableControlItem } from 'kypo-controls';
+import { AbstractLevelTypeEnum } from 'kypo-training-model';
+import { defer, Observable, of } from 'rxjs';
+import { LevelEditService } from '../../../../services/training-definition/edit/level-edit.service';
 
 /**
  * @dynamic
  */
 export class LevelOverviewControls {
-
   static readonly ADD_ACTION_ID = 'add';
   static readonly DELETE_ACTION_ID = 'delete';
   static readonly SAVE_ACTION_ID = 'save';
@@ -15,7 +14,11 @@ export class LevelOverviewControls {
   static readonly ADD_ASSESSMENT_LEVEL_ID = 'add_assessment_level';
   static readonly ADD_INFO_LEVEL_ID = 'add_info_level';
 
-  static create(service: LevelEditService, saveDisabled$: Observable<boolean>, deleteDisabled$: Observable<boolean>): KypoControlItem[] {
+  static create(
+    service: LevelEditService,
+    saveDisabled$: Observable<boolean>,
+    deleteDisabled$: Observable<boolean>
+  ): KypoControlItem[] {
     return [
       new KypoExpandableControlItem(
         this.ADD_ACTION_ID,
@@ -29,7 +32,7 @@ export class LevelOverviewControls {
         'Delete',
         'warn',
         deleteDisabled$,
-        defer(() => service.deleteSelected()),
+        defer(() => service.deleteSelected())
       ),
       new KypoControlItem(
         this.SAVE_ACTION_ID,
@@ -37,7 +40,7 @@ export class LevelOverviewControls {
         'primary',
         saveDisabled$,
         defer(() => service.saveSelected())
-      )
+      ),
     ];
   }
 

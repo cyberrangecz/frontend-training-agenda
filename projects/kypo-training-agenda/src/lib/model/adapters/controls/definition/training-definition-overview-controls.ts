@@ -1,12 +1,11 @@
-import {TrainingDefinitionService} from '../../../../services/training-definition/overview/training-definition.service';
-import {defer, of} from 'rxjs';
-import {KypoControlItem} from 'kypo-controls';
+import { KypoControlItem } from 'kypo-controls';
+import { defer, of } from 'rxjs';
+import { TrainingDefinitionService } from '../../../../services/training-definition/overview/training-definition.service';
 
 /**
  * @dynamic
  */
 export class TrainingDefinitionOverviewControls {
-
   static readonly CREATE_ACTION_ID = 'create';
   static readonly UPLOAD_ACTION_ID = 'upload';
 
@@ -25,7 +24,7 @@ export class TrainingDefinitionOverviewControls {
         'primary',
         of(false),
         defer(() => service.upload())
-      )
+      ),
     ];
   }
 }

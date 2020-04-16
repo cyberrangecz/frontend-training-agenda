@@ -1,32 +1,31 @@
-import {Injectable} from '@angular/core';
-import {from, Observable} from 'rxjs';
-import {map, switchMap, tap} from 'rxjs/operators';
-import {TrainingInstanceChangeEvent} from '../../../model/events/training-instance-change-event';
-import {TrainingInstance} from 'kypo-training-model';
-import {TrainingInstanceApi} from 'kypo-training-api';
-import {TrainingInstanceEditService} from './training-instance-edit.service';
-import {Router} from '@angular/router';
-import {SandboxInstanceApi} from 'kypo-sandbox-api';
-import {TrainingErrorHandler} from '../../client/training-error.handler';
-import {TrainingNotificationService} from '../../client/training-notification.service';
-import {TrainingNavigator} from '../../client/training-navigator.service';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { SandboxInstanceApi } from 'kypo-sandbox-api';
+import { TrainingInstanceApi } from 'kypo-training-api';
+import { TrainingInstance } from 'kypo-training-model';
+import { from, Observable } from 'rxjs';
+import { map, switchMap, tap } from 'rxjs/operators';
+import { TrainingInstanceChangeEvent } from '../../../model/events/training-instance-change-event';
+import { TrainingErrorHandler } from '../../client/training-error.handler';
+import { TrainingNavigator } from '../../client/training-navigator.service';
+import { TrainingNotificationService } from '../../client/training-notification.service';
+import { TrainingInstanceEditService } from './training-instance-edit.service';
 
 /**
  * Basic implementation of layer between component and API service.
  */
 @Injectable()
 export class TrainingInstanceEditConcreteService extends TrainingInstanceEditService {
-
-
-
   private editedSnapshot: TrainingInstance;
 
-  constructor(private trainingInstanceApi: TrainingInstanceApi,
-              private sandboxInstanceApi: SandboxInstanceApi,
-              private router: Router,
-              private navigator: TrainingNavigator,
-              private errorHandler: TrainingErrorHandler,
-              private notificationService: TrainingNotificationService) {
+  constructor(
+    private trainingInstanceApi: TrainingInstanceApi,
+    private sandboxInstanceApi: SandboxInstanceApi,
+    private router: Router,
+    private navigator: TrainingNavigator,
+    private errorHandler: TrainingErrorHandler,
+    private notificationService: TrainingNotificationService
+  ) {
     super();
   }
 
@@ -39,7 +38,6 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
     this.editedSnapshot = changeEvent.trainingInstance;
   }
 
-
   /**
    * Saves/creates training instance based on current edit mode or handles error.
    */
@@ -47,18 +45,16 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
     if (this.editModeSubject$.getValue()) {
       return this.update();
     } else {
-      return this.create()
-        .pipe(
-          switchMap(_ => from(this.router.navigate([this.navigator.toTrainingInstanceOverview()])))
-        );
+      return this.create().pipe(
+        switchMap((_) => from(this.router.navigate([this.navigator.toTrainingInstanceOverview()])))
+      );
     }
   }
 
   createAndStay(): Observable<any> {
-    return this.create()
-      .pipe(
-        switchMap(id =>  from(this.router.navigate([this.navigator.toTrainingInstanceEdit(id)])))
-      );
+    return this.create().pipe(
+      switchMap((id) => from(this.router.navigate([this.navigator.toTrainingInstanceEdit(id)])))
+    );
   }
 
   /**
@@ -82,32 +78,30 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
   }
 
   private update(): Observable<number> {
-    return this.trainingInstanceApi.update(this.editedSnapshot)
-      .pipe(
-        map(_ => this.editedSnapshot.id),
-        tap(
-          _ => {
-            this.notificationService.emit('success', 'Training instance was successfully saved');
-            this.onSaved();
-          },
-          err => this.errorHandler.emit(err, 'Creating new training instance')
-        )
-      );
+    return this.trainingInstanceApi.update(this.editedSnapshot).pipe(
+      map((_) => this.editedSnapshot.id),
+      tap(
+        (_) => {
+          this.notificationService.emit('success', 'Training instance was successfully saved');
+          this.onSaved();
+        },
+        (err) => this.errorHandler.emit(err, 'Creating new training instance')
+      )
+    );
   }
 
   private create(): Observable<number> {
-    return this.trainingInstanceApi.create(this.editedSnapshot)
-      .pipe(
-        map(ti => ti.id),
-        tap(_ => {
+    return this.trainingInstanceApi.create(this.editedSnapshot).pipe(
+      map((ti) => ti.id),
+      tap(
+        (_) => {
           this.notificationService.emit('success', 'Training instance was created');
           this.onSaved();
         },
-          err => this.errorHandler.emit(err, 'Creating training instance')
-        )
-      );
-    }
-
+        (err) => this.errorHandler.emit(err, 'Creating training instance')
+      )
+    );
+  }
 
   private onSaved() {
     this.editModeSubject$.next(true);

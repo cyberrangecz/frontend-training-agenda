@@ -1,7 +1,7 @@
-import {FormArray, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
-import {Question} from 'kypo-training-model';
-import {FreeFormQuestion} from 'kypo-training-model';
+import { FormArray, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { KypoValidators } from 'kypo-common';
+import { Question } from 'kypo-training-model';
+import { FreeFormQuestion } from 'kypo-training-model';
 
 /**
  * Form control for free form question component
@@ -17,17 +17,20 @@ export class FreeFormQuestionFormGroup {
           Validators.required,
           Validators.pattern('^[0-9]*$'),
           Validators.min(0),
-          Validators.max(Question.MAX_QUESTION_SCORE)
+          Validators.max(Question.MAX_QUESTION_SCORE),
         ]),
         penalty: new FormControl(ffq.penalty, [
           Validators.required,
           Validators.pattern('^[0-9]*$'),
           Validators.min(0),
-          Validators.max(Question.MAX_QUESTION_PENALTY)
+          Validators.max(Question.MAX_QUESTION_PENALTY),
         ]),
-        answers: new FormArray(ffq.correctAnswers.map(answer => new FormControl(answer, KypoValidators.noWhitespace)))
+        answers: new FormArray(
+          ffq.correctAnswers.map((answer) => new FormControl(answer, KypoValidators.noWhitespace))
+        ),
       },
-      this.noSelectedAnswers);
+      this.noSelectedAnswers
+    );
   }
 
   /**
@@ -51,7 +54,7 @@ export class FreeFormQuestionFormGroup {
       error = { noSelectedAnswers: true };
     }
     return error ? error : null;
-  }
+  };
 
   /**
    * Adds validator to answers if preselected correct answers are required (if level is test)
