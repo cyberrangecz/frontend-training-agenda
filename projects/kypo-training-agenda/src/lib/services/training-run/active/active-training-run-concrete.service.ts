@@ -9,7 +9,7 @@ import { KypoPaginatedResource } from 'kypo-common';
 import { KypoRequestedPagination } from 'kypo-common';
 import { PoolRequestApi, SandboxInstanceApi } from 'kypo-sandbox-api';
 import { SandboxInstance } from 'kypo-sandbox-model';
-import { TrainingInstanceApi } from 'kypo-training-api';
+import { TrainingInstanceApi, TrainingRunApi } from 'kypo-training-api';
 import { TrainingInstance } from 'kypo-training-model';
 import { TrainingRun } from 'kypo-training-model';
 import { concat, EMPTY, merge, Observable, Subject, timer } from 'rxjs';
@@ -30,7 +30,8 @@ export class ActiveTrainingRunConcreteService extends ActiveTrainingRunService {
   private trainingInstance: TrainingInstance;
 
   constructor(
-    private trainingInstanceFacade: TrainingInstanceApi,
+    private trainingInstanceApi: TrainingInstanceApi,
+    private trainingRunApi: TrainingRunApi,
     private sandboxApi: SandboxInstanceApi,
     private requestApi: PoolRequestApi,
     private dialog: MatDialog,
@@ -62,7 +63,7 @@ export class ActiveTrainingRunConcreteService extends ActiveTrainingRunService {
     pagination: KypoRequestedPagination
   ): Observable<KypoPaginatedResource<TrainingRun>> {
     this.onManualGetAll(pagination);
-    return this.trainingInstanceFacade.getAssociatedTrainingRuns(trainingInstanceId, pagination).pipe(
+    return this.trainingInstanceApi.getAssociatedTrainingRuns(trainingInstanceId, pagination).pipe(
       tap(
         (runs) => {
           this.resourceSubject$.next(runs);
@@ -87,6 +88,16 @@ export class ActiveTrainingRunConcreteService extends ActiveTrainingRunService {
     } else {
       return this.callApiToDeleteSandbox(trainingRun);
     }
+  }
+
+  archive(trainingRun: TrainingRun): Observable<any> {
+    return this.trainingRunApi.archive(trainingRun.id).pipe(
+      tap(
+        (_) => this.notificationService.emit('success', `Training run ${trainingRun.id} was archived`),
+        (err) => this.errorHandler.emit(err, `Archiving training run ${trainingRun.id}`)
+      ),
+      switchMap((_) => this.getAll(this.trainingInstance.id, this.lastPagination))
+    );
   }
 
   private displayDeleteSandboxDialog(trainingRun: TrainingRun): Observable<CsirtMuDialogResultEnum> {
@@ -117,7 +128,7 @@ export class ActiveTrainingRunConcreteService extends ActiveTrainingRunService {
 
   private repeatLastGetAllRequest(): Observable<KypoPaginatedResource<TrainingRun>> {
     this.hasErrorSubject$.next(false);
-    return this.trainingInstanceFacade
+    return this.trainingInstanceApi
       .getAssociatedTrainingRuns(this.trainingInstance.id, this.lastPagination)
       .pipe(tap({ error: (err) => this.onGetAllError() }));
   }

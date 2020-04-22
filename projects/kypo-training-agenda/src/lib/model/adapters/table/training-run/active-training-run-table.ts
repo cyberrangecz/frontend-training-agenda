@@ -35,6 +35,15 @@ export class ActiveTrainingRunTable extends Kypo2Table<TrainingRunRowAdapter> {
         of(false),
         defer(() => service.deleteSandbox(element))
       ),
+      new RowAction(
+        'archive',
+        'Archive',
+        'archive',
+        'primary',
+        'Archive training run',
+        of(false),
+        defer(() => service.archive(element))
+      ),
     ];
   }
 }
