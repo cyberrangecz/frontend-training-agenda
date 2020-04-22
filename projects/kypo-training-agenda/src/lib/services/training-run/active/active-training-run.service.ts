@@ -33,4 +33,10 @@ export abstract class ActiveTrainingRunService extends KypoPaginatedResourceServ
    * @param trainingRun training run whose sandbox instance should be deleted
    */
   abstract deleteSandbox(trainingRun: TrainingRun): Observable<any>;
+
+  /**
+   * Archives training run
+   * @param trainingRun training run which should be archived
+   */
+  abstract archive(trainingRun: TrainingRun): Observable<any>;
 }
