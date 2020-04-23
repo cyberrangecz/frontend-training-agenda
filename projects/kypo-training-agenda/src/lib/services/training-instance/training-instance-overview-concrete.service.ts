@@ -5,8 +5,8 @@ import { KypoPaginatedResource } from 'kypo-common';
 import { PoolApi } from 'kypo-sandbox-api';
 import { TrainingInstanceApi } from 'kypo-training-api';
 import { TrainingInstance } from 'kypo-training-model';
-import { Observable, of } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { EMPTY, Observable, of } from 'rxjs';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { TrainingInstanceFilter } from '../../model/filters/training-instance-filter';
 import { TrainingErrorHandler } from '../client/training-error.handler';
 import { TrainingNavigator } from '../client/training-navigator.service';
@@ -66,9 +66,11 @@ export class TrainingInstanceOverviewConcreteService extends TrainingInstanceOve
 
   delete(id: number): Observable<any> {
     return this.trainingInstanceApi.delete(id).pipe(
-      tap(
-        (_) => this.notificationService.emit('success', 'Training instance was successfully deleted'),
-        (err) => this.errorHandler.emit(err, 'Deleting training instance')
+      tap((_) => this.notificationService.emit('success', 'Training instance was successfully deleted')),
+      catchError((err) =>
+        this.errorHandler
+          .emit(err, 'Deleting training instance', 'Force')
+          .pipe(switchMap((shouldForce) => (shouldForce ? this.forceDelete(id) : EMPTY)))
       ),
       switchMap((_) => this.getAll(this.lastPagination, this.lastFilter))
     );
@@ -76,5 +78,14 @@ export class TrainingInstanceOverviewConcreteService extends TrainingInstanceOve
 
   getPoolState(poolId: number): Observable<string> {
     return this.poolApi.getPool(poolId).pipe(map((pool) => `${pool.maxSize} (${pool.maxSize - pool.usedSize} free)`));
+  }
+
+  private forceDelete(id: number): Observable<any> {
+    return this.trainingInstanceApi.delete(id, true).pipe(
+      tap(
+        (_) => this.notificationService.emit('success', 'Training instance was successfully deleted'),
+        (err) => this.errorHandler.emit(err, 'Force deleting training instance')
+      )
+    );
   }
 }
