@@ -15,6 +15,7 @@ import { TrainingInstance } from 'kypo-training-model';
 export class TrainingInstanceInfoComponent extends KypoBaseComponent implements OnInit, OnChanges {
   @Input() trainingInstance: TrainingInstance;
   @Input() accessTokenLink: string;
+  @Input() poolIdLink: string;
   trainingDefinition: TrainingDefinition;
 
   constructor() {

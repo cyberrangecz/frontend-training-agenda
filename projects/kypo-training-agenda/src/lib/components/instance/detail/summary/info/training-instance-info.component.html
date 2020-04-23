@@ -4,4 +4,4 @@
 <p>Access token: <a mat-button color="primary" [routerLink]="accessTokenLink">{{ trainingInstance.accessToken }}</a></p>
 <p>Start Time: {{ trainingInstance.startTime | kypoDateTimeFormat }}</p>
 <p>End Time: {{ trainingInstance.endTime | kypoDateTimeFormat }}</p>
-<p>Pool Id: {{ trainingInstance.poolId }}</p>
+<p>Pool Id: <a mat-button color="primary" [routerLink]="poolIdLink">{{ trainingInstance.poolId }}</a></p>
