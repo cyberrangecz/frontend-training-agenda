@@ -22,6 +22,7 @@ import { TrainingInstanceSummaryService } from '../../../../services/training-in
 export class TrainingInstanceSummaryComponent extends KypoBaseComponent implements OnInit {
   trainingInstance$: Observable<TrainingInstance>;
   trainingInstanceAccessTokenLink: string;
+  trainingInstancePoolIdLink: string;
   controls: KypoControlItem[];
   private expanded: Set<number> = new Set();
 
@@ -39,6 +40,8 @@ export class TrainingInstanceSummaryComponent extends KypoBaseComponent implemen
       tap((ti) => {
         this.service.set(ti);
         this.trainingInstanceAccessTokenLink = `/${this.navigator.toTrainingInstanceAccessToken(ti.id)}`;
+        this.trainingInstancePoolIdLink = `/${this.navigator.toPool(ti.poolId)}`;
+
         const disabled$ = this.service.hasStarted$.pipe(map((hasStated) => !hasStated));
         this.controls = TrainingInstanceSummaryControls.create(this.service, disabled$, disabled$);
       })
