@@ -13,5 +13,5 @@ export abstract class TrainingErrorHandler {
    *  Returns observable.
    *  Value of the observable is true if the provided action was selected, false otherwise (no reaction or dismissed)
    */
-  abstract emit(err: HttpErrorResponse, operation: string, action: string): Observable<boolean>;
+  abstract emit(err: HttpErrorResponse, operation: string, action?: string): Observable<boolean>;
 }

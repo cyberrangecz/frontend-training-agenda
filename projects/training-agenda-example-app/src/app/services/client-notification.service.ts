@@ -7,7 +7,7 @@ export class ClientNotificationService {
    *  Returns observable.
    *  Value of the observable is true if the provided action was selected, false otherwise (no reaction or dismissed)
    */
-  emit(type: 'error' | 'warning' | 'info' | 'success', message: string, action: string): void {
+  emit(type: 'error' | 'warning' | 'info' | 'success', message: string, action?: string): void {
     console.log(`${type} ${message} with action ${action}`);
   }
 }
