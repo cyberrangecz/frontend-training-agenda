@@ -1,16 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME } from '../../../../../../../kypo-training-agenda/src/lib/model/client/activated-route-data-attributes';
 import {
   ACCESS_TOKEN_PATH,
   PROGRESS_PATH,
   RESULTS_PATH,
   SUMMARY_PATH,
-  TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME,
-  TrainingInstanceDetailBreadcrumbResolver,
-  TrainingInstanceDetailTitleResolver,
-  TrainingInstanceResolver,
-} from 'kypo-training-agenda';
-
+} from '../../../../../../../kypo-training-agenda/src/lib/model/client/default-paths';
+import { TrainingInstanceDetailBreadcrumbResolver } from '../../../../../../../kypo-training-agenda/src/lib/services/resolvers/instance/training-instance-detail-breadcrumb-resolver.service';
+import { TrainingInstanceDetailTitleResolver } from '../../../../../../../kypo-training-agenda/src/lib/services/resolvers/instance/training-instance-detail-title-resolver.service';
+import { TrainingInstanceResolver } from '../../../../../../../kypo-training-agenda/src/lib/services/resolvers/instance/training-instance-resolver.service';
 const routes: Routes = [
   {
     path: '',

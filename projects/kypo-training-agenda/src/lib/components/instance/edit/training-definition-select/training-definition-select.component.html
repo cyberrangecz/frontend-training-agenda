@@ -3,24 +3,26 @@
   <mat-divider></mat-divider>
   <div mat-dialog-content>
     <mat-progress-bar *ngIf="isLoading$ | async" mode="indeterminate"></mat-progress-bar>
-    <mat-list>
-      <kypo-radio-list resourceName="Released Training Definitions"
-                                    [resource]="released$ | async"
-                                    [hasError]="releasedHasError$ | async"
-                                    [selected]="selected"
-                                    [pageSize]="PAGE_SIZE"
-                                    (fetch)="fetch($event, true)"
-                                    (selectionChange)="onSelectionChange($event)">
-      </kypo-radio-list>
-      <kypo-radio-list resourceName="Unreleased Training Definitions"
-                                    [resource]="unreleased$ | async"
-                                    [hasError]="unreleasedHasError$ | async"
-                                    [selected]="selected"
-                                    [pageSize]="PAGE_SIZE"
-                                    (fetch)="fetch($event, false)"
-                                    (selectionChange)="onSelectionChange($event)">
-      </kypo-radio-list>
-    </mat-list>
+    <kypo-list resourceName="Released Training Definitions"
+               mode="radio"
+               titleMaxLength="50"
+               [resource]="released$ | async"
+               [hasError]="releasedHasError$ | async"
+               [selected]="selected"
+               [pageSize]="PAGE_SIZE"
+               (fetch)="fetch($event, true)"
+               (selectionChange)="onSelectionChange($event)">
+    </kypo-list>
+    <kypo-list resourceName="Unreleased Training Definitions"
+               mode="radio"
+               titleMaxLength="50"
+               [resource]="unreleased$ | async"
+               [hasError]="unreleasedHasError$ | async"
+               [selected]="selected"
+               [pageSize]="PAGE_SIZE"
+               (fetch)="fetch($event, false)"
+               (selectionChange)="onSelectionChange($event)">
+    </kypo-list>
   </div>
 
   <div mat-dialog-actions>

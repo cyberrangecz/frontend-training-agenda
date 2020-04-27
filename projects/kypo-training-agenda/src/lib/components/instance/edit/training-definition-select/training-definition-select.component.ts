@@ -30,7 +30,7 @@ export class TrainingDefinitionSelectComponent extends KypoBaseComponent impleme
   unreleased$: Observable<KypoPaginatedResource<TrainingDefinitionInfo>>;
   unreleasedHasError$: Observable<boolean>;
   isLoading$: Observable<boolean>;
-  selected: TrainingDefinitionInfo;
+  selected: TrainingDefinitionInfo[] = [];
 
   constructor(
     @Optional() @Inject(MAT_DIALOG_DATA) public data: TrainingDefinition,
@@ -41,7 +41,7 @@ export class TrainingDefinitionSelectComponent extends KypoBaseComponent impleme
   ) {
     super();
     this.PAGE_SIZE = this.context.config.defaultPaginationSize;
-    this.selected = this.data;
+    this.selected = [this.data];
   }
 
   ngOnInit() {
@@ -86,7 +86,7 @@ export class TrainingDefinitionSelectComponent extends KypoBaseComponent impleme
   confirm() {
     const result = {
       type: 'confirm',
-      trainingDef: this.selected,
+      trainingDef: this.selected[0],
     };
     this.dialogRef.close(result);
   }
@@ -106,7 +106,7 @@ export class TrainingDefinitionSelectComponent extends KypoBaseComponent impleme
    * Updated selected training definition
    * @param selected selected training definition
    */
-  onSelectionChange(selected: TrainingDefinitionInfo) {
+  onSelectionChange(selected: TrainingDefinitionInfo[]) {
     this.selected = selected;
   }
 }

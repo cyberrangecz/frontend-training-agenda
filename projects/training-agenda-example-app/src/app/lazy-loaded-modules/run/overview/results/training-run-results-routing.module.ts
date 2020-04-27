@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TrainingRunResultsComponent } from 'kypo-training-agenda';
+import { TrainingRunResultsComponent } from '../../../../../../../kypo-training-agenda/src/lib/components/run/results/training-run-results.component';
 
 const routes: Routes = [
   {
