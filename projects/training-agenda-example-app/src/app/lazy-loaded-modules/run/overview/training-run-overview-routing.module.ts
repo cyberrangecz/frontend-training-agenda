@@ -1,17 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { TrainingRunOverviewComponent } from '../../../../../../kypo-training-agenda/src/lib/components/run/overview/training-run-overview.component';
 import {
-  AccessTrainingRunResolver,
   TRAINING_RUN_ACCESS_INFO_DATA_ATTRIBUTE_NAME,
+  TRAINING_RUN_DATA_ATTRIBUTE_NAME,
+} from '../../../../../../kypo-training-agenda/src/lib/model/client/activated-route-data-attributes';
+import {
   TRAINING_RUN_ACCESS_PATH,
   TRAINING_RUN_ACCESS_SELECTOR,
-  TRAINING_RUN_DATA_ATTRIBUTE_NAME,
   TRAINING_RUN_RESULTS_PATH,
   TRAINING_RUN_RESUME_PATH,
   TRAINING_RUN_SELECTOR,
-  TrainingRunOverviewComponent,
-  TrainingRunResultsResolver,
-} from 'kypo-training-agenda';
+} from '../../../../../../kypo-training-agenda/src/lib/model/client/default-paths';
+import { AccessTrainingRunResolver } from '../../../../../../kypo-training-agenda/src/lib/services/resolvers/run/training-run-resolver.service';
+import { TrainingRunResultsResolver } from '../../../../../../kypo-training-agenda/src/lib/services/resolvers/run/training-run-results-resolver.service';
 
 const routes: Routes = [
   {

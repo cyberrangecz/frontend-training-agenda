@@ -38,7 +38,7 @@ export class PoolAssignComponent extends KypoBaseComponent implements OnInit, On
   pools$: Observable<KypoPaginatedResource<SandboxPoolListAdapter>>;
   hasError$: Observable<boolean>;
   isLoading$: Observable<boolean>;
-  selected$: Observable<SandboxPoolListAdapter>;
+  selected$: Observable<SandboxPoolListAdapter[]>;
 
   controls: KypoControlItem[];
   resourceMapping: KypoListResourceMapping = { id: 'id', title: 'title' };
@@ -80,8 +80,8 @@ export class PoolAssignComponent extends KypoBaseComponent implements OnInit, On
     this.assignService.getAll(pagination).pipe(take(1)).subscribe();
   }
 
-  onSelectionChange(selected: SandboxPoolListAdapter) {
-    this.assignService.select(selected.pool);
+  onSelectionChange(selected: SandboxPoolListAdapter[]) {
+    this.assignService.select(selected[0].pool);
   }
 
   private initList() {
@@ -90,7 +90,7 @@ export class PoolAssignComponent extends KypoBaseComponent implements OnInit, On
     this.hasError$ = this.assignService.hasError$;
     this.isLoading$ = this.assignService.isLoading$;
     this.selected$ = this.assignService.selected$.pipe(
-      map((selected) => (selected ? new SandboxPoolListAdapter(selected) : undefined))
+      map((selected) => (selected ? [new SandboxPoolListAdapter(selected)] : []))
     );
     this.assignService.getAll(pagination).pipe(take(1)).subscribe();
   }

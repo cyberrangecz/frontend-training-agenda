@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { TrainingInstanceDetailComponentsModule } from 'kypo-training-agenda';
+import { TrainingInstanceDetailComponentsModule } from '../../../../../../../kypo-training-agenda/src/lib/components/instance/detail/training-instance-detail-components.module';
 import { environment } from '../../../../../environments/environment';
 import { TrainingInstanceDetailRoutingModule } from './training-instance-detail-routing.module';
 

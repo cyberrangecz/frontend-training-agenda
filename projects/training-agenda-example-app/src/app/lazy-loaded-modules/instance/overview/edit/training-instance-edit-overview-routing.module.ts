@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TrainingInstanceCanDeactivate, TrainingInstanceEditOverviewComponent } from 'kypo-training-agenda';
+import { TrainingInstanceEditOverviewComponent } from '../../../../../../../kypo-training-agenda/src/lib/components/instance/edit/training-instance-edit-overview.component';
+import { TrainingInstanceCanDeactivate } from '../../../../../../../kypo-training-agenda/src/lib/services/can-deactivate/training-instance-can-deactivate.service';
 
 const routes: Routes = [
   {
