@@ -142,9 +142,8 @@
             <mat-icon>close</mat-icon>
           </button>
           <mat-hint align="end">{{ flag.value?.length || 0 }}/50</mat-hint>
-          <mat-error
-            >Flag cannot be empty or larger than 50 characters</mat-error
-          >
+          <mat-error *ngIf="flag.hasError('flagForbiddenSymbols')">Flag cannot contain special characters like "[, ], &#123;, &#125;, :"</mat-error>
+          <mat-error *ngIf="flag.hasError('whitespace')">Flag cannot be empty or larger than 50 characters</mat-error>
         </mat-form-field>
 
         <!-- SOLUTION PENALIZED field -->

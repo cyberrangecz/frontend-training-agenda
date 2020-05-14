@@ -1,6 +1,7 @@
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { KypoValidators } from 'kypo-common';
 import { GameLevel } from 'kypo-training-model';
+import { TrainingValidators } from '../../../../../../model/validators/training-validators';
 
 export const MAX_SCORE = 100;
 export const INCORRECT_FLAG_LIMIT = 100;
@@ -31,7 +32,11 @@ export class GameLevelEditFormGroup {
         Validators.min(1),
         Validators.max(INCORRECT_FLAG_LIMIT),
       ]),
-      flag: new FormControl(level.flag, [KypoValidators.noWhitespace, Validators.maxLength(MAX_FLAG)]),
+      flag: new FormControl(level.flag, [
+        KypoValidators.noWhitespace,
+        TrainingValidators.noFlagForbiddenSymbols,
+        Validators.maxLength(MAX_FLAG),
+      ]),
       estimatedDuration: new FormControl(level.estimatedDuration, [
         Validators.pattern('^[0-9]*$'),
         Validators.min(1),
