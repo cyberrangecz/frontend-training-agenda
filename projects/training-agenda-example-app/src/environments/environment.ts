@@ -3,15 +3,15 @@
 // The list of file replacements can be found in `angular.json`.
 
 // Server url
-export const baseURL = 'https://kypo-devel.ics.muni.cz';
+export const baseURL = 'https://172.19.0.22';
 // Frontend url
 export const homeURL = 'https://localhost:4200';
 // trainings service url
-export const trainingURL = baseURL + ':8083/kypo2-rest-training/api/v1/';
+export const trainingURL = baseURL + '/kypo2-rest-training/api/v1/';
 // sandboxes service url
-export const sandboxesURL = baseURL + ':8080/kypo-sandbox-service/api/v1/';
+export const sandboxesURL = baseURL + '/kypo-sandbox-service/api/v1/';
 
-export const userAngGroupURL = baseURL + ':8084/kypo2-rest-user-and-group/api/v1/';
+export const userAngGroupURL = baseURL + '/kypo2-rest-user-and-group/api/v1/';
 
 export const kypo2TopologyConfig = {
   topologyRestUrl: sandboxesURL,
@@ -59,11 +59,11 @@ export const environment = {
         backgroundColor: '#002776',
         tokenRefreshTime: 30000, // how often check if tokens are still valid
         oidcConfig: {
-          issuer: 'https://oidc.muni.cz/oidc/',
-          clientId: 'b53f2660-8fa0-4d32-94e4-23a59d7e7077',
+          issuer: 'https://172.19.0.22:443/csirtmu-dummy-issuer-server/',
+          clientId: '0bf33f00-2700-4efb-ab09-186076f85c7d',
           redirectUri: homeURL, // redirect after successful login
           scope: 'openid email profile',
-          logoutUrl: 'https://oidc.muni.cz/oidc/endsession',
+          logoutUrl: 'https://172.19.0.22/csirtmu-dummy-issuer-server/endsession',
           postLogoutRedirectUri: homeURL + '/logout-confirmed/',
           silentRefreshRedirectUri: homeURL + '/silent-refresh.html',
           clearHashAfterLogin: true, // remove token and other info from url after login
