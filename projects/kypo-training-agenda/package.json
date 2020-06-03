@@ -1,6 +1,6 @@
 {
   "name": "kypo-training-agenda",
-  "version": "9.1.1",
+  "version": "9.1.2",
   "peerDependencies": {
     "@angular/common": "^9.0.2",
     "@angular/core": "^9.0.2",
@@ -13,7 +13,7 @@
     "kypo-list": "9.1.2",
     "kypo-sandbox-api": "9.0.0",
     "kypo-sandbox-model": "9.0.0",
-    "kypo-training-api": "9.1.0",
+    "kypo-training-api": "9.1.2",
     "kypo-training-model": "9.0.1",
     "kypo2-markdown-editor": "9.0.0",
     "kypo2-table": "9.3.0",
