@@ -2,10 +2,10 @@
 <mat-divider></mat-divider>
 <kypo2-table
   elevation="0"
-  [data] ="trainingRuns$ | async"
-  [hasError]="hasError$ | async"
-  (refresh)="onTableLoadEvent($event)"
+  [data] ="trainingRuns"
+  [hasError]="hasError"
+  (refresh)="onLoadTableEvent($event)"
   (rowAction)="onTableAction($event)"
-  (rowSelection)="onRowSelection($event)">
+  (rowSelection)="onSelectionChange($event)">
 </kypo2-table>
 

@@ -1,4 +1,13 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { KypoBaseComponent } from 'kypo-common';
 import { KypoControlItem } from 'kypo-controls';
 import { TrainingInstance } from 'kypo-training-model';
@@ -18,78 +27,46 @@ import { ArchivedTrainingRunService } from '../../../../../services/training-run
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ArchivedTrainingRunOverviewComponent extends KypoBaseComponent implements OnInit {
-  @Input() trainingInstance: TrainingInstance;
-  @Input() isPollingActive: boolean;
+  @Input() trainingRuns: Kypo2Table<TrainingRunRowAdapter>;
+  @Input() hasError: boolean;
+  @Input() controls: KypoControlItem[];
 
-  trainingRuns$: Observable<Kypo2Table<TrainingRunRowAdapter>>;
-  hasError$: Observable<boolean>;
-  selectedTrainingRunIds: number[] = [];
-  controls: KypoControlItem[];
+  @Output() tableAction: EventEmitter<TableActionEvent<TrainingRunRowAdapter>> = new EventEmitter();
+  @Output() loadTableEvent: EventEmitter<LoadTableEvent> = new EventEmitter();
+  @Output() selectionChange: EventEmitter<TrainingRunRowAdapter[]> = new EventEmitter();
+  @Output() controlsAction: EventEmitter<KypoControlItem> = new EventEmitter();
 
-  constructor(private service: ArchivedTrainingRunService) {
-    super();
-  }
-
-  ngOnInit() {
-    this.startPolling();
-    this.initControls();
-  }
+  ngOnInit() {}
 
   /**
-   * Resolves actions and calls related action handler
-   * @param event event emitted by table
+   * Emits table action event
+   * @param event action event emitted from table
    */
   onTableAction(event: TableActionEvent<TrainingRunRowAdapter>) {
-    event.action.result$.pipe(take(1)).subscribe();
-  }
-
-  onControlsAction(control: KypoControlItem) {
-    control.result$.pipe(takeWhile((_) => this.isAlive)).subscribe();
+    this.tableAction.emit(event);
   }
 
   /**
-   * Stores selected training runs emitted by table
-   * @param event event containing selected training runs emitted by table
+   * Emits load table vent
+   * @param event reload data event emitted from table
    */
-  onRowSelection(event: TrainingRunRowAdapter[]) {
-    this.selectedTrainingRunIds = [];
-    event.forEach((selectedRun) => {
-      this.selectedTrainingRunIds.push(selectedRun.trainingRun.id);
-    });
-    this.initControls();
+  onLoadTableEvent(event: LoadTableEvent) {
+    this.loadTableEvent.emit(event);
   }
 
   /**
-   * Loads fresh data for table
-   * @param event event to load new data emitted by table
+   * Emits selection change event
+   * @param selection new selection
    */
-  onTableLoadEvent(event: LoadTableEvent) {
-    this.service
-      .getAll(this.trainingInstance.id, event.pagination)
-      .pipe(takeWhile((_) => this.isAlive))
-      .subscribe();
+  onSelectionChange(selection: TrainingRunRowAdapter[]) {
+    this.selectionChange.emit(selection);
   }
 
-  private startPolling() {
-    this.service.startPolling(this.trainingInstance);
-    this.trainingRuns$ = this.service.archivedTrainingRuns$.pipe(
-      takeWhile((_) => this.isPollingActive),
-      map((resource) => new ArchivedTrainingRunTable(resource, this.service))
-    );
-    this.hasError$ = this.service.hasError$;
-  }
-
-  private initControls() {
-    const deleteLabel =
-      this.selectedTrainingRunIds.length > 0 ? `Delete (${this.selectedTrainingRunIds.length})` : 'Delete';
-    this.controls = [
-      new KypoControlItem(
-        'deleteMultiple',
-        deleteLabel,
-        'warn',
-        of(this.selectedTrainingRunIds.length <= 0),
-        defer(() => this.service.deleteMultiple(this.selectedTrainingRunIds))
-      ),
-    ];
+  /**
+   * Emits control action event
+   * @param controlItem clicked control item
+   */
+  onControlsAction(controlItem: KypoControlItem) {
+    this.controlsAction.emit(controlItem);
   }
 }

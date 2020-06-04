@@ -1,26 +1,47 @@
 import { async, TestBed } from '@angular/core/testing';
+import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { KypoRequestedPagination } from 'kypo-common';
 import { TrainingRunApi } from 'kypo-training-api';
 import { throwError } from 'rxjs';
 import { skip } from 'rxjs/operators';
-import { ErrorHandlerService } from '../../shared/error-handler.service';
+import { TrainingAgendaConfig } from '../../../model/client/training-agenda-config';
+import { TrainingErrorHandler } from '../../client/training-error.handler.service';
+import { TrainingNavigator } from '../../client/training-navigator.service';
+import { TrainingAgendaContext } from '../../internal/training-agenda-context.service';
 import { AccessedTrainingRunConcreteService } from './accessed-training-run-concrete.service';
 
 describe('AccessedTrainingRunConcreteService', () => {
   let service: AccessedTrainingRunConcreteService;
-  let errorHandlerServiceSpy: jasmine.SpyObj<ErrorHandlerService>;
+  let errorHandlerSpy: jasmine.SpyObj<TrainingErrorHandler>;
   let apiSpy: jasmine.SpyObj<TrainingRunApi>;
+  let navigatorSpy: jasmine.SpyObj<TrainingNavigator>;
+  let routerSpy: jasmine.SpyObj<Router>;
+  let context: TrainingAgendaContext;
 
   beforeEach(async(() => {
-    errorHandlerServiceSpy = jasmine.createSpyObj('ErrorHandlerService', ['emit']);
+    const config = new TrainingAgendaConfig();
+    config.pollingPeriod = 5000;
+    config.defaultPaginationSize = 10;
+    errorHandlerSpy = jasmine.createSpyObj('TrainingErrorHandler', ['emit']);
     apiSpy = jasmine.createSpyObj('TrainingRunApi', ['getAccessed']);
+    navigatorSpy = jasmine.createSpyObj('TrainingNavigator', [
+      'toResumeTrainingRunGame',
+      'toAccessTrainingRunGame',
+      'toTrainingRunResult',
+    ]);
+    routerSpy = jasmine.createSpyObj('Router', ['navigate']);
+    context = new TrainingAgendaContext(config);
+
     TestBed.configureTestingModule({
       imports: [RouterTestingModule],
       providers: [
         AccessedTrainingRunConcreteService,
         { provide: TrainingRunApi, useValue: apiSpy },
-        { provide: ErrorHandlerService, useValue: errorHandlerServiceSpy },
+        { provide: TrainingErrorHandler, useValue: errorHandlerSpy },
+        { provide: TrainingAgendaContext, useValue: context },
+        { provide: TrainingNavigator, useValue: navigatorSpy },
+        { provide: Router, useValue: routerSpy },
       ],
     });
     service = TestBed.inject(AccessedTrainingRunConcreteService);
@@ -36,7 +57,7 @@ describe('AccessedTrainingRunConcreteService', () => {
     service.getAll(createPagination()).subscribe(
       (_) => fail,
       (_) => {
-        expect(errorHandlerServiceSpy.emit).toHaveBeenCalledTimes(1);
+        expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         done();
       }
     );

@@ -7,7 +7,7 @@ import { Kypo2UserAssignService } from 'kypo2-user-assign';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { UserNameFilters } from '../../../model/filters/user-name-filters';
-import { TrainingErrorHandler } from '../../client/training-error.handler';
+import { TrainingErrorHandler } from '../../client/training-error.handler.service';
 import { TrainingAgendaContext } from '../../internal/training-agenda-context.service';
 
 /**

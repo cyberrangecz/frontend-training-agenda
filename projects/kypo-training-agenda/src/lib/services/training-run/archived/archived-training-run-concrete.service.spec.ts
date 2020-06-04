@@ -6,37 +6,43 @@ import { KypoRequestedPagination } from 'kypo-common';
 import { asyncData } from 'kypo-common';
 import { TrainingInstanceApi } from 'kypo-training-api';
 import { TrainingRunApi } from 'kypo-training-api';
-import { TrainingInstance } from 'kypo-training-model';
 import { throwError } from 'rxjs';
-import { skip } from 'rxjs/operators';
-import { environment } from '../../../../environments/environment';
-import { AlertService } from '../../shared/alert.service';
-import { ErrorHandlerService } from '../../shared/error-handler.service';
+import { skip, take } from 'rxjs/operators';
+import { TrainingAgendaConfig } from '../../../model/client/training-agenda-config';
+import { TrainingErrorHandler } from '../../client/training-error.handler.service';
+import { TrainingNotificationService } from '../../client/training-notification.service';
+import { TrainingAgendaContext } from '../../internal/training-agenda-context.service';
 import { ArchivedTrainingRunConcreteService } from './archived-training-run-concrete.service';
 
 describe('ArchivedTrainingRunConcreteService', () => {
-  let errorHandlerSpy: jasmine.SpyObj<ErrorHandlerService>;
-  let trainingInstanceFacadeSpy: jasmine.SpyObj<TrainingInstanceApi>;
+  let errorHandlerSpy: jasmine.SpyObj<TrainingErrorHandler>;
+  let trainingInstanceApiSpy: jasmine.SpyObj<TrainingInstanceApi>;
   let trainingRunFacadeSpy: jasmine.SpyObj<TrainingRunApi>;
   let dialogSpy: jasmine.SpyObj<MatDialog>;
-  let alertHandlerSpy: jasmine.SpyObj<AlertService>;
+  let notificationSpy: jasmine.SpyObj<TrainingNotificationService>;
   let service: ArchivedTrainingRunConcreteService;
+  let context: TrainingAgendaContext;
 
   beforeEach(async(() => {
+    const config = new TrainingAgendaConfig();
+    config.pollingPeriod = 5000;
+    config.defaultPaginationSize = 10;
+
     errorHandlerSpy = jasmine.createSpyObj('ErrorHandlerService', ['emit']);
-    trainingInstanceFacadeSpy = jasmine.createSpyObj('TrainingInstanceApi', ['getAssociatedTrainingRuns']);
-    alertHandlerSpy = jasmine.createSpyObj('AlertService', ['emitAlert']);
-    trainingRunFacadeSpy = jasmine.createSpyObj('TrainingRunFacade', ['deleteMultiple']);
+    trainingInstanceApiSpy = jasmine.createSpyObj('TrainingInstanceApi', ['getAssociatedTrainingRuns']);
+    notificationSpy = jasmine.createSpyObj('TrainingNotificationService', ['emit']);
+    trainingRunFacadeSpy = jasmine.createSpyObj('TrainingRunApi', ['deleteMultiple']);
     dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
+    context = new TrainingAgendaContext(config);
 
     TestBed.configureTestingModule({
       providers: [
         ArchivedTrainingRunConcreteService,
         { provide: MatDialog, useValue: dialogSpy },
-
-        { provide: TrainingInstanceApi, useValue: trainingInstanceFacadeSpy },
-        { provide: ErrorHandlerService, useValue: errorHandlerSpy },
-        { provide: AlertService, useValue: alertHandlerSpy },
+        { provide: TrainingInstanceApi, useValue: trainingInstanceApiSpy },
+        { provide: TrainingErrorHandler, useValue: errorHandlerSpy },
+        { provide: TrainingNotificationService, useValue: notificationSpy },
+        { provide: TrainingAgendaContext, useValue: context },
         { provide: TrainingRunApi, useValue: trainingRunFacadeSpy },
       ],
     });
@@ -48,7 +54,7 @@ describe('ArchivedTrainingRunConcreteService', () => {
   });
 
   it('should emit hasError observable on err', (done) => {
-    trainingInstanceFacadeSpy.getAssociatedTrainingRuns.and.returnValue(throwError(null));
+    trainingInstanceApiSpy.getAssociatedTrainingRuns.and.returnValue(throwError(null));
 
     service.hasError$
       .pipe(
@@ -69,33 +75,34 @@ describe('ArchivedTrainingRunConcreteService', () => {
 
   it('should start polling', fakeAsync(() => {
     const mockData = createMock();
-    trainingInstanceFacadeSpy.getAssociatedTrainingRuns.and.returnValue(asyncData(mockData));
-    service.startPolling(new TrainingInstance());
-    const subscription = service.archivedTrainingRuns$.subscribe();
+    trainingInstanceApiSpy.getAssociatedTrainingRuns.and.returnValue(asyncData(mockData));
+    service.getAll(1, createPagination()).pipe(take(1)).subscribe();
+    const subscription = service.resource$.subscribe();
     assertPoll(1);
     subscription.unsubscribe();
   }));
 
   it('should stop polling on error', fakeAsync(() => {
     const mockData = createMock();
-    trainingInstanceFacadeSpy.getAssociatedTrainingRuns.and.returnValues(
+    trainingInstanceApiSpy.getAssociatedTrainingRuns.and.returnValues(
       asyncData(mockData),
       asyncData(mockData),
       asyncData(mockData),
       throwError(null)
-    ); // throw error on fourth call
-    service.startPolling(new TrainingInstance());
-    const subscription = service.archivedTrainingRuns$.subscribe();
+    );
+
+    service.getAll(1, createPagination()).pipe(take(1)).subscribe();
+    const subscription = service.resource$.subscribe();
     assertPoll(3);
-    tick(5 * environment.organizerSummaryPollingPeriod);
-    expect(trainingInstanceFacadeSpy.getAssociatedTrainingRuns).toHaveBeenCalledTimes(4);
+    tick(5 * context.config.pollingPeriod);
+    expect(trainingInstanceApiSpy.getAssociatedTrainingRuns).toHaveBeenCalledTimes(4);
     subscription.unsubscribe();
   }));
 
   it('should start polling again after request is successful', fakeAsync(() => {
     const pagination = createPagination();
     const mockData = createMock();
-    trainingInstanceFacadeSpy.getAssociatedTrainingRuns.and.returnValues(
+    trainingInstanceApiSpy.getAssociatedTrainingRuns.and.returnValues(
       asyncData(mockData),
       asyncData(mockData),
       asyncData(mockData),
@@ -106,16 +113,16 @@ describe('ArchivedTrainingRunConcreteService', () => {
       asyncData(mockData)
     );
 
-    service.startPolling(new TrainingInstance());
-    const subscription = service.archivedTrainingRuns$.subscribe();
+    service.getAll(1, pagination).pipe(take(1)).subscribe();
+    const subscription = service.resource$.subscribe();
     assertPoll(3);
-    tick(environment.organizerSummaryPollingPeriod);
-    expect(trainingInstanceFacadeSpy.getAssociatedTrainingRuns).toHaveBeenCalledTimes(4);
-    tick(5 * environment.organizerSummaryPollingPeriod);
-    expect(trainingInstanceFacadeSpy.getAssociatedTrainingRuns).toHaveBeenCalledTimes(4);
-    service.getAll(0, pagination).subscribe();
-    expect(trainingInstanceFacadeSpy.getAssociatedTrainingRuns).toHaveBeenCalledTimes(5);
-    assertPoll(3, 6);
+    tick(context.config.pollingPeriod);
+    expect(trainingInstanceApiSpy.getAssociatedTrainingRuns).toHaveBeenCalledTimes(4);
+    tick(5 * context.config.pollingPeriod);
+    expect(trainingInstanceApiSpy.getAssociatedTrainingRuns).toHaveBeenCalledTimes(4);
+    service.getAll(0, pagination).pipe(take(1)).subscribe();
+    expect(trainingInstanceApiSpy.getAssociatedTrainingRuns).toHaveBeenCalledTimes(5);
+    assertPoll(3, 5);
     subscription.unsubscribe();
   }));
 
@@ -130,9 +137,9 @@ describe('ArchivedTrainingRunConcreteService', () => {
   function assertPoll(times: number, initialHaveBeenCalledTimes: number = 1) {
     let calledTimes = initialHaveBeenCalledTimes;
     for (let i = 0; i < times; i++) {
-      tick(environment.organizerSummaryPollingPeriod);
+      tick(context.config.pollingPeriod);
       calledTimes = calledTimes + 1;
-      expect(trainingInstanceFacadeSpy.getAssociatedTrainingRuns).toHaveBeenCalledTimes(calledTimes);
+      expect(trainingInstanceApiSpy.getAssociatedTrainingRuns).toHaveBeenCalledTimes(calledTimes);
     }
   }
 });

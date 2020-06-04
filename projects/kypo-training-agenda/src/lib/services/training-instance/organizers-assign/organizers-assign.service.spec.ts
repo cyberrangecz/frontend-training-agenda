@@ -1,29 +1,37 @@
 import { async, TestBed } from '@angular/core/testing';
-import { KypoPagination } from 'kypo-common';
 import { asyncData } from 'kypo-common';
 import { KypoRequestedPagination } from 'kypo-common';
 import { KypoPaginatedResource } from 'kypo-common';
+import { KypoPagination } from 'kypo-common';
 import { UserApi } from 'kypo-training-api';
 import { User } from 'kypo2-auth';
 import { throwError } from 'rxjs';
 import { skip, take } from 'rxjs/operators';
-import { TrainingErrorHandler } from '../../client/training-error.handler';
+import { TrainingAgendaConfig } from '../../../model/client/training-agenda-config';
+import { TrainingErrorHandler } from '../../client/training-error.handler.service';
+import { TrainingAgendaContext } from '../../internal/training-agenda-context.service';
 import { OrganizersAssignService } from './organizers-assign.service';
 
 describe('OrganizersAssignService', () => {
   let errorHandlerSpy: jasmine.SpyObj<TrainingErrorHandler>;
   let apiSpy: jasmine.SpyObj<UserApi>;
   let service: OrganizersAssignService;
+  let context: TrainingAgendaContext;
 
   beforeEach(async(() => {
+    const config = new TrainingAgendaConfig();
+    config.pollingPeriod = 5000;
+    config.defaultPaginationSize = 10;
     errorHandlerSpy = jasmine.createSpyObj('TrainingErrorHandler', ['emit']);
     apiSpy = jasmine.createSpyObj('UserApi', ['getOrganizersNotInTI', 'getOrganizers', 'updateOrganizers']);
+    context = new TrainingAgendaContext(config);
 
     TestBed.configureTestingModule({
       providers: [
         OrganizersAssignService,
         { provide: UserApi, useValue: apiSpy },
         { provide: TrainingErrorHandler, useValue: errorHandlerSpy },
+        { provide: TrainingAgendaContext, useValue: context },
       ],
     });
     service = TestBed.inject(OrganizersAssignService);

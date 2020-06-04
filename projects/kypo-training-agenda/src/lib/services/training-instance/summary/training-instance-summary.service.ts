@@ -5,7 +5,7 @@ export abstract class TrainingInstanceSummaryService {
   hasStarted$: Observable<boolean>;
   protected trainingInstance: TrainingInstance;
 
-  abstract set(ti: TrainingInstance);
+  abstract init(ti: TrainingInstance);
 
   abstract showProgress(): Observable<any>;
 

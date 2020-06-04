@@ -7,7 +7,7 @@ import { TrainingDefinitionInfo } from 'kypo-training-model';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { TrainingErrorHandler } from '../../client/training-error.handler';
+import { TrainingErrorHandler } from '../../client/training-error.handler.service';
 import { TrainingAgendaContext } from '../../internal/training-agenda-context.service';
 import { TrainingDefinitionOrganizerSelectService } from './training-definition-organizer-select.service';
 

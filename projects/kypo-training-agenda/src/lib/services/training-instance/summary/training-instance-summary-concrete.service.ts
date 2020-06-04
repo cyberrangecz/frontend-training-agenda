@@ -12,7 +12,7 @@ export class TrainingInstanceSummaryConcreteService extends TrainingInstanceSumm
     super();
   }
 
-  set(ti: TrainingInstance) {
+  init(ti: TrainingInstance) {
     this.trainingInstance = ti;
     this.hasStarted$ = timer(0, 60000).pipe(map((_) => this.trainingInstance.hasStarted()));
   }

@@ -1,5 +1,5 @@
   <div *ngIf="(trainingInstance$ | async) as trainingInstance">
-    <mat-expansion-panel expanded (opened)="open(0)" (closed)="close(0)">
+    <mat-expansion-panel expanded (opened)="openPanel(SUMMARY_PANEL_ID)" (closed)="closePanel(SUMMARY_PANEL_ID)">
       <mat-expansion-panel-header>
         <mat-panel-title>Overview</mat-panel-title>
         <mat-panel-description>
@@ -9,7 +9,7 @@
         </mat-panel-description>
       </mat-expansion-panel-header>
       <ng-template matExpansionPanelContent>
-        <kypo-controls [controls]="controls" (itemClicked)="onControlAction($event)"></kypo-controls>
+        <kypo-controls [controls]="summaryControls" (itemClicked)="onSummaryControlAction($event)"></kypo-controls>
         <kypo-training-instance-info
           [accessTokenLink]="trainingInstanceAccessTokenLink"
           [poolIdLink]="trainingInstancePoolIdLink"
@@ -18,7 +18,7 @@
       </ng-template>
     </mat-expansion-panel>
 
-    <mat-expansion-panel (opened)="open(1)" (closed)="close(1)">
+    <mat-expansion-panel (opened)="openPanel(ACTIVE_TRAINING_RUNS_PANEL_ID)" (closed)="closePanel(ACTIVE_TRAINING_RUNS_PANEL_ID)">
       <mat-expansion-panel-header>
         <mat-panel-title>Active Training Runs</mat-panel-title>
         <mat-panel-description>
@@ -28,13 +28,16 @@
         </mat-panel-description>
       </mat-expansion-panel-header>
       <ng-template matExpansionPanelContent>
-        <kypo-active-training-run-overview [isPollingActive]="isOpen(1)" [trainingInstance]="trainingInstance">
+        <kypo-active-training-run-overview
+          [activeTrainingRuns]="activeTrainingRuns$ | async"
+          [hasError]="activeTrainingRunsHasError$ | async"
+          (tableAction)="onActiveTrainingRunTableAction($event)"
+          (loadTableEvent)="onActiveTrainingRunTableLoadEvent($event)">
         </kypo-active-training-run-overview>
       </ng-template>
-
     </mat-expansion-panel>
 
-    <mat-expansion-panel (opened)="open(2)" (closed)="close(2)">
+    <mat-expansion-panel (opened)="openPanel(ARCHIVED_TRAINING_RUNS_PANEL_ID)" (closed)="closePanel(ARCHIVED_TRAINING_RUNS_PANEL_ID)">
       <mat-expansion-panel-header>
         <mat-panel-title>Archived Training Runs</mat-panel-title>
         <mat-panel-description>
@@ -44,9 +47,15 @@
         </mat-panel-description>
       </mat-expansion-panel-header>
       <ng-template matExpansionPanelContent>
-        <kypo-archived-training-run-overview [isPollingActive]="isOpen(2)" [trainingInstance]="trainingInstance">
+        <kypo-archived-training-run-overview
+          [trainingRuns]="archivedTrainingRuns$ | async"
+          [hasError]="archivedTrainingRunsHasError$ | async"
+          [controls]="archivedTrainingRunsControls"
+          (tableAction)="onArchivedTrainingRunTableAction($event)"
+          (loadTableEvent)="onArchivedTrainingRunTableLoadEvent($event)"
+          (selectionChange)="onArchivedTrainingRunTableRowSelection($event)"
+          (controlsAction)="onArchivedTrainingRunControlsAction($event)">
         </kypo-archived-training-run-overview>
       </ng-template>
-
     </mat-expansion-panel>
   </div>
