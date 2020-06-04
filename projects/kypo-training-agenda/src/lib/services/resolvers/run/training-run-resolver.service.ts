@@ -5,7 +5,7 @@ import { AccessTrainingRunInfo } from 'kypo-training-model';
 import { EMPTY, Observable, of } from 'rxjs';
 import { catchError, mergeMap, take, tap } from 'rxjs/operators';
 import { TRAINING_RUN_ACCESS_SELECTOR, TRAINING_RUN_SELECTOR } from '../../../model/client/default-paths';
-import { TrainingErrorHandler } from '../../client/training-error.handler';
+import { TrainingErrorHandler } from '../../client/training-error.handler.service';
 import { TrainingNavigator } from '../../client/training-navigator.service';
 import { RunningTrainingRunService } from '../../training-run/running/running-training-run.service';
 

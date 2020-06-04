@@ -6,41 +6,50 @@ import { KypoPaginatedResource } from 'kypo-common';
 import { asyncData } from 'kypo-common';
 import { SandboxInstanceApi } from 'kypo-sandbox-api';
 import { PoolRequestApi } from 'kypo-sandbox-api';
-import { TrainingInstanceApi } from 'kypo-training-api';
-import { TrainingInstance } from 'kypo-training-model';
+import { TrainingInstanceApi, TrainingRunApi } from 'kypo-training-api';
 import { throwError } from 'rxjs';
-import { skip } from 'rxjs/operators';
-import { environment } from '../../../../environments/environment';
-import { AlertService } from '../../shared/alert.service';
-import { ErrorHandlerService } from '../../shared/error-handler.service';
+import { skip, take } from 'rxjs/operators';
+import { TrainingAgendaConfig } from '../../../model/client/training-agenda-config';
+import { TrainingErrorHandler } from '../../client/training-error.handler.service';
+import { TrainingNotificationService } from '../../client/training-notification.service';
+import { TrainingAgendaContext } from '../../internal/training-agenda-context.service';
 import { ActiveTrainingRunConcreteService } from './active-training-run-concrete.service';
 
 describe('ActiveTrainingRunConcreteService', () => {
-  let errorHandlerSpy: jasmine.SpyObj<ErrorHandlerService>;
-  let alertServiceSpy: jasmine.SpyObj<AlertService>;
+  let errorHandlerSpy: jasmine.SpyObj<TrainingErrorHandler>;
+  let notificationSpy: jasmine.SpyObj<TrainingNotificationService>;
   let dialogSpy: jasmine.SpyObj<MatDialog>;
   let trainingInstanceApiSpy: jasmine.SpyObj<TrainingInstanceApi>;
+  let trainingRunApiSpy: jasmine.SpyObj<TrainingRunApi>;
   let sandboxInstanceApiSpy: jasmine.SpyObj<SandboxInstanceApi>;
   let requestApiSpy: jasmine.SpyObj<PoolRequestApi>;
-
   let service: ActiveTrainingRunConcreteService;
+  let context: TrainingAgendaContext;
 
   beforeEach(async(() => {
-    errorHandlerSpy = jasmine.createSpyObj('ErrorHandlerService', ['emit']);
-    alertServiceSpy = jasmine.createSpyObj('AlertService', ['emitAlert']);
+    const config = new TrainingAgendaConfig();
+    config.pollingPeriod = 5000;
+    config.defaultPaginationSize = 10;
+
+    errorHandlerSpy = jasmine.createSpyObj('TrainingErrorHandler', ['emit']);
+    notificationSpy = jasmine.createSpyObj('TrainingNotificationService', ['emit']);
     sandboxInstanceApiSpy = jasmine.createSpyObj('SandboxInstanceApi', ['getSandbox']);
     requestApiSpy = jasmine.createSpyObj('PoolRequestApi', ['createCleanupRequest']);
     trainingInstanceApiSpy = jasmine.createSpyObj('TrainingInstanceApi', ['getAssociatedTrainingRuns']);
+    trainingRunApiSpy = jasmine.createSpyObj('TrainingRunApi', ['archive']);
     dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
+    context = new TrainingAgendaContext(config);
     TestBed.configureTestingModule({
       providers: [
         ActiveTrainingRunConcreteService,
         { provide: MatDialog, useValue: dialogSpy },
         { provide: TrainingInstanceApi, useValue: trainingInstanceApiSpy },
+        { provide: TrainingRunApi, useValue: trainingRunApiSpy },
         { provide: PoolRequestApi, useValue: requestApiSpy },
         { provide: SandboxInstanceApi, useValue: sandboxInstanceApiSpy },
-        { provide: ErrorHandlerService, useValue: errorHandlerSpy },
-        { provide: AlertService, useValue: alertServiceSpy },
+        { provide: TrainingErrorHandler, useValue: errorHandlerSpy },
+        { provide: TrainingNotificationService, useValue: notificationSpy },
+        { provide: TrainingAgendaContext, useValue: context },
       ],
     });
     service = TestBed.inject(ActiveTrainingRunConcreteService);
@@ -74,7 +83,7 @@ describe('ActiveTrainingRunConcreteService', () => {
     const mockData = createMock();
     trainingInstanceApiSpy.getAssociatedTrainingRuns.and.returnValue(asyncData(mockData));
 
-    service.startPolling(new TrainingInstance());
+    service.getAll(1, createPagination()).pipe(take(1)).subscribe();
     const subscription = service.resource$.subscribe();
     assertPoll(1);
     subscription.unsubscribe();
@@ -87,12 +96,12 @@ describe('ActiveTrainingRunConcreteService', () => {
       asyncData(mockData),
       asyncData(mockData),
       throwError(null)
-    ); // throw error on fourth call
+    );
 
-    service.startPolling(new TrainingInstance());
+    service.getAll(1, createPagination()).pipe(take(1)).subscribe();
     const subscription = service.resource$.subscribe();
     assertPoll(3);
-    tick(5 * environment.organizerSummaryPollingPeriod);
+    tick(5 * context.config.pollingPeriod);
     expect(trainingInstanceApiSpy.getAssociatedTrainingRuns).toHaveBeenCalledTimes(4);
     subscription.unsubscribe();
   }));
@@ -111,16 +120,16 @@ describe('ActiveTrainingRunConcreteService', () => {
       asyncData(mockData)
     );
 
-    service.startPolling(new TrainingInstance());
+    service.getAll(1, pagination).pipe(take(1)).subscribe();
     const subscription = service.resource$.subscribe();
     assertPoll(3);
-    tick(environment.organizerSummaryPollingPeriod);
+    tick(context.config.pollingPeriod);
     expect(trainingInstanceApiSpy.getAssociatedTrainingRuns).toHaveBeenCalledTimes(4);
-    tick(5 * environment.organizerSummaryPollingPeriod);
+    tick(5 * context.config.pollingPeriod);
     expect(trainingInstanceApiSpy.getAssociatedTrainingRuns).toHaveBeenCalledTimes(4);
-    service.getAll(0, pagination).subscribe();
+    service.getAll(0, pagination).pipe(take(1)).subscribe();
     expect(trainingInstanceApiSpy.getAssociatedTrainingRuns).toHaveBeenCalledTimes(5);
-    assertPoll(3, 6);
+    assertPoll(3, 5);
     subscription.unsubscribe();
   }));
 
@@ -135,7 +144,7 @@ describe('ActiveTrainingRunConcreteService', () => {
   function assertPoll(times: number, initialHaveBeenCalledTimes: number = 1) {
     let calledTimes = initialHaveBeenCalledTimes;
     for (let i = 0; i < times; i++) {
-      tick(environment.organizerSummaryPollingPeriod);
+      tick(context.config.pollingPeriod);
       calledTimes = calledTimes + 1;
       expect(trainingInstanceApiSpy.getAssociatedTrainingRuns).toHaveBeenCalledTimes(calledTimes);
     }

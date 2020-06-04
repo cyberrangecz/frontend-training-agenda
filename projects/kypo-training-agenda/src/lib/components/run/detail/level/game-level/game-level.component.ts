@@ -17,7 +17,7 @@ import { Kypo2TopologyErrorService } from 'kypo2-topology-graph';
 import { Observable } from 'rxjs';
 import { take, takeWhile } from 'rxjs/operators';
 import { HintButton } from '../../../../../model/adapters/other/hint-button';
-import { TrainingErrorHandler } from '../../../../../services/client/training-error.handler';
+import { TrainingErrorHandler } from '../../../../../services/client/training-error.handler.service';
 import { TrainingRunGameLevelService } from '../../../../../services/training-run/running/training-run-game-level.service';
 
 @Component({

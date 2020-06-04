@@ -6,7 +6,7 @@ import { Kypo2AuthService } from 'kypo2-auth';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { TrainingDefinitionChangeEvent } from '../../../model/events/training-definition-change-event';
-import { TrainingErrorHandler } from '../../client/training-error.handler';
+import { TrainingErrorHandler } from '../../client/training-error.handler.service';
 import { TrainingNavigator } from '../../client/training-navigator.service';
 import { TrainingNotificationService } from '../../client/training-notification.service';
 import { TrainingDefinitionEditService } from './training-definition-edit.service';

@@ -16,7 +16,7 @@ import { EMPTY, from, Observable } from 'rxjs';
 import { map, switchMap, take, tap } from 'rxjs/operators';
 import { CloneDialogComponent } from '../../../components/definition/overview/clone-dialog/clone-dialog.component';
 import { TrainingDefinitionUploadDialogComponent } from '../../../components/definition/overview/upload-dialog/training-definition-upload-dialog.component';
-import { TrainingErrorHandler } from '../../client/training-error.handler';
+import { TrainingErrorHandler } from '../../client/training-error.handler.service';
 import { TrainingNavigator } from '../../client/training-navigator.service';
 import { TrainingNotificationService } from '../../client/training-notification.service';
 import { TrainingAgendaContext } from '../../internal/training-agenda-context.service';

@@ -6,7 +6,7 @@ import { TrainingInstanceApi } from 'kypo-training-api';
 import { TrainingInstance } from 'kypo-training-model';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { TrainingErrorHandler } from '../../client/training-error.handler';
+import { TrainingErrorHandler } from '../../client/training-error.handler.service';
 import { TrainingNotificationService } from '../../client/training-notification.service';
 import { PoolAssignService } from './pool-assign.service';
 

@@ -8,7 +8,7 @@ import { TrainingInstance } from 'kypo-training-model';
 import { EMPTY, Observable, of } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { TrainingInstanceFilter } from '../../model/filters/training-instance-filter';
-import { TrainingErrorHandler } from '../client/training-error.handler';
+import { TrainingErrorHandler } from '../client/training-error.handler.service';
 import { TrainingNavigator } from '../client/training-navigator.service';
 import { TrainingNotificationService } from '../client/training-notification.service';
 import { TrainingAgendaContext } from '../internal/training-agenda-context.service';

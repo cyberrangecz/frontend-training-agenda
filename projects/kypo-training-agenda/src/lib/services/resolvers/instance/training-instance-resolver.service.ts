@@ -9,7 +9,7 @@ import {
   TRAINING_INSTANCE_PATH,
   TRAINING_INSTANCE_SELECTOR,
 } from '../../../model/client/default-paths';
-import { TrainingErrorHandler } from '../../client/training-error.handler';
+import { TrainingErrorHandler } from '../../client/training-error.handler.service';
 import { TrainingNavigator } from '../../client/training-navigator.service';
 
 /**

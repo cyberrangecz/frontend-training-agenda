@@ -35,7 +35,7 @@ export * from './lib/components/run/detail/training-run-detail.component';
 // SERVICES - GENERAL
 
 export * from './lib/services/client/training-notification.service';
-export * from './lib/services/client/training-error.handler';
+export * from './lib/services/client/training-error.handler.service';
 export * from './lib/services/client/training-navigator.service';
 export * from './lib/services/client/training-default-navigator.service';
 

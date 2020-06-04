@@ -1,29 +1,37 @@
 import { async, TestBed } from '@angular/core/testing';
-import { KypoRequestedPagination } from 'kypo-common';
 import { KypoPaginatedResource } from 'kypo-common';
 import { asyncData } from 'kypo-common';
 import { KypoPagination } from 'kypo-common';
+import { KypoRequestedPagination } from 'kypo-common';
 import { TrainingDefinitionApi } from 'kypo-training-api';
 import { TrainingDefinitionInfo } from 'kypo-training-model';
 import { throwError } from 'rxjs';
 import { skip, take } from 'rxjs/operators';
-import { TrainingErrorHandler } from '../../client/training-error.handler';
+import { TrainingAgendaConfig } from '../../../model/client/training-agenda-config';
+import { TrainingErrorHandler } from '../../client/training-error.handler.service';
+import { TrainingAgendaContext } from '../../internal/training-agenda-context.service';
 import { TrainingDefinitionOrganizerSelectConcreteService } from './training-definition-organizer-select-concrete.service';
 
 describe('TrainingDefinitionOrganizerSelectorService', () => {
   let errorHandlerSpy: jasmine.SpyObj<TrainingErrorHandler>;
   let tdApiSpy: jasmine.SpyObj<TrainingDefinitionApi>;
   let service: TrainingDefinitionOrganizerSelectConcreteService;
+  let context: TrainingAgendaContext;
 
   beforeEach(async(() => {
+    const config = new TrainingAgendaConfig();
+    config.pollingPeriod = 5000;
+    config.defaultPaginationSize = 10;
     errorHandlerSpy = jasmine.createSpyObj('TrainingErrorHandler', ['emit']);
     tdApiSpy = jasmine.createSpyObj('TrainingDefinitionApi', ['getAllForOrganizer']);
+    context = new TrainingAgendaContext(config);
 
     TestBed.configureTestingModule({
       providers: [
         TrainingDefinitionOrganizerSelectConcreteService,
         { provide: TrainingDefinitionApi, useValue: tdApiSpy },
         { provide: TrainingErrorHandler, useValue: errorHandlerSpy },
+        { provide: TrainingAgendaContext, useValue: context },
       ],
     });
     service = TestBed.inject(TrainingDefinitionOrganizerSelectConcreteService);

@@ -38,7 +38,7 @@
     "csirt-mu-layout": "9.1.0",
     "d3": "^5.15.0",
     "file-saver": "^2.0.2",
-    "kypo-common": "9.0.1",
+    "kypo-common": "9.0.2",
     "kypo-controls": "9.0.0",
     "kypo-list": "9.1.2",
     "kypo-sandbox-api": "9.0.1",

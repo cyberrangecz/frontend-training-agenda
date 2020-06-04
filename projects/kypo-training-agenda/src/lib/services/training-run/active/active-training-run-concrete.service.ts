@@ -14,7 +14,7 @@ import { TrainingInstance } from 'kypo-training-model';
 import { TrainingRun } from 'kypo-training-model';
 import { concat, EMPTY, merge, Observable, Subject, timer } from 'rxjs';
 import { retryWhen, switchMap, tap } from 'rxjs/operators';
-import { TrainingErrorHandler } from '../../client/training-error.handler';
+import { TrainingErrorHandler } from '../../client/training-error.handler.service';
 import { TrainingNotificationService } from '../../client/training-notification.service';
 import { TrainingAgendaContext } from '../../internal/training-agenda-context.service';
 import { ActiveTrainingRunService } from './active-training-run.service';
@@ -25,9 +25,7 @@ import { ActiveTrainingRunService } from './active-training-run.service';
  */
 @Injectable()
 export class ActiveTrainingRunConcreteService extends ActiveTrainingRunService {
-  private lastPagination: KypoRequestedPagination;
-  private retryPolling$: Subject<boolean> = new Subject();
-  private trainingInstance: TrainingInstance;
+  private lastTrainingInstanceId: number;
 
   constructor(
     private trainingInstanceApi: TrainingInstanceApi,
@@ -39,18 +37,7 @@ export class ActiveTrainingRunConcreteService extends ActiveTrainingRunService {
     private notificationService: TrainingNotificationService,
     private errorHandler: TrainingErrorHandler
   ) {
-    super(context.config.defaultPaginationSize);
-  }
-
-  /**
-   * Initiates polling for active training runs of passed training instance
-   * @param trainingInstance which active training runs should be polled
-   */
-  startPolling(trainingInstance: TrainingInstance) {
-    this.trainingInstance = trainingInstance;
-    this.lastPagination = new KypoRequestedPagination(0, this.context.config.defaultPaginationSize, '', '');
-    const poll$ = this.createPoll();
-    this.resource$ = merge(poll$, this.resourceSubject$.asObservable());
+    super(context.config.defaultPaginationSize, context.config.pollingPeriod);
   }
 
   /**
@@ -62,7 +49,7 @@ export class ActiveTrainingRunConcreteService extends ActiveTrainingRunService {
     trainingInstanceId: number,
     pagination: KypoRequestedPagination
   ): Observable<KypoPaginatedResource<TrainingRun>> {
-    this.onManualGetAll(pagination);
+    this.onManualResourceRefresh(pagination, trainingInstanceId);
     return this.trainingInstanceApi.getAssociatedTrainingRuns(trainingInstanceId, pagination).pipe(
       tap(
         (runs) => {
@@ -96,8 +83,20 @@ export class ActiveTrainingRunConcreteService extends ActiveTrainingRunService {
         (_) => this.notificationService.emit('success', `Training run ${trainingRun.id} was archived`),
         (err) => this.errorHandler.emit(err, `Archiving training run ${trainingRun.id}`)
       ),
-      switchMap((_) => this.getAll(this.trainingInstance.id, this.lastPagination))
+      switchMap((_) => this.getAll(this.lastTrainingInstanceId, this.lastPagination))
     );
+  }
+
+  protected refreshResource(): Observable<KypoPaginatedResource<TrainingRun>> {
+    this.hasErrorSubject$.next(false);
+    return this.trainingInstanceApi
+      .getAssociatedTrainingRuns(this.lastTrainingInstanceId, this.lastPagination)
+      .pipe(tap({ error: (err) => this.onGetAllError() }));
+  }
+
+  protected onManualResourceRefresh(pagination: KypoRequestedPagination, ...params) {
+    super.onManualResourceRefresh(pagination, ...params);
+    this.lastTrainingInstanceId = params[0];
   }
 
   private displayDeleteSandboxDialog(trainingRun: TrainingRun): Observable<CsirtMuDialogResultEnum> {
@@ -126,29 +125,7 @@ export class ActiveTrainingRunConcreteService extends ActiveTrainingRunService {
     );
   }
 
-  private repeatLastGetAllRequest(): Observable<KypoPaginatedResource<TrainingRun>> {
-    this.hasErrorSubject$.next(false);
-    return this.trainingInstanceApi
-      .getAssociatedTrainingRuns(this.trainingInstance.id, this.lastPagination)
-      .pipe(tap({ error: (err) => this.onGetAllError() }));
-  }
-
   private onGetAllError() {
     this.hasErrorSubject$.next(true);
-  }
-
-  private onManualGetAll(pagination: KypoRequestedPagination) {
-    this.lastPagination = pagination;
-    if (this.hasErrorSubject$.getValue()) {
-      this.retryPolling$.next(true);
-    }
-    this.hasErrorSubject$.next(false);
-  }
-
-  private createPoll(): Observable<KypoPaginatedResource<TrainingRun>> {
-    return timer(0, this.context.config.pollingPeriod).pipe(
-      switchMap((_) => this.repeatLastGetAllRequest()),
-      retryWhen((_) => this.retryPolling$)
-    );
   }
 }

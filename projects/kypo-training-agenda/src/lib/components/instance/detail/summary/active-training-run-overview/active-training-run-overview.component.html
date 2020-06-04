@@ -1,7 +1,7 @@
 <kypo2-table
   elevation="0"
-  [data]="activeTrainingRuns$ | async"
-  [hasError]="activeTrainingRunsTableHasError$ | async"
-  (rowAction)="onActiveTrainingRunAction($event)"
-  (refresh)="onTableLoadEvent($event)">
+  [data]="activeTrainingRuns"
+  [hasError]="hasError"
+  (rowAction)="onTableAction($event)"
+  (refresh)="onLoadTableEvent($event)">
 </kypo2-table>

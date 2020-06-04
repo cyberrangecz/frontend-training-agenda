@@ -9,7 +9,7 @@ import {
   TRAINING_DEFINITION_PATH,
   TRAINING_DEFINITION_SELECTOR,
 } from '../../../model/client/default-paths';
-import { TrainingErrorHandler } from '../../client/training-error.handler';
+import { TrainingErrorHandler } from '../../client/training-error.handler.service';
 
 /**
  * Router data provider
