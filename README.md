@@ -28,7 +28,7 @@ To use the library you need to have installed:
 
 ## Usage
 
-To use the user and group management in your Angular application follow these steps:
+To use the training agenda in your Angular application follow these steps:
 
 1. Run `npm install kypo-training-agenda`
 1. Install all peer dependencies
@@ -60,7 +60,7 @@ For example, you would add `TrainingDefinitionOverviewComponent` like this:
     { provide: TrainingNotificationService, useClass: ClientNotificationService },
   ],
 })
-export class UserOverviewModule {}
+export class TrainingDefinitionOverviewModule {}
 ``
 
 1. Create routing module importing the `TrainingDefinitionOverviewModule`
