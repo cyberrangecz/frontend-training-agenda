@@ -15,7 +15,7 @@ import { TrainingDefinitionService } from '../../../services/training-definition
  * Main smart component of training definition overview
  */
 @Component({
-  selector: 'kypo-trainining-definition-overview',
+  selector: 'kypo-training-definition-overview',
   templateUrl: './training-definition-overview.component.html',
   styleUrls: ['./training-definition-overview.component.css'],
 })
