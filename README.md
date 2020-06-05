@@ -1,27 +1,102 @@
-# KypoTrainingAgenda
+# KYPO Training Agenda
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.1.
+KYPO Training Agenda is a library containing components and services to design, organize and play training.
+It is developed as a frontend of [KYPO Training service](https://gitlab.ics.muni.cz/kypo-crp/backend-java/kypo2-training)
 
-## Development server
+The library follows smart-dumb architecture. Smart components are exported from the library, and you can use them at your will. The project contains example implementation with lazy loading modules which you can use as an inspiration.
+You can modify the behaviour of components by implementing abstract service class and injecting it through Angular dependency injection.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Prerequisites
 
-## Code scaffolding
+To use the library you need to have installed:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+* NPM with private [KYPO Nexus repository](https://projects.ics.muni.cz/projects/kbase/knowledgebase/articles/153)
+* Angular 9+
+* Angular Material 9+
 
-## Build
+## Features
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+* Components and services for designing training definitions
+* Components and services for designing training levels
+* Components and services for organizing training instances
+* Components and services for previewing and playing training runs
+* Visualizations of training runs
+* Default routing (overridable)
+* Errors, notifications, and navigation services
+* CanDeactivate interface on all main components
+* Resolvers for all main components
 
-## Running unit tests
+## Usage
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+To use the user and group management in your Angular application follow these steps:
 
-## Running end-to-end tests
+1. Run `npm install kypo-training-agenda`
+1. Install all peer dependencies
+1. Create config class extending `TrainingAgendaConfig` from the library. Config contains following options:
+    +   pollingPeriod
+    +   defaultPaginationSize
+    +   visualizationConfig
+    +   kypo2TopologyConfig
+1. Import specific modules containing components (for example `TrainingDefinitionOverviewComponentsModule`) and provide config through `.forRoot()` method.
+1. If you do not override the services, you will also need to provide API service. See [kypo-training-api library](https://gitlab.ics.muni.cz/kypo-crp/frontend-angular/apis/kypo-training-api).
+1. You need to provide implementation of abstract services `ClientErrorHandlerService` and `ClientNotificationService` for error handling and notification displaying.
+1. Optionally, you can override `TrainingNavigator` service to provide custom navigation if you do not want to use default routes.
+1. Optionally, cou can override and provide own implementation of services
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+For example, you would add `TrainingDefinitionOverviewComponent` like this:
 
-## Further help
+1. Create feature module `TrainingDefinitionOverviewModule` containing all necessary imports and providers
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+``
+@NgModule({
+  imports: [
+    CommonModule,
+    TrainingDefinitionOverviewRoutingModule,
+    TrainingDefinitionOverviewComponentsModule.forRoot(agendaConfig),
+    KypoTrainingApiModule.forRoot(apiConfig),
+  ],
+  providers: [
+    { provide: TrainingErrorHandler, useClass: ClientErrorHandlerService },
+    { provide: TrainingNotificationService, useClass: ClientNotificationService },
+  ],
+})
+export class UserOverviewModule {}
+``
+
+1. Create routing module importing the `TrainingDefinitionOverviewModule`
+
+``
+const routes: Routes = [
+  {
+    path: '',
+    component: TrainingDefinitionOverviewComponent,
+  },
+];
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
+})
+export class TrainingDefinitionOverviewRoutingModule {}
+``
+
+1. Lazy load the module in the parent routing module
+
+``
+  {
+    path: TRAINING_DEFINITION_PATH,
+    loadChildren: () => import('./lazy-loaded-modules/definition/overview/training-definition-overview.module).then((m) => m.TrainingDefinitionOverviewModule)
+  }
+`` 
+## Example
+
+To see the library in work and to see example setup, you can run the example app.
+To run the example you need to run [KYPO Training Service](https://gitlab.ics.muni.cz/kypo-crp/backend-java/kypo2-training) or have access to a running instance and provide the URL to the service in when importing API module.
+
+1. Clone this repository
+1. Run `npm install`
+1. Run `ng serve --ssl`
+1. See the app at `https://localhost:4200`
+
+## Developers
+
+* Martin Hamernik (445720@mail.muni.cz)
