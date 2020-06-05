@@ -47,7 +47,7 @@ For example, you would add `TrainingDefinitionOverviewComponent` like this:
 
 1. Create feature module `TrainingDefinitionOverviewModule` containing all necessary imports and providers
 
-``
+```
 @NgModule({
   imports: [
     CommonModule,
@@ -61,11 +61,11 @@ For example, you would add `TrainingDefinitionOverviewComponent` like this:
   ],
 })
 export class TrainingDefinitionOverviewModule {}
-``
+```
 
 1. Create routing module importing the `TrainingDefinitionOverviewModule`
 
-``
+```
 const routes: Routes = [
   {
     path: '',
@@ -77,16 +77,17 @@ const routes: Routes = [
   exports: [RouterModule],
 })
 export class TrainingDefinitionOverviewRoutingModule {}
-``
+```
 
 1. Lazy load the module in the parent routing module
 
-``
+```
   {
     path: TRAINING_DEFINITION_PATH,
     loadChildren: () => import('./lazy-loaded-modules/definition/overview/training-definition-overview.module).then((m) => m.TrainingDefinitionOverviewModule)
   }
-`` 
+```
+
 ## Example
 
 To see the library in work and to see example setup, you can run the example app.
