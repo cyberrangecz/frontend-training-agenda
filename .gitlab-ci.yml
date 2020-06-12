@@ -5,7 +5,7 @@ variables:
   LC_ALL: C.UTF-8
 
 stages:
-  #  - unitTests
+  - unitTests
   #  - integrationTests
   - buildAngular
   - deployAngular
@@ -18,14 +18,14 @@ before_script:
   - cp $NPMRC_PULL ~/.npmrc
   - npm install
 
-#unitTests:
-#    stage: unitTests
-#    script:
-#        - ng test --browsers ChromeHeadless
-#    only:
-#        - triggers
-#        - branches
-#        - tags
+unitTests:
+    stage: unitTests
+    script:
+        - ng test --browsers ChromeHeadless
+    only:
+        - triggers
+        - branches
+        - tags
 
 # TODO: Not yet implemented
 #integrationTests:
