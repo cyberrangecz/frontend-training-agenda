@@ -1,0 +1,68 @@
+image: angulardeploy
+
+variables:
+  LANG: C.UTF-8
+  LC_ALL: C.UTF-8
+
+stages:
+  #  - unitTests
+  #  - integrationTests
+  - buildAngular
+  - deployAngular
+
+before_script:
+  # Get version.
+  #     Variable CI_COMMIT_TAG is set only when tag was pushed.
+  - export VERSION=$(if [[ "$CI_COMMIT_TAG" == "" ]]; then echo "GitLab tag is missing!"; else echo $CI_COMMIT_TAG | cut -c 2-; fi)
+  - echo $VERSION
+  - cp $NPMRC_PULL ~/.npmrc
+  - npm install
+
+#unitTests:
+#    stage: unitTests
+#    script:
+#        - ng test --browsers ChromeHeadless
+#    only:
+#        - triggers
+#        - branches
+#        - tags
+
+# TODO: Not yet implemented
+#integrationTests:
+#    stage: integrationTests
+#    script:
+#        - ng e2e
+#    only:
+#        - triggers
+#        - branches
+#        - tags
+
+buildAngular:
+  stage: buildAngular
+  script:
+    - ng build
+  only:
+    - triggers
+    - branches
+    - tags
+
+editVersionAndDeploy:
+  stage: deployAngular
+  script:
+    - export GIT_SSH_COMMAND='ssh -i ~/.ssh/kyposervicekey'
+    - ssh -o "StrictHostKeyChecking no" git@gitlab.ics.muni.cz && sleep 1
+    - git clone git@gitlab.ics.muni.cz:kypo-crp/frontend-angular/agendas/kypo-training-agenda.git
+    - cd $CI_PROJECT_NAME
+    - git config --global user.name "KYPO CI" && git config --global user.email "kyposervice@ics.muni.cz"
+    # sed -i -e 's/  "version":.*/  "version": "'$VERSION'",/' projects/user-and-group-management/package.json'
+    # The command above is not a friend with YAML. Run it in a script as a workaround.
+    - bash /usr/local/changeVersion.sh $VERSION kypo-training-agenda
+    - git commit -am "Update project package.json version based on GitLab tag. Done by CI" && sleep 1
+    - git push
+    - sleep 5
+    - cp $NPMRC_PULL ~/.npmrc
+    - 'npm run build-and-pack'
+    - cp $NPMRC_PUSH ~/.npmrc
+    - 'cd dist/kypo-training-agenda && npm publish'
+  only:
+    - tags
