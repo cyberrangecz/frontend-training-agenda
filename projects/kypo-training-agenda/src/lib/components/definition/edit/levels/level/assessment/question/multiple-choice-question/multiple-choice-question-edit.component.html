@@ -43,11 +43,10 @@
       </mat-form-field>
     </div>
 
-    <div class="answer-controls" *ngIf="required && isTest">
-      <button (click)="addOption()" mat-button color="primary">Add answer</button>
-      <button [disabled]="correctAnswersIndices.value.length <= 0" mat-button
-        color="warn" (click)="clearAnswers()" class="clear-answers">Clear
-        answers</button>
+    <div class="answer-controls">
+      <button (click)="addOption()" mat-button color="primary">Add option</button>
+      <button *ngIf="isTest" [disabled]="correctAnswersIndices.value.length <= 0" mat-button
+        color="warn" (click)="clearAnswers()" class="clear-answers">Clear answers</button>
     </div>
 
     <!-- OPTIONS field -->
