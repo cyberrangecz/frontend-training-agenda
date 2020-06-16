@@ -6,7 +6,7 @@
  <kypo-levels-stepper [activeStep]="activeStep$ | async"
                       [levels]="stepperLevels | async"
                       [movingInProgress]="levelMovingInProgress"
-                      (levelSwap)="onLevelMoved($event)"
+                      (levelMove)="onLevelMoved($event)"
                       (activeStepChange)="onActiveLevelChange($event)">
  </kypo-levels-stepper>
  <mat-divider></mat-divider>

@@ -81,7 +81,7 @@ export class LevelOverviewComponent extends KypoBaseComponent implements OnInit,
   onLevelMoved(event: LevelMoveEvent) {
     this.levelMovingInProgress = true;
     this.levelService
-      .move(event.stepperStateChange.previousIndex, event.stepperStateChange.currentIndex)
+      .move(event.stepperState.previousIndex, event.stepperState.currentIndex)
       .pipe(takeWhile((_) => this.isAlive))
       .subscribe(
         (_) => {
