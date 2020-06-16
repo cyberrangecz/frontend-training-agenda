@@ -29,7 +29,7 @@ export class TrainingLevelStepperComponent extends KypoBaseComponent implements 
   @Input() movingInProgress: boolean;
   @Input() activeStep: number;
   @Output() activeStepChange: EventEmitter<number> = new EventEmitter();
-  @Output() levelSwap: EventEmitter<LevelMoveEvent> = new EventEmitter();
+  @Output() levelMove: EventEmitter<LevelMoveEvent> = new EventEmitter();
   @Output() initialLevels: EventEmitter<LevelStepperAdapter[]> = new EventEmitter();
 
   levelStepper: Kypo2Stepper<LevelStepperAdapter> = { items: [] };
@@ -64,7 +64,7 @@ export class TrainingLevelStepperComponent extends KypoBaseComponent implements 
    * @param event state of the stepper
    */
   swapLevels(event: StepperStateChange) {
-    this.levelSwap.emit(new LevelMoveEvent(event));
+    this.levelMove.emit(new LevelMoveEvent(event));
   }
 
   private changeSelectedStep(index: number) {

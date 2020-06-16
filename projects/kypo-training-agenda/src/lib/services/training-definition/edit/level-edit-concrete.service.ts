@@ -163,9 +163,10 @@ export class LevelEditConcreteService extends LevelEditService {
   move(fromIndex, toIndex): Observable<any> {
     const levels = this.levelsSubject$.getValue();
     const from = levels[fromIndex];
+    this.moveInternally(fromIndex, toIndex);
     return this.api.moveLevelTo(this.trainingDefinitionId, from.id, toIndex).pipe(
       tap(
-        (_) => this.setActiveLevel(toIndex),
+        (_) => _,
         (err) => {
           this.moveRollback(fromIndex);
           this.errorHandler.emit(err, `Moving level "${from.title}"`);
@@ -274,5 +275,12 @@ export class LevelEditConcreteService extends LevelEditService {
 
   private emitUnsavedLevels() {
     this.unsavedLevelsSubject$.next(this.levelsSubject$.getValue().filter((level) => level.isUnsaved));
+  }
+
+  private moveInternally(fromIndex: number, toIndex: number) {
+    const levels = this.levelsSubject$.getValue();
+    levels.splice(toIndex, 0, levels.splice(fromIndex, 1)[0]);
+    levels.forEach((level, index) => (level.order = index));
+    this.levelsSubject$.next(levels);
   }
 }
