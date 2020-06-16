@@ -61,7 +61,9 @@ export class TrainingInstanceOverviewConcreteService extends TrainingInstanceOve
   }
 
   download(id: number): Observable<any> {
-    return this.trainingInstanceApi.archive(id);
+    return this.trainingInstanceApi
+      .archive(id)
+      .pipe(tap({ error: (err) => this.errorHandler.emit(err, 'Downloading training instance') }));
   }
 
   delete(id: number): Observable<any> {
