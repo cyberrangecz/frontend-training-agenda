@@ -40,7 +40,7 @@ unitTests:
 buildAngular:
   stage: buildAngular
   script:
-    - ng build
+    - ng build --prod
   only:
     - triggers
     - branches
