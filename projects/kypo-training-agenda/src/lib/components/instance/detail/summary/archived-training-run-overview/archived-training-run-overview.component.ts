@@ -1,22 +1,9 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnInit,
-  Output,
-  SimpleChanges,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { KypoBaseComponent } from 'kypo-common';
 import { KypoControlItem } from 'kypo-controls';
-import { TrainingInstance } from 'kypo-training-model';
+import { TrainingRun } from 'kypo-training-model';
 import { Kypo2Table, LoadTableEvent, TableActionEvent } from 'kypo2-table';
-import { defer, Observable, of } from 'rxjs';
-import { map, take, takeWhile } from 'rxjs/operators';
 import { TrainingRunRowAdapter } from '../../../../../model/adapters/table/rows/training-run-row-adapter';
-import { ArchivedTrainingRunTable } from '../../../../../model/adapters/table/training-run/archived-training-run-table';
-import { ArchivedTrainingRunService } from '../../../../../services/training-run/archived/archived-training-run.service';
 /**
  * Component for displaying archived (finished by trainee and with sandbox removed) training runs for organizer in real-time.
  */
@@ -27,13 +14,13 @@ import { ArchivedTrainingRunService } from '../../../../../services/training-run
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ArchivedTrainingRunOverviewComponent extends KypoBaseComponent implements OnInit {
-  @Input() trainingRuns: Kypo2Table<TrainingRunRowAdapter>;
+  @Input() trainingRuns: Kypo2Table<TrainingRun>;
   @Input() hasError: boolean;
   @Input() controls: KypoControlItem[];
 
-  @Output() tableAction: EventEmitter<TableActionEvent<TrainingRunRowAdapter>> = new EventEmitter();
+  @Output() tableAction: EventEmitter<TableActionEvent<TrainingRun>> = new EventEmitter();
   @Output() loadTableEvent: EventEmitter<LoadTableEvent> = new EventEmitter();
-  @Output() selectionChange: EventEmitter<TrainingRunRowAdapter[]> = new EventEmitter();
+  @Output() selectionChange: EventEmitter<TrainingRun[]> = new EventEmitter();
   @Output() controlsAction: EventEmitter<KypoControlItem> = new EventEmitter();
 
   ngOnInit() {}
@@ -58,7 +45,7 @@ export class ArchivedTrainingRunOverviewComponent extends KypoBaseComponent impl
    * Emits selection change event
    * @param selection new selection
    */
-  onSelectionChange(selection: TrainingRunRowAdapter[]) {
+  onSelectionChange(selection: TrainingRun[]) {
     this.selectionChange.emit(selection);
   }
 

@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { KypoRequestedPagination } from 'kypo-common';
 import { KypoBaseComponent } from 'kypo-common';
+import { KypoRequestedPagination } from 'kypo-common';
 import { KypoControlItem } from 'kypo-controls';
+import { TrainingInstance } from 'kypo-training-model';
 import { Kypo2Table, LoadTableEvent, TableActionEvent } from 'kypo2-table';
 import { Observable } from 'rxjs';
 import { map, take, takeWhile } from 'rxjs/operators';
 import { TrainingInstanceOverviewControls } from '../../../model/adapters/controls/instance/training-instance-overview-controls';
-import { TrainingInstanceRowAdapter } from '../../../model/adapters/table/rows/training-instance-row-adapter';
 import { TrainingInstanceTable } from '../../../model/adapters/table/training-instance/training-instance-table';
 import { TrainingNavigator } from '../../../services/client/training-navigator.service';
 import { TrainingAgendaContext } from '../../../services/internal/training-agenda-context.service';
@@ -25,7 +25,7 @@ export class TrainingInstanceOverviewComponent extends KypoBaseComponent impleme
   readonly INITIAL_SORT_NAME = 'startTime';
   readonly INITIAL_SORT_DIR = 'desc';
 
-  instances$: Observable<Kypo2Table<TrainingInstanceRowAdapter>>;
+  instances$: Observable<Kypo2Table<TrainingInstance>>;
   hasError$: Observable<boolean>;
 
   controls: KypoControlItem[];
@@ -68,7 +68,7 @@ export class TrainingInstanceOverviewComponent extends KypoBaseComponent impleme
       )
     );
     this.instances$ = this.service.resource$.pipe(
-      map((paginatedInstances) => new TrainingInstanceTable(paginatedInstances, this.service, this.navigator))
+      map((instances) => new TrainingInstanceTable(instances, this.service, this.navigator))
     );
     this.hasError$ = this.service.hasError$;
     this.onInstancesLoadEvent(initLoadEvent);
