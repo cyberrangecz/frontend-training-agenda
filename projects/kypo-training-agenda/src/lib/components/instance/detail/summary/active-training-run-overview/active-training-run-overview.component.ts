@@ -1,22 +1,8 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnInit,
-  Output,
-  SimpleChanges,
-} from '@angular/core';
-import { KypoBaseComponent, KypoRequestedPagination } from 'kypo-common';
-import { TrainingInstance } from 'kypo-training-model';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { KypoBaseComponent } from 'kypo-common';
+import { TrainingRun } from 'kypo-training-model';
 import { Kypo2Table, LoadTableEvent } from 'kypo2-table';
 import { TableActionEvent } from 'kypo2-table/lib/model/table-action-event';
-import { Observable } from 'rxjs';
-import { map, retryWhen, skipWhile, take, takeWhile } from 'rxjs/operators';
-import { TrainingRunRowAdapter } from '../../../../../model/adapters/table/rows/training-run-row-adapter';
-import { ActiveTrainingRunTable } from '../../../../../model/adapters/table/training-run/active-training-run-table';
-import { ActiveTrainingRunService } from '../../../../../services/training-run/active/active-training-run.service';
 
 /**
  * Component displaying active training runs and its state in real time.
@@ -28,10 +14,10 @@ import { ActiveTrainingRunService } from '../../../../../services/training-run/a
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ActiveTrainingRunOverviewComponent extends KypoBaseComponent implements OnInit {
-  @Input() activeTrainingRuns: Kypo2Table<TrainingRunRowAdapter>;
+  @Input() activeTrainingRuns: Kypo2Table<TrainingRun>;
   @Input() hasError: boolean;
 
-  @Output() tableAction: EventEmitter<TableActionEvent<TrainingRunRowAdapter>> = new EventEmitter();
+  @Output() tableAction: EventEmitter<TableActionEvent<TrainingRun>> = new EventEmitter();
   @Output() loadTableEvent: EventEmitter<LoadTableEvent> = new EventEmitter();
 
   ngOnInit() {}
@@ -40,7 +26,7 @@ export class ActiveTrainingRunOverviewComponent extends KypoBaseComponent implem
    * Emits table action event
    * @param event action event emitted from table
    */
-  onTableAction(event: TableActionEvent<TrainingRunRowAdapter>) {
+  onTableAction(event: TableActionEvent<TrainingRun>) {
     this.tableAction.emit(event);
   }
 

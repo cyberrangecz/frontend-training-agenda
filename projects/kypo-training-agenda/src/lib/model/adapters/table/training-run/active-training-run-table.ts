@@ -13,8 +13,8 @@ import { TrainingRunRowAdapter } from '../rows/training-run-row-adapter';
 export class ActiveTrainingRunTable extends Kypo2Table<TrainingRunRowAdapter> {
   constructor(resource: KypoPaginatedResource<TrainingRun>, service: ActiveTrainingRunService) {
     const columns = [
-      new Column('sandboxId', 'sandbox ID', false),
-      new Column('player', 'player', false),
+      new Column('sandboxInstanceId', 'sandbox ID', false),
+      new Column('playerName', 'player', false),
       new Column('state', 'training run state', false),
     ];
     const rows = resource.elements.map((element) => ActiveTrainingRunTable.createRow(element, service));
@@ -25,7 +25,9 @@ export class ActiveTrainingRunTable extends Kypo2Table<TrainingRunRowAdapter> {
   }
 
   private static createRow(element: TrainingRun, service: ActiveTrainingRunService): Row<TrainingRunRowAdapter> {
-    return new Row(new TrainingRunRowAdapter(element), this.createActions(element, service));
+    const adapter = element as TrainingRunRowAdapter;
+    adapter.playerName = adapter.player.name;
+    return new Row(adapter, this.createActions(element, service));
   }
 
   private static createActions(element: TrainingRun, service: ActiveTrainingRunService): RowAction[] {

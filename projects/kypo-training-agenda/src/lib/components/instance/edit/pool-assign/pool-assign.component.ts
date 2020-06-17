@@ -38,7 +38,7 @@ export class PoolAssignComponent extends KypoBaseComponent implements OnInit, On
   pools$: Observable<KypoPaginatedResource<SandboxPoolListAdapter>>;
   hasError$: Observable<boolean>;
   isLoading$: Observable<boolean>;
-  selected$: Observable<SandboxPoolListAdapter[]>;
+  selected$: Observable<Pool[]>;
 
   controls: KypoControlItem[];
   resourceMapping: KypoListResourceMapping = { id: 'id', title: 'title' };
@@ -80,8 +80,8 @@ export class PoolAssignComponent extends KypoBaseComponent implements OnInit, On
     this.assignService.getAll(pagination).pipe(take(1)).subscribe();
   }
 
-  onSelectionChange(selected: SandboxPoolListAdapter[]) {
-    this.assignService.select(selected[0].pool);
+  onSelectionChange(selected: Pool[]) {
+    this.assignService.select(selected[0]);
   }
 
   private initList() {
@@ -89,9 +89,7 @@ export class PoolAssignComponent extends KypoBaseComponent implements OnInit, On
     this.pools$ = this.assignService.resource$.pipe(map((resource) => this.mapToAdapter(resource)));
     this.hasError$ = this.assignService.hasError$;
     this.isLoading$ = this.assignService.isLoading$;
-    this.selected$ = this.assignService.selected$.pipe(
-      map((selected) => (selected ? [new SandboxPoolListAdapter(selected)] : []))
-    );
+    this.selected$ = this.assignService.selected$.pipe(map((selected) => (selected ? [selected] : [])));
     this.assignService.getAll(pagination).pipe(take(1)).subscribe();
   }
 
@@ -106,7 +104,11 @@ export class PoolAssignComponent extends KypoBaseComponent implements OnInit, On
   }
 
   private mapToAdapter(resource: KypoPaginatedResource<Pool>): KypoPaginatedResource<SandboxPoolListAdapter> {
-    const adapterElements = resource.elements.map((pool) => new SandboxPoolListAdapter(pool));
+    const adapterElements = resource.elements.map((pool) => {
+      const adapter = pool as SandboxPoolListAdapter;
+      adapter.title = !adapter.isLocked() ? `Pool ${adapter.id}` : `Pool ${adapter.id} (locked)`;
+      return adapter;
+    });
     return new KypoPaginatedResource<SandboxPoolListAdapter>(adapterElements, resource.pagination);
   }
 }

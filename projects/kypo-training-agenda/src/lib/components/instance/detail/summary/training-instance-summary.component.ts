@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { KypoBaseComponent, KypoRequestedPagination } from 'kypo-common';
 import { KypoControlItem } from 'kypo-controls';
-import { TrainingInstance } from 'kypo-training-model';
+import { TrainingInstance, TrainingRun } from 'kypo-training-model';
 import { Kypo2Table, LoadTableEvent } from 'kypo2-table';
 import { TableActionEvent } from 'kypo2-table/lib/model/table-action-event';
 import { defer, Observable, of, Subject } from 'rxjs';
@@ -32,9 +32,9 @@ export class TrainingInstanceSummaryComponent extends KypoBaseComponent implemen
   readonly ARCHIVED_TRAINING_RUNS_PANEL_ID = 2;
 
   trainingInstance$: Observable<TrainingInstance>;
-  activeTrainingRuns$: Observable<Kypo2Table<TrainingRunRowAdapter>>;
+  activeTrainingRuns$: Observable<Kypo2Table<TrainingRun>>;
   activeTrainingRunsHasError$: Observable<boolean>;
-  archivedTrainingRuns$: Observable<Kypo2Table<TrainingRunRowAdapter>>;
+  archivedTrainingRuns$: Observable<Kypo2Table<TrainingRun>>;
   archivedTrainingRunsHasError$: Observable<boolean>;
 
   trainingInstanceAccessTokenLink: string;
@@ -91,7 +91,7 @@ export class TrainingInstanceSummaryComponent extends KypoBaseComponent implemen
    * Resolves type of action and calls handler
    * @param event action event emitted from table
    */
-  onActiveTrainingRunTableAction(event: TableActionEvent<TrainingRunRowAdapter>) {
+  onActiveTrainingRunTableAction(event: TableActionEvent<TrainingRun>) {
     event.action.result$.pipe(take(1)).subscribe();
   }
 
@@ -112,7 +112,7 @@ export class TrainingInstanceSummaryComponent extends KypoBaseComponent implemen
    * Resolves actions and calls related action handler
    * @param event event emitted by table
    */
-  onArchivedTrainingRunTableAction(event: TableActionEvent<TrainingRunRowAdapter>) {
+  onArchivedTrainingRunTableAction(event: TableActionEvent<TrainingRun>) {
     event.action.result$.pipe(take(1)).subscribe();
   }
 
@@ -124,10 +124,10 @@ export class TrainingInstanceSummaryComponent extends KypoBaseComponent implemen
    * Stores selected training runs emitted by table
    * @param event event containing selected training runs emitted by table
    */
-  onArchivedTrainingRunTableRowSelection(event: TrainingRunRowAdapter[]) {
+  onArchivedTrainingRunTableRowSelection(event: TrainingRun[]) {
     this.selectedArchivedTrainingRunIds = [];
     event.forEach((selectedRun) => {
-      this.selectedArchivedTrainingRunIds.push(selectedRun.trainingRun.id);
+      this.selectedArchivedTrainingRunIds.push(selectedRun.id);
     });
     this.initArchivedTrainingRunControls();
   }
