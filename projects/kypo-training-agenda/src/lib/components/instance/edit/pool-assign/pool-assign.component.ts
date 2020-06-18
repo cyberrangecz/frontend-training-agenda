@@ -35,7 +35,7 @@ export class PoolAssignComponent extends KypoBaseComponent implements OnInit, On
   @Input() trainingInstance: TrainingInstance;
   @Output() poolChanged: EventEmitter<TrainingInstance> = new EventEmitter();
 
-  pools$: Observable<KypoPaginatedResource<SandboxPoolListAdapter>>;
+  pools$: Observable<KypoPaginatedResource<Pool>>;
   hasError$: Observable<boolean>;
   isLoading$: Observable<boolean>;
   selected$: Observable<Pool[]>;
@@ -68,7 +68,7 @@ export class PoolAssignComponent extends KypoBaseComponent implements OnInit, On
     if ('trainingInstance' in changes) {
       this.assignService.init(this.trainingInstance);
       this.initControls();
-      this.poolDetailRoute = `/${this.navigator.toPool(this.trainingInstance.poolId)}`;
+      this.createPoolDetailRoute(this.trainingInstance.poolId);
     }
   }
 
@@ -96,6 +96,7 @@ export class PoolAssignComponent extends KypoBaseComponent implements OnInit, On
   private onPoolChanged(poolId: number) {
     this.trainingInstance.poolId = poolId;
     this.poolChanged.emit(this.trainingInstance);
+    this.createPoolDetailRoute(poolId);
     this.initControls();
   }
 
@@ -110,5 +111,9 @@ export class PoolAssignComponent extends KypoBaseComponent implements OnInit, On
       return adapter;
     });
     return new KypoPaginatedResource<SandboxPoolListAdapter>(adapterElements, resource.pagination);
+  }
+
+  private createPoolDetailRoute(poolId: number) {
+    this.poolDetailRoute = `/${this.navigator.toPool(poolId)}`;
   }
 }

@@ -5,7 +5,7 @@ import { Pool } from 'kypo-sandbox-model';
 import { TrainingInstanceApi } from 'kypo-training-api';
 import { TrainingInstance } from 'kypo-training-model';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { switchMap, tap } from 'rxjs/operators';
 import { TrainingErrorHandler } from '../../client/training-error.handler.service';
 import { TrainingNotificationService } from '../../client/training-notification.service';
 import { PoolAssignService } from './pool-assign.service';
@@ -60,6 +60,7 @@ export class PoolAssignConcreteService extends PoolAssignService {
 
   unassign(trainingInstance: TrainingInstance): Observable<any> {
     return this.trainingInstanceApi.unassignPool(trainingInstance.id).pipe(
+      switchMap((_) => this.getAll(this.lastPagination)),
       tap(
         (_) => {
           this.notificationService.emit('success', `Pool was unassigned`);
