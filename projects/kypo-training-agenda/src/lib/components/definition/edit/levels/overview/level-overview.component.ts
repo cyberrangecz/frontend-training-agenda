@@ -101,7 +101,6 @@ export class LevelOverviewComponent extends KypoBaseComponent implements OnInit,
 
   private initControl() {
     const saveDisabled$ = this.levelService.activeLevelCanBeSaved$.pipe(map((canBeSaved) => !canBeSaved));
-
     const deleteDisabled$ = this.levelService.levels$.pipe(map((levels) => levels.length <= 0));
     this.controls = LevelOverviewControls.create(this.levelService, saveDisabled$, deleteDisabled$);
   }
