@@ -4,4 +4,8 @@
 <p>Access token: <a [routerLink]="accessTokenLink">{{ trainingInstance.accessToken }}</a></p>
 <p>Start Time: {{ trainingInstance.startTime | kypoDateTimeFormat }}</p>
 <p>End Time: {{ trainingInstance.endTime | kypoDateTimeFormat }}</p>
-<p>Pool: <a [routerLink]="poolIdLink">Pool {{ trainingInstance.poolId }}</a></p>
+<p>Pool: <a *ngIf="hasPool else noPool" [routerLink]="poolIdLink">Pool {{ trainingInstance.poolId }}</a></p>
+
+<ng-template #noPool>
+  <span>No assigned pool</span>
+</ng-template>

@@ -16,6 +16,7 @@ export class TrainingInstanceInfoComponent extends KypoBaseComponent implements 
   @Input() trainingInstance: TrainingInstance;
   @Input() accessTokenLink: string;
   @Input() poolIdLink: string;
+  @Input() hasPool: boolean;
   trainingDefinition: TrainingDefinition;
 
   constructor() {
