@@ -28,6 +28,7 @@ import { TrainingInstanceFormGroup } from './training-instance-form-group';
 })
 export class TrainingInstanceEditComponent extends KypoBaseComponent implements OnInit, OnChanges {
   @Input() trainingInstance: TrainingInstance;
+  @Input() hasStarted: boolean;
   @Output() edited: EventEmitter<TrainingInstanceChangeEvent> = new EventEmitter();
 
   now: Date;
@@ -64,6 +65,9 @@ export class TrainingInstanceEditComponent extends KypoBaseComponent implements 
       this.trainingInstanceFormGroup = new TrainingInstanceFormGroup(this.trainingInstance);
       this.setUpPeriodicTimeStartTimeUpdate();
       this.setupOnFormChangedEvent();
+    }
+    if ('hasStarted' in changes && this.hasStarted) {
+      this.trainingInstanceFormGroup.disable();
     }
   }
 

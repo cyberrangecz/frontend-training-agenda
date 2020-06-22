@@ -1,6 +1,6 @@
 import { TrainingInstance } from 'kypo-training-model';
-import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { BehaviorSubject, Observable, ReplaySubject, timer } from 'rxjs';
+import { filter, map, switchMap } from 'rxjs/operators';
 import { TrainingInstanceChangeEvent } from '../../../model/events/training-instance-change-event';
 
 /**
@@ -20,6 +20,8 @@ export abstract class TrainingInstanceEditService {
 
   protected editModeSubject$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
+  hasStarted$: Observable<boolean>;
+
   /**
    * Current mode (edit - true or create - false)
    */
@@ -31,6 +33,13 @@ export abstract class TrainingInstanceEditService {
    * True if it is possible to save edited training instance in its current state, false otherwise
    */
   saveDisabled$: Observable<boolean> = this.saveDisabledSubject$.asObservable();
+
+  protected constructor() {
+    this.hasStarted$ = timer(1).pipe(
+      switchMap(() => this.trainingInstance$),
+      map((ti) => ti?.hasStarted())
+    );
+  }
 
   /**
    * Sets training instance as currently edited

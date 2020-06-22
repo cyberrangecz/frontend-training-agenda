@@ -22,6 +22,7 @@ import { TrainingInstanceEditService } from '../../../services/training-instance
 })
 export class TrainingInstanceEditOverviewComponent extends KypoBaseComponent implements OnInit {
   trainingInstance$: Observable<TrainingInstance>;
+  hasStarted$: Observable<boolean>;
   editMode$: Observable<boolean>;
   tiTitle$: Observable<string>;
   canDeactivateOrganizers = true;
@@ -39,6 +40,7 @@ export class TrainingInstanceEditOverviewComponent extends KypoBaseComponent imp
     super();
     this.defaultPaginationSize = this.context.config.defaultPaginationSize;
     this.trainingInstance$ = this.editService.trainingInstance$;
+    this.hasStarted$ = this.editService.hasStarted$;
     this.tiTitle$ = this.editService.trainingInstance$.pipe(map((ti) => ti.title));
     this.activeRoute.data
       .pipe(takeWhile((_) => this.isAlive))
