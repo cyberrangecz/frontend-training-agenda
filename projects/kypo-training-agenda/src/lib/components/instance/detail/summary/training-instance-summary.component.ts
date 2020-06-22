@@ -39,6 +39,7 @@ export class TrainingInstanceSummaryComponent extends KypoBaseComponent implemen
 
   trainingInstanceAccessTokenLink: string;
   trainingInstancePoolIdLink: string;
+  hasPool: boolean;
 
   summaryControls: KypoControlItem[];
   archivedTrainingRunsControls: KypoControlItem[];
@@ -170,11 +171,11 @@ export class TrainingInstanceSummaryComponent extends KypoBaseComponent implemen
     return this.openPanels.has(id);
   }
 
-  private initSummaryComponent(trainingInstance) {
+  private initSummaryComponent(trainingInstance: TrainingInstance) {
     this.trainingInstanceSummaryService.init(trainingInstance);
     this.trainingInstanceAccessTokenLink = `/${this.navigator.toTrainingInstanceAccessToken(trainingInstance.id)}`;
     this.trainingInstancePoolIdLink = `/${this.navigator.toPool(trainingInstance.poolId)}`;
-
+    this.hasPool = trainingInstance.hasPool();
     const disabled$ = this.trainingInstanceSummaryService.hasStarted$.pipe(map((hasStated) => !hasStated));
     this.summaryControls = TrainingInstanceSummaryControls.create(
       this.trainingInstanceSummaryService,
