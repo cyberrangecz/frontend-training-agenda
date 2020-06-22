@@ -20,6 +20,7 @@
     <mat-divider></mat-divider>
     <kypo-training-instance-edit
       (edited)="onTrainingInstanceChanged($event)"
+      [hasStarted]="hasStarted$ | async"
       [trainingInstance]="trainingInstance$ | async">
     </kypo-training-instance-edit>
   </ng-template>

@@ -21,6 +21,11 @@ export class TrainingInstanceFormGroup {
     );
   }
 
+  disable() {
+    this.formGroup.disable({ emitEvent: false });
+    this.formGroup.get('title').enable({ emitEvent: false });
+  }
+
   private dateSequenceValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
     let error = null;
     const startTime = control.get('startTime').value;
