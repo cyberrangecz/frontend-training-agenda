@@ -85,7 +85,7 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
           this.notificationService.emit('success', 'Training instance was successfully saved');
           this.onSaved();
         },
-        (err) => this.errorHandler.emit(err, 'Creating new training instance')
+        (err) => this.errorHandler.emit(err, 'Editing training instance')
       )
     );
   }
