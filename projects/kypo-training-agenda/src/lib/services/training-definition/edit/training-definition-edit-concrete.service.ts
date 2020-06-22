@@ -91,7 +91,7 @@ export class TrainingDefinitionEditConcreteService extends TrainingDefinitionEdi
           this.notificationService.emit('success', 'Training was created');
           this.onSaved();
         },
-        (err) => this.errorHandler.emit(err, 'Creating new training definition')
+        (err) => this.errorHandler.emit(err, 'Creating training definition')
       ),
       map((td) => td.id)
     );
