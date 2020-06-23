@@ -126,6 +126,7 @@
             matSuffix
             mat-icon-button
             aria-label="Clear"
+            [disabled]="hasStarted"
             (click)="accessToken.setValue('')"
           >
             <mat-icon>close</mat-icon>
