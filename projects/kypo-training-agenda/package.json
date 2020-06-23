@@ -1,6 +1,6 @@
 {
   "name": "kypo-training-agenda",
-  "version": "9.2.1",
+  "version": "9.2.2",
   "peerDependencies": {
     "@angular/common": "^9.0.2",
     "@angular/core": "^9.0.2",
