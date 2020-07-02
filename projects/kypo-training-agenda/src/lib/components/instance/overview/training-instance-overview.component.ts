@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { KypoBaseComponent } from 'kypo-common';
+import { KypoBaseDirective } from 'kypo-common';
 import { KypoRequestedPagination } from 'kypo-common';
 import { KypoControlItem } from 'kypo-controls';
 import { TrainingInstance } from 'kypo-training-model';
@@ -21,7 +21,7 @@ import { TrainingInstanceOverviewService } from '../../../services/training-inst
   styleUrls: ['./training-instance-overview.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TrainingInstanceOverviewComponent extends KypoBaseComponent implements OnInit, OnDestroy {
+export class TrainingInstanceOverviewComponent extends KypoBaseDirective implements OnInit, OnDestroy {
   readonly INITIAL_SORT_NAME = 'startTime';
   readonly INITIAL_SORT_DIR = 'desc';
 

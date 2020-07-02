@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { FormArray, FormControl } from '@angular/forms';
 import { MatRadioButton } from '@angular/material/radio';
-import { KypoBaseComponent } from 'kypo-common';
+import { KypoBaseDirective } from 'kypo-common';
 import { KypoValidators } from 'kypo-common';
 import { Question } from 'kypo-training-model';
 import { ExtendedMatchingItems } from 'kypo-training-model';
@@ -29,7 +29,7 @@ import { ExtendedMatchingItemsFormGroup } from './extended-matching-items-form-g
   styleUrls: ['./extended-matching-items-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ExtendedMatchingItemsEditComponent extends KypoBaseComponent implements OnInit, OnChanges, AfterViewInit {
+export class ExtendedMatchingItemsEditComponent extends KypoBaseDirective implements OnInit, OnChanges, AfterViewInit {
   @Input() question: ExtendedMatchingItems;
   @Input() isTest: boolean;
   @Input() required: boolean;

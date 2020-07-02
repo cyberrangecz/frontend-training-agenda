@@ -15,7 +15,7 @@ import {
   CsirtMuConfirmationDialogConfig,
   CsirtMuDialogResultEnum,
 } from 'csirt-mu-common';
-import { KypoBaseComponent } from 'kypo-common';
+import { KypoBaseDirective } from 'kypo-common';
 import { KypoControlItem } from 'kypo-controls';
 import { Hint } from 'kypo-training-model';
 import { Kypo2Stepper } from 'kypo2-stepper';
@@ -38,7 +38,7 @@ import { HintStepperAdapter } from '../../../../../../../../model/adapters/stepp
     },
   ],
 })
-export class HintsOverviewComponent extends KypoBaseComponent implements OnInit, OnChanges {
+export class HintsOverviewComponent extends KypoBaseDirective implements OnInit, OnChanges {
   @Input() hints: Hint[];
   @Input() levelId: Hint[];
   @Input() levelMaxScore: number;

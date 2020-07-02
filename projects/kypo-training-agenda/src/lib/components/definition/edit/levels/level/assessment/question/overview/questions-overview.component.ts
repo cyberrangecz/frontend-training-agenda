@@ -14,7 +14,7 @@ import {
   CsirtMuConfirmationDialogConfig,
   CsirtMuDialogResultEnum,
 } from 'csirt-mu-common';
-import { KypoBaseComponent } from 'kypo-common';
+import { KypoBaseDirective } from 'kypo-common';
 import { KypoControlItem, KypoControlMenuItem, KypoExpandableControlItem } from 'kypo-controls';
 import { ExtendedMatchingItems } from 'kypo-training-model';
 import { Question } from 'kypo-training-model';
@@ -33,7 +33,7 @@ import { QuestionChangeEvent } from '../../../../../../../../model/events/questi
   styleUrls: ['./questions-overview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class QuestionsOverviewComponent extends KypoBaseComponent implements OnInit, OnChanges {
+export class QuestionsOverviewComponent extends KypoBaseDirective implements OnInit, OnChanges {
   @Input() questions: Question[];
   @Input() isTest: boolean;
   @Input() disabled: boolean;

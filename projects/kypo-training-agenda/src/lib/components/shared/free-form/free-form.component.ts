@@ -9,7 +9,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { FormArray, FormControl } from '@angular/forms';
-import { KypoBaseComponent } from 'kypo-common';
+import { KypoBaseDirective } from 'kypo-common';
 import { KypoValidators } from 'kypo-common';
 import { FreeFormItemFormGroup } from '../../../model/adapters/other/free-form-item-form-group';
 import { FreeFormItemsChangeEvent } from '../../../model/adapters/other/free-form-items-change-event';
@@ -24,7 +24,7 @@ import { FreeFormItemsChangeEvent } from '../../../model/adapters/other/free-for
   styleUrls: ['./free-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FreeFormComponent extends KypoBaseComponent implements OnInit, OnChanges {
+export class FreeFormComponent extends KypoBaseDirective implements OnInit, OnChanges {
   @Input() formName: string;
   @Input() formPlaceholder: string;
   @Input() formData: string[];

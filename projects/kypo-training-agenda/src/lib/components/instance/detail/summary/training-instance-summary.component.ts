@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { KypoBaseComponent, KypoRequestedPagination } from 'kypo-common';
+import { KypoBaseDirective, KypoRequestedPagination } from 'kypo-common';
 import { KypoControlItem } from 'kypo-controls';
 import { TrainingInstance, TrainingRun } from 'kypo-training-model';
 import { Kypo2Table, LoadTableEvent } from 'kypo2-table';
@@ -8,7 +8,6 @@ import { TableActionEvent } from 'kypo2-table/lib/model/table-action-event';
 import { defer, Observable, of, Subject } from 'rxjs';
 import { map, switchMap, take, takeWhile, tap } from 'rxjs/operators';
 import { TrainingInstanceSummaryControls } from '../../../../model/adapters/controls/instance/training-instance-summary-controls';
-import { TrainingRunRowAdapter } from '../../../../model/adapters/table/rows/training-run-row-adapter';
 import { ActiveTrainingRunTable } from '../../../../model/adapters/table/training-run/active-training-run-table';
 import { ArchivedTrainingRunTable } from '../../../../model/adapters/table/training-run/archived-training-run-table';
 import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME } from '../../../../model/client/activated-route-data-attributes';
@@ -26,7 +25,7 @@ import { ArchivedTrainingRunService } from '../../../../services/training-run/ar
   styleUrls: ['./training-instance-summary.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TrainingInstanceSummaryComponent extends KypoBaseComponent implements OnInit {
+export class TrainingInstanceSummaryComponent extends KypoBaseDirective implements OnInit {
   readonly SUMMARY_PANEL_ID = 0;
   readonly ACTIVE_TRAINING_RUNS_PANEL_ID = 1;
   readonly ARCHIVED_TRAINING_RUNS_PANEL_ID = 2;

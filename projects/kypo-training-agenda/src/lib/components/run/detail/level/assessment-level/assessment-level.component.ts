@@ -10,7 +10,7 @@ import {
   SimpleChanges,
   ViewChildren,
 } from '@angular/core';
-import { KypoBaseComponent } from 'kypo-common';
+import { KypoBaseDirective } from 'kypo-common';
 import { AssessmentTypeEnum } from 'kypo-training-model';
 import { AssessmentLevel } from 'kypo-training-model';
 import { Question } from 'kypo-training-model';
@@ -29,7 +29,7 @@ import { TraineeQuestionComponent } from './question/trainee-question.component'
  * to answer all of the questions before he can continue to the next level. If it questionnaire type, trainee can skip
  * answering the questions.
  */
-export class AssessmentLevelComponent extends KypoBaseComponent implements OnInit, OnChanges {
+export class AssessmentLevelComponent extends KypoBaseDirective implements OnInit, OnChanges {
   @Input() level: AssessmentLevel;
   @Input() isLast: boolean;
   @Output() next: EventEmitter<void> = new EventEmitter();

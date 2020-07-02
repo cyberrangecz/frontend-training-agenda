@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { KypoBaseComponent } from 'kypo-common';
+import { KypoBaseDirective } from 'kypo-common';
 import { AbstractLevelTypeEnum } from 'kypo-training-model';
 import { Level } from 'kypo-training-model';
 
@@ -13,7 +13,7 @@ import { Level } from 'kypo-training-model';
   styleUrls: ['./abstract-level.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AbstractLevelComponent extends KypoBaseComponent implements OnInit {
+export class AbstractLevelComponent extends KypoBaseDirective implements OnInit {
   @Input() level: Level;
   @Input() isLast: boolean;
   @Input() sandboxId: number;

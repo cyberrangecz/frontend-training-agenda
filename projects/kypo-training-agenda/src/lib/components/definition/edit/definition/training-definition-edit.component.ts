@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormArray, FormControl } from '@angular/forms';
-import { KypoBaseComponent } from 'kypo-common';
+import { KypoBaseDirective } from 'kypo-common';
 import { TrainingDefinition } from 'kypo-training-model';
 import { User } from 'kypo2-auth';
 import { takeWhile } from 'rxjs/operators';
@@ -16,7 +16,7 @@ import { TrainingDefinitionEditFormGroup } from './training-definition-edit-form
   templateUrl: './training-definition-edit.component.html',
   styleUrls: ['./training-definition-edit.component.css'],
 })
-export class TrainingDefinitionEditComponent extends KypoBaseComponent implements OnInit, OnChanges {
+export class TrainingDefinitionEditComponent extends KypoBaseDirective implements OnInit, OnChanges {
   @Input() trainingDefinition: TrainingDefinition;
   @Input() activeUser: User;
   @Output() edited: EventEmitter<TrainingDefinitionChangeEvent> = new EventEmitter();

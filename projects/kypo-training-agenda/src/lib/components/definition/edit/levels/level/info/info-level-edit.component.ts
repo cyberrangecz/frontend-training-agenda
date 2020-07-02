@@ -8,7 +8,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { KypoBaseComponent } from 'kypo-common';
+import { KypoBaseDirective } from 'kypo-common';
 import { InfoLevel } from 'kypo-training-model';
 import { takeWhile } from 'rxjs/operators';
 import { InfoLevelEditFormGroup } from './info-level-edit-form-group';
@@ -22,7 +22,7 @@ import { InfoLevelEditFormGroup } from './info-level-edit-form-group';
   styleUrls: ['./info-level-edit.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InfoLevelEditComponent extends KypoBaseComponent implements OnInit, OnChanges {
+export class InfoLevelEditComponent extends KypoBaseDirective implements OnInit, OnChanges {
   @Input() level: InfoLevel;
   @Output() levelChange: EventEmitter<InfoLevel> = new EventEmitter();
 

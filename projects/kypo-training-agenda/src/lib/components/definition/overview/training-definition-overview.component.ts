@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { KypoBaseComponent, KypoRequestedPagination } from 'kypo-common';
+import { KypoBaseDirective, KypoRequestedPagination } from 'kypo-common';
 import { KypoControlItem } from 'kypo-controls';
 import { TrainingDefinition } from 'kypo-training-model';
 import { Kypo2Table, LoadTableEvent, TableActionEvent } from 'kypo2-table';
@@ -19,7 +19,7 @@ import { TrainingDefinitionService } from '../../../services/training-definition
   templateUrl: './training-definition-overview.component.html',
   styleUrls: ['./training-definition-overview.component.css'],
 })
-export class TrainingDefinitionOverviewComponent extends KypoBaseComponent implements OnInit {
+export class TrainingDefinitionOverviewComponent extends KypoBaseDirective implements OnInit {
   readonly INIT_SORT_NAME = 'lastEdited';
   readonly INIT_SORT_DIR = 'desc';
 

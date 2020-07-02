@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { KypoBaseComponent } from 'kypo-common';
+import { KypoBaseDirective } from 'kypo-common';
 import { KypoControlItem } from 'kypo-controls';
 import { TrainingDefinition } from 'kypo-training-model';
 import { Level } from 'kypo-training-model';
@@ -21,7 +21,7 @@ import { TrainingDefinitionEditService } from '../../../services/training-defini
   styleUrls: ['./training-definition-edit-overview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TrainingDefinitionEditOverviewComponent extends KypoBaseComponent implements OnInit {
+export class TrainingDefinitionEditOverviewComponent extends KypoBaseDirective implements OnInit {
   trainingDefinition$: Observable<TrainingDefinition>;
   editMode$: Observable<boolean>;
   tdTitle$: Observable<string>;
