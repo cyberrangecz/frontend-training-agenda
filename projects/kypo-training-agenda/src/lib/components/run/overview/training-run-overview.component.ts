@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { KypoBaseComponent, KypoRequestedPagination } from 'kypo-common';
+import { KypoBaseDirective, KypoRequestedPagination } from 'kypo-common';
 import { AccessedTrainingRun } from 'kypo-training-model';
 import { Kypo2Table, LoadTableEvent, TableActionEvent } from 'kypo2-table';
 import { Observable } from 'rxjs';
@@ -17,7 +17,7 @@ import { AccessedTrainingRunService } from '../../../services/training-run/acces
   styleUrls: ['./training-run-overview.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TrainingRunOverviewComponent extends KypoBaseComponent implements OnInit {
+export class TrainingRunOverviewComponent extends KypoBaseDirective implements OnInit {
   trainingRuns$: Observable<Kypo2Table<AccessedTrainingRun>>;
   hasError$: Observable<boolean>;
 

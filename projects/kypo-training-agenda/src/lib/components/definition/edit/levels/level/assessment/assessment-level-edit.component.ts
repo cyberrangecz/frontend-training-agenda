@@ -8,7 +8,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { KypoBaseComponent } from 'kypo-common';
+import { KypoBaseDirective } from 'kypo-common';
 import { AssessmentLevel } from 'kypo-training-model';
 import { Question } from 'kypo-training-model';
 import { takeWhile } from 'rxjs/operators';
@@ -23,7 +23,7 @@ import { AssessmentLevelEditFormGroup } from './assessment-level-edit-form-group
   styleUrls: ['./assessment-level-edit.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AssessmentLevelEditComponent extends KypoBaseComponent implements OnInit, OnChanges {
+export class AssessmentLevelEditComponent extends KypoBaseDirective implements OnInit, OnChanges {
   @Input() level: AssessmentLevel;
   @Output() levelChange: EventEmitter<AssessmentLevel> = new EventEmitter();
   assessmentFormGroup: AssessmentLevelEditFormGroup;

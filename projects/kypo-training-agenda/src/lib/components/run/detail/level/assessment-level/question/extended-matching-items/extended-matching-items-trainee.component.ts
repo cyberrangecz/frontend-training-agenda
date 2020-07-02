@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { KypoBaseComponent } from 'kypo-common';
+import { KypoBaseDirective } from 'kypo-common';
 import { Question } from 'kypo-training-model';
 import { ExtendedMatchingItems } from 'kypo-training-model';
 
@@ -13,13 +13,13 @@ import { ExtendedMatchingItems } from 'kypo-training-model';
  * Component displaying EMI type of question in the assessment level of a trainees training run.
  * If assessment is type of test or question is required, user needs to answer it, otherwise it is optional.
  */
-export class ExtendedMatchingItemsTraineeComponent extends KypoBaseComponent implements OnInit {
+export class ExtendedMatchingItemsTraineeComponent extends KypoBaseDirective implements OnInit {
   @Input() question: ExtendedMatchingItems;
   @Input() index: number;
 
   @Output() contentChanged: EventEmitter<{ index: number; question: Question }> = new EventEmitter();
 
-  usersAnswers: Array<{ x: number; y: number }> = [];
+  usersAnswers: { x: number; y: number }[] = [];
 
   ngOnInit() {}
 

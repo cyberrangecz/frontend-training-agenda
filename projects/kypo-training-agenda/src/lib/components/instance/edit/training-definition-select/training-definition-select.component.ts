@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Inject, OnInit, Optional } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { KypoBaseComponent, KypoRequestedPagination } from 'kypo-common';
+import { KypoBaseDirective, KypoRequestedPagination } from 'kypo-common';
 import { KypoPaginatedResource } from 'kypo-common';
 import { TrainingDefinition } from 'kypo-training-model';
 import { TrainingDefinitionInfo } from 'kypo-training-model';
@@ -22,7 +22,7 @@ import { TrainingDefinitionOrganizerSelectConcreteService } from '../../../../se
     { provide: 'unreleasedService', useClass: TrainingDefinitionOrganizerSelectConcreteService },
   ],
 })
-export class TrainingDefinitionSelectComponent extends KypoBaseComponent implements OnInit {
+export class TrainingDefinitionSelectComponent extends KypoBaseDirective implements OnInit {
   readonly PAGE_SIZE;
 
   released$: Observable<KypoPaginatedResource<TrainingDefinitionInfo>>;

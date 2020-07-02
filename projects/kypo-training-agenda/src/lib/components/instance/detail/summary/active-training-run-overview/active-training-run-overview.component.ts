@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { KypoBaseComponent } from 'kypo-common';
+import { KypoBaseDirective } from 'kypo-common';
 import { TrainingRun } from 'kypo-training-model';
 import { Kypo2Table, LoadTableEvent } from 'kypo2-table';
 import { TableActionEvent } from 'kypo2-table/lib/model/table-action-event';
@@ -13,7 +13,7 @@ import { TableActionEvent } from 'kypo2-table/lib/model/table-action-event';
   styleUrls: ['./active-training-run-overview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ActiveTrainingRunOverviewComponent extends KypoBaseComponent implements OnInit {
+export class ActiveTrainingRunOverviewComponent extends KypoBaseDirective implements OnInit {
   @Input() activeTrainingRuns: Kypo2Table<TrainingRun>;
   @Input() hasError: boolean;
 

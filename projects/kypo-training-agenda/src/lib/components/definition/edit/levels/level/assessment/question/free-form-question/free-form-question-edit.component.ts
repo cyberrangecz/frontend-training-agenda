@@ -9,7 +9,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { FormArray, FormControl } from '@angular/forms';
-import { KypoBaseComponent } from 'kypo-common';
+import { KypoBaseDirective } from 'kypo-common';
 import { KypoValidators } from 'kypo-common';
 import { Question } from 'kypo-training-model';
 import { FreeFormQuestion } from 'kypo-training-model';
@@ -26,7 +26,7 @@ import { FreeFormQuestionFormGroup } from './free-form-question-form-group';
 /**
  * Component for editing a question of type Free Form
  */
-export class FreeFormQuestionEditComponent extends KypoBaseComponent implements OnInit, OnChanges {
+export class FreeFormQuestionEditComponent extends KypoBaseDirective implements OnInit, OnChanges {
   @Input() question: FreeFormQuestion;
   @Input() isTest: boolean;
   @Input() required: boolean;

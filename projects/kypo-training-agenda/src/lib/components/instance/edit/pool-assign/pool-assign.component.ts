@@ -8,7 +8,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { KypoBaseComponent, KypoPaginatedResource, KypoRequestedPagination } from 'kypo-common';
+import { KypoBaseDirective, KypoPaginatedResource, KypoRequestedPagination } from 'kypo-common';
 import { KypoControlItem } from 'kypo-controls';
 import { KypoListResourceMapping } from 'kypo-list';
 import { Pool } from 'kypo-sandbox-model';
@@ -29,7 +29,7 @@ import { PoolAssignService } from '../../../../services/training-instance/pool-a
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [{ provide: PoolAssignService, useClass: PoolAssignConcreteService }],
 })
-export class PoolAssignComponent extends KypoBaseComponent implements OnInit, OnChanges {
+export class PoolAssignComponent extends KypoBaseDirective implements OnInit, OnChanges {
   readonly PAGE_SIZE: number;
 
   @Input() trainingInstance: TrainingInstance;

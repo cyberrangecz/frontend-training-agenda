@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { KypoBaseComponent } from 'kypo-common';
+import { KypoBaseDirective } from 'kypo-common';
 import { TrainingInstance } from 'kypo-training-model';
 import { Observable } from 'rxjs';
 import { map, takeWhile } from 'rxjs/operators';
@@ -15,7 +15,7 @@ import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME } from '../../../../model/client/
   styleUrls: ['./training-instance-progress.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TrainingInstanceProgressComponent extends KypoBaseComponent implements OnInit {
+export class TrainingInstanceProgressComponent extends KypoBaseDirective implements OnInit {
   @Input() trainingInstance$: Observable<TrainingInstance>;
 
   constructor(private activeRoute: ActivatedRoute) {

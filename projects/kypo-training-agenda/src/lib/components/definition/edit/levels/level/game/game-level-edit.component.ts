@@ -8,7 +8,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { KypoBaseComponent } from 'kypo-common';
+import { KypoBaseDirective } from 'kypo-common';
 import { GameLevel } from 'kypo-training-model';
 import { Hint } from 'kypo-training-model';
 import { takeWhile } from 'rxjs/operators';
@@ -23,7 +23,7 @@ import { GameLevelEditFormGroup } from './game-level-edit-form-group';
   styleUrls: ['./game-level-edit.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class GameLevelEditComponent extends KypoBaseComponent implements OnInit, OnChanges {
+export class GameLevelEditComponent extends KypoBaseDirective implements OnInit, OnChanges {
   @Input() level: GameLevel;
   @Output() levelChange: EventEmitter<GameLevel> = new EventEmitter();
   gameLevelConfigFormGroup: GameLevelEditFormGroup;

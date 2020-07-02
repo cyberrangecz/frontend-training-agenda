@@ -9,7 +9,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { KypoBaseComponent } from 'kypo-common';
+import { KypoBaseDirective } from 'kypo-common';
 import { KypoControlItem } from 'kypo-controls';
 import { TrainingDefinition } from 'kypo-training-model';
 import { Level } from 'kypo-training-model';
@@ -29,7 +29,7 @@ import { LevelEditService } from '../../../../../services/training-definition/ed
   styleUrls: ['./level-overview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LevelOverviewComponent extends KypoBaseComponent implements OnInit, OnChanges {
+export class LevelOverviewComponent extends KypoBaseDirective implements OnInit, OnChanges {
   @Output() unsavedLevels: EventEmitter<Level[]> = new EventEmitter();
   @Output() levelsCount: EventEmitter<number> = new EventEmitter();
   @Input() trainingDefinition: TrainingDefinition;
