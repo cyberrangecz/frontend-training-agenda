@@ -9,6 +9,14 @@ import { TrainingRunApi } from 'kypo-training-api';
 import { throwError } from 'rxjs';
 import { skip, take } from 'rxjs/operators';
 import { TrainingAgendaConfig } from '../../../model/client/training-agenda-config';
+import {
+  createContext,
+  createDialogSpy,
+  createErrorHandlerSpy,
+  createNotificationSpy,
+  createTrainingInstanceApiSpy,
+  createTrainingRunApiSpy,
+} from '../../../testing/testing-commons';
 import { TrainingErrorHandler } from '../../client/training-error.handler.service';
 import { TrainingNotificationService } from '../../client/training-notification.service';
 import { TrainingAgendaContext } from '../../internal/training-agenda-context.service';
@@ -24,16 +32,12 @@ describe('ArchivedTrainingRunConcreteService', () => {
   let context: TrainingAgendaContext;
 
   beforeEach(async(() => {
-    const config = new TrainingAgendaConfig();
-    config.pollingPeriod = 5000;
-    config.defaultPaginationSize = 10;
-
-    errorHandlerSpy = jasmine.createSpyObj('ErrorHandlerService', ['emit']);
-    trainingInstanceApiSpy = jasmine.createSpyObj('TrainingInstanceApi', ['getAssociatedTrainingRuns']);
-    notificationSpy = jasmine.createSpyObj('TrainingNotificationService', ['emit']);
-    trainingRunFacadeSpy = jasmine.createSpyObj('TrainingRunApi', ['deleteMultiple']);
-    dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
-    context = new TrainingAgendaContext(config);
+    errorHandlerSpy = createErrorHandlerSpy();
+    trainingInstanceApiSpy = createTrainingInstanceApiSpy();
+    notificationSpy = createNotificationSpy();
+    trainingRunFacadeSpy = createTrainingRunApiSpy();
+    dialogSpy = createDialogSpy();
+    context = createContext();
 
     TestBed.configureTestingModule({
       providers: [
