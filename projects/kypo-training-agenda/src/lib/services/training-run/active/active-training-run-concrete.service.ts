@@ -7,13 +7,12 @@ import {
 } from 'csirt-mu-common';
 import { KypoPaginatedResource } from 'kypo-common';
 import { KypoRequestedPagination } from 'kypo-common';
-import { PoolRequestApi, SandboxInstanceApi } from 'kypo-sandbox-api';
+import { SandboxAllocationUnitsApi, SandboxInstanceApi } from 'kypo-sandbox-api';
 import { SandboxInstance } from 'kypo-sandbox-model';
 import { TrainingInstanceApi, TrainingRunApi } from 'kypo-training-api';
-import { TrainingInstance } from 'kypo-training-model';
 import { TrainingRun } from 'kypo-training-model';
-import { concat, EMPTY, merge, Observable, Subject, timer } from 'rxjs';
-import { retryWhen, switchMap, tap } from 'rxjs/operators';
+import { EMPTY, Observable } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
 import { TrainingErrorHandler } from '../../client/training-error.handler.service';
 import { TrainingNotificationService } from '../../client/training-notification.service';
 import { TrainingAgendaContext } from '../../internal/training-agenda-context.service';
@@ -31,7 +30,7 @@ export class ActiveTrainingRunConcreteService extends ActiveTrainingRunService {
     private trainingInstanceApi: TrainingInstanceApi,
     private trainingRunApi: TrainingRunApi,
     private sandboxApi: SandboxInstanceApi,
-    private requestApi: PoolRequestApi,
+    private sauApi: SandboxAllocationUnitsApi,
     private dialog: MatDialog,
     private context: TrainingAgendaContext,
     private notificationService: TrainingNotificationService,
@@ -116,7 +115,7 @@ export class ActiveTrainingRunConcreteService extends ActiveTrainingRunService {
     return this.sandboxApi.getSandbox(trainingRun.sandboxInstanceId).pipe(
       tap((sandbox) => (sandboxToDelete = sandbox)),
       switchMap((_) => this.sandboxApi.unlockSandbox(sandboxToDelete.id, sandboxToDelete.lockId)),
-      switchMap((_) => this.requestApi.createCleanupRequest(sandboxToDelete.allocationUnitId)),
+      switchMap((_) => this.sauApi.createCleanupRequest(sandboxToDelete.allocationUnitId)),
       tap(
         (_) => this.notificationService.emit('success', 'Deleting of sandbox instance started'),
         (err) => this.errorHandler.emit(err, 'Deleting sandbox instance')
