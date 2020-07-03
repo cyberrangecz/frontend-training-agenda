@@ -1,10 +1,9 @@
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { SandboxInstanceApi } from 'kypo-sandbox-api/lib/api/instance/sandbox-instance-api.service';
+import { SandboxAllocationUnitsApi, SandboxInstanceApi } from 'kypo-sandbox-api';
 import { PoolApi } from 'kypo-sandbox-api/lib/api/pool/pool.api.service';
-import { PoolRequestApi } from 'kypo-sandbox-api/lib/api/request/pool-request-api.service';
-import { TrainingDefinitionApi } from 'kypo-training-api/lib/api/definition/training-definition-api.service';
-import { TrainingInstanceApi } from 'kypo-training-api/lib/api/instance/training-instance-api.service';
+import { TrainingDefinitionApi } from 'kypo-training-api';
+import { TrainingInstanceApi } from 'kypo-training-api';
 import { TrainingRunApi } from 'kypo-training-api/lib/api/run/training-run-api.service';
 import { UserApi } from 'kypo-training-api/lib/api/user/user-api.service';
 import { Kypo2AuthService } from 'kypo2-auth/lib/service/kypo2-auth.service';
@@ -78,8 +77,8 @@ export function createSandboxInstanceApiSpy(): jasmine.SpyObj<SandboxInstanceApi
   return jasmine.createSpyObj('SandboxInstanceApi', ['getSandbox']);
 }
 
-export function createRequestApiSpy(): jasmine.SpyObj<PoolRequestApi> {
-  return jasmine.createSpyObj('PoolRequestApi', ['createCleanupRequest']);
+export function createSauApi(): jasmine.SpyObj<SandboxAllocationUnitsApi> {
+  return jasmine.createSpyObj('SandboxAllocationUnitsApi', ['createCleanupRequest']);
 }
 
 export function createUserApiSpy(): jasmine.SpyObj<UserApi> {

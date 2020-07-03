@@ -5,17 +5,16 @@ import { KypoPagination } from 'kypo-common';
 import { KypoPaginatedResource } from 'kypo-common';
 import { asyncData } from 'kypo-common';
 import { SandboxInstanceApi } from 'kypo-sandbox-api';
-import { PoolRequestApi } from 'kypo-sandbox-api';
+import { SandboxAllocationUnitsApi } from 'kypo-sandbox-api';
 import { TrainingInstanceApi, TrainingRunApi } from 'kypo-training-api';
 import { throwError } from 'rxjs';
 import { skip, take } from 'rxjs/operators';
-import { TrainingAgendaConfig } from '../../../model/client/training-agenda-config';
 import {
   createContext,
   createDialogSpy,
   createErrorHandlerSpy,
   createNotificationSpy,
-  createRequestApiSpy,
+  createSauApi,
   createSandboxInstanceApiSpy,
   createTrainingInstanceApiSpy,
   createTrainingRunApiSpy,
@@ -32,7 +31,7 @@ describe('ActiveTrainingRunConcreteService', () => {
   let trainingInstanceApiSpy: jasmine.SpyObj<TrainingInstanceApi>;
   let trainingRunApiSpy: jasmine.SpyObj<TrainingRunApi>;
   let sandboxInstanceApiSpy: jasmine.SpyObj<SandboxInstanceApi>;
-  let requestApiSpy: jasmine.SpyObj<PoolRequestApi>;
+  let sauApiSpy: jasmine.SpyObj<SandboxAllocationUnitsApi>;
   let service: ActiveTrainingRunConcreteService;
   let context: TrainingAgendaContext;
 
@@ -40,7 +39,7 @@ describe('ActiveTrainingRunConcreteService', () => {
     errorHandlerSpy = createErrorHandlerSpy();
     notificationSpy = createNotificationSpy();
     sandboxInstanceApiSpy = createSandboxInstanceApiSpy();
-    requestApiSpy = createRequestApiSpy();
+    sauApiSpy = createSauApi();
     trainingInstanceApiSpy = createTrainingInstanceApiSpy();
     trainingRunApiSpy = createTrainingRunApiSpy();
     dialogSpy = createDialogSpy();
@@ -51,7 +50,7 @@ describe('ActiveTrainingRunConcreteService', () => {
         { provide: MatDialog, useValue: dialogSpy },
         { provide: TrainingInstanceApi, useValue: trainingInstanceApiSpy },
         { provide: TrainingRunApi, useValue: trainingRunApiSpy },
-        { provide: PoolRequestApi, useValue: requestApiSpy },
+        { provide: SandboxAllocationUnitsApi, useValue: sauApiSpy },
         { provide: SandboxInstanceApi, useValue: sandboxInstanceApiSpy },
         { provide: TrainingErrorHandler, useValue: errorHandlerSpy },
         { provide: TrainingNotificationService, useValue: notificationSpy },
