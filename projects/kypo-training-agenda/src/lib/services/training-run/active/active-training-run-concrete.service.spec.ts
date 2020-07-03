@@ -10,6 +10,16 @@ import { TrainingInstanceApi, TrainingRunApi } from 'kypo-training-api';
 import { throwError } from 'rxjs';
 import { skip, take } from 'rxjs/operators';
 import { TrainingAgendaConfig } from '../../../model/client/training-agenda-config';
+import {
+  createContext,
+  createDialogSpy,
+  createErrorHandlerSpy,
+  createNotificationSpy,
+  createRequestApiSpy,
+  createSandboxInstanceApiSpy,
+  createTrainingInstanceApiSpy,
+  createTrainingRunApiSpy,
+} from '../../../testing/testing-commons';
 import { TrainingErrorHandler } from '../../client/training-error.handler.service';
 import { TrainingNotificationService } from '../../client/training-notification.service';
 import { TrainingAgendaContext } from '../../internal/training-agenda-context.service';
@@ -27,18 +37,14 @@ describe('ActiveTrainingRunConcreteService', () => {
   let context: TrainingAgendaContext;
 
   beforeEach(async(() => {
-    const config = new TrainingAgendaConfig();
-    config.pollingPeriod = 5000;
-    config.defaultPaginationSize = 10;
-
-    errorHandlerSpy = jasmine.createSpyObj('TrainingErrorHandler', ['emit']);
-    notificationSpy = jasmine.createSpyObj('TrainingNotificationService', ['emit']);
-    sandboxInstanceApiSpy = jasmine.createSpyObj('SandboxInstanceApi', ['getSandbox']);
-    requestApiSpy = jasmine.createSpyObj('PoolRequestApi', ['createCleanupRequest']);
-    trainingInstanceApiSpy = jasmine.createSpyObj('TrainingInstanceApi', ['getAssociatedTrainingRuns']);
-    trainingRunApiSpy = jasmine.createSpyObj('TrainingRunApi', ['archive']);
-    dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
-    context = new TrainingAgendaContext(config);
+    errorHandlerSpy = createErrorHandlerSpy();
+    notificationSpy = createNotificationSpy();
+    sandboxInstanceApiSpy = createSandboxInstanceApiSpy();
+    requestApiSpy = createRequestApiSpy();
+    trainingInstanceApiSpy = createTrainingInstanceApiSpy();
+    trainingRunApiSpy = createTrainingRunApiSpy();
+    dialogSpy = createDialogSpy();
+    context = createContext();
     TestBed.configureTestingModule({
       providers: [
         ActiveTrainingRunConcreteService,

@@ -8,6 +8,7 @@ import { User } from 'kypo2-auth';
 import { throwError } from 'rxjs';
 import { skip, take } from 'rxjs/operators';
 import { TrainingAgendaConfig } from '../../../model/client/training-agenda-config';
+import { createContext, createErrorHandlerSpy, createUserApiSpy } from '../../../testing/testing-commons';
 import { TrainingErrorHandler } from '../../client/training-error.handler.service';
 import { TrainingAgendaContext } from '../../internal/training-agenda-context.service';
 import { OrganizersAssignService } from './organizers-assign.service';
@@ -19,12 +20,9 @@ describe('OrganizersAssignService', () => {
   let context: TrainingAgendaContext;
 
   beforeEach(async(() => {
-    const config = new TrainingAgendaConfig();
-    config.pollingPeriod = 5000;
-    config.defaultPaginationSize = 10;
-    errorHandlerSpy = jasmine.createSpyObj('TrainingErrorHandler', ['emit']);
-    apiSpy = jasmine.createSpyObj('UserApi', ['getOrganizersNotInTI', 'getOrganizers', 'updateOrganizers']);
-    context = new TrainingAgendaContext(config);
+    errorHandlerSpy = createErrorHandlerSpy();
+    apiSpy = createUserApiSpy();
+    context = createContext();
 
     TestBed.configureTestingModule({
       providers: [

@@ -8,6 +8,7 @@ import { TrainingDefinitionInfo } from 'kypo-training-model';
 import { throwError } from 'rxjs';
 import { skip, take } from 'rxjs/operators';
 import { TrainingAgendaConfig } from '../../../model/client/training-agenda-config';
+import { createContext, createErrorHandlerSpy, createTrainingDefinitionApiSpy } from '../../../testing/testing-commons';
 import { TrainingErrorHandler } from '../../client/training-error.handler.service';
 import { TrainingAgendaContext } from '../../internal/training-agenda-context.service';
 import { TrainingDefinitionOrganizerSelectConcreteService } from './training-definition-organizer-select-concrete.service';
@@ -19,12 +20,9 @@ describe('TrainingDefinitionOrganizerSelectorService', () => {
   let context: TrainingAgendaContext;
 
   beforeEach(async(() => {
-    const config = new TrainingAgendaConfig();
-    config.pollingPeriod = 5000;
-    config.defaultPaginationSize = 10;
-    errorHandlerSpy = jasmine.createSpyObj('TrainingErrorHandler', ['emit']);
-    tdApiSpy = jasmine.createSpyObj('TrainingDefinitionApi', ['getAllForOrganizer']);
-    context = new TrainingAgendaContext(config);
+    errorHandlerSpy = createErrorHandlerSpy();
+    tdApiSpy = createTrainingDefinitionApiSpy();
+    context = createContext();
 
     TestBed.configureTestingModule({
       providers: [

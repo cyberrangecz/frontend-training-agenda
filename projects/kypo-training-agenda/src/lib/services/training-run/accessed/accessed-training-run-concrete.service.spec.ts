@@ -6,6 +6,13 @@ import { TrainingRunApi } from 'kypo-training-api';
 import { throwError } from 'rxjs';
 import { skip } from 'rxjs/operators';
 import { TrainingAgendaConfig } from '../../../model/client/training-agenda-config';
+import {
+  createContext,
+  createErrorHandlerSpy,
+  createNavigatorSpy,
+  createRouterSpy,
+  createTrainingRunApiSpy,
+} from '../../../testing/testing-commons';
 import { TrainingErrorHandler } from '../../client/training-error.handler.service';
 import { TrainingNavigator } from '../../client/training-navigator.service';
 import { TrainingAgendaContext } from '../../internal/training-agenda-context.service';
@@ -20,18 +27,11 @@ describe('AccessedTrainingRunConcreteService', () => {
   let context: TrainingAgendaContext;
 
   beforeEach(async(() => {
-    const config = new TrainingAgendaConfig();
-    config.pollingPeriod = 5000;
-    config.defaultPaginationSize = 10;
-    errorHandlerSpy = jasmine.createSpyObj('TrainingErrorHandler', ['emit']);
-    apiSpy = jasmine.createSpyObj('TrainingRunApi', ['getAccessed']);
-    navigatorSpy = jasmine.createSpyObj('TrainingNavigator', [
-      'toResumeTrainingRunGame',
-      'toAccessTrainingRunGame',
-      'toTrainingRunResult',
-    ]);
-    routerSpy = jasmine.createSpyObj('Router', ['navigate']);
-    context = new TrainingAgendaContext(config);
+    errorHandlerSpy = createErrorHandlerSpy();
+    apiSpy = createTrainingRunApiSpy();
+    navigatorSpy = createNavigatorSpy();
+    routerSpy = createRouterSpy();
+    context = createContext();
 
     TestBed.configureTestingModule({
       imports: [RouterTestingModule],
