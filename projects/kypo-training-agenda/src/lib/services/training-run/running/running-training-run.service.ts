@@ -1,7 +1,7 @@
 import { Level } from 'kypo-training-model';
 import { AccessTrainingRunInfo } from 'kypo-training-model';
 import { BehaviorSubject } from 'rxjs';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { skipWhile } from 'rxjs/operators';
 
 export abstract class RunningTrainingRunService {

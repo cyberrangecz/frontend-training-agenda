@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanDeactivate, RouterStateSnapshot } from '@angular/router';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { AbstractLevelComponent } from '../../components/run/detail/level/abstract-level.component';
 import { RunningTrainingRunService } from '../training-run/running/running-training-run.service';
 
