@@ -4,7 +4,7 @@ import { TrainingRunApi } from 'kypo-training-api';
 import { AccessTrainingRunInfo } from 'kypo-training-model';
 import { Level } from 'kypo-training-model';
 import { from } from 'rxjs';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { TrainingErrorHandler } from '../../client/training-error.handler.service';
 import { TrainingNavigator } from '../../client/training-navigator.service';

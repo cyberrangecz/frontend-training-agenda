@@ -4,7 +4,7 @@ import { SentinelBaseDirective } from '@sentinel/common';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { TrainingDefinition } from 'kypo-training-model';
 import { Level } from 'kypo-training-model';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { map, takeWhile, tap } from 'rxjs/operators';
 import { TrainingDefinitionEditControls } from '../../../model/adapters/controls/definition/training-definition-edit-controls';
 import { TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME } from '../../../model/client/activated-route-data-attributes';
