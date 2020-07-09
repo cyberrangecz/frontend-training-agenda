@@ -1,9 +1,9 @@
 import { MatDialog } from '@angular/material/dialog';
 import {
-  CsirtMuConfirmationDialogComponent,
-  CsirtMuConfirmationDialogConfig,
-  CsirtMuDialogResultEnum,
-} from 'csirt-mu-common';
+  SentinelConfirmationDialogComponent,
+  SentinelConfirmationDialogConfig,
+  SentinelDialogResultEnum,
+} from '@sentinel/components/dialogs';
 import { GameLevel } from 'kypo-training-model';
 import { Hint } from 'kypo-training-model';
 import { FlagCheck } from 'kypo-training-model';
@@ -117,22 +117,22 @@ export abstract class TrainingRunGameLevelService {
     return this.displayWrongFlagDialog(flagCheck);
   }
 
-  protected displayWrongFlagDialog(flagCheck: FlagCheck): Observable<CsirtMuDialogResultEnum> {
+  protected displayWrongFlagDialog(flagCheck: FlagCheck): Observable<SentinelDialogResultEnum> {
     let dialogMessage = 'You have submitted incorrect flag.\n';
     dialogMessage +=
       !this.isSolutionRevealedSubject$.getValue() && flagCheck.remainingAttempts > 0
         ? `You have ${flagCheck.remainingAttempts} remaining attempts.`
         : 'Please insert the flag according to revealed solution.';
 
-    const dialogRef = this.dialog.open(CsirtMuConfirmationDialogComponent, {
-      data: new CsirtMuConfirmationDialogConfig('Incorrect Flag', dialogMessage, '', 'OK'),
+    const dialogRef = this.dialog.open(SentinelConfirmationDialogComponent, {
+      data: new SentinelConfirmationDialogConfig('Incorrect Flag', dialogMessage, '', 'OK'),
     });
     return dialogRef.afterClosed();
   }
 
-  protected displayTakeHintDialog(hint: Hint): Observable<CsirtMuDialogResultEnum> {
-    const dialogRef = this.dialog.open(CsirtMuConfirmationDialogComponent, {
-      data: new CsirtMuConfirmationDialogConfig(
+  protected displayTakeHintDialog(hint: Hint): Observable<SentinelDialogResultEnum> {
+    const dialogRef = this.dialog.open(SentinelConfirmationDialogComponent, {
+      data: new SentinelConfirmationDialogConfig(
         'Reveal Hint',
         `Do you want to reveal hint "${hint.title}"?
  It will cost you ${hint.penalty} points.`,
@@ -143,12 +143,12 @@ export abstract class TrainingRunGameLevelService {
     return dialogRef.afterClosed();
   }
 
-  protected displayRevealSolutionDialog(solutionPenalized: boolean): Observable<CsirtMuDialogResultEnum> {
+  protected displayRevealSolutionDialog(solutionPenalized: boolean): Observable<SentinelDialogResultEnum> {
     let dialogMessage = 'Do you want to reveal solution of this level?';
     dialogMessage += solutionPenalized ? '\n All your points will be subtracted.' : '';
 
-    const dialogRef = this.dialog.open(CsirtMuConfirmationDialogComponent, {
-      data: new CsirtMuConfirmationDialogConfig('Reveal Solution', dialogMessage, 'Cancel', 'Reveal'),
+    const dialogRef = this.dialog.open(SentinelConfirmationDialogComponent, {
+      data: new SentinelConfirmationDialogConfig('Reveal Solution', dialogMessage, 'Cancel', 'Reveal'),
     });
     return dialogRef.afterClosed();
   }

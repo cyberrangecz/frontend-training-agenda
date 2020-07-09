@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { KypoPaginatedResource } from 'kypo-common';
-import { KypoRequestedPagination } from 'kypo-common';
-import { KypoFilter } from 'kypo-common';
+import { PaginatedResource, RequestedPagination, SentinelFilter } from '@sentinel/common';
 import { TrainingDefinitionApi } from 'kypo-training-api';
 import { TrainingDefinitionInfo } from 'kypo-training-model';
 import { Observable } from 'rxjs';
@@ -29,13 +27,10 @@ export class TrainingDefinitionOrganizerSelectConcreteService extends TrainingDe
    * @param pagination requested pagination
    * @param stateFilter filter (state attribute) which should be applied to requested training definitions
    */
-  getAll(
-    pagination: KypoRequestedPagination,
-    stateFilter: string
-  ): Observable<KypoPaginatedResource<TrainingDefinitionInfo>> {
+  getAll(pagination: RequestedPagination, stateFilter: string): Observable<PaginatedResource<TrainingDefinitionInfo>> {
     this.hasErrorSubject$.next(false);
     this.isLoadingSubject$.next(true);
-    return this.api.getAllForOrganizer(pagination, [new KypoFilter('state', stateFilter)]).pipe(
+    return this.api.getAllForOrganizer(pagination, [new SentinelFilter('state', stateFilter)]).pipe(
       tap(
         (definitions) => {
           this.resourceSubject$.next(definitions);

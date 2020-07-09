@@ -9,7 +9,7 @@
         </mat-panel-description>
       </mat-expansion-panel-header>
       <ng-template matExpansionPanelContent>
-        <kypo-controls [controls]="summaryControls" (itemClicked)="onSummaryControlAction($event)"></kypo-controls>
+        <sentinel-controls [controls]="summaryControls" (itemClicked)="onSummaryControlAction($event)"></sentinel-controls>
         <kypo-training-instance-info
           [accessTokenLink]="trainingInstanceAccessTokenLink"
           [poolIdLink]="trainingInstancePoolIdLink"

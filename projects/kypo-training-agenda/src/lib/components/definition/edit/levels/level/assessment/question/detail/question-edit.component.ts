@@ -8,7 +8,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { KypoBaseDirective } from 'kypo-common';
+import { SentinelBaseDirective } from '@sentinel/common';
 import { Question } from 'kypo-training-model';
 import { ExtendedMatchingItems } from 'kypo-training-model';
 import { FreeFormQuestion } from 'kypo-training-model';
@@ -24,7 +24,7 @@ import { QuestionChangeEvent } from '../../../../../../../../model/events/questi
   styleUrls: ['./question-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class QuestionEditComponent extends KypoBaseDirective implements OnInit, OnChanges {
+export class QuestionEditComponent extends SentinelBaseDirective implements OnInit, OnChanges {
   @Input() question: Question;
   @Input() isTest: boolean;
   @Input() index: number;

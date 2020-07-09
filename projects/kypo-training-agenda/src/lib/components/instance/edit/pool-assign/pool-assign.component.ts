@@ -8,9 +8,9 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { KypoBaseDirective, KypoPaginatedResource, KypoRequestedPagination } from 'kypo-common';
-import { KypoControlItem } from 'kypo-controls';
-import { KypoListResourceMapping } from 'kypo-list';
+import { SentinelBaseDirective, PaginatedResource, RequestedPagination } from '@sentinel/common';
+import { SentinelControlItem } from '@sentinel/components/controls';
+import { SentinelListResourceMapping } from '@sentinel/components/list';
 import { Pool } from 'kypo-sandbox-model';
 import { TrainingInstance } from 'kypo-training-model';
 import { Observable } from 'rxjs';
@@ -29,19 +29,19 @@ import { PoolAssignService } from '../../../../services/training-instance/pool-a
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [{ provide: PoolAssignService, useClass: PoolAssignConcreteService }],
 })
-export class PoolAssignComponent extends KypoBaseDirective implements OnInit, OnChanges {
+export class PoolAssignComponent extends SentinelBaseDirective implements OnInit, OnChanges {
   readonly PAGE_SIZE: number;
 
   @Input() trainingInstance: TrainingInstance;
   @Output() poolChanged: EventEmitter<TrainingInstance> = new EventEmitter();
 
-  pools$: Observable<KypoPaginatedResource<Pool>>;
+  pools$: Observable<PaginatedResource<Pool>>;
   hasError$: Observable<boolean>;
   isLoading$: Observable<boolean>;
   selected$: Observable<Pool[]>;
 
-  controls: KypoControlItem[];
-  resourceMapping: KypoListResourceMapping = { id: 'id', title: 'title' };
+  controls: SentinelControlItem[];
+  resourceMapping: SentinelListResourceMapping = { id: 'id', title: 'title' };
   poolDetailRoute: string;
   hasPool$: Observable<boolean>;
 
@@ -72,11 +72,11 @@ export class PoolAssignComponent extends KypoBaseDirective implements OnInit, On
     }
   }
 
-  onControlsAction(controlItem: KypoControlItem) {
+  onControlsAction(controlItem: SentinelControlItem) {
     controlItem.result$.pipe(take(1)).subscribe();
   }
 
-  fetch(pagination: KypoRequestedPagination) {
+  fetch(pagination: RequestedPagination) {
     this.assignService.getAll(pagination).pipe(take(1)).subscribe();
   }
 
@@ -85,7 +85,7 @@ export class PoolAssignComponent extends KypoBaseDirective implements OnInit, On
   }
 
   private initList() {
-    const pagination = new KypoRequestedPagination(0, this.PAGE_SIZE, '', '');
+    const pagination = new RequestedPagination(0, this.PAGE_SIZE, '', '');
     this.pools$ = this.assignService.resource$.pipe(map((resource) => this.mapToAdapter(resource)));
     this.hasError$ = this.assignService.hasError$;
     this.isLoading$ = this.assignService.isLoading$;
@@ -104,13 +104,13 @@ export class PoolAssignComponent extends KypoBaseDirective implements OnInit, On
     this.controls = PoolAssignControls.create(this.assignService, this.trainingInstance);
   }
 
-  private mapToAdapter(resource: KypoPaginatedResource<Pool>): KypoPaginatedResource<SandboxPoolListAdapter> {
+  private mapToAdapter(resource: PaginatedResource<Pool>): PaginatedResource<SandboxPoolListAdapter> {
     const adapterElements = resource.elements.map((pool) => {
       const adapter = pool as SandboxPoolListAdapter;
       adapter.title = !adapter.isLocked() ? `Pool ${adapter.id}` : `Pool ${adapter.id} (locked)`;
       return adapter;
     });
-    return new KypoPaginatedResource<SandboxPoolListAdapter>(adapterElements, resource.pagination);
+    return new PaginatedResource<SandboxPoolListAdapter>(adapterElements, resource.pagination);
   }
 
   private createPoolDetailRoute(poolId: number) {

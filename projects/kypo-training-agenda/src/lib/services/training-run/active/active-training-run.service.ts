@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
-import { KypoPaginatedResourcePollingService, KypoPaginatedResourceService } from 'kypo-common';
-import { KypoPaginatedResource } from 'kypo-common';
-import { KypoRequestedPagination } from 'kypo-common';
-import { TrainingInstance } from 'kypo-training-model';
+import { PaginatedResource, RequestedPagination, PaginatedResourcePollingService } from '@sentinel/common';
 import { TrainingRun } from 'kypo-training-model';
 import { Observable } from 'rxjs';
 
@@ -12,15 +9,15 @@ import { Observable } from 'rxjs';
  * You can use get methods to get paginated resources and other actions to modify data.
  */
 @Injectable()
-export abstract class ActiveTrainingRunService extends KypoPaginatedResourcePollingService<TrainingRun> {
+export abstract class ActiveTrainingRunService extends PaginatedResourcePollingService<TrainingRun> {
   /**
    * @param trainingInstanceId id of associated training instance
    * @param pagination requested pagination
    */
   abstract getAll(
     trainingInstanceId: number,
-    pagination: KypoRequestedPagination
-  ): Observable<KypoPaginatedResource<TrainingRun>>;
+    pagination: RequestedPagination
+  ): Observable<PaginatedResource<TrainingRun>>;
 
   /**
    * Deletes sandbox associated with active training run

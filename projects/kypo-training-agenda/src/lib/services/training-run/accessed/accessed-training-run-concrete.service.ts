@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { KypoRequestedPagination } from 'kypo-common';
-import { KypoPaginatedResource } from 'kypo-common';
+import { RequestedPagination, PaginatedResource } from '@sentinel/common';
 import { TrainingRunApi } from 'kypo-training-api';
 import { AccessedTrainingRun } from 'kypo-training-model';
 import { from, Observable } from 'rxjs';
@@ -30,7 +29,7 @@ export class AccessedTrainingRunConcreteService extends AccessedTrainingRunServi
    * Gets paginated accessed training runs and updates related observables or handles error.
    * @param pagination requested pagination info
    */
-  getAll(pagination: KypoRequestedPagination): Observable<KypoPaginatedResource<AccessedTrainingRun>> {
+  getAll(pagination: RequestedPagination): Observable<PaginatedResource<AccessedTrainingRun>> {
     this.hasErrorSubject$.next(false);
     return this.api.getAccessed(pagination).pipe(
       tap(

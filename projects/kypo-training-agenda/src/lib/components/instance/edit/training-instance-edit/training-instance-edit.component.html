@@ -140,7 +140,7 @@
         <div class="form-line">
           <p *ngIf="trainingDefinition.value">
             Training Definition:
-            {{ trainingDefinition.value.title | kypoShortString: 30 }}
+            {{ trainingDefinition.value.title | sentinelShortString: 30 }}
           </p>
           <p *ngIf="!trainingDefinition.value">Training Definition*</p>
           <button

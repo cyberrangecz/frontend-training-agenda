@@ -1,5 +1,5 @@
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { KypoValidators } from 'kypo-common';
+import { SentinelValidators } from '@sentinel/common';
 import { AssessmentTypeEnum } from 'kypo-training-model';
 import { AssessmentLevel } from 'kypo-training-model';
 
@@ -12,7 +12,7 @@ export class AssessmentLevelEditFormGroup {
   constructor(level: AssessmentLevel) {
     const maxLevelDuration = 60;
     this.formGroup = new FormGroup({
-      title: new FormControl(level.title, KypoValidators.noWhitespace),
+      title: new FormControl(level.title, SentinelValidators.noWhitespace),
       instructions: new FormControl(level.instructions),
       isTest: new FormControl(level.assessmentType === AssessmentTypeEnum.Test),
       estimatedDuration: new FormControl(level.estimatedDuration, [

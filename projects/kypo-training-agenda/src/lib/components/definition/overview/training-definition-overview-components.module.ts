@@ -2,9 +2,9 @@ import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ngfModule } from 'angular-file';
-import { KypoPipesModule } from 'kypo-common';
-import { KypoControlsModule } from 'kypo-controls';
-import { Kypo2TableModule } from 'kypo2-table';
+import { SentinelPipesModule } from '@sentinel/common';
+import { SentinelControlsModule } from '@sentinel/components/controls';
+import { SentinelTableModule } from '@sentinel/components/table';
 import { TrainingAgendaConfig } from '../../../model/client/training-agenda-config';
 import { TrainingDefaultNavigator } from '../../../services/client/training-default-navigator.service';
 import { TrainingNavigator } from '../../../services/client/training-navigator.service';
@@ -26,11 +26,11 @@ import { TrainingDefinitionUploadDialogComponent } from './upload-dialog/trainin
     CommonModule,
     FormsModule,
     ngfModule,
-    KypoPipesModule,
+    SentinelPipesModule,
     TrainingDefinitionOverviewMaterialModule,
     ReactiveFormsModule,
-    Kypo2TableModule,
-    KypoControlsModule,
+    SentinelTableModule,
+    SentinelControlsModule,
   ],
   declarations: [
     TrainingDefinitionOverviewComponent,

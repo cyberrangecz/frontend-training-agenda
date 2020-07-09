@@ -1,9 +1,9 @@
 <div class="content">
   <kypo-access-training-run (accessToken)="access($event)"></kypo-access-training-run>
-  <kypo2-table
+  <sentinel-table
     [data]="trainingRuns$ | async"
     [hasError]="hasError$ | async"
     (refresh)="loadAccessedTrainingRuns($event)"
     (rowAction)="onTableAction($event)">
-  </kypo2-table>
+  </sentinel-table>
 </div>

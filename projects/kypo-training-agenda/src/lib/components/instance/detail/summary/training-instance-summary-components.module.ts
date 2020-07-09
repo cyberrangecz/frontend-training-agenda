@@ -2,9 +2,9 @@ import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { KypoPipesModule } from 'kypo-common';
-import { KypoControlsModule } from 'kypo-controls';
-import { Kypo2TableModule } from 'kypo2-table';
+import { SentinelPipesModule } from '@sentinel/common';
+import { SentinelControlsModule } from '@sentinel/components/controls';
+import { SentinelTableModule } from '@sentinel/components/table';
 import { TrainingAgendaConfig } from '../../../../model/client/training-agenda-config';
 import { TrainingInstanceSummaryConcreteService } from '../../../../services/training-instance/summary/training-instance-summary-concrete.service';
 import { TrainingInstanceSummaryService } from '../../../../services/training-instance/summary/training-instance-summary.service';
@@ -25,11 +25,11 @@ import { TrainingInstanceSummaryComponent } from './training-instance-summary.co
   imports: [
     CommonModule,
     FormsModule,
-    KypoPipesModule,
+    SentinelPipesModule,
     RouterModule,
     TrainingInstanceSummaryMaterialModule,
-    Kypo2TableModule,
-    KypoControlsModule,
+    SentinelTableModule,
+    SentinelControlsModule,
   ],
   declarations: [
     TrainingInstanceSummaryComponent,

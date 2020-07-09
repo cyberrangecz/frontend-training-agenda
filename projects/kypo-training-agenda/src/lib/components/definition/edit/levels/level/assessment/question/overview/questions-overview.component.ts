@@ -10,12 +10,16 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import {
-  CsirtMuConfirmationDialogComponent,
-  CsirtMuConfirmationDialogConfig,
-  CsirtMuDialogResultEnum,
-} from 'csirt-mu-common';
-import { KypoBaseDirective } from 'kypo-common';
-import { KypoControlItem, KypoControlMenuItem, KypoExpandableControlItem } from 'kypo-controls';
+  SentinelConfirmationDialogComponent,
+  SentinelConfirmationDialogConfig,
+  SentinelDialogResultEnum,
+} from '@sentinel/components/dialogs';
+import { SentinelBaseDirective } from '@sentinel/common';
+import {
+  SentinelControlItem,
+  SentinelControlMenuItem,
+  SentinelExpandableControlItem,
+} from '@sentinel/components/controls';
 import { ExtendedMatchingItems } from 'kypo-training-model';
 import { Question } from 'kypo-training-model';
 import { MultipleChoiceQuestion } from 'kypo-training-model';
@@ -33,14 +37,14 @@ import { QuestionChangeEvent } from '../../../../../../../../model/events/questi
   styleUrls: ['./questions-overview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class QuestionsOverviewComponent extends KypoBaseDirective implements OnInit, OnChanges {
+export class QuestionsOverviewComponent extends SentinelBaseDirective implements OnInit, OnChanges {
   @Input() questions: Question[];
   @Input() isTest: boolean;
   @Input() disabled: boolean;
   @Output() questionsChange: EventEmitter<Question[]> = new EventEmitter();
 
   questionsHasError: boolean;
-  controls: KypoControlItem[];
+  controls: SentinelControlItem[];
 
   constructor(public dialog: MatDialog) {
     super();
@@ -62,7 +66,7 @@ export class QuestionsOverviewComponent extends KypoBaseDirective implements OnI
     }
   }
 
-  onControlAction(control: KypoControlItem) {
+  onControlAction(control: SentinelControlItem) {
     control.result$.pipe(takeWhile((_) => this.isAlive)).subscribe();
   }
 
@@ -119,8 +123,8 @@ export class QuestionsOverviewComponent extends KypoBaseDirective implements OnI
    * @param index index of question which should be deleted
    */
   onDelete(index: number) {
-    const dialogRef = this.dialog.open(CsirtMuConfirmationDialogComponent, {
-      data: new CsirtMuConfirmationDialogConfig(
+    const dialogRef = this.dialog.open(SentinelConfirmationDialogComponent, {
+      data: new SentinelConfirmationDialogConfig(
         'Delete question',
         `Do you want to delete question "${this.questions[index].title}"?`,
         'Cancel',
@@ -132,7 +136,7 @@ export class QuestionsOverviewComponent extends KypoBaseDirective implements OnI
       .afterClosed()
       .pipe(takeWhile(() => this.isAlive))
       .subscribe((result) => {
-        if (result === CsirtMuDialogResultEnum.CONFIRMED) {
+        if (result === SentinelDialogResultEnum.CONFIRMED) {
           this.questions.splice(index, 1);
           this.onQuestionChanged();
         }
@@ -145,8 +149,8 @@ export class QuestionsOverviewComponent extends KypoBaseDirective implements OnI
 
   private initControls() {
     this.controls = [
-      new KypoExpandableControlItem('add', 'Add', 'primary', of(false), [
-        new KypoControlMenuItem(
+      new SentinelExpandableControlItem('add', 'Add', 'primary', of(false), [
+        new SentinelControlMenuItem(
           'ffq',
           'Free Form Question',
           'primary',
@@ -154,7 +158,7 @@ export class QuestionsOverviewComponent extends KypoBaseDirective implements OnI
           defer(() => this.addFFQ()),
           'help_outline'
         ),
-        new KypoControlMenuItem(
+        new SentinelControlMenuItem(
           'mcq',
           'Multiple Choice Question',
           'primary',
@@ -162,7 +166,7 @@ export class QuestionsOverviewComponent extends KypoBaseDirective implements OnI
           defer(() => this.addMCQ()),
           'check_circle'
         ),
-        new KypoControlMenuItem(
+        new SentinelControlMenuItem(
           'emi',
           'Extended Matching Items Questions',
           'primary',

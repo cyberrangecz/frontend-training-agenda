@@ -1,5 +1,5 @@
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { KypoValidators } from 'kypo-common';
+import { SentinelValidators } from '@sentinel/common';
 import { Question } from 'kypo-training-model';
 import { MultipleChoiceQuestion } from 'kypo-training-model';
 
@@ -13,9 +13,9 @@ export class MultipleChoiceFormGroup {
 
   constructor(mcq: MultipleChoiceQuestion) {
     this.formGroup = new FormGroup({
-      title: new FormControl(mcq.title, KypoValidators.noWhitespace),
+      title: new FormControl(mcq.title, SentinelValidators.noWhitespace),
       options: new FormArray(
-        mcq.options.map((option) => new FormControl(option, KypoValidators.noWhitespace)),
+        mcq.options.map((option) => new FormControl(option, SentinelValidators.noWhitespace)),
         Validators.required
       ),
       correctAnswersIndices: new FormControl(mcq.correctAnswersIndices, Validators.required),

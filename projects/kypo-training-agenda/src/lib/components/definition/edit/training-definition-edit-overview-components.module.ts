@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { KypoPipesModule } from 'kypo-common';
-import { KypoControlsModule } from 'kypo-controls';
-import { Kypo2UserAssignModule, Kypo2UserAssignService } from 'kypo2-user-assign';
+import { SentinelPipesModule } from '@sentinel/common';
+import { SentinelControlsModule } from '@sentinel/components/controls';
+import { SentinelUserAssignModule, SentinelUserAssignService } from '@sentinel/components/user-assign';
 import { TrainingAgendaConfig } from '../../../model/client/training-agenda-config';
 import { TrainingDefinitionCanDeactivate } from '../../../services/can-deactivate/training-definition-can-deactivate.service';
 import { TrainingDefinitionBreadcrumbResolver } from '../../../services/resolvers/definition/training-definition-breadcrumb-resolver.service';
@@ -26,12 +26,12 @@ import { TrainingDefinitionEditOverviewComponent } from './training-definition-e
     CommonModule,
     FormsModule,
     FreeFormModule,
-    Kypo2UserAssignModule,
+    SentinelUserAssignModule,
     TrainingDefinitionEditOverviewMaterialModule,
     LevelOverviewComponentsModule,
-    KypoPipesModule,
+    SentinelPipesModule,
     ReactiveFormsModule,
-    KypoControlsModule,
+    SentinelControlsModule,
   ],
   declarations: [TrainingDefinitionEditOverviewComponent, TrainingDefinitionEditComponent],
   providers: [
@@ -40,7 +40,7 @@ import { TrainingDefinitionEditOverviewComponent } from './training-definition-e
     TrainingDefinitionTitleResolver,
     TrainingDefinitionBreadcrumbResolver,
     { provide: TrainingDefinitionEditService, useClass: TrainingDefinitionEditConcreteService },
-    { provide: Kypo2UserAssignService, useClass: AuthorsAssignService },
+    { provide: SentinelUserAssignService, useClass: AuthorsAssignService },
   ],
 })
 export class TrainingDefinitionEditOverviewComponentsModule {

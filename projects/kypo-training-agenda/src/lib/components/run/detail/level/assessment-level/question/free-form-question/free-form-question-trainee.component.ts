@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { KypoBaseDirective } from 'kypo-common';
+import { SentinelBaseDirective } from '@sentinel/common';
 import { Question } from 'kypo-training-model';
 import { FreeFormQuestion } from 'kypo-training-model';
 
@@ -13,7 +13,7 @@ import { FreeFormQuestion } from 'kypo-training-model';
  * Component displaying FFQ type of question in the assessment level of a trainees training run.
  * If assessment is type of test or question is required, user needs to answer it, otherwise it is optional.
  */
-export class FreeFormQuestionTraineeComponent extends KypoBaseDirective implements OnInit {
+export class FreeFormQuestionTraineeComponent extends SentinelBaseDirective implements OnInit {
   @Input() question: FreeFormQuestion;
   @Input() index: number;
 

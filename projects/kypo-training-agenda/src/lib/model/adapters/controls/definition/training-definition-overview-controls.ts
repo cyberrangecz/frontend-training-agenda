@@ -1,4 +1,4 @@
-import { KypoControlItem } from 'kypo-controls';
+import { SentinelControlItem } from '@sentinel/components/controls';
 import { defer, of } from 'rxjs';
 import { TrainingDefinitionService } from '../../../../services/training-definition/overview/training-definition.service';
 
@@ -9,16 +9,16 @@ export class TrainingDefinitionOverviewControls {
   static readonly CREATE_ACTION_ID = 'create';
   static readonly UPLOAD_ACTION_ID = 'upload';
 
-  static create(service: TrainingDefinitionService): KypoControlItem[] {
+  static create(service: TrainingDefinitionService): SentinelControlItem[] {
     return [
-      new KypoControlItem(
+      new SentinelControlItem(
         this.CREATE_ACTION_ID,
         'Create',
         'primary',
         of(false),
         defer(() => service.create())
       ),
-      new KypoControlItem(
+      new SentinelControlItem(
         this.UPLOAD_ACTION_ID,
         'Upload',
         'primary',

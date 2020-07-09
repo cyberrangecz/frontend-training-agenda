@@ -1,12 +1,12 @@
   <div class="header">
     <!-- LEVEL STEPPER -->
     <div *ngIf="isStepperDisplayed && stepper?.items" class="training-run-stepper">
-      <kypo2-stepper [dragDisabled]="true" [selectable]="false" [stepperItems]="stepper" [activeIndex]="stepper.activeLevelIndex"></kypo2-stepper>
+      <sentinel-stepper [dragDisabled]="true" [selectable]="false" [stepperItems]="stepper" [activeIndex]="stepper.activeLevelIndex"></sentinel-stepper>
     </div>
 
     <span class="spacer"></span>
     <div class="right-panel">
-      <csirt-mu-user-card [user]="user$ | async"></csirt-mu-user-card>
+      <sentinel-user-card [user]="user$ | async"></sentinel-user-card>
       <kypo-training-timer *ngIf="isTimerDisplayed && startTime" [startTime]="startTime"></kypo-training-timer>
     </div>
   </div>

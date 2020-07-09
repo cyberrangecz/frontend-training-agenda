@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRouteSnapshot, CanDeactivate, RouterStateSnapshot, UrlTree } from '@angular/router';
 import {
-  CsirtMuConfirmationDialogComponent,
-  CsirtMuConfirmationDialogConfig,
-  CsirtMuDialogResultEnum,
-} from 'csirt-mu-common';
+  SentinelConfirmationDialogComponent,
+  SentinelConfirmationDialogConfig,
+  SentinelDialogResultEnum,
+} from '@sentinel/components/dialogs';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TrainingInstanceEditOverviewComponent } from '../../components/instance/edit/training-instance-edit-overview.component';
@@ -27,14 +27,14 @@ export class TrainingInstanceCanDeactivate implements CanDeactivate<TrainingInst
       return true;
     }
 
-    const dialogRef = this.dialog.open(CsirtMuConfirmationDialogComponent, {
-      data: new CsirtMuConfirmationDialogConfig(
+    const dialogRef = this.dialog.open(SentinelConfirmationDialogComponent, {
+      data: new SentinelConfirmationDialogConfig(
         'Unsaved Changes',
         'There are unsaved changes in training instance or organizers. Do you really want to leave?',
         'Cancel',
         'Leave'
       ),
     });
-    return dialogRef.afterClosed().pipe(map((result) => result === CsirtMuDialogResultEnum.CONFIRMED));
+    return dialogRef.afterClosed().pipe(map((result) => result === SentinelDialogResultEnum.CONFIRMED));
   }
 }

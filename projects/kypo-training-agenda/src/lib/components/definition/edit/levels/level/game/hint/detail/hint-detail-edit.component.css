@@ -33,8 +33,7 @@ mat-form-field {
   width: 100%;
 }
 
-
-kypo2-markdown-editor {
+sentinel-markdown-editor {
   margin-bottom: 20px;
   height: 30vh;
 }

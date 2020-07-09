@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { KypoBaseDirective } from 'kypo-common';
+import { SentinelBaseDirective } from '@sentinel/common';
 import { TrainingRun } from 'kypo-training-model';
 import { Kypo2AuthService } from 'kypo2-auth';
 import { Kypo2TraineeModeInfo } from 'kypo2-trainings-visualization-overview-lib';
@@ -18,7 +18,7 @@ import { TRAINING_RUN_DATA_ATTRIBUTE_NAME } from '../../../model/client/activate
 /**
  * Component displaying visualization of training run results
  */
-export class TrainingRunResultsComponent extends KypoBaseDirective implements OnInit {
+export class TrainingRunResultsComponent extends SentinelBaseDirective implements OnInit {
   vizSize: { width: number; height: number };
 
   visualizationInfo$: Observable<VisualizationInfo>;

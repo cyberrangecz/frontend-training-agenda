@@ -11,7 +11,7 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { KypoBaseDirective } from 'kypo-common';
+import { SentinelBaseDirective } from '@sentinel/common';
 import { GameLevel } from 'kypo-training-model';
 import { Kypo2TopologyErrorService } from 'kypo2-topology-graph';
 import { Observable } from 'rxjs';
@@ -30,7 +30,7 @@ import { TrainingRunGameLevelService } from '../../../../../services/training-ru
  * Component of a game level in a training run. Users needs to find out correct solution (flag) and submit it
  * before he can continue to the next level. User can optionally take hints.
  */
-export class GameLevelComponent extends KypoBaseDirective implements OnInit, OnChanges {
+export class GameLevelComponent extends SentinelBaseDirective implements OnInit, OnChanges {
   @Input() level: GameLevel;
   @Input() isLast: boolean;
   @Input() sandboxId: number;

@@ -1,6 +1,4 @@
-import { KypoRequestedPagination } from 'kypo-common';
-import { KypoPaginatedResource } from 'kypo-common';
-import { KypoPaginatedResourceService } from 'kypo-common';
+import { RequestedPagination, PaginatedResource, PaginatedResourceService } from '@sentinel/common';
 import { AccessedTrainingRun } from 'kypo-training-model';
 import { Observable } from 'rxjs';
 
@@ -9,12 +7,12 @@ import { Observable } from 'rxjs';
  * Provide concrete class in Angular Module. For more info see https://angular.io/guide/dependency-injection-providers.
  * You can use get methods to get paginated resources and other actions to modify data.
  */
-export abstract class AccessedTrainingRunService extends KypoPaginatedResourceService<AccessedTrainingRun> {
+export abstract class AccessedTrainingRunService extends PaginatedResourceService<AccessedTrainingRun> {
   /**
    * Requests paginated data
    * @param pagination requested pagination info
    */
-  abstract getAll(pagination: KypoRequestedPagination): Observable<KypoPaginatedResource<AccessedTrainingRun>>;
+  abstract getAll(pagination: RequestedPagination): Observable<PaginatedResource<AccessedTrainingRun>>;
 
   /**
    * Resume in already started training run

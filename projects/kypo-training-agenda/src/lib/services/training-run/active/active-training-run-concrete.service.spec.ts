@@ -1,9 +1,6 @@
 import { async, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { MatDialog } from '@angular/material/dialog';
-import { KypoRequestedPagination } from 'kypo-common';
-import { KypoPagination } from 'kypo-common';
-import { KypoPaginatedResource } from 'kypo-common';
-import { asyncData } from 'kypo-common';
+import { RequestedPagination, SentinelPagination, PaginatedResource, asyncData } from '@sentinel/common';
 import { SandboxInstanceApi } from 'kypo-sandbox-api';
 import { SandboxAllocationUnitsApi } from 'kypo-sandbox-api';
 import { TrainingInstanceApi, TrainingRunApi } from 'kypo-training-api';
@@ -139,11 +136,11 @@ describe('ActiveTrainingRunConcreteService', () => {
   }));
 
   function createPagination() {
-    return new KypoRequestedPagination(1, 5, '', '');
+    return new RequestedPagination(1, 5, '', '');
   }
 
   function createMock() {
-    return new KypoPaginatedResource([], new KypoPagination(1, 0, 5, 5, 1));
+    return new PaginatedResource([], new SentinelPagination(1, 0, 5, 5, 1));
   }
 
   function assertPoll(times: number, initialHaveBeenCalledTimes: number = 1) {

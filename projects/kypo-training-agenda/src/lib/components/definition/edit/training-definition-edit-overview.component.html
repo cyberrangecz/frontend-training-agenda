@@ -16,9 +16,9 @@
 
   </mat-expansion-panel-header>
   <ng-template matExpansionPanelContent>
-    <kypo-controls [controls]="controls"
+    <sentinel-controls [controls]="controls"
                    (itemClicked)="onControlsAction($event)">
-    </kypo-controls>
+    </sentinel-controls>
     <mat-divider></mat-divider>
     <kypo-training-definition-edit
       (edited)="onTrainingDefinitionChanged($event)"
@@ -41,14 +41,14 @@
     </mat-panel-description>
   </mat-expansion-panel-header>
   <ng-template matExpansionPanelContent>
-    <kypo2-user-assign *ngIf="editMode$ | async"
-                       resourceIcon="list_alt"
+    <sentinel-user-assign *ngIf="editMode$ | async"
+                       resourceMatIcon="list_alt"
                        [resource]="trainingDefinition$ | async"
                        [defaultPaginationSize]="defaultPaginationSize"
                        (hasUnsavedChanges)="onAuthorsChanged($event)"
                       toAssignTitle="Designers"
                       assigneesTitle="Authors">
-    </kypo2-user-assign>
+    </sentinel-user-assign>
   </ng-template>
 </mat-expansion-panel>
 

@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
-import { KypoPaginatedResource, KypoPaginatedResourcePollingService } from 'kypo-common';
-import { KypoRequestedPagination } from 'kypo-common';
-import { KypoPaginatedResourceService } from 'kypo-common';
-import { TrainingInstance } from 'kypo-training-model';
+import { PaginatedResource, PaginatedResourcePollingService, RequestedPagination } from '@sentinel/common';
 import { TrainingRun } from 'kypo-training-model';
 import { Observable } from 'rxjs';
 
@@ -13,15 +10,15 @@ import { Observable } from 'rxjs';
  * Subscribe to archivedTrainingRuns$ to receive latest data updates.
  */
 @Injectable()
-export abstract class ArchivedTrainingRunService extends KypoPaginatedResourcePollingService<TrainingRun> {
+export abstract class ArchivedTrainingRunService extends PaginatedResourcePollingService<TrainingRun> {
   /**
    * @param trainingInstanceId id of associated training instance
    * @param pagination requested pagination
    */
   abstract getAll(
     trainingInstanceId: number,
-    pagination?: KypoRequestedPagination
-  ): Observable<KypoPaginatedResource<TrainingRun>>;
+    pagination?: RequestedPagination
+  ): Observable<PaginatedResource<TrainingRun>>;
 
   /**
    * Deletes archived training run

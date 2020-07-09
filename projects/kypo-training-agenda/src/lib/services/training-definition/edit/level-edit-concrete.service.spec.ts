@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CsirtMuDialogResultEnum } from 'csirt-mu-common';
-import { asyncData, KypoPaginatedResource, KypoPagination, KypoRequestedPagination } from 'kypo-common';
+import { SentinelDialogResultEnum } from '@sentinel/components/dialogs';
+import { asyncData } from '@sentinel/common';
 import { TrainingDefinitionApi } from 'kypo-training-api';
-import { AbstractLevelTypeEnum, AssessmentLevel, GameLevel, InfoLevel, Level } from 'kypo-training-model';
-import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
-import { TrainingAgendaConfig } from '../../../model/client/training-agenda-config';
+import { AbstractLevelTypeEnum, AssessmentLevel, GameLevel, InfoLevel } from 'kypo-training-model';
+import { of, throwError } from 'rxjs';
+
 import {
   createContext,
   createDialogSpy,
@@ -211,7 +211,7 @@ describe('LevelEditConcreteService', () => {
 
   it('should delete selected level', (done) => {
     apiSpy.deleteLevel.and.returnValue(asyncData(createMock()));
-    const dialogRefSpyObj = jasmine.createSpyObj({ afterClosed: of(CsirtMuDialogResultEnum.CONFIRMED), close: null });
+    const dialogRefSpyObj = jasmine.createSpyObj({ afterClosed: of(SentinelDialogResultEnum.CONFIRMED), close: null });
     dialogSpy.open.and.returnValue(dialogRefSpyObj);
     service.set(1, createMock());
     service.setActiveLevel(1);
@@ -226,7 +226,7 @@ describe('LevelEditConcreteService', () => {
 
   it('should emit error when deleting selected level fails', (done) => {
     apiSpy.deleteLevel.and.returnValue(throwError(null));
-    const dialogRefSpyObj = jasmine.createSpyObj({ afterClosed: of(CsirtMuDialogResultEnum.CONFIRMED), close: null });
+    const dialogRefSpyObj = jasmine.createSpyObj({ afterClosed: of(SentinelDialogResultEnum.CONFIRMED), close: null });
     dialogSpy.open.and.returnValue(dialogRefSpyObj);
     service.set(1, createMock());
     service.setActiveLevel(1);

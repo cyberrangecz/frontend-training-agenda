@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { KypoBaseDirective } from 'kypo-common';
-import { KypoRequestedPagination } from 'kypo-common';
-import { KypoControlItem } from 'kypo-controls';
+import { SentinelBaseDirective, RequestedPagination } from '@sentinel/common';
+import { SentinelControlItem } from '@sentinel/components/controls';
 import { TrainingInstance } from 'kypo-training-model';
-import { Kypo2Table, LoadTableEvent, TableActionEvent } from 'kypo2-table';
+import { SentinelTable, LoadTableEvent, TableActionEvent } from '@sentinel/components/table';
 import { Observable } from 'rxjs';
 import { map, take, takeWhile } from 'rxjs/operators';
 import { TrainingInstanceOverviewControls } from '../../../model/adapters/controls/instance/training-instance-overview-controls';
@@ -21,14 +20,14 @@ import { TrainingInstanceOverviewService } from '../../../services/training-inst
   styleUrls: ['./training-instance-overview.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TrainingInstanceOverviewComponent extends KypoBaseDirective implements OnInit, OnDestroy {
+export class TrainingInstanceOverviewComponent extends SentinelBaseDirective implements OnInit, OnDestroy {
   readonly INITIAL_SORT_NAME = 'startTime';
   readonly INITIAL_SORT_DIR = 'desc';
 
-  instances$: Observable<Kypo2Table<TrainingInstance>>;
+  instances$: Observable<SentinelTable<TrainingInstance>>;
   hasError$: Observable<boolean>;
 
-  controls: KypoControlItem[];
+  controls: SentinelControlItem[];
 
   constructor(
     private service: TrainingInstanceOverviewService,
@@ -43,7 +42,7 @@ export class TrainingInstanceOverviewComponent extends KypoBaseDirective impleme
     this.initTable();
   }
 
-  onControlAction(control: KypoControlItem) {
+  onControlAction(control: SentinelControlItem) {
     control.result$.pipe(takeWhile((_) => this.isAlive)).subscribe();
   }
 
@@ -60,7 +59,7 @@ export class TrainingInstanceOverviewComponent extends KypoBaseDirective impleme
 
   private initTable() {
     const initLoadEvent = new LoadTableEvent(
-      new KypoRequestedPagination(
+      new RequestedPagination(
         0,
         this.context.config.defaultPaginationSize,
         this.INITIAL_SORT_NAME,

@@ -9,8 +9,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { FormArray, FormControl } from '@angular/forms';
-import { KypoBaseDirective } from 'kypo-common';
-import { KypoValidators } from 'kypo-common';
+import { SentinelBaseDirective, SentinelValidators } from '@sentinel/common';
 import { FreeFormItemFormGroup } from '../../../model/adapters/other/free-form-item-form-group';
 import { FreeFormItemsChangeEvent } from '../../../model/adapters/other/free-form-items-change-event';
 
@@ -24,7 +23,7 @@ import { FreeFormItemsChangeEvent } from '../../../model/adapters/other/free-for
   styleUrls: ['./free-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FreeFormComponent extends KypoBaseDirective implements OnInit, OnChanges {
+export class FreeFormComponent extends SentinelBaseDirective implements OnInit, OnChanges {
   @Input() formName: string;
   @Input() formPlaceholder: string;
   @Input() formData: string[];
@@ -80,7 +79,7 @@ export class FreeFormComponent extends KypoBaseDirective implements OnInit, OnCh
    * Adds new input to the form
    */
   addItem() {
-    (this.items as FormArray).push(new FormControl('', this.required ? KypoValidators.noWhitespace : undefined));
+    (this.items as FormArray).push(new FormControl('', this.required ? SentinelValidators.noWhitespace : undefined));
     this.freeFormItemFormGroup.formGroup.markAsDirty();
     this.freeFormItemFormGroup.formGroup.updateValueAndValidity();
     this.itemsChange.emit({

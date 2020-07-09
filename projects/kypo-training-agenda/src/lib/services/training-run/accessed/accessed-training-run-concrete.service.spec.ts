@@ -1,11 +1,10 @@
 import { async, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { KypoRequestedPagination } from 'kypo-common';
+import { RequestedPagination } from '@sentinel/common';
 import { TrainingRunApi } from 'kypo-training-api';
 import { throwError } from 'rxjs';
 import { skip } from 'rxjs/operators';
-import { TrainingAgendaConfig } from '../../../model/client/training-agenda-config';
 import {
   createContext,
   createErrorHandlerSpy,
@@ -85,6 +84,6 @@ describe('AccessedTrainingRunConcreteService', () => {
   });
 
   function createPagination() {
-    return new KypoRequestedPagination(1, 5, '', '');
+    return new RequestedPagination(1, 5, '', '');
   }
 });

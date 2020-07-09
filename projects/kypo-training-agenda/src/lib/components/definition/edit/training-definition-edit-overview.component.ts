@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { KypoBaseDirective } from 'kypo-common';
-import { KypoControlItem } from 'kypo-controls';
+import { SentinelBaseDirective } from '@sentinel/common';
+import { SentinelControlItem } from '@sentinel/components/controls';
 import { TrainingDefinition } from 'kypo-training-model';
 import { Level } from 'kypo-training-model';
 import { Observable } from 'rxjs/internal/Observable';
@@ -21,7 +21,7 @@ import { TrainingDefinitionEditService } from '../../../services/training-defini
   styleUrls: ['./training-definition-edit-overview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TrainingDefinitionEditOverviewComponent extends KypoBaseDirective implements OnInit {
+export class TrainingDefinitionEditOverviewComponent extends SentinelBaseDirective implements OnInit {
   trainingDefinition$: Observable<TrainingDefinition>;
   editMode$: Observable<boolean>;
   tdTitle$: Observable<string>;
@@ -31,7 +31,7 @@ export class TrainingDefinitionEditOverviewComponent extends KypoBaseDirective i
   canDeactivateAuthors = true;
   canDeactivateTDEdit = true;
   defaultPaginationSize: number;
-  controls: KypoControlItem[];
+  controls: SentinelControlItem[];
 
   constructor(
     private activeRoute: ActivatedRoute,
@@ -80,7 +80,7 @@ export class TrainingDefinitionEditOverviewComponent extends KypoBaseDirective i
     this.canDeactivateTDEdit = false;
   }
 
-  onControlsAction(control: KypoControlItem) {
+  onControlsAction(control: SentinelControlItem) {
     control.result$.pipe(takeWhile((_) => this.isAlive)).subscribe((_) => (this.canDeactivateTDEdit = true));
   }
 

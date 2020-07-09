@@ -1,10 +1,10 @@
-import { Kypo2Stepper } from 'kypo2-stepper';
+import { SentinelStepper } from '@sentinel/components/stepper';
 import { LevelStepperAdapter } from './level-stepper-adapter';
 
 /**
  * Training run levels adapter to kypo stepper component
  */
-export class TrainingRunStepper implements Kypo2Stepper<LevelStepperAdapter> {
+export class TrainingRunStepper implements SentinelStepper<LevelStepperAdapter> {
   activeLevelIndex: number;
   items: LevelStepperAdapter[];
 

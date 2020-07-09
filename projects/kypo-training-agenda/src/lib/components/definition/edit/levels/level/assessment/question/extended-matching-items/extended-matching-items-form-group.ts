@@ -1,5 +1,5 @@
 import { FormArray, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { KypoValidators } from 'kypo-common';
+import { SentinelValidators } from '@sentinel/common';
 import { Question } from 'kypo-training-model';
 import { ExtendedMatchingItems } from 'kypo-training-model';
 
@@ -12,9 +12,9 @@ export class ExtendedMatchingItemsFormGroup {
   constructor(emi: ExtendedMatchingItems) {
     this.formGroup = new FormGroup(
       {
-        title: new FormControl(emi.title, KypoValidators.noWhitespace),
-        rows: new FormArray(emi.rows.map((row) => new FormControl(row, KypoValidators.noWhitespace))),
-        cols: new FormArray(emi.cols.map((col) => new FormControl(col, KypoValidators.noWhitespace))),
+        title: new FormControl(emi.title, SentinelValidators.noWhitespace),
+        rows: new FormArray(emi.rows.map((row) => new FormControl(row, SentinelValidators.noWhitespace))),
+        cols: new FormArray(emi.cols.map((col) => new FormControl(col, SentinelValidators.noWhitespace))),
         correctAnswers: new FormArray(emi.correctAnswers.map((answer) => new FormControl(answer))),
         score: new FormControl(emi.score, [
           Validators.required,

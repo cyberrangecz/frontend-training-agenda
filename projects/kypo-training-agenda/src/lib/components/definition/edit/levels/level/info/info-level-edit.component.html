@@ -14,9 +14,9 @@
 
     <!-- CONTENT filed -->
     <h3>Content</h3>
-    <kypo2-markdown-editor [kypo2-markdown-file-upload]="false"
+    <sentinel-markdown-editor [sentinel-markdown-file-upload]="false"
       (contentChange)="this.content.setValue($event);"
-      [content]="content.value"></kypo2-markdown-editor>
+      [content]="content.value"></sentinel-markdown-editor>
     <mat-error *ngIf="content.hasError('whitespace')">Content cannot be empty</mat-error>
   </form>
 </div>

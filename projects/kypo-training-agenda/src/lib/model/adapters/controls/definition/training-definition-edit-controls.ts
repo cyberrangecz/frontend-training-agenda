@@ -1,4 +1,4 @@
-import { KypoControlItem } from 'kypo-controls';
+import { SentinelControlItem } from '@sentinel/components/controls';
 import { defer, Observable } from 'rxjs';
 import { TrainingDefinitionEditService } from '../../../../services/training-definition/edit/training-definition-edit.service';
 
@@ -13,16 +13,16 @@ export class TrainingDefinitionEditControls {
     service: TrainingDefinitionEditService,
     isEditMode: boolean,
     saveDisabled$: Observable<boolean>
-  ): KypoControlItem[] {
+  ): SentinelControlItem[] {
     return isEditMode ? this.editModeControls(service, saveDisabled$) : this.createModeControls(service, saveDisabled$);
   }
 
   private static editModeControls(
     service: TrainingDefinitionEditService,
     saveDisabled$: Observable<boolean>
-  ): KypoControlItem[] {
+  ): SentinelControlItem[] {
     return [
-      new KypoControlItem(
+      new SentinelControlItem(
         this.SAVE_ACTION_ID,
         'Save',
         'primary',
@@ -35,16 +35,16 @@ export class TrainingDefinitionEditControls {
   private static createModeControls(
     service: TrainingDefinitionEditService,
     saveDisabled$: Observable<boolean>
-  ): KypoControlItem[] {
+  ): SentinelControlItem[] {
     return [
-      new KypoControlItem(
+      new SentinelControlItem(
         this.SAVE_ACTION_ID,
         'Create',
         'primary',
         saveDisabled$,
         defer(() => service.save())
       ),
-      new KypoControlItem(
+      new SentinelControlItem(
         this.SAVE_AND_STAY_ACTION_ID,
         'Create and continue editing',
         'primary',

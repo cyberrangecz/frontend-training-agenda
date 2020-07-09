@@ -9,8 +9,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { FormArray, FormControl } from '@angular/forms';
-import { KypoBaseDirective } from 'kypo-common';
-import { KypoValidators } from 'kypo-common';
+import { SentinelBaseDirective, SentinelValidators } from '@sentinel/common';
 import { Question } from 'kypo-training-model';
 import { FreeFormQuestion } from 'kypo-training-model';
 import { takeWhile } from 'rxjs/operators';
@@ -26,7 +25,7 @@ import { FreeFormQuestionFormGroup } from './free-form-question-form-group';
 /**
  * Component for editing a question of type Free Form
  */
-export class FreeFormQuestionEditComponent extends KypoBaseDirective implements OnInit, OnChanges {
+export class FreeFormQuestionEditComponent extends SentinelBaseDirective implements OnInit, OnChanges {
   @Input() question: FreeFormQuestion;
   @Input() isTest: boolean;
   @Input() required: boolean;
@@ -91,7 +90,9 @@ export class FreeFormQuestionEditComponent extends KypoBaseDirective implements 
   answerChanged(event: FreeFormItemsChangeEvent) {
     this.freeFormValid = event.validity;
     if (event.isAdded) {
-      (this.answers as FormArray).push(new FormControl('', this.required ? KypoValidators.noWhitespace : undefined));
+      (this.answers as FormArray).push(
+        new FormControl('', this.required ? SentinelValidators.noWhitespace : undefined)
+      );
     } else if (event.isDeleted) {
       this.answers.removeAt(event.index);
     } else if (event.cleared) {

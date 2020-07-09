@@ -9,7 +9,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { Validators } from '@angular/forms';
-import { KypoBaseDirective } from 'kypo-common';
+import { SentinelBaseDirective } from '@sentinel/common';
 import { Hint } from 'kypo-training-model';
 import { takeWhile } from 'rxjs/operators';
 import { HintEditFormGroup } from './hint-edit-form-group';
@@ -23,7 +23,7 @@ import { HintEditFormGroup } from './hint-edit-form-group';
 /**
  * Component to edit new or existing game level hint
  */
-export class HintDetailEditComponent extends KypoBaseDirective implements OnInit, OnChanges {
+export class HintDetailEditComponent extends SentinelBaseDirective implements OnInit, OnChanges {
   @Input() hint: Hint;
   @Input() levelMaxScore: number;
   @Input() hintsPenaltySum: number;

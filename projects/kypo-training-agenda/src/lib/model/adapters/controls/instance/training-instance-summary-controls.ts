@@ -1,4 +1,4 @@
-import { KypoControlItem } from 'kypo-controls';
+import { SentinelControlItem } from '@sentinel/components/controls';
 import { defer, Observable } from 'rxjs';
 import { TrainingInstanceSummaryService } from '../../../../services/training-instance/summary/training-instance-summary.service';
 
@@ -13,16 +13,16 @@ export class TrainingInstanceSummaryControls {
     service: TrainingInstanceSummaryService,
     progressDisabled$: Observable<boolean>,
     resultsDisabled$: Observable<boolean>
-  ): KypoControlItem[] {
+  ): SentinelControlItem[] {
     return [
-      new KypoControlItem(
+      new SentinelControlItem(
         this.PROGRESS_ACTION_ID,
         'Show Progress',
         'primary',
         progressDisabled$,
         defer(() => service.showProgress())
       ),
-      new KypoControlItem(
+      new SentinelControlItem(
         this.RESULTS_ACTION_ID,
         'Show Results',
         'primary',

@@ -1,10 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { KypoBaseDirective, KypoRequestedPagination } from 'kypo-common';
-import { KypoControlItem } from 'kypo-controls';
+import { SentinelBaseDirective, RequestedPagination } from '@sentinel/common';
+import { SentinelControlItem } from '@sentinel/components/controls';
 import { TrainingInstance, TrainingRun } from 'kypo-training-model';
-import { Kypo2Table, LoadTableEvent } from 'kypo2-table';
-import { TableActionEvent } from 'kypo2-table/lib/model/table-action-event';
+import { SentinelTable, LoadTableEvent, TableActionEvent } from '@sentinel/components/table';
 import { defer, Observable, of, Subject } from 'rxjs';
 import { map, switchMap, take, takeWhile, tap } from 'rxjs/operators';
 import { TrainingInstanceSummaryControls } from '../../../../model/adapters/controls/instance/training-instance-summary-controls';
@@ -25,23 +24,23 @@ import { ArchivedTrainingRunService } from '../../../../services/training-run/ar
   styleUrls: ['./training-instance-summary.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TrainingInstanceSummaryComponent extends KypoBaseDirective implements OnInit {
+export class TrainingInstanceSummaryComponent extends SentinelBaseDirective implements OnInit {
   readonly SUMMARY_PANEL_ID = 0;
   readonly ACTIVE_TRAINING_RUNS_PANEL_ID = 1;
   readonly ARCHIVED_TRAINING_RUNS_PANEL_ID = 2;
 
   trainingInstance$: Observable<TrainingInstance>;
-  activeTrainingRuns$: Observable<Kypo2Table<TrainingRun>>;
+  activeTrainingRuns$: Observable<SentinelTable<TrainingRun>>;
   activeTrainingRunsHasError$: Observable<boolean>;
-  archivedTrainingRuns$: Observable<Kypo2Table<TrainingRun>>;
+  archivedTrainingRuns$: Observable<SentinelTable<TrainingRun>>;
   archivedTrainingRunsHasError$: Observable<boolean>;
 
   trainingInstanceAccessTokenLink: string;
   trainingInstancePoolIdLink: string;
   hasPool: boolean;
 
-  summaryControls: KypoControlItem[];
-  archivedTrainingRunsControls: KypoControlItem[];
+  summaryControls: SentinelControlItem[];
+  archivedTrainingRunsControls: SentinelControlItem[];
 
   selectedArchivedTrainingRunIds: number[] = [];
 
@@ -83,7 +82,7 @@ export class TrainingInstanceSummaryComponent extends KypoBaseDirective implemen
       });
   }
 
-  onSummaryControlAction(control: KypoControlItem) {
+  onSummaryControlAction(control: SentinelControlItem) {
     control.result$.pipe(takeWhile((_) => this.isAlive)).subscribe();
   }
 
@@ -116,7 +115,7 @@ export class TrainingInstanceSummaryComponent extends KypoBaseDirective implemen
     event.action.result$.pipe(take(1)).subscribe();
   }
 
-  onArchivedTrainingRunControlsAction(control: KypoControlItem) {
+  onArchivedTrainingRunControlsAction(control: SentinelControlItem) {
     control.result$.pipe(takeWhile((_) => this.isAlive)).subscribe();
   }
 
@@ -184,7 +183,7 @@ export class TrainingInstanceSummaryComponent extends KypoBaseDirective implemen
   }
 
   private initActiveRunOverviewComponent() {
-    const initialPagination = new KypoRequestedPagination(0, 10, '', '');
+    const initialPagination = new RequestedPagination(0, 10, '', '');
     this.trainingInstance$
       .pipe(
         take(1),
@@ -199,7 +198,7 @@ export class TrainingInstanceSummaryComponent extends KypoBaseDirective implemen
   }
 
   private initArchivedTrainingRunOverviewComponent() {
-    const initialPagination = new KypoRequestedPagination(0, 10, '', '');
+    const initialPagination = new RequestedPagination(0, 10, '', '');
     this.trainingInstance$
       .pipe(
         take(1),
@@ -219,7 +218,7 @@ export class TrainingInstanceSummaryComponent extends KypoBaseDirective implemen
         ? `Delete (${this.selectedArchivedTrainingRunIds.length})`
         : 'Delete';
     this.archivedTrainingRunsControls = [
-      new KypoControlItem(
+      new SentinelControlItem(
         'deleteMultiple',
         deleteLabel,
         'warn',

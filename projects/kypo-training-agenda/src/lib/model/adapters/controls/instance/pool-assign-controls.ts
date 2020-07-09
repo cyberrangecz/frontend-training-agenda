@@ -1,4 +1,4 @@
-import { KypoControlItem } from 'kypo-controls';
+import { SentinelControlItem } from '@sentinel/components/controls';
 import { TrainingInstance } from 'kypo-training-model';
 import { defer, of } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -8,10 +8,10 @@ import { PoolAssignService } from '../../../../services/training-instance/pool-a
  * @dynamic
  */
 export class PoolAssignControls {
-  static create(service: PoolAssignService, trainingInstance: TrainingInstance): KypoControlItem[] {
+  static create(service: PoolAssignService, trainingInstance: TrainingInstance): SentinelControlItem[] {
     if (trainingInstance.hasPool()) {
       return [
-        new KypoControlItem(
+        new SentinelControlItem(
           'unassign',
           'Unassign',
           'primary',
@@ -22,7 +22,7 @@ export class PoolAssignControls {
     } else {
       const assignDisabled$ = service.selected$.pipe(map((selected) => selected === undefined));
       return [
-        new KypoControlItem(
+        new SentinelControlItem(
           'assign',
           'Assign',
           'primary',

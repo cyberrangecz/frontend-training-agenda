@@ -1,11 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { asyncData } from 'kypo-common';
+import { asyncData } from '@sentinel/common';
 import { TrainingRunApi } from 'kypo-training-api';
-import { AccessTrainingRunInfo, GameLevel, Level } from 'kypo-training-model';
+import { AccessTrainingRunInfo, Level } from 'kypo-training-model';
 import { throwError } from 'rxjs';
-import { TrainingAgendaConfig } from '../../../model/client/training-agenda-config';
 import {
   createContext,
   createErrorHandlerSpy,
@@ -16,7 +15,6 @@ import {
 import { TrainingErrorHandler } from '../../client/training-error.handler.service';
 import { TrainingNavigator } from '../../client/training-navigator.service';
 import { TrainingAgendaContext } from '../../internal/training-agenda-context.service';
-import { ACCESS_TOKEN_PATH } from './../../../model/client/default-paths';
 import { RunningTrainingRunConcreteService } from './running-training-run-concrete.service';
 
 describe('RunningTrainingRunConcreteService', () => {

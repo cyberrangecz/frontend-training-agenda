@@ -3,10 +3,10 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angular-datetime-picker';
-import { KypoPipesModule } from 'kypo-common';
-import { KypoControlsModule } from 'kypo-controls';
-import { KypoListModule } from 'kypo-list';
-import { Kypo2UserAssignModule, Kypo2UserAssignService } from 'kypo2-user-assign';
+import { SentinelPipesModule } from '@sentinel/common';
+import { SentinelControlsModule } from '@sentinel/components/controls';
+import { SentinelListModule } from '@sentinel/components/list';
+import { SentinelUserAssignModule, SentinelUserAssignService } from '@sentinel/components/user-assign';
 import { TrainingAgendaConfig } from '../../../model/client/training-agenda-config';
 import { TrainingInstanceCanDeactivate } from '../../../services/can-deactivate/training-instance-can-deactivate.service';
 import { TrainingInstanceEditConcreteService } from '../../../services/training-instance/edit/training-instance-edit-concrete.service';
@@ -27,15 +27,15 @@ import { TrainingInstanceEditComponent } from './training-instance-edit/training
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    Kypo2UserAssignModule,
+    SentinelUserAssignModule,
     RouterModule,
-    KypoListModule,
+    SentinelListModule,
     FreeFormModule,
-    KypoPipesModule,
+    SentinelPipesModule,
     TrainingInstanceEditOverviewMaterialModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
-    KypoControlsModule,
+    SentinelControlsModule,
   ],
   declarations: [
     TrainingInstanceEditOverviewComponent,
@@ -45,7 +45,7 @@ import { TrainingInstanceEditComponent } from './training-instance-edit/training
   ],
   providers: [
     TrainingInstanceCanDeactivate,
-    { provide: Kypo2UserAssignService, useClass: OrganizersAssignService },
+    { provide: SentinelUserAssignService, useClass: OrganizersAssignService },
     { provide: TrainingInstanceEditService, useClass: TrainingInstanceEditConcreteService },
   ],
 })

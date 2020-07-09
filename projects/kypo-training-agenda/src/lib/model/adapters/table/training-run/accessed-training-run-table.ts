@@ -1,7 +1,7 @@
-import { KypoPaginatedResource } from 'kypo-common';
+import { PaginatedResource } from '@sentinel/common';
 import { AccessedTrainingRun } from 'kypo-training-model';
 import { TraineeAccessTrainingRunActionEnum } from 'kypo-training-model';
-import { Column, Kypo2Table, Row, RowAction } from 'kypo2-table';
+import { Column, SentinelTable, Row, RowAction } from '@sentinel/components/table';
 import { defer, of } from 'rxjs';
 import { AccessedTrainingRunService } from '../../../../services/training-run/accessed/accessed-training-run.service';
 
@@ -9,8 +9,8 @@ import { AccessedTrainingRunService } from '../../../../services/training-run/ac
  * Helper class transforming paginated resource to class for common table component
  * @dynamic
  */
-export class AccessedTrainingRunTable extends Kypo2Table<AccessedTrainingRun> {
-  constructor(resource: KypoPaginatedResource<AccessedTrainingRun>, service: AccessedTrainingRunService) {
+export class AccessedTrainingRunTable extends SentinelTable<AccessedTrainingRun> {
+  constructor(resource: PaginatedResource<AccessedTrainingRun>, service: AccessedTrainingRunService) {
     const columns = [
       new Column('trainingInstanceTitle', 'title', false),
       new Column('trainingInstanceFormattedDuration', 'Date', false),

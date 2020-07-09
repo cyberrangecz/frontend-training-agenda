@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { KypoBaseDirective } from 'kypo-common';
+import { SentinelBaseDirective } from '@sentinel/common';
 import { TrainingDefinition } from 'kypo-training-model';
 import { TrainingInstance } from 'kypo-training-model';
 
@@ -12,7 +12,7 @@ import { TrainingInstance } from 'kypo-training-model';
   styleUrls: ['./training-instance-info.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TrainingInstanceInfoComponent extends KypoBaseDirective implements OnInit, OnChanges {
+export class TrainingInstanceInfoComponent extends SentinelBaseDirective implements OnInit, OnChanges {
   @Input() trainingInstance: TrainingInstance;
   @Input() accessTokenLink: string;
   @Input() poolIdLink: string;

@@ -3,9 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { KypoControlsModule } from 'kypo-controls';
-import { MarkdownEditorModule } from 'kypo2-markdown-editor';
-import { Kypo2StepperModule } from 'kypo2-stepper';
+import { SentinelControlsModule } from '@sentinel/components/controls';
+import { SentinelMarkdownEditorModule } from '@sentinel/components/markdown-editor';
+import { SentinelStepperModule } from '@sentinel/components/stepper';
 import { MarkedOptions } from 'ngx-markdown';
 import { FreeFormModule } from '../../../../shared/free-form.module';
 import { AbstractLevelEditComponent } from './abstract-level-edit.component';
@@ -49,13 +49,13 @@ const markdownConfig = {
   imports: [
     CommonModule,
     FormsModule,
-    MarkdownEditorModule.forRoot(markdownConfig),
-    Kypo2StepperModule,
+    SentinelMarkdownEditorModule.forRoot(markdownConfig),
+    SentinelStepperModule,
     LevelEditMaterialModule,
     MatSlideToggleModule,
     ReactiveFormsModule,
     FreeFormModule,
-    KypoControlsModule,
+    SentinelControlsModule,
   ],
   exports: [AbstractLevelEditComponent],
   declarations: [

@@ -1,9 +1,9 @@
-import { KypoPaginatedResource, KypoPaginatedResourceService, KypoRequestedPagination } from 'kypo-common';
+import { PaginatedResource, PaginatedResourceService, RequestedPagination } from '@sentinel/common';
 import { Pool } from 'kypo-sandbox-model';
 import { TrainingInstance } from 'kypo-training-model';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-export abstract class PoolAssignService extends KypoPaginatedResourceService<Pool> {
+export abstract class PoolAssignService extends PaginatedResourceService<Pool> {
   protected selectedSubject$: BehaviorSubject<Pool> = new BehaviorSubject(undefined);
   selected$: Observable<Pool> = this.selectedSubject$.asObservable();
 
@@ -12,7 +12,7 @@ export abstract class PoolAssignService extends KypoPaginatedResourceService<Poo
 
   abstract init(trainingInstance: TrainingInstance);
 
-  abstract getAll(requestedPagination: KypoRequestedPagination): Observable<KypoPaginatedResource<Pool>>;
+  abstract getAll(requestedPagination: RequestedPagination): Observable<PaginatedResource<Pool>>;
 
   abstract assign(trainingInstance: TrainingInstance): Observable<any>;
 

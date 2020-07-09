@@ -1,6 +1,4 @@
-import { KypoRequestedPagination } from 'kypo-common';
-import { KypoPaginatedResource } from 'kypo-common';
-import { KypoPaginatedResourceService } from 'kypo-common';
+import { RequestedPagination, PaginatedResource, PaginatedResourceService } from '@sentinel/common';
 import { TrainingDefinitionStateEnum } from 'kypo-training-model';
 import { TrainingDefinition } from 'kypo-training-model';
 import { Observable } from 'rxjs';
@@ -11,7 +9,7 @@ import { Observable } from 'rxjs';
  * You can use get methods to get paginated resources and other operations to modify data.
  * Subscribe to trainingDefinitions$ to receive latest data updates.
  */
-export abstract class TrainingDefinitionService extends KypoPaginatedResourceService<TrainingDefinition> {
+export abstract class TrainingDefinitionService extends PaginatedResourceService<TrainingDefinition> {
   abstract create(): Observable<any>;
 
   abstract edit(trainingDefinition: TrainingDefinition): Observable<any>;
@@ -23,10 +21,7 @@ export abstract class TrainingDefinitionService extends KypoPaginatedResourceSer
    * @param pagination requested pagination
    * @param filter filter to be applied on training definition
    */
-  abstract getAll(
-    pagination: KypoRequestedPagination,
-    filter: string
-  ): Observable<KypoPaginatedResource<TrainingDefinition>>;
+  abstract getAll(pagination: RequestedPagination, filter: string): Observable<PaginatedResource<TrainingDefinition>>;
 
   /**
    * Deletes selected training definition

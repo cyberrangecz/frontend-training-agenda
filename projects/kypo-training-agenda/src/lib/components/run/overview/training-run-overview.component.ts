@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { KypoBaseDirective, KypoRequestedPagination } from 'kypo-common';
+import { SentinelBaseDirective, RequestedPagination } from '@sentinel/common';
 import { AccessedTrainingRun } from 'kypo-training-model';
-import { Kypo2Table, LoadTableEvent, TableActionEvent } from 'kypo2-table';
+import { SentinelTable, LoadTableEvent, TableActionEvent } from '@sentinel/components/table';
 import { Observable } from 'rxjs';
 import { map, take, takeWhile } from 'rxjs/operators';
 import { AccessedTrainingRunTable } from '../../../model/adapters/table/training-run/accessed-training-run-table';
@@ -17,8 +17,8 @@ import { AccessedTrainingRunService } from '../../../services/training-run/acces
   styleUrls: ['./training-run-overview.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TrainingRunOverviewComponent extends KypoBaseDirective implements OnInit {
-  trainingRuns$: Observable<Kypo2Table<AccessedTrainingRun>>;
+export class TrainingRunOverviewComponent extends SentinelBaseDirective implements OnInit {
+  trainingRuns$: Observable<SentinelTable<AccessedTrainingRun>>;
   hasError$: Observable<boolean>;
 
   constructor(private trainingRunOverviewService: AccessedTrainingRunService, private context: TrainingAgendaContext) {
@@ -61,7 +61,7 @@ export class TrainingRunOverviewComponent extends KypoBaseDirective implements O
 
   private initTable() {
     const initialLoadEvent: LoadTableEvent = new LoadTableEvent(
-      new KypoRequestedPagination(0, this.context.config.defaultPaginationSize, '', '')
+      new RequestedPagination(0, this.context.config.defaultPaginationSize, '', '')
     );
 
     this.trainingRuns$ = this.trainingRunOverviewService.resource$.pipe(

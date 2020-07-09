@@ -32,12 +32,12 @@ div .right-panel mat-form-field {
   margin-bottom: 20px;
 }
 
-kypo2-markdown-editor.mrkdwn-content {
+sentinel-markdown-editor.mrkdwn-content {
   margin-bottom: 20px;
   height: 30vh;
 }
 
-kypo2-markdown-editor.mrkdwn-solution {
+sentinel-markdown-editor.mrkdwn-solution {
   margin-bottom: 20px;
   height: 30vh;
 }
