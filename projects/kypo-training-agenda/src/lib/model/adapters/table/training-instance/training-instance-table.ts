@@ -1,9 +1,14 @@
-import { KypoDateTimeFormatPipe, KypoPaginatedResource } from 'kypo-common';
+import { SentinelDateTimeFormatPipe, PaginatedResource } from '@sentinel/common';
 import { TrainingInstance } from 'kypo-training-model';
-import { Column, Kypo2Table, Row, RowAction } from 'kypo2-table';
-import { EditAction } from 'kypo2-table';
-import { DeleteAction } from 'kypo2-table';
-import { DownloadAction } from 'kypo2-table';
+import {
+  Column,
+  SentinelTable,
+  Row,
+  RowAction,
+  EditAction,
+  DeleteAction,
+  DownloadAction,
+} from '@sentinel/components/table';
 import { defer, of } from 'rxjs';
 import { TrainingNavigator } from '../../../../services/client/training-navigator.service';
 import { TrainingInstanceOverviewService } from '../../../../services/training-instance/training-instance-overview.service';
@@ -12,9 +17,9 @@ import { TrainingInstanceRowAdapter } from '../rows/training-instance-row-adapte
 /**
  * @dynamic
  */
-export class TrainingInstanceTable extends Kypo2Table<TrainingInstanceRowAdapter> {
+export class TrainingInstanceTable extends SentinelTable<TrainingInstanceRowAdapter> {
   constructor(
-    resource: KypoPaginatedResource<TrainingInstance>,
+    resource: PaginatedResource<TrainingInstance>,
     service: TrainingInstanceOverviewService,
     navigator: TrainingNavigator
   ) {
@@ -41,7 +46,7 @@ export class TrainingInstanceTable extends Kypo2Table<TrainingInstanceRowAdapter
     navigator: TrainingNavigator
   ): Row<TrainingInstanceRowAdapter> {
     const adapter = ti as TrainingInstanceRowAdapter;
-    const datePipe = new KypoDateTimeFormatPipe('en-EN');
+    const datePipe = new SentinelDateTimeFormatPipe('en-EN');
     adapter.tdTitle = adapter.trainingDefinition.title;
     adapter.date = `${datePipe.transform(adapter.startTime)} - ${datePipe.transform(adapter.endTime)}`;
     if (adapter.hasPool()) {

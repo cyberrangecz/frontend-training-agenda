@@ -1,5 +1,5 @@
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
-import { KypoValidators } from 'kypo-common';
+import { SentinelValidators } from '@sentinel/common';
 import { TrainingDefinition } from 'kypo-training-model';
 
 /**
@@ -10,7 +10,7 @@ export class TrainingDefinitionEditFormGroup {
 
   constructor(trainingDefinition: TrainingDefinition) {
     this.formGroup = new FormGroup({
-      title: new FormControl(trainingDefinition.title, KypoValidators.noWhitespace),
+      title: new FormControl(trainingDefinition.title, SentinelValidators.noWhitespace),
       description: new FormControl(trainingDefinition.description),
       prerequisites: new FormArray(trainingDefinition.prerequisites.map((prereq) => new FormControl(prereq))),
       outcomes: new FormArray(trainingDefinition.outcomes.map((outcomes) => new FormControl(outcomes))),

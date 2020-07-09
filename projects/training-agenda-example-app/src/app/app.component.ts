@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { Agenda, AgendaContainer } from 'csirt-mu-layout';
+import { Agenda, AgendaContainer } from '@sentinel/layout';
 import { Kypo2AuthService, User } from 'kypo2-auth';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';

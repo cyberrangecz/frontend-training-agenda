@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { KypoBaseDirective } from 'kypo-common';
+import { SentinelBaseDirective } from '@sentinel/common';
 import { TrainingDefinitionApi } from 'kypo-training-api';
 import { AccessTrainingRunInfo } from 'kypo-training-model';
 import { TrainingDefinition } from 'kypo-training-model';
@@ -17,7 +17,7 @@ import { RunningTrainingRunService } from '../../../services/training-run/runnin
   templateUrl: './training-preview.component.html',
   styleUrls: ['./training-preview.component.css'],
 })
-export class TrainingPreviewComponent extends KypoBaseDirective implements OnInit {
+export class TrainingPreviewComponent extends SentinelBaseDirective implements OnInit {
   constructor(
     private previewService: RunningTrainingRunService,
     private api: TrainingDefinitionApi,

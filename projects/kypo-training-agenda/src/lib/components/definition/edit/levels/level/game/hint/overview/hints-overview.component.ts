@@ -11,14 +11,14 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import {
-  CsirtMuConfirmationDialogComponent,
-  CsirtMuConfirmationDialogConfig,
-  CsirtMuDialogResultEnum,
-} from 'csirt-mu-common';
-import { KypoBaseDirective } from 'kypo-common';
-import { KypoControlItem } from 'kypo-controls';
+  SentinelConfirmationDialogComponent,
+  SentinelConfirmationDialogConfig,
+  SentinelDialogResultEnum,
+} from '@sentinel/components/dialogs';
+import { SentinelBaseDirective } from '@sentinel/common';
+import { SentinelControlItem } from '@sentinel/components/controls';
 import { Hint } from 'kypo-training-model';
-import { Kypo2Stepper } from 'kypo2-stepper';
+import { SentinelStepper } from '@sentinel/components/stepper';
 import { BehaviorSubject, defer, of } from 'rxjs';
 import { takeWhile } from 'rxjs/operators';
 import { HintStepperAdapter } from '../../../../../../../../model/adapters/stepper/hint-stepper-adapter';
@@ -38,7 +38,7 @@ import { HintStepperAdapter } from '../../../../../../../../model/adapters/stepp
     },
   ],
 })
-export class HintsOverviewComponent extends KypoBaseDirective implements OnInit, OnChanges {
+export class HintsOverviewComponent extends SentinelBaseDirective implements OnInit, OnChanges {
   @Input() hints: Hint[];
   @Input() levelId: Hint[];
   @Input() levelMaxScore: number;
@@ -49,8 +49,8 @@ export class HintsOverviewComponent extends KypoBaseDirective implements OnInit,
   hintsHasErrors: boolean;
   penaltySum: number;
   selectedStep: number;
-  stepperHints: Kypo2Stepper<HintStepperAdapter> = { items: [] };
-  controls: KypoControlItem[];
+  stepperHints: SentinelStepper<HintStepperAdapter> = { items: [] };
+  controls: SentinelControlItem[];
 
   constructor(public dialog: MatDialog) {
     super();
@@ -73,7 +73,7 @@ export class HintsOverviewComponent extends KypoBaseDirective implements OnInit,
     }
   }
 
-  onControlAction(control: KypoControlItem) {
+  onControlAction(control: SentinelControlItem) {
     control.result$.pipe(takeWhile((_) => this.isAlive)).subscribe();
   }
 
@@ -102,8 +102,8 @@ export class HintsOverviewComponent extends KypoBaseDirective implements OnInit,
   deleteActiveHint() {
     const hint = this.stepperHints.items[this.selectedStep];
     const index = this.selectedStep;
-    const dialogRef = this.dialog.open(CsirtMuConfirmationDialogComponent, {
-      data: new CsirtMuConfirmationDialogConfig(
+    const dialogRef = this.dialog.open(SentinelConfirmationDialogComponent, {
+      data: new SentinelConfirmationDialogConfig(
         'Delete Hint',
         `Do you want to delete hint "${hint.title}"?`,
         'Cancel',
@@ -115,7 +115,7 @@ export class HintsOverviewComponent extends KypoBaseDirective implements OnInit,
       .afterClosed()
       .pipe(takeWhile(() => this.isAlive))
       .subscribe((result) => {
-        if (result === CsirtMuDialogResultEnum.CONFIRMED) {
+        if (result === SentinelDialogResultEnum.CONFIRMED) {
           this.stepperHints.items.splice(index, 1);
           this.changeSelectedStepAfterRemoving(index);
           this.onOrderUpdate();
@@ -202,14 +202,14 @@ export class HintsOverviewComponent extends KypoBaseDirective implements OnInit,
 
   private initControls() {
     this.controls = [
-      new KypoControlItem(
+      new SentinelControlItem(
         'add',
         'Add',
         'primary',
         of(false),
         defer(() => this.addHint())
       ),
-      new KypoControlItem(
+      new SentinelControlItem(
         'delete',
         'Delete',
         'warn',

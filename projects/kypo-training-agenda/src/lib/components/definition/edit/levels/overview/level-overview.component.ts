@@ -9,8 +9,8 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { KypoBaseDirective } from 'kypo-common';
-import { KypoControlItem } from 'kypo-controls';
+import { SentinelBaseDirective } from '@sentinel/common';
+import { SentinelControlItem } from '@sentinel/components/controls';
 import { TrainingDefinition } from 'kypo-training-model';
 import { Level } from 'kypo-training-model';
 import { Observable } from 'rxjs';
@@ -29,14 +29,14 @@ import { LevelEditService } from '../../../../../services/training-definition/ed
   styleUrls: ['./level-overview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LevelOverviewComponent extends KypoBaseDirective implements OnInit, OnChanges {
+export class LevelOverviewComponent extends SentinelBaseDirective implements OnInit, OnChanges {
   @Output() unsavedLevels: EventEmitter<Level[]> = new EventEmitter();
   @Output() levelsCount: EventEmitter<number> = new EventEmitter();
   @Input() trainingDefinition: TrainingDefinition;
 
   activeStep$: Observable<number>;
   stepperLevels: Observable<LevelStepperAdapter[]>;
-  controls: KypoControlItem[];
+  controls: SentinelControlItem[];
   levelMovingInProgress: boolean;
 
   constructor(private dialog: MatDialog, private levelService: LevelEditService) {
@@ -70,7 +70,7 @@ export class LevelOverviewComponent extends KypoBaseDirective implements OnInit,
     this.levelService.setActiveLevel(levelIndex);
   }
 
-  onControlAction(control: KypoControlItem) {
+  onControlAction(control: SentinelControlItem) {
     control.result$.pipe(takeWhile((_) => this.isAlive)).subscribe();
   }
 

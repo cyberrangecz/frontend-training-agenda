@@ -1,4 +1,8 @@
-import { KypoControlItem, KypoControlMenuItem, KypoExpandableControlItem } from 'kypo-controls';
+import {
+  SentinelControlItem,
+  SentinelControlMenuItem,
+  SentinelExpandableControlItem,
+} from '@sentinel/components/controls';
 import { AbstractLevelTypeEnum } from 'kypo-training-model';
 import { defer, Observable, of } from 'rxjs';
 import { LevelEditService } from '../../../../services/training-definition/edit/level-edit.service';
@@ -18,23 +22,23 @@ export class LevelOverviewControls {
     service: LevelEditService,
     saveDisabled$: Observable<boolean>,
     deleteDisabled$: Observable<boolean>
-  ): KypoControlItem[] {
+  ): SentinelControlItem[] {
     return [
-      new KypoExpandableControlItem(
+      new SentinelExpandableControlItem(
         this.ADD_ACTION_ID,
         'Add',
         'primary',
         of(false),
         this.createAddExpandedMenuControlButtons(service)
       ),
-      new KypoControlItem(
+      new SentinelControlItem(
         this.DELETE_ACTION_ID,
         'Delete',
         'warn',
         deleteDisabled$,
         defer(() => service.deleteSelected())
       ),
-      new KypoControlItem(
+      new SentinelControlItem(
         this.SAVE_ACTION_ID,
         'Save',
         'primary',
@@ -44,9 +48,9 @@ export class LevelOverviewControls {
     ];
   }
 
-  private static createAddExpandedMenuControlButtons(service: LevelEditService): KypoControlMenuItem[] {
+  private static createAddExpandedMenuControlButtons(service: LevelEditService): SentinelControlMenuItem[] {
     return [
-      new KypoControlMenuItem(
+      new SentinelControlMenuItem(
         this.ADD_GAME_LEVEL_ID,
         'Game Level',
         'primary',
@@ -54,7 +58,7 @@ export class LevelOverviewControls {
         defer(() => service.add(AbstractLevelTypeEnum.Game)),
         'videogame_asset'
       ),
-      new KypoControlMenuItem(
+      new SentinelControlMenuItem(
         this.ADD_ASSESSMENT_LEVEL_ID,
         'Assessment Level',
         'primary',
@@ -62,7 +66,7 @@ export class LevelOverviewControls {
         defer(() => service.add(AbstractLevelTypeEnum.Assessment)),
         'assignment'
       ),
-      new KypoControlMenuItem(
+      new SentinelControlMenuItem(
         this.ADD_INFO_LEVEL_ID,
         'Info Level',
         'primary',

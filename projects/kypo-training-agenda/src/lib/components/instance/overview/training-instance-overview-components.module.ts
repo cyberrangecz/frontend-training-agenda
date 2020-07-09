@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { KypoControlsModule } from 'kypo-controls';
-import { Kypo2TableModule } from 'kypo2-table';
+import { SentinelControlsModule } from '@sentinel/components/controls';
+import { SentinelTableModule } from '@sentinel/components/table';
 import { TrainingAgendaConfig } from '../../../model/client/training-agenda-config';
 import { TrainingDefaultNavigator } from '../../../services/client/training-default-navigator.service';
 import { TrainingNavigator } from '../../../services/client/training-navigator.service';
@@ -20,7 +20,14 @@ import { TrainingInstanceOverviewComponent } from './training-instance-overview.
  * and CRUD operations on them. It contains routing to more feature modules (detail atc.)
  */
 @NgModule({
-  imports: [CommonModule, FreeFormModule, FormsModule, ReactiveFormsModule, Kypo2TableModule, KypoControlsModule],
+  imports: [
+    CommonModule,
+    FreeFormModule,
+    FormsModule,
+    ReactiveFormsModule,
+    SentinelTableModule,
+    SentinelControlsModule,
+  ],
   declarations: [TrainingInstanceOverviewComponent],
   providers: [
     TrainingAgendaContext,

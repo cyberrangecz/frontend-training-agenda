@@ -9,7 +9,7 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { KypoBaseDirective } from 'kypo-common';
+import { SentinelBaseDirective } from '@sentinel/common';
 import { Question } from 'kypo-training-model';
 import { ExtendedMatchingItems } from 'kypo-training-model';
 import { FreeFormQuestion } from 'kypo-training-model';
@@ -28,7 +28,7 @@ import { MultipleChoiceQuestionTraineeComponent } from './multiple-choice-questi
  * Wrapper component for displaying questions in training run's assessment level. It selects the correct component to
  * display based on the question type.
  */
-export class TraineeQuestionComponent extends KypoBaseDirective implements OnInit, OnChanges {
+export class TraineeQuestionComponent extends SentinelBaseDirective implements OnInit, OnChanges {
   @Input() question: Question;
   @Input() index: number;
 

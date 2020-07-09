@@ -1,4 +1,4 @@
-<csirt-mu-layout1 logoSrc="./assets/images/kypo-logo.svg"
+<sentinel-layout1 logoSrc="./assets/images/kypo-logo.svg"
                   [user]="activeUser$ | async"
                   [agendaContainers]="agendaContainers$ | async"
                   [notificationsRoute]="notificationRoute"
@@ -6,4 +6,4 @@
                   (logout)="onLogout()">
   <h1 *ngIf="title$ | async as title">{{ title }}</h1>
   <router-outlet></router-outlet>
-</csirt-mu-layout1>
+</sentinel-layout1>

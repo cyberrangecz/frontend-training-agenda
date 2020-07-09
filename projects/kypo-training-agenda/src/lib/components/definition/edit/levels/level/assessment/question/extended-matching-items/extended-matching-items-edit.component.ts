@@ -13,8 +13,7 @@ import {
 } from '@angular/core';
 import { FormArray, FormControl } from '@angular/forms';
 import { MatRadioButton } from '@angular/material/radio';
-import { KypoBaseDirective } from 'kypo-common';
-import { KypoValidators } from 'kypo-common';
+import { SentinelBaseDirective, SentinelValidators } from '@sentinel/common';
 import { Question } from 'kypo-training-model';
 import { ExtendedMatchingItems } from 'kypo-training-model';
 import { takeWhile } from 'rxjs/operators';
@@ -29,7 +28,8 @@ import { ExtendedMatchingItemsFormGroup } from './extended-matching-items-form-g
   styleUrls: ['./extended-matching-items-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ExtendedMatchingItemsEditComponent extends KypoBaseDirective implements OnInit, OnChanges, AfterViewInit {
+export class ExtendedMatchingItemsEditComponent extends SentinelBaseDirective
+  implements OnInit, OnChanges, AfterViewInit {
   @Input() question: ExtendedMatchingItems;
   @Input() isTest: boolean;
   @Input() required: boolean;
@@ -154,7 +154,7 @@ export class ExtendedMatchingItemsEditComponent extends KypoBaseDirective implem
    * Adds new row to the EMI table
    */
   addRow() {
-    this.rows.push(new FormControl('', KypoValidators.noWhitespace));
+    this.rows.push(new FormControl('', SentinelValidators.noWhitespace));
     this.questionChanged();
   }
 
@@ -172,7 +172,7 @@ export class ExtendedMatchingItemsEditComponent extends KypoBaseDirective implem
    * Adds new column to the EMI table
    */
   addColumn() {
-    this.cols.push(new FormControl('', KypoValidators.noWhitespace));
+    this.cols.push(new FormControl('', SentinelValidators.noWhitespace));
     this.questionChanged();
   }
 

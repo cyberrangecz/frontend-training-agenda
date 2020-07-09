@@ -15,20 +15,20 @@
     </mat-panel-description>
   </mat-expansion-panel-header>
 
-  <kypo-controls [controls]="controls"
+  <sentinel-controls [controls]="controls"
                  (itemClicked)="onControlAction($event)">
-  </kypo-controls>
+  </sentinel-controls>
   <mat-divider></mat-divider>
 
 <!--     HINT stepper-->
   <div *ngIf="stepperHints.items && stepperHints.items.length > 0 else noHints" class="hint-stepper">
-    <kypo2-stepper [selectable]="true"
+    <sentinel-stepper [selectable]="true"
                    [stepperItems]="stepperHints"
                    [activeIndex]="selectedStep"
                    (stepSwapped)="onOrderUpdate()"
                    (indexSelected)="onActiveHintChanged($event)"
                    (selectedStepSwapped)="onActiveHintChanged($event)">
-    </kypo2-stepper>
+    </sentinel-stepper>
     <div>
       <mat-divider></mat-divider>
       <ng-template>Hint {{ selectedStep + 1 }}</ng-template>

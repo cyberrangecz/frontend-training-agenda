@@ -1,13 +1,9 @@
 import { async, TestBed } from '@angular/core/testing';
-import { KypoPagination } from 'kypo-common';
-import { KypoPaginatedResource } from 'kypo-common';
-import { asyncData } from 'kypo-common';
-import { KypoRequestedPagination } from 'kypo-common';
+import { SentinelPagination, PaginatedResource, asyncData, RequestedPagination } from '@sentinel/common';
 import { UserApi } from 'kypo-training-api';
 import { User } from 'kypo2-auth';
 import { throwError } from 'rxjs';
 import { skip, take } from 'rxjs/operators';
-import { TrainingAgendaConfig } from '../../../model/client/training-agenda-config';
 import { createContext, createErrorHandlerSpy, createUserApiSpy } from '../../../testing/testing-commons';
 import { TrainingErrorHandler } from '../../client/training-error.handler.service';
 import { TrainingAgendaContext } from '../../internal/training-agenda-context.service';
@@ -166,7 +162,7 @@ describe('AuthorsAssignService', () => {
   });
 
   function createPagination() {
-    return new KypoRequestedPagination(1, 5, '', '');
+    return new RequestedPagination(1, 5, '', '');
   }
 
   function createMock() {
@@ -174,6 +170,6 @@ describe('AuthorsAssignService', () => {
     user1.id = 1;
     const user2 = new User([]);
     user2.id = 2;
-    return new KypoPaginatedResource([user1, user2], new KypoPagination(1, 2, 5, 2, 1));
+    return new PaginatedResource([user1, user2], new SentinelPagination(1, 2, 5, 2, 1));
   }
 });

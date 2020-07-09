@@ -1,5 +1,5 @@
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { KypoValidators } from 'kypo-common';
+import { FormControl, FormGroup } from '@angular/forms';
+import { SentinelValidators } from '@sentinel/common';
 import { InfoLevel } from 'kypo-training-model';
 
 /**
@@ -10,8 +10,8 @@ export class InfoLevelEditFormGroup {
 
   constructor(level: InfoLevel) {
     this.formGroup = new FormGroup({
-      title: new FormControl(level.title, KypoValidators.noWhitespace),
-      content: new FormControl(level.content, KypoValidators.noWhitespace),
+      title: new FormControl(level.title, SentinelValidators.noWhitespace),
+      content: new FormControl(level.content, SentinelValidators.noWhitespace),
     });
   }
 

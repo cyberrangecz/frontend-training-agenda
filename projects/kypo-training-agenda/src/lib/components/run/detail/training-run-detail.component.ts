@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { KypoBaseDirective } from 'kypo-common';
+import { SentinelBaseDirective } from '@sentinel/common';
 import { Level } from 'kypo-training-model';
 import { Kypo2AuthService, User } from 'kypo2-auth';
 import { Observable } from 'rxjs';
@@ -18,7 +18,7 @@ import { RunningTrainingRunService } from '../../../services/training-run/runnin
  * Main component of trainees training. Displays window with current level of a training and navigation to the next.
  * Optionally displays stepper with progress of the training and timer counting time from the start of a training.
  */
-export class TrainingRunDetailComponent extends KypoBaseDirective implements OnInit {
+export class TrainingRunDetailComponent extends SentinelBaseDirective implements OnInit {
   user$: Observable<User>;
   activeLevel$: Observable<Level>;
   levels: Level[];

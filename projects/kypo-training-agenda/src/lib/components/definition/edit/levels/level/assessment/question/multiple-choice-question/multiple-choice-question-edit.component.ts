@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { FormArray, FormControl, Validators } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { KypoBaseDirective } from 'kypo-common';
+import { SentinelBaseDirective } from '@sentinel/common';
 import { Question } from 'kypo-training-model';
 import { MultipleChoiceQuestion } from 'kypo-training-model';
 import { takeWhile } from 'rxjs/operators';
@@ -25,7 +25,7 @@ import { MultipleChoiceFormGroup } from './multiple-choice-question-edit-form-gr
   styleUrls: ['./multiple-choice-question-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MultipleChoiceQuestionEditComponent extends KypoBaseDirective implements OnInit, OnChanges {
+export class MultipleChoiceQuestionEditComponent extends SentinelBaseDirective implements OnInit, OnChanges {
   @Input() question: MultipleChoiceQuestion;
   @Input() isTest: boolean;
   @Input() required: boolean;

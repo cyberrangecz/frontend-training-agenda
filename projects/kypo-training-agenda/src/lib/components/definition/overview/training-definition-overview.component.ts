@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { KypoBaseDirective, KypoRequestedPagination } from 'kypo-common';
-import { KypoControlItem } from 'kypo-controls';
+import { SentinelBaseDirective, RequestedPagination } from '@sentinel/common';
+import { SentinelControlItem } from '@sentinel/components/controls';
 import { TrainingDefinition } from 'kypo-training-model';
-import { Kypo2Table, LoadTableEvent, TableActionEvent } from 'kypo2-table';
+import { SentinelTable, LoadTableEvent, TableActionEvent } from '@sentinel/components/table';
 import { Observable } from 'rxjs';
 import { map, take, takeWhile } from 'rxjs/operators';
 import { TrainingDefinitionOverviewControls } from '../../../model/adapters/controls/definition/training-definition-overview-controls';
@@ -19,14 +19,14 @@ import { TrainingDefinitionService } from '../../../services/training-definition
   templateUrl: './training-definition-overview.component.html',
   styleUrls: ['./training-definition-overview.component.css'],
 })
-export class TrainingDefinitionOverviewComponent extends KypoBaseDirective implements OnInit {
+export class TrainingDefinitionOverviewComponent extends SentinelBaseDirective implements OnInit {
   readonly INIT_SORT_NAME = 'lastEdited';
   readonly INIT_SORT_DIR = 'desc';
 
-  trainingDefinitions$: Observable<Kypo2Table<TrainingDefinition>>;
+  trainingDefinitions$: Observable<SentinelTable<TrainingDefinition>>;
   hasError$: Observable<boolean>;
   isLoading$: Observable<boolean>;
-  controls: KypoControlItem[] = [];
+  controls: SentinelControlItem[] = [];
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -56,7 +56,7 @@ export class TrainingDefinitionOverviewComponent extends KypoBaseDirective imple
    * Resolves controls action and calls appropriate handler
    * @param control selected control emitted by controls component
    */
-  onControlsAction(control: KypoControlItem) {
+  onControlsAction(control: SentinelControlItem) {
     control.result$.pipe(take(1)).subscribe();
   }
 
@@ -74,7 +74,7 @@ export class TrainingDefinitionOverviewComponent extends KypoBaseDirective imple
     this.trainingDefinitions$ = this.trainingDefinitionService.resource$.pipe(
       map((resource) => new TrainingDefinitionTable(resource, this.trainingDefinitionService))
     );
-    const initialPagination = new KypoRequestedPagination(
+    const initialPagination = new RequestedPagination(
       0,
       this.context.config.defaultPaginationSize,
       this.INIT_SORT_NAME,

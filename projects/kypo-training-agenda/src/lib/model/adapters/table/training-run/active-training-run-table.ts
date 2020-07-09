@@ -1,7 +1,6 @@
-import { KypoPaginatedResource } from 'kypo-common';
+import { PaginatedResource } from '@sentinel/common';
 import { TrainingRun } from 'kypo-training-model';
-import { Column, Kypo2Table, Row, RowAction } from 'kypo2-table';
-import { DeleteAction } from 'kypo2-table';
+import { Column, SentinelTable, Row, RowAction, DeleteAction } from '@sentinel/components/table';
 import { defer, of } from 'rxjs';
 import { ActiveTrainingRunService } from '../../../../services/training-run/active/active-training-run.service';
 import { TrainingRunRowAdapter } from '../rows/training-run-row-adapter';
@@ -10,8 +9,8 @@ import { TrainingRunRowAdapter } from '../rows/training-run-row-adapter';
  * Helper class transforming paginated resource to class for common table component
  * @dynamic
  */
-export class ActiveTrainingRunTable extends Kypo2Table<TrainingRunRowAdapter> {
-  constructor(resource: KypoPaginatedResource<TrainingRun>, service: ActiveTrainingRunService) {
+export class ActiveTrainingRunTable extends SentinelTable<TrainingRunRowAdapter> {
+  constructor(resource: PaginatedResource<TrainingRun>, service: ActiveTrainingRunService) {
     const columns = [
       new Column('sandboxInstanceId', 'sandbox ID', false),
       new Column('playerName', 'player', false),

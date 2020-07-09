@@ -1,13 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
-import { asyncData } from 'kypo-common';
+import { asyncData } from '@sentinel/common';
 import { TrainingDefinitionApi } from 'kypo-training-api';
 import { TrainingDefinition, TrainingDefinitionStateEnum } from 'kypo-training-model';
-import { Kypo2AuthModule, Kypo2AuthService } from 'kypo2-auth';
-import { Kypo2UserApi } from 'kypo2-auth/lib/service/kypo2-user-api.service';
+import { Kypo2AuthService } from 'kypo2-auth';
 import { throwError } from 'rxjs';
-import { TrainingAgendaConfig } from '../../../model/client/training-agenda-config';
 import { TrainingDefinitionChangeEvent } from '../../../model/events/training-definition-change-event';
 import {
   createAuthSpy,
@@ -22,7 +19,6 @@ import { TrainingErrorHandler } from '../../client/training-error.handler.servic
 import { TrainingNavigator } from '../../client/training-navigator.service';
 import { TrainingNotificationService } from '../../client/training-notification.service';
 import { TrainingAgendaContext } from '../../internal/training-agenda-context.service';
-import { TRAINING_DEFINITION_NEW_PATH } from './../../../model/client/default-paths';
 import { TrainingDefinitionEditConcreteService } from './training-definition-edit-concrete.service';
 
 describe('TrainingDefinitionEditConcreteService', () => {

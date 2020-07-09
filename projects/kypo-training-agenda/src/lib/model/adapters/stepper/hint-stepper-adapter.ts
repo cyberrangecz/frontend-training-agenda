@@ -1,5 +1,5 @@
 import { Hint } from 'kypo-training-model';
-import { StepItem, StepperItemState } from 'kypo2-stepper';
+import { StepItem, StepperItemState } from '@sentinel/components/stepper';
 
 export class HintStepperAdapter implements StepItem {
   private _hint: Hint;

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { KypoPaginatedResource, KypoRequestedPagination } from 'kypo-common';
+import { PaginatedResource, RequestedPagination } from '@sentinel/common';
 import { PoolApi } from 'kypo-sandbox-api';
 import { Pool } from 'kypo-sandbox-model';
 import { TrainingInstanceApi } from 'kypo-training-api';
@@ -12,7 +12,7 @@ import { PoolAssignService } from './pool-assign.service';
 
 @Injectable()
 export class PoolAssignConcreteService extends PoolAssignService {
-  private lastPagination: KypoRequestedPagination;
+  private lastPagination: RequestedPagination;
 
   constructor(
     private errorHandler: TrainingErrorHandler,
@@ -27,7 +27,7 @@ export class PoolAssignConcreteService extends PoolAssignService {
     this.assignedPoolSubject$.next(trainingInstance.poolId);
   }
 
-  getAll(requestedPagination: KypoRequestedPagination): Observable<KypoPaginatedResource<Pool>> {
+  getAll(requestedPagination: RequestedPagination): Observable<PaginatedResource<Pool>> {
     this.lastPagination = requestedPagination;
     this.isLoadingSubject$.next(true);
     this.hasErrorSubject$.next(false);

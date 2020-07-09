@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { KypoBaseDirective } from 'kypo-common';
+import { SentinelBaseDirective } from '@sentinel/common';
 import { AbstractLevelTypeEnum } from 'kypo-training-model';
 import { Level } from 'kypo-training-model';
 
@@ -12,7 +12,7 @@ import { Level } from 'kypo-training-model';
   styleUrls: ['./abstract-level-edit.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AbstractLevelEditComponent extends KypoBaseDirective implements OnInit {
+export class AbstractLevelEditComponent extends SentinelBaseDirective implements OnInit {
   @Input() level: Level;
   @Output() levelChange: EventEmitter<Level> = new EventEmitter();
   levelTypes = AbstractLevelTypeEnum;

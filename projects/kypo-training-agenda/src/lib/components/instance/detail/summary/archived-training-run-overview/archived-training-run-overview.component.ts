@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { KypoBaseDirective } from 'kypo-common';
-import { KypoControlItem } from 'kypo-controls';
+import { SentinelBaseDirective } from '@sentinel/common';
+import { SentinelControlItem } from '@sentinel/components/controls';
 import { TrainingRun } from 'kypo-training-model';
-import { Kypo2Table, LoadTableEvent, TableActionEvent } from 'kypo2-table';
+import { SentinelTable, LoadTableEvent, TableActionEvent } from '@sentinel/components/table';
 import { TrainingRunRowAdapter } from '../../../../../model/adapters/table/rows/training-run-row-adapter';
 /**
  * Component for displaying archived (finished by trainee and with sandbox removed) training runs for organizer in real-time.
@@ -13,15 +13,15 @@ import { TrainingRunRowAdapter } from '../../../../../model/adapters/table/rows/
   styleUrls: ['./archived-training-run-overview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ArchivedTrainingRunOverviewComponent extends KypoBaseDirective implements OnInit {
-  @Input() trainingRuns: Kypo2Table<TrainingRun>;
+export class ArchivedTrainingRunOverviewComponent extends SentinelBaseDirective implements OnInit {
+  @Input() trainingRuns: SentinelTable<TrainingRun>;
   @Input() hasError: boolean;
-  @Input() controls: KypoControlItem[];
+  @Input() controls: SentinelControlItem[];
 
   @Output() tableAction: EventEmitter<TableActionEvent<TrainingRun>> = new EventEmitter();
   @Output() loadTableEvent: EventEmitter<LoadTableEvent> = new EventEmitter();
   @Output() selectionChange: EventEmitter<TrainingRun[]> = new EventEmitter();
-  @Output() controlsAction: EventEmitter<KypoControlItem> = new EventEmitter();
+  @Output() controlsAction: EventEmitter<SentinelControlItem> = new EventEmitter();
 
   ngOnInit() {}
 
@@ -29,7 +29,7 @@ export class ArchivedTrainingRunOverviewComponent extends KypoBaseDirective impl
    * Emits table action event
    * @param event action event emitted from table
    */
-  onTableAction(event: TableActionEvent<TrainingRunRowAdapter>) {
+  onTableAction(event: TableActionEvent<TrainingRun>) {
     this.tableAction.emit(event);
   }
 
@@ -53,7 +53,7 @@ export class ArchivedTrainingRunOverviewComponent extends KypoBaseDirective impl
    * Emits control action event
    * @param controlItem clicked control item
    */
-  onControlsAction(controlItem: KypoControlItem) {
+  onControlsAction(controlItem: SentinelControlItem) {
     this.controlsAction.emit(controlItem);
   }
 }

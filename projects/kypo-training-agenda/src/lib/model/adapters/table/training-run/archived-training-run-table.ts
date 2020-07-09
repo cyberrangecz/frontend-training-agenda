@@ -1,7 +1,6 @@
-import { KypoPaginatedResource } from 'kypo-common';
+import { PaginatedResource } from '@sentinel/common';
 import { TrainingRun } from 'kypo-training-model';
-import { Column, Kypo2Table, Row, RowAction } from 'kypo2-table';
-import { DeleteAction } from 'kypo2-table';
+import { Column, SentinelTable, Row, RowAction, DeleteAction } from '@sentinel/components/table';
 import { defer, of } from 'rxjs';
 import { ArchivedTrainingRunService } from '../../../../services/training-run/archived/archived-training-run.service';
 import { TrainingRunRowAdapter } from '../rows/training-run-row-adapter';
@@ -9,8 +8,8 @@ import { TrainingRunRowAdapter } from '../rows/training-run-row-adapter';
 /**
  * @dynamic
  */
-export class ArchivedTrainingRunTable extends Kypo2Table<TrainingRunRowAdapter> {
-  constructor(resource: KypoPaginatedResource<TrainingRun>, service: ArchivedTrainingRunService) {
+export class ArchivedTrainingRunTable extends SentinelTable<TrainingRunRowAdapter> {
+  constructor(resource: PaginatedResource<TrainingRun>, service: ArchivedTrainingRunService) {
     const columns = [new Column('playerName', 'player', false), new Column('state', 'training run state', false)];
     const rows = resource.elements.map((element) => ArchivedTrainingRunTable.createRow(element, service));
     super(rows, columns);

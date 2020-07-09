@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { KypoBaseDirective } from 'kypo-common';
+import { SentinelBaseDirective } from '@sentinel/common';
 import { Observable } from 'rxjs';
 import { FileUploadProgressService } from '../../../../services/training-definition/overview/file-upload-progress.service';
 
@@ -12,7 +12,7 @@ import { FileUploadProgressService } from '../../../../services/training-definit
   templateUrl: './training-definition-upload-dialog.component.html',
   styleUrls: ['./training-definition-upload-dialog.component.css'],
 })
-export class TrainingDefinitionUploadDialogComponent extends KypoBaseDirective implements OnInit {
+export class TrainingDefinitionUploadDialogComponent extends SentinelBaseDirective implements OnInit {
   selectedFile: File;
   uploadInProgress$: Observable<boolean>;
   onUpload$ = new EventEmitter<File>();

@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, Inject, OnInit, Optional } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { KypoBaseDirective, KypoRequestedPagination } from 'kypo-common';
-import { KypoPaginatedResource } from 'kypo-common';
+import { SentinelBaseDirective, RequestedPagination, PaginatedResource } from '@sentinel/common';
 import { TrainingDefinition } from 'kypo-training-model';
 import { TrainingDefinitionInfo } from 'kypo-training-model';
 import { merge, Observable } from 'rxjs';
@@ -22,12 +21,12 @@ import { TrainingDefinitionOrganizerSelectConcreteService } from '../../../../se
     { provide: 'unreleasedService', useClass: TrainingDefinitionOrganizerSelectConcreteService },
   ],
 })
-export class TrainingDefinitionSelectComponent extends KypoBaseDirective implements OnInit {
+export class TrainingDefinitionSelectComponent extends SentinelBaseDirective implements OnInit {
   readonly PAGE_SIZE;
 
-  released$: Observable<KypoPaginatedResource<TrainingDefinitionInfo>>;
+  released$: Observable<PaginatedResource<TrainingDefinitionInfo>>;
   releasedHasError$: Observable<boolean>;
-  unreleased$: Observable<KypoPaginatedResource<TrainingDefinitionInfo>>;
+  unreleased$: Observable<PaginatedResource<TrainingDefinitionInfo>>;
   unreleasedHasError$: Observable<boolean>;
   isLoading$: Observable<boolean>;
   selected: TrainingDefinitionInfo[] = [];
@@ -45,7 +44,7 @@ export class TrainingDefinitionSelectComponent extends KypoBaseDirective impleme
   }
 
   ngOnInit() {
-    const pagination = new KypoRequestedPagination(0, this.PAGE_SIZE, 'title', 'asc');
+    const pagination = new RequestedPagination(0, this.PAGE_SIZE, 'title', 'asc');
     this.released$ = this.releasedService.resource$;
     this.releasedHasError$ = this.releasedService.hasError$;
     this.unreleased$ = this.unreleasedService.resource$;
@@ -66,7 +65,7 @@ export class TrainingDefinitionSelectComponent extends KypoBaseDirective impleme
    * @param pagination requested pagination
    * @param released true if released training definitions should be fetched, false if unreleased
    */
-  fetch(pagination: KypoRequestedPagination, released: boolean) {
+  fetch(pagination: RequestedPagination, released: boolean) {
     if (released) {
       this.releasedService
         .getAll(pagination, 'RELEASED')

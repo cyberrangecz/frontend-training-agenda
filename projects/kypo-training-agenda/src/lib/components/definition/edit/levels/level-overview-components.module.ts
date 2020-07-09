@@ -2,9 +2,9 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDividerModule } from '@angular/material/divider';
-import { KypoPipesModule } from 'kypo-common';
-import { KypoControlsModule } from 'kypo-controls';
-import { Kypo2StepperModule } from 'kypo2-stepper';
+import { SentinelPipesModule } from '@sentinel/common';
+import { SentinelControlsModule } from '@sentinel/components/controls';
+import { SentinelStepperModule } from '@sentinel/components/stepper';
 import { LevelEditConcreteService } from '../../../../services/training-definition/edit/level-edit-concrete.service';
 import { LevelEditService } from '../../../../services/training-definition/edit/level-edit.service';
 import { FreeFormModule } from '../../../shared/free-form.module';
@@ -19,13 +19,13 @@ import { TrainingLevelStepperComponent } from './stepper/training-level-stepper.
   imports: [
     CommonModule,
     FormsModule,
-    KypoPipesModule,
+    SentinelPipesModule,
     LevelEditComponentsModule,
     ReactiveFormsModule,
     FreeFormModule,
-    Kypo2StepperModule,
+    SentinelStepperModule,
     MatDividerModule,
-    KypoControlsModule,
+    SentinelControlsModule,
   ],
   declarations: [TrainingLevelStepperComponent, LevelOverviewComponent],
   providers: [{ provide: LevelEditService, useClass: LevelEditConcreteService }],

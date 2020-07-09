@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import {
-  CsirtMuConfirmationDialogComponent,
-  CsirtMuConfirmationDialogConfig,
-  CsirtMuDialogResultEnum,
-} from 'csirt-mu-common';
-import { KypoPaginatedResource } from 'kypo-common';
-import { KypoRequestedPagination } from 'kypo-common';
+  SentinelConfirmationDialogComponent,
+  SentinelConfirmationDialogConfig,
+  SentinelDialogResultEnum,
+} from '@sentinel/components/dialogs';
+import { PaginatedResource, RequestedPagination } from '@sentinel/common';
 import { SandboxAllocationUnitsApi, SandboxInstanceApi } from 'kypo-sandbox-api';
 import { SandboxInstance } from 'kypo-sandbox-model';
 import { TrainingInstanceApi, TrainingRunApi } from 'kypo-training-api';
@@ -44,10 +43,7 @@ export class ActiveTrainingRunConcreteService extends ActiveTrainingRunService {
    * @param trainingInstanceId which active training runs should be requested
    * @param pagination requested pagination
    */
-  getAll(
-    trainingInstanceId: number,
-    pagination: KypoRequestedPagination
-  ): Observable<KypoPaginatedResource<TrainingRun>> {
+  getAll(trainingInstanceId: number, pagination: RequestedPagination): Observable<PaginatedResource<TrainingRun>> {
     this.onManualResourceRefresh(pagination, trainingInstanceId);
     return this.trainingInstanceApi.getAssociatedTrainingRuns(trainingInstanceId, pagination).pipe(
       tap(
@@ -68,7 +64,7 @@ export class ActiveTrainingRunConcreteService extends ActiveTrainingRunService {
     if (trainingRun.hasPlayer() && trainingRun.isRunning()) {
       return this.displayDeleteSandboxDialog(trainingRun).pipe(
         switchMap((result) =>
-          result === CsirtMuDialogResultEnum.CONFIRMED ? this.callApiToDeleteSandbox(trainingRun) : EMPTY
+          result === SentinelDialogResultEnum.CONFIRMED ? this.callApiToDeleteSandbox(trainingRun) : EMPTY
         )
       );
     } else {
@@ -86,21 +82,21 @@ export class ActiveTrainingRunConcreteService extends ActiveTrainingRunService {
     );
   }
 
-  protected refreshResource(): Observable<KypoPaginatedResource<TrainingRun>> {
+  protected refreshResource(): Observable<PaginatedResource<TrainingRun>> {
     this.hasErrorSubject$.next(false);
     return this.trainingInstanceApi
       .getAssociatedTrainingRuns(this.lastTrainingInstanceId, this.lastPagination)
       .pipe(tap({ error: (err) => this.onGetAllError() }));
   }
 
-  protected onManualResourceRefresh(pagination: KypoRequestedPagination, ...params) {
+  protected onManualResourceRefresh(pagination: RequestedPagination, ...params) {
     super.onManualResourceRefresh(pagination, ...params);
     this.lastTrainingInstanceId = params[0];
   }
 
-  private displayDeleteSandboxDialog(trainingRun: TrainingRun): Observable<CsirtMuDialogResultEnum> {
-    const dialogRef = this.dialog.open(CsirtMuConfirmationDialogComponent, {
-      data: new CsirtMuConfirmationDialogConfig(
+  private displayDeleteSandboxDialog(trainingRun: TrainingRun): Observable<SentinelDialogResultEnum> {
+    const dialogRef = this.dialog.open(SentinelConfirmationDialogComponent, {
+      data: new SentinelConfirmationDialogConfig(
         'Delete Sandbox Instance',
         `Do you want to delete sandbox instance of player "${trainingRun?.player?.name}"?`,
         'Cancel',
@@ -110,7 +106,7 @@ export class ActiveTrainingRunConcreteService extends ActiveTrainingRunService {
     return dialogRef.afterClosed();
   }
 
-  private callApiToDeleteSandbox(trainingRun: TrainingRun): Observable<KypoPaginatedResource<TrainingRun>> {
+  private callApiToDeleteSandbox(trainingRun: TrainingRun): Observable<PaginatedResource<TrainingRun>> {
     let sandboxToDelete: SandboxInstance;
     return this.sandboxApi.getSandbox(trainingRun.sandboxInstanceId).pipe(
       tap((sandbox) => (sandboxToDelete = sandbox)),

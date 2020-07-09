@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { KypoRequestedPagination } from 'kypo-common';
-import { KypoPaginatedResource } from 'kypo-common';
+import { RequestedPagination, PaginatedResource } from '@sentinel/common';
 import { PoolApi } from 'kypo-sandbox-api';
 import { TrainingInstanceApi } from 'kypo-training-api';
 import { TrainingInstance } from 'kypo-training-model';
@@ -16,7 +15,7 @@ import { TrainingInstanceOverviewService } from './training-instance-overview.se
 
 @Injectable()
 export class TrainingInstanceOverviewConcreteService extends TrainingInstanceOverviewService {
-  private lastPagination: KypoRequestedPagination;
+  private lastPagination: RequestedPagination;
   private lastFilter: string;
 
   constructor(
@@ -31,10 +30,7 @@ export class TrainingInstanceOverviewConcreteService extends TrainingInstanceOve
     super(context.config.defaultPaginationSize);
   }
 
-  getAll(
-    pagination: KypoRequestedPagination,
-    filter: string = null
-  ): Observable<KypoPaginatedResource<TrainingInstance>> {
+  getAll(pagination: RequestedPagination, filter: string = null): Observable<PaginatedResource<TrainingInstance>> {
     this.lastPagination = pagination;
     this.lastFilter = filter;
     this.hasErrorSubject$.next(false);

@@ -5,7 +5,7 @@ import { FreeFormMaterialModule } from './free-form-material.module';
 import { FreeFormComponent } from './free-form/free-form.component';
 
 /**
- * Module wrapping collection of services and components shared across the application
+ * Free form component module
  */
 @NgModule({
   imports: [CommonModule, FormsModule, FreeFormMaterialModule, ReactiveFormsModule],

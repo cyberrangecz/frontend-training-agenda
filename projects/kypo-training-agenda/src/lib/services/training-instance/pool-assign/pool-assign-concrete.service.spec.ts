@@ -1,14 +1,10 @@
 import { async, TestBed } from '@angular/core/testing';
-import { asyncData, KypoRequestedPagination } from 'kypo-common';
-import { KypoPaginatedResource } from 'kypo-common';
-import { KypoPagination } from 'kypo-common';
+import { asyncData, RequestedPagination, PaginatedResource, SentinelPagination } from '@sentinel/common';
 import { PoolApi } from 'kypo-sandbox-api';
 import { Pool } from 'kypo-sandbox-model';
-import { TrainingInstanceApi, UserApi } from 'kypo-training-api';
+import { TrainingInstanceApi } from 'kypo-training-api';
 import { TrainingInstance } from 'kypo-training-model';
-import { User } from 'kypo2-auth';
 import { throwError } from 'rxjs';
-import { TrainingAgendaConfig } from '../../../model/client/training-agenda-config';
 import {
   createContext,
   createErrorHandlerSpy,
@@ -149,7 +145,7 @@ describe('PoolAssignConcreteService', () => {
   });
 
   function createPagination() {
-    return new KypoRequestedPagination(1, 5, '', '');
+    return new RequestedPagination(1, 5, '', '');
   }
 
   function createInstanceMock(): TrainingInstance {
@@ -159,12 +155,12 @@ describe('PoolAssignConcreteService', () => {
     return trainingInstance;
   }
 
-  function createPoolsPaginatedMock(): KypoPaginatedResource<Pool> {
+  function createPoolsPaginatedMock(): PaginatedResource<Pool> {
     const pool1 = new Pool();
     pool1.id = 0;
     const pool2 = new Pool();
     pool2.id = 1;
-    return new KypoPaginatedResource([pool1, pool2], new KypoPagination(1, 2, 2, 2, 1));
+    return new PaginatedResource([pool1, pool2], new SentinelPagination(1, 2, 2, 2, 1));
   }
 
   function createPoolMock(): Pool {

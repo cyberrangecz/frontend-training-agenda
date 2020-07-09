@@ -1,15 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CsirtMuDialogResultEnum } from 'csirt-mu-common';
-import { asyncData } from 'kypo-common';
+import { SentinelDialogResultEnum } from '@sentinel/components/dialogs';
+import { asyncData } from '@sentinel/common';
 import { GameLevel, Hint } from 'kypo-training-model';
 import { of } from 'rxjs';
-import { TrainingAgendaConfig } from '../../../model/client/training-agenda-config';
 import { createContext, createDialogSpy, createRunningTrainingRunServiceSpy } from '../../../testing/testing-commons';
 import { TrainingAgendaContext } from '../../internal/training-agenda-context.service';
 import { RunningTrainingRunService } from '../../training-run/running/running-training-run.service';
-import { TrainingRunGameLevelService } from '../../training-run/running/training-run-game-level.service';
 import { PreviewGameLevelService } from './preview-game-level.service';
 
 describe('PreviewGameLevelService', () => {
@@ -40,7 +38,7 @@ describe('PreviewGameLevelService', () => {
   });
 
   it('should reveal solution', () => {
-    const dialogRefSpyObj = jasmine.createSpyObj({ afterClosed: of(CsirtMuDialogResultEnum.CONFIRMED), close: null });
+    const dialogRefSpyObj = jasmine.createSpyObj({ afterClosed: of(SentinelDialogResultEnum.CONFIRMED), close: null });
     dialogSpy.open.and.returnValue(dialogRefSpyObj);
     const gameLevel = createMock();
     service.init(gameLevel);
@@ -51,7 +49,7 @@ describe('PreviewGameLevelService', () => {
   });
 
   it('should reveal hint', () => {
-    const dialogRefSpyObj = jasmine.createSpyObj({ afterClosed: of(CsirtMuDialogResultEnum.CONFIRMED), close: null });
+    const dialogRefSpyObj = jasmine.createSpyObj({ afterClosed: of(SentinelDialogResultEnum.CONFIRMED), close: null });
     dialogSpy.open.and.returnValue(dialogRefSpyObj);
     const gameLevel = createMock();
     service.init(gameLevel);
@@ -74,14 +72,14 @@ describe('PreviewGameLevelService', () => {
   });
 
   it('should submit wrong flag', () => {
-    const dialogRefSpyObj = jasmine.createSpyObj({ afterClosed: of(CsirtMuDialogResultEnum.CONFIRMED), close: null });
+    const dialogRefSpyObj = jasmine.createSpyObj({ afterClosed: of(SentinelDialogResultEnum.CONFIRMED), close: null });
     dialogSpy.open.and.returnValue(dialogRefSpyObj);
     const flag = 'wrong flag';
     const gameLevel = createMock();
     service.init(gameLevel);
     service.submitFlag(flag).subscribe((res) => {
       expect(res).toBeTruthy();
-      expect(res).toEqual(CsirtMuDialogResultEnum.CONFIRMED);
+      expect(res).toEqual(SentinelDialogResultEnum.CONFIRMED);
     });
   });
 

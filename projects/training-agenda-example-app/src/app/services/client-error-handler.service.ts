@@ -1,21 +1,21 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
-  CsirtMuNotification,
-  CsirtMuNotificationResult,
-  CsirtMuNotificationService,
-  CsirtMuNotificationTypeEnum,
-} from 'csirt-mu-layout';
+  SentinelNotification,
+  SentinelNotificationResult,
+  SentinelNotificationService,
+  SentinelNotificationTypeEnum,
+} from '@sentinel/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable()
 export class ClientErrorHandlerService {
-  constructor(private notificationService: CsirtMuNotificationService) {}
+  constructor(private notificationService: SentinelNotificationService) {}
 
   emit(err: HttpErrorResponse, operation: string, action?: string): Observable<boolean> {
-    const notification: CsirtMuNotification = {
-      type: CsirtMuNotificationTypeEnum.Error,
+    const notification: SentinelNotification = {
+      type: SentinelNotificationTypeEnum.Error,
       title: operation,
       source: 'Training Agenda',
     };
@@ -25,6 +25,6 @@ export class ClientErrorHandlerService {
     notification.additionalInfo = [err?.error?.message];
     return this.notificationService
       .emit(notification)
-      .pipe(map((result) => result === CsirtMuNotificationResult.CONFIRMED));
+      .pipe(map((result) => result === SentinelNotificationResult.CONFIRMED));
   }
 }

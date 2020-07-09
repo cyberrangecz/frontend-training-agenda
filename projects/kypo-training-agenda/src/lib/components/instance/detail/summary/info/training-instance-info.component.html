@@ -1,9 +1,9 @@
-<h2>{{ trainingInstance?.title | kypoShortString: 30}}</h2>
-<h3>of Training Definition: {{ trainingDefinition?.title | kypoShortString: 30 }}</h3>
+<h2>{{ trainingInstance?.title | sentinelShortString: 30}}</h2>
+<h3>of Training Definition: {{ trainingDefinition?.title | sentinelShortString: 30 }}</h3>
 <p>{{ trainingDefinition.description }}</p>
 <p>Access token: <a [routerLink]="accessTokenLink">{{ trainingInstance.accessToken }}</a></p>
-<p>Start Time: {{ trainingInstance.startTime | kypoDateTimeFormat }}</p>
-<p>End Time: {{ trainingInstance.endTime | kypoDateTimeFormat }}</p>
+<p>Start Time: {{ trainingInstance.startTime | sentinelDateTimeFormat }}</p>
+<p>End Time: {{ trainingInstance.endTime | sentinelDateTimeFormat }}</p>
 <p>Pool: <a *ngIf="hasPool else noPool" [routerLink]="poolIdLink">Pool {{ trainingInstance.poolId }}</a></p>
 
 <ng-template #noPool>

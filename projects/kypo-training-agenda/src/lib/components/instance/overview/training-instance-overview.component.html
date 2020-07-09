@@ -1,11 +1,11 @@
 <div class="content">
-  <kypo-controls [controls]="controls" (itemClicked)="onControlAction($event)"></kypo-controls>
-  <kypo2-table
+  <sentinel-controls [controls]="controls" (itemClicked)="onControlAction($event)"></sentinel-controls>
+  <sentinel-table
     [defaultSortName]="INITIAL_SORT_NAME"
     [defaultSortDirection]="INITIAL_SORT_DIR"
     [data]="instances$ | async"
     [hasError]="hasError$ | async"
     (rowAction)="onInstanceAction($event)"
     (refresh)="onInstancesLoadEvent($event)">
-  </kypo2-table>
+  </sentinel-table>
 </div>

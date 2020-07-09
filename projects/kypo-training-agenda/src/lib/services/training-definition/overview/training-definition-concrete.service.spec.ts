@@ -1,13 +1,17 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { RouterTestingModule } from '@angular/router/testing';
-import { CsirtMuConfirmationDialogComponent, CsirtMuDialogResultEnum } from 'csirt-mu-common';
-import { asyncData, KypoFilter, KypoPaginatedResource, KypoPagination, KypoRequestedPagination } from 'kypo-common';
+import { SentinelDialogResultEnum } from '@sentinel/components/dialogs';
+import {
+  asyncData,
+  SentinelFilter,
+  PaginatedResource,
+  SentinelPagination,
+  RequestedPagination,
+} from '@sentinel/common';
 import { TrainingDefinitionApi } from 'kypo-training-api';
 import { TrainingDefinition, TrainingDefinitionStateEnum } from 'kypo-training-model';
-import { Observable, of, throwError } from 'rxjs';
-import { TrainingAgendaConfig } from '../../../model/client/training-agenda-config';
+import { of, throwError } from 'rxjs';
 import {
   createContext,
   createDialogSpy,
@@ -78,7 +82,7 @@ describe('TrainingDefinitionConcreteService', () => {
       (_) => fail
     );
     expect(apiSpy.getAll).toHaveBeenCalledTimes(1);
-    expect(apiSpy.getAll).toHaveBeenCalledWith(createPagination(), [new KypoFilter('title', 'filter')]);
+    expect(apiSpy.getAll).toHaveBeenCalledWith(createPagination(), [new SentinelFilter('title', 'filter')]);
   });
 
   it('should emit error when get all training definitions fails', (done) => {
@@ -91,7 +95,7 @@ describe('TrainingDefinitionConcreteService', () => {
       }
     );
     expect(apiSpy.getAll).toHaveBeenCalledTimes(1);
-    expect(apiSpy.getAll).toHaveBeenCalledWith(createPagination(), [new KypoFilter('title', 'filter')]);
+    expect(apiSpy.getAll).toHaveBeenCalledWith(createPagination(), [new SentinelFilter('title', 'filter')]);
   });
 
   it('should redirects to training definition creation page', (done) => {
@@ -124,7 +128,7 @@ describe('TrainingDefinitionConcreteService', () => {
   it('should delete level', (done) => {
     apiSpy.delete.and.returnValue(asyncData(null));
     apiSpy.getAll.and.returnValue(asyncData(createPaginatedMock()));
-    const dialogRefSpyObj = jasmine.createSpyObj({ afterClosed: of(CsirtMuDialogResultEnum.CONFIRMED), close: null });
+    const dialogRefSpyObj = jasmine.createSpyObj({ afterClosed: of(SentinelDialogResultEnum.CONFIRMED), close: null });
     dialogSpy.open.and.returnValue(dialogRefSpyObj);
     service.delete(createMock()[1]).subscribe(
       (res) => {
@@ -141,7 +145,7 @@ describe('TrainingDefinitionConcreteService', () => {
   it('should emit error when delete level fails', (done) => {
     apiSpy.delete.and.returnValue(throwError(null));
     apiSpy.getAll.and.returnValue(asyncData(createPaginatedMock()));
-    const dialogRefSpyObj = jasmine.createSpyObj({ afterClosed: of(CsirtMuDialogResultEnum.CONFIRMED), close: null });
+    const dialogRefSpyObj = jasmine.createSpyObj({ afterClosed: of(SentinelDialogResultEnum.CONFIRMED), close: null });
     dialogSpy.open.and.returnValue(dialogRefSpyObj);
     service.delete(createMock()[1]).subscribe(
       (_) => fail,
@@ -206,7 +210,7 @@ describe('TrainingDefinitionConcreteService', () => {
   it('should change state of training definition', (done) => {
     apiSpy.changeState.and.returnValue(asyncData(1));
     const trainingDefinition = createMock()[1];
-    const dialogRefSpyObj = jasmine.createSpyObj({ afterClosed: of(CsirtMuDialogResultEnum.CONFIRMED), close: null });
+    const dialogRefSpyObj = jasmine.createSpyObj({ afterClosed: of(SentinelDialogResultEnum.CONFIRMED), close: null });
     dialogSpy.open.and.returnValue(dialogRefSpyObj);
     service.changeState(trainingDefinition, TrainingDefinitionStateEnum.Archived).subscribe(
       (res) => {
@@ -222,7 +226,7 @@ describe('TrainingDefinitionConcreteService', () => {
   it('should emit error when change state of training definition fails', (done) => {
     apiSpy.changeState.and.returnValue(throwError(null));
     const trainingDefinition = createMock()[1];
-    const dialogRefSpyObj = jasmine.createSpyObj({ afterClosed: of(CsirtMuDialogResultEnum.CONFIRMED), close: null });
+    const dialogRefSpyObj = jasmine.createSpyObj({ afterClosed: of(SentinelDialogResultEnum.CONFIRMED), close: null });
     dialogSpy.open.and.returnValue(dialogRefSpyObj);
     service.changeState(trainingDefinition, TrainingDefinitionStateEnum.Archived).subscribe(
       (_) => fail,
@@ -251,11 +255,11 @@ describe('TrainingDefinitionConcreteService', () => {
     return [def1, def2, def3];
   }
 
-  function createPaginatedMock(): KypoPaginatedResource<TrainingDefinition> {
-    return new KypoPaginatedResource<TrainingDefinition>(createMock(), new KypoPagination(1, 3, 3, 3, 1));
+  function createPaginatedMock(): PaginatedResource<TrainingDefinition> {
+    return new PaginatedResource<TrainingDefinition>(createMock(), new SentinelPagination(1, 3, 3, 3, 1));
   }
 
   function createPagination() {
-    return new KypoRequestedPagination(1, 3, '', '');
+    return new RequestedPagination(1, 3, '', '');
   }
 });

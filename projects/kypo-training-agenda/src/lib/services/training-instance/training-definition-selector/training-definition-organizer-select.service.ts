@@ -1,8 +1,8 @@
-import { KypoPaginatedResource, KypoPaginatedResourceService, KypoRequestedPagination } from 'kypo-common';
+import { PaginatedResource, PaginatedResourceService, RequestedPagination } from '@sentinel/common';
 import { TrainingDefinitionInfo } from 'kypo-training-model';
 import { Observable } from 'rxjs';
 
-export abstract class TrainingDefinitionOrganizerSelectService extends KypoPaginatedResourceService<
+export abstract class TrainingDefinitionOrganizerSelectService extends PaginatedResourceService<
   TrainingDefinitionInfo
 > {
   /**
@@ -11,7 +11,7 @@ export abstract class TrainingDefinitionOrganizerSelectService extends KypoPagin
    * @param stateFilter filter (state attribute) which should be applied to requested training definitions
    */
   abstract getAll(
-    pagination: KypoRequestedPagination,
+    pagination: RequestedPagination,
     stateFilter: string
-  ): Observable<KypoPaginatedResource<TrainingDefinitionInfo>>;
+  ): Observable<PaginatedResource<TrainingDefinitionInfo>>;
 }

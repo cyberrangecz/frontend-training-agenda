@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { KypoBaseDirective } from 'kypo-common';
-import { KypoControlItem } from 'kypo-controls';
+import { SentinelBaseDirective } from '@sentinel/common';
+import { SentinelControlItem } from '@sentinel/components/controls';
 import { TrainingInstance } from 'kypo-training-model';
 import { Observable } from 'rxjs';
 import { map, take, takeWhile, tap } from 'rxjs/operators';
@@ -20,7 +20,7 @@ import { TrainingInstanceEditService } from '../../../services/training-instance
   styleUrls: ['./training-instance-edit-overview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TrainingInstanceEditOverviewComponent extends KypoBaseDirective implements OnInit {
+export class TrainingInstanceEditOverviewComponent extends SentinelBaseDirective implements OnInit {
   trainingInstance$: Observable<TrainingInstance>;
   hasStarted$: Observable<boolean>;
   editMode$: Observable<boolean>;
@@ -29,7 +29,7 @@ export class TrainingInstanceEditOverviewComponent extends KypoBaseDirective imp
   canDeactivatePoolAssign = true;
   canDeactivateTIEdit = true;
   defaultPaginationSize: number;
-  controls: KypoControlItem[];
+  controls: SentinelControlItem[];
 
   constructor(
     private router: Router,
@@ -67,7 +67,7 @@ export class TrainingInstanceEditOverviewComponent extends KypoBaseDirective imp
     return this.canDeactivateTIEdit && this.canDeactivateOrganizers;
   }
 
-  onControlsAction(control: KypoControlItem) {
+  onControlsAction(control: SentinelControlItem) {
     this.canDeactivateTIEdit = true;
     control.result$.pipe(take(1)).subscribe();
   }

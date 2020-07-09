@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import {
-  CsirtMuConfirmationDialogComponent,
-  CsirtMuConfirmationDialogConfig,
-  CsirtMuDialogResultEnum,
-} from 'csirt-mu-common';
-import { KypoPaginatedResource } from 'kypo-common';
-import { KypoRequestedPagination } from 'kypo-common';
+  SentinelConfirmationDialogComponent,
+  SentinelConfirmationDialogConfig,
+  SentinelDialogResultEnum,
+} from '@sentinel/components/dialogs';
+import { PaginatedResource, RequestedPagination } from '@sentinel/common';
 import { TrainingRunApi } from 'kypo-training-api';
 import { TrainingInstanceApi } from 'kypo-training-api';
 import { TrainingRun } from 'kypo-training-model';
@@ -41,10 +40,7 @@ export class ArchivedTrainingRunConcreteService extends ArchivedTrainingRunServi
    * @param trainingInstanceId which archived training runs should be requested
    * @param pagination requested pagination
    */
-  getAll(
-    trainingInstanceId: number,
-    pagination: KypoRequestedPagination
-  ): Observable<KypoPaginatedResource<TrainingRun>> {
+  getAll(trainingInstanceId: number, pagination: RequestedPagination): Observable<PaginatedResource<TrainingRun>> {
     this.onManualResourceRefresh(pagination, trainingInstanceId);
     return this.trainingInstanceApi.getAssociatedTrainingRuns(trainingInstanceId, pagination, false).pipe(
       tap(
@@ -61,9 +57,9 @@ export class ArchivedTrainingRunConcreteService extends ArchivedTrainingRunServi
    * as a side effect or handles error
    * @param id of archived training run to delete
    */
-  delete(id: number): Observable<KypoPaginatedResource<TrainingRun>> {
+  delete(id: number): Observable<PaginatedResource<TrainingRun>> {
     return this.displayDialogToDelete().pipe(
-      switchMap((result) => (result === CsirtMuDialogResultEnum.CONFIRMED ? this.callApiToDelete(id) : EMPTY))
+      switchMap((result) => (result === SentinelDialogResultEnum.CONFIRMED ? this.callApiToDelete(id) : EMPTY))
     );
   }
 
@@ -72,22 +68,22 @@ export class ArchivedTrainingRunConcreteService extends ArchivedTrainingRunServi
    * as a side effect or handles error
    * @param idsToDelete ids of archived training run to delete
    */
-  deleteMultiple(idsToDelete: number[]): Observable<KypoPaginatedResource<TrainingRun>> {
+  deleteMultiple(idsToDelete: number[]): Observable<PaginatedResource<TrainingRun>> {
     return this.displayDialogToDelete(true).pipe(
       switchMap((result) =>
-        result === CsirtMuDialogResultEnum.CONFIRMED ? this.callApiToDeleteMultiple(idsToDelete) : EMPTY
+        result === SentinelDialogResultEnum.CONFIRMED ? this.callApiToDeleteMultiple(idsToDelete) : EMPTY
       )
     );
   }
 
-  protected refreshResource(): Observable<KypoPaginatedResource<TrainingRun>> {
+  protected refreshResource(): Observable<PaginatedResource<TrainingRun>> {
     this.hasErrorSubject$.next(false);
     return this.trainingInstanceApi
       .getAssociatedTrainingRuns(this.lastTrainingInstanceId, this.lastPagination, false)
       .pipe(tap({ error: (err) => this.onGetAllError() }));
   }
 
-  protected onManualResourceRefresh(pagination: KypoRequestedPagination, ...params) {
+  protected onManualResourceRefresh(pagination: RequestedPagination, ...params) {
     super.onManualResourceRefresh(pagination, ...params);
     this.lastTrainingInstanceId = params[0];
   }
@@ -96,19 +92,19 @@ export class ArchivedTrainingRunConcreteService extends ArchivedTrainingRunServi
     this.hasErrorSubject$.next(true);
   }
 
-  private displayDialogToDelete(multiple = false): Observable<CsirtMuDialogResultEnum> {
+  private displayDialogToDelete(multiple = false): Observable<SentinelDialogResultEnum> {
     const title = multiple ? 'Delete Training Runs' : 'Delete Training Run';
     const message = multiple
       ? `Do you want to delete the training run?`
       : 'Do you want to delete selected training runs?';
 
-    const dialogRef = this.dialog.open(CsirtMuConfirmationDialogComponent, {
-      data: new CsirtMuConfirmationDialogConfig(title, message, 'Cancel', 'Delete'),
+    const dialogRef = this.dialog.open(SentinelConfirmationDialogComponent, {
+      data: new SentinelConfirmationDialogConfig(title, message, 'Cancel', 'Delete'),
     });
     return dialogRef.afterClosed();
   }
 
-  private callApiToDelete(id: number): Observable<KypoPaginatedResource<TrainingRun>> {
+  private callApiToDelete(id: number): Observable<PaginatedResource<TrainingRun>> {
     return this.trainingRunApi.delete(id).pipe(
       tap({
         error: (err) => this.errorHandler.emit(err, 'Deleting training run'),
@@ -117,7 +113,7 @@ export class ArchivedTrainingRunConcreteService extends ArchivedTrainingRunServi
     );
   }
 
-  private callApiToDeleteMultiple(idsToDelete: number[]): Observable<KypoPaginatedResource<TrainingRun>> {
+  private callApiToDeleteMultiple(idsToDelete: number[]): Observable<PaginatedResource<TrainingRun>> {
     return this.trainingRunApi.deleteMultiple(idsToDelete).pipe(
       tap({
         error: (err) => this.errorHandler.emit(err, 'Deleting training runs'),

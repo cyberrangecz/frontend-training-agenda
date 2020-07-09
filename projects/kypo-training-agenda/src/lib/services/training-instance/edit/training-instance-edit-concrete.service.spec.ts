@@ -1,12 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { asyncData } from 'kypo-common';
+import { asyncData } from '@sentinel/common';
 import { SandboxInstanceApi } from 'kypo-sandbox-api';
 import { TrainingInstanceApi } from 'kypo-training-api';
 import { TrainingInstance } from 'kypo-training-model';
 import { throwError } from 'rxjs';
-import { TrainingAgendaConfig } from '../../../model/client/training-agenda-config';
 import { TrainingInstanceChangeEvent } from '../../../model/events/training-instance-change-event';
 import {
   createContext,
@@ -21,7 +20,6 @@ import { TrainingErrorHandler } from '../../client/training-error.handler.servic
 import { TrainingNavigator } from '../../client/training-navigator.service';
 import { TrainingNotificationService } from '../../client/training-notification.service';
 import { TrainingAgendaContext } from '../../internal/training-agenda-context.service';
-import { RunningTrainingRunConcreteService } from '../../training-run/running/running-training-run-concrete.service';
 import { TrainingInstanceEditConcreteService } from './training-instance-edit-concrete.service';
 
 describe('TrainingInstanceEditConcreteService', () => {

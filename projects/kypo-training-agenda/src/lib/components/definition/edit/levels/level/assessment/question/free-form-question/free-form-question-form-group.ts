@@ -1,5 +1,5 @@
 import { FormArray, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { KypoValidators } from 'kypo-common';
+import { SentinelValidators } from '@sentinel/common';
 import { Question } from 'kypo-training-model';
 import { FreeFormQuestion } from 'kypo-training-model';
 
@@ -12,7 +12,7 @@ export class FreeFormQuestionFormGroup {
   constructor(ffq: FreeFormQuestion) {
     this.formGroup = new FormGroup(
       {
-        title: new FormControl(ffq.title, KypoValidators.noWhitespace),
+        title: new FormControl(ffq.title, SentinelValidators.noWhitespace),
         score: new FormControl(ffq.score, [
           Validators.required,
           Validators.pattern('^[0-9]*$'),
@@ -26,7 +26,7 @@ export class FreeFormQuestionFormGroup {
           Validators.max(Question.MAX_QUESTION_PENALTY),
         ]),
         answers: new FormArray(
-          ffq.correctAnswers.map((answer) => new FormControl(answer, KypoValidators.noWhitespace))
+          ffq.correctAnswers.map((answer) => new FormControl(answer, SentinelValidators.noWhitespace))
         ),
       },
       this.noSelectedAnswers

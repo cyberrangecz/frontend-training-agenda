@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { CsirtMuDialogResultEnum } from 'csirt-mu-common';
+import { SentinelDialogResultEnum } from '@sentinel/components/dialogs';
 import { FlagCheck } from 'kypo-training-model';
 import { GameLevel } from 'kypo-training-model';
 import { Hint } from 'kypo-training-model';
@@ -30,13 +30,13 @@ export class PreviewGameLevelService extends TrainingRunGameLevelService {
 
   revealSolution(level: GameLevel): Observable<string> {
     return this.displayRevealSolutionDialog(level.solutionPenalized).pipe(
-      switchMap((result) => (result === CsirtMuDialogResultEnum.CONFIRMED ? this.takeSolution() : EMPTY))
+      switchMap((result) => (result === SentinelDialogResultEnum.CONFIRMED ? this.takeSolution() : EMPTY))
     );
   }
 
   revealHint(hint: Hint): Observable<Hint> {
     return this.displayTakeHintDialog(hint).pipe(
-      switchMap((result) => (result === CsirtMuDialogResultEnum.CONFIRMED ? this.takeHint(hint) : EMPTY))
+      switchMap((result) => (result === SentinelDialogResultEnum.CONFIRMED ? this.takeHint(hint) : EMPTY))
     );
   }
 

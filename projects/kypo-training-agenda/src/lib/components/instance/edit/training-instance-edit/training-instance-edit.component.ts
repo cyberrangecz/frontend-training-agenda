@@ -9,7 +9,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { KypoBaseDirective } from 'kypo-common';
+import { SentinelBaseDirective } from '@sentinel/common';
 import { TrainingInstance } from 'kypo-training-model';
 import { interval } from 'rxjs';
 import { takeWhile } from 'rxjs/operators';
@@ -26,7 +26,7 @@ import { TrainingInstanceFormGroup } from './training-instance-form-group';
   styleUrls: ['./training-instance-edit.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TrainingInstanceEditComponent extends KypoBaseDirective implements OnInit, OnChanges {
+export class TrainingInstanceEditComponent extends SentinelBaseDirective implements OnInit, OnChanges {
   @Input() trainingInstance: TrainingInstance;
   @Input() hasStarted: boolean;
   @Output() edited: EventEmitter<TrainingInstanceChangeEvent> = new EventEmitter();

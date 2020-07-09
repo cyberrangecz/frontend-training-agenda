@@ -9,9 +9,8 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { KypoBaseDirective } from 'kypo-common';
-import { Kypo2Stepper } from 'kypo2-stepper';
-import { StepperStateChange } from 'kypo2-stepper/lib/component/stepper-state-change';
+import { SentinelBaseDirective } from '@sentinel/common';
+import { SentinelStepper, StepperStateChange } from '@sentinel/components/stepper';
 import { LevelStepperAdapter } from '../../../../../model/adapters/stepper/level-stepper-adapter';
 import { LevelMoveEvent } from '../../../../../model/events/level-move-event';
 
@@ -24,7 +23,7 @@ import { LevelMoveEvent } from '../../../../../model/events/level-move-event';
   styleUrls: ['./training-level-stepper.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TrainingLevelStepperComponent extends KypoBaseDirective implements OnInit, OnChanges {
+export class TrainingLevelStepperComponent extends SentinelBaseDirective implements OnInit, OnChanges {
   @Input() levels: LevelStepperAdapter[];
   @Input() movingInProgress: boolean;
   @Input() activeStep: number;
@@ -32,7 +31,7 @@ export class TrainingLevelStepperComponent extends KypoBaseDirective implements 
   @Output() levelMove: EventEmitter<LevelMoveEvent> = new EventEmitter();
   @Output() initialLevels: EventEmitter<LevelStepperAdapter[]> = new EventEmitter();
 
-  levelStepper: Kypo2Stepper<LevelStepperAdapter> = { items: [] };
+  levelStepper: SentinelStepper<LevelStepperAdapter> = { items: [] };
 
   private previousActiveStep = -1;
 

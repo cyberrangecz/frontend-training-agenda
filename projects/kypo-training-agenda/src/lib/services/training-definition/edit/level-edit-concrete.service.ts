@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import {
-  CsirtMuConfirmationDialogComponent,
-  CsirtMuConfirmationDialogConfig,
-  CsirtMuDialogResultEnum,
-} from 'csirt-mu-common';
+  SentinelConfirmationDialogComponent,
+  SentinelConfirmationDialogConfig,
+  SentinelDialogResultEnum,
+} from '@sentinel/components/dialogs';
 import { TrainingDefinitionApi } from 'kypo-training-api';
 import { Level } from 'kypo-training-model';
 import { AssessmentLevel } from 'kypo-training-model';
 import { GameLevel } from 'kypo-training-model';
 import { InfoLevel } from 'kypo-training-model';
 import { AbstractLevelTypeEnum } from 'kypo-training-model';
-import { BehaviorSubject, EMPTY, Observable } from 'rxjs';
+import { EMPTY, Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { TrainingErrorHandler } from '../../client/training-error.handler.service';
 import { TrainingNotificationService } from '../../client/training-notification.service';
@@ -151,7 +151,7 @@ export class LevelEditConcreteService extends LevelEditService {
   deleteSelected(): Observable<Level[]> {
     const level = this.getSelected();
     return this.displayDialogToDelete(level).pipe(
-      switchMap((result) => (result === CsirtMuDialogResultEnum.CONFIRMED ? this.callApiToDelete(level) : EMPTY))
+      switchMap((result) => (result === SentinelDialogResultEnum.CONFIRMED ? this.callApiToDelete(level) : EMPTY))
     );
   }
 
@@ -211,9 +211,9 @@ export class LevelEditConcreteService extends LevelEditService {
     );
   }
 
-  private displayDialogToDelete(level: Level): Observable<CsirtMuDialogResultEnum> {
-    const dialogRef = this.dialog.open(CsirtMuConfirmationDialogComponent, {
-      data: new CsirtMuConfirmationDialogConfig(
+  private displayDialogToDelete(level: Level): Observable<SentinelDialogResultEnum> {
+    const dialogRef = this.dialog.open(SentinelConfirmationDialogComponent, {
+      data: new SentinelConfirmationDialogConfig(
         'Delete Level',
         `Do you want to delete level "${level.title}"?`,
         'Cancel',

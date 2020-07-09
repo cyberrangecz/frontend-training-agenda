@@ -1,8 +1,7 @@
 import { async, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { asyncData } from 'kypo-common';
+import { asyncData } from '@sentinel/common';
 import { TrainingInstance } from 'kypo-training-model';
-import { TrainingAgendaConfig } from '../../../model/client/training-agenda-config';
 import { createContext, createNavigatorSpy, createRouterSpy } from '../../../testing/testing-commons';
 import { TrainingNavigator } from '../../client/training-navigator.service';
 import { TrainingAgendaContext } from '../../internal/training-agenda-context.service';

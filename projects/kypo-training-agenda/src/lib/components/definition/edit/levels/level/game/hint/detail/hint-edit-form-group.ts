@@ -1,5 +1,5 @@
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { KypoValidators } from 'kypo-common';
+import { SentinelValidators } from '@sentinel/common';
 import { Hint } from 'kypo-training-model';
 
 /**
@@ -10,8 +10,8 @@ export class HintEditFormGroup {
 
   constructor(hint: Hint) {
     this.formGroup = new FormGroup({
-      title: new FormControl(hint.title, KypoValidators.noWhitespace),
-      content: new FormControl(hint.content, KypoValidators.noWhitespace),
+      title: new FormControl(hint.title, SentinelValidators.noWhitespace),
+      content: new FormControl(hint.content, SentinelValidators.noWhitespace),
       hintPenalty: new FormControl(hint.penalty, [Validators.required, Validators.min(0)]),
     });
   }

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { KypoBaseDirective } from 'kypo-common';
+import { SentinelBaseDirective } from '@sentinel/common';
 import { Observable, timer } from 'rxjs';
 import { map, takeWhile } from 'rxjs/operators';
 
@@ -12,7 +12,7 @@ import { map, takeWhile } from 'rxjs/operators';
   styleUrls: ['./training-timer.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TrainingTimerComponent extends KypoBaseDirective implements OnInit, OnChanges {
+export class TrainingTimerComponent extends SentinelBaseDirective implements OnInit, OnChanges {
   @Input() startTime: Date;
   timeElapsed: Observable<number>;
 

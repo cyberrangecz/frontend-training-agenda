@@ -1,5 +1,5 @@
 import { FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { KypoValidators } from 'kypo-common';
+import { SentinelValidators } from '@sentinel/common';
 import { TrainingInstance } from 'kypo-training-model';
 
 /**
@@ -13,9 +13,9 @@ export class TrainingInstanceFormGroup {
       {
         startTime: new FormControl(trainingInstance.startTime, [Validators.required, this.dateValidator]),
         endTime: new FormControl(trainingInstance.endTime, [Validators.required, this.dateValidator]),
-        title: new FormControl(trainingInstance.title, [KypoValidators.noWhitespace]),
+        title: new FormControl(trainingInstance.title, [SentinelValidators.noWhitespace]),
         trainingDefinition: new FormControl(trainingInstance.trainingDefinition, [Validators.required]),
-        accessToken: new FormControl(trainingInstance.accessToken, [KypoValidators.noWhitespace]),
+        accessToken: new FormControl(trainingInstance.accessToken, [SentinelValidators.noWhitespace]),
       },
       { validators: this.dateSequenceValidator }
     );

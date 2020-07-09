@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { asyncData, KypoPaginatedResource, KypoPagination, KypoRequestedPagination } from 'kypo-common';
+import { asyncData, PaginatedResource, SentinelPagination, RequestedPagination } from '@sentinel/common';
 import { PoolApi } from 'kypo-sandbox-api';
 import { Pool } from 'kypo-sandbox-model';
 import { TrainingInstanceApi } from 'kypo-training-api';
@@ -155,7 +155,7 @@ describe('TrainingInstanceOverviewConcreteService', () => {
   });
 
   function createPagination() {
-    return new KypoRequestedPagination(1, 5, '', '');
+    return new RequestedPagination(1, 5, '', '');
   }
 
   function createPoolMock(): Pool {
@@ -166,11 +166,11 @@ describe('TrainingInstanceOverviewConcreteService', () => {
     return pool;
   }
 
-  function createInstancesPaginatedMock(): KypoPaginatedResource<TrainingInstance> {
+  function createInstancesPaginatedMock(): PaginatedResource<TrainingInstance> {
     const ti1 = new TrainingInstance();
     ti1.id = 0;
     const ti2 = new TrainingInstance();
     ti2.id = 1;
-    return new KypoPaginatedResource([ti1, ti2], new KypoPagination(1, 2, 2, 2, 1));
+    return new PaginatedResource([ti1, ti2], new SentinelPagination(1, 2, 2, 2, 1));
   }
 });

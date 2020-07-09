@@ -8,7 +8,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { KypoBaseDirective } from 'kypo-common';
+import { SentinelBaseDirective } from '@sentinel/common';
 import { InfoLevel } from 'kypo-training-model';
 import { takeWhile } from 'rxjs/operators';
 import { InfoLevelEditFormGroup } from './info-level-edit-form-group';
@@ -22,7 +22,7 @@ import { InfoLevelEditFormGroup } from './info-level-edit-form-group';
   styleUrls: ['./info-level-edit.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InfoLevelEditComponent extends KypoBaseDirective implements OnInit, OnChanges {
+export class InfoLevelEditComponent extends SentinelBaseDirective implements OnInit, OnChanges {
   @Input() level: InfoLevel;
   @Output() levelChange: EventEmitter<InfoLevel> = new EventEmitter();
 

@@ -1,10 +1,16 @@
-import { KypoPaginatedResource } from 'kypo-common';
+import { PaginatedResource } from '@sentinel/common';
 import { TrainingDefinitionStateEnum } from 'kypo-training-model';
 import { TrainingDefinition } from 'kypo-training-model';
-import { Column, Kypo2Table, Row, RowAction, RowExpand } from 'kypo2-table';
-import { DeleteAction } from 'kypo2-table';
-import { EditAction } from 'kypo2-table';
-import { DownloadAction } from 'kypo2-table';
+import {
+  Column,
+  SentinelTable,
+  Row,
+  RowAction,
+  RowExpand,
+  DeleteAction,
+  EditAction,
+  DownloadAction,
+} from '@sentinel/components/table';
 import { defer, of } from 'rxjs';
 import { TrainingDefinitionDetailComponent } from '../../../../components/definition/overview/detail/training-definition-detail.component';
 import { TrainingDefinitionService } from '../../../../services/training-definition/overview/training-definition.service';
@@ -13,8 +19,8 @@ import { TrainingDefinitionService } from '../../../../services/training-definit
  * Helper class transforming paginated resource to class for common table component
  * @dynamic
  */
-export class TrainingDefinitionTable extends Kypo2Table<TrainingDefinition> {
-  constructor(resource: KypoPaginatedResource<TrainingDefinition>, service: TrainingDefinitionService) {
+export class TrainingDefinitionTable extends SentinelTable<TrainingDefinition> {
+  constructor(resource: PaginatedResource<TrainingDefinition>, service: TrainingDefinitionService) {
     const columns = [
       new Column('id', 'id', true),
       new Column('title', 'title', true),

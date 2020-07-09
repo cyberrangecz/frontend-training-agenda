@@ -2,13 +2,11 @@ import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import {
-  CsirtMuConfirmationDialogComponent,
-  CsirtMuConfirmationDialogConfig,
-  CsirtMuDialogResultEnum,
-} from 'csirt-mu-common';
-import { KypoFilter } from 'kypo-common';
-import { KypoPaginatedResource } from 'kypo-common';
-import { KypoRequestedPagination } from 'kypo-common';
+  SentinelConfirmationDialogComponent,
+  SentinelConfirmationDialogConfig,
+  SentinelDialogResultEnum,
+} from '@sentinel/components/dialogs';
+import { SentinelFilter, PaginatedResource, RequestedPagination } from '@sentinel/common';
 import { TrainingDefinitionApi } from 'kypo-training-api';
 import { TrainingDefinition } from 'kypo-training-model';
 import { TrainingDefinitionStateEnum } from 'kypo-training-model';
@@ -42,7 +40,7 @@ export class TrainingDefinitionConcreteService extends TrainingDefinitionService
     super(context.config.defaultPaginationSize);
   }
 
-  private lastPagination: KypoRequestedPagination;
+  private lastPagination: RequestedPagination;
   private lastFilters: string;
 
   /**
@@ -50,10 +48,10 @@ export class TrainingDefinitionConcreteService extends TrainingDefinitionService
    * @param pagination requested pagination
    * @param filter filter to be applied on training definitions (attribute title)
    */
-  getAll(pagination: KypoRequestedPagination, filter: string): Observable<KypoPaginatedResource<TrainingDefinition>> {
+  getAll(pagination: RequestedPagination, filter: string): Observable<PaginatedResource<TrainingDefinition>> {
     this.lastPagination = pagination;
     this.lastFilters = filter;
-    const filters = filter ? [new KypoFilter('title', filter)] : [];
+    const filters = filter ? [new SentinelFilter('title', filter)] : [];
     this.hasErrorSubject$.next(false);
     this.isLoadingSubject$.next(true);
     return this.callApiToGetAll(pagination, filters);
@@ -76,10 +74,10 @@ export class TrainingDefinitionConcreteService extends TrainingDefinitionService
    * updates list of training definitions or handles an error
    * @param trainingDefinition training definition to be deleted
    */
-  delete(trainingDefinition: TrainingDefinition): Observable<KypoPaginatedResource<TrainingDefinition>> {
+  delete(trainingDefinition: TrainingDefinition): Observable<PaginatedResource<TrainingDefinition>> {
     return this.displayDialogToDelete(trainingDefinition).pipe(
       switchMap((result) =>
-        result === CsirtMuDialogResultEnum.CONFIRMED ? this.callApiToDelete(trainingDefinition) : EMPTY
+        result === SentinelDialogResultEnum.CONFIRMED ? this.callApiToDelete(trainingDefinition) : EMPTY
       )
     );
   }
@@ -89,7 +87,7 @@ export class TrainingDefinitionConcreteService extends TrainingDefinitionService
    * Informs about the result and updates list of training definitions or handles an error
    * @param trainingDefinition training definition to clone
    */
-  clone(trainingDefinition: TrainingDefinition): Observable<KypoPaginatedResource<TrainingDefinition>> {
+  clone(trainingDefinition: TrainingDefinition): Observable<PaginatedResource<TrainingDefinition>> {
     return this.displayCloneDialog(trainingDefinition).pipe(
       switchMap((title) => (title !== undefined ? this.callApiToClone(trainingDefinition, title) : EMPTY))
     );
@@ -114,7 +112,7 @@ export class TrainingDefinitionConcreteService extends TrainingDefinitionService
   changeState(trainingDefinition: TrainingDefinition, newState: TrainingDefinitionStateEnum): Observable<any> {
     return this.displayChangeStateDialog(trainingDefinition, newState).pipe(
       switchMap((result) =>
-        result === CsirtMuDialogResultEnum.CONFIRMED ? this.callApiToChangeState(trainingDefinition, newState) : EMPTY
+        result === SentinelDialogResultEnum.CONFIRMED ? this.callApiToChangeState(trainingDefinition, newState) : EMPTY
       )
     );
   }
@@ -123,7 +121,7 @@ export class TrainingDefinitionConcreteService extends TrainingDefinitionService
    * Creates a new training definition by uploading a training definition description JSON file.
    * Informs about the result and updates list of training definitions or handles an error
    */
-  upload(): Observable<KypoPaginatedResource<TrainingDefinition>> {
+  upload(): Observable<PaginatedResource<TrainingDefinition>> {
     const dialogRef = this.dialog.open(TrainingDefinitionUploadDialogComponent);
     return dialogRef.componentInstance.onUpload$.pipe(
       take(1),
@@ -145,9 +143,9 @@ export class TrainingDefinitionConcreteService extends TrainingDefinitionService
   }
 
   private callApiToGetAll(
-    pagination: KypoRequestedPagination,
-    filters: KypoFilter[]
-  ): Observable<KypoPaginatedResource<TrainingDefinition>> {
+    pagination: RequestedPagination,
+    filters: SentinelFilter[]
+  ): Observable<PaginatedResource<TrainingDefinition>> {
     return this.api.getAll(pagination, filters).pipe(
       tap(
         (paginatedTrainings) => {
@@ -163,9 +161,9 @@ export class TrainingDefinitionConcreteService extends TrainingDefinitionService
     );
   }
 
-  private displayDialogToDelete(trainingDefinition: TrainingDefinition): Observable<CsirtMuDialogResultEnum> {
-    const dialogRef = this.dialog.open(CsirtMuConfirmationDialogComponent, {
-      data: new CsirtMuConfirmationDialogConfig(
+  private displayDialogToDelete(trainingDefinition: TrainingDefinition): Observable<SentinelDialogResultEnum> {
+    const dialogRef = this.dialog.open(SentinelConfirmationDialogComponent, {
+      data: new SentinelConfirmationDialogConfig(
         'Delete Training Definition',
         `Do you want to delete training definition "${trainingDefinition.title}"?`,
         'Cancel',
@@ -175,9 +173,7 @@ export class TrainingDefinitionConcreteService extends TrainingDefinitionService
     return dialogRef.afterClosed();
   }
 
-  private callApiToDelete(
-    trainingDefinition: TrainingDefinition
-  ): Observable<KypoPaginatedResource<TrainingDefinition>> {
+  private callApiToDelete(trainingDefinition: TrainingDefinition): Observable<PaginatedResource<TrainingDefinition>> {
     return this.api.delete(trainingDefinition.id).pipe(
       tap(
         (_) => this.notificationService.emit('success', 'Training definition was deleted'),
@@ -197,7 +193,7 @@ export class TrainingDefinitionConcreteService extends TrainingDefinitionService
   private callApiToClone(
     trainingDefinition: TrainingDefinition,
     title: string
-  ): Observable<KypoPaginatedResource<TrainingDefinition>> {
+  ): Observable<PaginatedResource<TrainingDefinition>> {
     return this.api.clone(trainingDefinition.id, title).pipe(
       tap(
         (_) => this.notificationService.emit('success', 'Training definition was cloned'),
@@ -210,9 +206,9 @@ export class TrainingDefinitionConcreteService extends TrainingDefinitionService
   private displayChangeStateDialog(
     trainingDefinition: TrainingDefinition,
     newState: TrainingDefinitionStateEnum
-  ): Observable<CsirtMuDialogResultEnum> {
-    const dialogRef = this.dialog.open(CsirtMuConfirmationDialogComponent, {
-      data: new CsirtMuConfirmationDialogConfig(
+  ): Observable<SentinelDialogResultEnum> {
+    const dialogRef = this.dialog.open(SentinelConfirmationDialogComponent, {
+      data: new SentinelConfirmationDialogConfig(
         'Training Definition State Change',
         `Do you want to change state of training definition from "${trainingDefinition.state}" to "${newState}"?`,
         'Cancel',

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { KypoBaseDirective } from 'kypo-common';
+import { SentinelBaseDirective } from '@sentinel/common';
 import { Question } from 'kypo-training-model';
 import { MultipleChoiceQuestion } from 'kypo-training-model';
 
@@ -14,7 +14,7 @@ import { MultipleChoiceQuestion } from 'kypo-training-model';
  * Component displaying MCQ type of question in the assessment level of a trainees training run.
  * If is assessment is a test or question is required, it needs to be filled, otherwise it is optional.
  */
-export class MultipleChoiceQuestionTraineeComponent extends KypoBaseDirective implements OnInit {
+export class MultipleChoiceQuestionTraineeComponent extends SentinelBaseDirective implements OnInit {
   @Input() question: MultipleChoiceQuestion;
   @Input() index: number;
 
