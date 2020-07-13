@@ -1,5 +1,5 @@
-import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Router, ActivatedRoute } from '@angular/router';
 import { SandboxAllocationUnitsApi, SandboxInstanceApi } from 'kypo-sandbox-api';
 import { PoolApi } from 'kypo-sandbox-api/lib/api/pool/pool.api.service';
 import { TrainingDefinitionApi } from 'kypo-training-api';
@@ -13,6 +13,9 @@ import { TrainingNavigator } from '../services/client/training-navigator.service
 import { TrainingNotificationService } from '../services/client/training-notification.service';
 import { TrainingAgendaContext } from '../services/internal/training-agenda-context.service';
 import { RunningTrainingRunService } from '../services/training-run/running/running-training-run.service';
+import { TrainingDefinitionEditService } from '../services/training-definition/edit/training-definition-edit.service';
+import { TrainingDefinitionService } from '../services/training-definition/overview/training-definition.service';
+import { FileUploadProgressService } from '../services/training-definition/overview/file-upload-progress.service';
 
 export function createErrorHandlerSpy(): jasmine.SpyObj<TrainingErrorHandler> {
   return jasmine.createSpyObj('TrainingErrorHandler', ['emit']);
@@ -121,11 +124,15 @@ export function createRouterSpy(): jasmine.SpyObj<Router> {
 }
 
 export function createDialogSpy(): jasmine.SpyObj<MatDialog> {
-  return jasmine.createSpyObj('MatDialog', ['open']);
+  return jasmine.createSpyObj('MatDialog', ['open', 'close']);
+}
+
+export function createDialogRefSpy(): jasmine.SpyObj<MatDialogRef<any>> {
+  return jasmine.createSpyObj(MatDialogRef, ['open', 'close']);
 }
 
 export function createRunningTrainingRunServiceSpy(): jasmine.SpyObj<RunningTrainingRunService> {
-  return jasmine.createSpyObj('RunningTrainingRunService', ['next']);
+  return jasmine.createSpyObj('RunningTrainingRunService', ['next', 'init']);
 }
 
 export function createContext(): TrainingAgendaContext {
@@ -133,4 +140,19 @@ export function createContext(): TrainingAgendaContext {
   config.pollingPeriod = 5000;
   config.defaultPaginationSize = 10;
   return new TrainingAgendaContext(config);
+}
+export function createActivatedRouteSpy(): jasmine.SpyObj<ActivatedRoute> {
+  return jasmine.createSpyObj('ActivatedRoute', ['']);
+}
+
+export function createTrainingDefinitionEditServiceSpy(): jasmine.SpyObj<TrainingDefinitionEditService> {
+  return jasmine.createSpyObj('TrainingDefinitionEditService', ['change', 'set']);
+}
+
+export function createTrainingDefinitionServiceSpy(): jasmine.SpyObj<TrainingDefinitionService> {
+  return jasmine.createSpyObj('TrainingDefinitionService', ['getAll']);
+}
+
+export function createFileUploadProgressServiceSpy(): jasmine.SpyObj<FileUploadProgressService> {
+  return jasmine.createSpyObj('FileUploadProgressService', ['']);
 }
