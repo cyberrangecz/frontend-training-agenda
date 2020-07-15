@@ -1,16 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TrainingInstanceOverviewComponent } from '../../../../../../kypo-training-agenda/src/lib/components/instance/overview/training-instance-overview.component';
-import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME } from '../../../../../../kypo-training-agenda/src/lib/model/client/activated-route-data-attributes';
+import { TrainingInstanceOverviewComponent } from 'kypo-training-agenda/instance-overview';
 import {
+  TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME,
   TRAINING_INSTANCE_DETAIL_PATH,
   TRAINING_INSTANCE_EDIT_PATH,
   TRAINING_INSTANCE_NEW_PATH,
   TRAINING_INSTANCE_SELECTOR,
-} from '../../../../../../kypo-training-agenda/src/lib/model/client/default-paths';
-import { TrainingInstanceBreadcrumbResolver } from '../../../../../../kypo-training-agenda/src/lib/services/resolvers/instance/training-instance-breadcrumb-resolver.service';
-import { TrainingInstanceResolver } from '../../../../../../kypo-training-agenda/src/lib/services/resolvers/instance/training-instance-resolver.service';
-import { TrainingInstanceTitleResolver } from '../../../../../../kypo-training-agenda/src/lib/services/resolvers/instance/training-instance-title-resolver.service';
+} from 'kypo-training-agenda';
+import {
+  TrainingInstanceBreadcrumbResolver,
+  TrainingInstanceResolver,
+  TrainingInstanceTitleResolver,
+} from 'kypo-training-agenda/resolvers';
 const routes: Routes = [
   {
     path: '',

@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TrainingRunDetailComponent } from '../../../../../../../kypo-training-agenda/src/lib/components/run/detail/training-run-detail.component';
-import { TrainingRunLevelsDeactivateGuard } from '../../../../../../../kypo-training-agenda/src/lib/services/can-deactivate/training-run-levels-can-deactivate.service';
+import { TrainingRunLevelsDeactivateGuard, TrainingRunDetailComponent } from 'kypo-training-agenda/run-detail';
 
 const routes: Routes = [
   {

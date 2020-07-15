@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TrainingPreviewComponent } from '../../../../../../../kypo-training-agenda/src/lib/components/definition/preview/training-preview.component';
-import { TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME } from '../../../../../../../kypo-training-agenda/src/lib/model/client/activated-route-data-attributes';
-import { TrainingDefinitionBreadcrumbResolver } from '../../../../../../../kypo-training-agenda/src/lib/services/resolvers/definition/training-definition-breadcrumb-resolver.service';
-import { TrainingDefinitionResolver } from '../../../../../../../kypo-training-agenda/src/lib/services/resolvers/definition/training-definition-resolver.service';
+import { TrainingPreviewComponent } from 'kypo-training-agenda/definition-preview';
+import { TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME } from 'kypo-training-agenda';
+import { TrainingDefinitionBreadcrumbResolver, TrainingDefinitionResolver } from 'kypo-training-agenda/resolvers';
 
 const routes: Routes = [
   {

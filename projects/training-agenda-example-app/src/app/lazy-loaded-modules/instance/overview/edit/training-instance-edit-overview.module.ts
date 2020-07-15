@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { TrainingInstanceEditOverviewComponentsModule } from '../../../../../../../kypo-training-agenda/src/lib/components/instance/edit/training-instance-edit-overview-components.module';
+import { TrainingInstanceEditOverviewComponentsModule } from 'kypo-training-agenda/instance-edit';
 import { environment } from '../../../../../environments/environment';
 import { TrainingInstanceEditOverviewRoutingModule } from './training-instance-edit-overview-routing.module';
 
