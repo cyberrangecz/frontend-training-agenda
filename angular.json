@@ -24,7 +24,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/kypo-training-agenda/src/test.ts",
+            "main": "projects/kypo-training-agenda/test.ts",
             "tsConfig": "projects/kypo-training-agenda/tsconfig.spec.json",
             "karmaConfig": "projects/kypo-training-agenda/karma.conf.js"
           }

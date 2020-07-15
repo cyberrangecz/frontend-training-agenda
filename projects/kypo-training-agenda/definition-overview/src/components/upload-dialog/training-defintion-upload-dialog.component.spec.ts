@@ -1,0 +1,64 @@
+import { ngfModule } from 'angular-file';
+import { TrainingDefinitionUploadDialogComponent } from './training-definition-upload-dialog.component';
+import { ChangeDetectorRef } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { asyncData, SentinelPipesModule } from '@sentinel/common';
+import {
+  createDialogRefSpy,
+  createFileUploadProgressServiceSpy,
+} from '../../../../internal/src/testing/testing-commons.spec';
+import { FileUploadProgressService } from '../../services/file-upload/file-upload-progress.service';
+import { MaterialTestingModule } from '../../../../internal/src/testing/material-testing.module';
+
+describe('TrainingDefinitionUploadDialogComponent', () => {
+  let component: TrainingDefinitionUploadDialogComponent;
+  let fixture: ComponentFixture<TrainingDefinitionUploadDialogComponent>;
+  let cd: ChangeDetectorRef;
+
+  let matDialogRefSpy: jasmine.SpyObj<MatDialogRef<TrainingDefinitionUploadDialogComponent>>;
+  let uploadProgressService: jasmine.SpyObj<FileUploadProgressService>;
+
+  beforeEach(async(() => {
+    matDialogRefSpy = createDialogRefSpy();
+    uploadProgressService = createFileUploadProgressServiceSpy();
+    uploadProgressService.isInProgress$ = asyncData(false);
+    TestBed.configureTestingModule({
+      imports: [MaterialTestingModule, SentinelPipesModule, BrowserAnimationsModule, ngfModule],
+      declarations: [TrainingDefinitionUploadDialogComponent],
+      providers: [
+        { provide: MatDialogRef, useValue: matDialogRefSpy },
+        { provide: FileUploadProgressService, useValue: uploadProgressService },
+      ],
+    }).compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(TrainingDefinitionUploadDialogComponent);
+    component = fixture.componentInstance;
+    cd = fixture.componentRef.injector.get(ChangeDetectorRef);
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should close dialog with no result', () => {
+    component.cancel();
+    expect(matDialogRefSpy.close).toHaveBeenCalledTimes(1);
+  });
+
+  it('should emit upload event', () => {
+    spyOn(component.onUpload$, 'emit');
+    component.upload();
+    expect(component.onUpload$.emit).toHaveBeenCalledTimes(1);
+  });
+
+  it('should clear file', () => {
+    component.selectedFile = new File([], '');
+    component.clearFile();
+    expect(component.selectedFile).toBeFalsy();
+  });
+});

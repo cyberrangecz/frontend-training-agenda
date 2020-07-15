@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TrainingDefinitionOverviewComponent } from '../../../../../../kypo-training-agenda/src/lib/components/definition/overview/training-definition-overview.component';
+import { TrainingDefinitionOverviewComponent } from 'kypo-training-agenda/definition-overview';
 import {
   TRAINING_DEFINITION_EDIT_PATH,
   TRAINING_DEFINITION_NEW_PATH,
   TRAINING_DEFINITION_PREVIEW_PATH,
   TRAINING_DEFINITION_SELECTOR,
-} from '../../../../../../kypo-training-agenda/src/lib/model/client/default-paths';
+} from 'kypo-training-agenda';
 
 const routes: Routes = [
   {
