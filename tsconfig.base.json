@@ -17,13 +17,7 @@
     "lib": [
       "es2018",
       "dom"
-    ],
-    "paths": {
-      "kypo-training-agenda": [
-        "dist/kypo-training-agenda/kypo-training-agenda",
-        "dist/kypo-training-agenda"
-      ]
-    }
+    ]
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

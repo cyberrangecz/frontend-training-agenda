@@ -6,10 +6,10 @@
     "baseUrl": "./",
     "paths": {
       "kypo-training-agenda": [
-        "../../dist/kypo-training-agenda"
+        "../kypo-training-agenda/src/public_api.ts"
       ],
       "kypo-training-agenda/*": [
-        "../../dist/kypo-training-agenda/*"
+        "../kypo-training-agenda/*/src/public_api.ts"
       ]
     }
   },
