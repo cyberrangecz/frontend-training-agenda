@@ -1,16 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import {
-  Kypo2AssessmentConfig,
+  AssessmentVisualizationConfig,
   Kypo2AssessmentsResultsVisualizationModule,
 } from 'kypo2-assessments-results-visualization';
+import { HurdlingVisualizationConfig, Kypo2TrainingsHurdlingVizLibModule } from 'kypo2-trainings-hurdling-viz-lib';
 import {
-  Kypo2TrainingsHurdlingVizLibConfig,
-  Kypo2TrainingsHurdlingVizLibModule,
-} from 'kypo2-trainings-hurdling-viz-lib';
-import {
-  Kypo2TrainingsVisualizationOverviewLibConfig,
   Kypo2TrainingsVisualizationOverviewLibModule,
+  VisualizationOverviewConfig,
 } from 'kypo2-trainings-visualization-overview-lib';
 import { TrainingAgendaConfig } from 'kypo-training-agenda';
 import { TrainingInstanceResultsMaterialModule } from './training-instance-results-material.module';
@@ -32,18 +29,25 @@ import { TrainingInstanceResultsComponent } from './training-instance-results.co
 })
 export class TrainingInstanceResultsComponentsModule {
   static forRoot(config: TrainingAgendaConfig): ModuleWithProviders<TrainingInstanceResultsComponentsModule> {
+    const visualizationConfig = {
+      trainingServiceUrl: config.visualizationConfig.trainingBasePath,
+      elasticSearchServiceUrl: config.visualizationConfig.elasticSearchBasePath,
+    };
     return {
       ngModule: TrainingInstanceResultsComponentsModule,
       providers: [
         {
-          provide: Kypo2TrainingsVisualizationOverviewLibConfig,
-          useValue: { kypo2TrainingsVisualizationRestBasePath: config.visualizationConfig.trainingBasePath },
+          provide: VisualizationOverviewConfig,
+          useValue: visualizationConfig,
         },
         {
-          provide: Kypo2TrainingsHurdlingVizLibConfig,
-          useValue: { restBaseUrl: config.visualizationConfig.trainingBasePath },
+          provide: HurdlingVisualizationConfig,
+          useValue: visualizationConfig,
         },
-        { provide: Kypo2AssessmentConfig, useValue: { restBaseUrl: config.visualizationConfig.trainingBasePath } },
+        {
+          provide: AssessmentVisualizationConfig,
+          useValue: visualizationConfig,
+        },
         { provide: TrainingAgendaConfig, useValue: config },
       ],
     };

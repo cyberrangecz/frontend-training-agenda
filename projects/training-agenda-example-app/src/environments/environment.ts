@@ -13,6 +13,8 @@ export const sandboxesURL = baseURL + '/kypo-sandbox-service/api/v1/';
 
 export const userAngGroupURL = baseURL + '/kypo2-rest-user-and-group/api/v1/';
 
+export const elasticSearchURL = baseURL + '/kypo-elasticsearch-service/api/v1/';
+
 export const kypo2TopologyConfig = {
   topologyRestUrl: sandboxesURL,
   decoratorsRestUrl: '', // OBSOLETE
@@ -23,6 +25,7 @@ export const kypo2TopologyConfig = {
 
 export const visualizationConfig = {
   trainingBasePath: trainingURL,
+  elasticSearchBasePath: elasticSearchURL,
 };
 
 export const environment = {

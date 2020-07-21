@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import {
-  Kypo2TrainingsVisualizationOverviewLibConfig,
   Kypo2TrainingsVisualizationOverviewLibModule,
+  VisualizationOverviewConfig,
 } from 'kypo2-trainings-visualization-overview-lib';
 import { TrainingAgendaConfig } from 'kypo-training-agenda';
 import { TrainingRunResultsMaterialModule } from './training-run-results-material.module';
@@ -17,12 +17,16 @@ import { TrainingRunResultsComponent } from './training-run-results.component';
 })
 export class TrainingRunResultsComponentsModule {
   static forRoot(config: TrainingAgendaConfig): ModuleWithProviders<TrainingRunResultsComponentsModule> {
+    const visualizationConfig: VisualizationOverviewConfig = {
+      trainingServiceUrl: config.visualizationConfig.trainingBasePath,
+      elasticSearchServiceUrl: config.visualizationConfig.elasticSearchBasePath,
+    };
     return {
       ngModule: TrainingRunResultsComponentsModule,
       providers: [
         {
-          provide: Kypo2TrainingsVisualizationOverviewLibConfig,
-          useValue: { kypo2TrainingsVisualizationRestBasePath: config.visualizationConfig.trainingBasePath },
+          provide: VisualizationOverviewConfig,
+          useValue: visualizationConfig,
         },
         { provide: TrainingAgendaConfig, useValue: config },
       ],
