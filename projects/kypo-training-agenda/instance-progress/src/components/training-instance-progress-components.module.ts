@@ -1,9 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import {
-  Kypo2TrainingsHurdlingVizLibConfig,
-  Kypo2TrainingsHurdlingVizLibModule,
-} from 'kypo2-trainings-hurdling-viz-lib';
+import { HurdlingVisualizationConfig, Kypo2TrainingsHurdlingVizLibModule } from 'kypo2-trainings-hurdling-viz-lib';
 import { TrainingAgendaConfig } from 'kypo-training-agenda';
 import { TrainingInstanceProgressMaterialModule } from './training-instance-progress-material.module';
 import { TrainingInstanceProgressComponent } from './training-instance-progress.component';
@@ -18,12 +15,16 @@ import { TrainingInstanceProgressComponent } from './training-instance-progress.
 })
 export class TrainingInstanceProgressComponentsModule {
   static forRoot(config: TrainingAgendaConfig): ModuleWithProviders<TrainingInstanceProgressComponentsModule> {
+    const visualizationConfig: HurdlingVisualizationConfig = {
+      trainingServiceUrl: config.visualizationConfig.trainingBasePath,
+      elasticSearchServiceUrl: config.visualizationConfig.elasticSearchBasePath,
+    };
     return {
       ngModule: TrainingInstanceProgressComponentsModule,
       providers: [
         {
-          provide: Kypo2TrainingsHurdlingVizLibConfig,
-          useValue: { restBaseUrl: config.visualizationConfig.trainingBasePath },
+          provide: HurdlingVisualizationConfig,
+          useValue: visualizationConfig,
         },
         { provide: TrainingAgendaConfig, useValue: config },
       ],

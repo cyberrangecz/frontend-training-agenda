@@ -5,6 +5,7 @@ export class TrainingAgendaConfig {
   defaultPaginationSize: number;
   visualizationConfig: {
     trainingBasePath: string;
+    elasticSearchBasePath: string;
   };
   kypo2TopologyConfig: Kypo2TopologyGraphConfig;
 }
