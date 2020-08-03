@@ -14,11 +14,11 @@ import {
 import { AuthorsAssignService } from '../services/state/authors-assign/authors-assign.service';
 import { TrainingDefinitionEditConcreteService } from '../services/state/edit/training-definition-edit-concrete.service';
 import { TrainingDefinitionEditService } from '../services/state/edit/training-definition-edit.service';
-import { FreeFormModule } from 'kypo-training-agenda/internal';
 import { TrainingDefinitionEditComponent } from './definition/training-definition-edit.component';
 import { LevelOverviewComponentsModule } from './levels/level-overview-components.module';
 import { TrainingDefinitionEditOverviewMaterialModule } from './training-definition-edit-overview-material.module';
 import { TrainingDefinitionEditOverviewComponent } from './training-definition-edit-overview.component';
+import { SentinelFreeFormModule } from '@sentinel/components/free-form';
 
 /**
  * Module containing components and providers of training definition detail/edt/new actions.
@@ -27,13 +27,13 @@ import { TrainingDefinitionEditOverviewComponent } from './training-definition-e
   imports: [
     CommonModule,
     FormsModule,
-    FreeFormModule,
     SentinelUserAssignModule,
     TrainingDefinitionEditOverviewMaterialModule,
     LevelOverviewComponentsModule,
     SentinelPipesModule,
     ReactiveFormsModule,
     SentinelControlsModule,
+    SentinelFreeFormModule,
   ],
   declarations: [TrainingDefinitionEditOverviewComponent, TrainingDefinitionEditComponent],
   providers: [

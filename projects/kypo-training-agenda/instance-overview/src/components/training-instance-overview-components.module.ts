@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SentinelControlsModule } from '@sentinel/components/controls';
 import { SentinelTableModule } from '@sentinel/components/table';
 import { TrainingAgendaConfig, TrainingDefaultNavigator, TrainingNavigator } from 'kypo-training-agenda';
-import { TrainingAgendaContext, FreeFormModule } from 'kypo-training-agenda/internal';
+import { TrainingAgendaContext } from 'kypo-training-agenda/internal';
 import {
   TrainingInstanceBreadcrumbResolver,
   TrainingInstanceResolver,
@@ -19,14 +19,7 @@ import { TrainingInstanceOverviewComponent } from './training-instance-overview.
  * and CRUD operations on them. It contains routing to more feature modules (detail atc.)
  */
 @NgModule({
-  imports: [
-    CommonModule,
-    FreeFormModule,
-    FormsModule,
-    ReactiveFormsModule,
-    SentinelTableModule,
-    SentinelControlsModule,
-  ],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, SentinelTableModule, SentinelControlsModule],
   declarations: [TrainingInstanceOverviewComponent],
   providers: [
     TrainingAgendaContext,

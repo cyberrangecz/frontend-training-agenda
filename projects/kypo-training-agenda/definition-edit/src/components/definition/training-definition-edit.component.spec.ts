@@ -1,10 +1,11 @@
-import { FreeFormModule } from 'kypo-training-agenda/internal';
+import { SentinelFreeFormModule } from '@sentinel/components/free-form';
 import { TrainingDefinitionEditComponent } from './training-definition-edit.component';
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { ChangeDetectorRef, SimpleChanges, SimpleChange } from '@angular/core';
 import { TrainingDefinition, GameLevel, Level, AssessmentLevel, InfoLevel } from 'kypo-training-model';
 import { TrainingDefinitionChangeEvent } from '../../model/events/training-definition-change-event';
 import { MaterialTestingModule } from '../../../../internal/src/testing/material-testing.module';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
 
 describe('TrainingDefinitionEditComponent', () => {
   let component: TrainingDefinitionEditComponent;
@@ -13,7 +14,7 @@ describe('TrainingDefinitionEditComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MaterialTestingModule, FreeFormModule],
+      imports: [MaterialTestingModule, SentinelFreeFormModule],
       declarations: [TrainingDefinitionEditComponent],
     }).compileComponents();
   }));
@@ -46,48 +47,57 @@ describe('TrainingDefinitionEditComponent', () => {
   });
 
   it('change form state when prerequisites event is emited', () => {
-    const addEvent = { isAdded: true, validity: true };
-    const deleteEvent = { isDeleted: true, validity: true, index: 0 };
-    const clearEvent = { cleared: true, validity: true };
-    const baseEvent = { validity: true, index: 0, items: ['Prereq'] };
+    let formGroup = createFormGroupMock(2, 'prerequisite');
     component.trainingDefinition = createMock();
     component.ngOnChanges(createSimpleChanges(createMock()));
-    component.prerequisitesChange(addEvent);
-    expect(component.trainingDefinitionEditFormGroup.formGroup.get('prerequisites').value).toEqual(['']);
+    component.prerequisitesChange(formGroup);
+    expect(component.trainingDefinitionEditFormGroup.formGroup.get('prerequisites').value).toEqual([
+      'prerequisite0',
+      'prerequisite1',
+    ]);
 
-    component.prerequisitesChange(deleteEvent);
+    formGroup = createFormGroupMock(1, 'prerequisite');
+    component.prerequisitesChange(formGroup);
+    expect(component.trainingDefinitionEditFormGroup.formGroup.get('prerequisites').value).toEqual(['prerequisite0']);
+
+    formGroup = createFormGroupMock(0, 'prerequisite');
+    component.prerequisitesChange(formGroup);
     expect(component.trainingDefinitionEditFormGroup.formGroup.get('prerequisites').value).toEqual([]);
 
-    component.prerequisitesChange(addEvent);
-    component.prerequisitesChange(clearEvent);
-    expect(component.trainingDefinitionEditFormGroup.formGroup.get('prerequisites').value).toEqual([]);
-
-    component.prerequisitesChange(addEvent);
-    component.prerequisitesChange(baseEvent);
-    expect(component.trainingDefinitionEditFormGroup.formGroup.get('prerequisites').value).toEqual(['Prereq']);
+    formGroup = createFormGroupMock(1, 'prerequisite');
+    component.prerequisitesChange(formGroup);
+    expect(component.trainingDefinitionEditFormGroup.formGroup.get('prerequisites').value).toEqual(['prerequisite0']);
   });
 
   it('change form state when outcomes event is emited', () => {
-    const addEvent = { isAdded: true, validity: true };
-    const deleteEvent = { isDeleted: true, validity: true, index: 0 };
-    const clearEvent = { cleared: true, validity: true };
-    const baseEvent = { validity: true, index: 0, items: ['Prereq'] };
+    let formGroup = createFormGroupMock(2, 'outcome');
     component.trainingDefinition = createMock();
     component.ngOnChanges(createSimpleChanges(createMock()));
-    component.outcomesChange(addEvent);
-    expect(component.trainingDefinitionEditFormGroup.formGroup.get('outcomes').value).toEqual(['']);
+    component.outcomesChange(formGroup);
+    expect(component.trainingDefinitionEditFormGroup.formGroup.get('outcomes').value).toEqual(['outcome0', 'outcome1']);
 
-    component.outcomesChange(deleteEvent);
+    formGroup = createFormGroupMock(1, 'outcome');
+    component.outcomesChange(formGroup);
+    expect(component.trainingDefinitionEditFormGroup.formGroup.get('outcomes').value).toEqual(['outcome0']);
+
+    formGroup = createFormGroupMock(0, 'outcome');
+    component.outcomesChange(formGroup);
     expect(component.trainingDefinitionEditFormGroup.formGroup.get('outcomes').value).toEqual([]);
 
-    component.outcomesChange(addEvent);
-    component.outcomesChange(clearEvent);
-    expect(component.trainingDefinitionEditFormGroup.formGroup.get('outcomes').value).toEqual([]);
-
-    component.outcomesChange(addEvent);
-    component.outcomesChange(baseEvent);
-    expect(component.trainingDefinitionEditFormGroup.formGroup.get('outcomes').value).toEqual(['Prereq']);
+    formGroup = createFormGroupMock(1, 'outcome');
+    component.outcomesChange(formGroup);
+    expect(component.trainingDefinitionEditFormGroup.formGroup.get('outcomes').value).toEqual(['outcome0']);
   });
+
+  function createFormGroupMock(amount: number, name: string): FormGroup {
+    const formData: string[] = [];
+    for (let i = 0; i < amount; i++) {
+      formData.push(name + i);
+    }
+    return new FormGroup({
+      items: new FormArray(formData.map((prereq) => new FormControl(prereq))),
+    });
+  }
 
   function createMock(): TrainingDefinition {
     const td = new TrainingDefinition();

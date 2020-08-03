@@ -44,9 +44,12 @@
 
     <!-- CORRECT ANSWERS field -->
     <div class="form-container" *ngIf="isTest">
-      <kypo-free-form [formData]="answers.value" [required]="required"
+      <sentinel-free-form
+                      [formData]="answers"
+                      [required]="true"
                       [formName]="'Answer'" [formPlaceholder]="'Answer'"
-                      (itemsChange)="answerChanged($event)"></kypo-free-form>
+                      (itemsChange)="answerChanged($event)">
+      </sentinel-free-form>
     </div>
 
     <mat-error *ngIf="isTest &&

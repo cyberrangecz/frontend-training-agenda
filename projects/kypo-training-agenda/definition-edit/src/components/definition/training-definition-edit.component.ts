@@ -1,10 +1,9 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { FormArray, FormControl } from '@angular/forms';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { TrainingDefinition } from 'kypo-training-model';
 import { User } from 'kypo2-auth';
 import { takeWhile } from 'rxjs/operators';
-import { FreeFormItemsChangeEvent } from 'kypo-training-agenda/internal';
 import { TrainingDefinitionChangeEvent } from '../../model/events/training-definition-change-event';
 import { TrainingDefinitionEditFormGroup } from './training-definition-edit-form-group';
 
@@ -36,7 +35,6 @@ export class TrainingDefinitionEditComponent extends SentinelBaseDirective imple
   get description() {
     return this.trainingDefinitionEditFormGroup.formGroup.get('description');
   }
-
   get showProgress() {
     return this.trainingDefinitionEditFormGroup.formGroup.get('showProgress');
   }
@@ -58,35 +56,24 @@ export class TrainingDefinitionEditComponent extends SentinelBaseDirective imple
    * Changes form state if change of prerequisites event is emitted from child component
    * @param event form state change event emitted from child component
    */
-  prerequisitesChange(event: FreeFormItemsChangeEvent) {
-    this.freeFormValid = event.validity;
-    if (event.isAdded) {
-      (this.prerequisites as FormArray).push(new FormControl(''));
-    } else if (event.isDeleted) {
-      this.prerequisites.removeAt(event.index);
-    } else if (event.cleared) {
-      this.prerequisites.clear();
-      this.prerequisites.setValue(this.prerequisites.value);
-    } else {
-      this.prerequisites.at(event.index).setValue(event.items[event.index]);
-    }
+  prerequisitesChange(event: FormGroup) {
+    this.freeFormValid = event.valid;
+    this.prerequisites.clear();
+    event.value['items'].forEach((item) => {
+      (this.prerequisites as FormArray).push(new FormControl(item));
+    });
   }
+
   /**
    * Changes form state if change of outcomes event is emitted from child component
    * @param event form state change event emitted from child component
    */
-  outcomesChange(event: FreeFormItemsChangeEvent) {
-    this.freeFormValid = event.validity;
-    if (event.isAdded) {
-      (this.outcomes as FormArray).push(new FormControl(''));
-    } else if (event.isDeleted) {
-      this.outcomes.removeAt(event.index);
-    } else if (event.cleared) {
-      this.outcomes.clear();
-      this.outcomes.setValue(this.outcomes.value);
-    } else {
-      this.outcomes.at(event.index).setValue(event.items[event.index]);
-    }
+  outcomesChange(event: FormGroup) {
+    this.freeFormValid = event.valid;
+    this.outcomes.clear();
+    event.value['items'].forEach((item) => {
+      (this.outcomes as FormArray).push(new FormControl(item));
+    });
   }
 
   private setupOnFormChangedEvent() {
