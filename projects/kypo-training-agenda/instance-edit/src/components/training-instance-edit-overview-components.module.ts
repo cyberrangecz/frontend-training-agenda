@@ -12,7 +12,6 @@ import { TrainingInstanceCanDeactivate } from '../services/can-deactivate/traini
 import { TrainingInstanceEditConcreteService } from '../services/state/edit/training-instance-edit-concrete.service';
 import { TrainingInstanceEditService } from '../services/state/edit/training-instance-edit.service';
 import { OrganizersAssignService } from '../services/state/organizers-assign/organizers-assign.service';
-import { FreeFormModule } from 'kypo-training-agenda/internal';
 import { PoolAssignComponent } from './pool-assign/pool-assign.component';
 import { TrainingDefinitionSelectComponent } from './training-definition-select/training-definition-select.component';
 import { TrainingInstanceEditOverviewMaterialModule } from './training-instance-edit-overview-material.module';
@@ -30,7 +29,6 @@ import { TrainingInstanceEditComponent } from './training-instance-edit/training
     SentinelUserAssignModule,
     RouterModule,
     SentinelListModule,
-    FreeFormModule,
     SentinelPipesModule,
     TrainingInstanceEditOverviewMaterialModule,
     OwlDateTimeModule,

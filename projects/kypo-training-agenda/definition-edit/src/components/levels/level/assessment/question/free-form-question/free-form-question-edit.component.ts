@@ -8,12 +8,11 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { FormArray, FormControl } from '@angular/forms';
-import { SentinelBaseDirective, SentinelValidators } from '@sentinel/common';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { SentinelBaseDirective } from '@sentinel/common';
 import { Question } from 'kypo-training-model';
 import { FreeFormQuestion } from 'kypo-training-model';
 import { takeWhile } from 'rxjs/operators';
-import { FreeFormItemsChangeEvent } from 'kypo-training-agenda/internal';
 import { FreeFormQuestionFormGroup } from './free-form-question-form-group';
 
 @Component({
@@ -87,20 +86,12 @@ export class FreeFormQuestionEditComponent extends SentinelBaseDirective impleme
    * Changes internal state of the component if answer is changed
    * @param event change event of answers
    */
-  answerChanged(event: FreeFormItemsChangeEvent) {
-    this.freeFormValid = event.validity;
-    if (event.isAdded) {
-      (this.answers as FormArray).push(
-        new FormControl('', this.required ? SentinelValidators.noWhitespace : undefined)
-      );
-    } else if (event.isDeleted) {
-      this.answers.removeAt(event.index);
-    } else if (event.cleared) {
-      this.answers.clear();
-      this.answers.setValue(this.answers.value);
-    } else {
-      this.answers.at(event.index).setValue(event.items[event.index]);
-    }
+  answerChanged(event: FormGroup) {
+    this.freeFormValid = event.valid;
+    this.answers.clear();
+    event.value['items'].forEach((item) => {
+      (this.answers as FormArray).push(new FormControl(item));
+    });
   }
 
   /**

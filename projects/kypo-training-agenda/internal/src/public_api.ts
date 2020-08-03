@@ -1,9 +1,6 @@
 /*
  * Public API Surface of entry point kypo-training-agenda/internal
  */
-export * from './components/free-form/free-form.module';
-export * from './components/free-form/free-form.component';
-export * from './components/free-form/free-form-items-change-event';
 
 export * from './model/hint-button';
 export * from './model/user-name-filters';

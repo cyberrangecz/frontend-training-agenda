@@ -45,18 +45,18 @@
 
       <div class="right-col">
         <!-- PREREQUISITES field-->
-        <kypo-free-form (itemsChange)="prerequisitesChange($event)"
+        <sentinel-free-form (itemsChange)="prerequisitesChange($event)"
                         [required]="false" [hasHeader]="true" [formPlaceholder]="'Note'"
                         [formName]="'Notes for instructors'"
-                        [formData]="trainingDefinition.prerequisites">
-        </kypo-free-form>
+                        [formData]="prerequisites">
+        </sentinel-free-form>
 
         <!-- OUTCOMES field-->
-        <kypo-free-form (itemsChange)="outcomesChange($event)"
+        <sentinel-free-form (itemsChange)="outcomesChange($event)"
                         [required]="false" [hasHeader]="true" [formPlaceholder]="'Outcome'"
                         [formName]="'Learning outcomes'"
-                        [formData]="trainingDefinition.outcomes">
-        </kypo-free-form>
+                        [formData]="outcomes">
+        </sentinel-free-form>
       </div>
     </div>
   </form>

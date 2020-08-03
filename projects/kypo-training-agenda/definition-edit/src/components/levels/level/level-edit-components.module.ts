@@ -4,10 +4,10 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { SentinelControlsModule } from '@sentinel/components/controls';
+import { SentinelFreeFormModule } from '@sentinel/components/free-form';
 import { SentinelMarkdownEditorModule } from '@sentinel/components/markdown-editor';
 import { SentinelStepperModule } from '@sentinel/components/stepper';
 import { MarkedOptions } from 'ngx-markdown';
-import { FreeFormModule } from 'kypo-training-agenda/internal';
 import { AbstractLevelEditComponent } from './abstract-level-edit.component';
 import { AssessmentLevelEditComponent } from './assessment/assessment-level-edit.component';
 import { QuestionEditComponent } from './assessment/question/detail/question-edit.component';
@@ -49,12 +49,12 @@ const markdownConfig = {
   imports: [
     CommonModule,
     FormsModule,
+    SentinelFreeFormModule,
     SentinelMarkdownEditorModule.forRoot(markdownConfig),
     SentinelStepperModule,
     LevelEditMaterialModule,
     MatSlideToggleModule,
     ReactiveFormsModule,
-    FreeFormModule,
     SentinelControlsModule,
   ],
   exports: [AbstractLevelEditComponent],
