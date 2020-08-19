@@ -9,6 +9,7 @@ import { switchMap, tap } from 'rxjs/operators';
 import { TrainingErrorHandler } from 'kypo-training-agenda';
 import { TrainingRunGameLevelService } from './training-run-game-level.service';
 import { RunningTrainingRunService } from '../../running/running-training-run.service';
+import { SandboxInstanceApi } from 'kypo-sandbox-api';
 
 @Injectable()
 /**
@@ -17,11 +18,26 @@ import { RunningTrainingRunService } from '../../running/running-training-run.se
 export class TrainingRunGameLevelConcreteService extends TrainingRunGameLevelService {
   constructor(
     private api: TrainingRunApi,
+    private sandboxApi: SandboxInstanceApi,
     private errorHandler: TrainingErrorHandler,
     protected dialog: MatDialog,
     protected runningTrainingRunService: RunningTrainingRunService
   ) {
     super(dialog, runningTrainingRunService);
+  }
+
+  /**
+   * Retrieves file for ssh access for trainee
+   */
+  getAccessFile(): Observable<any> {
+    return this.sandboxApi.getUserSshAccess(this.runningTrainingRunService.sandboxInstanceId).pipe(
+      tap(
+        (_) => _,
+        (err) => {
+          this.errorHandler.emit(err, 'Access files for trainee');
+        }
+      )
+    );
   }
 
   /**

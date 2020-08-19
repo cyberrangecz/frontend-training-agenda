@@ -14,4 +14,6 @@ export abstract class TrainingInstanceOverviewService extends PaginatedResourceS
   abstract delete(id: number): Observable<any>;
 
   abstract getPoolState(poolId: number): Observable<string>;
+
+  abstract getSshAccess(poolId: number): Observable<boolean>;
 }

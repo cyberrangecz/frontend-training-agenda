@@ -35,6 +35,8 @@ export abstract class TrainingRunGameLevelService {
 
   abstract revealHint(hint: Hint): Observable<Hint>;
 
+  abstract getAccessFile(): Observable<boolean>;
+
   init(level: GameLevel) {
     this.initObservables();
     this.initHints(level.hints);

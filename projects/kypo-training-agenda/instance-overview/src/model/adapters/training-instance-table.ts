@@ -84,6 +84,15 @@ export class TrainingInstanceTable extends SentinelTable<TrainingInstanceRowAdap
         of(false),
         defer(() => service.download(ti.id))
       ),
+      new RowAction(
+        'access',
+        'Get Access',
+        'vpn_key',
+        'primary',
+        'Get SSH Access',
+        of(false),
+        defer(() => service.getSshAccess(ti.poolId))
+      ),
     ];
   }
 }
