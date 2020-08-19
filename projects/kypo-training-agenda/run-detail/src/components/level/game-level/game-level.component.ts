@@ -105,6 +105,13 @@ export class GameLevelComponent extends SentinelBaseDirective implements OnInit,
       .subscribe((resp) => (this.flag = ''));
   }
 
+  /**
+   * Calls service to download ssh access for user
+   */
+  download() {
+    this.gameLevelService.getAccessFile().pipe(take(1)).subscribe();
+  }
+
   private initTopology() {
     this.isTopologyDisplayed = this.sandboxId === null || this.sandboxId === undefined;
     this.calculateTopologySize();

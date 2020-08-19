@@ -7,6 +7,7 @@ import { Hint } from 'kypo-training-model';
 import { EMPTY, Observable, of } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { HintButton, RunningTrainingRunService, TrainingRunGameLevelService } from 'kypo-training-agenda/internal';
+import { saveAs } from 'file-saver';
 
 @Injectable()
 /**
@@ -24,6 +25,12 @@ export class PreviewGameLevelService extends TrainingRunGameLevelService {
     super.init(level);
     this._currentLevel = level;
     this._remainingAttempts = this._currentLevel.incorrectFlagLimit;
+  }
+
+  getAccessFile(): Observable<any> {
+    const blob = new Blob(new Array<Blob>(), { type: 'application/zip' });
+    saveAs(blob, 'user-ssh-access.zip');
+    return of(true);
   }
 
   revealSolution(level: GameLevel): Observable<string> {

@@ -76,6 +76,15 @@ export class TrainingInstanceOverviewConcreteService extends TrainingInstanceOve
     return this.poolApi.getPool(poolId).pipe(map((pool) => `${pool.maxSize} (${pool.maxSize - pool.usedSize} free)`));
   }
 
+  getSshAccess(poolId: number): Observable<boolean> {
+    return this.poolApi.getManagementSshAccess(poolId).pipe(
+      catchError((err) => {
+        this.errorHandler.emit(err, 'Management SSH Access');
+        return EMPTY;
+      })
+    );
+  }
+
   private forceDelete(id: number): Observable<any> {
     return this.trainingInstanceApi.delete(id, true).pipe(
       tap(

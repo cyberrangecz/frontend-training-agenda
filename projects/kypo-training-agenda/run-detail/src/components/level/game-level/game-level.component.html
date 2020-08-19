@@ -92,6 +92,19 @@
           </div>
         </div>
 
+        <!-- GET SSH ACCESS BUTTON-->
+        <button
+          mat-raised-button
+          color="primary"
+          [disabled]="(isLoading$ | async) ||
+                        (isCorrectFlagSubmitted$ | async)
+            "
+          (click)="download()"
+          matTooltip="Download access for SSH client"
+        >
+          Get SSH Access
+        </button>
+
         <div class="hint-content">
           <markdown
             *ngIf="displayedHintsContent$ | async as hintsContent"
