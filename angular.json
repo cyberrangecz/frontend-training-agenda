@@ -36,9 +36,7 @@
               "projects/kypo-training-agenda/tsconfig.lib.json",
               "projects/kypo-training-agenda/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -134,9 +132,7 @@
               "projects/training-agenda-example-app/src/favicon.ico",
               "projects/training-agenda-example-app/src/assets"
             ],
-            "styles": [
-              "projects/training-agenda-example-app/src/styles.scss"
-            ],
+            "styles": ["projects/training-agenda-example-app/src/styles.scss"],
             "scripts": []
           }
         },
@@ -148,15 +144,14 @@
               "projects/training-agenda-example-app/tsconfig.spec.json",
               "projects/training-agenda-example-app/e2e/tsconfig.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
+          "builder": "@nrwl/cypress:cypress",
           "options": {
-            "protractorConfig": "projects/training-agenda-example-app/e2e/protractor.conf.js",
+            "cypressConfig": "e2e/cypress.json",
+            "tsConfig": "e2e/tsconfig.e2e.json",
             "devServerTarget": "training-agenda-example-app:serve"
           },
           "configurations": {
@@ -166,6 +161,7 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "kypo-training-agenda"
 }
