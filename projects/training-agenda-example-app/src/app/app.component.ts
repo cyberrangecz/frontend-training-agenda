@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Agenda, AgendaContainer } from '@sentinel/layout';
-import { Kypo2AuthService, User } from 'kypo2-auth';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
+import { SentinelAuthService, User } from '@sentinel/auth';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +16,7 @@ export class AppComponent {
   agendaContainers$: Observable<AgendaContainer[]>;
   notificationRoute = 'notifications';
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private auth: Kypo2AuthService) {
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private auth: SentinelAuthService) {
     this.activeUser$ = this.auth.activeUser$;
     this.title$ = this.getTitleFromRouter();
 

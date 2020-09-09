@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
-import { Kypo2AuthGuardWithLogin, Kypo2AuthProviderPickerComponent, Kypo2NotAuthGuardService } from 'kypo2-auth';
 import { HomeComponent } from './home/home.component';
+import { SentinelAuthGuardWithLogin, SentinelNegativeAuthGuard } from '@sentinel/auth/guards';
+import { SentinelAuthProviderListComponent } from '@sentinel/auth/components';
 
 const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
     data: { title: 'Home' },
-    canActivate: [Kypo2AuthGuardWithLogin],
+    canActivate: [SentinelAuthGuardWithLogin],
   },
   {
     path: 'training-definition',
@@ -45,8 +46,8 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    component: Kypo2AuthProviderPickerComponent,
-    canActivate: [Kypo2NotAuthGuardService],
+    component: SentinelAuthProviderListComponent,
+    canActivate: [SentinelNegativeAuthGuard],
   },
   {
     path: 'notifications',
@@ -58,7 +59,7 @@ const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',
-    canActivate: [Kypo2AuthGuardWithLogin],
+    canActivate: [SentinelAuthGuardWithLogin],
   },
   {
     path: 'logout-confirmed',

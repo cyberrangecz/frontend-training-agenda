@@ -3,11 +3,9 @@ import { Router } from '@angular/router';
 import { asyncData } from '@sentinel/common';
 import { TrainingDefinitionApi } from 'kypo-training-api';
 import { TrainingDefinition, TrainingDefinitionStateEnum } from 'kypo-training-model';
-import { Kypo2AuthService } from 'kypo2-auth';
 import { throwError } from 'rxjs';
 import { TrainingDefinitionChangeEvent } from '../../../model/events/training-definition-change-event';
 import {
-  createAuthSpy,
   createContext,
   createErrorHandlerSpy,
   createNavigatorSpy,
@@ -28,14 +26,12 @@ describe('TrainingDefinitionEditConcreteService', () => {
   let service: TrainingDefinitionEditConcreteService;
   let context: TrainingAgendaContext;
   let navigatorSpy: jasmine.SpyObj<TrainingNavigator>;
-  let authSpy: jasmine.SpyObj<Kypo2AuthService>;
   let routerSpy: jasmine.SpyObj<Router>;
 
   beforeEach(() => {
     errorHandlerSpy = createErrorHandlerSpy();
     notificationSpy = createNotificationSpy();
     apiSpy = createTrainingDefinitionApiSpy();
-    authSpy = createAuthSpy();
     navigatorSpy = createNavigatorSpy();
     routerSpy = createRouterSpy();
     context = createContext();
@@ -44,7 +40,6 @@ describe('TrainingDefinitionEditConcreteService', () => {
       providers: [
         TrainingDefinitionEditConcreteService,
         { provide: Router, useValue: routerSpy },
-        { provide: Kypo2AuthService, useValue: authSpy },
         { provide: TrainingNavigator, useValue: navigatorSpy },
         { provide: TrainingNotificationService, useValue: notificationSpy },
         { provide: TrainingDefinitionApi, useValue: apiSpy },

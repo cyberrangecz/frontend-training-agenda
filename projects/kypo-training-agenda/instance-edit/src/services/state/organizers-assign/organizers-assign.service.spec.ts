@@ -1,7 +1,6 @@
 import { async, TestBed } from '@angular/core/testing';
 import { asyncData, RequestedPagination, PaginatedResource, SentinelPagination } from '@sentinel/common';
 import { UserApi } from 'kypo-training-api';
-import { User } from 'kypo2-auth';
 import { throwError } from 'rxjs';
 import { skip, take } from 'rxjs/operators';
 import {
@@ -12,6 +11,7 @@ import {
 import { TrainingErrorHandler } from '../../../../../src/services/training-error.handler.service';
 import { TrainingAgendaContext } from '../../../../../internal/src/services/context/training-agenda-context.service';
 import { OrganizersAssignService } from './organizers-assign.service';
+import { Organizer } from 'kypo-training-model';
 
 describe('OrganizersAssignService', () => {
   let errorHandlerSpy: jasmine.SpyObj<TrainingErrorHandler>;
@@ -170,10 +170,8 @@ describe('OrganizersAssignService', () => {
   }
 
   function createMock() {
-    const user1 = new User([]);
-    user1.id = 1;
-    const user2 = new User([]);
-    user2.id = 2;
+    const user1: Organizer = { id: 1, name: '', login: '', mail: '', picture: '' };
+    const user2: Organizer = { id: 2, name: '', login: '', mail: '', picture: '' };
     return new PaginatedResource([user1, user2], new SentinelPagination(1, 2, 5, 2, 1));
   }
 });

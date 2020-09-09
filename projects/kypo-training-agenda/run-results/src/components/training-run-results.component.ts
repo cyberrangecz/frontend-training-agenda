@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, HostListener, OnInit } from '@angul
 import { ActivatedRoute } from '@angular/router';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { TrainingRun } from 'kypo-training-model';
-import { Kypo2AuthService } from 'kypo2-auth';
 import { Kypo2TraineeModeInfo } from 'kypo2-trainings-visualization-overview-lib';
 import { Observable } from 'rxjs';
 import { map, takeWhile } from 'rxjs/operators';
@@ -24,7 +23,7 @@ export class TrainingRunResultsComponent extends SentinelBaseDirective implement
   visualizationInfo$: Observable<VisualizationInfo>;
   traineeModeInfo$: Observable<Kypo2TraineeModeInfo>;
 
-  constructor(private activatedRoute: ActivatedRoute, private authService: Kypo2AuthService) {
+  constructor(private activatedRoute: ActivatedRoute) {
     super();
   }
 
@@ -61,7 +60,7 @@ export class TrainingRunResultsComponent extends SentinelBaseDirective implement
     visualizationInfo.trainingDefinitionId = trainingRun.trainingDefinitionId;
     visualizationInfo.trainingInstanceId = trainingRun.trainingInstanceId;
     visualizationInfo.trainingRunId = trainingRun.id;
-    visualizationInfo.traineeId = this.authService.getActiveUser().id;
+    visualizationInfo.traineeId = trainingRun?.player?.id;
     return visualizationInfo;
   }
 

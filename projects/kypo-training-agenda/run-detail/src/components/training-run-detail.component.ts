@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { Level } from 'kypo-training-model';
-import { Kypo2AuthService, User } from 'kypo2-auth';
 import { Observable } from 'rxjs';
 import { take, takeWhile, tap } from 'rxjs/operators';
 import { LevelStepperAdapter, RunningTrainingRunService } from 'kypo-training-agenda/internal';
 import { TrainingRunStepper } from '../model/training-run-stepper';
+import { SentinelUser } from '@sentinel/layout';
+import { SentinelAuthService } from '@sentinel/auth';
 
 @Component({
   selector: 'kypo-training-run-detail',
@@ -18,7 +19,7 @@ import { TrainingRunStepper } from '../model/training-run-stepper';
  * Optionally displays stepper with progress of the training and timer counting time from the start of a training.
  */
 export class TrainingRunDetailComponent extends SentinelBaseDirective implements OnInit {
-  user$: Observable<User>;
+  user$: Observable<SentinelUser>;
   activeLevel$: Observable<Level>;
   levels: Level[];
   stepper: TrainingRunStepper;
@@ -29,7 +30,7 @@ export class TrainingRunDetailComponent extends SentinelBaseDirective implements
   isLast: boolean;
   sandboxId: number;
 
-  constructor(private trainingRunService: RunningTrainingRunService, private auth: Kypo2AuthService) {
+  constructor(private trainingRunService: RunningTrainingRunService, private auth: SentinelAuthService) {
     super();
   }
 

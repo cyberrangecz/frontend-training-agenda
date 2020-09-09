@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { TrainingDefinition } from 'kypo-training-model';
-import { User } from 'kypo2-auth';
 import { takeWhile } from 'rxjs/operators';
 import { TrainingDefinitionChangeEvent } from '../../model/events/training-definition-change-event';
 import { TrainingDefinitionEditFormGroup } from './training-definition-edit-form-group';
@@ -17,7 +16,6 @@ import { TrainingDefinitionEditFormGroup } from './training-definition-edit-form
 })
 export class TrainingDefinitionEditComponent extends SentinelBaseDirective implements OnInit, OnChanges {
   @Input() trainingDefinition: TrainingDefinition;
-  @Input() activeUser: User;
   @Output() edited: EventEmitter<TrainingDefinitionChangeEvent> = new EventEmitter();
 
   trainingDefinitionEditFormGroup: TrainingDefinitionEditFormGroup;

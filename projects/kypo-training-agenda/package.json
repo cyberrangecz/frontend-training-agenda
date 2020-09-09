@@ -15,9 +15,9 @@
     "kypo-training-model": "~10.0.0",
     "kypo2-topology-graph": "~10.0.0",
     "kypo2-topology-graph-model": "~10.0.0",
-    "kypo2-assessments-results-visualization": "~10.1.0",
-    "kypo2-trainings-hurdling-viz-lib": "~10.1.0",
-    "kypo2-trainings-visualization-overview-lib": "~10.1.0"
+    "kypo2-assessments-results-visualization": "~10.2.0",
+    "kypo2-trainings-hurdling-viz-lib": "~10.3.0",
+    "kypo2-trainings-visualization-overview-lib": "~10.3.0"
   },
   "dependencies": {
     "tslib": "^2.0.0"
