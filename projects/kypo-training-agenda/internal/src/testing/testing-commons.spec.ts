@@ -6,7 +6,6 @@ import { TrainingDefinitionApi } from 'kypo-training-api';
 import { TrainingInstanceApi } from 'kypo-training-api';
 import { TrainingRunApi } from 'kypo-training-api/lib/api/run/training-run-api.service';
 import { UserApi } from 'kypo-training-api/lib/api/user/user-api.service';
-import { Kypo2AuthService } from 'kypo2-auth/lib/service/kypo2-auth.service';
 import { TrainingAgendaConfig } from '../../../src/model/training-agenda-config';
 import { TrainingErrorHandler } from '../../../src/services/training-error.handler.service';
 import { TrainingNavigator } from '../../../src/services/training-navigator.service';
@@ -16,6 +15,7 @@ import { RunningTrainingRunService } from '../services/training-run/running/runn
 import { TrainingDefinitionEditService } from '../../../definition-edit/src/services/state/edit/training-definition-edit.service';
 import { TrainingDefinitionService } from '../../../definition-overview/src/services/state/training-definition.service';
 import { FileUploadProgressService } from '../../../definition-overview/src/services/file-upload/file-upload-progress.service';
+import { SentinelAuthService } from '@sentinel/auth';
 
 export function createErrorHandlerSpy(): jasmine.SpyObj<TrainingErrorHandler> {
   return jasmine.createSpyObj('TrainingErrorHandler', ['emit']);
@@ -95,8 +95,8 @@ export function createUserApiSpy(): jasmine.SpyObj<UserApi> {
   ]);
 }
 
-export function createAuthSpy(): jasmine.SpyObj<Kypo2AuthService> {
-  return jasmine.createSpyObj('Kypo2AuthService', ['']);
+export function createAuthSpy(): jasmine.SpyObj<SentinelAuthService> {
+  return jasmine.createSpyObj('SentinelAuthService', ['']);
 }
 
 export function createNavigatorSpy(): jasmine.SpyObj<TrainingNavigator> {

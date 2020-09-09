@@ -1,17 +1,18 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SentinelConfirmationDialogModule } from '@sentinel/components/dialogs';
 import { SentinelLayout1Module } from '@sentinel/layout';
-import { Kypo2AuthInterceptor, Kypo2AuthModule } from 'kypo2-auth';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { SentinelAuthModule } from '@sentinel/auth';
+import { SentinelAuthGuardWithLogin, SentinelNegativeAuthGuard } from '@sentinel/auth/guards';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, HomeComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -19,9 +20,9 @@ import { AppComponent } from './app.component';
     SentinelLayout1Module,
     SentinelConfirmationDialogModule,
     HttpClientModule,
-    Kypo2AuthModule.forRoot(environment.kypo2AuthConfig),
+    SentinelAuthModule.forRoot(environment.authConfig),
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: Kypo2AuthInterceptor, multi: true }],
+  providers: [SentinelAuthGuardWithLogin, SentinelNegativeAuthGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
