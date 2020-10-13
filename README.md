@@ -97,7 +97,3 @@ To run the example you need to run [KYPO Training Service](https://gitlab.ics.mu
 1. Run `npm install`
 1. Run `ng serve --ssl`
 1. See the app at `https://localhost:4200`
-
-## Developers
-
-* Martin Hamernik (445720@mail.muni.cz)
