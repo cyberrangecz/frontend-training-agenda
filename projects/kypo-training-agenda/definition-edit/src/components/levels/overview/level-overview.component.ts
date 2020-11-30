@@ -16,7 +16,7 @@ import { Level } from 'kypo-training-model';
 import { Observable } from 'rxjs';
 import { map, takeWhile, tap } from 'rxjs/operators';
 import { LevelOverviewControls } from '../../../model/adapters/level-overview-controls';
-import { LevelStepperAdapter } from 'kypo-training-agenda/internal';
+import { LevelStepperAdapter } from '@kypo/training-agenda/internal';
 import { LevelMoveEvent } from '../../../model/events/level-move-event';
 import { LevelEditService } from '../../../services/state/level/level-edit.service';
 

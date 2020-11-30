@@ -1,5 +1,5 @@
 import { SentinelStepper } from '@sentinel/components/stepper';
-import { LevelStepperAdapter } from 'kypo-training-agenda/internal';
+import { LevelStepperAdapter } from '@kypo/training-agenda/internal';
 
 /**
  * Training run levels adapter to kypo stepper component

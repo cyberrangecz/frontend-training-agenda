@@ -6,7 +6,7 @@ import { GameLevel } from 'kypo-training-model';
 import { Hint } from 'kypo-training-model';
 import { EMPTY, Observable, of } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
-import { HintButton, RunningTrainingRunService, TrainingRunGameLevelService } from 'kypo-training-agenda/internal';
+import { HintButton, RunningTrainingRunService, TrainingRunGameLevelService } from '@kypo/training-agenda/internal';
 import { saveAs } from 'file-saver';
 
 @Injectable()

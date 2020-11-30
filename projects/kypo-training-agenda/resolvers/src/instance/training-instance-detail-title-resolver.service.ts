@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/r
 import { TrainingInstance } from 'kypo-training-model';
 import { Observable, of } from 'rxjs';
 import { catchError, mergeMap, take } from 'rxjs/operators';
-import { ACCESS_TOKEN_PATH, PROGRESS_PATH, RESULTS_PATH, SUMMARY_PATH } from 'kypo-training-agenda';
+import { ACCESS_TOKEN_PATH, PROGRESS_PATH, RESULTS_PATH, SUMMARY_PATH } from '@kypo/training-agenda';
 import { TrainingInstanceResolver } from './training-instance-resolver.service';
 
 @Injectable()

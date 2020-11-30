@@ -13,7 +13,7 @@ import { InfoLevel } from 'kypo-training-model';
 import { AbstractLevelTypeEnum } from 'kypo-training-model';
 import { EMPTY, Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
-import { TrainingErrorHandler, TrainingNotificationService } from 'kypo-training-agenda';
+import { TrainingErrorHandler, TrainingNotificationService } from '@kypo/training-agenda';
 import { LevelEditService } from './level-edit.service';
 
 /**

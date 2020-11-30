@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterModule } from '@angular/router';
-import { TrainingAgendaConfig } from 'kypo-training-agenda';
+import { TrainingAgendaConfig } from '@kypo/training-agenda';
 import { AccessTokenDetailComponent } from './access-token-detail.component';
 
 /**

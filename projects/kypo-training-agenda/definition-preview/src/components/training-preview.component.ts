@@ -5,8 +5,8 @@ import { TrainingDefinitionApi } from 'kypo-training-api';
 import { AccessTrainingRunInfo } from 'kypo-training-model';
 import { TrainingDefinition } from 'kypo-training-model';
 import { map, takeWhile } from 'rxjs/operators';
-import { TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME } from 'kypo-training-agenda';
-import { RunningTrainingRunService } from 'kypo-training-agenda/internal';
+import { TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME } from '@kypo/training-agenda';
+import { RunningTrainingRunService } from '@kypo/training-agenda/internal';
 
 /**
  * Main component of training run preview. Initializes mock services with data of training definition to simulate

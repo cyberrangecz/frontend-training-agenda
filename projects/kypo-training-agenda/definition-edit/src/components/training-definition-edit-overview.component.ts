@@ -7,9 +7,9 @@ import { Level } from 'kypo-training-model';
 import { Observable } from 'rxjs';
 import { map, takeWhile, tap } from 'rxjs/operators';
 import { TrainingDefinitionEditControls } from '../model/adapters/training-definition-edit-controls';
-import { TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME } from 'kypo-training-agenda';
+import { TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME } from '@kypo/training-agenda';
 import { TrainingDefinitionChangeEvent } from '../model/events/training-definition-change-event';
-import { TrainingAgendaContext } from 'kypo-training-agenda/internal';
+import { TrainingAgendaContext } from '@kypo/training-agenda/internal';
 import { TrainingDefinitionEditService } from '../services/state/edit/training-definition-edit.service';
 
 /**

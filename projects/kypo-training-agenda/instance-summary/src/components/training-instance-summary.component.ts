@@ -9,7 +9,7 @@ import { map, switchMap, take, takeWhile, tap } from 'rxjs/operators';
 import { TrainingInstanceSummaryControls } from '../model/training-instance-summary-controls';
 import { ActiveTrainingRunTable } from '../model/active-training-run-table';
 import { ArchivedTrainingRunTable } from '../model/archived-training-run-table';
-import { TrainingNavigator, TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME } from 'kypo-training-agenda';
+import { TrainingNavigator, TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME } from '@kypo/training-agenda';
 import { TrainingInstanceSummaryService } from '../services/state/summary/training-instance-summary.service';
 import { ActiveTrainingRunService } from '../services/state/active-runs/active-training-run.service';
 import { ArchivedTrainingRunService } from '../services/state/archived-runs/archived-training-run.service';

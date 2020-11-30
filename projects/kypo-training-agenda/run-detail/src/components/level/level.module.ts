@@ -6,7 +6,7 @@ import {
   TrainingRunAssessmentLevelService,
   TrainingRunGameLevelConcreteService,
   TrainingRunGameLevelService,
-} from 'kypo-training-agenda/internal';
+} from '@kypo/training-agenda/internal';
 
 /**
  * Module containing imports and providers for training run levels

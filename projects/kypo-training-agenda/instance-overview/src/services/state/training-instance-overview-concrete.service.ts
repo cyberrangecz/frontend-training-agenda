@@ -7,8 +7,8 @@ import { TrainingInstance } from 'kypo-training-model';
 import { EMPTY, Observable, of } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { TrainingInstanceFilter } from '../../model/adapters/training-instance-filter';
-import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } from 'kypo-training-agenda';
-import { TrainingAgendaContext } from 'kypo-training-agenda/internal';
+import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } from '@kypo/training-agenda';
+import { TrainingAgendaContext } from '@kypo/training-agenda/internal';
 import { TrainingInstanceOverviewService } from './training-instance-overview.service';
 
 @Injectable()

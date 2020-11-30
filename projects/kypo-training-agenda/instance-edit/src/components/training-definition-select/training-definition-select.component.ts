@@ -5,7 +5,7 @@ import { TrainingDefinition } from 'kypo-training-model';
 import { TrainingDefinitionInfo } from 'kypo-training-model';
 import { merge, Observable } from 'rxjs';
 import { takeWhile } from 'rxjs/operators';
-import { TrainingAgendaContext } from 'kypo-training-agenda/internal';
+import { TrainingAgendaContext } from '@kypo/training-agenda/internal';
 import { TrainingDefinitionOrganizerSelectConcreteService } from '../../services/state/training-definition-selector/training-definition-organizer-select-concrete.service';
 
 /**

@@ -4,7 +4,7 @@ import { SentinelBaseDirective } from '@sentinel/common';
 import { TrainingInstance } from 'kypo-training-model';
 import { Observable } from 'rxjs';
 import { map, takeWhile, tap } from 'rxjs/operators';
-import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME } from 'kypo-training-agenda';
+import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME } from '@kypo/training-agenda';
 
 /**
  * Component displaying training instance results visualizations

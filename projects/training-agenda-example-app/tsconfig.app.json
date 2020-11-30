@@ -5,10 +5,10 @@
     "types": [],
     "baseUrl": "./",
     "paths": {
-      "kypo-training-agenda": [
+      "@kypo/training-agenda": [
         "../kypo-training-agenda/src/public_api.ts"
       ],
-      "kypo-training-agenda/*": [
+      "@kypo/training-agenda/*": [
         "../kypo-training-agenda/*/src/public_api.ts"
       ]
     }

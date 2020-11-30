@@ -6,7 +6,7 @@ import { Level } from 'kypo-training-model';
 import { from } from 'rxjs';
 import { Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
-import { TrainingErrorHandler, TrainingNavigator } from 'kypo-training-agenda';
+import { TrainingErrorHandler, TrainingNavigator } from '@kypo/training-agenda';
 import { RunningTrainingRunService } from './running-training-run.service';
 
 /**

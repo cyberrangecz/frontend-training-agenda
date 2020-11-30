@@ -4,13 +4,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { SentinelPipesModule } from '@sentinel/common';
 import { SentinelTableModule } from '@sentinel/components/table';
-import { TrainingAgendaConfig, TrainingDefaultNavigator, TrainingNavigator } from 'kypo-training-agenda';
+import { TrainingAgendaConfig, TrainingDefaultNavigator, TrainingNavigator } from '@kypo/training-agenda';
 import {
   TrainingAgendaContext,
   RunningTrainingRunConcreteService,
   RunningTrainingRunService,
-} from 'kypo-training-agenda/internal';
-import { AccessTrainingRunResolver, TrainingRunResultsResolver } from 'kypo-training-agenda/resolvers';
+} from '@kypo/training-agenda/internal';
+import { AccessTrainingRunResolver, TrainingRunResultsResolver } from '@kypo/training-agenda/resolvers';
 import { AccessedTrainingRunConcreteService } from '../services/state/accessed-training-run-concrete.service';
 import { AccessedTrainingRunService } from '../services/state/accessed-training-run.service';
 import { AccessTrainingRunComponent } from './access/access-training-run.component';

@@ -5,8 +5,8 @@ import { TrainingRunApi } from 'kypo-training-api';
 import { AccessedTrainingRun } from 'kypo-training-model';
 import { from, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { TrainingErrorHandler, TrainingNavigator } from 'kypo-training-agenda';
-import { TrainingAgendaContext } from 'kypo-training-agenda/internal';
+import { TrainingErrorHandler, TrainingNavigator } from '@kypo/training-agenda';
+import { TrainingAgendaContext } from '@kypo/training-agenda/internal';
 import { AccessedTrainingRunService } from './accessed-training-run.service';
 
 /**

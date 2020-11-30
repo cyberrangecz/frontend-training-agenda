@@ -3,13 +3,13 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SentinelControlsModule } from '@sentinel/components/controls';
 import { SentinelTableModule } from '@sentinel/components/table';
-import { TrainingAgendaConfig, TrainingDefaultNavigator, TrainingNavigator } from 'kypo-training-agenda';
-import { TrainingAgendaContext } from 'kypo-training-agenda/internal';
+import { TrainingAgendaConfig, TrainingDefaultNavigator, TrainingNavigator } from '@kypo/training-agenda';
+import { TrainingAgendaContext } from '@kypo/training-agenda/internal';
 import {
   TrainingInstanceBreadcrumbResolver,
   TrainingInstanceResolver,
   TrainingInstanceTitleResolver,
-} from 'kypo-training-agenda/resolvers';
+} from '@kypo/training-agenda/resolvers';
 import { TrainingInstanceOverviewConcreteService } from '../services/state/training-instance-overview-concrete.service';
 import { TrainingInstanceOverviewService } from '../services/state/training-instance-overview.service';
 import { TrainingInstanceOverviewComponent } from './training-instance-overview.component';

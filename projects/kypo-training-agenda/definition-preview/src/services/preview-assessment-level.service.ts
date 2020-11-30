@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Question } from 'kypo-training-model';
 import { Observable } from 'rxjs';
-import { RunningTrainingRunService, TrainingRunAssessmentLevelService } from 'kypo-training-agenda/internal';
+import { RunningTrainingRunService, TrainingRunAssessmentLevelService } from '@kypo/training-agenda/internal';
 
 @Injectable()
 /**

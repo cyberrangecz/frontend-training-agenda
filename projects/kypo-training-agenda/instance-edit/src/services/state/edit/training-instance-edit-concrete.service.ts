@@ -6,7 +6,7 @@ import { TrainingInstance } from 'kypo-training-model';
 import { from, Observable } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { TrainingInstanceChangeEvent } from '../../../model/events/training-instance-change-event';
-import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } from 'kypo-training-agenda';
+import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } from '@kypo/training-agenda';
 import { TrainingInstanceEditService } from './training-instance-edit.service';
 
 /**

@@ -4,7 +4,7 @@ import {
   Kypo2TrainingsVisualizationOverviewLibModule,
   VisualizationOverviewConfig,
 } from 'kypo2-trainings-visualization-overview-lib';
-import { TrainingAgendaConfig } from 'kypo-training-agenda';
+import { TrainingAgendaConfig } from '@kypo/training-agenda';
 import { TrainingRunResultsMaterialModule } from './training-run-results-material.module';
 import { TrainingRunResultsComponent } from './training-run-results.component';
 

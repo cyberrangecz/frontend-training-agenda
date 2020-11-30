@@ -1,9 +1,9 @@
-import { TrainingAgendaContext } from 'kypo-training-agenda/internal';
+import { TrainingAgendaContext } from '@kypo/training-agenda/internal';
 import { ActivatedRoute } from '@angular/router';
 import { TrainingDefinitionOverviewComponent } from './training-definition-overview.component';
 import { ChangeDetectorRef } from '@angular/core';
 import { TestBed, async, ComponentFixture, fakeAsync } from '@angular/core/testing';
-import { TrainingDefinitionService } from 'kypo-training-agenda/definition-overview';
+import { TrainingDefinitionService } from '@kypo/training-agenda/definition-overview';
 import {
   createActivatedRouteSpy,
   createContext,

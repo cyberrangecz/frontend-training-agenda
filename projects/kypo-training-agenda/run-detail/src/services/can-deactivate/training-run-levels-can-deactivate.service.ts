@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanDeactivate, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AbstractLevelComponent } from '../../components/level/abstract-level.component';
-import { RunningTrainingRunService } from 'kypo-training-agenda/internal';
+import { RunningTrainingRunService } from '@kypo/training-agenda/internal';
 
 @Injectable()
 export class TrainingRunLevelsDeactivateGuard implements CanDeactivate<AbstractLevelComponent> {

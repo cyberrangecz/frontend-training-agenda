@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 import { map, take, takeWhile } from 'rxjs/operators';
 import { TrainingDefinitionOverviewControls } from '../model/training-definition-overview-controls';
 import { TrainingDefinitionTable } from '../model/training-definition-table';
-import { TrainingAgendaContext } from 'kypo-training-agenda/internal';
+import { TrainingAgendaContext } from '@kypo/training-agenda/internal';
 import { TrainingDefinitionService } from '../services/state/training-definition.service';
 
 /**

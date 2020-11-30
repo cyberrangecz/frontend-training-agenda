@@ -5,8 +5,8 @@ import { Organizer } from 'kypo-training-model';
 import { SentinelUserAssignService } from '@sentinel/components/user-assign';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
-import { UserNameFilters, TrainingAgendaContext } from 'kypo-training-agenda/internal';
-import { TrainingErrorHandler } from 'kypo-training-agenda';
+import { UserNameFilters, TrainingAgendaContext } from '@kypo/training-agenda/internal';
+import { TrainingErrorHandler } from '@kypo/training-agenda';
 
 /**
  * Organizer implementation of UserAssignService from user assign library.
