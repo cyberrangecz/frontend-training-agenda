@@ -3,7 +3,7 @@ import { TrainingRunApi } from 'kypo-training-api';
 import { Question } from 'kypo-training-model';
 import { Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
-import { TrainingErrorHandler } from 'kypo-training-agenda';
+import { TrainingErrorHandler } from '@kypo/training-agenda';
 import { RunningTrainingRunService } from '../../running/running-training-run.service';
 import { TrainingRunAssessmentLevelService } from './training-run-assessment-level.service';
 

@@ -5,8 +5,8 @@ import { TrainingRun } from 'kypo-training-model';
 import { Kypo2TraineeModeInfo } from 'kypo2-trainings-visualization-overview-lib';
 import { Observable } from 'rxjs';
 import { map, takeWhile } from 'rxjs/operators';
-import { VisualizationInfo } from 'kypo-training-agenda/internal';
-import { TRAINING_RUN_DATA_ATTRIBUTE_NAME } from 'kypo-training-agenda';
+import { VisualizationInfo } from '@kypo/training-agenda/internal';
+import { TRAINING_RUN_DATA_ATTRIBUTE_NAME } from '@kypo/training-agenda';
 
 @Component({
   selector: 'kypo-training-run-results',

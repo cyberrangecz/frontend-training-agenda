@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TrainingAgendaConfig } from 'kypo-training-agenda';
+import { TrainingAgendaConfig } from '@kypo/training-agenda';
 
 @Injectable()
 export class TrainingAgendaContext {

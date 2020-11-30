@@ -11,7 +11,7 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { SentinelStepper, StepperStateChange } from '@sentinel/components/stepper';
-import { LevelStepperAdapter } from 'kypo-training-agenda/internal';
+import { LevelStepperAdapter } from '@kypo/training-agenda/internal';
 import { LevelMoveEvent } from '../../../model/events/level-move-event';
 
 /**

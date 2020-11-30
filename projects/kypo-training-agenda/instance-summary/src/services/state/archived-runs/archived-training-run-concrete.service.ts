@@ -11,8 +11,8 @@ import { TrainingInstanceApi } from 'kypo-training-api';
 import { TrainingRun } from 'kypo-training-model';
 import { EMPTY, Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
-import { TrainingErrorHandler, TrainingNotificationService } from 'kypo-training-agenda';
-import { TrainingAgendaContext } from 'kypo-training-agenda/internal';
+import { TrainingErrorHandler, TrainingNotificationService } from '@kypo/training-agenda';
+import { TrainingAgendaContext } from '@kypo/training-agenda/internal';
 import { ArchivedTrainingRunService } from './archived-training-run.service';
 
 /**

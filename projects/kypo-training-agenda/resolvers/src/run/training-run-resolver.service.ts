@@ -9,8 +9,8 @@ import {
   TrainingNavigator,
   TRAINING_RUN_ACCESS_SELECTOR,
   TRAINING_RUN_SELECTOR,
-} from 'kypo-training-agenda';
-import { RunningTrainingRunService } from 'kypo-training-agenda/internal';
+} from '@kypo/training-agenda';
+import { RunningTrainingRunService } from '@kypo/training-agenda/internal';
 
 /**
  * Router data provider

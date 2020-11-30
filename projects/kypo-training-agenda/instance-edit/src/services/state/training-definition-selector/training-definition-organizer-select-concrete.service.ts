@@ -4,8 +4,8 @@ import { TrainingDefinitionApi } from 'kypo-training-api';
 import { TrainingDefinitionInfo } from 'kypo-training-model';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { TrainingErrorHandler } from 'kypo-training-agenda';
-import { TrainingAgendaContext } from 'kypo-training-agenda/internal';
+import { TrainingErrorHandler } from '@kypo/training-agenda';
+import { TrainingAgendaContext } from '@kypo/training-agenda/internal';
 import { TrainingDefinitionOrganizerSelectService } from './training-definition-organizer-select.service';
 
 /**

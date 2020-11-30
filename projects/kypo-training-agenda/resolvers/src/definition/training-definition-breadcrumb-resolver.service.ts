@@ -7,7 +7,7 @@ import {
   TRAINING_DEFINITION_EDIT_PATH,
   TRAINING_DEFINITION_NEW_PATH,
   TRAINING_DEFINITION_SELECTOR,
-} from 'kypo-training-agenda';
+} from '@kypo/training-agenda';
 import { TrainingDefinitionResolver } from './training-definition-resolver.service';
 
 /**

@@ -1,5 +1,5 @@
 {
-  "name": "kypo-training-agenda",
+  "name": "@kypo/training-agenda",
   "version": "10.6.0",
   "peerDependencies": {
     "@angular/common": "^10.0.0",

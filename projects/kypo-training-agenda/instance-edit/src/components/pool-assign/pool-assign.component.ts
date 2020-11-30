@@ -17,8 +17,8 @@ import { Observable } from 'rxjs';
 import { map, take, takeWhile, tap } from 'rxjs/operators';
 import { PoolAssignControls } from '../../model/adapter/pool-assign-controls';
 import { SandboxPoolListAdapter } from '../../model/adapter/sandbox-pool-list-adapter';
-import { TrainingNavigator } from 'kypo-training-agenda';
-import { TrainingAgendaContext } from 'kypo-training-agenda/internal';
+import { TrainingNavigator } from '@kypo/training-agenda';
+import { TrainingAgendaContext } from '@kypo/training-agenda/internal';
 import { PoolAssignConcreteService } from '../../services/state/pool-assign/pool-assign-concrete.service';
 import { PoolAssignService } from '../../services/state/pool-assign/pool-assign.service';
 

@@ -1,6 +1,6 @@
-import { TrainingAgendaContext } from 'kypo-training-agenda/internal';
+import { TrainingAgendaContext } from '@kypo/training-agenda/internal';
 import { ActivatedRoute } from '@angular/router';
-import { TrainingDefinitionEditOverviewComponent } from 'kypo-training-agenda/definition-edit';
+import { TrainingDefinitionEditOverviewComponent } from '@kypo/training-agenda/definition-edit';
 import { ComponentFixture, TestBed, async, fakeAsync } from '@angular/core/testing';
 import { ChangeDetectorRef } from '@angular/core';
 import {
@@ -8,7 +8,7 @@ import {
   createTrainingDefinitionEditServiceSpy,
   createContext,
 } from '../../../internal/src/testing/testing-commons.spec';
-import { TrainingDefinitionEditService } from 'kypo-training-agenda/definition-edit';
+import { TrainingDefinitionEditService } from '@kypo/training-agenda/definition-edit';
 import { TrainingDefinition, Level, GameLevel, AssessmentLevel, InfoLevel } from 'kypo-training-model';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TrainingDefinitionChangeEvent } from '../model/events/training-definition-change-event';

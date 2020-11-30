@@ -10,7 +10,7 @@ import {
   DownloadAction,
 } from '@sentinel/components/table';
 import { defer, of } from 'rxjs';
-import { TrainingNavigator } from 'kypo-training-agenda';
+import { TrainingNavigator } from '@kypo/training-agenda';
 import { TrainingInstanceOverviewService } from '../../services/state/training-instance-overview.service';
 import { TrainingInstanceRowAdapter } from './training-instance-row-adapter';
 

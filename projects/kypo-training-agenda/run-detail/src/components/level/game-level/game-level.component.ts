@@ -16,8 +16,8 @@ import { GameLevel } from 'kypo-training-model';
 import { Kypo2TopologyErrorService } from 'kypo2-topology-graph';
 import { Observable } from 'rxjs';
 import { take, takeWhile } from 'rxjs/operators';
-import { HintButton, TrainingRunGameLevelService } from 'kypo-training-agenda/internal';
-import { TrainingErrorHandler } from 'kypo-training-agenda';
+import { HintButton, TrainingRunGameLevelService } from '@kypo/training-agenda/internal';
+import { TrainingErrorHandler } from '@kypo/training-agenda';
 
 @Component({
   selector: 'kypo-game-level',

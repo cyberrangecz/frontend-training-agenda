@@ -14,8 +14,8 @@ import { EMPTY, from, Observable } from 'rxjs';
 import { map, switchMap, take, tap } from 'rxjs/operators';
 import { CloneDialogComponent } from '../../components/clone-dialog/clone-dialog.component';
 import { TrainingDefinitionUploadDialogComponent } from '../../components/upload-dialog/training-definition-upload-dialog.component';
-import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } from 'kypo-training-agenda';
-import { TrainingAgendaContext } from 'kypo-training-agenda/internal';
+import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } from '@kypo/training-agenda';
+import { TrainingAgendaContext } from '@kypo/training-agenda/internal';
 import { FileUploadProgressService } from '../file-upload/file-upload-progress.service';
 import { TrainingDefinitionService } from './training-definition.service';
 

@@ -5,7 +5,7 @@ import { SentinelTable, LoadTableEvent, TableActionEvent } from '@sentinel/compo
 import { Observable } from 'rxjs';
 import { map, take, takeWhile } from 'rxjs/operators';
 import { AccessedTrainingRunTable } from '../model/accessed-training-run-table';
-import { TrainingAgendaContext } from 'kypo-training-agenda/internal';
+import { TrainingAgendaContext } from '@kypo/training-agenda/internal';
 import { AccessedTrainingRunService } from '../services/state/accessed-training-run.service';
 
 /**

@@ -6,9 +6,9 @@ import { TrainingInstance } from 'kypo-training-model';
 import { Observable } from 'rxjs';
 import { map, take, takeWhile, tap } from 'rxjs/operators';
 import { TrainingInstanceEditControls } from '../model/adapter/training-instance-edit-controls';
-import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME } from 'kypo-training-agenda';
+import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME } from '@kypo/training-agenda';
 import { TrainingInstanceChangeEvent } from '../model/events/training-instance-change-event';
-import { TrainingAgendaContext } from 'kypo-training-agenda/internal';
+import { TrainingAgendaContext } from '@kypo/training-agenda/internal';
 import { TrainingInstanceEditService } from '../services/state/edit/training-instance-edit.service';
 
 /**

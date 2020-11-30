@@ -9,7 +9,7 @@ import {
   TRAINING_DEFINITION_NEW_PATH,
   TRAINING_DEFINITION_PATH,
   TRAINING_DEFINITION_SELECTOR,
-} from 'kypo-training-agenda';
+} from '@kypo/training-agenda';
 /**
  * Router data provider
  */

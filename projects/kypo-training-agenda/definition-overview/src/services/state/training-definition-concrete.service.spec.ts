@@ -20,10 +20,10 @@ import {
   createNotificationSpy,
   createTrainingDefinitionApiSpy,
 } from '../../../../internal/src/testing/testing-commons.spec';
-import { TrainingErrorHandler } from 'kypo-training-agenda';
-import { TrainingNavigator } from 'kypo-training-agenda';
-import { TrainingNotificationService } from 'kypo-training-agenda';
-import { TrainingAgendaContext } from 'kypo-training-agenda/internal';
+import { TrainingErrorHandler } from '@kypo/training-agenda';
+import { TrainingNavigator } from '@kypo/training-agenda';
+import { TrainingNotificationService } from '@kypo/training-agenda';
+import { TrainingAgendaContext } from '@kypo/training-agenda/internal';
 import { FileUploadProgressService } from '../file-upload/file-upload-progress.service';
 import { TrainingDefinitionConcreteService } from './training-definition.concrete.service';
 

@@ -5,7 +5,7 @@ import { TrainingDefinition } from 'kypo-training-model';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { TrainingDefinitionChangeEvent } from '../../../model/events/training-definition-change-event';
-import { TrainingNotificationService, TrainingNavigator, TrainingErrorHandler } from 'kypo-training-agenda';
+import { TrainingNotificationService, TrainingNavigator, TrainingErrorHandler } from '@kypo/training-agenda';
 import { TrainingDefinitionEditService } from './training-definition-edit.service';
 
 /**

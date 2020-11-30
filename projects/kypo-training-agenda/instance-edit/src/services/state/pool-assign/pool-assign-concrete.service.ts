@@ -6,7 +6,7 @@ import { TrainingInstanceApi } from 'kypo-training-api';
 import { TrainingInstance } from 'kypo-training-model';
 import { Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
-import { TrainingErrorHandler, TrainingNotificationService } from 'kypo-training-agenda';
+import { TrainingErrorHandler, TrainingNotificationService } from '@kypo/training-agenda';
 import { PoolAssignService } from './pool-assign.service';
 
 @Injectable()

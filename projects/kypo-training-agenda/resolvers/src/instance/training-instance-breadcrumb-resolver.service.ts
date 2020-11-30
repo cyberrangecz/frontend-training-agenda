@@ -7,7 +7,7 @@ import {
   TRAINING_INSTANCE_EDIT_PATH,
   TRAINING_INSTANCE_NEW_PATH,
   TRAINING_INSTANCE_SELECTOR,
-} from 'kypo-training-agenda';
+} from '@kypo/training-agenda';
 import { TrainingInstanceResolver } from './training-instance-resolver.service';
 
 /**

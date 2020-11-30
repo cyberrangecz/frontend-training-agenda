@@ -4,7 +4,7 @@ import { TrainingRunApi } from 'kypo-training-api';
 import { TrainingRun } from 'kypo-training-model';
 import { EMPTY, Observable, of } from 'rxjs';
 import { catchError, mergeMap, take } from 'rxjs/operators';
-import { TrainingErrorHandler, TrainingNavigator, TRAINING_RUN_SELECTOR } from 'kypo-training-agenda';
+import { TrainingErrorHandler, TrainingNavigator, TRAINING_RUN_SELECTOR } from '@kypo/training-agenda';
 
 @Injectable()
 export class TrainingRunResultsResolver implements Resolve<TrainingRun> {
