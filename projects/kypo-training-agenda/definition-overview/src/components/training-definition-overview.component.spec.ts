@@ -9,7 +9,7 @@ import {
   createContext,
   createTrainingDefinitionServiceSpy,
 } from '../../../internal/src/testing/testing-commons.spec';
-import { Level, GameLevel, AssessmentLevel, InfoLevel, TrainingDefinition } from 'kypo-training-model';
+import { Level, GameLevel, AssessmentLevel, InfoLevel, TrainingDefinition } from '@kypo/training-model';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { asyncData, PaginatedResource, SentinelPagination, RequestedPagination } from '@sentinel/common';
 import { LoadTableEvent, SentinelTableModule } from '@sentinel/components/table';

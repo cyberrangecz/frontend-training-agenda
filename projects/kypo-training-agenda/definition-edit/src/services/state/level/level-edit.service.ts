@@ -3,7 +3,7 @@
  * Serves as a layer between component and API service
  * Subscribe to levels$, activeStep$ and activeLevelCanBeSaved$ to receive latest data updates.
  */
-import { AbstractLevelTypeEnum, Level } from 'kypo-training-model';
+import { AbstractLevelTypeEnum, Level } from '@kypo/training-model';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 export abstract class LevelEditService {

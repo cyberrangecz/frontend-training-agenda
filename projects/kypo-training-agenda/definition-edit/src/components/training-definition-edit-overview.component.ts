@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component, HostListener, OnInit } from '@angul
 import { ActivatedRoute } from '@angular/router';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { SentinelControlItem } from '@sentinel/components/controls';
-import { TrainingDefinition } from 'kypo-training-model';
-import { Level } from 'kypo-training-model';
+import { TrainingDefinition } from '@kypo/training-model';
+import { Level } from '@kypo/training-model';
 import { Observable } from 'rxjs';
 import { map, takeWhile, tap } from 'rxjs/operators';
 import { TrainingDefinitionEditControls } from '../model/adapters/training-definition-edit-controls';

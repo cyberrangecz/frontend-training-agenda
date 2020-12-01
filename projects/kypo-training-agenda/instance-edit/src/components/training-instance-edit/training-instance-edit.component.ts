@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SentinelBaseDirective } from '@sentinel/common';
-import { TrainingInstance } from 'kypo-training-model';
+import { TrainingInstance } from '@kypo/training-model';
 import { interval } from 'rxjs';
 import { takeWhile } from 'rxjs/operators';
 import { TrainingInstanceChangeEvent } from '../../model/events/training-instance-change-event';

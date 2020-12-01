@@ -1,5 +1,5 @@
 import { SentinelControlItem } from '@sentinel/components/controls';
-import { TrainingInstance } from 'kypo-training-model';
+import { TrainingInstance } from '@kypo/training-model';
 import { defer, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { PoolAssignService } from '../../services/state/pool-assign/pool-assign.service';

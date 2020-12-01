@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { SentinelBaseDirective } from '@sentinel/common';
-import { Hint } from 'kypo-training-model';
+import { Hint } from '@kypo/training-model';
 import { takeWhile } from 'rxjs/operators';
 import { HintEditFormGroup } from './hint-edit-form-group';
 

@@ -1,6 +1,6 @@
 import { PaginatedResource } from '@sentinel/common';
-import { TrainingDefinitionStateEnum } from 'kypo-training-model';
-import { TrainingDefinition } from 'kypo-training-model';
+import { TrainingDefinitionStateEnum } from '@kypo/training-model';
+import { TrainingDefinition } from '@kypo/training-model';
 import {
   Column,
   SentinelTable,

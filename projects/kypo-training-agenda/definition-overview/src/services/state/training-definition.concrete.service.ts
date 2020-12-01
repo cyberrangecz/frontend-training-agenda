@@ -7,9 +7,9 @@ import {
   SentinelDialogResultEnum,
 } from '@sentinel/components/dialogs';
 import { SentinelFilter, PaginatedResource, RequestedPagination } from '@sentinel/common';
-import { TrainingDefinitionApi } from 'kypo-training-api';
-import { TrainingDefinition } from 'kypo-training-model';
-import { TrainingDefinitionStateEnum } from 'kypo-training-model';
+import { TrainingDefinitionApi } from '@kypo/training-api';
+import { TrainingDefinition } from '@kypo/training-model';
+import { TrainingDefinitionStateEnum } from '@kypo/training-model';
 import { EMPTY, from, Observable } from 'rxjs';
 import { map, switchMap, take, tap } from 'rxjs/operators';
 import { CloneDialogComponent } from '../../components/clone-dialog/clone-dialog.component';

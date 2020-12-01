@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RequestedPagination, PaginatedResource, SentinelPagination } from '@sentinel/common';
-import { UserApi } from 'kypo-training-api';
-import { Designer } from 'kypo-training-model';
+import { UserApi } from '@kypo/training-api';
+import { Designer } from '@kypo/training-model';
 import { SentinelUserAssignService } from '@sentinel/components/user-assign';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';

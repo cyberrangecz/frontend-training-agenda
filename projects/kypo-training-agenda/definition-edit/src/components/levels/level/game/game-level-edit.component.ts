@@ -9,8 +9,8 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { SentinelBaseDirective } from '@sentinel/common';
-import { GameLevel } from 'kypo-training-model';
-import { Hint } from 'kypo-training-model';
+import { GameLevel } from '@kypo/training-model';
+import { Hint } from '@kypo/training-model';
 import { takeWhile } from 'rxjs/operators';
 import { GameLevelEditFormGroup } from './game-level-edit-form-group';
 

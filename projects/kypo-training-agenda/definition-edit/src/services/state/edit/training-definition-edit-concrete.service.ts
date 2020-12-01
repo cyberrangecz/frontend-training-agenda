@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { TrainingDefinitionApi } from 'kypo-training-api';
-import { TrainingDefinition } from 'kypo-training-model';
+import { TrainingDefinitionApi } from '@kypo/training-api';
+import { TrainingDefinition } from '@kypo/training-model';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { TrainingDefinitionChangeEvent } from '../../../model/events/training-definition-change-event';

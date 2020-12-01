@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SentinelBaseDirective } from '@sentinel/common';
-import { TrainingRun } from 'kypo-training-model';
-import { Kypo2TraineeModeInfo } from 'kypo2-trainings-visualization-overview-lib';
+import { TrainingRun } from '@kypo/training-model';
+import { Kypo2TraineeModeInfo } from '@kypo/overview-visualization';
 import { Observable } from 'rxjs';
 import { map, takeWhile } from 'rxjs/operators';
 import { VisualizationInfo } from '@kypo/training-agenda/internal';

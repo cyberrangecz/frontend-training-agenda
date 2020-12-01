@@ -3,7 +3,7 @@ import { CloneDialogComponent } from './clone-dialog.component';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { TrainingDefinitionEditOverviewMaterialModule } from '../../../../definition-edit/src/components/training-definition-edit-overview-material.module';
-import { TrainingDefinition, Level, GameLevel, AssessmentLevel, InfoLevel } from 'kypo-training-model';
+import { TrainingDefinition, Level, GameLevel, AssessmentLevel, InfoLevel } from '@kypo/training-model';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SentinelPipesModule } from '@sentinel/common';
 import { createDialogRefSpy } from '../../../../internal/src/testing/testing-commons.spec';

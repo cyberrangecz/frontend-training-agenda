@@ -1,7 +1,7 @@
 import { FormArray, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { SentinelValidators } from '@sentinel/common';
-import { Question } from 'kypo-training-model';
-import { FreeFormQuestion } from 'kypo-training-model';
+import { Question } from '@kypo/training-model';
+import { FreeFormQuestion } from '@kypo/training-model';
 
 /**
  * Form control for free form question component

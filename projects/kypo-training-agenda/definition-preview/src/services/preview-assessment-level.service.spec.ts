@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { asyncData } from '@sentinel/common';
-import { Question } from 'kypo-training-model';
+import { Question } from '@kypo/training-model';
 import { TrainingAgendaConfig } from '../../../src/model/training-agenda-config';
 import { createRunningTrainingRunServiceSpy } from '../../../internal/src/testing/testing-commons.spec';
 import { TrainingAgendaContext } from '../../../internal/src/services/context/training-agenda-context.service';

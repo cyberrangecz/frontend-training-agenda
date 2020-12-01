@@ -3,7 +3,7 @@ import {
   SentinelControlMenuItem,
   SentinelExpandableControlItem,
 } from '@sentinel/components/controls';
-import { AbstractLevelTypeEnum } from 'kypo-training-model';
+import { AbstractLevelTypeEnum } from '@kypo/training-model';
 import { defer, Observable, of } from 'rxjs';
 import { LevelEditService } from '../../services/state/level/level-edit.service';
 

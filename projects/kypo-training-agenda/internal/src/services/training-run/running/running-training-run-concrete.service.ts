@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { TrainingRunApi } from 'kypo-training-api';
-import { AccessTrainingRunInfo } from 'kypo-training-model';
-import { Level } from 'kypo-training-model';
+import { TrainingRunApi } from '@kypo/training-api';
+import { AccessTrainingRunInfo } from '@kypo/training-model';
+import { Level } from '@kypo/training-model';
 import { from } from 'rxjs';
 import { Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';

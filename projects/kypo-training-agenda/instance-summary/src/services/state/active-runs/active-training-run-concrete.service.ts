@@ -6,10 +6,10 @@ import {
   SentinelDialogResultEnum,
 } from '@sentinel/components/dialogs';
 import { PaginatedResource, RequestedPagination } from '@sentinel/common';
-import { SandboxAllocationUnitsApi, SandboxInstanceApi } from 'kypo-sandbox-api';
-import { SandboxInstance } from 'kypo-sandbox-model';
-import { TrainingInstanceApi, TrainingRunApi } from 'kypo-training-api';
-import { TrainingRun } from 'kypo-training-model';
+import { SandboxAllocationUnitsApi, SandboxInstanceApi } from '@kypo/sandbox-api';
+import { SandboxInstance } from '@kypo/sandbox-model';
+import { TrainingInstanceApi, TrainingRunApi } from '@kypo/training-api';
+import { TrainingRun } from '@kypo/training-model';
 import { EMPTY, Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { TrainingNotificationService, TrainingErrorHandler } from '@kypo/training-agenda';

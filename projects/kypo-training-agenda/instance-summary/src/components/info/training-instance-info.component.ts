@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { SentinelBaseDirective } from '@sentinel/common';
-import { TrainingDefinition } from 'kypo-training-model';
-import { TrainingInstance } from 'kypo-training-model';
+import { TrainingDefinition } from '@kypo/training-model';
+import { TrainingInstance } from '@kypo/training-model';
 
 /**
  * Component for displaying basic info about selected training instance.

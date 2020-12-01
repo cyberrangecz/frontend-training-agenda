@@ -1,6 +1,6 @@
 import { PaginatedResource } from '@sentinel/common';
-import { AccessedTrainingRun } from 'kypo-training-model';
-import { TraineeAccessTrainingRunActionEnum } from 'kypo-training-model';
+import { AccessedTrainingRun } from '@kypo/training-model';
+import { TraineeAccessTrainingRunActionEnum } from '@kypo/training-model';
 import { Column, SentinelTable, Row, RowAction } from '@sentinel/components/table';
 import { defer, of } from 'rxjs';
 import { AccessedTrainingRunService } from '../services/state/accessed-training-run.service';

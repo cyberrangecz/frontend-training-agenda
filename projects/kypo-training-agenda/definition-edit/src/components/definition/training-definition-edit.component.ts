@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { SentinelBaseDirective } from '@sentinel/common';
-import { TrainingDefinition } from 'kypo-training-model';
+import { TrainingDefinition } from '@kypo/training-model';
 import { takeWhile } from 'rxjs/operators';
 import { TrainingDefinitionChangeEvent } from '../../model/events/training-definition-change-event';
 import { TrainingDefinitionEditFormGroup } from './training-definition-edit-form-group';

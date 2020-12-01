@@ -1,6 +1,6 @@
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SentinelValidators } from '@sentinel/common';
-import { GameLevel } from 'kypo-training-model';
+import { GameLevel } from '@kypo/training-model';
 
 export const MAX_SCORE = 100;
 export const INCORRECT_FLAG_LIMIT = 100;

@@ -3,7 +3,7 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import {
   Kypo2TrainingsVisualizationOverviewLibModule,
   VisualizationOverviewConfig,
-} from 'kypo2-trainings-visualization-overview-lib';
+} from '@kypo/overview-visualization';
 import { TrainingAgendaConfig } from '@kypo/training-agenda';
 import { TrainingRunResultsMaterialModule } from './training-run-results-material.module';
 import { TrainingRunResultsComponent } from './training-run-results.component';

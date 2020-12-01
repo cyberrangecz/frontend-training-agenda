@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { SentinelBaseDirective } from '@sentinel/common';
-import { Level } from 'kypo-training-model';
+import { Level } from '@kypo/training-model';
 import { Observable } from 'rxjs';
 import { take, takeWhile, tap } from 'rxjs/operators';
 import { LevelStepperAdapter, RunningTrainingRunService } from '@kypo/training-agenda/internal';

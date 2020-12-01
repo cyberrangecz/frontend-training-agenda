@@ -1,5 +1,5 @@
 import { PaginatedResource } from '@sentinel/common';
-import { TrainingRun } from 'kypo-training-model';
+import { TrainingRun } from '@kypo/training-model';
 import { Column, SentinelTable, Row, RowAction, DeleteAction } from '@sentinel/components/table';
 import { defer, of } from 'rxjs';
 import { ActiveTrainingRunService } from '../services/state/active-runs/active-training-run.service';

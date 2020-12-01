@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { SentinelStepperModule } from '@sentinel/components/stepper';
-import { Kypo2TopologyGraphConfig } from 'kypo2-topology-graph';
+import { Kypo2TopologyGraphConfig } from '@kypo/topology-graph';
 import { TrainingAgendaConfig } from '@kypo/training-agenda';
 import { TrainingRunLevelsDeactivateGuard } from '../services/can-deactivate/training-run-levels-can-deactivate.service';
 import { LevelModule } from './level/level.module';

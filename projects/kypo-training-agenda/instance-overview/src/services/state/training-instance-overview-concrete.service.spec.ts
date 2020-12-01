@@ -2,10 +2,10 @@ import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { asyncData, PaginatedResource, SentinelPagination, RequestedPagination } from '@sentinel/common';
-import { PoolApi } from 'kypo-sandbox-api';
-import { Pool } from 'kypo-sandbox-model';
-import { TrainingInstanceApi } from 'kypo-training-api';
-import { TrainingInstance } from 'kypo-training-model';
+import { PoolApi } from '@kypo/sandbox-api';
+import { Pool } from '@kypo/sandbox-model';
+import { TrainingInstanceApi } from '@kypo/training-api';
+import { TrainingInstance } from '@kypo/training-model';
 import { throwError } from 'rxjs';
 import {
   createContext,

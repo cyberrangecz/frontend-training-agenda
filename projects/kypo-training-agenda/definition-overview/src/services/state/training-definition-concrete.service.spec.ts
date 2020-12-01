@@ -9,8 +9,8 @@ import {
   SentinelPagination,
   RequestedPagination,
 } from '@sentinel/common';
-import { TrainingDefinitionApi } from 'kypo-training-api';
-import { TrainingDefinition, TrainingDefinitionStateEnum } from 'kypo-training-model';
+import { TrainingDefinitionApi } from '@kypo/training-api';
+import { TrainingDefinition, TrainingDefinitionStateEnum } from '@kypo/training-model';
 import { of, throwError } from 'rxjs';
 import {
   createContext,

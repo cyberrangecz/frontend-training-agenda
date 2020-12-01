@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { RequestedPagination, PaginatedResource } from '@sentinel/common';
-import { TrainingRunApi } from 'kypo-training-api';
-import { AccessedTrainingRun } from 'kypo-training-model';
+import { TrainingRunApi } from '@kypo/training-api';
+import { AccessedTrainingRun } from '@kypo/training-model';
 import { from, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { TrainingErrorHandler, TrainingNavigator } from '@kypo/training-agenda';

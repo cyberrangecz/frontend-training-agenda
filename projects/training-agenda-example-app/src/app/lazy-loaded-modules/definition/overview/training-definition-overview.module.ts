@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { KypoTrainingApiModule } from 'kypo-training-api';
+import { KypoTrainingApiModule } from '@kypo/training-api';
 import { TrainingDefinitionOverviewComponentsModule } from '@kypo/training-agenda/definition-overview';
 import { environment } from '../../../../environments/environment';
 import { SharedProvidersModule } from '../../shared-providers.module';
