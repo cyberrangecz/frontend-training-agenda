@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { RequestedPagination, PaginatedResource } from '@sentinel/common';
-import { PoolApi } from 'kypo-sandbox-api';
-import { TrainingInstanceApi } from 'kypo-training-api';
-import { TrainingInstance } from 'kypo-training-model';
+import { PoolApi } from '@kypo/sandbox-api';
+import { TrainingInstanceApi } from '@kypo/training-api';
+import { TrainingInstance } from '@kypo/training-model';
 import { EMPTY, Observable, of } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { TrainingInstanceFilter } from '../../model/adapters/training-instance-filter';

@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { SentinelBaseDirective } from '@sentinel/common';
-import { Question } from 'kypo-training-model';
-import { MultipleChoiceQuestion } from 'kypo-training-model';
+import { Question } from '@kypo/training-model';
+import { MultipleChoiceQuestion } from '@kypo/training-model';
 
 @Component({
   selector: 'kypo-trainee-multiple-choice-question',

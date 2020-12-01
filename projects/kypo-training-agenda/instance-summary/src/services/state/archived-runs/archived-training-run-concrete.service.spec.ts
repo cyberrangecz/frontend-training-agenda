@@ -1,8 +1,8 @@
 import { async, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { MatDialog } from '@angular/material/dialog';
 import { SentinelPagination, PaginatedResource, RequestedPagination, asyncData } from '@sentinel/common';
-import { TrainingInstanceApi } from 'kypo-training-api';
-import { TrainingRunApi } from 'kypo-training-api';
+import { TrainingInstanceApi } from '@kypo/training-api';
+import { TrainingRunApi } from '@kypo/training-api';
 import { throwError } from 'rxjs';
 import { skip, take } from 'rxjs/operators';
 import {

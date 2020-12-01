@@ -9,7 +9,7 @@ import {
   createContext,
 } from '../../../internal/src/testing/testing-commons.spec';
 import { TrainingDefinitionEditService } from '@kypo/training-agenda/definition-edit';
-import { TrainingDefinition, Level, GameLevel, AssessmentLevel, InfoLevel } from 'kypo-training-model';
+import { TrainingDefinition, Level, GameLevel, AssessmentLevel, InfoLevel } from '@kypo/training-model';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TrainingDefinitionChangeEvent } from '../model/events/training-definition-change-event';
 import { asyncData } from '@sentinel/common';

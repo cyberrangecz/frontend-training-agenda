@@ -1,5 +1,5 @@
 import { SentinelDateTimeFormatPipe, PaginatedResource } from '@sentinel/common';
-import { TrainingInstance } from 'kypo-training-model';
+import { TrainingInstance } from '@kypo/training-model';
 import {
   Column,
   SentinelTable,

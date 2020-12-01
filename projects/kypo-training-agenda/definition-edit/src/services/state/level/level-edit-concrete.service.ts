@@ -5,12 +5,12 @@ import {
   SentinelConfirmationDialogConfig,
   SentinelDialogResultEnum,
 } from '@sentinel/components/dialogs';
-import { TrainingDefinitionApi } from 'kypo-training-api';
-import { Level } from 'kypo-training-model';
-import { AssessmentLevel } from 'kypo-training-model';
-import { GameLevel } from 'kypo-training-model';
-import { InfoLevel } from 'kypo-training-model';
-import { AbstractLevelTypeEnum } from 'kypo-training-model';
+import { TrainingDefinitionApi } from '@kypo/training-api';
+import { Level } from '@kypo/training-model';
+import { AssessmentLevel } from '@kypo/training-model';
+import { GameLevel } from '@kypo/training-model';
+import { InfoLevel } from '@kypo/training-model';
+import { AbstractLevelTypeEnum } from '@kypo/training-model';
 import { EMPTY, Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { TrainingErrorHandler, TrainingNotificationService } from '@kypo/training-agenda';

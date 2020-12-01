@@ -1,11 +1,7 @@
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
-import { SandboxAllocationUnitsApi, SandboxInstanceApi } from 'kypo-sandbox-api';
-import { PoolApi } from 'kypo-sandbox-api/lib/api/pool/pool.api.service';
-import { TrainingDefinitionApi } from 'kypo-training-api';
-import { TrainingInstanceApi } from 'kypo-training-api';
-import { TrainingRunApi } from 'kypo-training-api/lib/api/run/training-run-api.service';
-import { UserApi } from 'kypo-training-api/lib/api/user/user-api.service';
+import { SandboxAllocationUnitsApi, SandboxInstanceApi, PoolApi } from '@kypo/sandbox-api';
+import { TrainingDefinitionApi, TrainingRunApi, TrainingInstanceApi, UserApi } from '@kypo/training-api';
 import { TrainingAgendaConfig } from '../../../src/model/training-agenda-config';
 import { TrainingErrorHandler } from '../../../src/services/training-error.handler.service';
 import { TrainingNavigator } from '../../../src/services/training-navigator.service';

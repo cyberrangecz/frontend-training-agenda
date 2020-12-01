@@ -1,5 +1,5 @@
 import { PaginatedResource, PaginatedResourceService, RequestedPagination } from '@sentinel/common';
-import { TrainingDefinitionInfo } from 'kypo-training-model';
+import { TrainingDefinitionInfo } from '@kypo/training-model';
 import { Observable } from 'rxjs';
 
 export abstract class TrainingDefinitionOrganizerSelectService extends PaginatedResourceService<

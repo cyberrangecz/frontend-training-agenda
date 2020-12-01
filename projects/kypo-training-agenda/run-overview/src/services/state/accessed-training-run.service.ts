@@ -1,5 +1,5 @@
 import { RequestedPagination, PaginatedResource, PaginatedResourceService } from '@sentinel/common';
-import { AccessedTrainingRun } from 'kypo-training-model';
+import { AccessedTrainingRun } from '@kypo/training-model';
 import { Observable } from 'rxjs';
 
 /**

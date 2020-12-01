@@ -3,8 +3,8 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SentinelDialogResultEnum } from '@sentinel/components/dialogs';
 import { asyncData } from '@sentinel/common';
-import { TrainingDefinitionApi } from 'kypo-training-api';
-import { AbstractLevelTypeEnum, AssessmentLevel, GameLevel, InfoLevel } from 'kypo-training-model';
+import { TrainingDefinitionApi } from '@kypo/training-api';
+import { AbstractLevelTypeEnum, AssessmentLevel, GameLevel, InfoLevel } from '@kypo/training-model';
 import { of, throwError } from 'rxjs';
 
 import {

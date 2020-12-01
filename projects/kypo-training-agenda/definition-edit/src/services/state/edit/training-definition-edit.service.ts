@@ -1,4 +1,4 @@
-import { TrainingDefinition } from 'kypo-training-model';
+import { TrainingDefinition } from '@kypo/training-model';
 import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { TrainingDefinitionChangeEvent } from '../../../model/events/training-definition-change-event';

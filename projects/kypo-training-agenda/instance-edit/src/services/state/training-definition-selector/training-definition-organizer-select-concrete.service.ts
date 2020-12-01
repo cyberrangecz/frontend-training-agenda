@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { PaginatedResource, RequestedPagination, SentinelFilter } from '@sentinel/common';
-import { TrainingDefinitionApi } from 'kypo-training-api';
-import { TrainingDefinitionInfo } from 'kypo-training-model';
+import { TrainingDefinitionApi } from '@kypo/training-api';
+import { TrainingDefinitionInfo } from '@kypo/training-model';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { TrainingErrorHandler } from '@kypo/training-agenda';

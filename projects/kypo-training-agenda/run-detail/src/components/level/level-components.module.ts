@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Kypo2TopologyGraphModule } from 'kypo2-topology-graph';
+import { Kypo2TopologyGraphModule } from '@kypo/topology-graph';
 import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
 import { NextLevelButtonComponent } from '../next-level-button/next-level-button.component';
 import { AbstractLevelComponent } from './abstract-level.component';

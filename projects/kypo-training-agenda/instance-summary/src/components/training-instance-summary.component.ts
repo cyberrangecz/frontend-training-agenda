@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SentinelBaseDirective, RequestedPagination } from '@sentinel/common';
 import { SentinelControlItem } from '@sentinel/components/controls';
-import { TrainingInstance, TrainingRun } from 'kypo-training-model';
+import { TrainingInstance, TrainingRun } from '@kypo/training-model';
 import { SentinelTable, LoadTableEvent, TableActionEvent } from '@sentinel/components/table';
 import { defer, Observable, of, Subject } from 'rxjs';
 import { map, switchMap, take, takeWhile, tap } from 'rxjs/operators';

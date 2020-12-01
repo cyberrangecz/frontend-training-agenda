@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
-import { TrainingDefinitionApi } from 'kypo-training-api';
-import { TrainingDefinition } from 'kypo-training-model';
+import { TrainingDefinitionApi } from '@kypo/training-api';
+import { TrainingDefinition } from '@kypo/training-model';
 import { EMPTY, Observable, of } from 'rxjs';
 import { catchError, mergeMap, take } from 'rxjs/operators';
 import {

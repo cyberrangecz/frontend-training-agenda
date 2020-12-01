@@ -4,9 +4,9 @@ import {
   SentinelConfirmationDialogConfig,
   SentinelDialogResultEnum,
 } from '@sentinel/components/dialogs';
-import { GameLevel } from 'kypo-training-model';
-import { Hint } from 'kypo-training-model';
-import { FlagCheck } from 'kypo-training-model';
+import { GameLevel } from '@kypo/training-model';
+import { Hint } from '@kypo/training-model';
+import { FlagCheck } from '@kypo/training-model';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HintButton } from '../../../../model/hint-button';
 import { RunningTrainingRunService } from '../../running/running-training-run.service';

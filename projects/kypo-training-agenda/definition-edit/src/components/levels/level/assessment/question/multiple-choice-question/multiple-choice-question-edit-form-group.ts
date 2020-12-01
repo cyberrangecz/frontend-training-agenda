@@ -1,7 +1,7 @@
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { SentinelValidators } from '@sentinel/common';
-import { Question } from 'kypo-training-model';
-import { MultipleChoiceQuestion } from 'kypo-training-model';
+import { Question } from '@kypo/training-model';
+import { MultipleChoiceQuestion } from '@kypo/training-model';
 
 /**
  * Form control class for form in mcq edit component

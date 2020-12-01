@@ -1,4 +1,4 @@
-import { TrainingInstance } from 'kypo-training-model';
+import { TrainingInstance } from '@kypo/training-model';
 import { Observable } from 'rxjs';
 
 export class TrainingInstanceRowAdapter extends TrainingInstance {

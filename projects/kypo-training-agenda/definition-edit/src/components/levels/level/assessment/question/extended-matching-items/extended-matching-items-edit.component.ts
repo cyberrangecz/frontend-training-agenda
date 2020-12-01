@@ -14,8 +14,8 @@ import {
 import { FormArray, FormControl } from '@angular/forms';
 import { MatRadioButton } from '@angular/material/radio';
 import { SentinelBaseDirective, SentinelValidators } from '@sentinel/common';
-import { Question } from 'kypo-training-model';
-import { ExtendedMatchingItems } from 'kypo-training-model';
+import { Question } from '@kypo/training-model';
+import { ExtendedMatchingItems } from '@kypo/training-model';
 import { takeWhile } from 'rxjs/operators';
 import { ExtendedMatchingItemsFormGroup } from './extended-matching-items-form-group';
 

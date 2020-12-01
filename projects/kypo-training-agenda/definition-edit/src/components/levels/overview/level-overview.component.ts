@@ -11,8 +11,8 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { SentinelControlItem } from '@sentinel/components/controls';
-import { TrainingDefinition } from 'kypo-training-model';
-import { Level } from 'kypo-training-model';
+import { TrainingDefinition } from '@kypo/training-model';
+import { Level } from '@kypo/training-model';
 import { Observable } from 'rxjs';
 import { map, takeWhile, tap } from 'rxjs/operators';
 import { LevelOverviewControls } from '../../../model/adapters/level-overview-controls';

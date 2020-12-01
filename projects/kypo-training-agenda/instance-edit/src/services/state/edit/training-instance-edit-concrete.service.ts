@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { SandboxInstanceApi } from 'kypo-sandbox-api';
-import { TrainingInstanceApi } from 'kypo-training-api';
-import { TrainingInstance } from 'kypo-training-model';
+import { SandboxInstanceApi } from '@kypo/sandbox-api';
+import { TrainingInstanceApi } from '@kypo/training-api';
+import { TrainingInstance } from '@kypo/training-model';
 import { from, Observable } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { TrainingInstanceChangeEvent } from '../../../model/events/training-instance-change-event';

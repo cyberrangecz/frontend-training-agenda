@@ -11,8 +11,8 @@ import {
 import { FormArray, FormControl, Validators } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { SentinelBaseDirective } from '@sentinel/common';
-import { Question } from 'kypo-training-model';
-import { MultipleChoiceQuestion } from 'kypo-training-model';
+import { Question } from '@kypo/training-model';
+import { MultipleChoiceQuestion } from '@kypo/training-model';
 import { takeWhile } from 'rxjs/operators';
 import { MultipleChoiceFormGroup } from './multiple-choice-question-edit-form-group';
 

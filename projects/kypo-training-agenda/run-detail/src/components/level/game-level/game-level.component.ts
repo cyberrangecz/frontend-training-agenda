@@ -12,8 +12,8 @@ import {
   ViewChild,
 } from '@angular/core';
 import { SentinelBaseDirective } from '@sentinel/common';
-import { GameLevel } from 'kypo-training-model';
-import { Kypo2TopologyErrorService } from 'kypo2-topology-graph';
+import { GameLevel } from '@kypo/training-model';
+import { Kypo2TopologyErrorService } from '@kypo/topology-graph';
 import { Observable } from 'rxjs';
 import { take, takeWhile } from 'rxjs/operators';
 import { HintButton, TrainingRunGameLevelService } from '@kypo/training-agenda/internal';

@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SentinelDialogResultEnum } from '@sentinel/components/dialogs';
-import { TrainingRunApi } from 'kypo-training-api';
-import { Hint } from 'kypo-training-model';
-import { GameLevel } from 'kypo-training-model';
+import { TrainingRunApi } from '@kypo/training-api';
+import { Hint } from '@kypo/training-model';
+import { GameLevel } from '@kypo/training-model';
 import { EMPTY, Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { TrainingErrorHandler } from '@kypo/training-agenda';
 import { TrainingRunGameLevelService } from './training-run-game-level.service';
 import { RunningTrainingRunService } from '../../running/running-training-run.service';
-import { SandboxInstanceApi } from 'kypo-sandbox-api';
+import { SandboxInstanceApi } from '@kypo/sandbox-api';
 
 @Injectable()
 /**

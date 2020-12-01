@@ -1,7 +1,7 @@
 import { async, TestBed } from '@angular/core/testing';
 import { PaginatedResource, SentinelPagination, RequestedPagination, asyncData } from '@sentinel/common';
-import { TrainingDefinitionApi } from 'kypo-training-api';
-import { TrainingDefinitionInfo } from 'kypo-training-model';
+import { TrainingDefinitionApi } from '@kypo/training-api';
+import { TrainingDefinitionInfo } from '@kypo/training-model';
 import { throwError } from 'rxjs';
 import { skip, take } from 'rxjs/operators';
 import {

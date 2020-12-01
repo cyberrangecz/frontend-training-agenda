@@ -2,8 +2,8 @@ import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { asyncData } from '@sentinel/common';
-import { TrainingRunApi } from 'kypo-training-api';
-import { AccessTrainingRunInfo, Level } from 'kypo-training-model';
+import { TrainingRunApi } from '@kypo/training-api';
+import { AccessTrainingRunInfo, Level } from '@kypo/training-model';
 import { throwError } from 'rxjs';
 import {
   createContext,

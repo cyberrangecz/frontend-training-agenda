@@ -11,8 +11,8 @@ import {
 import { SentinelBaseDirective, PaginatedResource, RequestedPagination } from '@sentinel/common';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { SentinelListResourceMapping } from '@sentinel/components/list';
-import { Pool } from 'kypo-sandbox-model';
-import { TrainingInstance } from 'kypo-training-model';
+import { Pool } from '@kypo/sandbox-model';
+import { TrainingInstance } from '@kypo/training-model';
 import { Observable } from 'rxjs';
 import { map, take, takeWhile, tap } from 'rxjs/operators';
 import { PoolAssignControls } from '../../model/adapter/pool-assign-controls';

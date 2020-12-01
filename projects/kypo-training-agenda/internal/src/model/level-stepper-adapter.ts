@@ -1,5 +1,5 @@
-import { Level } from 'kypo-training-model';
-import { AbstractLevelTypeEnum } from 'kypo-training-model';
+import { Level } from '@kypo/training-model';
+import { AbstractLevelTypeEnum } from '@kypo/training-model';
 import { StepItem, StepperItemState } from '@sentinel/components/stepper';
 
 export class LevelStepperAdapter implements StepItem {

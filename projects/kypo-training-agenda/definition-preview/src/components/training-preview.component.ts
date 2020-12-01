@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SentinelBaseDirective } from '@sentinel/common';
-import { TrainingDefinitionApi } from 'kypo-training-api';
-import { AccessTrainingRunInfo } from 'kypo-training-model';
-import { TrainingDefinition } from 'kypo-training-model';
+import { TrainingDefinitionApi } from '@kypo/training-api';
+import { AccessTrainingRunInfo } from '@kypo/training-model';
+import { TrainingDefinition } from '@kypo/training-model';
 import { map, takeWhile } from 'rxjs/operators';
 import { TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME } from '@kypo/training-agenda';
 import { RunningTrainingRunService } from '@kypo/training-agenda/internal';
