@@ -3,14 +3,14 @@ import { TrainingDefinitionEditOverviewMaterialModule } from '../../../definitio
 import { TrainingPreviewComponent } from './training-preview.component';
 import { TestBed, ComponentFixture, async } from '@angular/core/testing';
 import { ChangeDetectorRef } from '@angular/core';
-import { Level, GameLevel, AssessmentLevel, InfoLevel, TrainingDefinition } from '@kypo/training-model';
+import { Level, GameLevel, AssessmentLevel, InfoLevel, TrainingDefinition } from '@muni-kypo-crp/training-model';
 import { RunningTrainingRunService } from '../../../internal/src/services/training-run/running/running-training-run.service';
 import { ActivatedRoute } from '@angular/router';
 import {
   createActivatedRouteSpy,
   createRunningTrainingRunServiceSpy,
 } from '../../../internal/src/testing/testing-commons.spec';
-import { TrainingDefinitionApi } from '@kypo/training-api';
+import { TrainingDefinitionApi } from '@muni-kypo-crp/training-api';
 
 describe('TrainingPreviewComponent', () => {
   let component: TrainingPreviewComponent;

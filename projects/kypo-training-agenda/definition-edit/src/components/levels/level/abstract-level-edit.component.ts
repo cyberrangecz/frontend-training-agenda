@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SentinelBaseDirective } from '@sentinel/common';
-import { AbstractLevelTypeEnum } from '@kypo/training-model';
-import { Level } from '@kypo/training-model';
+import { AbstractLevelTypeEnum } from '@muni-kypo-crp/training-model';
+import { Level } from '@muni-kypo-crp/training-model';
 
 /**
  * Main component of level edit. Resolves which component should be display based on level type

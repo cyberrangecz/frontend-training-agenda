@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SentinelBaseDirective } from '@sentinel/common';
-import { TrainingRun } from '@kypo/training-model';
-import { Kypo2TraineeModeInfo } from '@kypo/overview-visualization';
+import { TrainingRun } from '@muni-kypo-crp/training-model';
+import { Kypo2TraineeModeInfo } from '@muni-kypo-crp/overview-visualization';
 import { Observable } from 'rxjs';
 import { map, takeWhile } from 'rxjs/operators';
-import { VisualizationInfo } from '@kypo/training-agenda/internal';
-import { TRAINING_RUN_DATA_ATTRIBUTE_NAME } from '@kypo/training-agenda';
+import { VisualizationInfo } from '@muni-kypo-crp/training-agenda/internal';
+import { TRAINING_RUN_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
 
 @Component({
   selector: 'kypo-training-run-results',

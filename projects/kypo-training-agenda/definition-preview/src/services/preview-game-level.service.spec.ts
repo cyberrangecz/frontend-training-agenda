@@ -3,7 +3,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SentinelDialogResultEnum } from '@sentinel/components/dialogs';
 import { asyncData } from '@sentinel/common';
-import { GameLevel, Hint } from '@kypo/training-model';
+import { GameLevel, Hint } from '@muni-kypo-crp/training-model';
 import { of } from 'rxjs';
 import {
   createContext,

@@ -4,13 +4,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SentinelPipesModule } from '@sentinel/common';
 import { SentinelControlsModule } from '@sentinel/components/controls';
 import { SentinelUserAssignModule, SentinelUserAssignService } from '@sentinel/components/user-assign';
-import { TrainingAgendaConfig } from '@kypo/training-agenda';
+import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
 import { TrainingDefinitionCanDeactivate } from '../services/can-deactivate/training-definition-can-deactivate.service';
 import {
   TrainingDefinitionBreadcrumbResolver,
   TrainingDefinitionResolver,
   TrainingDefinitionTitleResolver,
-} from '@kypo/training-agenda/resolvers';
+} from '@muni-kypo-crp/training-agenda/resolvers';
 import { AuthorsAssignService } from '../services/state/authors-assign/authors-assign.service';
 import { TrainingDefinitionEditConcreteService } from '../services/state/edit/training-definition-edit-concrete.service';
 import { TrainingDefinitionEditService } from '../services/state/edit/training-definition-edit.service';

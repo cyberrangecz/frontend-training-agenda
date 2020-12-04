@@ -1,6 +1,6 @@
 import { async, TestBed } from '@angular/core/testing';
 import { SentinelPagination, PaginatedResource, asyncData, RequestedPagination } from '@sentinel/common';
-import { UserApi } from '@kypo/training-api';
+import { UserApi } from '@muni-kypo-crp/training-api';
 import { throwError } from 'rxjs';
 import { skip, take } from 'rxjs/operators';
 import {
@@ -11,7 +11,7 @@ import {
 import { TrainingErrorHandler } from '../../../../../src/services/training-error.handler.service';
 import { TrainingAgendaContext } from '../../../../../internal/src/services/context/training-agenda-context.service';
 import { AuthorsAssignService } from './authors-assign.service';
-import { Designer } from '@kypo/training-model';
+import { Designer } from '@muni-kypo-crp/training-model';
 
 describe('AuthorsAssignService', () => {
   let errorHandlerSpy: jasmine.SpyObj<TrainingErrorHandler>;

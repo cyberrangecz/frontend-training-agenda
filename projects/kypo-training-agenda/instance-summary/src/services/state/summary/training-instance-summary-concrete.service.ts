@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { TrainingInstance } from '@kypo/training-model';
+import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { from, Observable, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { TrainingNavigator } from '@kypo/training-agenda';
+import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
 import { TrainingInstanceSummaryService } from './training-instance-summary.service';
 
 @Injectable()

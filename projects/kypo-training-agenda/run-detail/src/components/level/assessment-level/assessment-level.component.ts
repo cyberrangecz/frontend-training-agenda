@@ -11,11 +11,11 @@ import {
   ViewChildren,
 } from '@angular/core';
 import { SentinelBaseDirective } from '@sentinel/common';
-import { AssessmentTypeEnum } from '@kypo/training-model';
-import { AssessmentLevel } from '@kypo/training-model';
-import { Question } from '@kypo/training-model';
+import { AssessmentTypeEnum } from '@muni-kypo-crp/training-model';
+import { AssessmentLevel } from '@muni-kypo-crp/training-model';
+import { Question } from '@muni-kypo-crp/training-model';
 import { take } from 'rxjs/operators';
-import { TrainingRunAssessmentLevelService } from '@kypo/training-agenda/internal';
+import { TrainingRunAssessmentLevelService } from '@muni-kypo-crp/training-agenda/internal';
 import { TraineeQuestionComponent } from './question/trainee-question.component';
 
 @Component({

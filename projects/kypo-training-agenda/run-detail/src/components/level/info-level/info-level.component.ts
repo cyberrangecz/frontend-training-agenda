@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SentinelBaseDirective } from '@sentinel/common';
-import { InfoLevel } from '@kypo/training-model';
+import { InfoLevel } from '@muni-kypo-crp/training-model';
 
 @Component({
   selector: 'kypo-info-level',

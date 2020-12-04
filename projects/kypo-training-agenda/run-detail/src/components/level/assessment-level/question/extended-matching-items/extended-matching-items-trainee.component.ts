@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SentinelBaseDirective } from '@sentinel/common';
-import { Question } from '@kypo/training-model';
-import { ExtendedMatchingItems } from '@kypo/training-model';
+import { Question } from '@muni-kypo-crp/training-model';
+import { ExtendedMatchingItems } from '@muni-kypo-crp/training-model';
 
 @Component({
   selector: 'kypo-trainee-extended-matching-items',

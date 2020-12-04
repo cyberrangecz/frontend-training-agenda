@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { TrainingRunDetailGameModule } from '@kypo/training-agenda/run-detail';
+import { TrainingRunDetailGameModule } from '@muni-kypo-crp/training-agenda/run-detail';
 import { environment } from '../../../../../environments/environment';
 import { TrainingRunDetailRoutingModule } from './training-run-detail-routing.module';
 

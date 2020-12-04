@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TrainingInstanceOverviewComponent } from '@kypo/training-agenda/instance-overview';
+import { TrainingInstanceOverviewComponent } from '@muni-kypo-crp/training-agenda/instance-overview';
 import {
   TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME,
   TRAINING_INSTANCE_DETAIL_PATH,
   TRAINING_INSTANCE_EDIT_PATH,
   TRAINING_INSTANCE_NEW_PATH,
   TRAINING_INSTANCE_SELECTOR,
-} from '@kypo/training-agenda';
+} from '@muni-kypo-crp/training-agenda';
 import {
   TrainingInstanceBreadcrumbResolver,
   TrainingInstanceResolver,
   TrainingInstanceTitleResolver,
-} from '@kypo/training-agenda/resolvers';
+} from '@muni-kypo-crp/training-agenda/resolvers';
 const routes: Routes = [
   {
     path: '',

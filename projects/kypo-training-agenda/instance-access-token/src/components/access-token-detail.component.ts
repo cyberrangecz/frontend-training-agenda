@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SentinelBaseDirective } from '@sentinel/common';
-import { TrainingInstance } from '@kypo/training-model';
+import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
 import { map, takeWhile } from 'rxjs/operators';
-import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME } from '@kypo/training-agenda';
+import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
 
 /**
  * Displays access token of training instance for presentational purposes (to display on projector etc.)

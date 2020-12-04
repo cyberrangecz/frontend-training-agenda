@@ -1,15 +1,15 @@
-import { TrainingAgendaContext } from '@kypo/training-agenda/internal';
+import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
 import { ActivatedRoute } from '@angular/router';
 import { TrainingDefinitionOverviewComponent } from './training-definition-overview.component';
 import { ChangeDetectorRef } from '@angular/core';
 import { TestBed, async, ComponentFixture, fakeAsync } from '@angular/core/testing';
-import { TrainingDefinitionService } from '@kypo/training-agenda/definition-overview';
+import { TrainingDefinitionService } from '@muni-kypo-crp/training-agenda/definition-overview';
 import {
   createActivatedRouteSpy,
   createContext,
   createTrainingDefinitionServiceSpy,
 } from '../../../internal/src/testing/testing-commons.spec';
-import { Level, GameLevel, AssessmentLevel, InfoLevel, TrainingDefinition } from '@kypo/training-model';
+import { Level, GameLevel, AssessmentLevel, InfoLevel, TrainingDefinition } from '@muni-kypo-crp/training-model';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { asyncData, PaginatedResource, SentinelPagination, RequestedPagination } from '@sentinel/common';
 import { LoadTableEvent, SentinelTableModule } from '@sentinel/components/table';

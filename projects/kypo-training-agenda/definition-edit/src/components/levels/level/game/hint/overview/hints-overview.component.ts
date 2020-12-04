@@ -17,7 +17,7 @@ import {
 } from '@sentinel/components/dialogs';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { SentinelControlItem } from '@sentinel/components/controls';
-import { Hint } from '@kypo/training-model';
+import { Hint } from '@muni-kypo-crp/training-model';
 import { SentinelStepper } from '@sentinel/components/stepper';
 import { BehaviorSubject, defer, of } from 'rxjs';
 import { takeWhile } from 'rxjs/operators';

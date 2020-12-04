@@ -9,8 +9,8 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { SentinelBaseDirective } from '@sentinel/common';
-import { AssessmentLevel } from '@kypo/training-model';
-import { Question } from '@kypo/training-model';
+import { AssessmentLevel } from '@muni-kypo-crp/training-model';
+import { Question } from '@muni-kypo-crp/training-model';
 import { takeWhile } from 'rxjs/operators';
 import { AssessmentLevelEditFormGroup } from './assessment-level-edit-form-group';
 

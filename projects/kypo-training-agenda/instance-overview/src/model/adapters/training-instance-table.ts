@@ -1,5 +1,5 @@
 import { SentinelDateTimeFormatPipe, PaginatedResource } from '@sentinel/common';
-import { TrainingInstance } from '@kypo/training-model';
+import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import {
   Column,
   SentinelTable,
@@ -10,7 +10,7 @@ import {
   DownloadAction,
 } from '@sentinel/components/table';
 import { defer, of } from 'rxjs';
-import { TrainingNavigator } from '@kypo/training-agenda';
+import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
 import { TrainingInstanceOverviewService } from '../../services/state/training-instance-overview.service';
 import { TrainingInstanceRowAdapter } from './training-instance-row-adapter';
 

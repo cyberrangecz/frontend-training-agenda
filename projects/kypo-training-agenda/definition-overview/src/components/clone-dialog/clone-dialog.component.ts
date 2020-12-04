@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { SentinelBaseDirective } from '@sentinel/common';
-import { TrainingDefinition } from '@kypo/training-model';
+import { TrainingDefinition } from '@muni-kypo-crp/training-model';
 import { takeWhile } from 'rxjs/operators';
 import { CloneDialogFormGroup } from './clone-dialog-form-group';
 

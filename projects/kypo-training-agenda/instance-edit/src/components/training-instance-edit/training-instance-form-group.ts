@@ -1,6 +1,6 @@
 import { FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { SentinelValidators } from '@sentinel/common';
-import { TrainingInstance } from '@kypo/training-model';
+import { TrainingInstance } from '@muni-kypo-crp/training-model';
 
 /**
  * Training instance edit form group control

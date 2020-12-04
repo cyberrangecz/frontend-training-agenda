@@ -3,13 +3,13 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import {
   AssessmentVisualizationConfig,
   Kypo2AssessmentsResultsVisualizationModule,
-} from '@kypo/assessment-visualization';
-import { HurdlingVisualizationConfig, Kypo2TrainingsHurdlingVizLibModule } from '@kypo/hurdling-visualization';
+} from '@muni-kypo-crp/assessment-visualization';
+import { HurdlingVisualizationConfig, Kypo2TrainingsHurdlingVizLibModule } from '@muni-kypo-crp/hurdling-visualization';
 import {
   Kypo2TrainingsVisualizationOverviewLibModule,
   VisualizationOverviewConfig,
-} from '@kypo/overview-visualization';
-import { TrainingAgendaConfig } from '@kypo/training-agenda';
+} from '@muni-kypo-crp/overview-visualization';
+import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
 import { TrainingInstanceResultsMaterialModule } from './training-instance-results-material.module';
 import { TrainingInstanceResultsComponent } from './training-instance-results.component';
 

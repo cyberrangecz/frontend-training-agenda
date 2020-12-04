@@ -3,8 +3,8 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import {
   Kypo2TrainingsVisualizationOverviewLibModule,
   VisualizationOverviewConfig,
-} from '@kypo/overview-visualization';
-import { TrainingAgendaConfig } from '@kypo/training-agenda';
+} from '@muni-kypo-crp/overview-visualization';
+import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
 import { TrainingRunResultsMaterialModule } from './training-run-results-material.module';
 import { TrainingRunResultsComponent } from './training-run-results.component';
 

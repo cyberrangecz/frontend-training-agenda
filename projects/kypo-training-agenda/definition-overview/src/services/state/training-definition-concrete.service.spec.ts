@@ -9,8 +9,8 @@ import {
   SentinelPagination,
   RequestedPagination,
 } from '@sentinel/common';
-import { TrainingDefinitionApi } from '@kypo/training-api';
-import { TrainingDefinition, TrainingDefinitionStateEnum } from '@kypo/training-model';
+import { TrainingDefinitionApi } from '@muni-kypo-crp/training-api';
+import { TrainingDefinition, TrainingDefinitionStateEnum } from '@muni-kypo-crp/training-model';
 import { of, throwError } from 'rxjs';
 import {
   createContext,
@@ -20,10 +20,10 @@ import {
   createNotificationSpy,
   createTrainingDefinitionApiSpy,
 } from '../../../../internal/src/testing/testing-commons.spec';
-import { TrainingErrorHandler } from '@kypo/training-agenda';
-import { TrainingNavigator } from '@kypo/training-agenda';
-import { TrainingNotificationService } from '@kypo/training-agenda';
-import { TrainingAgendaContext } from '@kypo/training-agenda/internal';
+import { TrainingErrorHandler } from '@muni-kypo-crp/training-agenda';
+import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
+import { TrainingNotificationService } from '@muni-kypo-crp/training-agenda';
+import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
 import { FileUploadProgressService } from '../file-upload/file-upload-progress.service';
 import { TrainingDefinitionConcreteService } from './training-definition.concrete.service';
 

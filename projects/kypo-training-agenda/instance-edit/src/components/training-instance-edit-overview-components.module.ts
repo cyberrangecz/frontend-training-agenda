@@ -7,7 +7,7 @@ import { SentinelPipesModule } from '@sentinel/common';
 import { SentinelControlsModule } from '@sentinel/components/controls';
 import { SentinelListModule } from '@sentinel/components/list';
 import { SentinelUserAssignModule, SentinelUserAssignService } from '@sentinel/components/user-assign';
-import { TrainingAgendaConfig } from '@kypo/training-agenda';
+import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
 import { TrainingInstanceCanDeactivate } from '../services/can-deactivate/training-instance-can-deactivate.service';
 import { TrainingInstanceEditConcreteService } from '../services/state/edit/training-instance-edit-concrete.service';
 import { TrainingInstanceEditService } from '../services/state/edit/training-instance-edit.service';

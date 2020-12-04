@@ -6,14 +6,14 @@ import {
   SentinelDialogResultEnum,
 } from '@sentinel/components/dialogs';
 import { PaginatedResource, RequestedPagination } from '@sentinel/common';
-import { SandboxAllocationUnitsApi, SandboxInstanceApi } from '@kypo/sandbox-api';
-import { SandboxInstance } from '@kypo/sandbox-model';
-import { TrainingInstanceApi, TrainingRunApi } from '@kypo/training-api';
-import { TrainingRun } from '@kypo/training-model';
+import { SandboxAllocationUnitsApi, SandboxInstanceApi } from '@muni-kypo-crp/sandbox-api';
+import { SandboxInstance } from '@muni-kypo-crp/sandbox-model';
+import { TrainingInstanceApi, TrainingRunApi } from '@muni-kypo-crp/training-api';
+import { TrainingRun } from '@muni-kypo-crp/training-model';
 import { EMPTY, Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
-import { TrainingNotificationService, TrainingErrorHandler } from '@kypo/training-agenda';
-import { TrainingAgendaContext } from '@kypo/training-agenda/internal';
+import { TrainingNotificationService, TrainingErrorHandler } from '@muni-kypo-crp/training-agenda';
+import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
 import { ActiveTrainingRunService } from './active-training-run.service';
 
 /**

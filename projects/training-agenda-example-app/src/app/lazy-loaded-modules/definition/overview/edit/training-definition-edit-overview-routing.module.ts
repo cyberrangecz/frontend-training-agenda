@@ -3,13 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import {
   TrainingDefinitionEditOverviewComponent,
   TrainingDefinitionCanDeactivate,
-} from '@kypo/training-agenda/definition-edit';
-import { TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME } from '@kypo/training-agenda';
+} from '@muni-kypo-crp/training-agenda/definition-edit';
+import { TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
 import {
   TrainingDefinitionBreadcrumbResolver,
   TrainingDefinitionResolver,
   TrainingDefinitionTitleResolver,
-} from '@kypo/training-agenda/resolvers';
+} from '@muni-kypo-crp/training-agenda/resolvers';
 
 const routes: Routes = [
   {

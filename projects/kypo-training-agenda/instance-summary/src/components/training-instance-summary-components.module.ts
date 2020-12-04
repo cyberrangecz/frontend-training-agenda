@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { SentinelPipesModule } from '@sentinel/common';
 import { SentinelControlsModule } from '@sentinel/components/controls';
 import { SentinelTableModule } from '@sentinel/components/table';
-import { TrainingAgendaConfig } from '@kypo/training-agenda';
+import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
 import { TrainingInstanceSummaryConcreteService } from '../services/state/summary/training-instance-summary-concrete.service';
 import { TrainingInstanceSummaryService } from '../services/state/summary/training-instance-summary.service';
 import { ActiveTrainingRunConcreteService } from '../services/state/active-runs/active-training-run-concrete.service';

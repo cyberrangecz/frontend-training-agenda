@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { PaginatedResource, RequestedPagination, PaginatedResourcePollingService } from '@sentinel/common';
-import { TrainingRun } from '@kypo/training-model';
+import { TrainingRun } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
 
 /**

@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SentinelDialogResultEnum } from '@sentinel/components/dialogs';
-import { FlagCheck } from '@kypo/training-model';
-import { GameLevel } from '@kypo/training-model';
-import { Hint } from '@kypo/training-model';
+import { FlagCheck } from '@muni-kypo-crp/training-model';
+import { GameLevel } from '@muni-kypo-crp/training-model';
+import { Hint } from '@muni-kypo-crp/training-model';
 import { EMPTY, Observable, of } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
-import { HintButton, RunningTrainingRunService, TrainingRunGameLevelService } from '@kypo/training-agenda/internal';
+import {
+  HintButton,
+  RunningTrainingRunService,
+  TrainingRunGameLevelService,
+} from '@muni-kypo-crp/training-agenda/internal';
 import { saveAs } from 'file-saver';
 
 @Injectable()

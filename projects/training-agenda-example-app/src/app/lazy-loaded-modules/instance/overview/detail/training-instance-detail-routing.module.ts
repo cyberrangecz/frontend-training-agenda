@@ -6,12 +6,12 @@ import {
   PROGRESS_PATH,
   RESULTS_PATH,
   SUMMARY_PATH,
-} from '@kypo/training-agenda';
+} from '@muni-kypo-crp/training-agenda';
 import {
   TrainingInstanceDetailBreadcrumbResolver,
   TrainingInstanceDetailTitleResolver,
   TrainingInstanceResolver,
-} from '@kypo/training-agenda/resolvers';
+} from '@muni-kypo-crp/training-agenda/resolvers';
 const routes: Routes = [
   {
     path: '',

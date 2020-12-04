@@ -1,4 +1,4 @@
-import { Question } from '@kypo/training-model';
+import { Question } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
 
 export abstract class TrainingRunAssessmentLevelService {

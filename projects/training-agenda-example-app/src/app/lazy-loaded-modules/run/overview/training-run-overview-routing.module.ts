@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TrainingRunOverviewComponent } from '@kypo/training-agenda/run-overview';
+import { TrainingRunOverviewComponent } from '@muni-kypo-crp/training-agenda/run-overview';
 import {
   TRAINING_RUN_ACCESS_INFO_DATA_ATTRIBUTE_NAME,
   TRAINING_RUN_DATA_ATTRIBUTE_NAME,
@@ -9,8 +9,8 @@ import {
   TRAINING_RUN_RESULTS_PATH,
   TRAINING_RUN_RESUME_PATH,
   TRAINING_RUN_SELECTOR,
-} from '@kypo/training-agenda';
-import { AccessTrainingRunResolver, TrainingRunResultsResolver } from '@kypo/training-agenda/resolvers';
+} from '@muni-kypo-crp/training-agenda';
+import { AccessTrainingRunResolver, TrainingRunResultsResolver } from '@muni-kypo-crp/training-agenda/resolvers';
 
 const routes: Routes = [
   {

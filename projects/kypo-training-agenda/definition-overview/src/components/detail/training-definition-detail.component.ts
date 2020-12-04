@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { TrainingDefinition } from '@kypo/training-model';
+import { TrainingDefinition } from '@muni-kypo-crp/training-model';
 
 @Component({
   selector: 'kypo-training-definition-detail',

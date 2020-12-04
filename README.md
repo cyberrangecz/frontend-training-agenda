@@ -28,7 +28,7 @@ To use the library you need to have installed:
 
 To use the training agenda in your Angular application follow these steps:
 
-1. Run `npm install @kypo/training-agenda`
+1. Run `npm install @muni-kypo-crp/training-agenda`
 1. Install all peer dependencies
 1. Create config class extending `TrainingAgendaConfig` from the library. Config contains following options:
     +   pollingPeriod

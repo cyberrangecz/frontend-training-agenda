@@ -10,8 +10,8 @@ import {
 } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { SentinelBaseDirective } from '@sentinel/common';
-import { Question } from '@kypo/training-model';
-import { FreeFormQuestion } from '@kypo/training-model';
+import { Question } from '@muni-kypo-crp/training-model';
+import { FreeFormQuestion } from '@muni-kypo-crp/training-model';
 import { takeWhile } from 'rxjs/operators';
 import { FreeFormQuestionFormGroup } from './free-form-question-form-group';
 

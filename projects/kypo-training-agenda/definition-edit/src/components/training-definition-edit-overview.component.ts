@@ -2,14 +2,14 @@ import { ChangeDetectionStrategy, Component, HostListener, OnInit } from '@angul
 import { ActivatedRoute } from '@angular/router';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { SentinelControlItem } from '@sentinel/components/controls';
-import { TrainingDefinition } from '@kypo/training-model';
-import { Level } from '@kypo/training-model';
+import { TrainingDefinition } from '@muni-kypo-crp/training-model';
+import { Level } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
 import { map, takeWhile, tap } from 'rxjs/operators';
 import { TrainingDefinitionEditControls } from '../model/adapters/training-definition-edit-controls';
-import { TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME } from '@kypo/training-agenda';
+import { TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
 import { TrainingDefinitionChangeEvent } from '../model/events/training-definition-change-event';
-import { TrainingAgendaContext } from '@kypo/training-agenda/internal';
+import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
 import { TrainingDefinitionEditService } from '../services/state/edit/training-definition-edit.service';
 
 /**
