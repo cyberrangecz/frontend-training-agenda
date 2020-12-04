@@ -1,9 +1,9 @@
 import { async, TestBed } from '@angular/core/testing';
 import { asyncData, RequestedPagination, PaginatedResource, SentinelPagination } from '@sentinel/common';
-import { PoolApi } from '@kypo/sandbox-api';
-import { Pool } from '@kypo/sandbox-model';
-import { TrainingInstanceApi } from '@kypo/training-api';
-import { TrainingInstance } from '@kypo/training-model';
+import { PoolApi } from '@muni-kypo-crp/sandbox-api';
+import { Pool } from '@muni-kypo-crp/sandbox-model';
+import { TrainingInstanceApi } from '@muni-kypo-crp/training-api';
+import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { throwError } from 'rxjs';
 import {
   createContext,

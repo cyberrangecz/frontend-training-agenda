@@ -1,14 +1,14 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { SentinelBaseDirective, RequestedPagination } from '@sentinel/common';
 import { SentinelControlItem } from '@sentinel/components/controls';
-import { TrainingInstance } from '@kypo/training-model';
+import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { SentinelTable, LoadTableEvent, TableActionEvent } from '@sentinel/components/table';
 import { Observable } from 'rxjs';
 import { map, take, takeWhile } from 'rxjs/operators';
 import { TrainingInstanceOverviewControls } from '../model/adapters/training-instance-overview-controls';
 import { TrainingInstanceTable } from '../model/adapters/training-instance-table';
-import { TrainingNavigator } from '@kypo/training-agenda';
-import { TrainingAgendaContext } from '@kypo/training-agenda/internal';
+import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
+import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
 import { TrainingInstanceOverviewService } from '../services/state/training-instance-overview.service';
 
 /**

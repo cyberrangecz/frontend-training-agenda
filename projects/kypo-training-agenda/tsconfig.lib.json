@@ -11,22 +11,22 @@
       "es2018"
     ],
     "paths": {
-      "@kypo/training-agenda": ["./src/public_api.ts"],
-      "@kypo/training-agenda/definition-edit": ["./definition-edit/src/public_api.ts"],
-      "@kypo/training-agenda/definition-overview": ["./definition-overview/src/public_api.ts"],
-      "@kypo/training-agenda/definition-preview": ["./definition-preview/src/public_api.ts"],
-      "@kypo/training-agenda/instance-access-token": ["./instance-access-token/src/public_api.ts"],
-      "@kypo/training-agenda/instance-detail": ["./instance-detail/src/public_api.ts"],
-      "@kypo/training-agenda/instance-edit": ["./instance-instance-edit/src/public_api.ts"],
-      "@kypo/training-agenda/instance-overview": ["./instance-overview/src/public_api.ts"],
-      "@kypo/training-agenda/instance-progress": ["./instance-progress/src/public_api.ts"],
-      "@kypo/training-agenda/instance-results": ["./instance-results/src/public_api.ts"],
-      "@kypo/training-agenda/instance-summary": ["./instance-summary/src/public_api.ts"],
-      "@kypo/training-agenda/internal": ["./internal/src/public_api.ts"],
-      "@kypo/training-agenda/resolvers": ["./resolvers/src/public_api.ts"],
-      "@kypo/training-agenda/run-detail": ["./run-detail/src/public_api.ts"],
-      "@kypo/training-agenda/run-overview": ["./run-overview/src/public_api.ts"],
-      "@kypo/training-agenda/run-results": ["./run-results/src/public_api.ts"]
+      "@muni-kypo-crp/training-agenda": ["./src/public_api.ts"],
+      "@muni-kypo-crp/training-agenda/definition-edit": ["./definition-edit/src/public_api.ts"],
+      "@muni-kypo-crp/training-agenda/definition-overview": ["./definition-overview/src/public_api.ts"],
+      "@muni-kypo-crp/training-agenda/definition-preview": ["./definition-preview/src/public_api.ts"],
+      "@muni-kypo-crp/training-agenda/instance-access-token": ["./instance-access-token/src/public_api.ts"],
+      "@muni-kypo-crp/training-agenda/instance-detail": ["./instance-detail/src/public_api.ts"],
+      "@muni-kypo-crp/training-agenda/instance-edit": ["./instance-instance-edit/src/public_api.ts"],
+      "@muni-kypo-crp/training-agenda/instance-overview": ["./instance-overview/src/public_api.ts"],
+      "@muni-kypo-crp/training-agenda/instance-progress": ["./instance-progress/src/public_api.ts"],
+      "@muni-kypo-crp/training-agenda/instance-results": ["./instance-results/src/public_api.ts"],
+      "@muni-kypo-crp/training-agenda/instance-summary": ["./instance-summary/src/public_api.ts"],
+      "@muni-kypo-crp/training-agenda/internal": ["./internal/src/public_api.ts"],
+      "@muni-kypo-crp/training-agenda/resolvers": ["./resolvers/src/public_api.ts"],
+      "@muni-kypo-crp/training-agenda/run-detail": ["./run-detail/src/public_api.ts"],
+      "@muni-kypo-crp/training-agenda/run-overview": ["./run-overview/src/public_api.ts"],
+      "@muni-kypo-crp/training-agenda/run-results": ["./run-results/src/public_api.ts"]
     }
   },
   "angularCompilerOptions": {

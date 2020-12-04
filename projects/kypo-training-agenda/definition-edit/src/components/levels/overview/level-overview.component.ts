@@ -11,12 +11,12 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { SentinelControlItem } from '@sentinel/components/controls';
-import { TrainingDefinition } from '@kypo/training-model';
-import { Level } from '@kypo/training-model';
+import { TrainingDefinition } from '@muni-kypo-crp/training-model';
+import { Level } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
 import { map, takeWhile, tap } from 'rxjs/operators';
 import { LevelOverviewControls } from '../../../model/adapters/level-overview-controls';
-import { LevelStepperAdapter } from '@kypo/training-agenda/internal';
+import { LevelStepperAdapter } from '@muni-kypo-crp/training-agenda/internal';
 import { LevelMoveEvent } from '../../../model/events/level-move-event';
 import { LevelEditService } from '../../../services/state/level/level-edit.service';
 

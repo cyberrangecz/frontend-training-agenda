@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { SentinelBaseDirective } from '@sentinel/common';
-import { Level } from '@kypo/training-model';
+import { Level } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
 import { take, takeWhile, tap } from 'rxjs/operators';
-import { LevelStepperAdapter, RunningTrainingRunService } from '@kypo/training-agenda/internal';
+import { LevelStepperAdapter, RunningTrainingRunService } from '@muni-kypo-crp/training-agenda/internal';
 import { TrainingRunStepper } from '../model/training-run-stepper';
 import { SentinelUser } from '@sentinel/layout';
 import { SentinelAuthService } from '@sentinel/auth';

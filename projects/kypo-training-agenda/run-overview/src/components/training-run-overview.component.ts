@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { SentinelBaseDirective, RequestedPagination } from '@sentinel/common';
-import { AccessedTrainingRun } from '@kypo/training-model';
+import { AccessedTrainingRun } from '@muni-kypo-crp/training-model';
 import { SentinelTable, LoadTableEvent, TableActionEvent } from '@sentinel/components/table';
 import { Observable } from 'rxjs';
 import { map, take, takeWhile } from 'rxjs/operators';
 import { AccessedTrainingRunTable } from '../model/accessed-training-run-table';
-import { TrainingAgendaContext } from '@kypo/training-agenda/internal';
+import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
 import { AccessedTrainingRunService } from '../services/state/accessed-training-run.service';
 
 /**

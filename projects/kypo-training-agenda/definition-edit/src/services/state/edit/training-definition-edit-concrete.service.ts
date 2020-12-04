@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { TrainingDefinitionApi } from '@kypo/training-api';
-import { TrainingDefinition } from '@kypo/training-model';
+import { TrainingDefinitionApi } from '@muni-kypo-crp/training-api';
+import { TrainingDefinition } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { TrainingDefinitionChangeEvent } from '../../../model/events/training-definition-change-event';
-import { TrainingNotificationService, TrainingNavigator, TrainingErrorHandler } from '@kypo/training-agenda';
+import { TrainingNotificationService, TrainingNavigator, TrainingErrorHandler } from '@muni-kypo-crp/training-agenda';
 import { TrainingDefinitionEditService } from './training-definition-edit.service';
 
 /**

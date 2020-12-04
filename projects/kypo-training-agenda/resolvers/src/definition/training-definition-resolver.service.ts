@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
-import { TrainingDefinitionApi } from '@kypo/training-api';
-import { TrainingDefinition } from '@kypo/training-model';
+import { TrainingDefinitionApi } from '@muni-kypo-crp/training-api';
+import { TrainingDefinition } from '@muni-kypo-crp/training-model';
 import { EMPTY, Observable, of } from 'rxjs';
 import { catchError, mergeMap, take } from 'rxjs/operators';
 import {
@@ -9,7 +9,7 @@ import {
   TRAINING_DEFINITION_NEW_PATH,
   TRAINING_DEFINITION_PATH,
   TRAINING_DEFINITION_SELECTOR,
-} from '@kypo/training-agenda';
+} from '@muni-kypo-crp/training-agenda';
 /**
  * Router data provider
  */

@@ -1,6 +1,6 @@
 import { PaginatedResource, PaginatedResourceService, RequestedPagination } from '@sentinel/common';
-import { Pool } from '@kypo/sandbox-model';
-import { TrainingInstance } from '@kypo/training-model';
+import { Pool } from '@muni-kypo-crp/sandbox-model';
+import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 export abstract class PoolAssignService extends PaginatedResourceService<Pool> {

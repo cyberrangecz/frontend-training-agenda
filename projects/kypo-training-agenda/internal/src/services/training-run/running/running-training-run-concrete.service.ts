@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { TrainingRunApi } from '@kypo/training-api';
-import { AccessTrainingRunInfo } from '@kypo/training-model';
-import { Level } from '@kypo/training-model';
+import { TrainingRunApi } from '@muni-kypo-crp/training-api';
+import { AccessTrainingRunInfo } from '@muni-kypo-crp/training-model';
+import { Level } from '@muni-kypo-crp/training-model';
 import { from } from 'rxjs';
 import { Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
-import { TrainingErrorHandler, TrainingNavigator } from '@kypo/training-agenda';
+import { TrainingErrorHandler, TrainingNavigator } from '@muni-kypo-crp/training-agenda';
 import { RunningTrainingRunService } from './running-training-run.service';
 
 /**

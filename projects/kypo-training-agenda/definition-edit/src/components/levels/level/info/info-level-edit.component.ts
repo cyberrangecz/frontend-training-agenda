@@ -9,7 +9,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { SentinelBaseDirective } from '@sentinel/common';
-import { InfoLevel } from '@kypo/training-model';
+import { InfoLevel } from '@muni-kypo-crp/training-model';
 import { takeWhile } from 'rxjs/operators';
 import { InfoLevelEditFormGroup } from './info-level-edit-form-group';
 

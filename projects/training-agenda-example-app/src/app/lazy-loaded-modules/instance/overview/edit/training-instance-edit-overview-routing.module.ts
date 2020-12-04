@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import {
   TrainingInstanceEditOverviewComponent,
   TrainingInstanceCanDeactivate,
-} from '@kypo/training-agenda/instance-edit';
+} from '@muni-kypo-crp/training-agenda/instance-edit';
 
 const routes: Routes = [
   {

@@ -1,4 +1,4 @@
-import { TrainingDefinition } from '@kypo/training-model';
+import { TrainingDefinition } from '@muni-kypo-crp/training-model';
 
 /**
  * Event representing training definition change (edit)

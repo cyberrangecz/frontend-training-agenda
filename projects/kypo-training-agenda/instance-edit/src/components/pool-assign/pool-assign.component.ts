@@ -11,14 +11,14 @@ import {
 import { SentinelBaseDirective, PaginatedResource, RequestedPagination } from '@sentinel/common';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { SentinelListResourceMapping } from '@sentinel/components/list';
-import { Pool } from '@kypo/sandbox-model';
-import { TrainingInstance } from '@kypo/training-model';
+import { Pool } from '@muni-kypo-crp/sandbox-model';
+import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
 import { map, take, takeWhile, tap } from 'rxjs/operators';
 import { PoolAssignControls } from '../../model/adapter/pool-assign-controls';
 import { SandboxPoolListAdapter } from '../../model/adapter/sandbox-pool-list-adapter';
-import { TrainingNavigator } from '@kypo/training-agenda';
-import { TrainingAgendaContext } from '@kypo/training-agenda/internal';
+import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
+import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
 import { PoolAssignConcreteService } from '../../services/state/pool-assign/pool-assign-concrete.service';
 import { PoolAssignService } from '../../services/state/pool-assign/pool-assign.service';
 

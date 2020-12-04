@@ -9,10 +9,10 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { SentinelBaseDirective } from '@sentinel/common';
-import { Question } from '@kypo/training-model';
-import { ExtendedMatchingItems } from '@kypo/training-model';
-import { FreeFormQuestion } from '@kypo/training-model';
-import { MultipleChoiceQuestion } from '@kypo/training-model';
+import { Question } from '@muni-kypo-crp/training-model';
+import { ExtendedMatchingItems } from '@muni-kypo-crp/training-model';
+import { FreeFormQuestion } from '@muni-kypo-crp/training-model';
+import { MultipleChoiceQuestion } from '@muni-kypo-crp/training-model';
 import { QuestionChangeEvent } from '../../../../../../model/events/question-change-event';
 
 /**

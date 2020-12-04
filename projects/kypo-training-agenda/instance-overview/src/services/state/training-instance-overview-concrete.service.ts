@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { RequestedPagination, PaginatedResource } from '@sentinel/common';
-import { PoolApi } from '@kypo/sandbox-api';
-import { TrainingInstanceApi } from '@kypo/training-api';
-import { TrainingInstance } from '@kypo/training-model';
+import { PoolApi } from '@muni-kypo-crp/sandbox-api';
+import { TrainingInstanceApi } from '@muni-kypo-crp/training-api';
+import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { EMPTY, Observable, of } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { TrainingInstanceFilter } from '../../model/adapters/training-instance-filter';
-import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } from '@kypo/training-agenda';
-import { TrainingAgendaContext } from '@kypo/training-agenda/internal';
+import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } from '@muni-kypo-crp/training-agenda';
+import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
 import { TrainingInstanceOverviewService } from './training-instance-overview.service';
 
 @Injectable()

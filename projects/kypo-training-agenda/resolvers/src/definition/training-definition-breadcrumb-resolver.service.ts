@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { TrainingDefinition } from '@kypo/training-model';
+import { TrainingDefinition } from '@muni-kypo-crp/training-model';
 import { EMPTY, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {
   TRAINING_DEFINITION_EDIT_PATH,
   TRAINING_DEFINITION_NEW_PATH,
   TRAINING_DEFINITION_SELECTOR,
-} from '@kypo/training-agenda';
+} from '@muni-kypo-crp/training-agenda';
 import { TrainingDefinitionResolver } from './training-definition-resolver.service';
 
 /**

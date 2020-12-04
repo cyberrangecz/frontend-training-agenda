@@ -2,9 +2,9 @@ import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { asyncData } from '@sentinel/common';
-import { SandboxInstanceApi } from '@kypo/sandbox-api';
-import { TrainingInstanceApi } from '@kypo/training-api';
-import { TrainingInstance } from '@kypo/training-model';
+import { SandboxInstanceApi } from '@muni-kypo-crp/sandbox-api';
+import { TrainingInstanceApi } from '@muni-kypo-crp/training-api';
+import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { throwError } from 'rxjs';
 import { TrainingInstanceChangeEvent } from '../../../model/events/training-instance-change-event';
 import {

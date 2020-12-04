@@ -1,6 +1,6 @@
 import { RequestedPagination, PaginatedResource, PaginatedResourceService } from '@sentinel/common';
-import { TrainingDefinitionStateEnum } from '@kypo/training-model';
-import { TrainingDefinition } from '@kypo/training-model';
+import { TrainingDefinitionStateEnum } from '@muni-kypo-crp/training-model';
+import { TrainingDefinition } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
 
 /**

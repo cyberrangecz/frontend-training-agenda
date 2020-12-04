@@ -1,6 +1,6 @@
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SentinelValidators } from '@sentinel/common';
-import { Hint } from '@kypo/training-model';
+import { Hint } from '@muni-kypo-crp/training-model';
 
 /**
  * Form control for hint edit component

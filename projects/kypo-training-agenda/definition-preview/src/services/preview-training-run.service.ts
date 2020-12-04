@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Level } from '@kypo/training-model';
-import { AccessTrainingRunInfo } from '@kypo/training-model';
+import { Level } from '@muni-kypo-crp/training-model';
+import { AccessTrainingRunInfo } from '@muni-kypo-crp/training-model';
 import { from, Observable, of } from 'rxjs';
-import { TrainingNavigator } from '@kypo/training-agenda';
-import { RunningTrainingRunService } from '@kypo/training-agenda/internal';
+import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
+import { RunningTrainingRunService } from '@muni-kypo-crp/training-agenda/internal';
 
 @Injectable()
 /**

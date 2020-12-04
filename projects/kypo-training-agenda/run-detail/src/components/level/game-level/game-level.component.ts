@@ -12,12 +12,12 @@ import {
   ViewChild,
 } from '@angular/core';
 import { SentinelBaseDirective } from '@sentinel/common';
-import { GameLevel } from '@kypo/training-model';
-import { Kypo2TopologyErrorService } from '@kypo/topology-graph';
+import { GameLevel } from '@muni-kypo-crp/training-model';
+import { Kypo2TopologyErrorService } from '@muni-kypo-crp/topology-graph';
 import { Observable } from 'rxjs';
 import { take, takeWhile } from 'rxjs/operators';
-import { HintButton, TrainingRunGameLevelService } from '@kypo/training-agenda/internal';
-import { TrainingErrorHandler } from '@kypo/training-agenda';
+import { HintButton, TrainingRunGameLevelService } from '@muni-kypo-crp/training-agenda/internal';
+import { TrainingErrorHandler } from '@muni-kypo-crp/training-agenda';
 
 @Component({
   selector: 'kypo-game-level',

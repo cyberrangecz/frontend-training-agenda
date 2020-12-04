@@ -6,13 +6,13 @@ import {
   SentinelDialogResultEnum,
 } from '@sentinel/components/dialogs';
 import { PaginatedResource, RequestedPagination } from '@sentinel/common';
-import { TrainingRunApi } from '@kypo/training-api';
-import { TrainingInstanceApi } from '@kypo/training-api';
-import { TrainingRun } from '@kypo/training-model';
+import { TrainingRunApi } from '@muni-kypo-crp/training-api';
+import { TrainingInstanceApi } from '@muni-kypo-crp/training-api';
+import { TrainingRun } from '@muni-kypo-crp/training-model';
 import { EMPTY, Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
-import { TrainingErrorHandler, TrainingNotificationService } from '@kypo/training-agenda';
-import { TrainingAgendaContext } from '@kypo/training-agenda/internal';
+import { TrainingErrorHandler, TrainingNotificationService } from '@muni-kypo-crp/training-agenda';
+import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
 import { ArchivedTrainingRunService } from './archived-training-run.service';
 
 /**

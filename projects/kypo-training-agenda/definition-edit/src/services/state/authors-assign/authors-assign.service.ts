@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { RequestedPagination, PaginatedResource, SentinelPagination } from '@sentinel/common';
-import { UserApi } from '@kypo/training-api';
-import { Designer } from '@kypo/training-model';
+import { UserApi } from '@muni-kypo-crp/training-api';
+import { Designer } from '@muni-kypo-crp/training-model';
 import { SentinelUserAssignService } from '@sentinel/components/user-assign';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
-import { TrainingErrorHandler } from '@kypo/training-agenda';
-import { TrainingAgendaContext, UserNameFilters } from '@kypo/training-agenda/internal';
+import { TrainingErrorHandler } from '@muni-kypo-crp/training-agenda';
+import { TrainingAgendaContext, UserNameFilters } from '@muni-kypo-crp/training-agenda/internal';
 
 /**
  * Designer/Author implementation of UserAssignService from user assign library.

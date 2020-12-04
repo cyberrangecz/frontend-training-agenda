@@ -1,4 +1,4 @@
-import { Kypo2TopologyGraphConfig } from '@kypo/topology-graph';
+import { Kypo2TopologyGraphConfig } from '@muni-kypo-crp/topology-graph';
 
 export class TrainingAgendaConfig {
   pollingPeriod: number;

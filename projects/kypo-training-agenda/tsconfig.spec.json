@@ -8,10 +8,10 @@
     ],
     "baseUrl": "src",
     "paths": {
-      "@kypo/training-agenda": [
+      "@muni-kypo-crp/training-agenda": [
         "./public_api.ts"
       ],
-      "@kypo/training-agenda/*": [
+      "@muni-kypo-crp/training-agenda/*": [
         "../*/src/public_api.ts"
       ]
     }

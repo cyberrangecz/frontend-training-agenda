@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SentinelBaseDirective } from '@sentinel/common';
-import { TrainingRun } from '@kypo/training-model';
+import { TrainingRun } from '@muni-kypo-crp/training-model';
 import { SentinelTable, LoadTableEvent, TableActionEvent } from '@sentinel/components/table';
 
 /**

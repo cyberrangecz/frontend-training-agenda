@@ -1,7 +1,7 @@
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SentinelValidators } from '@sentinel/common';
-import { AssessmentTypeEnum } from '@kypo/training-model';
-import { AssessmentLevel } from '@kypo/training-model';
+import { AssessmentTypeEnum } from '@muni-kypo-crp/training-model';
+import { AssessmentLevel } from '@muni-kypo-crp/training-model';
 
 /**
  * Form control class for assessment level edit component

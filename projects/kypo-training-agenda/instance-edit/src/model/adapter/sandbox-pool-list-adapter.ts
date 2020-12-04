@@ -1,4 +1,4 @@
-import { Pool } from '@kypo/sandbox-model';
+import { Pool } from '@muni-kypo-crp/sandbox-model';
 
 export class SandboxPoolListAdapter extends Pool {
   title: string;

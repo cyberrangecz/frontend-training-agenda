@@ -1,6 +1,6 @@
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { SentinelValidators } from '@sentinel/common';
-import { TrainingDefinition } from '@kypo/training-model';
+import { TrainingDefinition } from '@muni-kypo-crp/training-model';
 
 /**
  * Form control class of training definition edit form

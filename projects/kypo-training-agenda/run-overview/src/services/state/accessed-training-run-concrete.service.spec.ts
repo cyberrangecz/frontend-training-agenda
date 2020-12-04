@@ -2,7 +2,7 @@ import { async, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { RequestedPagination } from '@sentinel/common';
-import { TrainingRunApi } from '@kypo/training-api';
+import { TrainingRunApi } from '@muni-kypo-crp/training-api';
 import { throwError } from 'rxjs';
 import { skip } from 'rxjs/operators';
 import {

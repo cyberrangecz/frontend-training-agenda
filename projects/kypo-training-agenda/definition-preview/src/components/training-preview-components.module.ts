@@ -1,7 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { TrainingAgendaConfig } from '@kypo/training-agenda';
-import { TrainingDefinitionBreadcrumbResolver, TrainingDefinitionResolver } from '@kypo/training-agenda/resolvers';
+import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
+import {
+  TrainingDefinitionBreadcrumbResolver,
+  TrainingDefinitionResolver,
+} from '@muni-kypo-crp/training-agenda/resolvers';
 import { PreviewAssessmentLevelService } from '../services/preview-assessment-level.service';
 import { PreviewGameLevelService } from '../services/preview-game-level.service';
 import { PreviewTrainingRunService } from '../services/preview-training-run.service';
@@ -9,8 +12,8 @@ import {
   RunningTrainingRunService,
   TrainingRunAssessmentLevelService,
   TrainingRunGameLevelService,
-} from '@kypo/training-agenda/internal';
-import { TrainingRunDetailComponentsModule } from '@kypo/training-agenda/run-detail';
+} from '@muni-kypo-crp/training-agenda/internal';
+import { TrainingRunDetailComponentsModule } from '@muni-kypo-crp/training-agenda/run-detail';
 import { TrainingPreviewComponent } from './training-preview.component';
 
 /**
