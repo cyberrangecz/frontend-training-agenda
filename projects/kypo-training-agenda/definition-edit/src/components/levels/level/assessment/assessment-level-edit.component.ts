@@ -4,7 +4,6 @@ import {
   EventEmitter,
   Input,
   OnChanges,
-  OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
@@ -13,6 +12,7 @@ import { AssessmentLevel } from '@muni-kypo-crp/training-model';
 import { Question } from '@muni-kypo-crp/training-model';
 import { takeWhile } from 'rxjs/operators';
 import { AssessmentLevelEditFormGroup } from './assessment-level-edit-form-group';
+import { AbstractControl } from '@angular/forms';
 
 /**
  * Component for editing new or existing assessment level
@@ -23,30 +23,28 @@ import { AssessmentLevelEditFormGroup } from './assessment-level-edit-form-group
   styleUrls: ['./assessment-level-edit.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AssessmentLevelEditComponent extends SentinelBaseDirective implements OnInit, OnChanges {
+export class AssessmentLevelEditComponent extends SentinelBaseDirective implements OnChanges {
   @Input() level: AssessmentLevel;
   @Output() levelChange: EventEmitter<AssessmentLevel> = new EventEmitter();
   assessmentFormGroup: AssessmentLevelEditFormGroup;
 
-  ngOnInit() {}
-
-  get title() {
+  get title(): AbstractControl {
     return this.assessmentFormGroup.formGroup.get('title');
   }
-  get instructions() {
+  get instructions(): AbstractControl {
     return this.assessmentFormGroup.formGroup.get('instructions');
   }
-  get isTest() {
+  get isTest(): AbstractControl {
     return this.assessmentFormGroup.formGroup.get('isTest');
   }
-  get estimatedDuration() {
+  get estimatedDuration(): AbstractControl {
     return this.assessmentFormGroup.formGroup.get('estimatedDuration');
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
     if ('level' in changes) {
       this.assessmentFormGroup = new AssessmentLevelEditFormGroup(this.level);
-      this.assessmentFormGroup.formGroup.valueChanges.pipe(takeWhile((_) => this.isAlive)).subscribe((_) => {
+      this.assessmentFormGroup.formGroup.valueChanges.pipe(takeWhile(() => this.isAlive)).subscribe(() => {
         this.assessmentFormGroup.setToLevel(this.level);
         this.levelChange.emit(this.level);
       });
@@ -57,7 +55,7 @@ export class AssessmentLevelEditComponent extends SentinelBaseDirective implemen
    * Changes internal state of the component and emits change event to parent component
    * @param questions new state of changed questions
    */
-  onQuestionsChanged(questions: Question[]) {
+  onQuestionsChanged(questions: Question[]): void {
     this.level.questions = questions;
     this.assessmentFormGroup.setToLevel(this.level);
     this.levelChange.emit(this.level);

@@ -82,7 +82,7 @@ describe('TrainingDefinitionEditConcreteService', () => {
         expect(res).toEqual(0);
         done();
       },
-      (_) => fail
+      () => fail
     );
   });
 
@@ -90,14 +90,14 @@ describe('TrainingDefinitionEditConcreteService', () => {
     apiSpy.create.and.returnValue(asyncData(createMock()));
     routerSpy.navigate.and.returnValue(asyncData(true).toPromise());
     service.save().subscribe(
-      (res) => {
+      () => {
         expect(apiSpy.create).toHaveBeenCalledTimes(1);
         expect(routerSpy.navigate).toHaveBeenCalledTimes(1);
         expect(navigatorSpy.toTrainingDefinitionOverview).toHaveBeenCalledTimes(1);
         expect(notificationSpy.emit).toHaveBeenCalledWith('success', jasmine.anything());
         done();
       },
-      (_) => fail
+      () => fail
     );
   });
 
@@ -105,7 +105,7 @@ describe('TrainingDefinitionEditConcreteService', () => {
     apiSpy.update.and.returnValue(throwError(null));
     service.set(createMock());
     service.save().subscribe(
-      (_) => fail,
+      () => fail,
       (err) => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         expect(errorHandlerSpy.emit).toHaveBeenCalledWith(err, jasmine.anything());
@@ -118,7 +118,7 @@ describe('TrainingDefinitionEditConcreteService', () => {
     apiSpy.create.and.returnValue(throwError(null));
     routerSpy.navigate.and.returnValue(asyncData(true).toPromise());
     service.save().subscribe(
-      (_) => fail,
+      () => fail,
       (err) => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         expect(errorHandlerSpy.emit).toHaveBeenCalledWith(err, jasmine.anything());
@@ -131,14 +131,14 @@ describe('TrainingDefinitionEditConcreteService', () => {
     apiSpy.create.and.returnValue(asyncData(createMock()));
     routerSpy.navigate.and.returnValue(asyncData(true).toPromise());
     service.createAndStay().subscribe(
-      (res) => {
+      () => {
         expect(apiSpy.create).toHaveBeenCalledTimes(1);
         expect(routerSpy.navigate).toHaveBeenCalledTimes(1);
         expect(navigatorSpy.toTrainingDefinitionEdit).toHaveBeenCalledTimes(1);
         expect(notificationSpy.emit).toHaveBeenCalledWith('success', jasmine.anything());
         done();
       },
-      (_) => fail
+      () => fail
     );
   });
 
@@ -146,7 +146,7 @@ describe('TrainingDefinitionEditConcreteService', () => {
     apiSpy.create.and.returnValue(throwError(null));
     routerSpy.navigate.and.returnValue(asyncData(true).toPromise());
     service.createAndStay().subscribe(
-      (_) => fail,
+      () => fail,
       (err) => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         expect(errorHandlerSpy.emit).toHaveBeenCalledWith(err, jasmine.anything());

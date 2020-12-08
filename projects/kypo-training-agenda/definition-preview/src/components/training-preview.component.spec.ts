@@ -2,7 +2,6 @@ import { asyncData } from '@sentinel/common';
 import { TrainingDefinitionEditOverviewMaterialModule } from '../../../definition-edit/src/components/training-definition-edit-overview-material.module';
 import { TrainingPreviewComponent } from './training-preview.component';
 import { TestBed, ComponentFixture, async } from '@angular/core/testing';
-import { ChangeDetectorRef } from '@angular/core';
 import { Level, GameLevel, AssessmentLevel, InfoLevel, TrainingDefinition } from '@muni-kypo-crp/training-model';
 import { RunningTrainingRunService } from '../../../internal/src/services/training-run/running/running-training-run.service';
 import { ActivatedRoute } from '@angular/router';
@@ -15,7 +14,6 @@ import { TrainingDefinitionApi } from '@muni-kypo-crp/training-api';
 describe('TrainingPreviewComponent', () => {
   let component: TrainingPreviewComponent;
   let fixture: ComponentFixture<TrainingPreviewComponent>;
-  let cd: ChangeDetectorRef;
 
   let previewServiceSpy: jasmine.SpyObj<RunningTrainingRunService>;
   let activeRouteSpy: jasmine.SpyObj<ActivatedRoute>;
@@ -38,7 +36,6 @@ describe('TrainingPreviewComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(TrainingPreviewComponent);
     component = fixture.componentInstance;
-    cd = fixture.componentRef.injector.get(ChangeDetectorRef);
     fixture.detectChanges();
   });
 

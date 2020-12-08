@@ -14,7 +14,7 @@ export class TrainingRunStepper implements SentinelStepper<LevelStepperAdapter> 
     this.markCompletedLevels();
   }
 
-  onActiveLevelUpdated(activeLevelIndex: number) {
+  onActiveLevelUpdated(activeLevelIndex: number): void {
     this.activeLevelIndex = activeLevelIndex;
     this.markCompletedLevels();
     const current = this.items[activeLevelIndex];

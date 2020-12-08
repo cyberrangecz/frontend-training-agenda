@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Question } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
 import { RunningTrainingRunService, TrainingRunAssessmentLevelService } from '@muni-kypo-crp/training-agenda/internal';
 
@@ -12,7 +11,7 @@ export class PreviewAssessmentLevelService extends TrainingRunAssessmentLevelSer
     super();
   }
 
-  submit(answers: Question[]): Observable<any> {
+  submit(): Observable<any> {
     return this.runningTrainingRunService.next();
   }
 }

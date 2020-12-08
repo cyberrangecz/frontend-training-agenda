@@ -5,13 +5,12 @@ import {
   EventEmitter,
   Input,
   OnChanges,
-  OnInit,
   Output,
   QueryList,
   SimpleChanges,
   ViewChildren,
 } from '@angular/core';
-import { FormArray, FormControl } from '@angular/forms';
+import { AbstractControl, FormArray, FormControl } from '@angular/forms';
 import { MatRadioButton } from '@angular/material/radio';
 import { SentinelBaseDirective, SentinelValidators } from '@sentinel/common';
 import { Question } from '@muni-kypo-crp/training-model';
@@ -28,8 +27,7 @@ import { ExtendedMatchingItemsFormGroup } from './extended-matching-items-form-g
   styleUrls: ['./extended-matching-items-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ExtendedMatchingItemsEditComponent extends SentinelBaseDirective
-  implements OnInit, OnChanges, AfterViewInit {
+export class ExtendedMatchingItemsEditComponent extends SentinelBaseDirective implements OnChanges, AfterViewInit {
   @Input() question: ExtendedMatchingItems;
   @Input() isTest: boolean;
   @Input() required: boolean;
@@ -45,24 +43,22 @@ export class ExtendedMatchingItemsEditComponent extends SentinelBaseDirective
     super();
   }
 
-  ngOnInit() {}
-
-  get title() {
+  get title(): AbstractControl {
     return this.extendedMatchingQuestionFormGroup.formGroup.get('title');
   }
-  get rows() {
+  get rows(): FormArray {
     return this.extendedMatchingQuestionFormGroup.formGroup.get('rows') as FormArray;
   }
-  get cols() {
+  get cols(): FormArray {
     return this.extendedMatchingQuestionFormGroup.formGroup.get('cols') as FormArray;
   }
-  get correctAnswers() {
+  get correctAnswers(): FormArray {
     return this.extendedMatchingQuestionFormGroup.formGroup.get('correctAnswers') as FormArray;
   }
-  get score() {
+  get score(): AbstractControl {
     return this.extendedMatchingQuestionFormGroup.formGroup.get('score');
   }
-  get penalty() {
+  get penalty(): AbstractControl {
     return this.extendedMatchingQuestionFormGroup.formGroup.get('penalty');
   }
 
@@ -71,8 +67,8 @@ export class ExtendedMatchingItemsEditComponent extends SentinelBaseDirective
       this.extendedMatchingQuestionFormGroup = new ExtendedMatchingItemsFormGroup(this.question);
       this.checkState();
       this.extendedMatchingQuestionFormGroup.formGroup.valueChanges
-        .pipe(takeWhile((_) => this.isAlive))
-        .subscribe((_) => this.questionChanged());
+        .pipe(takeWhile(() => this.isAlive))
+        .subscribe(() => this.questionChanged());
     }
     if ('isTest' in changes && !changes.isTest.isFirstChange()) {
       this.checkState();
@@ -87,23 +83,22 @@ export class ExtendedMatchingItemsEditComponent extends SentinelBaseDirective
     }
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.setInitialStateOfRadioButtons();
   }
 
   /**
    * Helper method to improve performance of *ngFor directive
    * @param index
-   * @param item
    */
-  trackByFn(index: any, item: any) {
+  trackByFn(index: any): any {
     return index;
   }
 
   /**
    * Changes internal state of the component and emits event to parent component
    */
-  questionChanged() {
+  questionChanged(): void {
     this.extendedMatchingQuestionFormGroup.formGroup.markAsDirty();
     this.extendedMatchingQuestionFormGroup.setToEMI(this.question, this.isTest);
     this.questionChange.emit(this.question);
@@ -112,7 +107,7 @@ export class ExtendedMatchingItemsEditComponent extends SentinelBaseDirective
   /**
    * Changes internal state of component if required attribute of answer was changed
    */
-  onRequiredChanged() {
+  onRequiredChanged(): void {
     if (!this.required) {
       this.score.setValue(0);
     }
@@ -121,7 +116,7 @@ export class ExtendedMatchingItemsEditComponent extends SentinelBaseDirective
   /**
    * Clears all correct answers
    */
-  clearAnswers() {
+  clearAnswers(): void {
     this.correctAnswers.clear();
     if (this.radioButtons) {
       this.radioButtons.forEach((button) => (button.checked = false));
@@ -134,7 +129,7 @@ export class ExtendedMatchingItemsEditComponent extends SentinelBaseDirective
    * @param i row coordinate in the matrix representing the possible answers (EMI table)
    * @param j col coordinate in the matrix representing the possible answers (EMI table)
    */
-  onAnswerChanged(i: number, j: number) {
+  onAnswerChanged(i: number, j: number): void {
     this.deleteAnswerByRow(i);
     this.correctAnswers.push(new FormControl({ x: i, y: j }));
     this.questionChanged();
@@ -144,7 +139,7 @@ export class ExtendedMatchingItemsEditComponent extends SentinelBaseDirective
    * Deletes row from the EMI table
    * @param index row coordinate in the matrix representing the EMI table
    */
-  deleteRow(index: number) {
+  deleteRow(index: number): void {
     this.rows.removeAt(index);
     this.deleteAnswerByRow(index);
     this.questionChanged();
@@ -153,7 +148,7 @@ export class ExtendedMatchingItemsEditComponent extends SentinelBaseDirective
   /**
    * Adds new row to the EMI table
    */
-  addRow() {
+  addRow(): void {
     this.rows.push(new FormControl('', SentinelValidators.noWhitespace));
     this.questionChanged();
   }
@@ -162,7 +157,7 @@ export class ExtendedMatchingItemsEditComponent extends SentinelBaseDirective
    * Deletes column from the EMI table
    * @param index column coordinate in the matrix representing the EMI table
    */
-  deleteColumn(index: number) {
+  deleteColumn(index: number): void {
     this.cols.removeAt(index);
     this.deleteAnswersByCol(index);
     this.questionChanged();
@@ -171,7 +166,7 @@ export class ExtendedMatchingItemsEditComponent extends SentinelBaseDirective
   /**
    * Adds new column to the EMI table
    */
-  addColumn() {
+  addColumn(): void {
     this.cols.push(new FormControl('', SentinelValidators.noWhitespace));
     this.questionChanged();
   }

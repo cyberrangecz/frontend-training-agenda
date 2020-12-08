@@ -50,11 +50,11 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
     super();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.initControls();
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
     if ('questions' in changes && this.questions) {
       this.calculateHasError();
     }
@@ -66,14 +66,14 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
     }
   }
 
-  onControlAction(control: SentinelControlItem) {
-    control.result$.pipe(takeWhile((_) => this.isAlive)).subscribe();
+  onControlAction(control: SentinelControlItem): void {
+    control.result$.pipe(takeWhile(() => this.isAlive)).subscribe();
   }
 
   /**
    * Creates new free form question
    */
-  addFFQ() {
+  addFFQ(): void {
     const newFfq = new FreeFormQuestion('New Free Form Question');
     newFfq.required = this.isTest;
     this.questions.push(newFfq);
@@ -83,7 +83,7 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
   /**
    * Creates new multiple choice question
    */
-  addMCQ() {
+  addMCQ(): void {
     const newMcq = new MultipleChoiceQuestion('New Multiple Choice Question');
     newMcq.options.push('Option 1');
     newMcq.options.push('Option 2');
@@ -95,7 +95,7 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
   /**
    * Creates new extended matching items question
    */
-  addEMI() {
+  addEMI(): void {
     const newEmi = new ExtendedMatchingItems('New Extended Matching Items');
     newEmi.required = this.isTest;
     newEmi.cols.push('Column 1');
@@ -110,7 +110,7 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
    * Changes internal state of the component and emits event to parent component
    * @param event question change state event
    */
-  onQuestionChanged(event: QuestionChangeEvent = null) {
+  onQuestionChanged(event: QuestionChangeEvent = null): void {
     this.calculateHasError();
     if (event) {
       this.questions[event.index] = event.question;
@@ -122,7 +122,7 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
    * Displays confirmation dialog, on confirmation, deletes question on given index
    * @param index index of question which should be deleted
    */
-  onDelete(index: number) {
+  onDelete(index: number): void {
     const dialogRef = this.dialog.open(SentinelConfirmationDialogComponent, {
       data: new SentinelConfirmationDialogConfig(
         'Delete question',

@@ -49,12 +49,12 @@ describe('TrainingRunAssessmentLevelConcreteService', () => {
     runningTrainingRunServiceSpy.next.and.returnValue(asyncData(questions));
     apiSpy.submitAnswers.and.returnValue(asyncData(questions));
     service.submit(questions).subscribe(
-      (res) => {
+      () => {
         expect(apiSpy.submitAnswers).toHaveBeenCalledTimes(1);
         expect(runningTrainingRunServiceSpy.next).toHaveBeenCalledTimes(1);
         done();
       },
-      (_) => fail
+      () => fail
     );
   });
 
@@ -62,7 +62,7 @@ describe('TrainingRunAssessmentLevelConcreteService', () => {
     const questions = createMock();
     apiSpy.submitAnswers.and.returnValue(throwError(null));
     service.submit(questions).subscribe(
-      (_) => fail,
+      () => fail,
       (err) => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         expect(errorHandlerSpy.emit).toHaveBeenCalledWith(err, jasmine.anything());

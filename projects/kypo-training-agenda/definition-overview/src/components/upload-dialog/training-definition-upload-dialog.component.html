@@ -9,7 +9,7 @@
   <!-- FILE DROP ZONE -->
   <div
     class="drop"
-    *ngIf="!(uploadInProgress$ | async)"
+    *ngIf="(uploadInProgress$ | async) === false"
     ngfDrop
     [fileDropDisabled]="false"
     [(file)]="selectedFile">
@@ -23,12 +23,12 @@
       </div>
       <span
         class="spacer"
-        *ngIf="selectedFile && !(uploadInProgress$ | async)"></span>
+        *ngIf="selectedFile && (uploadInProgress$ | async) === false"></span>
 
       <!-- CLEAR FILES BUTTON -->
       <button
         mat-icon-button
-        *ngIf="selectedFile && !(uploadInProgress$ | async)"
+        *ngIf="selectedFile && (uploadInProgress$ | async) === false"
         matTooltip="Remove selected file"
         (click)="clearFile()"
         class="clear-button"
@@ -44,7 +44,7 @@
         mat-button
         color="accent"
         ngf
-        [selectable]="!(uploadInProgress$ | async)"
+        [selectable]="(uploadInProgress$ | async) === false"
         [disabled]="uploadInProgress$ | async"
         [(file)]="selectedFile">
         Choose File

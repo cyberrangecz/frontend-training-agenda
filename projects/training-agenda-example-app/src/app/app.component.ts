@@ -42,11 +42,11 @@ export class AppComponent {
     );
   }
 
-  onLogin() {
+  onLogin(): void {
     this.auth.login();
   }
 
-  onLogout() {
+  onLogout(): void {
     this.auth.logout();
   }
 

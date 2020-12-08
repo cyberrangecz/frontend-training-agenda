@@ -30,7 +30,7 @@ export class TrainingRunAssessmentLevelConcreteService extends TrainingRunAssess
         (_) => _,
         (err) => this.errorHandler.emit(err, 'Submitting answers')
       ),
-      switchMap((_) => this.runningTrainingRunService.next())
+      switchMap(() => this.runningTrainingRunService.next())
     );
   }
 }

@@ -1,6 +1,5 @@
 import { ngfModule } from 'angular-file';
 import { TrainingDefinitionUploadDialogComponent } from './training-definition-upload-dialog.component';
-import { ChangeDetectorRef } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -15,7 +14,6 @@ import { MaterialTestingModule } from '../../../../internal/src/testing/material
 describe('TrainingDefinitionUploadDialogComponent', () => {
   let component: TrainingDefinitionUploadDialogComponent;
   let fixture: ComponentFixture<TrainingDefinitionUploadDialogComponent>;
-  let cd: ChangeDetectorRef;
 
   let matDialogRefSpy: jasmine.SpyObj<MatDialogRef<TrainingDefinitionUploadDialogComponent>>;
   let uploadProgressService: jasmine.SpyObj<FileUploadProgressService>;
@@ -37,7 +35,6 @@ describe('TrainingDefinitionUploadDialogComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(TrainingDefinitionUploadDialogComponent);
     component = fixture.componentInstance;
-    cd = fixture.componentRef.injector.get(ChangeDetectorRef);
     fixture.detectChanges();
   });
 

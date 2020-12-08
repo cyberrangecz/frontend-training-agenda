@@ -54,8 +54,8 @@ describe('AccessedTrainingRunConcreteService', () => {
     apiSpy.getAccessed.and.returnValue(throwError(null));
 
     service.getAll(createPagination()).subscribe(
-      (_) => fail,
-      (_) => {
+      () => fail,
+      () => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         done();
       }
@@ -75,11 +75,11 @@ describe('AccessedTrainingRunConcreteService', () => {
           expect(hasError).toBeTruthy();
           done();
         },
-        (_) => fail
+        () => fail
       );
     service.getAll(createPagination()).subscribe(
-      (_) => fail,
-      (_) => done()
+      () => fail,
+      () => done()
     );
   });
 

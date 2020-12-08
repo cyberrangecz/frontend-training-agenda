@@ -46,7 +46,7 @@ export class ArchivedTrainingRunConcreteService extends ArchivedTrainingRunServi
         (runs) => {
           this.resourceSubject$.next(runs);
         },
-        (err) => this.onGetAllError()
+        () => this.onGetAllError()
       )
     );
   }
@@ -79,10 +79,10 @@ export class ArchivedTrainingRunConcreteService extends ArchivedTrainingRunServi
     this.hasErrorSubject$.next(false);
     return this.trainingInstanceApi
       .getAssociatedTrainingRuns(this.lastTrainingInstanceId, this.lastPagination, false)
-      .pipe(tap({ error: (err) => this.onGetAllError() }));
+      .pipe(tap({ error: () => this.onGetAllError() }));
   }
 
-  protected onManualResourceRefresh(pagination: RequestedPagination, ...params) {
+  protected onManualResourceRefresh(pagination: RequestedPagination, ...params: any[]): void {
     super.onManualResourceRefresh(pagination, ...params);
     this.lastTrainingInstanceId = params[0];
   }

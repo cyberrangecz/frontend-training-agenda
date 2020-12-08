@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, HostListener, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { SentinelControlItem } from '@sentinel/components/controls';
@@ -20,7 +20,7 @@ import { TrainingInstanceEditService } from '../services/state/edit/training-ins
   styleUrls: ['./training-instance-edit-overview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TrainingInstanceEditOverviewComponent extends SentinelBaseDirective implements OnInit {
+export class TrainingInstanceEditOverviewComponent extends SentinelBaseDirective {
   trainingInstance$: Observable<TrainingInstance>;
   hasStarted$: Observable<boolean>;
   editMode$: Observable<boolean>;
@@ -43,7 +43,7 @@ export class TrainingInstanceEditOverviewComponent extends SentinelBaseDirective
     this.hasStarted$ = this.editService.hasStarted$;
     this.tiTitle$ = this.editService.trainingInstance$.pipe(map((ti) => ti.title));
     this.activeRoute.data
-      .pipe(takeWhile((_) => this.isAlive))
+      .pipe(takeWhile(() => this.isAlive))
       .subscribe((data) => this.editService.set(data[TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME]));
     this.editMode$ = this.editService.editMode$.pipe(
       tap(
@@ -57,8 +57,6 @@ export class TrainingInstanceEditOverviewComponent extends SentinelBaseDirective
     );
   }
 
-  ngOnInit() {}
-
   /**
    * Shows dialog asking the user if he really wants to leave the page after refresh or navigating to another page
    */
@@ -67,7 +65,7 @@ export class TrainingInstanceEditOverviewComponent extends SentinelBaseDirective
     return this.canDeactivateTIEdit && this.canDeactivateOrganizers;
   }
 
-  onControlsAction(control: SentinelControlItem) {
+  onControlsAction(control: SentinelControlItem): void {
     this.canDeactivateTIEdit = true;
     control.result$.pipe(take(1)).subscribe();
   }
@@ -84,7 +82,7 @@ export class TrainingInstanceEditOverviewComponent extends SentinelBaseDirective
    * Changes canDeactivate state of the component
    * @param hasUnsavedChanges true if organizers component has unsaved changes, false otherwise
    */
-  onOrganizersChanged(hasUnsavedChanges: boolean) {
+  onOrganizersChanged(hasUnsavedChanges: boolean): void {
     this.canDeactivateOrganizers = !hasUnsavedChanges;
   }
 
@@ -92,7 +90,7 @@ export class TrainingInstanceEditOverviewComponent extends SentinelBaseDirective
    * Updates state of the training instance and changes canDeactivate state of the component
    * @param $event training instance change event, containing latest update of training instance and its validity
    */
-  onTrainingInstanceChanged($event: TrainingInstanceChangeEvent) {
+  onTrainingInstanceChanged($event: TrainingInstanceChangeEvent): void {
     this.editService.change($event);
     this.canDeactivateTIEdit = false;
   }

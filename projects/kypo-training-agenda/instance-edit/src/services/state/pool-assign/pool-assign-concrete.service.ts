@@ -22,7 +22,7 @@ export class PoolAssignConcreteService extends PoolAssignService {
     super();
   }
 
-  init(trainingInstance: TrainingInstance) {
+  init(trainingInstance: TrainingInstance): void {
     this.assignedPoolSubject$.next(trainingInstance.poolId);
   }
 
@@ -36,7 +36,7 @@ export class PoolAssignConcreteService extends PoolAssignService {
           this.resourceSubject$.next(pools);
           this.isLoadingSubject$.next(false);
         },
-        (err) => {
+        () => {
           this.isLoadingSubject$.next(false);
           this.hasErrorSubject$.next(true);
         }
@@ -48,7 +48,7 @@ export class PoolAssignConcreteService extends PoolAssignService {
     const poolId = this.selectedSubject$.getValue().id;
     return this.trainingInstanceApi.assignPool(trainingInstance.id, poolId).pipe(
       tap(
-        (_) => {
+        () => {
           this.notificationService.emit('success', `Pool ${poolId} was assigned`);
           this.assignedPoolSubject$.next(poolId);
         },
@@ -59,9 +59,9 @@ export class PoolAssignConcreteService extends PoolAssignService {
 
   unassign(trainingInstance: TrainingInstance): Observable<any> {
     return this.trainingInstanceApi.unassignPool(trainingInstance.id).pipe(
-      switchMap((_) => this.getAll(this.lastPagination)),
+      switchMap(() => this.getAll(this.lastPagination)),
       tap(
-        (_) => {
+        () => {
           this.notificationService.emit('success', `Pool was unassigned`);
           this.assignedPoolSubject$.next(undefined);
         },

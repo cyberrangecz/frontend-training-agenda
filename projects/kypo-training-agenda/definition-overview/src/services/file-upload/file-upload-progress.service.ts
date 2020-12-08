@@ -15,14 +15,14 @@ export class FileUploadProgressService {
   /**
    * Starts file upload
    */
-  start() {
+  start(): void {
     this.isInProgressSubject$.next(true);
   }
 
   /**
    * Finishes file upload
    */
-  finish() {
+  finish(): void {
     this.isInProgressSubject$.next(false);
   }
 }

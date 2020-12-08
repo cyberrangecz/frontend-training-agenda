@@ -14,11 +14,11 @@ export class HintButton {
     this.hint = hint;
   }
 
-  disable() {
+  disable(): void {
     this.disabledSubject$.next(true);
   }
 
-  enable() {
+  enable(): void {
     this.disabledSubject$.next(false);
   }
 }

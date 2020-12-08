@@ -13,7 +13,7 @@ export abstract class RunningTrainingRunService {
     .asObservable()
     .pipe(skipWhile((level) => level === undefined || level === null));
 
-  abstract init(trainingRunInfo: AccessTrainingRunInfo);
+  abstract init(trainingRunInfo: AccessTrainingRunInfo): void;
 
   abstract getLevels(): Level[];
 
@@ -29,5 +29,5 @@ export abstract class RunningTrainingRunService {
 
   abstract isLast(): boolean;
 
-  abstract clear();
+  abstract clear(): void;
 }

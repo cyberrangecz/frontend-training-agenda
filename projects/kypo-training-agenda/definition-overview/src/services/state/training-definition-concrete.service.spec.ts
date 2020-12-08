@@ -79,7 +79,7 @@ describe('TrainingDefinitionConcreteService', () => {
         expect(res).toEqual(createPaginatedMock());
         done();
       },
-      (_) => fail
+      () => fail
     );
     expect(apiSpy.getAll).toHaveBeenCalledTimes(1);
     expect(apiSpy.getAll).toHaveBeenCalledWith(createPagination(), [new SentinelFilter('title', 'filter')]);
@@ -88,8 +88,8 @@ describe('TrainingDefinitionConcreteService', () => {
   it('should emit error when get all training definitions fails', (done) => {
     apiSpy.getAll.and.returnValue(throwError(null));
     service.getAll(createPagination(), 'filter').subscribe(
-      (res) => fail,
-      (_) => {
+      () => fail,
+      () => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         done();
       }
@@ -101,8 +101,8 @@ describe('TrainingDefinitionConcreteService', () => {
   it('should redirects to training definition creation page', (done) => {
     navigatorSpy.toNewTrainingDefinition.and.returnValue('create');
     service.create().subscribe(
-      (_) => done(),
-      (err) => fail
+      () => done(),
+      () => fail
     );
     expect(navigatorSpy.toNewTrainingDefinition).toHaveBeenCalledTimes(1);
   });
@@ -110,8 +110,8 @@ describe('TrainingDefinitionConcreteService', () => {
   it('should redirects to training definition edit page', (done) => {
     navigatorSpy.toTrainingDefinitionEdit.and.returnValue('edit');
     service.edit(new TrainingDefinition()).subscribe(
-      (_) => done(),
-      (err) => fail
+      () => done(),
+      () => fail
     );
     expect(navigatorSpy.toTrainingDefinitionEdit).toHaveBeenCalledTimes(1);
   });
@@ -119,8 +119,8 @@ describe('TrainingDefinitionConcreteService', () => {
   it('should redirects to training definition preview page', (done) => {
     navigatorSpy.toTrainingDefinitionPreview.and.returnValue('preview');
     service.preview(new TrainingDefinition()).subscribe(
-      (_) => done(),
-      (err) => fail
+      () => done(),
+      () => fail
     );
     expect(navigatorSpy.toTrainingDefinitionPreview).toHaveBeenCalledTimes(1);
   });
@@ -138,7 +138,7 @@ describe('TrainingDefinitionConcreteService', () => {
         expect(res).toEqual(createPaginatedMock());
         done();
       },
-      (_) => fail
+      () => fail
     );
   });
 
@@ -148,7 +148,7 @@ describe('TrainingDefinitionConcreteService', () => {
     const dialogRefSpyObj = jasmine.createSpyObj({ afterClosed: of(SentinelDialogResultEnum.CONFIRMED), close: null });
     dialogSpy.open.and.returnValue(dialogRefSpyObj);
     service.delete(createMock()[1]).subscribe(
-      (_) => fail,
+      () => fail,
       (err) => {
         expect(apiSpy.delete).toHaveBeenCalledTimes(1);
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
@@ -172,7 +172,7 @@ describe('TrainingDefinitionConcreteService', () => {
         expect(res).toEqual(createPaginatedMock());
         done();
       },
-      (_) => fail
+      () => fail
     );
   });
 
@@ -183,7 +183,7 @@ describe('TrainingDefinitionConcreteService', () => {
     const dialogRefSpyObj = jasmine.createSpyObj({ afterClosed: of(trainingDefinition), close: null });
     dialogSpy.open.and.returnValue(dialogRefSpyObj);
     service.clone(trainingDefinition).subscribe(
-      (_) => fail,
+      () => fail,
       (err) => {
         expect(apiSpy.clone).toHaveBeenCalledTimes(1);
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
@@ -197,7 +197,7 @@ describe('TrainingDefinitionConcreteService', () => {
     apiSpy.download.and.returnValue(throwError(null));
     const trainingDefinition = createMock()[1];
     service.download(trainingDefinition).subscribe(
-      (_) => fail,
+      () => fail,
       (err) => {
         expect(apiSpy.download).toHaveBeenCalledTimes(1);
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
@@ -219,7 +219,7 @@ describe('TrainingDefinitionConcreteService', () => {
         expect(res).toEqual(1);
         done();
       },
-      (_) => fail
+      () => fail
     );
   });
 
@@ -229,7 +229,7 @@ describe('TrainingDefinitionConcreteService', () => {
     const dialogRefSpyObj = jasmine.createSpyObj({ afterClosed: of(SentinelDialogResultEnum.CONFIRMED), close: null });
     dialogSpy.open.and.returnValue(dialogRefSpyObj);
     service.changeState(trainingDefinition, TrainingDefinitionStateEnum.Archived).subscribe(
-      (_) => fail,
+      () => fail,
       (err) => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         expect(errorHandlerSpy.emit).toHaveBeenCalledWith(err, jasmine.anything());

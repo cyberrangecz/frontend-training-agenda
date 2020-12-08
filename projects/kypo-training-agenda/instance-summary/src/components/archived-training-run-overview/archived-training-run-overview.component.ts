@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { TrainingRun } from '@muni-kypo-crp/training-model';
@@ -12,7 +12,7 @@ import { SentinelTable, LoadTableEvent, TableActionEvent } from '@sentinel/compo
   styleUrls: ['./archived-training-run-overview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ArchivedTrainingRunOverviewComponent extends SentinelBaseDirective implements OnInit {
+export class ArchivedTrainingRunOverviewComponent extends SentinelBaseDirective {
   @Input() trainingRuns: SentinelTable<TrainingRun>;
   @Input() hasError: boolean;
   @Input() controls: SentinelControlItem[];
@@ -22,13 +22,11 @@ export class ArchivedTrainingRunOverviewComponent extends SentinelBaseDirective 
   @Output() selectionChange: EventEmitter<TrainingRun[]> = new EventEmitter();
   @Output() controlsAction: EventEmitter<SentinelControlItem> = new EventEmitter();
 
-  ngOnInit() {}
-
   /**
    * Emits table action event
    * @param event action event emitted from table
    */
-  onTableAction(event: TableActionEvent<TrainingRun>) {
+  onTableAction(event: TableActionEvent<TrainingRun>): void {
     this.tableAction.emit(event);
   }
 
@@ -36,7 +34,7 @@ export class ArchivedTrainingRunOverviewComponent extends SentinelBaseDirective 
    * Emits load table vent
    * @param event reload data event emitted from table
    */
-  onLoadTableEvent(event: LoadTableEvent) {
+  onLoadTableEvent(event: LoadTableEvent): void {
     this.loadTableEvent.emit(event);
   }
 
@@ -44,7 +42,7 @@ export class ArchivedTrainingRunOverviewComponent extends SentinelBaseDirective 
    * Emits selection change event
    * @param selection new selection
    */
-  onSelectionChange(selection: TrainingRun[]) {
+  onSelectionChange(selection: TrainingRun[]): void {
     this.selectionChange.emit(selection);
   }
 
@@ -52,7 +50,7 @@ export class ArchivedTrainingRunOverviewComponent extends SentinelBaseDirective 
    * Emits control action event
    * @param controlItem clicked control item
    */
-  onControlsAction(controlItem: SentinelControlItem) {
+  onControlsAction(controlItem: SentinelControlItem): void {
     this.controlsAction.emit(controlItem);
   }
 }

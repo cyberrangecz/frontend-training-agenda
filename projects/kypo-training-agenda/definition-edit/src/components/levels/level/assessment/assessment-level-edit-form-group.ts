@@ -25,7 +25,7 @@ export class AssessmentLevelEditFormGroup {
    * Sets inserted form values from inputs to assessment level
    * @param level level which values should be filled
    */
-  setToLevel(level: AssessmentLevel) {
+  setToLevel(level: AssessmentLevel): void {
     level.title = this.formGroup.get('title').value;
     level.instructions = this.formGroup.get('instructions').value;
     level.assessmentType = this.formGroup.get('isTest').value

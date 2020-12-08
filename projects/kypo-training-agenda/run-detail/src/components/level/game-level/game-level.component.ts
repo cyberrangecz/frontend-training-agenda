@@ -55,11 +55,11 @@ export class GameLevelComponent extends SentinelBaseDirective implements OnInit,
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize(event) {
+  onResize(event: any): void {
     this.calculateTopologySize();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.initTopology();
     this.subscribeToTopologyErrorHandler();
   }
@@ -76,7 +76,7 @@ export class GameLevelComponent extends SentinelBaseDirective implements OnInit,
     }
   }
 
-  onNext() {
+  onNext(): void {
     this.next.emit();
   }
 
@@ -84,31 +84,31 @@ export class GameLevelComponent extends SentinelBaseDirective implements OnInit,
    * Calls service to reveal hint
    * @param hintButton hint button clicked by the user
    */
-  revealHint(hintButton: HintButton) {
+  revealHint(hintButton: HintButton): void {
     this.gameLevelService.revealHint(hintButton.hint).pipe(take(1)).subscribe();
   }
 
   /**
    * Calls service to reveal solution
    */
-  revealSolution() {
+  revealSolution(): void {
     this.gameLevelService.revealSolution(this.level).pipe(take(1)).subscribe();
   }
 
   /**
    * Calls service to check whether the flag is correct
    */
-  submitFlag() {
+  submitFlag(): void {
     this.gameLevelService
       .submitFlag(this.flag)
       .pipe(take(1))
-      .subscribe((resp) => (this.flag = ''));
+      .subscribe(() => (this.flag = ''));
   }
 
   /**
    * Calls service to download ssh access for user
    */
-  download() {
+  download(): void {
     this.gameLevelService.getAccessFile().pipe(take(1)).subscribe();
   }
 
@@ -126,7 +126,7 @@ export class GameLevelComponent extends SentinelBaseDirective implements OnInit,
   }
 
   private subscribeToTopologyErrorHandler() {
-    this.topologyErrorService.error$.pipe(takeWhile((_) => this.isAlive)).subscribe({
+    this.topologyErrorService.error$.pipe(takeWhile(() => this.isAlive)).subscribe({
       next: (event) => this.errorHandler.emit(event.err, event.action),
       error: (err) => this.errorHandler.emit(err, 'There is a problem with topology error handler.'),
     });

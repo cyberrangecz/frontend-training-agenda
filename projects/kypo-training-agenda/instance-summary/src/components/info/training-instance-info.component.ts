@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { TrainingDefinition } from '@muni-kypo-crp/training-model';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
@@ -12,7 +12,7 @@ import { TrainingInstance } from '@muni-kypo-crp/training-model';
   styleUrls: ['./training-instance-info.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TrainingInstanceInfoComponent extends SentinelBaseDirective implements OnInit, OnChanges {
+export class TrainingInstanceInfoComponent extends SentinelBaseDirective implements OnChanges {
   @Input() trainingInstance: TrainingInstance;
   @Input() accessTokenLink: string;
   @Input() poolIdLink: string;
@@ -22,8 +22,6 @@ export class TrainingInstanceInfoComponent extends SentinelBaseDirective impleme
   constructor() {
     super();
   }
-
-  ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if ('trainingInstance' in changes && this.trainingInstance) {

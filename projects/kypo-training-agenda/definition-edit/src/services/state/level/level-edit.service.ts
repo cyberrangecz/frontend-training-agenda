@@ -32,24 +32,22 @@ export abstract class LevelEditService {
 
   unsavedLevels$: Observable<Level[]> = this.unsavedLevelsSubject$.asObservable();
 
-  protected constructor() {}
-
   /**
    * Initiates service with levels and related training definition id
    * @param trainingDefinitionId id of training definition
    * @param levels all levels associated with training definition id
    */
-  abstract set(trainingDefinitionId: number, levels: Level[]);
+  abstract set(trainingDefinitionId: number, levels: Level[]): void;
 
   abstract getLevelsCount(): number;
 
-  abstract setActiveLevel(levelIndex: number);
+  abstract setActiveLevel(levelIndex: number): void;
 
   /**
    * Performs necessary actions to initiate and update values related to active level change
    * @param level new active level
    */
-  abstract onActiveLevelChanged(level: Level);
+  abstract onActiveLevelChanged(level: Level): void;
 
   /**
    * Determines whether passed level can be saved. Optionally, if value is passed as an argument,
@@ -57,13 +55,13 @@ export abstract class LevelEditService {
    * @param level level to determine
    * @param value pre-determined result
    */
-  abstract setLevelCanBeSaved(level: Level, value?: boolean);
+  abstract setLevelCanBeSaved(level: Level, value?: boolean): void;
 
   abstract getSelected(): Level;
 
-  abstract navigateToLastLevel();
+  abstract navigateToLastLevel(): void;
 
-  abstract navigateToPreviousLevel();
+  abstract navigateToPreviousLevel(): void;
 
   /**
    * Creates new level with default values based on passed level type
@@ -86,5 +84,5 @@ export abstract class LevelEditService {
    * @param fromIndex current index of level
    * @param toIndex new index of level
    */
-  abstract move(fromIndex, toIndex): Observable<any>;
+  abstract move(fromIndex: number, toIndex: number): Observable<any>;
 }

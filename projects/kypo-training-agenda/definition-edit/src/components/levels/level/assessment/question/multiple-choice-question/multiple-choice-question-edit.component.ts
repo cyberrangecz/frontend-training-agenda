@@ -4,11 +4,10 @@ import {
   EventEmitter,
   Input,
   OnChanges,
-  OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { FormArray, FormControl, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormControl, Validators } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { Question } from '@muni-kypo-crp/training-model';
@@ -25,7 +24,7 @@ import { MultipleChoiceFormGroup } from './multiple-choice-question-edit-form-gr
   styleUrls: ['./multiple-choice-question-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MultipleChoiceQuestionEditComponent extends SentinelBaseDirective implements OnInit, OnChanges {
+export class MultipleChoiceQuestionEditComponent extends SentinelBaseDirective implements OnChanges {
   @Input() question: MultipleChoiceQuestion;
   @Input() isTest: boolean;
   @Input() required: boolean;
@@ -39,21 +38,19 @@ export class MultipleChoiceQuestionEditComponent extends SentinelBaseDirective i
     super();
   }
 
-  ngOnInit() {}
-
-  get title() {
+  get title(): AbstractControl {
     return this.multipleChoicesFormGroup.formGroup.get('title');
   }
-  get options() {
+  get options(): FormArray {
     return this.multipleChoicesFormGroup.formGroup.get('options') as FormArray;
   }
-  get correctAnswersIndices() {
+  get correctAnswersIndices(): AbstractControl {
     return this.multipleChoicesFormGroup.formGroup.get('correctAnswersIndices');
   }
-  get score() {
+  get score(): AbstractControl {
     return this.multipleChoicesFormGroup.formGroup.get('score');
   }
-  get penalty() {
+  get penalty(): AbstractControl {
     return this.multipleChoicesFormGroup.formGroup.get('penalty');
   }
 
@@ -62,8 +59,8 @@ export class MultipleChoiceQuestionEditComponent extends SentinelBaseDirective i
       this.multipleChoicesFormGroup = new MultipleChoiceFormGroup(this.question);
       this.checkState();
       this.multipleChoicesFormGroup.formGroup.valueChanges
-        .pipe(takeWhile((_) => this.isAlive))
-        .subscribe((_) => this.questionChanged());
+        .pipe(takeWhile(() => this.isAlive))
+        .subscribe(() => this.questionChanged());
     }
     if ('isTest' in changes && !changes.isTest.isFirstChange()) {
       this.checkState();
@@ -81,16 +78,15 @@ export class MultipleChoiceQuestionEditComponent extends SentinelBaseDirective i
   /**
    * Helper method to improve *ngFor performance
    * @param index
-   * @param item
    */
-  trackByFn(index: any, item: any) {
+  trackByFn(index: any): any {
     return index;
   }
 
   /**
    * Changes internal state of the component and emits change event
    */
-  questionChanged() {
+  questionChanged(): void {
     this.multipleChoicesFormGroup.formGroup.markAsDirty();
     this.multipleChoicesFormGroup.setToMCQ(this.question, this.isTest);
     this.questionChange.emit(this.question);
@@ -99,7 +95,7 @@ export class MultipleChoiceQuestionEditComponent extends SentinelBaseDirective i
   /**
    * Deletes all answers
    */
-  clearAnswers() {
+  clearAnswers(): void {
     this.correctAnswersIndices.setValue([]);
     this.questionChanged();
   }
@@ -109,7 +105,7 @@ export class MultipleChoiceQuestionEditComponent extends SentinelBaseDirective i
    * @param event event of checkbox change
    * @param index index of an answer which has been changed
    */
-  onAnswerChanged(event: MatCheckboxChange, index: number) {
+  onAnswerChanged(event: MatCheckboxChange, index: number): void {
     if (event.checked) {
       this.addCorrectAnswer(index);
     } else {
@@ -121,7 +117,7 @@ export class MultipleChoiceQuestionEditComponent extends SentinelBaseDirective i
    * Deletes an option (one of the answers)
    * @param index index of the option which should be deleted
    */
-  deleteOption(index: number) {
+  deleteOption(index: number): void {
     this.options.removeAt(index);
     this.removeCorrectAnswer(index);
     this.questionChanged();
@@ -130,7 +126,7 @@ export class MultipleChoiceQuestionEditComponent extends SentinelBaseDirective i
   /**
    * Adds new option
    */
-  addOption() {
+  addOption(): void {
     (this.options as FormArray).push(new FormControl('', Validators.required));
     this.questionChanged();
   }
@@ -138,7 +134,7 @@ export class MultipleChoiceQuestionEditComponent extends SentinelBaseDirective i
   /**
    * Changes internal state of component if required attribute of answer was changed
    */
-  onRequiredChanged() {
+  onRequiredChanged(): void {
     if (!this.required) {
       this.score.setValue(0);
     }
@@ -170,7 +166,7 @@ export class MultipleChoiceQuestionEditComponent extends SentinelBaseDirective i
   /**
    * Enables/disables score and penalty form field based on required and isTest inputs
    */
-  checkState() {
+  checkState(): void {
     if (this.required) {
       this.score.enable();
     } else {

@@ -1,5 +1,5 @@
 <sentinel-controls [controls]="controls" (itemClicked)="onControlsAction($event)"></sentinel-controls>
-<sentinel-list *ngIf="!(hasPool$ | async) else hasPoolTemplate"
+<sentinel-list *ngIf="(hasPool$ | async) === false else hasPoolTemplate"
            resourceName="Pools"
            mode="radio"
            [resourceMapping]="resourceMapping"

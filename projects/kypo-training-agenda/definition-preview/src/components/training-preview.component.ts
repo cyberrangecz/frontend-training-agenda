@@ -26,14 +26,14 @@ export class TrainingPreviewComponent extends SentinelBaseDirective implements O
     super();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.initializeGame();
   }
 
   private initializeGame() {
     this.activeRoute.data
       .pipe(
-        takeWhile((_) => this.isAlive),
+        takeWhile(() => this.isAlive),
         map((data) => data[TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME])
       )
       .subscribe((training) => {

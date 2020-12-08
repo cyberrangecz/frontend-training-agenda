@@ -91,7 +91,7 @@ describe('TrainingInstanceEditConcreteService', () => {
         expect(res).toEqual(0);
         done();
       },
-      (_) => fail
+      () => fail
     );
   });
 
@@ -107,7 +107,7 @@ describe('TrainingInstanceEditConcreteService', () => {
         expect(res).toEqual(true);
         done();
       },
-      (_) => fail
+      () => fail
     );
   });
 
@@ -115,7 +115,7 @@ describe('TrainingInstanceEditConcreteService', () => {
     trainingInstanceApiSpy.update.and.returnValue(throwError(null));
     service.set(createMock());
     service.save().subscribe(
-      (_) => fail,
+      () => fail,
       (err) => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         expect(errorHandlerSpy.emit).toHaveBeenCalledWith(err, jasmine.anything());
@@ -128,7 +128,7 @@ describe('TrainingInstanceEditConcreteService', () => {
     trainingInstanceApiSpy.create.and.returnValue(throwError(null));
     routerSpy.navigate.and.returnValue(asyncData(true).toPromise());
     service.save().subscribe(
-      (_) => fail,
+      () => fail,
       (err) => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         expect(errorHandlerSpy.emit).toHaveBeenCalledWith(err, jasmine.anything());
@@ -141,14 +141,14 @@ describe('TrainingInstanceEditConcreteService', () => {
     trainingInstanceApiSpy.create.and.returnValue(asyncData(createMock()));
     routerSpy.navigate.and.returnValue(asyncData(true).toPromise());
     service.createAndStay().subscribe(
-      (res) => {
+      () => {
         expect(trainingInstanceApiSpy.create).toHaveBeenCalledTimes(1);
         expect(routerSpy.navigate).toHaveBeenCalledTimes(1);
         expect(navigatorSpy.toTrainingInstanceEdit).toHaveBeenCalledTimes(1);
         expect(notificationSpy.emit).toHaveBeenCalledWith('success', jasmine.anything());
         done();
       },
-      (_) => fail
+      () => fail
     );
   });
 
@@ -156,7 +156,7 @@ describe('TrainingInstanceEditConcreteService', () => {
     trainingInstanceApiSpy.create.and.returnValue(throwError(null));
     routerSpy.navigate.and.returnValue(asyncData(true).toPromise());
     service.createAndStay().subscribe(
-      (_) => fail,
+      () => fail,
       (err) => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         expect(errorHandlerSpy.emit).toHaveBeenCalledWith(err, jasmine.anything());

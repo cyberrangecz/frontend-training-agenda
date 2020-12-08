@@ -22,9 +22,9 @@ export class TrainingInstanceProgressComponent extends SentinelBaseDirective imp
     super();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.trainingInstance$ = this.activeRoute.data.pipe(
-      takeWhile((_) => this.isAlive),
+      takeWhile(() => this.isAlive),
       map((data) => data[TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME])
     );
   }

@@ -4,7 +4,6 @@ import {
   EventEmitter,
   Input,
   OnChanges,
-  OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
@@ -23,7 +22,7 @@ import { LevelMoveEvent } from '../../../model/events/level-move-event';
   styleUrls: ['./training-level-stepper.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TrainingLevelStepperComponent extends SentinelBaseDirective implements OnInit, OnChanges {
+export class TrainingLevelStepperComponent extends SentinelBaseDirective implements OnChanges {
   @Input() levels: LevelStepperAdapter[];
   @Input() movingInProgress: boolean;
   @Input() activeStep: number;
@@ -39,22 +38,18 @@ export class TrainingLevelStepperComponent extends SentinelBaseDirective impleme
     super();
   }
 
-  ngOnInit() {}
-
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
     if ('levels' in changes) {
       this.levelStepper.items = this.levels;
     }
-    if ('activeStep') {
-      this.changeSelectedStep(this.activeStep);
-    }
+    this.changeSelectedStep(this.activeStep);
   }
 
   /**
    * Passes active step change event to parent component
    * @param activeStep index of active (selected) level
    */
-  activeStepChanged(activeStep: number) {
+  activeStepChanged(activeStep: number): void {
     this.activeStepChange.emit(activeStep);
   }
 
@@ -62,7 +57,7 @@ export class TrainingLevelStepperComponent extends SentinelBaseDirective impleme
    * Wraps stepper state change event to level move event and emits it to parent component
    * @param event state of the stepper
    */
-  swapLevels(event: StepperStateChange) {
+  swapLevels(event: StepperStateChange): void {
     this.levelMove.emit(new LevelMoveEvent(event));
   }
 

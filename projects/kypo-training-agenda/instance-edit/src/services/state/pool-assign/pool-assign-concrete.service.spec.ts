@@ -58,8 +58,8 @@ describe('PoolAssignConcreteService', () => {
   it('should get all pools', (done) => {
     poolApiSpy.getPools.and.returnValue(asyncData(createPoolsPaginatedMock()));
     service.getAll(createPagination()).subscribe(
-      (_) => done(),
-      (_) => fail
+      () => done(),
+      () => fail
     );
     expect(poolApiSpy.getPools).toHaveBeenCalledTimes(1);
   });
@@ -67,8 +67,8 @@ describe('PoolAssignConcreteService', () => {
   it('should emit error when get all pools fails', (done) => {
     poolApiSpy.getPools.and.returnValue(throwError(null));
     service.getAll(createPagination()).subscribe(
-      (_) => fail,
-      (_) => done()
+      () => fail,
+      () => done()
     );
     expect(poolApiSpy.getPools).toHaveBeenCalledTimes(1);
   });
@@ -88,7 +88,7 @@ describe('PoolAssignConcreteService', () => {
         service.assignedPool$.subscribe((val) => expect(val).toEqual(pool.id));
         done();
       },
-      (_) => fail
+      () => fail
     );
   });
 
@@ -99,7 +99,7 @@ describe('PoolAssignConcreteService', () => {
     service.init(trainingInstance);
     service.select(pool);
     service.assign(trainingInstance).subscribe(
-      (_) => fail,
+      () => fail,
       (err) => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         expect(errorHandlerSpy.emit).toHaveBeenCalledWith(err, jasmine.anything());
@@ -124,7 +124,7 @@ describe('PoolAssignConcreteService', () => {
         service.assignedPool$.subscribe((val) => expect(val).toEqual(undefined));
         done();
       },
-      (_) => fail
+      () => fail
     );
   });
 
@@ -135,7 +135,7 @@ describe('PoolAssignConcreteService', () => {
     service.init(trainingInstance);
     service.select(pool);
     service.unassign(trainingInstance).subscribe(
-      (_) => fail,
+      () => fail,
       (err) => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         expect(errorHandlerSpy.emit).toHaveBeenCalledWith(err, jasmine.anything());

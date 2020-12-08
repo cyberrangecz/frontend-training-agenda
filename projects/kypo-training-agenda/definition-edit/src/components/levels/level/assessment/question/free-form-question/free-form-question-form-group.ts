@@ -39,7 +39,7 @@ export class FreeFormQuestionFormGroup {
    * @param ffqIsValid true if free form question is valid, false otherwise
    * @param isTest true if level is test, false if questionnaire
    */
-  setToFFQ(ffq: FreeFormQuestion, ffqIsValid: boolean, isTest: boolean) {
+  setToFFQ(ffq: FreeFormQuestion, ffqIsValid: boolean, isTest: boolean): void {
     ffq.title = this.formGroup.get('title').value;
     ffq.correctAnswers = this.formGroup.get('answers').value;
     ffq.score = ffq.required ? this.formGroup.get('score').value : 0;
@@ -59,14 +59,14 @@ export class FreeFormQuestionFormGroup {
   /**
    * Adds validator to answers if preselected correct answers are required (if level is test)
    */
-  addAnswersValidator() {
+  addAnswersValidator(): void {
     this.formGroup.setValidators(this.noSelectedAnswers);
   }
 
   /**
    * Removes validators from answers if preselected correct answers are not required (if level is questionnaire)
    */
-  removeAnswersValidator() {
+  removeAnswersValidator(): void {
     this.formGroup.clearValidators();
     this.formGroup.updateValueAndValidity();
   }

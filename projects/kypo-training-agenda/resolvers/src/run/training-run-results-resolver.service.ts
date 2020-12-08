@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
 import { TrainingRunApi } from '@muni-kypo-crp/training-api';
 import { TrainingRun } from '@muni-kypo-crp/training-model';
 import { EMPTY, Observable, of } from 'rxjs';
@@ -15,10 +15,7 @@ export class TrainingRunResultsResolver implements Resolve<TrainingRun> {
     private router: Router
   ) {}
 
-  resolve(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<TrainingRun> | Promise<TrainingRun> | TrainingRun {
+  resolve(route: ActivatedRouteSnapshot): Observable<TrainingRun> | Promise<TrainingRun> | TrainingRun {
     if (route.paramMap.has(TRAINING_RUN_SELECTOR)) {
       const id = Number(route.paramMap.get(TRAINING_RUN_SELECTOR));
       return this.api.get(id).pipe(

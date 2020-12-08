@@ -34,7 +34,7 @@ export class TrainingRunDetailComponent extends SentinelBaseDirective implements
     super();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.init();
   }
 
@@ -52,7 +52,7 @@ export class TrainingRunDetailComponent extends SentinelBaseDirective implements
 
     this.activeLevel$ = this.trainingRunService.activeLevel$.pipe(
       takeWhile(() => this.isAlive),
-      tap((_) => {
+      tap(() => {
         this.isLast = this.trainingRunService.isLast();
         if (this.isStepperDisplayed) {
           this.stepper.onActiveLevelUpdated(this.trainingRunService.getActiveLevelPosition());
@@ -61,7 +61,7 @@ export class TrainingRunDetailComponent extends SentinelBaseDirective implements
     );
   }
 
-  next() {
+  next(): void {
     this.trainingRunService.next().pipe(take(1)).subscribe();
   }
 }

@@ -4,7 +4,6 @@ import {
   EventEmitter,
   Input,
   OnChanges,
-  OnInit,
   Output,
   SimpleChanges,
   ViewChild,
@@ -28,7 +27,7 @@ import { MultipleChoiceQuestionTraineeComponent } from './multiple-choice-questi
  * Wrapper component for displaying questions in training run's assessment level. It selects the correct component to
  * display based on the question type.
  */
-export class TraineeQuestionComponent extends SentinelBaseDirective implements OnInit, OnChanges {
+export class TraineeQuestionComponent extends SentinelBaseDirective implements OnChanges {
   @Input() question: Question;
   @Input() index: number;
 
@@ -41,8 +40,6 @@ export class TraineeQuestionComponent extends SentinelBaseDirective implements O
   isEmi = false;
   isFfq = false;
   isMcq = false;
-
-  ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if ('question' in changes) {
@@ -66,7 +63,7 @@ export class TraineeQuestionComponent extends SentinelBaseDirective implements O
   /**
    * Call child component to save user input to question object
    */
-  saveChanges() {
+  saveChanges(): void {
     if (this.isEmi) {
       this.emiChild.saveChanges();
     }
@@ -82,7 +79,7 @@ export class TraineeQuestionComponent extends SentinelBaseDirective implements O
    * Emits event containing question and its index to the parent component
    * @param event index and question
    */
-  onContentChanged(event: { index: number; question: Question }) {
+  onContentChanged(event: { index: number; question: Question }): void {
     this.question = event.question;
     this.contentChanged.emit(event.index);
   }

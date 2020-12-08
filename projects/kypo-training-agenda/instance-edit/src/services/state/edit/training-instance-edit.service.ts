@@ -45,7 +45,7 @@ export abstract class TrainingInstanceEditService {
    * Sets training instance as currently edited
    * @param trainingInstance to set as currently edited
    */
-  abstract set(trainingInstance: TrainingInstance);
+  abstract set(trainingInstance: TrainingInstance): void;
 
   /**
    * Saves changes in currently edited training instance
@@ -58,5 +58,5 @@ export abstract class TrainingInstanceEditService {
    * Handles changes of edited training instance
    * @param changeEvent training instance object and its validity
    */
-  abstract change(changeEvent: TrainingInstanceChangeEvent);
+  abstract change(changeEvent: TrainingInstanceChangeEvent): void;
 }

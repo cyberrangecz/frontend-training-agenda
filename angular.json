@@ -30,13 +30,12 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/kypo-training-agenda/tsconfig.lib.json",
-              "projects/kypo-training-agenda/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**"]
+            "lintFilePatterns": [
+              "projects/kypo-training-agenda/**/*.ts",
+              "projects/kypo-training-agenda/**/*.component.html"
+            ]
           }
         }
       }
@@ -132,19 +131,19 @@
               "projects/training-agenda-example-app/src/favicon.ico",
               "projects/training-agenda-example-app/src/assets"
             ],
-            "styles": ["projects/training-agenda-example-app/src/styles.scss"],
+            "styles": [
+              "projects/training-agenda-example-app/src/styles.scss"
+            ],
             "scripts": []
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/training-agenda-example-app/tsconfig.app.json",
-              "projects/training-agenda-example-app/tsconfig.spec.json",
-              "projects/training-agenda-example-app/e2e/tsconfig.json"
-            ],
-            "exclude": ["**/node_modules/**"]
+            "lintFilePatterns": [
+              "projects/training-agenda-example-app/**/*.ts",
+              "projects/training-agenda-example-app/**/*.component.html"
+            ]
           }
         },
         "e2e": {

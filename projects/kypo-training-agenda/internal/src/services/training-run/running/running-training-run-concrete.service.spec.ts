@@ -73,7 +73,7 @@ describe('RunningTrainingRunConcreteService', () => {
         expect(service.getActiveLevel()).toEqual(nextLevel);
         done();
       },
-      (_) => fail
+      () => fail
     );
   });
 
@@ -82,7 +82,7 @@ describe('RunningTrainingRunConcreteService', () => {
     apiSpy.nextLevel.and.returnValue(throwError(null));
     service.init(accessInfo);
     service.next().subscribe(
-      (_) => fail,
+      () => fail,
       (err) => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         expect(errorHandlerSpy.emit).toHaveBeenCalledWith(err, jasmine.anything());
@@ -110,7 +110,7 @@ describe('RunningTrainingRunConcreteService', () => {
         expect(service.clear).toHaveBeenCalledTimes(1);
         done();
       },
-      (_) => fail
+      () => fail
     );
   });
 
@@ -120,7 +120,7 @@ describe('RunningTrainingRunConcreteService', () => {
     accessInfo.currentLevel = createLevelsMock()[2];
     service.init(accessInfo);
     service.next().subscribe(
-      (_) => fail,
+      () => fail,
       (err) => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         expect(errorHandlerSpy.emit).toHaveBeenCalledWith(err, jasmine.anything());

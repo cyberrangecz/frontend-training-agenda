@@ -37,13 +37,13 @@ export abstract class TrainingRunGameLevelService {
 
   abstract getAccessFile(): Observable<boolean>;
 
-  init(level: GameLevel) {
+  init(level: GameLevel): void {
     this.initObservables();
     this.initHints(level.hints);
     this.initSolutionState(level);
   }
 
-  protected initObservables() {
+  protected initObservables(): void {
     this.hintsSubject$ = new BehaviorSubject([]);
     this.hints$ = this.hintsSubject$.asObservable();
     this.displayedHintsContentSubject$ = new BehaviorSubject(undefined);
@@ -56,14 +56,14 @@ export abstract class TrainingRunGameLevelService {
     this.isLoading$ = this.isLoadingSubject$.asObservable();
   }
 
-  protected initSolutionState(level: GameLevel) {
+  protected initSolutionState(level: GameLevel): void {
     if (level.hasSolution()) {
       this.isSolutionRevealedSubject$.next(true);
       this.onSolutionRevealed(level.solution);
     }
   }
 
-  protected initHints(hints: Hint[]) {
+  protected initHints(hints: Hint[]): void {
     const hintButtons: HintButton[] = [];
     hints.forEach((hint, index) => {
       hintButtons.push(new HintButton(hint.isRevealed(), hint));
@@ -74,7 +74,7 @@ export abstract class TrainingRunGameLevelService {
     this.hintsSubject$.next(hintButtons);
   }
 
-  protected onHintRevealed(hint: Hint) {
+  protected onHintRevealed(hint: Hint): void {
     const hintButtons = this.hintsSubject$.getValue();
     const hintToRevealIndex = hintButtons.findIndex((hintButton) => hintButton.hint.id === hint.id);
     if (hintToRevealIndex !== -1) {
@@ -87,7 +87,7 @@ export abstract class TrainingRunGameLevelService {
     }
   }
 
-  protected addHintContent(hint: Hint, order: number) {
+  protected addHintContent(hint: Hint, order: number): void {
     let content = this.displayedHintsContentSubject$.getValue();
     const hintContent = '\n\n## Hint ' + order + ': ' + hint.title + '\n' + hint.content;
     if (content) {
@@ -98,12 +98,12 @@ export abstract class TrainingRunGameLevelService {
     this.displayedHintsContentSubject$.next(content);
   }
 
-  protected onSolutionRevealed(solution: string) {
+  protected onSolutionRevealed(solution: string): void {
     this.displayedHintsContentSubject$.next(solution);
     this.isSolutionRevealedSubject$.next(true);
   }
 
-  protected shouldSolutionBeRevealed(flagCheck: FlagCheck) {
+  protected shouldSolutionBeRevealed(flagCheck: FlagCheck): boolean {
     return !this.isSolutionRevealedSubject$.getValue() && !flagCheck.hasRemainingAttempts();
   }
 

@@ -25,7 +25,7 @@ export class TrainingRunOverviewComponent extends SentinelBaseDirective implemen
     super();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.initTable();
   }
 
@@ -33,10 +33,10 @@ export class TrainingRunOverviewComponent extends SentinelBaseDirective implemen
    * Calls service to access training run
    * @param accessToken token to access the training run
    */
-  access(accessToken: string) {
+  access(accessToken: string): void {
     this.trainingRunOverviewService
       .access(accessToken)
-      .pipe(takeWhile((_) => this.isAlive))
+      .pipe(takeWhile(() => this.isAlive))
       .subscribe();
   }
 
@@ -44,7 +44,7 @@ export class TrainingRunOverviewComponent extends SentinelBaseDirective implemen
    * Resolves type of table action and handles it
    * @param event table action event
    */
-  onTableAction(event: TableActionEvent<AccessedTrainingRun>) {
+  onTableAction(event: TableActionEvent<AccessedTrainingRun>): void {
     event.action.result$.pipe(take(1)).subscribe();
   }
 
@@ -52,10 +52,10 @@ export class TrainingRunOverviewComponent extends SentinelBaseDirective implemen
    * Loads training run data for the table component
    * @param event load table event
    */
-  loadAccessedTrainingRuns(event: LoadTableEvent) {
+  loadAccessedTrainingRuns(event: LoadTableEvent): void {
     this.trainingRunOverviewService
       .getAll(event.pagination)
-      .pipe(takeWhile((_) => this.isAlive))
+      .pipe(takeWhile(() => this.isAlive))
       .subscribe();
   }
 

@@ -10,7 +10,7 @@ export abstract class PoolAssignService extends PaginatedResourceService<Pool> {
   protected assignedPoolSubject$: BehaviorSubject<number> = new BehaviorSubject(undefined);
   assignedPool$: Observable<number> = this.assignedPoolSubject$.asObservable();
 
-  abstract init(trainingInstance: TrainingInstance);
+  abstract init(trainingInstance: TrainingInstance): void;
 
   abstract getAll(requestedPagination: RequestedPagination): Observable<PaginatedResource<Pool>>;
 
@@ -18,11 +18,11 @@ export abstract class PoolAssignService extends PaginatedResourceService<Pool> {
 
   abstract unassign(trainingInstance: TrainingInstance): Observable<any>;
 
-  select(selected: Pool) {
+  select(selected: Pool): void {
     this.selectedSubject$.next(selected);
   }
 
-  unselect() {
+  unselect(): void {
     this.selectedSubject$.next(undefined);
   }
 }

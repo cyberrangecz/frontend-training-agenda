@@ -71,14 +71,14 @@ describe('TrainingInstanceOverviewConcreteService', () => {
         expect(trainingInstanceApiSpy.getAll).toHaveBeenCalledTimes(1);
         done();
       },
-      (_) => fail
+      () => fail
     );
   });
 
   it('should emit error when get all training instances fails', (done) => {
     trainingInstanceApiSpy.getAll.and.returnValue(throwError(null));
     service.getAll(createPagination()).subscribe(
-      (_) => fail,
+      () => fail,
       (err) => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         expect(errorHandlerSpy.emit).toHaveBeenCalledWith(err, jasmine.anything());
@@ -92,7 +92,7 @@ describe('TrainingInstanceOverviewConcreteService', () => {
   it('should redirect to training instance creation page', () => {
     routerSpy.navigate.and.returnValue(asyncData(true).toPromise());
     navigatorSpy.toNewTrainingInstance.and.returnValue('navigate');
-    service.create().subscribe((_) => {
+    service.create().subscribe(() => {
       expect(routerSpy.navigate).toHaveBeenCalledTimes(1);
       expect(navigatorSpy.toNewTrainingInstance).toHaveBeenCalledTimes(1);
     });
@@ -101,7 +101,7 @@ describe('TrainingInstanceOverviewConcreteService', () => {
   it('should redirect to training instance edit page', () => {
     routerSpy.navigate.and.returnValue(asyncData(true).toPromise());
     navigatorSpy.toTrainingInstanceEdit.and.returnValue('navigate');
-    service.edit(2).subscribe((_) => {
+    service.edit(2).subscribe(() => {
       expect(routerSpy.navigate).toHaveBeenCalledTimes(1);
       expect(navigatorSpy.toTrainingInstanceEdit).toHaveBeenCalledTimes(1);
     });
@@ -127,15 +127,15 @@ describe('TrainingInstanceOverviewConcreteService', () => {
         expect(notificationSpy.emit).toHaveBeenCalledWith('success', jasmine.anything());
         done();
       },
-      (_) => fail
+      () => fail
     );
   });
 
   it('should emit error when  delete training instance fails', (done) => {
     trainingInstanceApiSpy.delete.and.returnValue(throwError(null));
     service.delete(2).subscribe(
-      (_) => fail,
-      (err) => {
+      () => fail,
+      () => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         expect(trainingInstanceApiSpy.delete).toHaveBeenCalledTimes(1);
         done();

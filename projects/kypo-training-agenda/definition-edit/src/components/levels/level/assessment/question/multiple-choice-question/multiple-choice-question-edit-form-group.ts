@@ -39,7 +39,7 @@ export class MultipleChoiceFormGroup {
    * @param mcq object to be filled with form inputs
    * @param isTest true if level is test, false if questionnaire
    */
-  setToMCQ(mcq: MultipleChoiceQuestion, isTest: boolean) {
+  setToMCQ(mcq: MultipleChoiceQuestion, isTest: boolean): void {
     mcq.title = this.formGroup.get('title').value;
     mcq.correctAnswersIndices = this.formGroup.get('correctAnswersIndices').value;
     mcq.options = this.formGroup.get('options').value;
@@ -51,7 +51,7 @@ export class MultipleChoiceFormGroup {
   /**
    * Adds validators to check whether correct answers were predefined if level is test
    */
-  addAnswersValidator() {
+  addAnswersValidator(): void {
     this.formGroup.get('correctAnswersIndices').setValidators(Validators.required);
     this.formGroup.get('correctAnswersIndices').updateValueAndValidity();
   }
@@ -59,7 +59,7 @@ export class MultipleChoiceFormGroup {
   /**
    * Removes correct answers validators if level is questionnaire
    */
-  removeAnswersValidator() {
+  removeAnswersValidator(): void {
     this.formGroup.get('correctAnswersIndices').clearValidators();
     this.formGroup.get('correctAnswersIndices').updateValueAndValidity();
   }

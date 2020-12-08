@@ -65,11 +65,11 @@ describe('ArchivedTrainingRunConcreteService', () => {
           expect(hasError).toBeTruthy();
           done();
         },
-        (_) => fail
+        () => fail
       );
     service.getAll(1, createPagination()).subscribe(
-      (_) => fail,
-      (_) => done()
+      () => fail,
+      () => done()
     );
   });
 

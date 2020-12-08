@@ -27,22 +27,22 @@ export class TrainingRunResultsComponent extends SentinelBaseDirective implement
     super();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.setVisualizationSize(window.innerWidth, innerHeight);
     this.loadVisualizationInfo();
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize(event) {
+  onResize(event: any): void {
     this.setVisualizationSize(event.target.innerWidth, event.target.innerHeight);
   }
 
   /**
    * Gets asynchronous data for visualizations
    */
-  loadVisualizationInfo() {
+  loadVisualizationInfo(): void {
     this.visualizationInfo$ = this.activatedRoute.data.pipe(
-      takeWhile((_) => this.isAlive),
+      takeWhile(() => this.isAlive),
       map((data) => this.createTrainingVisualizationInfo(data[TRAINING_RUN_DATA_ATTRIBUTE_NAME]))
     );
     this.traineeModeInfo$ = this.visualizationInfo$.pipe(

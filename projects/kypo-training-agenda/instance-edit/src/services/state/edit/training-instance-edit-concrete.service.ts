@@ -31,7 +31,7 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
    * Updated saveDisabled$ and saved snapshot of edited training instance
    * @param changeEvent training instance object and its validity
    */
-  change(changeEvent: TrainingInstanceChangeEvent) {
+  change(changeEvent: TrainingInstanceChangeEvent): void {
     this.saveDisabledSubject$.next(!changeEvent.isValid);
     this.editedSnapshot = changeEvent.trainingInstance;
   }
@@ -44,7 +44,7 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
       return this.update();
     } else {
       return this.create().pipe(
-        switchMap((_) => from(this.router.navigate([this.navigator.toTrainingInstanceOverview()])))
+        switchMap(() => from(this.router.navigate([this.navigator.toTrainingInstanceOverview()])))
       );
     }
   }
@@ -59,7 +59,7 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
    * Sets training instance as currently edited
    * @param trainingInstance to set as currently edited
    */
-  set(trainingInstance: TrainingInstance) {
+  set(trainingInstance: TrainingInstance): void {
     let ti = trainingInstance;
     this.setEditMode(trainingInstance);
     if (ti === null) {
@@ -77,9 +77,9 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
 
   private update(): Observable<number> {
     return this.trainingInstanceApi.update(this.editedSnapshot).pipe(
-      map((_) => this.editedSnapshot.id),
+      map(() => this.editedSnapshot.id),
       tap(
-        (_) => {
+        () => {
           this.notificationService.emit('success', 'Training instance was successfully saved');
           this.onSaved();
         },
@@ -92,7 +92,7 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
     return this.trainingInstanceApi.create(this.editedSnapshot).pipe(
       map((ti) => ti.id),
       tap(
-        (_) => {
+        () => {
           this.notificationService.emit('success', 'Training instance was created');
           this.onSaved();
         },

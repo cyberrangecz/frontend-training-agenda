@@ -32,7 +32,7 @@ export class RunningTrainingRunConcreteService extends RunningTrainingRunService
    * Initializes the service from training run access info
    * @param trainingRunInfo
    */
-  init(trainingRunInfo: AccessTrainingRunInfo) {
+  init(trainingRunInfo: AccessTrainingRunInfo): void {
     this.trainingRunId = trainingRunInfo.trainingRunId;
     this.sandboxInstanceId = trainingRunInfo.sandboxInstanceId;
     this.isStepperDisplayed = trainingRunInfo.isStepperDisplayed;
@@ -75,7 +75,7 @@ export class RunningTrainingRunConcreteService extends RunningTrainingRunService
   /**
    * Clears current TR related attributes
    */
-  clear() {
+  clear(): void {
     this.trainingRunId = undefined;
     this.sandboxInstanceId = undefined;
     this.startTime = undefined;
@@ -99,8 +99,8 @@ export class RunningTrainingRunConcreteService extends RunningTrainingRunService
   private callApiToFinish(): Observable<any> {
     return this.api.finish(this.trainingRunId).pipe(
       tap({ error: (err) => this.errorHandler.emit(err, 'Finishing training') }),
-      switchMap((_) => from(this.router.navigate([this.navigator.toTrainingRunResult(this.trainingRunId)]))),
-      tap((_) => this.clear())
+      switchMap(() => from(this.router.navigate([this.navigator.toTrainingRunResult(this.trainingRunId)]))),
+      tap(() => this.clear())
     );
   }
 }

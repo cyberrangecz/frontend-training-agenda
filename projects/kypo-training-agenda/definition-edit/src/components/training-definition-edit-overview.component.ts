@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, HostListener, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { SentinelControlItem } from '@sentinel/components/controls';
@@ -21,7 +21,7 @@ import { TrainingDefinitionEditService } from '../services/state/edit/training-d
   styleUrls: ['./training-definition-edit-overview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TrainingDefinitionEditOverviewComponent extends SentinelBaseDirective implements OnInit {
+export class TrainingDefinitionEditOverviewComponent extends SentinelBaseDirective {
   trainingDefinition$: Observable<TrainingDefinition>;
   editMode$: Observable<boolean>;
   tdTitle$: Observable<string>;
@@ -44,7 +44,7 @@ export class TrainingDefinitionEditOverviewComponent extends SentinelBaseDirecti
     this.tdTitle$ = this.editService.trainingDefinition$.pipe(map((td) => td.title));
     this.saveDisabled$ = this.editService.saveDisabled$;
     this.activeRoute.data
-      .pipe(takeWhile((_) => this.isAlive))
+      .pipe(takeWhile(() => this.isAlive))
       .subscribe((data) => this.editService.set(data[TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME]));
     this.editMode$ = this.editService.editMode$.pipe(
       tap(
@@ -53,8 +53,6 @@ export class TrainingDefinitionEditOverviewComponent extends SentinelBaseDirecti
       )
     );
   }
-
-  ngOnInit() {}
 
   /**
    * Shows dialog asking the user if he really wants to leave the page after refresh or navigating to another page
@@ -75,20 +73,20 @@ export class TrainingDefinitionEditOverviewComponent extends SentinelBaseDirecti
    * Passes state of edited training definition to service and changes state of the component (canDeactivate)
    * @param $event training definition change event containing validity and new state
    */
-  onTrainingDefinitionChanged($event: TrainingDefinitionChangeEvent) {
+  onTrainingDefinitionChanged($event: TrainingDefinitionChangeEvent): void {
     this.editService.change($event);
     this.canDeactivateTDEdit = false;
   }
 
-  onControlsAction(control: SentinelControlItem) {
-    control.result$.pipe(takeWhile((_) => this.isAlive)).subscribe((_) => (this.canDeactivateTDEdit = true));
+  onControlsAction(control: SentinelControlItem): void {
+    control.result$.pipe(takeWhile(() => this.isAlive)).subscribe(() => (this.canDeactivateTDEdit = true));
   }
 
   /**
    * Changes state of the component when one of the levels is saved
    * @param unsavedLevels unsaved levels emitted from child component
    */
-  onUnsavedLevelsChanged(unsavedLevels: Level[]) {
+  onUnsavedLevelsChanged(unsavedLevels: Level[]): void {
     this.unsavedLevels = unsavedLevels;
   }
 
@@ -96,7 +94,7 @@ export class TrainingDefinitionEditOverviewComponent extends SentinelBaseDirecti
    * Changes state of the component when level is added or deleted
    * @param count new count of levels
    */
-  onLevelsCountChanged(count: number) {
+  onLevelsCountChanged(count: number): void {
     this.levelsCount = count;
   }
 
@@ -104,7 +102,7 @@ export class TrainingDefinitionEditOverviewComponent extends SentinelBaseDirecti
    * Changes state of the component when authors of the training definition are changed
    * @param hasUnsavedChanges true if the child component has unsaved, false otherwise
    */
-  onAuthorsChanged(hasUnsavedChanges: boolean) {
+  onAuthorsChanged(hasUnsavedChanges: boolean): void {
     this.canDeactivateAuthors = !hasUnsavedChanges;
   }
 }

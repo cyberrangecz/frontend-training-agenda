@@ -19,7 +19,7 @@ export class PreviewTrainingRunService extends RunningTrainingRunService {
   private activeLevelIndex: number;
   private isStepperDisplayed: boolean;
 
-  init(trainingRunInfo: AccessTrainingRunInfo) {
+  init(trainingRunInfo: AccessTrainingRunInfo): void {
     this.levels = trainingRunInfo.levels;
     this.isStepperDisplayed = trainingRunInfo.isStepperDisplayed;
     this.activeLevelIndex = 0;
@@ -55,7 +55,7 @@ export class PreviewTrainingRunService extends RunningTrainingRunService {
     return this.activeLevelIndex >= this.levels.length - 1;
   }
 
-  clear() {
+  clear(): void {
     this.levels = [];
     this.activeLevelIndex = 0;
   }

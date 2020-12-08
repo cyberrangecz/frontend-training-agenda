@@ -35,7 +35,7 @@ describe('PreviewAssessmentLevelService', () => {
 
   it('should submit answers', (done) => {
     runningTrainingRunSpy.next.and.returnValue(asyncData(createMock()));
-    service.submit(createMock()).subscribe((res) => {
+    service.submit().subscribe((res) => {
       expect(res).toBeTruthy();
       expect(res).toEqual(createMock());
       expect(runningTrainingRunSpy.next).toHaveBeenCalledTimes(1);

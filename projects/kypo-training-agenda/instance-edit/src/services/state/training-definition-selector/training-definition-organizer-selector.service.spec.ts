@@ -42,7 +42,7 @@ describe('TrainingDefinitionOrganizerSelectorService', () => {
   it('should load training definitions from facade (called once)', (done) => {
     tdApiSpy.getAllForOrganizer.and.returnValue(asyncData(createMock()));
     const pagination = createPagination();
-    service.getAll(pagination, 'RELEASED').subscribe((_) => done(), fail);
+    service.getAll(pagination, 'RELEASED').subscribe(() => done(), fail);
     expect(tdApiSpy.getAllForOrganizer).toHaveBeenCalledTimes(1);
   });
 
@@ -50,8 +50,8 @@ describe('TrainingDefinitionOrganizerSelectorService', () => {
     tdApiSpy.getAllForOrganizer.and.returnValue(throwError(null));
     const pagination = createPagination();
     service.getAll(pagination, 'RELEASED').subscribe(
-      (_) => fail,
-      (err) => {
+      () => fail,
+      () => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         done();
       }

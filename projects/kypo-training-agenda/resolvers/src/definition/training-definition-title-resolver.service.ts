@@ -27,7 +27,7 @@ export class TrainingDefinitionTitleResolver implements Resolve<string> {
       return resolved.pipe(
         take(1),
         mergeMap((td) => (td ? of(`Edit ${td.title}`) : '')),
-        catchError((err) => '')
+        catchError(() => '')
       );
     }
     return '';

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Component, EventEmitter } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { Observable } from 'rxjs';
@@ -12,7 +12,7 @@ import { FileUploadProgressService } from '../../services/file-upload/file-uploa
   templateUrl: './training-definition-upload-dialog.component.html',
   styleUrls: ['./training-definition-upload-dialog.component.css'],
 })
-export class TrainingDefinitionUploadDialogComponent extends SentinelBaseDirective implements OnInit {
+export class TrainingDefinitionUploadDialogComponent extends SentinelBaseDirective {
   selectedFile: File;
   uploadInProgress$: Observable<boolean>;
   onUpload$ = new EventEmitter<File>();
@@ -25,26 +25,24 @@ export class TrainingDefinitionUploadDialogComponent extends SentinelBaseDirecti
     this.uploadInProgress$ = this.uploadProgressService.isInProgress$;
   }
 
-  ngOnInit() {}
-
   /**
    * Cancels the upload and closes the dialog window with no result
    */
-  cancel() {
+  cancel(): void {
     this.dialogRef.close();
   }
 
   /**
    * Emits upload event with selected file
    */
-  upload() {
+  upload(): void {
     this.onUpload$.emit(this.selectedFile);
   }
 
   /**
    * Removes selected file
    */
-  clearFile() {
+  clearFile(): void {
     this.selectedFile = null;
   }
 }
