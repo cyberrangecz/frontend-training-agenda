@@ -20,7 +20,7 @@ export class HintEditFormGroup {
    * Sets inserted values from form inputs to hint object
    * @param hint hint to be filled with form inputs
    */
-  setToHint(hint: Hint) {
+  setToHint(hint: Hint): void {
     hint.title = this.formGroup.get('title').value;
     hint.content = this.formGroup.get('content').value;
     hint.penalty = this.formGroup.get('hintPenalty').value;

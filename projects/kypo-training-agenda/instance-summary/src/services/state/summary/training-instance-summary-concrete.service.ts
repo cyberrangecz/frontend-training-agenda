@@ -12,9 +12,9 @@ export class TrainingInstanceSummaryConcreteService extends TrainingInstanceSumm
     super();
   }
 
-  init(ti: TrainingInstance) {
+  init(ti: TrainingInstance): void {
     this.trainingInstance = ti;
-    this.hasStarted$ = timer(0, 60000).pipe(map((_) => this.trainingInstance.hasStarted()));
+    this.hasStarted$ = timer(0, 60000).pipe(map(() => this.trainingInstance.hasStarted()));
   }
 
   showProgress(): Observable<boolean> {

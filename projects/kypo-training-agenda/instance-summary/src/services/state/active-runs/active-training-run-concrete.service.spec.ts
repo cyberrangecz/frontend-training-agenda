@@ -73,10 +73,10 @@ describe('ActiveTrainingRunConcreteService', () => {
           expect(hasError).toBeTruthy();
           done();
         },
-        (_) => fail
+        () => fail
       );
     service.getAll(0, pagination).subscribe(
-      (_) => fail,
+      () => fail,
       (_) => _
     );
   });

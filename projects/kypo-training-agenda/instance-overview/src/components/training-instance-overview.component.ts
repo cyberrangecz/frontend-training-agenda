@@ -37,23 +37,23 @@ export class TrainingInstanceOverviewComponent extends SentinelBaseDirective imp
     super();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.controls = TrainingInstanceOverviewControls.create(this.service);
     this.initTable();
   }
 
-  onControlAction(control: SentinelControlItem) {
-    control.result$.pipe(takeWhile((_) => this.isAlive)).subscribe();
+  onControlAction(control: SentinelControlItem): void {
+    control.result$.pipe(takeWhile(() => this.isAlive)).subscribe();
   }
 
-  onInstancesLoadEvent(loadEvent: LoadTableEvent) {
+  onInstancesLoadEvent(loadEvent: LoadTableEvent): void {
     this.service
       .getAll(loadEvent.pagination, loadEvent.filter)
-      .pipe(takeWhile((_) => this.isAlive))
+      .pipe(takeWhile(() => this.isAlive))
       .subscribe();
   }
 
-  onInstanceAction(event: TableActionEvent<any>) {
+  onInstanceAction(event: TableActionEvent<any>): void {
     event.action.result$.pipe(take(1)).subscribe();
   }
 

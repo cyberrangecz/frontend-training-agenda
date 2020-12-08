@@ -56,12 +56,12 @@ export class HintsOverviewComponent extends SentinelBaseDirective implements OnI
     super();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.selectedStep = 0;
     this.initControls();
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
     if ('levelId' in changes) {
       this.selectedStep = 0;
     }
@@ -73,14 +73,14 @@ export class HintsOverviewComponent extends SentinelBaseDirective implements OnI
     }
   }
 
-  onControlAction(control: SentinelControlItem) {
-    control.result$.pipe(takeWhile((_) => this.isAlive)).subscribe();
+  onControlAction(control: SentinelControlItem): void {
+    control.result$.pipe(takeWhile(() => this.isAlive)).subscribe();
   }
 
   /**
    * Creates new hint with default values
    */
-  addHint() {
+  addHint(): void {
     if (this.stepperHints.items.length >= 1) {
       this.stepperHints.items[this.selectedStep].isActive = false;
     }
@@ -99,7 +99,7 @@ export class HintsOverviewComponent extends SentinelBaseDirective implements OnI
   /**
    * Displays confirmation dialog window, if confirmed, deletes given active hint from list of hints
    */
-  deleteActiveHint() {
+  deleteActiveHint(): void {
     const hint = this.stepperHints.items[this.selectedStep];
     const index = this.selectedStep;
     const dialogRef = this.dialog.open(SentinelConfirmationDialogComponent, {
@@ -127,7 +127,7 @@ export class HintsOverviewComponent extends SentinelBaseDirective implements OnI
    * Triggered after selection of active hint is changed in the stepper
    * @param index index of active hint
    */
-  onActiveHintChanged(index: number) {
+  onActiveHintChanged(index: number): void {
     if (index !== this.selectedStep && this.stepperHints.items.length > 0) {
       this.stepperHints.items[this.selectedStep].isActive = false;
       this.selectedStep = index;
@@ -137,7 +137,7 @@ export class HintsOverviewComponent extends SentinelBaseDirective implements OnI
   /**
    * Updates order of stepper items to match order of the hints
    */
-  onOrderUpdate() {
+  onOrderUpdate(): void {
     this.stepperHints.items.forEach((hint, index) => {
       this.stepperHints.items[index].hint.order = index;
     });
@@ -147,7 +147,7 @@ export class HintsOverviewComponent extends SentinelBaseDirective implements OnI
   /**
    * Emits event if new hint is added or saved
    */
-  onHintsChanged(hint: Hint = null) {
+  onHintsChanged(hint: Hint = null): void {
     if (hint) {
       this.stepperHints.items[this.selectedStep].hint = hint;
     }

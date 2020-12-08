@@ -51,7 +51,7 @@ export class TrainingRunGameLevelConcreteService extends TrainingRunGameLevelSer
         flagCheckResult.isCorrect ? this.onCorrectFlagSubmitted() : this.onWrongFlagSubmitted(flagCheckResult)
       ),
       tap(
-        (_) => this.isLoadingSubject$.next(false),
+        () => this.isLoadingSubject$.next(false),
         (err) => {
           this.isLoadingSubject$.next(false);
           this.errorHandler.emit(err, 'Submitting flag');

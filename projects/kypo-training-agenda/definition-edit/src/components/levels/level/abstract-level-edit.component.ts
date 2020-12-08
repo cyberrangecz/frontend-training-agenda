@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { AbstractLevelTypeEnum } from '@muni-kypo-crp/training-model';
 import { Level } from '@muni-kypo-crp/training-model';
@@ -12,18 +12,16 @@ import { Level } from '@muni-kypo-crp/training-model';
   styleUrls: ['./abstract-level-edit.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AbstractLevelEditComponent extends SentinelBaseDirective implements OnInit {
+export class AbstractLevelEditComponent extends SentinelBaseDirective {
   @Input() level: Level;
   @Output() levelChange: EventEmitter<Level> = new EventEmitter();
   levelTypes = AbstractLevelTypeEnum;
-
-  ngOnInit() {}
 
   /**
    * Passes emitted event to the parent component
    * @param level changed level
    */
-  onLevelChange(level: Level) {
+  onLevelChange(level: Level): void {
     this.levelChange.emit(level);
   }
 }

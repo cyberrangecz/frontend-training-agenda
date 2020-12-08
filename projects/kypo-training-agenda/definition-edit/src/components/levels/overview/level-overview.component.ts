@@ -43,15 +43,15 @@ export class LevelOverviewComponent extends SentinelBaseDirective implements OnI
     super();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.activeStep$ = this.levelService.activeStep$;
     this.stepperLevels = this.levelService.levels$.pipe(
       map((levels) => levels.map((level) => new LevelStepperAdapter(level))),
-      tap((_) => this.levelsCount.emit(this.levelService.getLevelsCount()))
+      tap(() => this.levelsCount.emit(this.levelService.getLevelsCount()))
     );
 
     this.levelService.unsavedLevels$
-      .pipe(takeWhile((_) => this.isAlive))
+      .pipe(takeWhile(() => this.isAlive))
       .subscribe((unsavedLevels) => this.unsavedLevels.emit(unsavedLevels));
     this.initControl();
   }
@@ -66,28 +66,28 @@ export class LevelOverviewComponent extends SentinelBaseDirective implements OnI
    * Calls service to set new active level
    * @param levelIndex index of new active level
    */
-  onActiveLevelChange(levelIndex: number) {
+  onActiveLevelChange(levelIndex: number): void {
     this.levelService.setActiveLevel(levelIndex);
   }
 
-  onControlAction(control: SentinelControlItem) {
-    control.result$.pipe(takeWhile((_) => this.isAlive)).subscribe();
+  onControlAction(control: SentinelControlItem): void {
+    control.result$.pipe(takeWhile(() => this.isAlive)).subscribe();
   }
 
   /**
    * Call service to move level from original position to a new one
    * @param event event of level move
    */
-  onLevelMoved(event: LevelMoveEvent) {
+  onLevelMoved(event: LevelMoveEvent): void {
     this.levelMovingInProgress = true;
     this.levelService
       .move(event.stepperState.previousIndex, event.stepperState.currentIndex)
-      .pipe(takeWhile((_) => this.isAlive))
+      .pipe(takeWhile(() => this.isAlive))
       .subscribe(
-        (_) => {
+        () => {
           this.levelMovingInProgress = false;
         },
-        (_) => (this.levelMovingInProgress = false)
+        () => (this.levelMovingInProgress = false)
       );
   }
 
@@ -95,7 +95,7 @@ export class LevelOverviewComponent extends SentinelBaseDirective implements OnI
    * Calls service to change active level
    * @param level level to set as active
    */
-  onActiveLevelChanged(level: Level) {
+  onActiveLevelChanged(level: Level): void {
     this.levelService.onActiveLevelChanged(level);
   }
 

@@ -37,7 +37,7 @@ export class LevelEditConcreteService extends LevelEditService {
    * @param trainingDefinitionId id of training definition
    * @param levels all levels associated with training definition id
    */
-  set(trainingDefinitionId: number, levels: Level[]) {
+  set(trainingDefinitionId: number, levels: Level[]): void {
     this.trainingDefinitionId = trainingDefinitionId;
     this.levelsSubject$.next(levels);
   }
@@ -46,7 +46,7 @@ export class LevelEditConcreteService extends LevelEditService {
     return this.levelsSubject$.getValue().length;
   }
 
-  setActiveLevel(levelIndex: number) {
+  setActiveLevel(levelIndex: number): void {
     this.activeStepSubject$.next(levelIndex);
     this.setLevelCanBeSaved(this.getSelected());
   }
@@ -55,7 +55,7 @@ export class LevelEditConcreteService extends LevelEditService {
    * Performs necessary actions to initiate and update values related to active level change
    * @param level new active level
    */
-  onActiveLevelChanged(level: Level) {
+  onActiveLevelChanged(level: Level): void {
     level.isUnsaved = true;
     const newLevels = this.levelsSubject$.getValue();
     newLevels[this.activeStepSubject$.getValue()] = level;
@@ -70,7 +70,7 @@ export class LevelEditConcreteService extends LevelEditService {
    * @param level level to determine
    * @param value pre-determined result
    */
-  setLevelCanBeSaved(level: Level, value?: boolean) {
+  setLevelCanBeSaved(level: Level, value?: boolean): void {
     if (this.levelsSubject$.getValue().length > 0 && level.id === this.getSelected().id) {
       if (value !== undefined) {
         this.activeLevelCanBeSavedSubject$.next(value);
@@ -83,11 +83,11 @@ export class LevelEditConcreteService extends LevelEditService {
   getSelected(): Level {
     return this.levelsSubject$.getValue()[this.activeStepSubject$.getValue()];
   }
-  navigateToLastLevel() {
+  navigateToLastLevel(): void {
     this.setActiveLevel(this.levelsSubject$.getValue().length - 1);
   }
 
-  navigateToPreviousLevel() {
+  navigateToPreviousLevel(): void {
     const curr = this.activeStepSubject$.getValue();
     if (curr > 0) {
       this.setActiveLevel(curr - 1);
@@ -118,8 +118,7 @@ export class LevelEditConcreteService extends LevelEditService {
       default:
         console.error('Unsupported type of level in add method od LevelEditService');
     }
-
-    return added$.pipe(tap((_) => this.navigateToLastLevel()));
+    return added$.pipe(tap(() => this.navigateToLastLevel()));
   }
 
   /**
@@ -132,7 +131,7 @@ export class LevelEditConcreteService extends LevelEditService {
     this.setLevelCanBeSaved(level, false);
     return this.sendRequestToSaveLevel(level).pipe(
       tap(
-        (_) => {
+        () => {
           this.onLevelSaved(level);
           this.notificationService.emit('success', `Level ${level.title} saved`);
         },
@@ -159,7 +158,7 @@ export class LevelEditConcreteService extends LevelEditService {
    * @param fromIndex current index of level
    * @param toIndex new index of level
    */
-  move(fromIndex, toIndex): Observable<any> {
+  move(fromIndex: number, toIndex: number): Observable<any> {
     const levels = this.levelsSubject$.getValue();
     const from = levels[fromIndex];
     this.moveInternally(fromIndex, toIndex);
@@ -225,7 +224,7 @@ export class LevelEditConcreteService extends LevelEditService {
   private callApiToDelete(level: Level): Observable<Level[]> {
     return this.api.deleteLevel(this.trainingDefinitionId, level.id).pipe(
       tap(
-        (_) => this.onLevelDeleted(level.id),
+        () => this.onLevelDeleted(level.id),
         (err) => this.errorHandler.emit(err, 'Deleting level "' + level.title + '"')
       )
     );

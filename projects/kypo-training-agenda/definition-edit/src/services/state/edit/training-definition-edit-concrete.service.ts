@@ -31,7 +31,7 @@ export class TrainingDefinitionEditConcreteService extends TrainingDefinitionEdi
    * Sets training definition as currently edited
    * @param trainingDefinition to set as currently edited
    */
-  set(trainingDefinition: TrainingDefinition) {
+  set(trainingDefinition: TrainingDefinition): void {
     let td = trainingDefinition;
     this.setEditMode(td);
     if (td === null) {
@@ -47,7 +47,7 @@ export class TrainingDefinitionEditConcreteService extends TrainingDefinitionEdi
     if (this.editModeSubject$.getValue()) {
       return this.update();
     } else {
-      return this.create().pipe(map((_) => this.router.navigate([this.navigator.toTrainingDefinitionOverview()])));
+      return this.create().pipe(map(() => this.router.navigate([this.navigator.toTrainingDefinitionOverview()])));
     }
   }
 
@@ -59,7 +59,7 @@ export class TrainingDefinitionEditConcreteService extends TrainingDefinitionEdi
    * Updated saveDisabled$ and saved snapshot of edited training definition
    * @param changeEvent training definition object and its validity
    */
-  change(changeEvent: TrainingDefinitionChangeEvent) {
+  change(changeEvent: TrainingDefinitionChangeEvent): void {
     this.saveDisabledSubject$.next(!changeEvent.isValid);
     this.editedSnapshot = changeEvent.trainingDefinition;
   }
@@ -71,7 +71,7 @@ export class TrainingDefinitionEditConcreteService extends TrainingDefinitionEdi
   private update(): Observable<number> {
     return this.api.update(this.editedSnapshot).pipe(
       tap(
-        (id) => {
+        () => {
           this.notificationService.emit('success', 'Changes were saved');
           this.onSaved();
         },
@@ -83,7 +83,7 @@ export class TrainingDefinitionEditConcreteService extends TrainingDefinitionEdi
   private create(): Observable<number> {
     return this.api.create(this.editedSnapshot).pipe(
       tap(
-        (_) => {
+        () => {
           this.notificationService.emit('success', 'Training was created');
           this.onSaved();
         },

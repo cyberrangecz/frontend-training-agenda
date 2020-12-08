@@ -20,7 +20,7 @@ import { TrainingPreviewComponent } from './training-preview.component';
  * Module containing components and providers for previewing training run (without allocating sandbox and backend communication)
  */
 @NgModule({
-  imports: [CommonModule, TrainingRunDetailComponentsModule],
+  imports: [CommonModule, TrainingRunDetailComponentsModule, TrainingRunDetailComponentsModule],
   declarations: [TrainingPreviewComponent],
   providers: [
     TrainingDefinitionResolver,

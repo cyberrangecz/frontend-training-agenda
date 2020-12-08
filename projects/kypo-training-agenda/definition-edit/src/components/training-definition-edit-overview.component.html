@@ -1,4 +1,4 @@
-<mat-expansion-panel  [expanded]="!(editMode$ | async)">
+<mat-expansion-panel  [expanded]="(editMode$ | async) === false">
   <mat-expansion-panel-header>
     <mat-panel-title>
       <span *ngIf="(editMode$ | async) else newTrainingTitle">Edit {{ tdTitle$ | async }}</span>
@@ -28,7 +28,7 @@
 
 </mat-expansion-panel>
 
-<mat-expansion-panel [disabled]="!(editMode$ | async)" [expanded]="editMode$ | async">
+<mat-expansion-panel [disabled]="(editMode$ | async) === false" [expanded]="editMode$ | async">
   <mat-expansion-panel-header>
     <mat-panel-title>Edit Authors</mat-panel-title>
     <mat-panel-description>
@@ -52,7 +52,7 @@
   </ng-template>
 </mat-expansion-panel>
 
-<mat-expansion-panel [disabled]="!(editMode$ | async)" [expanded]="editMode$ | async">
+<mat-expansion-panel [disabled]="(editMode$ | async) === false" [expanded]="editMode$ | async">
   <mat-expansion-panel-header>
     <mat-panel-title>Edit Levels</mat-panel-title>
     <mat-panel-description>

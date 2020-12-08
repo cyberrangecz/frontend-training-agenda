@@ -108,7 +108,7 @@ describe('LevelEditConcreteService', () => {
         expect(res).toEqual(assessmentLevel);
         done();
       },
-      (_) => fail
+      () => fail
     );
   });
 
@@ -122,7 +122,7 @@ describe('LevelEditConcreteService', () => {
         expect(res).toEqual(gameLevel);
         done();
       },
-      (_) => fail
+      () => fail
     );
   });
 
@@ -136,7 +136,7 @@ describe('LevelEditConcreteService', () => {
         expect(res).toEqual(infoLevel);
         done();
       },
-      (_) => fail
+      () => fail
     );
   });
 
@@ -145,7 +145,7 @@ describe('LevelEditConcreteService', () => {
     apiSpy.createAssessmentLevel.and.returnValue(throwError(null));
     apiSpy.getLevel.and.returnValue(asyncData(assessmentLevel));
     service.add(AbstractLevelTypeEnum.Assessment).subscribe(
-      (_) => fail,
+      () => fail,
       (err) => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         expect(errorHandlerSpy.emit).toHaveBeenCalledWith(err, jasmine.anything());
@@ -159,7 +159,7 @@ describe('LevelEditConcreteService', () => {
     apiSpy.createGameLevel.and.returnValue(throwError(null));
     apiSpy.getLevel.and.returnValue(asyncData(gameLevel));
     service.add(AbstractLevelTypeEnum.Game).subscribe(
-      (_) => fail,
+      () => fail,
       (err) => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         expect(errorHandlerSpy.emit).toHaveBeenCalledWith(err, jasmine.anything());
@@ -172,7 +172,7 @@ describe('LevelEditConcreteService', () => {
     apiSpy.createInfoLevel.and.returnValue(throwError(null));
     apiSpy.getLevel.and.returnValue(asyncData(new InfoLevel()));
     service.add(AbstractLevelTypeEnum.Info).subscribe(
-      (_) => fail,
+      () => fail,
       (err) => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         expect(errorHandlerSpy.emit).toHaveBeenCalledWith(err, jasmine.anything());
@@ -186,12 +186,12 @@ describe('LevelEditConcreteService', () => {
     service.set(1, createMock());
     service.setActiveLevel(1);
     service.saveSelected().subscribe(
-      (res) => {
+      () => {
         expect(notificationSpy.emit).toHaveBeenCalledTimes(1);
         expect(notificationSpy.emit).toHaveBeenCalledWith('success', jasmine.anything());
         done();
       },
-      (_) => fail
+      () => fail
     );
   });
 
@@ -200,7 +200,7 @@ describe('LevelEditConcreteService', () => {
     service.set(1, createMock());
     service.setActiveLevel(1);
     service.saveSelected().subscribe(
-      (_) => fail,
+      () => fail,
       (err) => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         expect(errorHandlerSpy.emit).toHaveBeenCalledWith(err, jasmine.anything());
@@ -216,11 +216,11 @@ describe('LevelEditConcreteService', () => {
     service.set(1, createMock());
     service.setActiveLevel(1);
     service.deleteSelected().subscribe(
-      (res) => {
+      () => {
         expect(apiSpy.deleteLevel).toHaveBeenCalledTimes(1);
         done();
       },
-      (_) => fail
+      () => fail
     );
   });
 
@@ -231,8 +231,8 @@ describe('LevelEditConcreteService', () => {
     service.set(1, createMock());
     service.setActiveLevel(1);
     service.deleteSelected().subscribe(
-      (res) => fail,
-      (_) => {
+      () => fail,
+      () => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         done();
       }

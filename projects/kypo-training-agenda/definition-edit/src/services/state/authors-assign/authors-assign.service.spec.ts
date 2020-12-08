@@ -42,13 +42,13 @@ describe('AuthorsAssignService', () => {
   it('should load authors from facade (called once)', (done) => {
     apiSpy.getAuthors.and.returnValue(asyncData(createMock()));
     const pagination = createPagination();
-    service.getAssigned(0, pagination).subscribe((_) => done(), fail);
+    service.getAssigned(0, pagination).subscribe(() => done(), fail);
     expect(apiSpy.getAuthors).toHaveBeenCalledTimes(1);
   });
 
   it('should load designers from facade (called once)', (done) => {
     apiSpy.getDesignersNotInTD.and.returnValue(asyncData(createMock()));
-    service.getAvailableToAssign(0).subscribe((_) => done(), fail);
+    service.getAvailableToAssign(0).subscribe(() => done(), fail);
     expect(apiSpy.getDesignersNotInTD).toHaveBeenCalledTimes(1);
   });
 
@@ -57,7 +57,7 @@ describe('AuthorsAssignService', () => {
     apiSpy.getAuthors.and.returnValue(asyncData(createMock()));
     const usersToAssign = createMock().elements;
     const idsToAssign = usersToAssign.map((user) => user.id);
-    service.assign(0, usersToAssign).subscribe((_) => done(), fail);
+    service.assign(0, usersToAssign).subscribe(() => done(), fail);
     expect(apiSpy.updateAuthors).toHaveBeenCalledTimes(1);
     expect(apiSpy.updateAuthors).toHaveBeenCalledWith(0, idsToAssign, []);
   });
@@ -66,7 +66,7 @@ describe('AuthorsAssignService', () => {
     apiSpy.updateAuthors.and.returnValue(asyncData(null));
     apiSpy.getAuthors.and.returnValue(asyncData(createMock()));
     const usersToAssign = createMock().elements;
-    service.assign(0, usersToAssign).subscribe((_) => {
+    service.assign(0, usersToAssign).subscribe(() => {
       expect(apiSpy.getAuthors).toHaveBeenCalledTimes(1);
       done();
     }, fail);
@@ -77,7 +77,7 @@ describe('AuthorsAssignService', () => {
     apiSpy.getAuthors.and.returnValue(asyncData(createMock()));
     const usersToUnassign = createMock().elements;
     const idsToUnassign = usersToUnassign.map((user) => user.id);
-    service.unassign(0, usersToUnassign).subscribe((_) => done(), fail);
+    service.unassign(0, usersToUnassign).subscribe(() => done(), fail);
     expect(apiSpy.updateAuthors).toHaveBeenCalledTimes(1);
     expect(apiSpy.updateAuthors).toHaveBeenCalledWith(0, [], idsToUnassign);
   });
@@ -86,7 +86,7 @@ describe('AuthorsAssignService', () => {
     apiSpy.updateAuthors.and.returnValue(asyncData(null));
     apiSpy.getAuthors.and.returnValue(asyncData(createMock()));
     const usersToUnassign = createMock().elements;
-    service.unassign(0, usersToUnassign).subscribe((_) => {
+    service.unassign(0, usersToUnassign).subscribe(() => {
       expect(apiSpy.getAuthors).toHaveBeenCalledTimes(1);
       done();
     }, fail);
@@ -95,8 +95,8 @@ describe('AuthorsAssignService', () => {
   it('should call error handler on err (getAvailableToAssign)', (done) => {
     apiSpy.getDesignersNotInTD.and.returnValue(throwError(null));
     service.getAvailableToAssign(0).subscribe(
-      (_) => fail,
-      (err) => {
+      () => fail,
+      () => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         done();
       }
@@ -106,8 +106,8 @@ describe('AuthorsAssignService', () => {
   it('should call error handler on err (getAssigned)', (done) => {
     apiSpy.getAuthors.and.returnValue(throwError(null));
     service.getAssigned(0, null).subscribe(
-      (_) => fail,
-      (err) => {
+      () => fail,
+      () => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         done();
       }
@@ -117,8 +117,8 @@ describe('AuthorsAssignService', () => {
   it('should call error handler on err (assign)', (done) => {
     apiSpy.updateAuthors.and.returnValue(throwError(null));
     service.assign(0, []).subscribe(
-      (_) => fail,
-      (err) => {
+      () => fail,
+      () => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         done();
       }
@@ -128,8 +128,8 @@ describe('AuthorsAssignService', () => {
   it('should call error handler on err (unassign)', (done) => {
     apiSpy.updateAuthors.and.returnValue(throwError(null));
     service.unassign(0, []).subscribe(
-      (_) => fail,
-      (err) => {
+      () => fail,
+      () => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         done();
       }

@@ -4,7 +4,6 @@ import {
   EventEmitter,
   Input,
   OnChanges,
-  OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
@@ -24,7 +23,7 @@ import { QuestionChangeEvent } from '../../../../../../model/events/question-cha
   styleUrls: ['./question-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class QuestionEditComponent extends SentinelBaseDirective implements OnInit, OnChanges {
+export class QuestionEditComponent extends SentinelBaseDirective implements OnChanges {
   @Input() question: Question;
   @Input() isTest: boolean;
   @Input() index: number;
@@ -36,8 +35,6 @@ export class QuestionEditComponent extends SentinelBaseDirective implements OnIn
   isMcq = false;
   isEmi = false;
 
-  ngOnInit() {}
-
   ngOnChanges(changes: SimpleChanges): void {
     if ('question' in changes) {
       this.resolveQuestionType();
@@ -48,7 +45,7 @@ export class QuestionEditComponent extends SentinelBaseDirective implements OnIn
    * Passes received event to parent component
    * @param question changed question
    */
-  questionChanged(question: Question) {
+  questionChanged(question: Question): void {
     this.questionChange.emit(new QuestionChangeEvent(question, this.index));
   }
 
@@ -56,7 +53,7 @@ export class QuestionEditComponent extends SentinelBaseDirective implements OnIn
    * Emits event to delete selected question
    * @param i index of question to delete
    */
-  onDelete(i: number) {
+  onDelete(i: number): void {
     this.delete.emit(i);
   }
 

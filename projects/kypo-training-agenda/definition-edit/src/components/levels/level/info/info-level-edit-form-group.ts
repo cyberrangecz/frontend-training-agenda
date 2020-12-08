@@ -19,7 +19,7 @@ export class InfoLevelEditFormGroup {
    * Sets inserted form values from inputs to info level
    * @param level level which values should be filled
    */
-  setToLevel(level: InfoLevel) {
+  setToLevel(level: InfoLevel): void {
     level.title = this.formGroup.get('title').value;
     level.content = this.formGroup.get('content').value;
     level.valid = this.formGroup.valid;

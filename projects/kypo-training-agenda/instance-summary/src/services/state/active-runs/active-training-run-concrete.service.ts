@@ -49,7 +49,7 @@ export class ActiveTrainingRunConcreteService extends ActiveTrainingRunService {
         (runs) => {
           this.resourceSubject$.next(runs);
         },
-        (err) => this.onGetAllError()
+        () => this.onGetAllError()
       )
     );
   }
@@ -74,10 +74,10 @@ export class ActiveTrainingRunConcreteService extends ActiveTrainingRunService {
   archive(trainingRun: TrainingRun): Observable<any> {
     return this.trainingRunApi.archive(trainingRun.id).pipe(
       tap(
-        (_) => this.notificationService.emit('success', `Training run ${trainingRun.id} was archived`),
+        () => this.notificationService.emit('success', `Training run ${trainingRun.id} was archived`),
         (err) => this.errorHandler.emit(err, `Archiving training run ${trainingRun.id}`)
       ),
-      switchMap((_) => this.getAll(this.lastTrainingInstanceId, this.lastPagination))
+      switchMap(() => this.getAll(this.lastTrainingInstanceId, this.lastPagination))
     );
   }
 
@@ -85,10 +85,10 @@ export class ActiveTrainingRunConcreteService extends ActiveTrainingRunService {
     this.hasErrorSubject$.next(false);
     return this.trainingInstanceApi
       .getAssociatedTrainingRuns(this.lastTrainingInstanceId, this.lastPagination)
-      .pipe(tap({ error: (err) => this.onGetAllError() }));
+      .pipe(tap({ error: () => this.onGetAllError() }));
   }
 
-  protected onManualResourceRefresh(pagination: RequestedPagination, ...params) {
+  protected onManualResourceRefresh(pagination: RequestedPagination, ...params: any[]): void {
     super.onManualResourceRefresh(pagination, ...params);
     this.lastTrainingInstanceId = params[0];
   }
@@ -109,13 +109,13 @@ export class ActiveTrainingRunConcreteService extends ActiveTrainingRunService {
     let sandboxToDelete: SandboxInstance;
     return this.sandboxApi.getSandbox(trainingRun.sandboxInstanceId).pipe(
       tap((sandbox) => (sandboxToDelete = sandbox)),
-      switchMap((_) => this.sandboxApi.unlockSandbox(sandboxToDelete.id, sandboxToDelete.lockId)),
-      switchMap((_) => this.sauApi.createCleanupRequest(sandboxToDelete.allocationUnitId)),
+      switchMap(() => this.sandboxApi.unlockSandbox(sandboxToDelete.id, sandboxToDelete.lockId)),
+      switchMap(() => this.sauApi.createCleanupRequest(sandboxToDelete.allocationUnitId)),
       tap(
-        (_) => this.notificationService.emit('success', 'Deleting of sandbox instance started'),
+        () => this.notificationService.emit('success', 'Deleting of sandbox instance started'),
         (err) => this.errorHandler.emit(err, 'Deleting sandbox instance')
       ),
-      switchMap((_) => this.getAll(trainingRun.trainingInstanceId, this.lastPagination))
+      switchMap(() => this.getAll(trainingRun.trainingInstanceId, this.lastPagination))
     );
   }
 

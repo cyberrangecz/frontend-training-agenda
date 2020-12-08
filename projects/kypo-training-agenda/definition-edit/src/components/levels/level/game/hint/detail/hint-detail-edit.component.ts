@@ -4,11 +4,10 @@ import {
   EventEmitter,
   Input,
   OnChanges,
-  OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { Validators } from '@angular/forms';
+import { AbstractControl, Validators } from '@angular/forms';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { Hint } from '@muni-kypo-crp/training-model';
 import { takeWhile } from 'rxjs/operators';
@@ -23,7 +22,7 @@ import { HintEditFormGroup } from './hint-edit-form-group';
 /**
  * Component to edit new or existing game level hint
  */
-export class HintDetailEditComponent extends SentinelBaseDirective implements OnInit, OnChanges {
+export class HintDetailEditComponent extends SentinelBaseDirective implements OnChanges {
   @Input() hint: Hint;
   @Input() levelMaxScore: number;
   @Input() hintsPenaltySum: number;
@@ -37,15 +36,13 @@ export class HintDetailEditComponent extends SentinelBaseDirective implements On
     super();
   }
 
-  ngOnInit() {}
-
-  get title() {
+  get title(): AbstractControl {
     return this.hintConfigurationFormGroup.formGroup.get('title');
   }
-  get content() {
+  get content(): AbstractControl {
     return this.hintConfigurationFormGroup.formGroup.get('content');
   }
-  get hintPenalty() {
+  get hintPenalty(): AbstractControl {
     return this.hintConfigurationFormGroup.formGroup.get('hintPenalty');
   }
 
@@ -63,7 +60,7 @@ export class HintDetailEditComponent extends SentinelBaseDirective implements On
   /**
    * Changes internal component state and emits event on hint change
    */
-  onHintChanged() {
+  onHintChanged(): void {
     this.hintConfigurationFormGroup.formGroup.markAsDirty();
     this.hintConfigurationFormGroup.setToHint(this.hint);
     this.hintChange.emit(this.hint);
@@ -71,8 +68,8 @@ export class HintDetailEditComponent extends SentinelBaseDirective implements On
 
   private subscribeFormChanges() {
     this.hintConfigurationFormGroup.formGroup.valueChanges
-      .pipe(takeWhile((_) => this.isAlive))
-      .subscribe((_) => this.onHintChanged());
+      .pipe(takeWhile(() => this.isAlive))
+      .subscribe(() => this.onHintChanged());
   }
 
   private calculateMaxPenalty() {

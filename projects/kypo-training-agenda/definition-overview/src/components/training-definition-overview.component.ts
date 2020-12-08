@@ -36,7 +36,7 @@ export class TrainingDefinitionOverviewComponent extends SentinelBaseDirective i
     super();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.controls = TrainingDefinitionOverviewControls.create(this.trainingDefinitionService);
     this.initTable();
   }
@@ -45,10 +45,10 @@ export class TrainingDefinitionOverviewComponent extends SentinelBaseDirective i
    * Gets new data for table
    * @param loadEvent event emitted by table component to get new data
    */
-  onLoadEvent(loadEvent: LoadTableEvent) {
+  onLoadEvent(loadEvent: LoadTableEvent): void {
     this.trainingDefinitionService
       .getAll(loadEvent.pagination, loadEvent.filter)
-      .pipe(takeWhile((_) => this.isAlive))
+      .pipe(takeWhile(() => this.isAlive))
       .subscribe();
   }
 
@@ -56,7 +56,7 @@ export class TrainingDefinitionOverviewComponent extends SentinelBaseDirective i
    * Resolves controls action and calls appropriate handler
    * @param control selected control emitted by controls component
    */
-  onControlsAction(control: SentinelControlItem) {
+  onControlsAction(control: SentinelControlItem): void {
     control.result$.pipe(take(1)).subscribe();
   }
 
@@ -64,7 +64,7 @@ export class TrainingDefinitionOverviewComponent extends SentinelBaseDirective i
    * Resolves type of emitted event and calls appropriate handler
    * @param event action event emitted from table component
    */
-  onTableAction(event: TableActionEvent<TrainingDefinition>) {
+  onTableAction(event: TableActionEvent<TrainingDefinition>): void {
     event.action.result$.pipe(take(1)).subscribe();
   }
 

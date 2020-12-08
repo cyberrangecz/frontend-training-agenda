@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, OnInit, O
 import { MatButton } from '@angular/material/button';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { TraineeAccessTrainingFormGroup } from './trainee-access-training-form-group';
+import { AbstractControl } from '@angular/forms';
 
 /**
  * Component for trainee access to training run by inserting token
@@ -20,21 +21,21 @@ export class AccessTrainingRunComponent extends SentinelBaseDirective implements
 
   traineeAccessTrainingFormGroup: TraineeAccessTrainingFormGroup;
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.traineeAccessTrainingFormGroup = new TraineeAccessTrainingFormGroup();
   }
 
-  get accessTokenPrefix() {
+  get accessTokenPrefix(): AbstractControl {
     return this.traineeAccessTrainingFormGroup.formGroup.get('accessTokenPrefix');
   }
-  get accessTokenPin() {
+  get accessTokenPin(): AbstractControl {
     return this.traineeAccessTrainingFormGroup.formGroup.get('accessTokenPin');
   }
 
   /**
    * Emits event to access with inserted access token
    */
-  access() {
+  access(): void {
     const accessToken = this.accessTokenPrefix.value + '-' + this.accessTokenPin.value;
     this.accessToken.emit(accessToken);
   }
@@ -44,7 +45,7 @@ export class AccessTrainingRunComponent extends SentinelBaseDirective implements
    * (access token is in format prefix-pincode)
    * @param event js clipboard event
    */
-  onPaste(event: ClipboardEvent) {
+  onPaste(event: ClipboardEvent): void {
     const pastedText = event.clipboardData.getData('text');
     if (pastedText.includes('-')) {
       event.preventDefault();
@@ -62,7 +63,7 @@ export class AccessTrainingRunComponent extends SentinelBaseDirective implements
    * (access token is in format prefix-pincode)
    * @param event js keyup event
    */
-  onKeyup(event) {
+  onKeyup(event: KeyboardEvent): void {
     if (event.key === '-') {
       this.accessTokenPinInput.nativeElement.focus();
       this.accessTokenPrefix.setValue(this.accessTokenPrefix.value.slice(0, -1));

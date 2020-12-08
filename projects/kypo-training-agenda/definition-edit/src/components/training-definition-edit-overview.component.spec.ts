@@ -2,7 +2,6 @@ import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
 import { ActivatedRoute } from '@angular/router';
 import { TrainingDefinitionEditOverviewComponent } from '@muni-kypo-crp/training-agenda/definition-edit';
 import { ComponentFixture, TestBed, async, fakeAsync } from '@angular/core/testing';
-import { ChangeDetectorRef } from '@angular/core';
 import {
   createActivatedRouteSpy,
   createTrainingDefinitionEditServiceSpy,
@@ -19,7 +18,6 @@ import { MaterialTestingModule } from '../../../internal/src/testing/material-te
 describe('TrainingDefinitionEditOverviewComponent', () => {
   let component: TrainingDefinitionEditOverviewComponent;
   let fixture: ComponentFixture<TrainingDefinitionEditOverviewComponent>;
-  let cd: ChangeDetectorRef;
 
   let activatedRouteSpy: jasmine.SpyObj<ActivatedRoute>;
   let editServiceSpy: jasmine.SpyObj<TrainingDefinitionEditService>;
@@ -44,7 +42,6 @@ describe('TrainingDefinitionEditOverviewComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(TrainingDefinitionEditOverviewComponent);
     component = fixture.componentInstance;
-    cd = fixture.componentRef.injector.get(ChangeDetectorRef);
   });
 
   it('should create', () => {

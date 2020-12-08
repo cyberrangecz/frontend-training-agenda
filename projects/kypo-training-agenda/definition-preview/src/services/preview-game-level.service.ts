@@ -25,7 +25,7 @@ export class PreviewGameLevelService extends TrainingRunGameLevelService {
   private _currentLevel: GameLevel;
   private _remainingAttempts = -1;
 
-  init(level: GameLevel) {
+  init(level: GameLevel): void {
     super.init(level);
     this._currentLevel = level;
     this._remainingAttempts = this._currentLevel.incorrectFlagLimit;
@@ -65,7 +65,7 @@ export class PreviewGameLevelService extends TrainingRunGameLevelService {
   }
 
   private takeSolution(): Observable<string> {
-    return of(this._currentLevel.solution).pipe(tap((_) => this.onSolutionRevealed(this._currentLevel.solution)));
+    return of(this._currentLevel.solution).pipe(tap(() => this.onSolutionRevealed(this._currentLevel.solution)));
   }
 
   private takeHint(hintToTake: Hint): Observable<Hint> {
@@ -74,9 +74,7 @@ export class PreviewGameLevelService extends TrainingRunGameLevelService {
     );
   }
 
-  protected initSolutionState(level: GameLevel) {}
-
-  protected initHints(hints: Hint[]) {
+  protected initHints(hints: Hint[]): void {
     const hintButtons = hints.map((hint) => new HintButton(false, hint));
     this.hintsSubject$.next(hintButtons);
   }

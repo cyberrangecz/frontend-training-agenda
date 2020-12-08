@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { Question } from '@muni-kypo-crp/training-model';
@@ -14,15 +14,13 @@ import { MultipleChoiceQuestion } from '@muni-kypo-crp/training-model';
  * Component displaying MCQ type of question in the assessment level of a trainees training run.
  * If is assessment is a test or question is required, it needs to be filled, otherwise it is optional.
  */
-export class MultipleChoiceQuestionTraineeComponent extends SentinelBaseDirective implements OnInit {
+export class MultipleChoiceQuestionTraineeComponent extends SentinelBaseDirective {
   @Input() question: MultipleChoiceQuestion;
   @Input() index: number;
 
   @Output() contentChanged: EventEmitter<{ index: number; question: Question }> = new EventEmitter();
 
   userAnswersIndexes: number[] = [];
-
-  ngOnInit() {}
 
   /**
    * Checks whether mandatory questions were answered
@@ -34,7 +32,7 @@ export class MultipleChoiceQuestionTraineeComponent extends SentinelBaseDirectiv
   /**
    * Saves changes from user input to question object
    */
-  saveChanges() {
+  saveChanges(): void {
     this.question.usersAnswersIndices = this.userAnswersIndexes;
   }
 
@@ -43,7 +41,7 @@ export class MultipleChoiceQuestionTraineeComponent extends SentinelBaseDirectiv
    * @param event event of checkbox change
    * @param index index of an answer which has been changed
    */
-  onAnswerChanged(event: MatCheckboxChange, index: number) {
+  onAnswerChanged(event: MatCheckboxChange, index: number): void {
     if (event.checked) {
       this.addCorrectAnswer(index);
     } else {

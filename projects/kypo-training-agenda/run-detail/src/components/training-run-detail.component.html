@@ -1,7 +1,11 @@
   <div class="header">
     <!-- LEVEL STEPPER -->
     <div *ngIf="isStepperDisplayed && stepper?.items" class="training-run-stepper">
-      <sentinel-stepper [dragDisabled]="true" [selectable]="false" [stepperItems]="stepper" [activeIndex]="stepper.activeLevelIndex"></sentinel-stepper>
+      <sentinel-stepper [dragDisabled]="true"
+                        [selectable]="false"
+                        [stepperItems]="stepper"
+                        [activeIndex]="stepper.activeLevelIndex">
+      </sentinel-stepper>
     </div>
 
     <span class="spacer"></span>

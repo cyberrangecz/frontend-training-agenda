@@ -38,7 +38,7 @@ export class ExtendedMatchingItemsFormGroup {
    * @param emi emi object to be filled with inserted inputs
    * @param isTest true if level is test, false if questionnaire
    */
-  setToEMI(emi: ExtendedMatchingItems, isTest: boolean) {
+  setToEMI(emi: ExtendedMatchingItems, isTest: boolean): void {
     emi.title = this.formGroup.get('title').value;
     emi.rows = this.formGroup.get('rows').value;
     emi.cols = this.formGroup.get('cols').value;
@@ -61,14 +61,14 @@ export class ExtendedMatchingItemsFormGroup {
   /**
    * Adds correct answers validators (if level is test)
    */
-  addAnswersValidator() {
+  addAnswersValidator(): void {
     this.formGroup.setValidators(this.noSelectedAnswers);
   }
 
   /**
    * Removes correct answers validators (if level is questionnaire)
    */
-  removeAnswersValidator() {
+  removeAnswersValidator(): void {
     this.formGroup.clearValidators();
     this.formGroup.updateValueAndValidity();
   }

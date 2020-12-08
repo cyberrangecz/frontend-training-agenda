@@ -42,7 +42,7 @@ export class AssessmentLevelComponent extends SentinelBaseDirective implements O
     super();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.isSubmitted = false;
     this.initCanSubmit();
   }
@@ -57,14 +57,14 @@ export class AssessmentLevelComponent extends SentinelBaseDirective implements O
   /**
    * When user changes his answers, check if answers are valid (and can be submitted) is done
    */
-  onContentChanged() {
+  onContentChanged(): void {
     this.checkCanSubmit();
   }
 
   /**
    * Gathers all trainees answers and calls service to save then
    */
-  submit() {
+  submit(): void {
     const results: Question[] = [];
     this.questionComponents.forEach((component) => {
       component.saveChanges();
@@ -76,7 +76,7 @@ export class AssessmentLevelComponent extends SentinelBaseDirective implements O
   /**
    * Emit event to next level to move to the next level
    */
-  onNext() {
+  onNext(): void {
     this.next.emit();
   }
 
@@ -85,8 +85,8 @@ export class AssessmentLevelComponent extends SentinelBaseDirective implements O
       .submit(answers)
       .pipe(take(1))
       .subscribe(
-        (_) => (this.isSubmitted = true),
-        (_) => (this.isSubmitted = false)
+        () => (this.isSubmitted = true),
+        () => (this.isSubmitted = false)
       );
   }
 

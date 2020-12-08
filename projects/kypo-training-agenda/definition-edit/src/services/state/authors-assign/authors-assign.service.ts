@@ -131,27 +131,27 @@ export class AuthorsAssignService extends SentinelUserAssignService {
       )
       .pipe(
         tap({ error: (err) => this.errorHandler.emit(err, 'Updating authors') }),
-        switchMap((_) => this.getAssigned(resourceId, this.lastAssignedPagination, this.lastAssignedFilter))
+        switchMap(() => this.getAssigned(resourceId, this.lastAssignedPagination, this.lastAssignedFilter))
       );
   }
 
   private callApiToAssign(resourceId: number, userIds: number[]): Observable<any> {
     return this.userApi.updateAuthors(resourceId, userIds, []).pipe(
       tap(
-        (_) => this.clearSelectedUsersToAssign(),
+        () => this.clearSelectedUsersToAssign(),
         (err) => this.errorHandler.emit(err, 'Adding authors')
       ),
-      switchMap((_) => this.getAssigned(resourceId, this.lastAssignedPagination, this.lastAssignedFilter))
+      switchMap(() => this.getAssigned(resourceId, this.lastAssignedPagination, this.lastAssignedFilter))
     );
   }
 
   private callApiToUnassign(resourceId: number, usersIds: number[]) {
     return this.userApi.updateAuthors(resourceId, [], usersIds).pipe(
       tap(
-        (_) => this.clearSelectedAssignedUsers(),
+        () => this.clearSelectedAssignedUsers(),
         (err) => this.errorHandler.emit(err, 'Deleting authors from training definition')
       ),
-      switchMap((_) => this.getAssigned(resourceId, this.lastAssignedPagination, this.lastAssignedFilter))
+      switchMap(() => this.getAssigned(resourceId, this.lastAssignedPagination, this.lastAssignedFilter))
     );
   }
 

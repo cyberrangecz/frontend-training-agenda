@@ -22,7 +22,7 @@ export class TrainingDefinitionEditFormGroup {
    * Sets values from form to training definition object
    * @param trainingDefinition training definition object to be filled with inputs from form
    */
-  setValuesToTrainingDefinition(trainingDefinition: TrainingDefinition) {
+  setValuesToTrainingDefinition(trainingDefinition: TrainingDefinition): void {
     trainingDefinition.title = this.formGroup.get('title').value;
     trainingDefinition.description = this.formGroup.get('description').value;
     trainingDefinition.showStepperBar = this.formGroup.get('showProgress').value;

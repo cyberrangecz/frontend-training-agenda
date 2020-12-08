@@ -4,11 +4,10 @@ import {
   EventEmitter,
   Input,
   OnChanges,
-  OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { Question } from '@muni-kypo-crp/training-model';
 import { FreeFormQuestion } from '@muni-kypo-crp/training-model';
@@ -24,7 +23,7 @@ import { FreeFormQuestionFormGroup } from './free-form-question-form-group';
 /**
  * Component for editing a question of type Free Form
  */
-export class FreeFormQuestionEditComponent extends SentinelBaseDirective implements OnInit, OnChanges {
+export class FreeFormQuestionEditComponent extends SentinelBaseDirective implements OnChanges {
   @Input() question: FreeFormQuestion;
   @Input() isTest: boolean;
   @Input() required: boolean;
@@ -35,18 +34,16 @@ export class FreeFormQuestionEditComponent extends SentinelBaseDirective impleme
   maxQuestionScore = Question.MAX_QUESTION_SCORE;
   maxQuestionPenalty = Question.MAX_QUESTION_PENALTY;
 
-  ngOnInit() {}
-
-  get title() {
+  get title(): AbstractControl {
     return this.freeFormQuestionFormGroup.formGroup.get('title');
   }
-  get answers() {
+  get answers(): FormArray {
     return this.freeFormQuestionFormGroup.formGroup.get('answers') as FormArray;
   }
-  get score() {
+  get score(): AbstractControl {
     return this.freeFormQuestionFormGroup.formGroup.get('score');
   }
-  get penalty() {
+  get penalty(): AbstractControl {
     return this.freeFormQuestionFormGroup.formGroup.get('penalty');
   }
 
@@ -56,8 +53,8 @@ export class FreeFormQuestionEditComponent extends SentinelBaseDirective impleme
         this.freeFormQuestionFormGroup = new FreeFormQuestionFormGroup(this.question);
         this.checkState();
         this.freeFormQuestionFormGroup.formGroup.valueChanges
-          .pipe(takeWhile((_) => this.isAlive))
-          .subscribe((_) => this.questionChanged());
+          .pipe(takeWhile(() => this.isAlive))
+          .subscribe(() => this.questionChanged());
       }
     }
     if ('isTest' in changes && !changes.isTest.isFirstChange()) {
@@ -76,7 +73,7 @@ export class FreeFormQuestionEditComponent extends SentinelBaseDirective impleme
   /**
    * Changes internal state of the component if question is changed and emits event to parent component
    */
-  questionChanged() {
+  questionChanged(): void {
     this.freeFormQuestionFormGroup.formGroup.markAsDirty();
     this.freeFormQuestionFormGroup.setToFFQ(this.question, this.freeFormValid, this.isTest);
     this.questionChange.emit(this.question);
@@ -86,7 +83,7 @@ export class FreeFormQuestionEditComponent extends SentinelBaseDirective impleme
    * Changes internal state of the component if answer is changed
    * @param event change event of answers
    */
-  answerChanged(event: FormGroup) {
+  answerChanged(event: FormGroup): void {
     this.freeFormValid = event.valid;
     this.answers.clear();
     event.value['items'].forEach((item) => {
@@ -97,7 +94,7 @@ export class FreeFormQuestionEditComponent extends SentinelBaseDirective impleme
   /**
    * Changes internal state of component if required attribute of answer was changed
    */
-  onRequiredChanged() {
+  onRequiredChanged(): void {
     if (!this.required) {
       this.score.setValue(0);
     }

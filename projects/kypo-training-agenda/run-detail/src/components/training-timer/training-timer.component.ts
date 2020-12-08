@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { Observable, timer } from 'rxjs';
 import { map, takeWhile } from 'rxjs/operators';
@@ -12,11 +12,9 @@ import { map, takeWhile } from 'rxjs/operators';
   styleUrls: ['./training-timer.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TrainingTimerComponent extends SentinelBaseDirective implements OnInit, OnChanges {
+export class TrainingTimerComponent extends SentinelBaseDirective implements OnChanges {
   @Input() startTime: Date;
   timeElapsed: Observable<number>;
-
-  ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if ('startTime' in changes) {

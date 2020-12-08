@@ -1,4 +1,3 @@
-import { ChangeDetectorRef } from '@angular/core';
 import { CloneDialogComponent } from './clone-dialog.component';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
@@ -11,8 +10,6 @@ import { createDialogRefSpy } from '../../../../internal/src/testing/testing-com
 describe('CloneDialogComponent', () => {
   let component: CloneDialogComponent;
   let fixture: ComponentFixture<CloneDialogComponent>;
-  let cd: ChangeDetectorRef;
-
   let matDialogRefSpy: jasmine.SpyObj<MatDialogRef<CloneDialogComponent>>;
 
   beforeEach(async(() => {
@@ -33,7 +30,6 @@ describe('CloneDialogComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CloneDialogComponent);
     component = fixture.componentInstance;
-    cd = fixture.componentRef.injector.get(ChangeDetectorRef);
     fixture.detectChanges();
   });
 

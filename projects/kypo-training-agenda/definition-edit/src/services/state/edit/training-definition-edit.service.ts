@@ -28,7 +28,7 @@ export abstract class TrainingDefinitionEditService {
    * Sets training definition as currently edited
    * @param trainingDefinition to set as currently edited
    */
-  abstract set(trainingDefinition: TrainingDefinition);
+  abstract set(trainingDefinition: TrainingDefinition): void;
 
   /**
    * Saves/creates training definition based on edit mode or handles error.
@@ -41,5 +41,5 @@ export abstract class TrainingDefinitionEditService {
    * Updated saveDisabled$ and saved snapshot of edited training definition
    * @param changeEvent training definition object and its validity
    */
-  abstract change(changeEvent: TrainingDefinitionChangeEvent);
+  abstract change(changeEvent: TrainingDefinitionChangeEvent): void;
 }

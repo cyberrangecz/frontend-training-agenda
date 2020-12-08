@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { TrainingDefinition } from '@muni-kypo-crp/training-model';
 
 @Component({
@@ -9,8 +9,6 @@ import { TrainingDefinition } from '@muni-kypo-crp/training-model';
 /**
  * Detail of training definition for overview table component. Displays detailed information about training definition
  */
-export class TrainingDefinitionDetailComponent implements OnInit {
+export class TrainingDefinitionDetailComponent {
   @Input() data: TrainingDefinition;
-
-  ngOnInit() {}
 }

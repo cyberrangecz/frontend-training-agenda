@@ -58,7 +58,7 @@ export class PoolAssignComponent extends SentinelBaseDirective implements OnInit
     this.initList();
     this.initControls();
     this.hasPool$ = this.assignService.assignedPool$.pipe(
-      takeWhile((_) => this.isAlive),
+      takeWhile(() => this.isAlive),
       tap((poolId) => this.onPoolChanged(poolId)),
       map((poolId) => poolId !== undefined && poolId !== null)
     );
@@ -72,15 +72,15 @@ export class PoolAssignComponent extends SentinelBaseDirective implements OnInit
     }
   }
 
-  onControlsAction(controlItem: SentinelControlItem) {
+  onControlsAction(controlItem: SentinelControlItem): void {
     controlItem.result$.pipe(take(1)).subscribe();
   }
 
-  fetch(pagination: RequestedPagination) {
+  fetch(pagination: RequestedPagination): void {
     this.assignService.getAll(pagination).pipe(take(1)).subscribe();
   }
 
-  onSelectionChange(selected: Pool[]) {
+  onSelectionChange(selected: Pool[]): void {
     this.assignService.select(selected[0]);
   }
 

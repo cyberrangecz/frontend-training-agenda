@@ -24,15 +24,15 @@ export class TrainingInstanceResultsComponent extends SentinelBaseDirective impl
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize(event) {
+  onResize(event: any): void {
     this.calculateVisualizationSize(event.target.innerWidth, event.target.innerHeight);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.trainingInstance$ = this.activeRoute.data.pipe(
-      takeWhile((_) => this.isAlive),
+      takeWhile(() => this.isAlive),
       map((data) => data[TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME]),
-      tap((_) => this.calculateVisualizationSize(window.innerWidth, window.innerHeight))
+      tap(() => this.calculateVisualizationSize(window.innerWidth, window.innerHeight))
     );
   }
 

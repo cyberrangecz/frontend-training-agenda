@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRouteSnapshot, CanDeactivate, RouterStateSnapshot } from '@angular/router';
+import { CanDeactivate } from '@angular/router';
 import {
   SentinelConfirmationDialogComponent,
   SentinelConfirmationDialogConfig,
@@ -17,12 +17,7 @@ import { TrainingDefinitionEditOverviewComponent } from '../../components/traini
 export class TrainingDefinitionCanDeactivate implements CanDeactivate<TrainingDefinitionEditOverviewComponent> {
   constructor(private dialog: MatDialog) {}
 
-  canDeactivate(
-    component: TrainingDefinitionEditOverviewComponent,
-    currentRoute: ActivatedRouteSnapshot,
-    currentState: RouterStateSnapshot,
-    nextState?: RouterStateSnapshot
-  ): Observable<boolean> | Promise<boolean> | boolean {
+  canDeactivate(component: TrainingDefinitionEditOverviewComponent): Observable<boolean> | Promise<boolean> | boolean {
     if (component.canDeactivate()) {
       return true;
     }

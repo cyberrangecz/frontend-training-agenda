@@ -6,9 +6,11 @@
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
-    "lint": "ng lint",
+    "lint": "ng lint && npm run prettier-check",
     "e2e": "ng e2e",
     "ci-test": "ng test --browsers ChromeHeadless --watch=false",
+    "prettier-check": "prettier --check \"projects/**/*.ts\"",
+    "prettier-fix": "prettier --write \"./projects/**/*.ts\"",
     "build-example-app": "ng build training-agenda-example-app --prod",
     "build-library": "ng build kypo-training-agenda --prod",
     "create-package": "cd dist/kypo-training-agenda && npm pack",
@@ -19,7 +21,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "ng lint"
+      "pre-commit": "npm run prettier-check"
     }
   },
   "private": true,
@@ -34,6 +36,14 @@
     "@angular/platform-browser": "~10.0.1",
     "@angular/platform-browser-dynamic": "~10.0.1",
     "@angular/router": "~10.0.1",
+    "@angular-eslint/builder": "^0.8.0-beta.0",
+    "@angular-eslint/eslint-plugin": "^0.8.0-beta.0",
+    "@angular-eslint/eslint-plugin-template": "^0.8.0-beta.0",
+    "@angular-eslint/schematics": "^0.8.0-beta.0",
+    "@angular-eslint/template-parser": "^0.8.0-beta.0",
+    "@typescript-eslint/parser": "^4.3.0",
+    "@typescript-eslint/eslint-plugin": "^4.7.0",
+    "eslint": "^7.13.0",
     "@muni-kypo-crp/sandbox-api": "~10.8.0",
     "@muni-kypo-crp/sandbox-model": "~10.6.0",
     "@muni-kypo-crp/training-api": "~10.5.0",
@@ -74,7 +84,6 @@
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",
-    "codelyzer": "^5.1.2",
     "cypress": "^4.11.0",
     "husky": "^4.2.5",
     "jasmine-core": "~3.5.0",
@@ -88,9 +97,6 @@
     "ng-packagr": "^10.0.0",
     "prettier": "2.0.4",
     "ts-node": "~8.3.0",
-    "tslint": "~6.1.0",
-    "tslint-config-prettier": "1.18.0",
-    "tslint-plugin-prettier": "2.3.0",
     "typescript": "~3.9.5"
   }
 }

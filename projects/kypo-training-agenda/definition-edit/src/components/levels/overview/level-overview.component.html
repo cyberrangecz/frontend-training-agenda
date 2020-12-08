@@ -10,7 +10,9 @@
                       (activeStepChange)="onActiveLevelChange($event)">
  </kypo-levels-stepper>
  <mat-divider></mat-divider>
- <kypo-level-edit [level]="(stepperLevels | async)[activeStep$ | async].level" (levelChange)="onActiveLevelChanged($event)"></kypo-level-edit>
+ <kypo-level-edit [level]="(stepperLevels | async)[activeStep$ | async].level"
+                  (levelChange)="onActiveLevelChanged($event)">
+ </kypo-level-edit>
 </div>
 
 <ng-template #noLevels>

@@ -43,7 +43,7 @@ export class TrainingDefinitionSelectComponent extends SentinelBaseDirective imp
     this.selected = [this.data];
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     const pagination = new RequestedPagination(0, this.PAGE_SIZE, 'title', 'asc');
     this.released$ = this.releasedService.resource$;
     this.releasedHasError$ = this.releasedService.hasError$;
@@ -52,11 +52,11 @@ export class TrainingDefinitionSelectComponent extends SentinelBaseDirective imp
     this.isLoading$ = merge(this.releasedService.isLoading$, this.unreleasedService.isLoading$);
     this.releasedService
       .getAll(pagination, 'RELEASED')
-      .pipe(takeWhile((_) => this.isAlive))
+      .pipe(takeWhile(() => this.isAlive))
       .subscribe();
     this.unreleasedService
       .getAll(pagination, 'UNRELEASED')
-      .pipe(takeWhile((_) => this.isAlive))
+      .pipe(takeWhile(() => this.isAlive))
       .subscribe();
   }
 
@@ -65,16 +65,16 @@ export class TrainingDefinitionSelectComponent extends SentinelBaseDirective imp
    * @param pagination requested pagination
    * @param released true if released training definitions should be fetched, false if unreleased
    */
-  fetch(pagination: RequestedPagination, released: boolean) {
+  fetch(pagination: RequestedPagination, released: boolean): void {
     if (released) {
       this.releasedService
         .getAll(pagination, 'RELEASED')
-        .pipe(takeWhile((_) => this.isAlive))
+        .pipe(takeWhile(() => this.isAlive))
         .subscribe();
     } else {
       this.unreleasedService
         .getAll(pagination, 'UNRELEASED')
-        .pipe(takeWhile((_) => this.isAlive))
+        .pipe(takeWhile(() => this.isAlive))
         .subscribe();
     }
   }
@@ -82,7 +82,7 @@ export class TrainingDefinitionSelectComponent extends SentinelBaseDirective imp
   /**
    * Closes the dialog window and passes the selected option to its parent component
    */
-  confirm() {
+  confirm(): void {
     const result = {
       type: 'confirm',
       trainingDef: this.selected[0],
@@ -93,7 +93,7 @@ export class TrainingDefinitionSelectComponent extends SentinelBaseDirective imp
   /**
    * Closes the dialog window without passing the selected option
    */
-  cancel() {
+  cancel(): void {
     const result = {
       type: 'cancel',
       sandboxDef: null,
@@ -105,7 +105,7 @@ export class TrainingDefinitionSelectComponent extends SentinelBaseDirective imp
    * Updated selected training definition
    * @param selected selected training definition
    */
-  onSelectionChange(selected: TrainingDefinitionInfo[]) {
+  onSelectionChange(selected: TrainingDefinitionInfo[]): void {
     this.selected = selected;
   }
 }

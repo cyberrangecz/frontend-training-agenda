@@ -1,7 +1,7 @@
 import { SentinelFreeFormModule } from '@sentinel/components/free-form';
 import { TrainingDefinitionEditComponent } from './training-definition-edit.component';
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
-import { ChangeDetectorRef, SimpleChanges, SimpleChange } from '@angular/core';
+import { SimpleChanges, SimpleChange } from '@angular/core';
 import { TrainingDefinition, GameLevel, Level, AssessmentLevel, InfoLevel } from '@muni-kypo-crp/training-model';
 import { TrainingDefinitionChangeEvent } from '../../model/events/training-definition-change-event';
 import { MaterialTestingModule } from '../../../../internal/src/testing/material-testing.module';
@@ -10,7 +10,6 @@ import { FormArray, FormControl, FormGroup } from '@angular/forms';
 describe('TrainingDefinitionEditComponent', () => {
   let component: TrainingDefinitionEditComponent;
   let fixture: ComponentFixture<TrainingDefinitionEditComponent>;
-  let cd: ChangeDetectorRef;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -22,7 +21,6 @@ describe('TrainingDefinitionEditComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(TrainingDefinitionEditComponent);
     component = fixture.componentInstance;
-    cd = fixture.componentRef.injector.get(ChangeDetectorRef);
   });
 
   it('should create', () => {

@@ -44,7 +44,7 @@ export class GameLevelEditFormGroup {
    * Sets inserted form values from inputs to game level
    * @param level level which values should be filled
    */
-  setToLevel(level: GameLevel) {
+  setToLevel(level: GameLevel): void {
     level.title = this.formGroup.get('title').value;
     level.content = this.formGroup.get('content').value;
     level.solution = this.formGroup.get('solution').value;

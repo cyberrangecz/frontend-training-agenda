@@ -123,10 +123,10 @@ export class TrainingDefinitionConcreteService extends TrainingDefinitionService
     const dialogRef = this.dialog.open(TrainingDefinitionUploadDialogComponent);
     return dialogRef.componentInstance.onUpload$.pipe(
       take(1),
-      tap((_) => this.fileUploadProgressService.start()),
+      tap(() => this.fileUploadProgressService.start()),
       switchMap((file) => this.api.upload(file)),
       tap(
-        (_) => {
+        () => {
           this.notificationService.emit('success', 'Training definition was uploaded');
           this.fileUploadProgressService.finish();
           dialogRef.close();
@@ -136,7 +136,7 @@ export class TrainingDefinitionConcreteService extends TrainingDefinitionService
           this.errorHandler.emit(err, 'Uploading training definition');
         }
       ),
-      switchMap((_) => this.getAll(this.lastPagination, this.lastFilters))
+      switchMap(() => this.getAll(this.lastPagination, this.lastFilters))
     );
   }
 
@@ -174,10 +174,10 @@ export class TrainingDefinitionConcreteService extends TrainingDefinitionService
   private callApiToDelete(trainingDefinition: TrainingDefinition): Observable<PaginatedResource<TrainingDefinition>> {
     return this.api.delete(trainingDefinition.id).pipe(
       tap(
-        (_) => this.notificationService.emit('success', 'Training definition was deleted'),
+        () => this.notificationService.emit('success', 'Training definition was deleted'),
         (err) => this.errorHandler.emit(err, 'Deleting training definition')
       ),
-      switchMap((_) => this.getAll(this.lastPagination, this.lastFilters))
+      switchMap(() => this.getAll(this.lastPagination, this.lastFilters))
     );
   }
 
@@ -194,10 +194,10 @@ export class TrainingDefinitionConcreteService extends TrainingDefinitionService
   ): Observable<PaginatedResource<TrainingDefinition>> {
     return this.api.clone(trainingDefinition.id, title).pipe(
       tap(
-        (_) => this.notificationService.emit('success', 'Training definition was cloned'),
+        () => this.notificationService.emit('success', 'Training definition was cloned'),
         (err) => this.errorHandler.emit(err, 'Cloning training definition')
       ),
-      switchMap((_) => this.getAll(this.lastPagination, this.lastFilters))
+      switchMap(() => this.getAll(this.lastPagination, this.lastFilters))
     );
   }
 
@@ -222,7 +222,7 @@ export class TrainingDefinitionConcreteService extends TrainingDefinitionService
   ): Observable<any> {
     return this.api.changeState(trainingDefinition.id, newState).pipe(
       tap(
-        (_) => this.onChangedState(trainingDefinition.id, newState),
+        () => this.onChangedState(trainingDefinition.id, newState),
         (err) => this.errorHandler.emit(err, 'Changing training definition state')
       )
     );

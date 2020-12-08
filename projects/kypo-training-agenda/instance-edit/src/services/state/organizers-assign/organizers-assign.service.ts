@@ -124,7 +124,7 @@ export class OrganizersAssignService extends SentinelUserAssignService {
       )
       .pipe(
         tap({ error: (err) => this.errorHandler.emit(err, 'Updating organizers') }),
-        switchMap((_) => this.getAssigned(resourceId, this.lastAssignedPagination, this.lastAssignedFilter))
+        switchMap(() => this.getAssigned(resourceId, this.lastAssignedPagination, this.lastAssignedFilter))
       );
   }
 
@@ -135,20 +135,20 @@ export class OrganizersAssignService extends SentinelUserAssignService {
   private callApiToAssign(resourceId: number, userIds: number[]): Observable<any> {
     return this.userApi.updateOrganizers(resourceId, userIds, []).pipe(
       tap(
-        (_) => this.clearSelectedUsersToAssign(),
+        () => this.clearSelectedUsersToAssign(),
         (err) => this.errorHandler.emit(err, 'Assigning organizers to training instance')
       ),
-      switchMap((_) => this.getAssigned(resourceId, this.lastAssignedPagination, this.lastAssignedFilter))
+      switchMap(() => this.getAssigned(resourceId, this.lastAssignedPagination, this.lastAssignedFilter))
     );
   }
 
   private callApiToUnassign(resourceId: number, userIds: number[]): Observable<any> {
     return this.userApi.updateOrganizers(resourceId, [], userIds).pipe(
       tap(
-        (_) => this.clearSelectedAssignedUsers(),
+        () => this.clearSelectedAssignedUsers(),
         (err) => this.errorHandler.emit(err, 'Deleting organizers from training instance')
       ),
-      switchMap((_) => this.getAssigned(resourceId, this.lastAssignedPagination, this.lastAssignedFilter))
+      switchMap(() => this.getAssigned(resourceId, this.lastAssignedPagination, this.lastAssignedFilter))
     );
   }
 }

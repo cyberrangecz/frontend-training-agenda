@@ -4,7 +4,6 @@ import {
   EventEmitter,
   Input,
   OnChanges,
-  OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
@@ -13,6 +12,7 @@ import { GameLevel } from '@muni-kypo-crp/training-model';
 import { Hint } from '@muni-kypo-crp/training-model';
 import { takeWhile } from 'rxjs/operators';
 import { GameLevelEditFormGroup } from './game-level-edit-form-group';
+import { AbstractControl } from '@angular/forms';
 
 /**
  * Component for editing new or existing game level
@@ -23,45 +23,43 @@ import { GameLevelEditFormGroup } from './game-level-edit-form-group';
   styleUrls: ['./game-level-edit.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class GameLevelEditComponent extends SentinelBaseDirective implements OnInit, OnChanges {
+export class GameLevelEditComponent extends SentinelBaseDirective implements OnChanges {
   @Input() level: GameLevel;
   @Output() levelChange: EventEmitter<GameLevel> = new EventEmitter();
   gameLevelConfigFormGroup: GameLevelEditFormGroup;
 
-  ngOnInit() {}
-
-  get title() {
+  get title(): AbstractControl {
     return this.gameLevelConfigFormGroup.formGroup.get('title');
   }
-  get content() {
+  get content(): AbstractControl {
     return this.gameLevelConfigFormGroup.formGroup.get('content');
   }
-  get solution() {
+  get solution(): AbstractControl {
     return this.gameLevelConfigFormGroup.formGroup.get('solution');
   }
-  get maxScore() {
+  get maxScore(): AbstractControl {
     return this.gameLevelConfigFormGroup.formGroup.get('maxScore');
   }
-  get solutionPenalized() {
+  get solutionPenalized(): AbstractControl {
     return this.gameLevelConfigFormGroup.formGroup.get('solutionPenalized');
   }
-  get incorrectFlagLimit() {
+  get incorrectFlagLimit(): AbstractControl {
     return this.gameLevelConfigFormGroup.formGroup.get('incorrectFlagLimit');
   }
-  get flag() {
+  get flag(): AbstractControl {
     return this.gameLevelConfigFormGroup.formGroup.get('flag');
   }
-  get estimatedDuration() {
+  get estimatedDuration(): AbstractControl {
     return this.gameLevelConfigFormGroup.formGroup.get('estimatedDuration');
   }
-  get hints() {
+  get hints(): AbstractControl {
     return this.gameLevelConfigFormGroup.formGroup.get('hints');
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
     if ('level' in changes) {
       this.gameLevelConfigFormGroup = new GameLevelEditFormGroup(this.level);
-      this.gameLevelConfigFormGroup.formGroup.valueChanges.pipe(takeWhile((_) => this.isAlive)).subscribe((_) => {
+      this.gameLevelConfigFormGroup.formGroup.valueChanges.pipe(takeWhile(() => this.isAlive)).subscribe(() => {
         this.gameLevelConfigFormGroup.setToLevel(this.level);
         this.levelChange.emit(this.level);
       });
@@ -72,7 +70,7 @@ export class GameLevelEditComponent extends SentinelBaseDirective implements OnI
    * Sets changed hints to the current level and emits level change event
    * @param hints new state of hints associated with current level
    */
-  hintsChanged(hints: Hint[]) {
+  hintsChanged(hints: Hint[]): void {
     this.level.hints = hints;
     this.gameLevelConfigFormGroup.setToLevel(this.level);
     this.levelChange.emit(this.level);

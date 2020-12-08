@@ -16,6 +16,7 @@ import { takeWhile } from 'rxjs/operators';
 import { TrainingInstanceChangeEvent } from '../../model/events/training-instance-change-event';
 import { TrainingDefinitionSelectComponent } from '../training-definition-select/training-definition-select.component';
 import { TrainingInstanceFormGroup } from './training-instance-form-group';
+import { AbstractControl } from '@angular/forms';
 
 /**
  * Component for creating new or editing existing training instance
@@ -40,23 +41,23 @@ export class TrainingInstanceEditComponent extends SentinelBaseDirective impleme
     super();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.initCurrentTimePeriodicalUpdate();
   }
 
-  get startTime() {
+  get startTime(): AbstractControl {
     return this.trainingInstanceFormGroup.formGroup.get('startTime');
   }
-  get endTime() {
+  get endTime(): AbstractControl {
     return this.trainingInstanceFormGroup.formGroup.get('endTime');
   }
-  get title() {
+  get title(): AbstractControl {
     return this.trainingInstanceFormGroup.formGroup.get('title');
   }
-  get trainingDefinition() {
+  get trainingDefinition(): AbstractControl {
     return this.trainingInstanceFormGroup.formGroup.get('trainingDefinition');
   }
-  get accessToken() {
+  get accessToken(): AbstractControl {
     return this.trainingInstanceFormGroup.formGroup.get('accessToken');
   }
 
@@ -74,7 +75,7 @@ export class TrainingInstanceEditComponent extends SentinelBaseDirective impleme
   /**
    * Opens popup dialog to choose a training definition to associate with edited training instance
    */
-  selectTrainingDefinition() {
+  selectTrainingDefinition(): void {
     const dialogRef = this.dialog.open(TrainingDefinitionSelectComponent, { data: this.trainingDefinition.value });
 
     dialogRef
@@ -91,7 +92,7 @@ export class TrainingInstanceEditComponent extends SentinelBaseDirective impleme
   /**
    * Changes internal component state to prevent from from recalculating start time if user already set the value
    */
-  onStartTimeChanged() {
+  onStartTimeChanged(): void {
     this.userChangedStartTime = true;
   }
 
@@ -109,13 +110,13 @@ export class TrainingInstanceEditComponent extends SentinelBaseDirective impleme
     this.now = new Date();
     interval(this.period)
       .pipe(takeWhile(() => this.isAlive))
-      .subscribe((value) => (this.now = new Date()));
+      .subscribe(() => (this.now = new Date()));
   }
 
   private setupOnFormChangedEvent() {
     this.trainingInstanceFormGroup.formGroup.valueChanges
-      .pipe(takeWhile((_) => this.isAlive))
-      .subscribe((_) => this.onChanged());
+      .pipe(takeWhile(() => this.isAlive))
+      .subscribe(() => this.onChanged());
   }
 
   private onChanged() {

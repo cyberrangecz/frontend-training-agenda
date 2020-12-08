@@ -62,13 +62,13 @@ export class TrainingInstanceOverviewConcreteService extends TrainingInstanceOve
 
   delete(id: number): Observable<any> {
     return this.trainingInstanceApi.delete(id).pipe(
-      tap((_) => this.notificationService.emit('success', 'Training instance was successfully deleted')),
+      tap(() => this.notificationService.emit('success', 'Training instance was successfully deleted')),
       catchError((err) =>
         this.errorHandler
           .emit(err, 'Deleting training instance', 'Force')
           .pipe(switchMap((shouldForce) => (shouldForce ? this.forceDelete(id) : EMPTY)))
       ),
-      switchMap((_) => this.getAll(this.lastPagination, this.lastFilter))
+      switchMap(() => this.getAll(this.lastPagination, this.lastFilter))
     );
   }
 
@@ -88,7 +88,7 @@ export class TrainingInstanceOverviewConcreteService extends TrainingInstanceOve
   private forceDelete(id: number): Observable<any> {
     return this.trainingInstanceApi.delete(id, true).pipe(
       tap(
-        (_) => this.notificationService.emit('success', 'Training instance was successfully deleted'),
+        () => this.notificationService.emit('success', 'Training instance was successfully deleted'),
         (err) => this.errorHandler.emit(err, 'Force deleting training instance')
       )
     );

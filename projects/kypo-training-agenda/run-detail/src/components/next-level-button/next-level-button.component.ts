@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'kypo-next-level-button',
@@ -6,15 +6,11 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
   styleUrls: ['./next-level-button.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NextLevelButtonComponent implements OnInit {
+export class NextLevelButtonComponent {
   @Input() isLast: boolean;
   @Output() next: EventEmitter<void> = new EventEmitter();
 
-  constructor() {}
-
-  ngOnInit(): void {}
-
-  onNext() {
+  onNext(): void {
     this.next.emit();
   }
 }

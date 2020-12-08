@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { InfoLevel } from '@muni-kypo-crp/training-model';
 
@@ -11,7 +11,7 @@ import { InfoLevel } from '@muni-kypo-crp/training-model';
 /**
  * Component to display training run's level of type INFO. Only displays markdown and allows user to continue immediately.
  */
-export class InfoLevelComponent extends SentinelBaseDirective implements OnInit {
+export class InfoLevelComponent extends SentinelBaseDirective {
   @Input() level: InfoLevel;
   @Input() isLast: boolean;
   @Output() next: EventEmitter<void> = new EventEmitter();
@@ -20,9 +20,7 @@ export class InfoLevelComponent extends SentinelBaseDirective implements OnInit 
     super();
   }
 
-  ngOnInit() {}
-
-  onNext() {
+  onNext(): void {
     this.next.emit();
   }
 }

@@ -21,7 +21,7 @@ export class TrainingInstanceFormGroup {
     );
   }
 
-  disable() {
+  disable(): void {
     this.formGroup.disable({ emitEvent: false });
     this.formGroup.get('title').enable({ emitEvent: false });
   }
@@ -48,7 +48,7 @@ export class TrainingInstanceFormGroup {
    * Sets values from training instance to individual inputs
    * @param trainingInstance training instance which values should be set to inputs
    */
-  setValuesToTrainingInstance(trainingInstance: TrainingInstance) {
+  setValuesToTrainingInstance(trainingInstance: TrainingInstance): void {
     trainingInstance.startTime = this.formGroup.get('startTime').value;
     trainingInstance.endTime = this.formGroup.get('endTime').value;
     trainingInstance.title = this.formGroup.get('title').value;

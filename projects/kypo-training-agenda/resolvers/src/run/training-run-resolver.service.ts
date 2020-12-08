@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
 import { TrainingRunApi } from '@muni-kypo-crp/training-api';
 import { AccessTrainingRunInfo } from '@muni-kypo-crp/training-model';
 import { EMPTY, Observable, of } from 'rxjs';
@@ -28,11 +28,9 @@ export class AccessTrainingRunResolver implements Resolve<AccessTrainingRunInfo>
   /**
    * Retrieves a specific resource based on id provided in url. Navigates to a resource overview if no resource with such id exists.
    * @param route route snapshot
-   * @param state router state snapshot
    */
   resolve(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
+    route: ActivatedRouteSnapshot
   ): Observable<AccessTrainingRunInfo> | Promise<AccessTrainingRunInfo> | AccessTrainingRunInfo {
     if (route.paramMap.has(TRAINING_RUN_SELECTOR)) {
       return this.resume(route);
