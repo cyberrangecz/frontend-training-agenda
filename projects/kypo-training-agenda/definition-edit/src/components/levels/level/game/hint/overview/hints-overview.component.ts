@@ -71,6 +71,9 @@ export class HintsOverviewComponent extends SentinelBaseDirective implements OnI
       this.setInitialHintPenaltySum();
       this.calculateHasError();
     }
+    if (this.stepperHints.items.length > 0) {
+      this.stepperHints.items[this.selectedStep].isActive = true;
+    }
   }
 
   onControlAction(control: SentinelControlItem): void {
