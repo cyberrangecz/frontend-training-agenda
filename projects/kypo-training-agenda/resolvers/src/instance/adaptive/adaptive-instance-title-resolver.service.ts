@@ -1,0 +1,35 @@
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { TrainingInstance } from '@muni-kypo-crp/training-model';
+import { Observable, of } from 'rxjs';
+import { catchError, mergeMap, take } from 'rxjs/operators';
+import {
+  ADAPTIVE_INSTANCE_PATH,
+  TRAINING_INSTANCE_NEW_PATH,
+  ADAPTIVE_INSTANCE_SELECTOR,
+} from '@muni-kypo-crp/training-agenda';
+import { AdaptiveInstanceResolver } from './adaptive-instance-resolver.service';
+
+@Injectable()
+export class AdaptiveInstanceTitleResolver implements Resolve<string> {
+  constructor(private adaptiveInstanceResolver: AdaptiveInstanceResolver) {}
+
+  /**
+   * Retrieves a specific resource title based on id provided in url
+   * @param route route snapshot
+   * @param state router state snapshot
+   */
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<string> | Promise<string> | string {
+    if (state.url.endsWith(`${ADAPTIVE_INSTANCE_PATH}/${TRAINING_INSTANCE_NEW_PATH}`)) {
+      return 'Create Adaptive Training Instance';
+    } else if (route.paramMap.has(ADAPTIVE_INSTANCE_SELECTOR)) {
+      const resolved = this.adaptiveInstanceResolver.resolve(route, state) as Observable<TrainingInstance>;
+      return resolved.pipe(
+        take(1),
+        mergeMap((ti) => (ti ? of(`Edit ${ti.title}`) : '')),
+        catchError(() => '')
+      );
+    }
+    return '';
+  }
+}

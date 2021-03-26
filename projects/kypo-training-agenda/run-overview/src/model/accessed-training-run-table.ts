@@ -1,9 +1,12 @@
 import { PaginatedResource } from '@sentinel/common';
-import { AccessedTrainingRun } from '@muni-kypo-crp/training-model';
-import { TraineeAccessTrainingRunActionEnum } from '@muni-kypo-crp/training-model';
-import { Column, SentinelTable, Row, RowAction } from '@sentinel/components/table';
+import {
+  AccessedTrainingRun,
+  TraineeAccessTrainingRunActionEnum,
+  TrainingRunTypeEnum,
+} from '@muni-kypo-crp/training-model';
+import { Column, Row, RowAction, SentinelTable } from '@sentinel/components/table';
 import { defer, of } from 'rxjs';
-import { AccessedTrainingRunService } from '../services/state/accessed-training-run.service';
+import { AccessedTrainingRunService } from '../services/state/training/accessed-training-run.service';
 
 /**
  * Helper class transforming paginated resource to class for common table component
@@ -35,7 +38,11 @@ export class AccessedTrainingRunTable extends SentinelTable<AccessedTrainingRun>
         'primary',
         'Resume training run',
         of(trainingRun.action !== TraineeAccessTrainingRunActionEnum.Resume),
-        defer(() => service.resume(trainingRun.trainingRunId))
+        defer(() =>
+          trainingRun.type === TrainingRunTypeEnum.LINEAR
+            ? service.resumeLinear(trainingRun.trainingRunId)
+            : service.resumeAdaptive(trainingRun.trainingRunId)
+        )
       ),
       new RowAction(
         'results',
@@ -43,7 +50,7 @@ export class AccessedTrainingRunTable extends SentinelTable<AccessedTrainingRun>
         'assessment',
         'primary',
         'Access Results',
-        of(trainingRun.action !== TraineeAccessTrainingRunActionEnum.Results),
+        of(true), //Sankey not ready yet-> of(trainingRun.action !== TraineeAccessTrainingRunActionEnum.Results),
         defer(() => service.results(trainingRun.trainingRunId))
       ),
     ];

@@ -1,6 +1,6 @@
 {
   "name": "@muni-kypo-crp/training-agenda",
-  "version": "11.0.1",
+  "version": "11.1.0-EXPERIMENTAL",
   "peerDependencies": {
     "@angular/common": "~11.0.9",
     "@angular/core": "~11.0.9",
@@ -11,8 +11,8 @@
     "@danielmoncada/angular-datetime-picker": "^11.0.0",
     "@muni-kypo-crp/sandbox-api": "~11.0.1",
     "@muni-kypo-crp/sandbox-model": "~11.0.1",
-    "@muni-kypo-crp/training-api": "~11.0.0",
-    "@muni-kypo-crp/training-model": "~11.0.1",
+    "@muni-kypo-crp/training-api": "~11.1.0-EXPERIMENTAL",
+    "@muni-kypo-crp/training-model": "~11.1.0-EXPERIMENTAL",
     "@muni-kypo-crp/topology-graph": "~11.0.1",
     "@muni-kypo-crp/topology-model": "~11.0.1",
     "@muni-kypo-crp/assessment-visualization": "~11.0.0",

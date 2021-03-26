@@ -12,6 +12,7 @@ import {
   TrainingInstanceDetailTitleResolver,
   TrainingInstanceResolver,
 } from '@muni-kypo-crp/training-agenda/resolvers';
+
 const routes: Routes = [
   {
     path: '',

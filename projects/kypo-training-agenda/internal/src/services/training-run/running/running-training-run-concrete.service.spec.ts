@@ -55,7 +55,7 @@ describe('RunningTrainingRunConcreteService', () => {
     service.init(accessInfo);
     expect(service.getLevels()).toEqual(createLevelsMock());
     expect(service.getStartTime()).toEqual(accessInfo.startTime);
-    expect(service.getActiveLevel()).toEqual(accessInfo.currentLevel);
+    expect(service.getActiveLevel()).toEqual(accessInfo.currentLevel as Level);
     expect(service.getActiveLevelPosition()).toEqual(1);
     expect(service.getIsStepperDisplayed()).toBeTrue();
   });

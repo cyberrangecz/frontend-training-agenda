@@ -4,7 +4,9 @@ export class TrainingAgendaConfig {
   pollingPeriod: number;
   defaultPaginationSize: number;
   visualizationConfig: {
+    adaptiveTrainingBasePath: string;
     trainingBasePath: string;
+    adaptiveBasePath: string;
     elasticSearchBasePath: string;
   };
   kypo2TopologyConfig: Kypo2TopologyGraphConfig;

@@ -2,7 +2,7 @@
   <mat-expansion-panel-header>
     <mat-panel-title>
       <span *ngIf="(editMode$ | async) else newTrainingTitle">Edit {{ tdTitle$ | async }}</span>
-      <ng-template #newTrainingTitle>Create Training Definition</ng-template>
+      <ng-template #newTrainingTitle>Create Linear Training Definition</ng-template>
     </mat-panel-title>
     <mat-panel-description>
       <span>{{ tdTitle$ | async }}</span>

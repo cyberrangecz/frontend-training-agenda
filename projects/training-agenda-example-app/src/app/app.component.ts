@@ -52,13 +52,23 @@ export class AppComponent {
 
   buildNav(user: User): AgendaContainer[] {
     const containers: AgendaContainer[] = [];
-    const agendas: Agenda[] = [];
+    const agendas = [];
     const roles = user.roles;
     if (roles.some((role) => role.roleType === 'ROLE_TRAINING_DESIGNER')) {
-      agendas.push(new Agenda('Definition', 'training-definition'));
+      agendas.push(
+        new AgendaContainer('Definition', [
+          new Agenda('Linear', 'training-definition'),
+          new Agenda('Adaptive', 'adaptive-definition'),
+        ])
+      );
     }
     if (roles.some((role) => role.roleType === 'ROLE_TRAINING_ORGANIZER')) {
-      agendas.push(new Agenda('Instance', 'training-instance'));
+      agendas.push(
+        new AgendaContainer('Instance', [
+          new Agenda('Linear', 'training-instance'),
+          new Agenda('Adaptive', 'adaptive-instance'),
+        ])
+      );
     }
     if (roles.some((role) => role.roleType === 'ROLE_TRAINING_TRAINEE')) {
       agendas.push(new Agenda('Run', 'training-run'));

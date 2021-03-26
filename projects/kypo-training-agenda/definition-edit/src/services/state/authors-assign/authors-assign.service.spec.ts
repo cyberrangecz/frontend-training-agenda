@@ -59,7 +59,7 @@ describe('AuthorsAssignService', () => {
     const idsToAssign = usersToAssign.map((user) => user.id);
     service.assign(0, usersToAssign).subscribe(() => done(), fail);
     expect(apiSpy.updateAuthors).toHaveBeenCalledTimes(1);
-    expect(apiSpy.updateAuthors).toHaveBeenCalledWith(0, idsToAssign, []);
+    expect(apiSpy.updateAuthors).toHaveBeenCalledWith(0, idsToAssign, false, []);
   });
 
   it('should refresh authors after assign action', (done) => {
@@ -79,7 +79,7 @@ describe('AuthorsAssignService', () => {
     const idsToUnassign = usersToUnassign.map((user) => user.id);
     service.unassign(0, usersToUnassign).subscribe(() => done(), fail);
     expect(apiSpy.updateAuthors).toHaveBeenCalledTimes(1);
-    expect(apiSpy.updateAuthors).toHaveBeenCalledWith(0, [], idsToUnassign);
+    expect(apiSpy.updateAuthors).toHaveBeenCalledWith(0, [], false, idsToUnassign);
   });
 
   it('should refresh authors after unassign action', (done) => {

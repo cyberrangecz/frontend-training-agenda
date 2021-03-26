@@ -10,13 +10,16 @@ import { TrainingRunRowAdapter } from './training-run-row-adapter';
  * @dynamic
  */
 export class ActiveTrainingRunTable extends SentinelTable<TrainingRunRowAdapter> {
-  constructor(resource: PaginatedResource<TrainingRun>, service: ActiveTrainingRunService) {
+  constructor(resource: PaginatedResource<TrainingRun>, service: ActiveTrainingRunService, trainingInstanceId: number) {
     const columns = [
       new Column('sandboxInstanceId', 'sandbox ID', false),
       new Column('playerName', 'player', false),
       new Column('state', 'training run state', false),
     ];
-    const rows = resource.elements.map((element) => ActiveTrainingRunTable.createRow(element, service));
+    const rows = resource.elements.map((element) => {
+      element.trainingInstanceId = trainingInstanceId;
+      return ActiveTrainingRunTable.createRow(element, service);
+    });
     super(rows, columns);
     this.selectable = false;
     this.pagination = resource.pagination;

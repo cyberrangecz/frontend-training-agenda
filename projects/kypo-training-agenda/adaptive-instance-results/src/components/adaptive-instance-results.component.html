@@ -1,0 +1,13 @@
+<mat-tab-group mat-stretch-tabs class="mat-elevation-z4" *ngIf="(trainingInstance$ | async) as trainingInstance">
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon class="tab-icon">dashboard</mat-icon>
+      Participants' Transitions Between Phases
+    </ng-template>
+    <ng-template matTabContent>
+      <lib-kypo-sankey-visualization-lib
+      [trainingInstanceId]="trainingInstance?.id">
+    </lib-kypo-sankey-visualization-lib>
+    </ng-template>
+  </mat-tab>
+</mat-tab-group>

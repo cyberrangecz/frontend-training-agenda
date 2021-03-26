@@ -6,7 +6,8 @@ import { Observable } from 'rxjs';
 import { map, take, takeWhile } from 'rxjs/operators';
 import { AccessedTrainingRunTable } from '../model/accessed-training-run-table';
 import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
-import { AccessedTrainingRunService } from '../services/state/accessed-training-run.service';
+import { AccessedTrainingRunService } from '../services/state/training/accessed-training-run.service';
+import { AccessedAdaptiveRunService } from '../services/state/adaptive/accessed-adaptive-run.service';
 
 /**
  * Main smart component of the trainee overview.
@@ -21,7 +22,11 @@ export class TrainingRunOverviewComponent extends SentinelBaseDirective implemen
   trainingRuns$: Observable<SentinelTable<AccessedTrainingRun>>;
   hasError$: Observable<boolean>;
 
-  constructor(private trainingRunOverviewService: AccessedTrainingRunService, private context: TrainingAgendaContext) {
+  constructor(
+    private trainingRunOverviewService: AccessedTrainingRunService,
+    private accessedAdaptiveRunService: AccessedAdaptiveRunService,
+    private context: TrainingAgendaContext
+  ) {
     super();
   }
 
@@ -30,14 +35,21 @@ export class TrainingRunOverviewComponent extends SentinelBaseDirective implemen
   }
 
   /**
-   * Calls service to access training run
-   * @param accessToken token to access the training run
+   * According to PIN number calls service to access training run or adaptive run.
+   * @param accessToken token to access the training run or adaptive run
    */
   access(accessToken: string): void {
-    this.trainingRunOverviewService
-      .access(accessToken)
-      .pipe(takeWhile(() => this.isAlive))
-      .subscribe();
+    if (this.isAdaptiveToken(accessToken)) {
+      this.accessedAdaptiveRunService
+        .access(accessToken)
+        .pipe(takeWhile(() => this.isAlive))
+        .subscribe();
+    } else {
+      this.trainingRunOverviewService
+        .access(accessToken)
+        .pipe(takeWhile(() => this.isAlive))
+        .subscribe();
+    }
   }
 
   /**
@@ -69,5 +81,10 @@ export class TrainingRunOverviewComponent extends SentinelBaseDirective implemen
     );
     this.hasError$ = this.trainingRunOverviewService.hasError$;
     this.loadAccessedTrainingRuns(initialLoadEvent);
+  }
+
+  private isAdaptiveToken(accessToken: string): boolean {
+    const re = new RegExp(/^[5-9].+$/);
+    return re.test(accessToken.split('-')[1]);
   }
 }

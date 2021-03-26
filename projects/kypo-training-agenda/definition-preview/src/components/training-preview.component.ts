@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { TrainingDefinitionApi } from '@muni-kypo-crp/training-api';
-import { AccessTrainingRunInfo } from '@muni-kypo-crp/training-model';
+import { AccessTrainingRunInfo, Level } from '@muni-kypo-crp/training-model';
 import { TrainingDefinition } from '@muni-kypo-crp/training-model';
 import { map, takeWhile } from 'rxjs/operators';
 import { TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
@@ -43,7 +43,7 @@ export class TrainingPreviewComponent extends SentinelBaseDirective implements O
 
   private createMockTrainingRun(training: TrainingDefinition) {
     const mockRun = new AccessTrainingRunInfo();
-    mockRun.levels = training.levels;
+    mockRun.levels = training.levels as Level[];
     mockRun.isStepperDisplayed = training.showStepperBar;
     return mockRun;
   }

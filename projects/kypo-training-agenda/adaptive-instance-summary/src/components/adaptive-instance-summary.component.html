@@ -1,0 +1,62 @@
+  <div *ngIf="(trainingInstance$ | async) as trainingInstance">
+    <mat-expansion-panel expanded (opened)="openPanel(SUMMARY_PANEL_ID)" (closed)="closePanel(SUMMARY_PANEL_ID)">
+      <mat-expansion-panel-header>
+        <mat-panel-title>Overview</mat-panel-title>
+        <mat-panel-description>
+          <span>Basic information</span>
+          <span class="spacer"></span>
+          <mat-icon>info</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <ng-template matExpansionPanelContent>
+        <sentinel-controls [controls]="summaryControls" (itemClicked)="onSummaryControlAction($event)"></sentinel-controls>
+        <kypo-training-instance-info
+          [accessTokenLink]="trainingInstanceAccessTokenLink"
+          [poolIdLink]="trainingInstancePoolIdLink"
+          [hasPool]="hasPool"
+          [trainingInstance]="trainingInstance">
+        </kypo-training-instance-info>
+      </ng-template>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel (opened)="openPanel(ACTIVE_TRAINING_RUNS_PANEL_ID)" (closed)="closePanel(ACTIVE_TRAINING_RUNS_PANEL_ID)">
+      <mat-expansion-panel-header>
+        <mat-panel-title>Active Adaptive Runs</mat-panel-title>
+        <mat-panel-description>
+          <span>Manage active adaptive runs</span>
+          <span class="spacer"></span>
+          <mat-icon>dynamic_feed</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <ng-template matExpansionPanelContent>
+        <kypo-active-adaptive-run-overview
+          [activeTrainingRuns]="activeTrainingRuns$ | async"
+          [hasError]="activeTrainingRunsHasError$ | async"
+          (tableAction)="onActiveTrainingRunTableAction($event)"
+          (loadTableEvent)="onActiveTrainingRunTableLoadEvent($event)">
+        </kypo-active-adaptive-run-overview>
+      </ng-template>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel (opened)="openPanel(ARCHIVED_TRAINING_RUNS_PANEL_ID)" (closed)="closePanel(ARCHIVED_TRAINING_RUNS_PANEL_ID)">
+      <mat-expansion-panel-header>
+        <mat-panel-title>Archived Adaptive Runs</mat-panel-title>
+        <mat-panel-description>
+          <span>Manage archived adaptive runs</span>
+          <span class="spacer"></span>
+          <mat-icon>done_all</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <ng-template matExpansionPanelContent>
+        <kypo-archived-adaptive-run-overview
+          [trainingRuns]="archivedTrainingRuns$ | async"
+          [hasError]="archivedTrainingRunsHasError$ | async"
+          [controls]="archivedTrainingRunsControls"
+          (tableAction)="onArchivedTrainingRunTableAction($event)"
+          (loadTableEvent)="onArchivedTrainingRunTableLoadEvent($event)"
+          (selectionChange)="onArchivedTrainingRunTableRowSelection($event)"
+          (controlsAction)="onArchivedTrainingRunControlsAction($event)">
+        </kypo-archived-adaptive-run-overview>
+      </ng-template>
+    </mat-expansion-panel>
+  </div>

@@ -59,7 +59,7 @@ describe('OrganizersAssignService', () => {
     const idsToAssign = usersToAssign.map((user) => user.id);
     service.assign(0, usersToAssign).subscribe(() => done(), fail);
     expect(apiSpy.updateOrganizers).toHaveBeenCalledTimes(1);
-    expect(apiSpy.updateOrganizers).toHaveBeenCalledWith(0, idsToAssign, []);
+    expect(apiSpy.updateOrganizers).toHaveBeenCalledWith(0, idsToAssign, false, []);
   });
 
   it('should refresh organizers after assign action', (done) => {
@@ -79,7 +79,7 @@ describe('OrganizersAssignService', () => {
     const idsToUnassign = usersToUnassign.map((user) => user.id);
     service.unassign(0, usersToUnassign).subscribe(() => done(), fail);
     expect(apiSpy.updateOrganizers).toHaveBeenCalledTimes(1);
-    expect(apiSpy.updateOrganizers).toHaveBeenCalledWith(0, [], idsToUnassign);
+    expect(apiSpy.updateOrganizers).toHaveBeenCalledWith(0, [], false, idsToUnassign);
   });
 
   it('should refresh asssigned organizers after unassign action', (done) => {
