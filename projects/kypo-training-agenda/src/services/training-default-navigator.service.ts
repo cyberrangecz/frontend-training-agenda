@@ -3,6 +3,9 @@ import { TrainingNavigator } from './training-navigator.service';
 import { Injectable } from '@angular/core';
 import {
   ACCESS_TOKEN_PATH,
+  ADAPTIVE_DEFINITION_PATH,
+  ADAPTIVE_INSTANCE_PATH,
+  ADAPTIVE_RUN_PATH,
   PROGRESS_PATH,
   RESULTS_PATH,
   SANDBOX_POOL_PATH,
@@ -31,6 +34,13 @@ export class TrainingDefaultNavigator extends TrainingNavigator {
   }
 
   /**
+   * Returns route to adaptive definition overview page
+   */
+  toAdaptiveDefinitionOverview(): string {
+    return ADAPTIVE_DEFINITION_PATH;
+  }
+
+  /**
    * Returns route to training definition preview page
    * @param id id of the training definition
    */
@@ -45,6 +55,15 @@ export class TrainingDefaultNavigator extends TrainingNavigator {
   toTrainingDefinitionEdit(id: number | string): string {
     return `${TRAINING_DEFINITION_PATH}/${id}/${TRAINING_DEFINITION_EDIT_PATH}`;
   }
+
+  /**
+   * Returns route to training definition edit page
+   * @param id id of the training definition
+   */
+  toAdaptiveDefinitionEdit(id: number | string): string {
+    return `${ADAPTIVE_DEFINITION_PATH}/${id}/${TRAINING_DEFINITION_EDIT_PATH}`;
+  }
+
   /**
    * Returns route to new training definition page
    */
@@ -52,11 +71,22 @@ export class TrainingDefaultNavigator extends TrainingNavigator {
     return `${TRAINING_DEFINITION_PATH}/${TRAINING_DEFINITION_NEW_PATH}`;
   }
 
+  toNewAdaptiveDefinition(): string {
+    return `${ADAPTIVE_DEFINITION_PATH}/${TRAINING_DEFINITION_NEW_PATH}`;
+  }
+
   /**
    * Returns route to training instance overview page
    */
   toTrainingInstanceOverview(): string {
     return TRAINING_INSTANCE_PATH;
+  }
+
+  /**
+   * Returns route to adaptive instance overview page
+   */
+  toAdaptiveInstanceOverview(): string {
+    return ADAPTIVE_INSTANCE_PATH;
   }
 
   /**
@@ -68,11 +98,27 @@ export class TrainingDefaultNavigator extends TrainingNavigator {
   }
 
   /**
+   * Returns route to adaptive instance edit page
+   * @param id id of the training instance
+   */
+  toAdaptiveInstanceEdit(id: number | string): string {
+    return `${ADAPTIVE_INSTANCE_PATH}/${id}/${TRAINING_INSTANCE_EDIT_PATH}`;
+  }
+
+  /**
    * Returns route to training instance detail page
    * @param id id of the training instance
    */
   toTrainingInstanceDetail(id: number | string): string {
     return `${TRAINING_INSTANCE_PATH}/${id}/${TRAINING_INSTANCE_DETAIL_PATH}`;
+  }
+
+  /**
+   * Returns route to adaptive instance detail page
+   * @param id id of the training instance
+   */
+  toAdaptiveInstanceDetail(id: number | string): string {
+    return `${ADAPTIVE_INSTANCE_PATH}/${id}/${TRAINING_INSTANCE_DETAIL_PATH}`;
   }
 
   /**
@@ -84,11 +130,27 @@ export class TrainingDefaultNavigator extends TrainingNavigator {
   }
 
   /**
+   * Returns route to adaptive instance access token page
+   * @param id id of the adaptive instance
+   */
+  toAdaptiveInstanceAccessToken(id: number | string): string {
+    return `${this.toAdaptiveInstanceDetail(id)}/${ACCESS_TOKEN_PATH}`;
+  }
+
+  /**
    * Returns route to training instance summary page
    * @param id id of the training instance
    */
   toTrainingInstanceSummary(id: number | string): string {
     return `${this.toTrainingInstanceDetail(id)}/${SUMMARY_PATH}`;
+  }
+
+  /**
+   * Returns route to adaptive instance summary page
+   * @param id id of the adaptive instance
+   */
+  toAdaptiveInstanceSummary(id: number | string): string {
+    return `${this.toAdaptiveInstanceDetail(id)}/${SUMMARY_PATH}`;
   }
 
   /**
@@ -100,6 +162,14 @@ export class TrainingDefaultNavigator extends TrainingNavigator {
   }
 
   /**
+   * Returns route to adaptive instance progress page
+   * @param id id of the adaptive instance
+   */
+  toAdaptiveInstanceProgress(id: number | string): string {
+    return `${this.toAdaptiveInstanceDetail(id)}/${PROGRESS_PATH}`;
+  }
+
+  /**
    * Returns route to training instance results page
    * @param id id of the training instance
    */
@@ -108,10 +178,25 @@ export class TrainingDefaultNavigator extends TrainingNavigator {
   }
 
   /**
+   * Returns route to adaptive instance results page
+   * @param id id of the adaptive instance
+   */
+  toAdaptiveInstanceResults(id: number | string): string {
+    return `${this.toAdaptiveInstanceDetail(id)}/${RESULTS_PATH}`;
+  }
+
+  /**
    * Returns route to new training instance page
    */
   toNewTrainingInstance(): string {
     return `${TRAINING_INSTANCE_PATH}/${TRAINING_INSTANCE_NEW_PATH}`;
+  }
+
+  /**
+   * Returns route to new training instance page
+   */
+  toNewAdaptiveInstance(): string {
+    return `${ADAPTIVE_INSTANCE_PATH}/${TRAINING_INSTANCE_NEW_PATH}`;
   }
 
   toTrainingRunOverview(): string {
@@ -126,8 +211,20 @@ export class TrainingDefaultNavigator extends TrainingNavigator {
     return `${TRAINING_RUN_PATH}/${TRAINING_RUN_RESUME_PATH}/${id}`;
   }
 
+  /**
+   * Returns route to adaptive run game page
+   * @param id id of the adaptive run
+   */
+  toResumeAdaptiveRunGame(id: number | string): string {
+    return `${TRAINING_RUN_PATH}/${ADAPTIVE_RUN_PATH}/${TRAINING_RUN_RESUME_PATH}/${id}`;
+  }
+
   toAccessTrainingRunGame(token: string): string {
     return `${TRAINING_RUN_PATH}/${TRAINING_RUN_ACCESS_PATH}/${token}`;
+  }
+
+  toAccessAdaptiveRunGame(token: string): string {
+    return `${TRAINING_RUN_PATH}/${ADAPTIVE_RUN_PATH}/${TRAINING_RUN_ACCESS_PATH}/${token}`;
   }
 
   /**
@@ -136,6 +233,14 @@ export class TrainingDefaultNavigator extends TrainingNavigator {
    */
   toTrainingRunResult(id: number | string): string {
     return `${TRAINING_RUN_PATH}/${TRAINING_RUN_RESULTS_PATH}/${id}`;
+  }
+
+  /**
+   * Returns route to adaptive run results page
+   * @param id id of the adaptive run
+   */
+  toAdaptiveRunResult(id: number | string): string {
+    return `${ADAPTIVE_RUN_PATH}/${TRAINING_RUN_RESULTS_PATH}/${id}`;
   }
 
   toPool(id: number | string): string {

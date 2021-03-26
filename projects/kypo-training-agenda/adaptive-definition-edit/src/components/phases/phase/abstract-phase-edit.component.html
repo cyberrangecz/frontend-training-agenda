@@ -1,0 +1,16 @@
+<ng-container [ngSwitch]="phase.type">
+  <kypo-info-phase-configuration *ngSwitchCase="phaseTypes.Info"
+                                 [phase]="phase"
+                                 (phaseChange)="onPhaseChange($event)">
+  </kypo-info-phase-configuration>
+  <kypo-training-phase-configuration *ngSwitchCase="phaseTypes.Training"
+                                     [phase]="phase"
+                                     [updateMatrixFlag]="updateMatrix$ | async"
+                                     (phaseChange)="onPhaseChange($event)">
+  </kypo-training-phase-configuration>
+  <kypo-questionnaire-phase-configuration *ngSwitchCase="phaseTypes.Questionnaire"
+                                          [phase]="phase"
+                                          [presentTrainingPhases]="presentTrainingPhases$ | async"
+                                          (phaseChange)="onPhaseChange($event)">
+  </kypo-questionnaire-phase-configuration>
+</ng-container>

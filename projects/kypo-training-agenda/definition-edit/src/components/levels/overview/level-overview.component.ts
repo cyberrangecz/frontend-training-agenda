@@ -58,7 +58,7 @@ export class LevelOverviewComponent extends SentinelBaseDirective implements OnI
 
   ngOnChanges(changes: SimpleChanges): void {
     if ('trainingDefinition' in changes) {
-      this.levelService.set(this.trainingDefinition.id, this.trainingDefinition.levels);
+      this.levelService.set(this.trainingDefinition.id, this.trainingDefinition.levels as Level[]);
     }
   }
 

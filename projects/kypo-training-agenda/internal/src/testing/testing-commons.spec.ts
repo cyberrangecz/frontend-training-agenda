@@ -1,7 +1,15 @@
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SandboxAllocationUnitsApi, SandboxInstanceApi, PoolApi } from '@muni-kypo-crp/sandbox-api';
-import { TrainingDefinitionApi, TrainingRunApi, TrainingInstanceApi, UserApi } from '@muni-kypo-crp/training-api';
+import {
+  TrainingDefinitionApi,
+  TrainingRunApi,
+  TrainingInstanceApi,
+  UserApi,
+  AdaptiveInstanceApi,
+  AdaptiveRunApi,
+  AdaptiveDefinitionApiService,
+} from '@muni-kypo-crp/training-api';
 import { TrainingAgendaConfig } from '../../../src/model/training-agenda-config';
 import { TrainingErrorHandler } from '../../../src/services/training-error.handler.service';
 import { TrainingNavigator } from '../../../src/services/training-navigator.service';
@@ -12,6 +20,7 @@ import { TrainingDefinitionEditService } from '../../../definition-edit/src/serv
 import { TrainingDefinitionService } from '../../../definition-overview/src/services/state/training-definition.service';
 import { FileUploadProgressService } from '../../../definition-overview/src/services/file-upload/file-upload-progress.service';
 import { SentinelAuthService } from '@sentinel/auth';
+import { AdaptiveFileUploadProgressService } from '../../../adaptive-definition-overview/src/services/file-upload/adaptive-file-upload-progress.service';
 
 export function createErrorHandlerSpy(): jasmine.SpyObj<TrainingErrorHandler> {
   return jasmine.createSpyObj('TrainingErrorHandler', ['emit']);
@@ -39,6 +48,19 @@ export function createTrainingInstanceApiSpy(): jasmine.SpyObj<TrainingInstanceA
   ]);
 }
 
+export function createAdaptiveInstanceApiSpy(): jasmine.SpyObj<AdaptiveInstanceApi> {
+  return jasmine.createSpyObj('AdaptiveInstanceApi', [
+    'assignPool',
+    'unassignPool',
+    'getAll',
+    'archive',
+    'delete',
+    'update',
+    'create',
+    'getAssociatedTrainingRuns',
+  ]);
+}
+
 export function createTrainingRunApiSpy(): jasmine.SpyObj<TrainingRunApi> {
   return jasmine.createSpyObj('TrainingRunApi', [
     'nextLevel',
@@ -50,8 +72,41 @@ export function createTrainingRunApiSpy(): jasmine.SpyObj<TrainingRunApi> {
   ]);
 }
 
+export function createAdaptiveRunApiSpy(): jasmine.SpyObj<AdaptiveRunApi> {
+  return jasmine.createSpyObj('AdaptiveRunApi', [
+    'nextLevel',
+    'finish',
+    'submitAnswers',
+    'getAccessed',
+    'archive',
+    'deleteMultiple',
+  ]);
+}
+
 export function createTrainingDefinitionApiSpy(): jasmine.SpyObj<TrainingDefinitionApi> {
   return jasmine.createSpyObj('TrainingDefinitionApi', [
+    'update',
+    'create',
+    'createGameLevel',
+    'createInfoLevel',
+    'createAssessmentLevel',
+    'getLevel',
+    'updateInfoLevel',
+    'updateGameLevel',
+    'updateAssessmentLevel',
+    'deleteLevel',
+    'getAll',
+    'delete',
+    'download',
+    'clone',
+    'changeState',
+    'upload',
+    'getAllForOrganizer',
+  ]);
+}
+
+export function createAdaptiveDefinitionApiSpy(): jasmine.SpyObj<AdaptiveDefinitionApiService> {
+  return jasmine.createSpyObj('AdaptiveDefinitionApiService', [
     'update',
     'create',
     'createGameLevel',
@@ -98,20 +153,28 @@ export function createAuthSpy(): jasmine.SpyObj<SentinelAuthService> {
 export function createNavigatorSpy(): jasmine.SpyObj<TrainingNavigator> {
   return jasmine.createSpyObj('TrainingNavigator', [
     'toTrainingRunResult',
+    'toAdaptiveRunResult',
     'toTrainingDefinitionOverview',
+    'toAdaptiveDefinitionOverview',
     'toTrainingDefinitionEdit',
+    'toAdaptiveDefinitionEdit',
     'toNewTrainingInstance',
+    'toNewAdaptiveInstance',
     'toTrainingInstanceEdit',
+    'toAdaptiveInstanceEdit',
     'toTrainingInstanceOverview',
+    'toAdaptiveInstanceOverview',
     'toTrainingInstanceEdit',
     'toNewTrainingDefinition',
-    'toTrainingDefinitionEdit',
+    'toNewAdaptiveDefinition',
     'toTrainingDefinitionPreview',
     'toTrainingInstanceProgress',
     'toTrainingInstanceResults',
+    'toAdaptiveInstanceResults',
     'toResumeTrainingRunGame',
+    'toResumeAdaptiveRunGame',
     'toAccessTrainingRunGame',
-    'toTrainingRunResult',
+    'toAccessAdaptiveRunGame',
   ]);
 }
 
@@ -151,4 +214,8 @@ export function createTrainingDefinitionServiceSpy(): jasmine.SpyObj<TrainingDef
 
 export function createFileUploadProgressServiceSpy(): jasmine.SpyObj<FileUploadProgressService> {
   return jasmine.createSpyObj('FileUploadProgressService', ['']);
+}
+
+export function createAdaptiveFileUploadProgressServiceSpy(): jasmine.SpyObj<AdaptiveFileUploadProgressService> {
+  return jasmine.createSpyObj('AdaptiveFileUploadProgressService', ['']);
 }

@@ -8,6 +8,8 @@ export const baseURL = 'https://172.19.0.22';
 export const homeURL = 'https://localhost:4200';
 // trainings service url
 export const trainingURL = baseURL + '/kypo2-rest-training/api/v1/';
+// adaptive trainings service url
+export const adaptiveTrainingURL = baseURL + '/kypo-adaptive-training/api/v1/';
 // sandboxes service url
 export const sandboxesURL = baseURL + '/kypo-sandbox-service/api/v1/';
 
@@ -24,7 +26,9 @@ export const kypo2TopologyConfig = {
 };
 
 export const visualizationConfig = {
+  adaptiveTrainingBasePath: adaptiveTrainingURL,
   trainingBasePath: trainingURL,
+  adaptiveBasePath: adaptiveTrainingURL,
   elasticSearchBasePath: elasticSearchURL,
 };
 
@@ -39,6 +43,7 @@ export const environment = {
 
   trainingApiConfig: {
     trainingBasePath: trainingURL,
+    adaptiveBasePath: adaptiveTrainingURL,
   },
 
   sandboxApiConfig: {
@@ -63,7 +68,7 @@ export const environment = {
         backgroundColor: '#002776',
         oidcConfig: {
           issuer: 'https://172.19.0.22:8443/csirtmu-dummy-issuer-server/',
-          clientId: '0bf33f00-2700-4efb-ab09-186076f85c7d',
+          clientId: '8f8c0aea-3890-483d-b6e2-b5ceaa157664',
           redirectUri: homeURL, // redirect after successful login
           scope: 'openid email profile',
           logoutUrl: 'https://172.19.0.22/csirtmu-dummy-issuer-server/endsession',

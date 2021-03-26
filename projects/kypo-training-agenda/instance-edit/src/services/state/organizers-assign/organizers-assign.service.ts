@@ -62,7 +62,7 @@ export class OrganizersAssignService extends SentinelUserAssignService {
     this.lastAssignedFilter = filter;
     this.hasErrorSubject$.next(false);
     this.isLoadingAssignedSubject.next(true);
-    return this.userApi.getOrganizers(resourceId, pagination, UserNameFilters.create(filter)).pipe(
+    return this.userApi.getOrganizers(resourceId, pagination, false, UserNameFilters.create(filter)).pipe(
       tap(
         (paginatedUsers) => {
           this.assignedUsersSubject.next(paginatedUsers);
@@ -88,6 +88,7 @@ export class OrganizersAssignService extends SentinelUserAssignService {
       .getOrganizersNotInTI(
         resourceId,
         new RequestedPagination(0, paginationSize, 'familyName', 'asc'),
+        false,
         UserNameFilters.create(filter)
       )
       .pipe(tap({ error: (err) => this.errorHandler.emit(err, 'Fetching organizers') }));
@@ -120,6 +121,7 @@ export class OrganizersAssignService extends SentinelUserAssignService {
       .updateOrganizers(
         resourceId,
         additions.map((user) => user.id),
+        false,
         removals.map((user) => user.id)
       )
       .pipe(
@@ -133,7 +135,7 @@ export class OrganizersAssignService extends SentinelUserAssignService {
   }
 
   private callApiToAssign(resourceId: number, userIds: number[]): Observable<any> {
-    return this.userApi.updateOrganizers(resourceId, userIds, []).pipe(
+    return this.userApi.updateOrganizers(resourceId, userIds, false, []).pipe(
       tap(
         () => this.clearSelectedUsersToAssign(),
         (err) => this.errorHandler.emit(err, 'Assigning organizers to training instance')
@@ -143,7 +145,7 @@ export class OrganizersAssignService extends SentinelUserAssignService {
   }
 
   private callApiToUnassign(resourceId: number, userIds: number[]): Observable<any> {
-    return this.userApi.updateOrganizers(resourceId, [], userIds).pipe(
+    return this.userApi.updateOrganizers(resourceId, [], false, userIds).pipe(
       tap(
         () => this.clearSelectedAssignedUsers(),
         (err) => this.errorHandler.emit(err, 'Deleting organizers from training instance')

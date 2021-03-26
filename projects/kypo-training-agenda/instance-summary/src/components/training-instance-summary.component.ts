@@ -45,6 +45,7 @@ export class TrainingInstanceSummaryComponent extends SentinelBaseDirective impl
 
   private panelOpened$: Subject<number> = new Subject();
   private openPanels: Set<number> = new Set();
+  private trainingInstanceId: number;
 
   constructor(
     private activeRoute: ActivatedRoute,
@@ -169,6 +170,7 @@ export class TrainingInstanceSummaryComponent extends SentinelBaseDirective impl
   }
 
   private initSummaryComponent(trainingInstance: TrainingInstance) {
+    this.trainingInstanceId = trainingInstance.id;
     this.trainingInstanceSummaryService.init(trainingInstance);
     this.trainingInstanceAccessTokenLink = `/${this.navigator.toTrainingInstanceAccessToken(trainingInstance.id)}`;
     this.trainingInstancePoolIdLink = `/${this.navigator.toPool(trainingInstance.poolId)}`;
@@ -191,7 +193,7 @@ export class TrainingInstanceSummaryComponent extends SentinelBaseDirective impl
       .subscribe();
     this.activeTrainingRuns$ = this.activeTrainingRunService.resource$.pipe(
       takeWhile(() => this.panelIsOpen(this.ACTIVE_TRAINING_RUNS_PANEL_ID)),
-      map((resource) => new ActiveTrainingRunTable(resource, this.activeTrainingRunService))
+      map((resource) => new ActiveTrainingRunTable(resource, this.activeTrainingRunService, this.trainingInstanceId))
     );
     this.activeTrainingRunsHasError$ = this.activeTrainingRunService.hasError$;
   }

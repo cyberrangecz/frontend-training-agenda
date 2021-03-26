@@ -84,7 +84,7 @@ export class AuthorsAssignService extends SentinelUserAssignService {
     this.lastAssignedFilter = filter;
     this.hasErrorSubject$.next(false);
     this.isLoadingAssignedSubject.next(true);
-    return this.userApi.getAuthors(resourceId, pagination, UserNameFilters.create(filter)).pipe(
+    return this.userApi.getAuthors(resourceId, pagination, false, UserNameFilters.create(filter)).pipe(
       tap(
         (paginatedUsers) => {
           this.assignedUsersSubject.next(paginatedUsers);
@@ -110,6 +110,7 @@ export class AuthorsAssignService extends SentinelUserAssignService {
       .getDesignersNotInTD(
         resourceId,
         new RequestedPagination(0, paginationSize, 'familyName', 'asc'),
+        false,
         UserNameFilters.create(filter)
       )
       .pipe(tap({ error: (err) => this.errorHandler.emit(err, 'Fetching designers') }));
@@ -127,6 +128,7 @@ export class AuthorsAssignService extends SentinelUserAssignService {
       .updateAuthors(
         resourceId,
         additions.map((user) => user.id),
+        false,
         removals.map((user) => user.id)
       )
       .pipe(
@@ -136,7 +138,7 @@ export class AuthorsAssignService extends SentinelUserAssignService {
   }
 
   private callApiToAssign(resourceId: number, userIds: number[]): Observable<any> {
-    return this.userApi.updateAuthors(resourceId, userIds, []).pipe(
+    return this.userApi.updateAuthors(resourceId, userIds, false, []).pipe(
       tap(
         () => this.clearSelectedUsersToAssign(),
         (err) => this.errorHandler.emit(err, 'Adding authors')
@@ -146,7 +148,7 @@ export class AuthorsAssignService extends SentinelUserAssignService {
   }
 
   private callApiToUnassign(resourceId: number, usersIds: number[]) {
-    return this.userApi.updateAuthors(resourceId, [], usersIds).pipe(
+    return this.userApi.updateAuthors(resourceId, [], false, usersIds).pipe(
       tap(
         () => this.clearSelectedAssignedUsers(),
         (err) => this.errorHandler.emit(err, 'Deleting authors from training definition')

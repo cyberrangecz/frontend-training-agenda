@@ -37,8 +37,8 @@ export class RunningTrainingRunConcreteService extends RunningTrainingRunService
     this.sandboxInstanceId = trainingRunInfo.sandboxInstanceId;
     this.isStepperDisplayed = trainingRunInfo.isStepperDisplayed;
     this.startTime = trainingRunInfo.startTime;
-    this.activeLevels = trainingRunInfo.levels;
-    this.setActiveLevel(trainingRunInfo.currentLevel);
+    this.activeLevels = trainingRunInfo.levels as Level[];
+    this.setActiveLevel(trainingRunInfo.currentLevel as Level);
   }
 
   getLevels(): Level[] {

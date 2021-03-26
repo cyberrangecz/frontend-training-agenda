@@ -1,0 +1,21 @@
+<h1>{{ phase?.title }}</h1>
+<ng-container [ngSwitch]="phase?.type">
+  <kypo-questionnaire-phase *ngSwitchCase="phaseTypes.Questionnaire"
+                         [phase]="phase"
+                         [isLast]=isLast
+                         (next)="onNext()">
+  </kypo-questionnaire-phase>
+  <kypo-training-phase *ngSwitchCase="phaseTypes.Training"
+                   [phase]="phase"
+                   [isLast]=isLast
+                   [sandboxId]="sandboxId"
+                   (next)="onNext()">
+  </kypo-training-phase>
+  <kypo-info-phase *ngSwitchCase="phaseTypes.Info"
+                   [phase]="phase"
+                   [isLast]="isLast"
+                   (next)="onNext()">
+  </kypo-info-phase>
+</ng-container>
+
+

@@ -1,0 +1,24 @@
+  <div class="header">
+    <!-- PHASE STEPPER -->
+    <div *ngIf="isStepperDisplayed && stepper?.items" class="training-run-stepper">
+      <sentinel-stepper [dragDisabled]="true"
+                        [selectable]="false"
+                        [stepperItems]="stepper"
+                        [activeIndex]="stepper.activePhaseIndex">
+      </sentinel-stepper>
+    </div>
+
+    <span class="spacer"></span>
+    <div class="right-panel">
+      <sentinel-user-card [user]="user$ | async"></sentinel-user-card>
+      <kypo-training-timer *ngIf="isTimerDisplayed && startTime" [startTime]="startTime"></kypo-training-timer>
+    </div>
+  </div>
+  <!-- CONTENT OF ACTIVE PHASE -->
+  <kypo-abstract-phase [phase]="activePhase$ | async"
+                       [isLast]="isLast"
+                       [sandboxId]="sandboxId"
+                       (next)="next()">
+  </kypo-abstract-phase>
+
+

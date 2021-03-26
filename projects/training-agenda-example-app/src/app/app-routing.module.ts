@@ -19,7 +19,18 @@ const routes: Routes = [
       ),
     data: {
       breadcrumb: 'Definition',
-      title: 'Training Definition Overview',
+      title: 'Linear Training Definition Overview',
+    },
+  },
+  {
+    path: 'adaptive-definition',
+    loadChildren: () =>
+      import('./lazy-loaded-modules/adaptive-definition/overview/adaptive-definition-overview.module').then(
+        (m) => m.AdaptiveDefinitionOverviewModule
+      ),
+    data: {
+      breadcrumb: 'Definition',
+      title: 'Adaptive Training Definition Overview',
     },
   },
   {
@@ -30,7 +41,18 @@ const routes: Routes = [
       ),
     data: {
       breadcrumb: 'Instance',
-      title: 'Training Instance Overview',
+      title: 'Linear Training Instance Overview',
+    },
+  },
+  {
+    path: 'adaptive-instance',
+    loadChildren: () =>
+      import('./lazy-loaded-modules/adaptive-instance/overview/adaptive-instance-overview.module').then(
+        (m) => m.AdaptiveInstanceOverviewModule
+      ),
+    data: {
+      breadcrumb: 'Instance',
+      title: 'Adaptive Training Instance Overview',
     },
   },
   {

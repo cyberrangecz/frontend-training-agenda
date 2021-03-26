@@ -1,0 +1,10 @@
+<div class="container">
+  <div class="content">
+    <markdown [data]="phase.content"></markdown>
+  </div>
+  <div class="footer">
+    <kypo-next-phase-button [isLast]="isLast"
+                            (next)="onNext()">
+    </kypo-next-phase-button>
+  </div>
+</div>

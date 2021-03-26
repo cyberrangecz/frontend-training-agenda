@@ -1,0 +1,14 @@
+
+.tab-icon {
+  margin-right: 8px;
+}
+
+::ng-deep .mat-tab-body-content {
+  justify-content: center;
+  display: flex;
+}
+
+::ng-deep .mat-tab-body-wrapper {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}

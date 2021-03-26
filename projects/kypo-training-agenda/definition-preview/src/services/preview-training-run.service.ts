@@ -20,11 +20,11 @@ export class PreviewTrainingRunService extends RunningTrainingRunService {
   private isStepperDisplayed: boolean;
 
   init(trainingRunInfo: AccessTrainingRunInfo): void {
-    this.levels = trainingRunInfo.levels;
+    this.levels = trainingRunInfo.levels as Level[];
     this.isStepperDisplayed = trainingRunInfo.isStepperDisplayed;
     this.activeLevelIndex = 0;
     const firstLevel = this.levels[this.activeLevelIndex];
-    this.activeLevelSubject$.next(firstLevel);
+    this.activeLevelSubject$.next(firstLevel as Level);
   }
 
   getLevels(): Level[] {
@@ -63,7 +63,7 @@ export class PreviewTrainingRunService extends RunningTrainingRunService {
   private nextLevel(): Observable<any> {
     this.activeLevelIndex++;
     const nextLevel = this.levels[this.activeLevelIndex];
-    this.activeLevelSubject$.next(nextLevel);
+    this.activeLevelSubject$.next(nextLevel as Level);
     return of(true);
   }
 
