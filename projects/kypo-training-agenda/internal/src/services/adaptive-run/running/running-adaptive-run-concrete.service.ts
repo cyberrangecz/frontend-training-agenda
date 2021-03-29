@@ -122,7 +122,7 @@ export class RunningAdaptiveRunConcreteService extends RunningAdaptiveRunService
   private displayDialogToNextTask(): MatDialogRef<SentinelConfirmationDialogComponent> {
     return this.dialog.open(SentinelConfirmationDialogComponent, {
       data: new SentinelConfirmationDialogConfig(
-        'Creating a perfect task for you',
+        'Generating a suitable task for you',
         `Please wait while your next task is being prepared`
       ),
     });

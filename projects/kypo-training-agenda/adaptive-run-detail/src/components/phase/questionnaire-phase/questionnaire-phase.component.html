@@ -35,7 +35,7 @@
 
 
   <div class="footer">
-    <button *ngIf="!isSubmitted" mat-raised-button color="primary" (click)="submit()">Submit</button>
+    <button *ngIf="!isSubmitted" [disabled]="isLoading" mat-raised-button color="primary" (click)="submit()">Submit</button>
     <kypo-next-phase-button *ngIf="isSubmitted" [isLast]="isLast" (next)="onNext()"></kypo-next-phase-button>
   </div>
 
