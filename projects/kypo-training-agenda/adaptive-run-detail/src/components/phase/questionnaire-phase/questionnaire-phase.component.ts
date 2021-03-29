@@ -25,6 +25,7 @@ export class QuestionnairePhaseComponent extends SentinelBaseDirective implement
   @Output() next: EventEmitter<void> = new EventEmitter();
 
   isSubmitted = false;
+  isLoading = false;
   questionAnswers: QuestionAnswer[] = [];
   questionTypes = QuestionTypeEnum;
 
@@ -81,9 +82,13 @@ export class QuestionnairePhaseComponent extends SentinelBaseDirective implement
   }
 
   submit() {
+    this.isLoading = true;
     this.runningAdaptiveRunService
       .submitQuestionnaire(this.questionAnswers)
       .pipe(take(1))
-      .subscribe(() => (this.isSubmitted = true));
+      .subscribe(() => {
+        this.isSubmitted = true;
+        this.isLoading = false;
+      });
   }
 }
