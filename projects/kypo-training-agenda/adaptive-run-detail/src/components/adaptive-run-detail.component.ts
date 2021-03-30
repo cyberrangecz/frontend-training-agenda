@@ -29,6 +29,7 @@ export class AdaptiveRunDetailComponent extends SentinelBaseDirective implements
   isTimerDisplayed: boolean;
   startTime: Date;
   isLast: boolean;
+  isLoading = false;
   sandboxId: number;
 
   constructor(private trainingRunService: RunningAdaptiveRunService, private auth: SentinelAuthService) {
@@ -63,6 +64,10 @@ export class AdaptiveRunDetailComponent extends SentinelBaseDirective implements
   }
 
   next(): void {
-    this.trainingRunService.next().pipe(take(1)).subscribe();
+    this.isLoading = true;
+    this.trainingRunService
+      .next()
+      .pipe(take(1))
+      .subscribe((_) => (this.isLoading = false));
   }
 }

@@ -47,7 +47,7 @@
   </mat-card-content>
   <mat-card-actions align="end">
     <button #accessButton mat-raised-button color="primary"
-      [disabled]="!traineeAccessTrainingFormGroup.formGroup.valid"
+      [disabled]="!traineeAccessTrainingFormGroup.formGroup.valid || isLoading"
       (click)="access()">Access</button>
   </mat-card-actions>
 </mat-card>

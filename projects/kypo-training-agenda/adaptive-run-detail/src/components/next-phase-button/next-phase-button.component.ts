@@ -8,6 +8,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 })
 export class NextPhaseButtonComponent {
   @Input() isLast: boolean;
+  @Input() isLoading: boolean;
   @Output() next: EventEmitter<void> = new EventEmitter();
 
   onNext(): void {

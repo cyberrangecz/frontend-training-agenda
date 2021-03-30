@@ -11,6 +11,7 @@ import { InfoPhase } from '@muni-kypo-crp/training-model';
 export class InfoPhaseComponent extends SentinelBaseDirective {
   @Input() phase: InfoPhase;
   @Input() isLast: boolean;
+  @Input() isLoading = false;
   @Output() next: EventEmitter<void> = new EventEmitter();
 
   constructor() {
