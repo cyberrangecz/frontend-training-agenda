@@ -21,6 +21,7 @@ import { AccessedAdaptiveRunService } from '../services/state/adaptive/accessed-
 export class TrainingRunOverviewComponent extends SentinelBaseDirective implements OnInit {
   trainingRuns$: Observable<SentinelTable<AccessedTrainingRun>>;
   hasError$: Observable<boolean>;
+  isLoading = false;
 
   constructor(
     private trainingRunOverviewService: AccessedTrainingRunService,
@@ -39,16 +40,17 @@ export class TrainingRunOverviewComponent extends SentinelBaseDirective implemen
    * @param accessToken token to access the training run or adaptive run
    */
   access(accessToken: string): void {
+    this.isLoading = true;
     if (this.isAdaptiveToken(accessToken)) {
       this.accessedAdaptiveRunService
         .access(accessToken)
         .pipe(takeWhile(() => this.isAlive))
-        .subscribe();
+        .subscribe((_) => (this.isLoading = false));
     } else {
       this.trainingRunOverviewService
         .access(accessToken)
         .pipe(takeWhile(() => this.isAlive))
-        .subscribe();
+        .subscribe((_) => (this.isLoading = false));
     }
   }
 

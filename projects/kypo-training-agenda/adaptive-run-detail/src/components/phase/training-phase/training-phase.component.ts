@@ -40,6 +40,7 @@ export class TrainingPhaseComponent extends SentinelBaseDirective implements OnI
   isSolutionRevealed$: Observable<boolean>;
   isLoading$: Observable<boolean>;
   displayedSolutionContent$: Observable<string>;
+  calculating = false;
 
   constructor(
     private trainingPhaseService: AdaptiveRunTrainingPhaseService,
@@ -79,10 +80,14 @@ export class TrainingPhaseComponent extends SentinelBaseDirective implements OnI
   }
 
   submitAnswer(): void {
+    this.calculating = true;
     this.trainingPhaseService
       .submitAnswer(this.answer)
       .pipe(take(1))
-      .subscribe(() => (this.answer = ''));
+      .subscribe(() => {
+        this.answer = '';
+        this.calculating = false;
+      });
   }
 
   download(): void {

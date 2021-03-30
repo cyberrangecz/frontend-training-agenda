@@ -14,6 +14,7 @@
   <kypo-info-phase *ngSwitchCase="phaseTypes.Info"
                    [phase]="phase"
                    [isLast]="isLast"
+                   [isLoading]="isLoading"
                    (next)="onNext()">
   </kypo-info-phase>
 </ng-container>

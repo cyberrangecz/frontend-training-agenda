@@ -74,7 +74,7 @@
             <button
               mat-button
               color="accent"
-              [disabled]="!answer || (isCorrectAnswerSubmitted$ | async)"
+              [disabled]="!answer || (isCorrectAnswerSubmitted$ | async) || calculating"
               (click)="submitAnswer()"
             >
               Submit

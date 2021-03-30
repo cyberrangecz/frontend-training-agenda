@@ -15,6 +15,7 @@ import { AbstractPhaseTypeEnum, Phase } from '@muni-kypo-crp/training-model';
 export class AbstractPhaseComponent extends SentinelBaseDirective {
   @Input() phase: Phase;
   @Input() isLast: boolean;
+  @Input() isLoading = false;
   @Input() sandboxId: number;
 
   @Output() next: EventEmitter<void> = new EventEmitter();

@@ -1,5 +1,5 @@
 <div class="content">
-  <kypo-access-training-run (accessToken)="access($event)"></kypo-access-training-run>
+  <kypo-access-training-run [isLoading]="isLoading" (accessToken)="access($event)"></kypo-access-training-run>
   <sentinel-table
     [data]="trainingRuns$ | async"
     [hasError]="hasError$ | async"

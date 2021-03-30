@@ -1,4 +1,13 @@
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { TraineeAccessTrainingFormGroup } from './trainee-access-training-form-group';
@@ -16,6 +25,7 @@ import { AbstractControl } from '@angular/forms';
 export class AccessTrainingRunComponent extends SentinelBaseDirective implements OnInit {
   @ViewChild('pin') accessTokenPinInput: ElementRef;
   @ViewChild('accessButton') accessButton: MatButton;
+  @Input() isLoading = false;
 
   @Output() accessToken: EventEmitter<string> = new EventEmitter<string>();
 
