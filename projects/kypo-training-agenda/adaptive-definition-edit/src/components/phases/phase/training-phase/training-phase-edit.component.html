@@ -34,6 +34,12 @@
                 <p>Answers</p>
               </div>
             </td>
+            <td align="center">
+              <div class="matrix-content">
+                <p>Related</p>
+                <p>Phase</p>
+              </div>
+            </td>
           </tr>
           <tr *ngFor="let rowGroup of decisionMatrixRows.controls; index as i;" [formGroupName]="i">
             <td align="center">
@@ -71,6 +77,13 @@
                 <mat-error *ngIf="rowGroup.get('wrongAnswers').hasError('min')">Negative</mat-error>
               </mat-form-field>
             </td>
+            <td align="center">
+              <div class="related-phase-text">
+                <span  *ngIf=" i===0 "> Current Phase </span>
+                <span *ngIf=" i>0 "> {{i}}. Training Phase </span>
+              </div>
+            </td>
+
           </tr>
         </table>
       </div>

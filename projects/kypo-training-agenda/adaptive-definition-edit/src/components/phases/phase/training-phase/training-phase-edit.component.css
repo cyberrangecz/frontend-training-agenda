@@ -54,6 +54,10 @@ div .right-panel mat-form-field {
   margin-bottom: 20px;
 }
 
+.related-phase-text {
+  padding-bottom: 15px
+}
+
 
 
 sentinel-markdown-editor.mrkdwn-content {
