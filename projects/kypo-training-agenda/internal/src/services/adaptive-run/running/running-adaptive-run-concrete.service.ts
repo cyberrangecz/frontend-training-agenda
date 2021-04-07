@@ -7,7 +7,8 @@ import { Router } from '@angular/router';
 import { TrainingErrorHandler, TrainingNavigator } from '@muni-kypo-crp/training-agenda';
 import { switchMap, tap } from 'rxjs/operators';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { SentinelConfirmationDialogComponent, SentinelConfirmationDialogConfig } from '@sentinel/components/dialogs';
+import { NextPhaseDialogComponent } from '../../../../../adaptive-run-detail/src/components/next-phase-dialog/next-phase-dialog.component';
+import { NextPhaseDialogConfig } from '../../../../../adaptive-run-detail/src/components/next-phase-dialog/next-phase-dialog-config';
 
 @Injectable()
 export class RunningAdaptiveRunConcreteService extends RunningAdaptiveRunService {
@@ -119,9 +120,9 @@ export class RunningAdaptiveRunConcreteService extends RunningAdaptiveRunService
     }
   }
 
-  private displayDialogToNextTask(): MatDialogRef<SentinelConfirmationDialogComponent> {
-    return this.dialog.open(SentinelConfirmationDialogComponent, {
-      data: new SentinelConfirmationDialogConfig(
+  private displayDialogToNextTask(): MatDialogRef<NextPhaseDialogComponent> {
+    return this.dialog.open(NextPhaseDialogComponent, {
+      data: new NextPhaseDialogConfig(
         'Generating a suitable task for you',
         `Please wait while your next task is being prepared`
       ),

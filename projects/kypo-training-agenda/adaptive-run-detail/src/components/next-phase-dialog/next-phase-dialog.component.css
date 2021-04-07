@@ -1,0 +1,9 @@
+.mat-typography {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+mat-progress-spinner {
+  margin:0 auto;
+}
