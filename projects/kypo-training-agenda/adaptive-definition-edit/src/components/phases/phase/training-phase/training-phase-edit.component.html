@@ -51,35 +51,36 @@
             </td>
             <td align="center">
               <mat-form-field class="matrix-field" appearance="fill">
-                <input matInput type="number" formControlName="completedInTime" required>
+                <input matInput type="number" formControlName="completedInTime" required placeholder=0>
                 <mat-error *ngIf="rowGroup.get('completedInTime').hasError('required')">Empty</mat-error>
                 <mat-error *ngIf="rowGroup.get('completedInTime').hasError('min')">Negative</mat-error>
               </mat-form-field>
             </td>
             <td align="center">
               <mat-form-field class="matrix-field" appearance="fill">
-                <input matInput type="number" formControlName="keywordUsed" required>
+                <input matInput type="number" formControlName="keywordUsed" required placeholder=0>
                 <mat-error *ngIf="rowGroup.get('keywordUsed').hasError('required')">Empty</mat-error>
                 <mat-error *ngIf="rowGroup.get('keywordUsed').hasError('min')">Negative</mat-error>
               </mat-form-field>
             </td>
             <td align="center">
               <mat-form-field class="matrix-field" appearance="fill">
-                <input matInput type="number" formControlName="solutionDisplayed" required>
+                <input matInput type="number" formControlName="solutionDisplayed" required placeholder=0>
                 <mat-error *ngIf="rowGroup.get('solutionDisplayed').hasError('required')">Empty</mat-error>
                 <mat-error *ngIf="rowGroup.get('solutionDisplayed').hasError('min')">Negative</mat-error>
               </mat-form-field>
             </td>
             <td align="center">
               <mat-form-field class="matrix-field" appearance="fill">
-                <input matInput type="number" formControlName="wrongAnswers" required>
+                <input matInput type="number" formControlName="wrongAnswers" required placeholder=0>
                 <mat-error *ngIf="rowGroup.get('wrongAnswers').hasError('required')">Empty</mat-error>
                 <mat-error *ngIf="rowGroup.get('wrongAnswers').hasError('min')">Negative</mat-error>
               </mat-form-field>
             </td>
             <td align="center">
               <div class="related-phase-text">
-                <span> {{i + 1}}. Training Phase </span>
+                <span *ngIf="i < decisionMatrixRows.controls.length - 1" > {{i + 1}}. Training Phase </span>
+                <span *ngIf="i === decisionMatrixRows.controls.length - 1"> Selected Training Phase </span>
               </div>
             </td>
 

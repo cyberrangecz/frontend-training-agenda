@@ -10,17 +10,33 @@ export class TrainingPhaseEditFormGroup {
       allowedWrongAnswers: new FormControl(phase.allowedWrongAnswers, [Validators.required, Validators.min(0)]),
       allowedCommands: new FormControl(phase.allowedCommands, [Validators.required, Validators.min(0)]),
       estimatedDuration: new FormControl(phase.estimatedDuration, [Validators.required, Validators.min(0)]),
-      decisionMatrix: new FormArray(phase.decisionMatrix.map((row) => TrainingPhaseEditFormGroup.createRows(row))),
+      decisionMatrix: new FormArray(
+        phase.decisionMatrix.map((row, index) =>
+          TrainingPhaseEditFormGroup.createRows(row, index === phase.decisionMatrix.length - 1)
+        )
+      ),
     });
   }
 
-  private static createRows(row: DecisionMatrixRow): FormGroup {
+  private static createRows(row: DecisionMatrixRow, isDisabled: boolean): FormGroup {
     return new FormGroup({
       questionnaireAnswered: new FormControl(row.questionnaireAnswered, [Validators.required, Validators.min(0)]),
-      completedInTime: new FormControl(row.completedInTime, [Validators.required, Validators.min(0)]),
-      keywordUsed: new FormControl(row.keywordUsed, [Validators.required, Validators.min(0)]),
-      solutionDisplayed: new FormControl(row.solutionDisplayed, [Validators.required, Validators.min(0)]),
-      wrongAnswers: new FormControl(row.wrongAnswers, [Validators.required, Validators.min(0)]),
+      completedInTime: new FormControl({ value: row.completedInTime, disabled: isDisabled }, [
+        Validators.required,
+        Validators.min(0),
+      ]),
+      keywordUsed: new FormControl({ value: row.keywordUsed, disabled: isDisabled }, [
+        Validators.required,
+        Validators.min(0),
+      ]),
+      solutionDisplayed: new FormControl({ value: row.solutionDisplayed, disabled: isDisabled }, [
+        Validators.required,
+        Validators.min(0),
+      ]),
+      wrongAnswers: new FormControl({ value: row.wrongAnswers, disabled: isDisabled }, [
+        Validators.required,
+        Validators.min(0),
+      ]),
       order: new FormControl(row.order, [Validators.required, Validators.min(0)]),
       id: new FormControl(row.id, [Validators.required, Validators.min(0)]),
     });
