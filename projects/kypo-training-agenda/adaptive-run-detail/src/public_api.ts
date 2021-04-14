@@ -7,6 +7,3 @@ export * from './components/adaptive-run-detail-game.module';
 export * from './components/adaptive-run-detail.component';
 export * from './components/training-timer/training-timer.component';
 export * from './services/can-deactivate/adaptive-run-phases-can-deactivate.service';
-
-export * from './components/next-phase-dialog/next-phase-dialog.component';
-export * from './pipes/title-case-except.pipe';

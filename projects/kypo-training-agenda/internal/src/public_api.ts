@@ -20,3 +20,5 @@ export * from './services/training-run/level/game/training-run-game-level.servic
 export * from './services/training-run/level/game/training-run-game-level-concrete.service';
 export * from './services/adaptive-run/training-phase/adaptive-run-training-phase.service';
 export * from './services/adaptive-run/training-phase/adaptive-run-training-phase-concrete.service';
+
+export * from './next-phase-dialog/next-phase-dialog.module';

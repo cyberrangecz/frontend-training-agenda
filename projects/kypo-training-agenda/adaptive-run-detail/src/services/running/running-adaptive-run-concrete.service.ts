@@ -7,8 +7,8 @@ import { Router } from '@angular/router';
 import { TrainingErrorHandler, TrainingNavigator } from '@muni-kypo-crp/training-agenda';
 import { switchMap, tap } from 'rxjs/operators';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { NextPhaseDialogComponent } from '../../../next-phase-dialog/next-phase-dialog.component';
-import { NextPhaseDialogConfig } from '../../../next-phase-dialog/next-phase-dialog-config';
+import { NextPhaseDialogComponent } from '../../../../../adaptive-run-detail/src/components/next-phase-dialog/next-phase-dialog.component';
+import { NextPhaseDialogConfig } from '../../../../../adaptive-run-detail/src/components/next-phase-dialog/next-phase-dialog-config';
 
 @Injectable()
 export class RunningAdaptiveRunConcreteService extends RunningAdaptiveRunService {
