@@ -188,7 +188,6 @@ export class AdaptiveInstanceSummaryComponent extends SentinelBaseDirective impl
       )
       .subscribe();
     this.activeTrainingRuns$ = this.activeTrainingRunService.resource$.pipe(
-      tap((res) => console.log(res)),
       takeWhile(() => this.panelIsOpen(this.ACTIVE_TRAINING_RUNS_PANEL_ID)),
       map((resource) => new ActiveAdaptiveRunTable(resource, this.activeTrainingRunService, this.trainingInstanceId))
     );

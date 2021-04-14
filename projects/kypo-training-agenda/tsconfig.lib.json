@@ -36,10 +36,7 @@
       "@muni-kypo-crp/training-agenda/adaptive-instance-edit": ["./adaptive-instance-instance-edit/src/public_api.ts"],
       "@muni-kypo-crp/training-agenda/adaptive-run-detail": ["./adaptive-run-detail/src/public_api.ts"],
       "@muni-kypo-crp/training-agenda/adaptive-instance-overview": ["./adaptive-instance-overview/src/public_api.ts"],
-      "@muni-kypo-crp/training-agenda/adaptive-instance-results": ["./adaptive-instance-results/src/public_api.ts"],
-      
-
-
+      "@muni-kypo-crp/training-agenda/adaptive-instance-results": ["./adaptive-instance-results/src/public_api.ts"]
     }
   },
   "angularCompilerOptions": {
