@@ -61,14 +61,12 @@ export class ActiveAdaptiveRunConcreteService extends ActiveAdaptiveRunService {
    */
   deleteSandbox(trainingRun: TrainingRun): Observable<any> {
     if (trainingRun.hasPlayer() && trainingRun.isRunning()) {
-      console.log('hey1');
       return this.displayDeleteSandboxDialog(trainingRun).pipe(
         switchMap((result) =>
           result === SentinelDialogResultEnum.CONFIRMED ? this.callApiToDeleteSandbox(trainingRun) : EMPTY
         )
       );
     } else {
-      console.log('hey2');
       return this.callApiToDeleteSandbox(trainingRun);
     }
   }
@@ -109,7 +107,6 @@ export class ActiveAdaptiveRunConcreteService extends ActiveAdaptiveRunService {
 
   private callApiToDeleteSandbox(trainingRun: TrainingRun): Observable<PaginatedResource<TrainingRun>> {
     let sandboxToDelete: SandboxInstance;
-    console.log(trainingRun);
     return this.sandboxApi.getSandbox(trainingRun.sandboxInstanceId).pipe(
       tap((sandbox) => (sandboxToDelete = sandbox)),
       switchMap(() => this.sandboxApi.unlockSandbox(sandboxToDelete.id, sandboxToDelete.lockId)),

@@ -5,7 +5,7 @@
         <markdown [data]="phase.currentTask.content"></markdown>
       </div>
       <div *ngIf="displayedSolutionContent$ | async as solutionContent" class="solution-content">
-        <h2>Solution: </h2>
+        <h2> <span class="solution-color"> Solution: </span> </h2>
         <markdown
           [data]="solutionContent"
         >

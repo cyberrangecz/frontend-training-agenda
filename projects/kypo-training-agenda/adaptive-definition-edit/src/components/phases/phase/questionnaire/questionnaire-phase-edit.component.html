@@ -212,7 +212,7 @@
                   <div *ngFor="let qId of phaseRelations.at(k).value.questionIds">
                     <div class="question-in-relation">
                       <mat-icon style="vertical-align: sub"> {{ getQuestionIconById(qId) }}</mat-icon>
-                      <span>{{ getQuestionTitleById(qId) }}</span>
+                      <span> {{qId}}: {{ getQuestionTitleById(qId) }}</span>
                       <button mat-button matSuffix mat-icon-button aria-label="Delete option"
                               color="warn" matTooltip="Delete option"
                               (click)="onQuestionRemovedFromRelation(k, qId)">
