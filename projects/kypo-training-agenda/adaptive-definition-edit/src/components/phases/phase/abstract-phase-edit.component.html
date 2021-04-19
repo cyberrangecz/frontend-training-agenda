@@ -6,6 +6,7 @@
   <kypo-training-phase-configuration *ngSwitchCase="phaseTypes.Training"
                                      [phase]="phase"
                                      [updateMatrixFlag]="updateMatrix$ | async"
+                                     [presentTrainingPhases]="presentTrainingPhases$ | async"
                                      (phaseChange)="onPhaseChange($event)">
   </kypo-training-phase-configuration>
   <kypo-questionnaire-phase-configuration *ngSwitchCase="phaseTypes.Questionnaire"

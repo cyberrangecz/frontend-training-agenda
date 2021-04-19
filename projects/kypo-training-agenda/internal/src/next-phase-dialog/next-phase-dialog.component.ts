@@ -11,5 +11,7 @@ export class NextPhaseDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<NextPhaseDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: NextPhaseDialogConfig
-  ) {}
+  ) {
+    dialogRef.disableClose = true;
+  }
 }

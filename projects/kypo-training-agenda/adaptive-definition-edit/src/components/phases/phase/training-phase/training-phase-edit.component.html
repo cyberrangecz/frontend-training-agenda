@@ -29,8 +29,9 @@
                 <p>Displayed</p>
               </div>
             </td>
-            <td align="center" matTooltip="Answers">
+            <td align="center" matTooltip="Submitted Answers">
               <div class="matrix-content">
+                <p>Submitted</p>
                 <p>Answers</p>
               </div>
             </td>
@@ -77,10 +78,12 @@
                 <mat-error *ngIf="rowGroup.get('wrongAnswers').hasError('min')">Negative</mat-error>
               </mat-form-field>
             </td>
-            <td align="center">
+            <td align="left">
               <div class="related-phase-text">
-                <span *ngIf="i < decisionMatrixRows.controls.length - 1" > {{i + 1}}. Training Phase </span>
-                <span *ngIf="i === decisionMatrixRows.controls.length - 1"> Selected Training Phase </span>
+                <span *ngIf="i < decisionMatrixRows.controls.length - 1" >
+                  {{presentTrainingPhases[i].order + 1}}. {{presentTrainingPhases[i].title}} Training Phase
+                </span>
+                <span *ngIf="i === decisionMatrixRows.controls.length - 1"> {{phase.order + 1}}. {{ title.value }} </span>
               </div>
             </td>
 

@@ -22,6 +22,7 @@ import { TrainingPhase } from '@muni-kypo-crp/training-model';
 export class TrainingPhaseEditComponent extends SentinelBaseDirective implements OnChanges {
   @Input() phase: TrainingPhase;
   @Input() updateMatrixFlag: boolean;
+  @Input() presentTrainingPhases: TrainingPhase[];
   @Output() phaseChange: EventEmitter<TrainingPhase> = new EventEmitter();
 
   phaseConfigFormGroup: TrainingPhaseEditFormGroup;
