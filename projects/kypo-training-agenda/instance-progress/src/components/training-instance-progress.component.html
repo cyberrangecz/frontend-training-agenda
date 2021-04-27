@@ -1,8 +1,7 @@
 <mat-card>
-  <kypo2-viz-hurdling *ngIf="(trainingInstance$ | async) as trainingInstance"
-                      showProgressView="true"
-                      [trainingInstanceId]="trainingInstance?.id"
-                      [trainingDefinitionId]="trainingInstance?.trainingDefinition?.id">
-  </kypo2-viz-hurdling>
+  <kypo-hurdling-visualization *ngIf="(trainingInstance$ | async) as trainingInstance"
+                      view="progress"
+                      [trainingInstanceId]="trainingInstance?.id">
+  </kypo-hurdling-visualization>
 </mat-card>
 
