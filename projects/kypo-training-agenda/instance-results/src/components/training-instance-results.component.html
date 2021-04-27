@@ -33,11 +33,10 @@
       Progress
     </ng-template>
     <ng-template matTabContent>
-      <kypo2-viz-hurdling
-        [showProgressView]="false"
-        [trainingInstanceId]="trainingInstance?.id"
-        [trainingDefinitionId]="trainingInstance?.trainingDefinition?.id">
-      </kypo2-viz-hurdling>
+      <kypo-hurdling-visualization
+        view="overview"
+        [trainingInstanceId]="trainingInstance?.id">
+      </kypo-hurdling-visualization>
     </ng-template>
   </mat-tab>
 
@@ -60,11 +59,10 @@
       Overview
     </ng-template>
     <ng-template matTabContent>
-      <kypo2-viz-hurdling
-        [showProgressView]="false"
-        [trainingInstanceId]="trainingInstance?.id"
-        [trainingDefinitionId]="trainingInstance?.trainingDefinition?.id">
-      </kypo2-viz-hurdling>
+      <kypo-hurdling-visualization
+        view="overview"
+        [trainingInstanceId]="trainingInstance?.id">
+      </kypo-hurdling-visualization>
 
       <kypo2-viz-overview-timeline
         [size]="vizSize"
