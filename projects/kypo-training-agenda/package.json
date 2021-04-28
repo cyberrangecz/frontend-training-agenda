@@ -1,6 +1,6 @@
 {
   "name": "@muni-kypo-crp/training-agenda",
-  "version": "11.1.7",
+  "version": "11.1.8",
   "peerDependencies": {
     "@angular/common": "~11.0.9",
     "@angular/core": "~11.0.9",
