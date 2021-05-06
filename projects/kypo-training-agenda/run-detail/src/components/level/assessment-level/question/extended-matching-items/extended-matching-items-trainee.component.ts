@@ -27,7 +27,7 @@ export class ExtendedMatchingItemsTraineeComponent extends SentinelBaseDirective
   canBeSubmitted(): boolean {
     if (this.question.required || this.usersAnswers.length > 0) {
       this.usersAnswers.sort((fst, snd) => fst.x - snd.x);
-      for (let i = 0; i < this.question.rows.length; i++) {
+      for (let i = 0; i < this.question.extendedMatchingOptions.length; i++) {
         if (!this.usersAnswers[i]) {
           return false;
         }
@@ -39,7 +39,7 @@ export class ExtendedMatchingItemsTraineeComponent extends SentinelBaseDirective
    * Saves changes from user input to question object
    */
   saveChanges(): void {
-    this.question.usersAnswers = this.usersAnswers;
+    this.usersAnswers.forEach((answer) => (this.question.userAnswers[answer.x] = answer.y));
   }
 
   /**

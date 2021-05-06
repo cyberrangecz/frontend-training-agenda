@@ -3,10 +3,6 @@
   flex-direction: column;
 }
 
-.content kypo-free-form {
-  width: 80%;
-}
-
 .warn {
   color: #f44336;
 }
@@ -58,5 +54,32 @@ mat-checkbox {
   mat-form-field {
     width: 80%;
   }
+
+  .form-container {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.answer {
+  display: flex;
+}
+
+.answer mat-form-field {
+  width: 100%;
+}
+
+.remove-btn {
+  height: 60px;
+  width: 20px;
+}
+
+mat-divider {
+  padding-bottom: 10px;
+}
+
+h4 {
+  text-align: center;
+  color: rgba(0, 0, 0, 0.26);
 }
 

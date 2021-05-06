@@ -13,9 +13,27 @@ export class ExtendedMatchingItemsFormGroup {
     this.formGroup = new FormGroup(
       {
         title: new FormControl(emi.title, SentinelValidators.noWhitespace),
-        rows: new FormArray(emi.rows.map((row) => new FormControl(row, SentinelValidators.noWhitespace))),
-        cols: new FormArray(emi.cols.map((col) => new FormControl(col, SentinelValidators.noWhitespace))),
-        correctAnswers: new FormArray(emi.correctAnswers.map((answer) => new FormControl(answer))),
+        statements: new FormArray(
+          emi.extendedMatchingStatements.map(
+            (statement) =>
+              new FormGroup({
+                id: new FormControl(statement.id),
+                order: new FormControl(statement.order),
+                text: new FormControl(statement.text, SentinelValidators.noWhitespace),
+                correctOptionOrder: new FormControl(statement.correctOptionOrder),
+              })
+          )
+        ),
+        options: new FormArray(
+          emi.extendedMatchingOptions.map(
+            (option) =>
+              new FormGroup({
+                id: new FormControl(option.id),
+                order: new FormControl(option.order),
+                text: new FormControl(option.text, SentinelValidators.noWhitespace),
+              })
+          )
+        ),
         score: new FormControl(emi.score, [
           Validators.required,
           Validators.pattern('^[0-9]*$'),
@@ -40,9 +58,8 @@ export class ExtendedMatchingItemsFormGroup {
    */
   setToEMI(emi: ExtendedMatchingItems, isTest: boolean): void {
     emi.title = this.formGroup.get('title').value;
-    emi.rows = this.formGroup.get('rows').value;
-    emi.cols = this.formGroup.get('cols').value;
-    emi.correctAnswers = this.formGroup.get('correctAnswers').value;
+    emi.extendedMatchingStatements = this.formGroup.get('statements').value;
+    emi.extendedMatchingOptions = this.formGroup.get('options').value;
     emi.score = emi.required ? this.formGroup.get('score').value : 0;
     emi.penalty = isTest ? this.formGroup.get('penalty').value : 0;
     emi.valid = this.formGroup.valid;
@@ -50,11 +67,11 @@ export class ExtendedMatchingItemsFormGroup {
 
   private noSelectedAnswers: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
     let error = null;
-    const correctAnswers = control.get('correctAnswers');
-    const rows = control.get('rows');
-    if (correctAnswers.value.length !== rows.value.length) {
-      error = { noSelectedAnswers: true };
-    }
+    (control.get('statements') as FormArray).controls.forEach((statement) => {
+      if (statement.get('correctOptionOrder').value === null) {
+        error = { noSelectedAnswers: true };
+      }
+    });
     return error ? error : null;
   };
 

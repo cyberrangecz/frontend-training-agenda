@@ -20,32 +20,32 @@ export class MultipleChoiceQuestionTraineeComponent extends SentinelBaseDirectiv
 
   @Output() contentChanged: EventEmitter<{ index: number; question: Question }> = new EventEmitter();
 
-  userAnswersIndexes: number[] = [];
+  userAnswers: string[] = [];
 
   /**
    * Checks whether mandatory questions were answered
    */
   canBeSubmitted(): boolean {
-    return !this.question.required || this.userAnswersIndexes.length > 0;
+    return !this.question.required || this.userAnswers.length > 0;
   }
 
   /**
    * Saves changes from user input to question object
    */
   saveChanges(): void {
-    this.question.usersAnswersIndices = this.userAnswersIndexes;
+    this.question.userAnswers = this.userAnswers;
   }
 
   /**
    * Called when user changed the answer (clicked on a checkbox
    * @param event event of checkbox change
-   * @param index index of an answer which has been changed
+   * @param answer user answer which has been changed
    */
-  onAnswerChanged(event: MatCheckboxChange, index: number): void {
+  onAnswerChanged(event: MatCheckboxChange, answer: string): void {
     if (event.checked) {
-      this.addCorrectAnswer(index);
+      this.addCorrectAnswer(answer);
     } else {
-      this.removeCorrectAnswer(index);
+      this.removeCorrectAnswer(answer);
     }
     this.contentChanged.emit({
       index: this.index,
@@ -55,20 +55,20 @@ export class MultipleChoiceQuestionTraineeComponent extends SentinelBaseDirectiv
 
   /**
    * Adds correct answer
-   * @param index index of the answer which should be marked as correct
+   * @param answer user answer which should be marked as correct
    */
-  private addCorrectAnswer(index: number) {
-    this.userAnswersIndexes.push(index);
+  private addCorrectAnswer(answer: string) {
+    this.userAnswers.push(answer);
   }
 
   /**
    * Removes given answer from correct answers
-   * @param index index of the answer which should be deleted
+   * @param answer user answer which should be deleted
    */
-  private removeCorrectAnswer(index: number) {
-    const indexToRemove = this.userAnswersIndexes.indexOf(index);
+  private removeCorrectAnswer(answer: string) {
+    const indexToRemove = this.userAnswers.indexOf(answer);
     if (indexToRemove !== -1) {
-      this.userAnswersIndexes.splice(indexToRemove, 1);
+      this.userAnswers.splice(indexToRemove, 1);
     }
   }
 }

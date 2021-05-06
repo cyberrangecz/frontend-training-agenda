@@ -38,6 +38,6 @@ export class FreeFormQuestionTraineeComponent extends SentinelBaseDirective {
    * Saves changes from user input to question object
    */
   saveChanges(): void {
-    this.question.usersAnswer = this.answer;
+    this.question.userAnswers = [this.answer];
   }
 }
