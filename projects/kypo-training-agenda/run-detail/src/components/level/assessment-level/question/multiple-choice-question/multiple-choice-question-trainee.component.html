@@ -5,9 +5,9 @@
 
   <!-- OPTIONS -->
   <div class="checkboxes">
-    <mat-checkbox *ngFor="let option of question.options; index as i"
-                  (change)="onAnswerChanged($event, i)">
-      {{ option }}
+    <mat-checkbox *ngFor="let option of question.choices; index as i"
+                  (change)="onAnswerChanged($event, option.text)">
+      {{ option.text }}
     </mat-checkbox>
   </div>
 </div>

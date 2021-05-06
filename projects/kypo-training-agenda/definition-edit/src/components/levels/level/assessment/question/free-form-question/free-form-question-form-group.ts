@@ -2,15 +2,16 @@ import { FormArray, FormControl, FormGroup, ValidationErrors, ValidatorFn, Valid
 import { SentinelValidators } from '@sentinel/common';
 import { Question } from '@muni-kypo-crp/training-model';
 import { FreeFormQuestion } from '@muni-kypo-crp/training-model';
+import { QuestionChoice } from '@muni-kypo-crp/training-model/lib/questions/question-choice';
 
 /**
  * Form control for free form question component
  */
 export class FreeFormQuestionFormGroup {
-  formGroup: FormGroup;
+  freeFormQuestionFormGroup: FormGroup;
 
   constructor(ffq: FreeFormQuestion) {
-    this.formGroup = new FormGroup(
+    this.freeFormQuestionFormGroup = new FormGroup(
       {
         title: new FormControl(ffq.title, SentinelValidators.noWhitespace),
         score: new FormControl(ffq.score, [
@@ -25,33 +26,40 @@ export class FreeFormQuestionFormGroup {
           Validators.min(0),
           Validators.max(Question.MAX_QUESTION_PENALTY),
         ]),
-        answers: new FormArray(
-          ffq.correctAnswers.map((answer) => new FormControl(answer, SentinelValidators.noWhitespace))
+        choices: new FormArray(
+          ffq.choices.map(
+            (choice) =>
+              new FormGroup({
+                id: new FormControl(choice.id),
+                text: new FormControl(choice.text, [SentinelValidators.noWhitespace, Validators.required]),
+                correct: new FormControl(choice.correct),
+                order: new FormControl(choice.order),
+              })
+          )
         ),
       },
-      this.noSelectedAnswers
+      this.noSelectedChoices
     );
   }
 
   /**
    * Sets form input values to free form question object
    * @param ffq free form question to be filled with values
-   * @param ffqIsValid true if free form question is valid, false otherwise
    * @param isTest true if level is test, false if questionnaire
    */
-  setToFFQ(ffq: FreeFormQuestion, ffqIsValid: boolean, isTest: boolean): void {
-    ffq.title = this.formGroup.get('title').value;
-    ffq.correctAnswers = this.formGroup.get('answers').value;
-    ffq.score = ffq.required ? this.formGroup.get('score').value : 0;
-    ffq.penalty = isTest ? this.formGroup.get('penalty').value : 0;
-    ffq.valid = !isTest ? true : this.formGroup.valid && ffqIsValid;
+  setToFFQ(ffq: FreeFormQuestion, isTest: boolean): void {
+    ffq.title = this.freeFormQuestionFormGroup.get('title').value;
+    ffq.choices = this.freeFormQuestionFormGroup.get('choices').value;
+    ffq.score = ffq.required ? this.freeFormQuestionFormGroup.get('score').value : 0;
+    ffq.penalty = isTest ? this.freeFormQuestionFormGroup.get('penalty').value : 0;
+    ffq.valid = !isTest ? true : this.freeFormQuestionFormGroup.valid;
   }
 
-  private noSelectedAnswers: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
+  private noSelectedChoices: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
     let error = null;
-    const answers = control.get('answers');
-    if (answers && answers.value.length === 0) {
-      error = { noSelectedAnswers: true };
+    const choices = control.get('choices');
+    if (choices && choices.value.length === 0) {
+      error = { noSelectedChoices: true };
     }
     return error ? error : null;
   };
@@ -59,15 +67,15 @@ export class FreeFormQuestionFormGroup {
   /**
    * Adds validator to answers if preselected correct answers are required (if level is test)
    */
-  addAnswersValidator(): void {
-    this.formGroup.setValidators(this.noSelectedAnswers);
+  addChoicesValidator(): void {
+    this.freeFormQuestionFormGroup.setValidators(this.noSelectedChoices);
   }
 
   /**
    * Removes validators from answers if preselected correct answers are not required (if level is questionnaire)
    */
-  removeAnswersValidator(): void {
-    this.formGroup.clearValidators();
-    this.formGroup.updateValueAndValidity();
+  removeChoicesValidator(): void {
+    this.freeFormQuestionFormGroup.clearValidators();
+    this.freeFormQuestionFormGroup.updateValueAndValidity();
   }
 }

@@ -7,9 +7,8 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { AbstractControl, FormArray, FormControl, Validators } from '@angular/forms';
-import { MatCheckboxChange } from '@angular/material/checkbox';
-import { SentinelBaseDirective } from '@sentinel/common';
+import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { SentinelBaseDirective, SentinelValidators } from '@sentinel/common';
 import { Question } from '@muni-kypo-crp/training-model';
 import { MultipleChoiceQuestion } from '@muni-kypo-crp/training-model';
 import { takeWhile } from 'rxjs/operators';
@@ -41,11 +40,8 @@ export class MultipleChoiceQuestionEditComponent extends SentinelBaseDirective i
   get title(): AbstractControl {
     return this.multipleChoicesFormGroup.formGroup.get('title');
   }
-  get options(): FormArray {
-    return this.multipleChoicesFormGroup.formGroup.get('options') as FormArray;
-  }
-  get correctAnswersIndices(): AbstractControl {
-    return this.multipleChoicesFormGroup.formGroup.get('correctAnswersIndices');
+  get choices(): FormArray {
+    return this.multipleChoicesFormGroup.formGroup.get('choices') as FormArray;
   }
   get score(): AbstractControl {
     return this.multipleChoicesFormGroup.formGroup.get('score');
@@ -66,7 +62,7 @@ export class MultipleChoiceQuestionEditComponent extends SentinelBaseDirective i
       this.checkState();
       if (!this.isTest) {
         this.penalty.setValue(0);
-        this.clearAnswers();
+        this.clearCorrectChoices();
       }
     }
     if ('required' in changes && !changes.required.isFirstChange()) {
@@ -95,39 +91,33 @@ export class MultipleChoiceQuestionEditComponent extends SentinelBaseDirective i
   /**
    * Deletes all answers
    */
-  clearAnswers(): void {
-    this.correctAnswersIndices.setValue([]);
+  clearCorrectChoices(): void {
+    this.choices.controls.forEach((choice) => choice.get('correct').setValue(false));
     this.questionChanged();
   }
 
   /**
-   * Adds or removes answer from correct answers
-   * @param event event of checkbox change
-   * @param index index of an answer which has been changed
+   * Deletes an choice (one of the answers)
+   * @param index index of the choice which should be deleted
    */
-  onAnswerChanged(event: MatCheckboxChange, index: number): void {
-    if (event.checked) {
-      this.addCorrectAnswer(index);
-    } else {
-      this.removeCorrectAnswer(index);
-    }
-  }
-
-  /**
-   * Deletes an option (one of the answers)
-   * @param index index of the option which should be deleted
-   */
-  deleteOption(index: number): void {
-    this.options.removeAt(index);
-    this.removeCorrectAnswer(index);
+  deleteChoice(index: number): void {
+    this.choices.removeAt(index);
+    this.choices.controls.slice(index).forEach((choice) => choice.get('order').setValue(choice.get('order').value - 1));
     this.questionChanged();
   }
 
   /**
-   * Adds new option
+   * Adds new choice
    */
-  addOption(): void {
-    (this.options as FormArray).push(new FormControl('', Validators.required));
+  addChoice(): void {
+    this.choices.push(
+      new FormGroup({
+        id: new FormControl(null),
+        text: new FormControl('', [SentinelValidators.noWhitespace, Validators.required]),
+        correct: new FormControl(false),
+        order: new FormControl(this.choices.length),
+      })
+    );
     this.questionChanged();
   }
 
@@ -141,26 +131,11 @@ export class MultipleChoiceQuestionEditComponent extends SentinelBaseDirective i
   }
 
   /**
-   * Adds correct answer
-   * @param index index of the answer which should be marked as correct
+   * Check if at least one choice is selected as correct.
+   * @return true if at least one choice is selected as correct, false otherwise
    */
-  private addCorrectAnswer(index: number) {
-    this.correctAnswersIndices.value.push(index);
-    this.questionChanged();
-    this.correctAnswersIndices.updateValueAndValidity();
-  }
-
-  /**
-   * Removes given answer from correct answers
-   * @param index index of the answer which should be deleted
-   */
-  private removeCorrectAnswer(index: number) {
-    const indexToRemove = this.correctAnswersIndices.value.indexOf(index);
-    if (indexToRemove !== -1) {
-      this.correctAnswersIndices.value.splice(indexToRemove, 1);
-      this.questionChanged();
-      this.correctAnswersIndices.updateValueAndValidity();
-    }
+  isCorrectChoiceSelected(): boolean {
+    return this.choices.value.filter((choice) => choice.correct).length > 0;
   }
 
   /**

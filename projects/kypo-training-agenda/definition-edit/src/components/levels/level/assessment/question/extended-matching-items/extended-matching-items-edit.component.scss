@@ -33,11 +33,11 @@ tr {
   border-bottom: 1px solid #ddd;
 }
 
-tr.first-row {
+tr.first-statement {
   border-top: 0;
 }
 
-tr.last-row {
+tr.last-statement {
   border-bottom: 0;
 }
 
@@ -67,11 +67,11 @@ td {
   margin-bottom: 10px;
 }
 
-mat-form-field.col-field {
+mat-form-field.option-field {
   width: 120px;
 }
 
-mat-form-field.row-field {
+mat-form-field.statement-field {
   width: 120px;
 }
 

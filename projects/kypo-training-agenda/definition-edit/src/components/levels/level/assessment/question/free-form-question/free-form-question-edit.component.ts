@@ -7,8 +7,8 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
-import { SentinelBaseDirective } from '@sentinel/common';
+import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { SentinelBaseDirective, SentinelValidators } from '@sentinel/common';
 import { Question } from '@muni-kypo-crp/training-model';
 import { FreeFormQuestion } from '@muni-kypo-crp/training-model';
 import { takeWhile } from 'rxjs/operators';
@@ -33,18 +33,19 @@ export class FreeFormQuestionEditComponent extends SentinelBaseDirective impleme
   freeFormQuestionFormGroup: FreeFormQuestionFormGroup;
   maxQuestionScore = Question.MAX_QUESTION_SCORE;
   maxQuestionPenalty = Question.MAX_QUESTION_PENALTY;
+  freeFormChoices: FormArray;
 
   get title(): AbstractControl {
-    return this.freeFormQuestionFormGroup.formGroup.get('title');
-  }
-  get answers(): FormArray {
-    return this.freeFormQuestionFormGroup.formGroup.get('answers') as FormArray;
+    return this.freeFormQuestionFormGroup.freeFormQuestionFormGroup.get('title');
   }
   get score(): AbstractControl {
-    return this.freeFormQuestionFormGroup.formGroup.get('score');
+    return this.freeFormQuestionFormGroup.freeFormQuestionFormGroup.get('score');
   }
   get penalty(): AbstractControl {
-    return this.freeFormQuestionFormGroup.formGroup.get('penalty');
+    return this.freeFormQuestionFormGroup.freeFormQuestionFormGroup.get('penalty');
+  }
+  get choices(): FormArray {
+    return this.freeFormQuestionFormGroup.freeFormQuestionFormGroup.get('choices') as FormArray;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -52,7 +53,7 @@ export class FreeFormQuestionEditComponent extends SentinelBaseDirective impleme
       if (!this.freeFormQuestionFormGroup) {
         this.freeFormQuestionFormGroup = new FreeFormQuestionFormGroup(this.question);
         this.checkState();
-        this.freeFormQuestionFormGroup.formGroup.valueChanges
+        this.freeFormQuestionFormGroup.freeFormQuestionFormGroup.valueChanges
           .pipe(takeWhile(() => this.isAlive))
           .subscribe(() => this.questionChanged());
       }
@@ -61,7 +62,7 @@ export class FreeFormQuestionEditComponent extends SentinelBaseDirective impleme
       this.checkState();
       if (!this.isTest) {
         this.penalty.setValue(0);
-        this.clearAnswers();
+        this.clearChoices();
       }
     }
     if ('required' in changes && !changes.required.isFirstChange()) {
@@ -74,21 +75,42 @@ export class FreeFormQuestionEditComponent extends SentinelBaseDirective impleme
    * Changes internal state of the component if question is changed and emits event to parent component
    */
   questionChanged(): void {
-    this.freeFormQuestionFormGroup.formGroup.markAsDirty();
-    this.freeFormQuestionFormGroup.setToFFQ(this.question, this.freeFormValid, this.isTest);
+    this.freeFormQuestionFormGroup.freeFormQuestionFormGroup.markAsDirty();
+    this.freeFormQuestionFormGroup.setToFFQ(this.question, this.isTest);
     this.questionChange.emit(this.question);
   }
 
   /**
-   * Changes internal state of the component if answer is changed
-   * @param event change event of answers
+   * Adds new answer
    */
-  answerChanged(event: FormGroup): void {
-    this.freeFormValid = event.valid;
-    this.answers.clear();
-    event.value['items'].forEach((item) => {
-      (this.answers as FormArray).push(new FormControl(item));
-    });
+  addChoice(): void {
+    this.choices.push(
+      new FormGroup({
+        id: new FormControl(null),
+        text: new FormControl('', [SentinelValidators.noWhitespace, Validators.required]),
+        correct: new FormControl(true),
+        order: new FormControl(this.choices.length),
+      })
+    );
+    this.questionChanged();
+  }
+
+  /**
+   * Deletes a choice
+   * @param index index of the answer which should be deleted
+   */
+  deleteChoice(index: number): void {
+    this.choices.removeAt(index);
+    this.choices.controls.slice(index).forEach((choice) => choice.get('order').setValue(choice.get('order').value - 1));
+    this.questionChanged();
+  }
+
+  /**
+   * Helper method to improve *ngFor performance
+   * @param index
+   */
+  trackByFn(index: any): any {
+    return index;
   }
 
   /**
@@ -110,20 +132,20 @@ export class FreeFormQuestionEditComponent extends SentinelBaseDirective impleme
       this.score.disable();
     }
     if (this.isTest) {
-      this.freeFormQuestionFormGroup.addAnswersValidator();
+      this.freeFormQuestionFormGroup.addChoicesValidator();
     } else {
-      this.freeFormQuestionFormGroup.removeAnswersValidator();
+      this.freeFormQuestionFormGroup.removeChoicesValidator();
     }
     if (this.required && this.isTest) {
       this.penalty.enable();
     } else {
       this.penalty.disable();
     }
-    this.freeFormQuestionFormGroup.formGroup.updateValueAndValidity();
+    this.freeFormQuestionFormGroup.freeFormQuestionFormGroup.updateValueAndValidity();
   }
 
-  private clearAnswers() {
-    this.answers.clear();
+  clearChoices(): void {
+    this.choices.clear();
     this.questionChanged();
   }
 }

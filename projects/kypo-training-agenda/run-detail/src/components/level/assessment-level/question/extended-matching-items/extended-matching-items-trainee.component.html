@@ -8,14 +8,14 @@
     <!-- TABLE HEADER-->
     <tr>
       <th></th>
-      <th *ngFor="let col of question.cols">{{ col }}</th>
+      <th *ngFor="let option of question.extendedMatchingOptions">{{ option.text }}</th>
     </tr>
 
     <!-- TABLE BODY-->
-      <tr *ngFor="let row of question.rows; index as i" class="inner">
-        <td>{{ row }}</td>
+      <tr *ngFor="let statement of question.extendedMatchingStatements; index as i" class="inner">
+        <td>{{ statement.text }}</td>
         <mat-radio-group>
-          <td *ngFor="let col of question.cols; index as j;">
+          <td *ngFor="let option of question.extendedMatchingOptions; index as j;">
             <mat-radio-button [value]="{ x: i, y: j }" (change)="onAnswerChanged(i, j)"></mat-radio-button>
           </td>
         </mat-radio-group>

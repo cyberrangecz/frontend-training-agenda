@@ -1,4 +1,4 @@
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { SentinelValidators } from '@sentinel/common';
 import { Question } from '@muni-kypo-crp/training-model';
 import { MultipleChoiceQuestion } from '@muni-kypo-crp/training-model';
@@ -12,27 +12,45 @@ export class MultipleChoiceFormGroup {
   private maxQuestionPenalty = Question.MAX_QUESTION_PENALTY;
 
   constructor(mcq: MultipleChoiceQuestion) {
-    this.formGroup = new FormGroup({
-      title: new FormControl(mcq.title, SentinelValidators.noWhitespace),
-      options: new FormArray(
-        mcq.options.map((option) => new FormControl(option, SentinelValidators.noWhitespace)),
-        Validators.required
-      ),
-      correctAnswersIndices: new FormControl(mcq.correctAnswersIndices, Validators.required),
-      score: new FormControl(mcq.score, [
-        Validators.required,
-        Validators.pattern('^[0-9]*$'),
-        Validators.min(0),
-        Validators.max(this.maxQuestionScore),
-      ]),
-      penalty: new FormControl(mcq.penalty, [
-        Validators.required,
-        Validators.pattern('^[0-9]*$'),
-        Validators.min(0),
-        Validators.max(this.maxQuestionPenalty),
-      ]),
-    });
+    this.formGroup = new FormGroup(
+      {
+        title: new FormControl(mcq.title, SentinelValidators.noWhitespace),
+        choices: new FormArray(
+          mcq.choices.map(
+            (choice) =>
+              new FormGroup({
+                id: new FormControl(choice.id),
+                text: new FormControl(choice.text, [SentinelValidators.noWhitespace, Validators.required]),
+                correct: new FormControl(choice.correct),
+                order: new FormControl(choice.order),
+              })
+          ),
+          Validators.required
+        ),
+        score: new FormControl(mcq.score, [
+          Validators.required,
+          Validators.pattern('^[0-9]*$'),
+          Validators.min(0),
+          Validators.max(this.maxQuestionScore),
+        ]),
+        penalty: new FormControl(mcq.penalty, [
+          Validators.required,
+          Validators.pattern('^[0-9]*$'),
+          Validators.min(0),
+          Validators.max(this.maxQuestionPenalty),
+        ]),
+      },
+      this.noSelectedAnswers
+    );
   }
+
+  private noSelectedAnswers: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
+    let error = null;
+    if ((control.get('choices') as FormArray).controls.filter((choice) => choice.get('correct').value).length === 0) {
+      error = { noSelectedAnswers: true };
+    }
+    return error ? error : null;
+  };
 
   /**
    * Sets inserted input to multiple choice question object
@@ -41,26 +59,24 @@ export class MultipleChoiceFormGroup {
    */
   setToMCQ(mcq: MultipleChoiceQuestion, isTest: boolean): void {
     mcq.title = this.formGroup.get('title').value;
-    mcq.correctAnswersIndices = this.formGroup.get('correctAnswersIndices').value;
-    mcq.options = this.formGroup.get('options').value;
+    mcq.choices = this.formGroup.get('choices').value;
     mcq.score = mcq.required ? this.formGroup.get('score').value : 0;
     mcq.penalty = isTest ? this.formGroup.get('penalty').value : 0;
     mcq.valid = this.formGroup.valid;
   }
 
   /**
-   * Adds validators to check whether correct answers were predefined if level is test
+   * Adds correct answers validators (if level is test)
    */
   addAnswersValidator(): void {
-    this.formGroup.get('correctAnswersIndices').setValidators(Validators.required);
-    this.formGroup.get('correctAnswersIndices').updateValueAndValidity();
+    this.formGroup.setValidators(this.noSelectedAnswers);
   }
 
   /**
-   * Removes correct answers validators if level is questionnaire
+   * Removes correct answers validators (if level is questionnaire)
    */
   removeAnswersValidator(): void {
-    this.formGroup.get('correctAnswersIndices').clearValidators();
-    this.formGroup.get('correctAnswersIndices').updateValueAndValidity();
+    this.formGroup.clearValidators();
+    this.formGroup.updateValueAndValidity();
   }
 }

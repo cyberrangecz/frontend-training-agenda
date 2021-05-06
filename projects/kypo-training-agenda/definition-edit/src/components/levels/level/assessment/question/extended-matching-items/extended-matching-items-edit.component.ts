@@ -1,17 +1,13 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Input,
   OnChanges,
   Output,
-  QueryList,
   SimpleChanges,
-  ViewChildren,
 } from '@angular/core';
-import { AbstractControl, FormArray, FormControl } from '@angular/forms';
-import { MatRadioButton } from '@angular/material/radio';
+import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
 import { SentinelBaseDirective, SentinelValidators } from '@sentinel/common';
 import { Question } from '@muni-kypo-crp/training-model';
 import { ExtendedMatchingItems } from '@muni-kypo-crp/training-model';
@@ -27,7 +23,7 @@ import { ExtendedMatchingItemsFormGroup } from './extended-matching-items-form-g
   styleUrls: ['./extended-matching-items-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ExtendedMatchingItemsEditComponent extends SentinelBaseDirective implements OnChanges, AfterViewInit {
+export class ExtendedMatchingItemsEditComponent extends SentinelBaseDirective implements OnChanges {
   @Input() question: ExtendedMatchingItems;
   @Input() isTest: boolean;
   @Input() required: boolean;
@@ -37,8 +33,6 @@ export class ExtendedMatchingItemsEditComponent extends SentinelBaseDirective im
   maxQuestionScore = Question.MAX_QUESTION_SCORE;
   maxQuestionPenalty = Question.MAX_QUESTION_PENALTY;
 
-  @ViewChildren(MatRadioButton) radioButtons: QueryList<MatRadioButton>;
-
   constructor() {
     super();
   }
@@ -46,14 +40,11 @@ export class ExtendedMatchingItemsEditComponent extends SentinelBaseDirective im
   get title(): AbstractControl {
     return this.extendedMatchingQuestionFormGroup.formGroup.get('title');
   }
-  get rows(): FormArray {
-    return this.extendedMatchingQuestionFormGroup.formGroup.get('rows') as FormArray;
+  get options(): FormArray {
+    return this.extendedMatchingQuestionFormGroup.formGroup.get('options') as FormArray;
   }
-  get cols(): FormArray {
-    return this.extendedMatchingQuestionFormGroup.formGroup.get('cols') as FormArray;
-  }
-  get correctAnswers(): FormArray {
-    return this.extendedMatchingQuestionFormGroup.formGroup.get('correctAnswers') as FormArray;
+  get statements(): FormArray {
+    return this.extendedMatchingQuestionFormGroup.formGroup.get('statements') as FormArray;
   }
   get score(): AbstractControl {
     return this.extendedMatchingQuestionFormGroup.formGroup.get('score');
@@ -81,10 +72,6 @@ export class ExtendedMatchingItemsEditComponent extends SentinelBaseDirective im
       this.checkState();
       this.onRequiredChanged();
     }
-  }
-
-  ngAfterViewInit(): void {
-    this.setInitialStateOfRadioButtons();
   }
 
   /**
@@ -117,102 +104,104 @@ export class ExtendedMatchingItemsEditComponent extends SentinelBaseDirective im
    * Clears all correct answers
    */
   clearAnswers(): void {
-    this.correctAnswers.clear();
-    if (this.radioButtons) {
-      this.radioButtons.forEach((button) => (button.checked = false));
-    }
+    this.statements.controls.forEach((statement) => statement.get('correctOptionOrder').setValue(null));
     this.questionChanged();
   }
 
   /**
    * Adds answer chosen by a user as a correct answer
-   * @param i row coordinate in the matrix representing the possible answers (EMI table)
-   * @param j col coordinate in the matrix representing the possible answers (EMI table)
+   * @param i row coordinate in the matrix representing the possible answers (EMI table - statement)
+   * @param j col coordinate in the matrix representing the possible answers (EMI table - option)
    */
-  onAnswerChanged(i: number, j: number): void {
-    this.deleteAnswerByRow(i);
-    this.correctAnswers.push(new FormControl({ x: i, y: j }));
+  onCorrectOptionChanged(i: number, j: number): void {
+    this.statements.controls[i].get('correctOptionOrder').setValue(j);
     this.questionChanged();
   }
 
   /**
-   * Deletes row from the EMI table
-   * @param index row coordinate in the matrix representing the EMI table
+   * Check if any option in the matrix representing the EMI table is selected as correct.
    */
-  deleteRow(index: number): void {
-    this.rows.removeAt(index);
-    this.deleteAnswerByRow(index);
+  isCheckedAnyOption(): boolean {
+    return this.statements.controls.findIndex((statement) => statement.get('correctOptionOrder').value !== null) !== -1;
+  }
+
+  /**
+   * Check if the option on the given index is selected as correct for the given statement.
+   * @param statement to be checked
+   * @param optionIndex option coordinate in the matrix representing the EMI table
+   */
+  isOptionChecked(statement: AbstractControl, optionIndex: number): boolean {
+    return statement.get('correctOptionOrder').value == optionIndex;
+  }
+
+  /**
+   * Deletes statement from the EMI table
+   * @param index statement coordinate in the matrix representing the EMI table
+   */
+  deleteStatement(index: number): void {
+    this.statements.removeAt(index);
+    this.statements.controls
+      .slice(index)
+      .forEach((statement) => statement.get('order').setValue(statement.get('order').value - 1));
     this.questionChanged();
   }
 
   /**
-   * Adds new row to the EMI table
+   * Adds new statement to the EMI table
    */
-  addRow(): void {
-    this.rows.push(new FormControl('', SentinelValidators.noWhitespace));
+  addStatement(): void {
+    this.statements.push(
+      new FormGroup({
+        id: new FormControl(null),
+        order: new FormControl(this.statements.length),
+        text: new FormControl('', SentinelValidators.noWhitespace),
+        correctOptionOrder: new FormControl(),
+      })
+    );
     this.questionChanged();
   }
 
   /**
-   * Deletes column from the EMI table
-   * @param index column coordinate in the matrix representing the EMI table
+   * Adds new option to the EMI table
    */
-  deleteColumn(index: number): void {
-    this.cols.removeAt(index);
-    this.deleteAnswersByCol(index);
+  addOption(): void {
+    this.options.push(
+      new FormGroup({
+        id: new FormControl(null),
+        order: new FormControl(this.options.length),
+        text: new FormControl('', SentinelValidators.noWhitespace),
+      })
+    );
+    this.questionChanged();
+  }
+
+  getOptions(): number[] {
+    return this.options.value.map((option) => option.order);
+  }
+
+  /**
+   * Deletes option from the EMI table
+   * @param index option coordinate in the matrix representing the EMI table
+   */
+  deleteOption(index: number): void {
+    this.options.removeAt(index);
+    this.updateStatementsAfterDeleteOption(index);
+    this.options.controls.slice(index).forEach((option) => option.get('order').setValue(option.get('order').value - 1));
     this.questionChanged();
   }
 
   /**
-   * Adds new column to the EMI table
+   * Update **correctOptionOrder** attribute in statements after the option has been deleted. Attribute corresponding to
+   * a parameter **optionIndex** is set to *null* and attributes higher than **optionIndex** are decreased.
+   * @param optionIndex index of a option in a matrix representing the EMI table
    */
-  addColumn(): void {
-    this.cols.push(new FormControl('', SentinelValidators.noWhitespace));
-    this.questionChanged();
-  }
-
-  /**
-   * Deletes all correct (selected) answers in a given column (usually used after the column itself was deleted)
-   * @param colIndex index of a column in a matrix representing the EMI table
-   */
-  private deleteAnswersByCol(colIndex: number) {
-    const answersToDelete = this.correctAnswers.controls.filter((answer) => answer.value.y === colIndex);
-    if (answersToDelete.length > 0) {
-      answersToDelete.forEach((answerToDelete) => {
-        const indexOfAnswerToDelete = this.correctAnswers.controls.indexOf(answerToDelete);
-        if (indexOfAnswerToDelete > -1) {
-          this.correctAnswers.removeAt(indexOfAnswerToDelete);
-        }
-      });
-    }
-  }
-
-  /**
-   * Deletes correct (selected) answer in a given row (usually used after the column itself was deleted)
-   * @param rowIndex index of a row in a matrix representing the EMI table
-   */
-  private deleteAnswerByRow(rowIndex: number) {
-    const answerToDelete = this.correctAnswers.controls.find((answer) => answer.value.x === rowIndex);
-    if (answerToDelete) {
-      const indexOfAnswerToDelete = this.correctAnswers.controls.indexOf(answerToDelete);
-      if (indexOfAnswerToDelete > -1) {
-        this.correctAnswers.removeAt(indexOfAnswerToDelete);
-      }
-    }
-  }
-
-  /**
-   * Sets initial state of every radio button (checked / not checked) based on the correct answers coordinates
-   */
-  private setInitialStateOfRadioButtons() {
-    this.radioButtons.forEach((button) => {
-      const buttonValue = {
-        x: button.value.x,
-        y: button.value.y,
-      };
-
-      if (this.correctAnswers.value.find((answer) => answer.x === buttonValue.x && answer.y === buttonValue.y)) {
-        button.checked = true;
+  private updateStatementsAfterDeleteOption(optionIndex: number) {
+    this.statements.controls.forEach((statement) => {
+      const correctOptionOrder = statement.get('correctOptionOrder');
+      if (correctOptionOrder.value === optionIndex) {
+        correctOptionOrder.setValue(null);
+      } else if (correctOptionOrder.value && correctOptionOrder.value > optionIndex) {
+        correctOptionOrder.setValue(correctOptionOrder.value - 1);
       }
     });
   }

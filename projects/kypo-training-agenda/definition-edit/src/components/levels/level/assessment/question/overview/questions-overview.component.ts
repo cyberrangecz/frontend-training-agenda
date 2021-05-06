@@ -76,6 +76,12 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
   addFFQ(): void {
     const newFfq = new FreeFormQuestion('New Free Form Question');
     newFfq.required = this.isTest;
+    newFfq.choices.push({
+      id: null,
+      correct: true,
+      text: 'Answer 1',
+      order: 0,
+    });
     this.questions.push(newFfq);
     this.onQuestionChanged();
   }
@@ -85,8 +91,18 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
    */
   addMCQ(): void {
     const newMcq = new MultipleChoiceQuestion('New Multiple Choice Question');
-    newMcq.options.push('Option 1');
-    newMcq.options.push('Option 2');
+    newMcq.choices.push({
+      id: null,
+      correct: false,
+      text: 'Choice 1',
+      order: 0,
+    });
+    newMcq.choices.push({
+      id: null,
+      correct: false,
+      text: 'Choice 2',
+      order: 1,
+    });
     newMcq.required = this.isTest;
     this.questions.push(newMcq);
     this.onQuestionChanged();
@@ -98,10 +114,28 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
   addEMI(): void {
     const newEmi = new ExtendedMatchingItems('New Extended Matching Items');
     newEmi.required = this.isTest;
-    newEmi.cols.push('Column 1');
-    newEmi.cols.push('Column 2');
-    newEmi.rows.push('Row 1');
-    newEmi.rows.push('Row 2');
+    newEmi.extendedMatchingStatements.push({
+      id: null,
+      text: 'Statement 1',
+      order: 0,
+      correctOptionOrder: null,
+    });
+    newEmi.extendedMatchingStatements.push({
+      id: null,
+      text: 'Statement 2',
+      order: 1,
+      correctOptionOrder: null,
+    });
+    newEmi.extendedMatchingOptions.push({
+      id: null,
+      text: 'Option 1',
+      order: 0,
+    });
+    newEmi.extendedMatchingOptions.push({
+      id: null,
+      text: 'Option 2',
+      order: 1,
+    });
     this.questions.push(newEmi);
     this.onQuestionChanged();
   }

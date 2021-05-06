@@ -1,4 +1,4 @@
-<form [formGroup]="freeFormQuestionFormGroup.formGroup">
+<form [formGroup]="freeFormQuestionFormGroup.freeFormQuestionFormGroup">
   <div class="content">
     <!-- TITLE field-->
     <mat-form-field appearance="outline"
@@ -42,18 +42,54 @@
       </mat-form-field>
     </div>
 
-    <!-- CORRECT ANSWERS field -->
+    <!-- CORRECT CHOICES field -->
     <div class="form-container" *ngIf="isTest">
-      <sentinel-free-form
-                      [formData]="answers"
-                      [required]="true"
-                      [formName]="'Answer'" [formPlaceholder]="'Answer'"
-                      (itemsChange)="answerChanged($event)">
-      </sentinel-free-form>
+
+      <!-- ADD button-->
+      <button color="primary" mat-button (click)="addChoice()">Add answer</button>
+      <!-- DELETE button-->
+      <button [disabled]="choices.controls.length < 1" color="warn" mat-button (click)="clearChoices()">Delete all</button>
+
+      <!-- Choice field-->
+        <div formArrayName="choices" class="choices">
+          <div *ngIf="choices.controls && choices.controls.length > 0; else noChoices">
+            <div class="answer"
+                 *ngFor="let choice of choices.controls; index as i; trackBy: trackByFn"
+                 [formGroupName]="i">
+              <mat-form-field appearance="outline" (keydown.enter)="$event.preventDefault()">
+                <mat-label>Answer</mat-label>
+                <input matInput placeholder="Answer" [formControl]="choice.get('text')"/>
+                <button
+                  class="free-form-clear-btn"
+                  mat-button
+                  *ngIf="choice.get('text').value"
+                  matSuffix
+                  mat-icon-button
+                  aria-label="Clear"
+                  (click)="choice.get('text').setValue('')">
+                  <mat-icon>close</mat-icon>
+                </button>
+                <mat-error *ngIf="choice.get('text').hasError('whitespace')">Answer cannot be empty</mat-error>
+              </mat-form-field>
+
+              <!-- REMOVE button-->
+              <button
+                class="remove-btn"
+                mat-button color="warn"
+                (click)="deleteChoice(i)">
+                <mat-icon>remove_circle</mat-icon>
+              </button>
+            </div>
+          </div>
+          <ng-template #noChoices>
+            <h4>No answers added</h4>
+          </ng-template>
+        </div>
+
     </div>
 
     <mat-error *ngIf="isTest &&
-      freeFormQuestionFormGroup.formGroup.hasError('noSelectedAnswers')">Test
+      freeFormQuestionFormGroup.freeFormQuestionFormGroup.hasError('noSelectedChoices')">Test
       question must have correct answers.</mat-error>
   </div>
 </form>
