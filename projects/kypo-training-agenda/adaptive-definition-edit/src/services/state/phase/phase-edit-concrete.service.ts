@@ -34,9 +34,8 @@ export class PhaseEditConcreteService extends PhaseEditService {
   set(trainingDefinitionId: number, phases: Phase[]): void {
     this.trainingDefinitionId = trainingDefinitionId;
     this.phasesSubject$.next(phases);
-    this.presentTrainingPhasesSubject$.next(
-      phases.filter((phase) => phase.type === AbstractPhaseTypeEnum.Training) as TrainingPhase[]
-    );
+    this.updatePresentTrainingPhases();
+    this.updateActiveTasks();
   }
 
   getPhasesCount(): number {
@@ -204,6 +203,8 @@ export class PhaseEditConcreteService extends PhaseEditService {
       tap(() => {
         this.updateOrder();
         this.updateMatrices();
+        this.updateActiveTasks();
+        this.updatePresentTrainingPhases();
       })
     );
   }
@@ -494,6 +495,12 @@ export class PhaseEditConcreteService extends PhaseEditService {
 
   private updateActiveTasks(): void {
     this.activeTasksSubject$.next((this.getSelected() as TrainingPhase).tasks);
+  }
+
+  private updatePresentTrainingPhases(): void {
+    this.presentTrainingPhasesSubject$.next(
+      this.phasesSubject$.value.filter((phase) => phase.type === AbstractPhaseTypeEnum.Training) as TrainingPhase[]
+    );
   }
 
   setActiveTask(index: number): void {
