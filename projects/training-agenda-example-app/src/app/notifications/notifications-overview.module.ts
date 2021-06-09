@@ -5,7 +5,7 @@ import {
   SentinelNotificationOverviewComponent,
   SentinelNotificationOverviewModule,
   NotificationResolver,
-} from '@sentinel/layout';
+} from '@sentinel/layout/notification';
 
 @NgModule({
   imports: [
