@@ -2,7 +2,7 @@
     "lib": {
         "entryFile": "src/public_api.ts",
         "umdModuleIds": {
-            "@sentinel/layout": "sentinel.layout",
+            "@sentinel/layout/user-card": "sentinel.layout.user-card",
             "@sentinel/common": "sentinel.common",
             "@sentinel/components/stepper": "sentinel.components.stepper",
             "@sentinel/auth": "sentinel.auth",

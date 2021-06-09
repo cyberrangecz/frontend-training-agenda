@@ -1,5 +1,5 @@
 @use '~@angular/material' as mat;
-@import '~@sentinel/layout/assets/sentinel-variables';
+@import "~@sentinel/layout/src/assets/sentinel-layout/sentinel-variables";
 
 $primary: mat.get-color-from-palette($sentinel-primary-palette);
 $accent: mat.get-color-from-palette($sentinel-accent-palette);

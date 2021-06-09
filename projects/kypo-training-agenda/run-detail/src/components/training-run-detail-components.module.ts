@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { SentinelUserCardModule } from '@sentinel/layout';
+import { SentinelUserCardModule } from '@sentinel/layout/user-card';
 import { SentinelPipesModule } from '@sentinel/common';
 import { SentinelStepperModule } from '@sentinel/components/stepper';
 import { LevelComponentsModule } from './level/level-components.module';

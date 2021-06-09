@@ -3,7 +3,7 @@
 @import "~@sentinel/components/table/assets/sentinel-table-theme";
 @import "~@sentinel/components/resource-selector/assets/sentinel-resource-selector-theme";
 @import "~@sentinel/components/stepper/assets/sentinel-stepper-theme";
-@import '~@sentinel/layout/assets/sentinel-variables';
+@import "~@sentinel/layout/src/assets/sentinel-layout/sentinel-variables";
 
 @include mat.core();
 @include mat.all-component-themes($sentinel-theme);
