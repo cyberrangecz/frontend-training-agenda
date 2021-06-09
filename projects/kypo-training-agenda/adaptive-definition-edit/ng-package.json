@@ -1,1 +1,17 @@
-{}
+{
+    "lib": {
+        "entryFile": "src/public_api.ts",
+        "umdModuleIds": {
+            "@sentinel/common": "sentinel.common",
+            "@sentinel/components/controls": "sentinel.components.controls",
+            "@sentinel/components/user-assign": "sentinel.components.user-assign",
+            "@sentinel/components/dialogs": "sentinel.components.dialogs",
+            "@muni-kypo-crp/training-model": "muni-kypo-crp.training-model",
+            "@muni-kypo-crp/training-api": "muni-kypo-crp.training-api",
+            "@sentinel/components/free-form": "sentinel.components.free-form",
+            "@sentinel/components/stepper": "sentinel.components.stepper",
+            "@sentinel/components/markdown-editor": "sentinel.components.markdown-editor",
+            "ngx-markdown": "ngx-markdown"
+        }
+    }
+}

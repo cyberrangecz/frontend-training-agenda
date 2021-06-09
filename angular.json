@@ -59,7 +59,6 @@
             "main": "projects/training-agenda-example-app/src/main.ts",
             "polyfills": "projects/training-agenda-example-app/src/polyfills.ts",
             "tsConfig": "projects/training-agenda-example-app/tsconfig.app.json",
-            "aot": true,
             "assets": [
               "projects/training-agenda-example-app/src/favicon.ico",
               "projects/training-agenda-example-app/src/assets"
@@ -70,7 +69,13 @@
               "projects/training-agenda-example-app/src/variables.scss",
               "node_modules/@muni-kypo-crp/overview-visualization/styles.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -100,7 +105,8 @@
                 }
               ]
             }
-          }
+          },
+          "defaultConfiguration": ""
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -150,7 +156,7 @@
           "options": {
             "cypressConfig": "e2e/cypress.json",
             "tsConfig": "e2e/tsconfig.e2e.json",
-            "devServerTarget": "training-agenda-example-app:serve"
+            "devServerTarget": "training-agenda-example-app:serve:development"
           },
           "configurations": {
             "production": {

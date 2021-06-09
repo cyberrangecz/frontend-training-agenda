@@ -22,3 +22,6 @@ export * from './services/adaptive-run/training-phase/adaptive-run-training-phas
 export * from './services/adaptive-run/training-phase/adaptive-run-training-phase-concrete.service';
 
 export * from './next-phase-dialog/next-phase-dialog.module';
+export * from './next-phase-dialog/next-phase-dialog.component';
+
+export * from './next-phase-dialog/pipes/title-case-except.pipe';
