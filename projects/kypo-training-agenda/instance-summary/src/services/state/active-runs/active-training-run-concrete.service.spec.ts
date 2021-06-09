@@ -143,7 +143,7 @@ describe('ActiveTrainingRunConcreteService', () => {
     return new PaginatedResource([], new SentinelPagination(1, 0, 5, 5, 1));
   }
 
-  function assertPoll(times: number, initialHaveBeenCalledTimes: number = 1) {
+  function assertPoll(times: number, initialHaveBeenCalledTimes = 1) {
     let calledTimes = initialHaveBeenCalledTimes;
     for (let i = 0; i < times; i++) {
       tick(context.config.pollingPeriod);

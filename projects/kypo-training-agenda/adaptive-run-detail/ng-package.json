@@ -1,1 +1,14 @@
-{}
+{
+    "lib": {
+        "entryFile": "src/public_api.ts",
+        "umdModuleIds": {
+            "@sentinel/layout": "sentinel.layout",
+            "@sentinel/common": "sentinel.common",
+            "@sentinel/components/stepper": "sentinel.components.stepper",
+            "@sentinel/auth": "sentinel.auth",
+            "@muni-kypo-crp/training-model": "muni-kypo-crp.training-model",
+            "@muni-kypo-crp/topology-graph": "muni-kypo-crp.topology-graph",
+            "ngx-markdown": "ngx-markdown"
+        }
+    }
+}

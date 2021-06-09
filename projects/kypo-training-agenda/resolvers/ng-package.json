@@ -1,1 +1,8 @@
-{}
+{
+    "lib": {
+        "entryFile": "src/public_api.ts",
+        "umdModuleIds": {
+            "@muni-kypo-crp/training-api": "muni-kypo-crp.training-api"
+        }
+    }
+}
