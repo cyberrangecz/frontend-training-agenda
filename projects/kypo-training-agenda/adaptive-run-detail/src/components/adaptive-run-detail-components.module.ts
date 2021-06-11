@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { SentinelUserCardModule } from '@sentinel/layout/user-card';
 import { SentinelPipesModule } from '@sentinel/common';
 import { SentinelStepperModule } from '@sentinel/components/stepper';
 import { AdaptiveRunDetailMaterialModule } from './adaptive-run-detail-material.module';
 import { AdaptiveRunDetailComponent } from './adaptive-run-detail.component';
 import { TrainingTimerComponent } from './training-timer/training-timer.component';
 import { PhaseComponentsModule } from './phase/phase-components.module';
+import { SentinelUserCardModule } from '@sentinel/layout/user-card';
 
 /**
  * Contains all components of adaptive run detail
