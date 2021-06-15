@@ -15,7 +15,7 @@
     "build-library": "ng build kypo-training-agenda --configuration production",
     "create-package": "cd dist/kypo-training-agenda && npm pack",
     "build-and-pack": "npm install && npm run build-library && npm run create-package",
-    "ci-update-version": "cd ./projects/kypo-training-agenda/ && npm version $VERSION",
+    "ci-update-version": "cd ./projects/kypo-training-agenda/ && npm version $TAG_VERSION",
     "ci-build-and-pack": "npm ci --cache .npm --prefer-offline && npm run build-library && npm run create-package",
     "ci-publish-package": "cd dist/kypo-training-agenda && npm publish"
   },

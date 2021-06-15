@@ -4,6 +4,7 @@ stages:
   - codeStyle
   - test
   - build
+  - auto-tag
   - deploy
 
 cache:
@@ -27,7 +28,9 @@ codeStyle:
   only:
     - triggers
     - branches
-    - tags
+  except:
+      changes:
+        - "CHANGELOG.md"
 
 unitTests:
   stage: test
@@ -41,25 +44,9 @@ unitTests:
   only:
     - triggers
     - branches
-    - tags
-
-buildExampleApp:
-  stage: build
-  cache:
-    key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
-    paths:
-      - .npm/
-    policy: pull
-  script:
-    - npm run build-example-app
-  only:
-    - triggers
-    - branches
-    - tags
-  artifacts:
-    paths:
-      - ./dist
-    expire_in: 1 hour
+  except:
+    changes:
+      - "CHANGELOG.md"
 
 buildLibrary:
   stage: build
@@ -73,46 +60,44 @@ buildLibrary:
   only:
     - triggers
     - branches
-    - tags
   artifacts:
     paths:
       - ./dist
     expire_in: 1 hour
+  except:
+    changes:
+      - "CHANGELOG.md"
 
-editVersionAndDeploy:
+auto-tag:
+  image: 'registry.gitlab.ics.muni.cz:443/csirt-mu-devel/csirt-mu-devel-artifact-repository/docker-common-ci:v0.1.6'
+  variables:
+    GIT_STRATEGY: clone
+  stage: auto-tag
+  script:
+    - source /app/export-tag-vars.sh VERSION.txt
+    - echo $TAG_VERSION && echo $TAG_MESSAGE
+    - /app/import-ssh-key.sh
+    - /app/prepare-git.sh
+    - /app/set-version-angular.sh
+    - /app/create-changelog.sh
+    - /app/tag-and-push.sh
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+      changes:
+        - VERSION.txt
+
+deploy:
   stage: deploy
   cache:
     key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
     paths:
       - .npm/
     policy: pull
-  before_script:
-    # get tag version
-    - export VERSION=$(if [[ "$CI_COMMIT_TAG" == "" ]]; then echo "GitLab tag is missing!"; else echo $CI_COMMIT_TAG | cut -c 2-; fi)
-    - echo $VERSION
-    # ssh config
-    - which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )
-    - eval $(ssh-agent -s)
-    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
-    - mkdir -p ~/.ssh
-    - chmod 700 ~/.ssh
-    - ssh -o 'StrictHostKeyChecking no' git@gitlab.ics.muni.cz
-    # git config
-    - git config --global user.email "$GIT_SERVICE_USER_EMAIL"
-    - git config --global user.name "$GIT_SERVICE_USER_NAME"
-    - git remote set-url origin "$REPOSITORY_SSH_URL"
-    - git fetch
-    - git checkout master
-    - git pull
-
   script:
-    - npm run ci-update-version
-    - git commit -am "Update project package.json version based on GitLab tag. Done by CI"
     - cp $NPMRC_PULL ~/.npmrc
     - npm run ci-build-and-pack
     - cp $NPMRC_PUSH ~/.npmrc
     - npm run ci-publish-package
-    - git push -o ci.skip
   only:
     - tags
 
