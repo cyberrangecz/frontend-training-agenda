@@ -1,1 +1,2 @@
+12.0.5 Spinner for finished training runs, disable points for non test questions
 12.0.4 Update gitlab CI

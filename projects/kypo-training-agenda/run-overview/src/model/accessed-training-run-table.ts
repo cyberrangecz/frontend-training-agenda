@@ -50,7 +50,7 @@ export class AccessedTrainingRunTable extends SentinelTable<AccessedTrainingRun>
         'assessment',
         'primary',
         'Access Results',
-        of(true), //Sankey not ready yet-> of(trainingRun.action !== TraineeAccessTrainingRunActionEnum.Results),
+        of(trainingRun.action !== TraineeAccessTrainingRunActionEnum.Results),
         defer(() => service.results(trainingRun.trainingRunId))
       ),
     ];

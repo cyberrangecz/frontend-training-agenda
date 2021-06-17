@@ -223,6 +223,7 @@ export class ExtendedMatchingItemsEditComponent extends SentinelBaseDirective im
     if (this.required && this.isTest) {
       this.penalty.enable();
     } else {
+      this.score.disable();
       this.penalty.disable();
     }
     this.extendedMatchingQuestionFormGroup.formGroup.updateValueAndValidity();

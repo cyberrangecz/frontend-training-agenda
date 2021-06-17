@@ -21,7 +21,7 @@ export * from './services/training-run/level/game/training-run-game-level-concre
 export * from './services/adaptive-run/training-phase/adaptive-run-training-phase.service';
 export * from './services/adaptive-run/training-phase/adaptive-run-training-phase-concrete.service';
 
-export * from './next-phase-dialog/next-phase-dialog.module';
-export * from './next-phase-dialog/next-phase-dialog.component';
+export * from './loading-dialog/loading-dialog.module';
+export * from './loading-dialog/loading-dialog.component';
 
-export * from './next-phase-dialog/pipes/title-case-except.pipe';
+export * from './loading-dialog/pipes/title-case-except.pipe';

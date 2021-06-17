@@ -7,6 +7,7 @@ import { AccessTrainingRunInfo, Level } from '@muni-kypo-crp/training-model';
 import { throwError } from 'rxjs';
 import {
   createContext,
+  createDialogSpy,
   createErrorHandlerSpy,
   createNavigatorSpy,
   createRouterSpy,
@@ -16,6 +17,7 @@ import { TrainingErrorHandler } from '../../../../../src/services/training-error
 import { TrainingNavigator } from '../../../../../src/services/training-navigator.service';
 import { TrainingAgendaContext } from '../../context/training-agenda-context.service';
 import { RunningTrainingRunConcreteService } from './running-training-run-concrete.service';
+import { MatDialog } from '@angular/material/dialog';
 
 describe('RunningTrainingRunConcreteService', () => {
   let errorHandlerSpy: jasmine.SpyObj<TrainingErrorHandler>;
@@ -23,6 +25,7 @@ describe('RunningTrainingRunConcreteService', () => {
   let service: RunningTrainingRunConcreteService;
   let navigatorSpy: jasmine.SpyObj<TrainingNavigator>;
   let routerSpy: jasmine.SpyObj<Router>;
+  let dialogSpy: jasmine.SpyObj<MatDialog>;
   let context: TrainingAgendaContext;
 
   beforeEach(() => {
@@ -30,6 +33,7 @@ describe('RunningTrainingRunConcreteService', () => {
     apiSpy = createTrainingRunApiSpy();
     navigatorSpy = createNavigatorSpy();
     routerSpy = createRouterSpy();
+    dialogSpy = createDialogSpy();
     context = createContext();
 
     TestBed.configureTestingModule({
@@ -37,6 +41,7 @@ describe('RunningTrainingRunConcreteService', () => {
         RunningTrainingRunConcreteService,
         { provide: TrainingRunApi, useValue: apiSpy },
         { provide: Router, useValue: routerSpy },
+        { provide: MatDialog, useValue: dialogSpy },
         { provide: TrainingErrorHandler, useValue: errorHandlerSpy },
         { provide: TrainingNavigator, useValue: navigatorSpy },
         { provide: TrainingAgendaContext, useValue: context },
@@ -88,29 +93,6 @@ describe('RunningTrainingRunConcreteService', () => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledWith(err, jasmine.anything());
         done();
       }
-    );
-  });
-
-  it('should finish when next is called on last level', (done) => {
-    const accessInfo = createAccessTrainingRunInfoMock();
-    apiSpy.finish.and.returnValue(asyncData('finish'));
-    navigatorSpy.toTrainingRunResult.and.returnValue('url');
-    routerSpy.navigate.and.returnValue(asyncData(true).toPromise());
-    spyOn(service, 'clear');
-    accessInfo.currentLevel = createLevelsMock()[2];
-    service.init(accessInfo);
-    service.next().subscribe(
-      (res) => {
-        expect(res).toBeTruthy();
-        expect(res).toEqual(true);
-        expect(apiSpy.finish).toHaveBeenCalledTimes(1);
-        expect(routerSpy.navigate).toHaveBeenCalledTimes(1);
-        expect(navigatorSpy.toTrainingRunResult).toHaveBeenCalledTimes(1);
-        expect(navigatorSpy.toTrainingRunResult).toHaveBeenCalledWith(2);
-        expect(service.clear).toHaveBeenCalledTimes(1);
-        done();
-      },
-      () => fail
     );
   });
 

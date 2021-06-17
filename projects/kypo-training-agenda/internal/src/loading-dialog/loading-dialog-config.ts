@@ -1,4 +1,4 @@
-export class NextPhaseDialogConfig {
+export class LoadingDialogConfig {
   title: string;
   message: string;
 
