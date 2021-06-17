@@ -5,13 +5,15 @@
         [trainingDefinitionId]="vizInfo.trainingDefinitionId"
         [standalone]="true"
         [trainingInstanceId]="vizInfo.trainingInstanceId"
+        [trainingRunId]="vizInfo.trainingRunId"
         [traineeModeInfo]="traineeModeInfo$ | async">
       </kypo2-viz-overview-table>
       <kypo2-viz-overview-timeline
         [size]="vizSize"
         [traineeModeInfo]="traineeModeInfo$ | async"
         [trainingDefinitionId]="vizInfo.trainingDefinitionId"
-        [trainingInstanceId]="vizInfo.trainingInstanceId">
+        [trainingInstanceId]="vizInfo.trainingInstanceId"
+        [trainingRunId]="vizInfo.trainingRunId">
       </kypo2-viz-overview-timeline>
     </div>
     <div class="middle-panel">
@@ -19,7 +21,8 @@
         [size]="vizSize"
         [traineeModeInfo]="traineeModeInfo$ | async"
         [trainingDefinitionId]="vizInfo.trainingDefinitionId"
-        [trainingInstanceId]="vizInfo.trainingInstanceId">
+        [trainingInstanceId]="vizInfo.trainingInstanceId"
+        [trainingRunId]="vizInfo.trainingRunId">
       </kypo2-viz-overview-clustering>
     </div>
     <div class="right-panel">

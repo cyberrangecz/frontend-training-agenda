@@ -7,8 +7,8 @@ import { Router } from '@angular/router';
 import { TrainingErrorHandler, TrainingNavigator } from '@muni-kypo-crp/training-agenda';
 import { switchMap, tap } from 'rxjs/operators';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { NextPhaseDialogComponent } from '../../../next-phase-dialog/next-phase-dialog.component';
-import { NextPhaseDialogConfig } from '../../../next-phase-dialog/next-phase-dialog-config';
+import { LoadingDialogComponent } from '../../../loading-dialog/loading-dialog.component';
+import { LoadingDialogConfig } from '../../../loading-dialog/loading-dialog-config';
 
 @Injectable()
 export class RunningAdaptiveRunConcreteService extends RunningAdaptiveRunService {
@@ -120,9 +120,9 @@ export class RunningAdaptiveRunConcreteService extends RunningAdaptiveRunService
     }
   }
 
-  private displayDialogToNextTask(): MatDialogRef<NextPhaseDialogComponent> {
-    return this.dialog.open(NextPhaseDialogComponent, {
-      data: new NextPhaseDialogConfig(
+  private displayDialogToNextTask(): MatDialogRef<LoadingDialogComponent> {
+    return this.dialog.open(LoadingDialogComponent, {
+      data: new LoadingDialogConfig(
         'Generating a suitable task for you',
         `Please wait while your next task is being prepared`
       ),

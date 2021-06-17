@@ -140,6 +140,7 @@ export class FreeFormQuestionEditComponent extends SentinelBaseDirective impleme
       this.penalty.enable();
     } else {
       this.penalty.disable();
+      this.score.disable();
     }
     this.freeFormQuestionFormGroup.freeFormQuestionFormGroup.updateValueAndValidity();
   }

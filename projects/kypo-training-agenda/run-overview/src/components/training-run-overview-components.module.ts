@@ -28,7 +28,7 @@ import { AdaptiveRunTrainingPhaseService } from '@muni-kypo-crp/training-agenda/
 import { AdaptiveRunTrainingPhaseConcreteService } from '@muni-kypo-crp/training-agenda/internal';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDialogModule } from '@angular/material/dialog';
-import { NextPhaseDialogModule } from '@muni-kypo-crp/training-agenda/internal';
+import { LoadingDialogModule } from '@muni-kypo-crp/training-agenda/internal';
 
 /**
  * Main module for trainee agenda. Contains components and top level routing
@@ -44,7 +44,7 @@ import { NextPhaseDialogModule } from '@muni-kypo-crp/training-agenda/internal';
     SentinelTableModule,
     MatProgressBarModule,
     MatDialogModule,
-    NextPhaseDialogModule,
+    LoadingDialogModule,
   ],
   declarations: [TrainingRunOverviewComponent, AccessTrainingRunComponent],
   providers: [

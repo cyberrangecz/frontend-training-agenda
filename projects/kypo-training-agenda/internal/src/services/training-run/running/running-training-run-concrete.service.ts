@@ -3,11 +3,14 @@ import { Router } from '@angular/router';
 import { TrainingRunApi } from '@muni-kypo-crp/training-api';
 import { AccessTrainingRunInfo } from '@muni-kypo-crp/training-model';
 import { Level } from '@muni-kypo-crp/training-model';
-import { from } from 'rxjs';
 import { Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { TrainingErrorHandler, TrainingNavigator } from '@muni-kypo-crp/training-agenda';
 import { RunningTrainingRunService } from './running-training-run.service';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { LoadingDialogComponent } from '../../../loading-dialog/loading-dialog.component';
+import { LoadingDialogConfig } from '../../../loading-dialog/loading-dialog-config';
+import { EMPTY } from 'rxjs';
 
 /**
  * Main service for running training game. Holds levels and its state. Handles user general training run user actions and events.
@@ -19,7 +22,8 @@ export class RunningTrainingRunConcreteService extends RunningTrainingRunService
     private api: TrainingRunApi,
     private errorHandler: TrainingErrorHandler,
     private navigator: TrainingNavigator,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {
     super();
   }
@@ -99,8 +103,25 @@ export class RunningTrainingRunConcreteService extends RunningTrainingRunService
   private callApiToFinish(): Observable<any> {
     return this.api.finish(this.trainingRunId).pipe(
       tap({ error: (err) => this.errorHandler.emit(err, 'Finishing training') }),
-      switchMap(() => from(this.router.navigate([this.navigator.toTrainingRunResult(this.trainingRunId)]))),
+      switchMap(() => {
+        const dialog = this.displayLoadingDialog();
+        const tmpTrainingRunId = this.trainingRunId;
+        setTimeout(() => {
+          dialog.close();
+          this.router.navigate([this.navigator.toTrainingRunResult(tmpTrainingRunId)]);
+        }, 5000);
+        return EMPTY;
+      }),
       tap(() => this.clear())
     );
+  }
+
+  private displayLoadingDialog(): MatDialogRef<LoadingDialogComponent> {
+    return this.dialog.open(LoadingDialogComponent, {
+      data: new LoadingDialogConfig(
+        'Processing training data for visualization',
+        `Please wait while your training data are being processed`
+      ),
+    });
   }
 }
