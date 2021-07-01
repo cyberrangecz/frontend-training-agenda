@@ -21,16 +21,22 @@
   </sentinel-controls>
   <div *ngIf="questions && questions.length > 0 else noQuestions">
     <mat-divider></mat-divider>
+    <sentinel-stepper [selectable]="true"
+                      [stepperItems]="stepperQuestions"
+                      [activeIndex]="selectedStep"
+                      (stepSwapped)="onOrderUpdate()"
+                      (indexSelected)="onActiveQuestionChanged($event)"
+                      (selectedStepSwapped)="onActiveQuestionChanged($event)">
+    </sentinel-stepper>
+    <mat-divider></mat-divider>
     <!-- QUESTIONS -->
-    <div *ngFor="let question of questions; index as i" class="question">
-      <kypo-question-edit
-        (questionChange)="onQuestionChanged($event)"
-        (delete)="onDelete($event)"
-        [question]="questions[i]"
-        [index]="i"
-        [isTest]="isTest">
-      </kypo-question-edit>
-    </div>
+    <kypo-question-edit
+      (questionChange)="onQuestionChanged($event)"
+      (delete)="onDelete()"
+      [question]="stepperQuestions.items[selectedStep].question"
+      [index]="selectedStep"
+      [isTest]="isTest">
+    </kypo-question-edit>
   </div>
   <ng-template #noQuestions>
     <h3>Start by clicking on Add button</h3>

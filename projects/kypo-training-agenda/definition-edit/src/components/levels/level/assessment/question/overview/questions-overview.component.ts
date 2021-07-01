@@ -27,6 +27,8 @@ import { FreeFormQuestion } from '@muni-kypo-crp/training-model';
 import { defer, of } from 'rxjs';
 import { takeWhile } from 'rxjs/operators';
 import { QuestionChangeEvent } from '../../../../../../model/events/question-change-event';
+import { SentinelStepper } from '@sentinel/components/stepper';
+import { QuestionStepperAdapter } from '@muni-kypo-crp/training-agenda/internal';
 
 /**
  * Wrapper component for questions inside the assessment level
@@ -44,6 +46,8 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
   @Output() questionsChange: EventEmitter<Question[]> = new EventEmitter();
 
   questionsHasError: boolean;
+  stepperQuestions: SentinelStepper<QuestionStepperAdapter> = { items: [] };
+  selectedStep: number;
   controls: SentinelControlItem[];
 
   constructor(public dialog: MatDialog) {
@@ -51,11 +55,16 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
   }
 
   ngOnInit(): void {
+    this.selectedStep = 0;
     this.initControls();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    if ('questions' in changes && changes['questions'].isFirstChange()) {
+      this.selectedStep = 0;
+    }
     if ('questions' in changes && this.questions) {
+      this.stepperQuestions.items = this.questions.map((question) => new QuestionStepperAdapter(question));
       this.calculateHasError();
     }
     if ('isTest' in changes && !changes.isTest.isFirstChange()) {
@@ -64,6 +73,9 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
         this.onQuestionChanged();
       }
     }
+    if (this.stepperQuestions.items.length > 0) {
+      this.stepperQuestions.items[this.selectedStep].isActive = true;
+    }
   }
 
   onControlAction(control: SentinelControlItem): void {
@@ -71,9 +83,33 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
   }
 
   /**
+   * Updates order of stepper items to match order of the questions
+   */
+  onOrderUpdate(): void {
+    this.stepperQuestions.items.forEach((question, index) => {
+      this.stepperQuestions.items[index].question.order = index;
+    });
+    this.onQuestionChanged();
+  }
+
+  /**
+   * Triggered after selection of active question is changed in the stepper
+   * @param index index of active question
+   */
+  onActiveQuestionChanged(index: number): void {
+    if (index !== this.selectedStep && this.stepperQuestions.items.length > 0) {
+      this.stepperQuestions.items[this.selectedStep].isActive = false;
+      this.selectedStep = index;
+    }
+  }
+
+  /**
    * Creates new free form question
    */
   addFFQ(): void {
+    if (this.stepperQuestions.items.length >= 1) {
+      this.stepperQuestions.items[this.selectedStep].isActive = false;
+    }
     const newFfq = new FreeFormQuestion('New Free Form Question');
     newFfq.required = this.isTest;
     newFfq.choices.push({
@@ -82,7 +118,10 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
       text: 'Answer 1',
       order: 0,
     });
-    this.questions.push(newFfq);
+    const questionStepperAdapter = new QuestionStepperAdapter(newFfq);
+    questionStepperAdapter.isActive = true;
+    this.stepperQuestions.items.push(questionStepperAdapter);
+    this.selectedStep = this.stepperQuestions.items.length - 1;
     this.onQuestionChanged();
   }
 
@@ -90,6 +129,9 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
    * Creates new multiple choice question
    */
   addMCQ(): void {
+    if (this.stepperQuestions.items.length >= 1) {
+      this.stepperQuestions.items[this.selectedStep].isActive = false;
+    }
     const newMcq = new MultipleChoiceQuestion('New Multiple Choice Question');
     newMcq.choices.push({
       id: null,
@@ -104,7 +146,10 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
       order: 1,
     });
     newMcq.required = this.isTest;
-    this.questions.push(newMcq);
+    const questionStepperAdapter = new QuestionStepperAdapter(newMcq);
+    questionStepperAdapter.isActive = true;
+    this.stepperQuestions.items.push(questionStepperAdapter);
+    this.selectedStep = this.stepperQuestions.items.length - 1;
     this.onQuestionChanged();
   }
 
@@ -112,6 +157,9 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
    * Creates new extended matching items question
    */
   addEMI(): void {
+    if (this.stepperQuestions.items.length >= 1) {
+      this.stepperQuestions.items[this.selectedStep].isActive = false;
+    }
     const newEmi = new ExtendedMatchingItems('New Extended Matching Items');
     newEmi.required = this.isTest;
     newEmi.extendedMatchingStatements.push({
@@ -136,7 +184,10 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
       text: 'Option 2',
       order: 1,
     });
-    this.questions.push(newEmi);
+    const questionStepperAdapter = new QuestionStepperAdapter(newEmi);
+    questionStepperAdapter.isActive = true;
+    this.stepperQuestions.items.push(questionStepperAdapter);
+    this.selectedStep = this.stepperQuestions.items.length - 1;
     this.onQuestionChanged();
   }
 
@@ -146,17 +197,18 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
    */
   onQuestionChanged(event: QuestionChangeEvent = null): void {
     this.calculateHasError();
-    if (event) {
-      this.questions[event.index] = event.question;
+    if (event && event.question) {
+      this.stepperQuestions.items[this.selectedStep].question = event.question;
     }
-    this.questionsChange.emit(this.questions);
+    this.questionsChange.emit(this.stepperQuestions.items.map((item) => item.question));
   }
 
   /**
    * Displays confirmation dialog, on confirmation, deletes question on given index
-   * @param index index of question which should be deleted
    */
-  onDelete(index: number): void {
+  onDelete(): void {
+    const question = this.stepperQuestions.items[this.selectedStep];
+    const index = this.selectedStep;
     const dialogRef = this.dialog.open(SentinelConfirmationDialogComponent, {
       data: new SentinelConfirmationDialogConfig(
         'Delete question',
@@ -171,10 +223,27 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
       .pipe(takeWhile(() => this.isAlive))
       .subscribe((result) => {
         if (result === SentinelDialogResultEnum.CONFIRMED) {
-          this.questions.splice(index, 1);
+          this.stepperQuestions.items.splice(index, 1);
+          this.changeSelectedStepAfterRemoving(index);
           this.onQuestionChanged();
         }
       });
+  }
+
+  /**
+   * Changes selected step to the one before removed or to first one if the first step is removed
+   * @param {number} index index of the removed step
+   */
+  private changeSelectedStepAfterRemoving(index: number) {
+    if (index === 0) {
+      this.selectedStep = 0;
+    } else {
+      this.selectedStep--;
+    }
+    this.onActiveQuestionChanged(this.stepperQuestions.items.length - 1);
+    if (this.stepperQuestions.items.length > 0) {
+      this.stepperQuestions.items[this.stepperQuestions.items.length - 1].isActive = true;
+    }
   }
 
   private calculateHasError() {

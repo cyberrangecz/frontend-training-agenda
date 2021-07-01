@@ -144,11 +144,13 @@ export class MultipleChoiceQuestionEditComponent extends SentinelBaseDirective i
   checkState(): void {
     if (this.required) {
       this.score.enable();
+      this.choices.controls.forEach((choice) => choice.get('correct').enable());
     } else {
       this.score.disable();
     }
     if (this.isTest) {
       this.multipleChoicesFormGroup.addAnswersValidator();
+      this.choices.controls.forEach((choice) => choice.get('correct').enable());
     } else {
       this.multipleChoicesFormGroup.removeAnswersValidator();
     }
@@ -157,6 +159,7 @@ export class MultipleChoiceQuestionEditComponent extends SentinelBaseDirective i
     } else {
       this.penalty.disable();
       this.score.disable();
+      this.choices.controls.forEach((choice) => choice.get('correct').disable());
     }
     this.multipleChoicesFormGroup.formGroup.updateValueAndValidity();
   }
