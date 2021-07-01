@@ -48,6 +48,26 @@ unitTests:
     changes:
       - "CHANGELOG.md"
 
+buildExampleApp:
+  stage: build
+  cache:
+    key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
+    paths:
+      - .npm/
+    policy: pull
+  script:
+    - npm run build-example-app
+  only:
+    - triggers
+    - branches
+  artifacts:
+    paths:
+      - ./dist
+    expire_in: 1 hour
+  except:
+    changes:
+      - "CHANGELOG.md"
+
 buildLibrary:
   stage: build
   cache:
