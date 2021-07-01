@@ -52,7 +52,7 @@
     <div formArrayName="choices">
       <div *ngFor="let choice of choices.controls; index as i; trackBy:
         trackByFn" class="choice" [formGroupName]="i">
-          <mat-checkbox [disabled]="!isTest || !required"
+          <mat-checkbox
             formControlName="correct"></mat-checkbox>
           <mat-form-field (keydown.enter)="$event.preventDefault()">
             <mat-label>Choice {{ i + 1 }}</mat-label>
