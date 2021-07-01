@@ -54,6 +54,7 @@
                   matInput
                   placeholder="Answer"
                   autocomplete="off"
+                  (keydown)="keyboardSubmitAnswer($event)"
                   [disabled]="isCorrectAnswerSubmitted$ | async"
                   [(ngModel)]="answer"
                   [ngModelOptions]="{ standalone: true }"
@@ -65,7 +66,6 @@
                   mat-icon-button
                   aria-label="Clear"
                   [disabled]="isCorrectAnswerSubmitted$ | async"
-                  (click)="answer = ''"
                 >
                   <mat-icon>close</mat-icon>
                 </button>

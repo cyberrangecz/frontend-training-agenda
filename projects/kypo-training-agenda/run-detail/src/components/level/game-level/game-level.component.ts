@@ -67,6 +67,7 @@ export class GameLevelComponent extends SentinelBaseDirective implements OnInit,
   ngOnChanges(changes: SimpleChanges): void {
     if ('level' in changes) {
       this.initTopology();
+      this.flag = '';
       this.gameLevelService.init(this.level);
       this.displayedHintsContent$ = this.gameLevelService.displayedHintsContent$;
       this.isCorrectFlagSubmitted$ = this.gameLevelService.isCorrectFlagSubmitted$;
@@ -99,10 +100,17 @@ export class GameLevelComponent extends SentinelBaseDirective implements OnInit,
    * Calls service to check whether the flag is correct
    */
   submitFlag(): void {
-    this.gameLevelService
-      .submitFlag(this.flag)
-      .pipe(take(1))
-      .subscribe(() => (this.flag = ''));
+    this.gameLevelService.submitFlag(this.flag).pipe(take(1)).subscribe();
+  }
+
+  /**
+   * Checks whether user confirmed flag input with Enter
+   * @param event keydown event
+   */
+  keyboardSubmitFlag(event: KeyboardEvent): void {
+    if (event.key === 'Enter') {
+      this.submitFlag();
+    }
   }
 
   /**
