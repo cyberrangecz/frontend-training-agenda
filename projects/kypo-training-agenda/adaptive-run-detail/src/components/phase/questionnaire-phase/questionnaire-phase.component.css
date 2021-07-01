@@ -52,3 +52,7 @@
 .mcq-question mat-checkbox {
   margin-right: 20px;
 }
+
+#max-length-ffq-answer {
+  color: #999999;
+}

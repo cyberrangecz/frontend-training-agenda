@@ -9,8 +9,15 @@
             <mat-label>
               Answer
             </mat-label>
-            <input matInput [(ngModel)]="questionAnswers[i].answers[0]">
+            <input [maxLength]="1023" matInput [(ngModel)]="questionAnswers[i].answers[0]">
           </mat-form-field>
+
+          <mat-error
+            id="max-length-ffq-answer"
+            *ngIf="questionAnswers[i].answers[0] && questionAnswers[i].answers[0].length === 1023"
+          >
+            * You have reached the maximal size of message. If you wish to write longer message, please contact your administrator.
+          </mat-error>
         </div>
 
         <div class="mcq-question" *ngSwitchCase="questionTypes.MCQ">
