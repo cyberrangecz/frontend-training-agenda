@@ -62,6 +62,7 @@ export class TrainingPhaseComponent extends SentinelBaseDirective implements OnI
 
   ngOnChanges(changes: SimpleChanges): void {
     if ('phase' in changes) {
+      this.answer = '';
       this.initTopology();
       this.trainingPhaseService.init(this.phase);
       this.isCorrectAnswerSubmitted$ = this.trainingPhaseService.isCorrectAnswerSubmitted$;
@@ -84,10 +85,17 @@ export class TrainingPhaseComponent extends SentinelBaseDirective implements OnI
     this.trainingPhaseService
       .submitAnswer(this.answer)
       .pipe(take(1))
-      .subscribe(() => {
-        this.answer = '';
-        this.calculating = false;
-      });
+      .subscribe(() => (this.calculating = false));
+  }
+
+  /**
+   * Checks whether user confirmed flag input with Enter
+   * @param event keydown event
+   */
+  keyboardSubmitAnswer(event: KeyboardEvent): void {
+    if (event.key === 'Enter') {
+      this.submitAnswer();
+    }
   }
 
   download(): void {

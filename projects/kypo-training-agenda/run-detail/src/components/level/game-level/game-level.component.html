@@ -64,6 +64,7 @@
                   matInput
                   placeholder="Flag"
                   autocomplete="off"
+                  (keydown)="keyboardSubmitFlag($event)"
                   [disabled]="isCorrectFlagSubmitted$ | async"
                   [(ngModel)]="flag"
                   [ngModelOptions]="{ standalone: true }"
@@ -75,7 +76,6 @@
                   mat-icon-button
                   aria-label="Clear"
                   [disabled]="isCorrectFlagSubmitted$ | async"
-                  (click)="flag = ''"
                 >
                   <mat-icon>close</mat-icon>
                 </button>
