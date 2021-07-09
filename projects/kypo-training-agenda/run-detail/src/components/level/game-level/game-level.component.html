@@ -76,6 +76,7 @@
                   mat-icon-button
                   aria-label="Clear"
                   [disabled]="isCorrectFlagSubmitted$ | async"
+                  (click)="flag = ''"
                 >
                   <mat-icon>close</mat-icon>
                 </button>

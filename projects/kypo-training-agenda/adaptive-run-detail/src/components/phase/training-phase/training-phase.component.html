@@ -66,6 +66,7 @@
                   mat-icon-button
                   aria-label="Clear"
                   [disabled]="isCorrectAnswerSubmitted$ | async"
+                  (click)="answer = ''"
                 >
                   <mat-icon>close</mat-icon>
                 </button>
