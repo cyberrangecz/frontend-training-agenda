@@ -207,7 +207,6 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
    * Displays confirmation dialog, on confirmation, deletes question on given index
    */
   onDelete(): void {
-    const question = this.stepperQuestions.items[this.selectedStep];
     const index = this.selectedStep;
     const dialogRef = this.dialog.open(SentinelConfirmationDialogComponent, {
       data: new SentinelConfirmationDialogConfig(

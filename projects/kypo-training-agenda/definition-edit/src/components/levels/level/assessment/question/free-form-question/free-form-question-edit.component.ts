@@ -50,13 +50,11 @@ export class FreeFormQuestionEditComponent extends SentinelBaseDirective impleme
 
   ngOnChanges(changes: SimpleChanges): void {
     if ('question' in changes) {
-      if (!this.freeFormQuestionFormGroup) {
-        this.freeFormQuestionFormGroup = new FreeFormQuestionFormGroup(this.question);
-        this.checkState();
-        this.freeFormQuestionFormGroup.freeFormQuestionFormGroup.valueChanges
-          .pipe(takeWhile(() => this.isAlive))
-          .subscribe(() => this.questionChanged());
-      }
+      this.freeFormQuestionFormGroup = new FreeFormQuestionFormGroup(this.question);
+      this.checkState();
+      this.freeFormQuestionFormGroup.freeFormQuestionFormGroup.valueChanges
+        .pipe(takeWhile(() => this.isAlive))
+        .subscribe(() => this.questionChanged());
     }
     if ('isTest' in changes && !changes.isTest.isFirstChange()) {
       this.checkState();
