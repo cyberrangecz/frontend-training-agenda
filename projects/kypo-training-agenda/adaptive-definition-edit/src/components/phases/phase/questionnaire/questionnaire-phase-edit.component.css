@@ -13,6 +13,12 @@ mat-divider{
   width: 100%;
 }
 
+.question-text {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
 .question-fields{
   display: flex;
   flex-direction: column;
@@ -98,10 +104,12 @@ mat-divider{
 .rating-level-field{
   display: flex;
   flex-direction: row;
+  margin-left: 50px;
 }
 
 .rating-level-field span{
   padding-top: 15px;
+  white-space:nowrap;
   margin-right: 10px;
 }
 
@@ -112,4 +120,9 @@ mat-divider{
   max-height: calc(100vh - 48px);
   border-radius: 4px;
   outline: 0;
+}
+
+.mrkdwn-content {
+  border: 1px solid #E0E0E0;
+  border-radius: 6px;
 }

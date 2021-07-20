@@ -48,11 +48,16 @@
                 <mat-divider></mat-divider>
 
                 <div class="question-container">
-                  <mat-form-field class="text-field" appearance="outline">
-                    <mat-label>Text</mat-label>
-                    <input matInput placeholder="Text" formControlName="text" required/>
+                  <div class='question-text'>
+                    <sentinel-markdown-editor
+                    class="mrkdwn-content"
+                    [sentinel-markdown-file-upload]="false"
+                    (contentChange)="questionGroup.get('text').setValue($event)"
+                    [content]="questionGroup.get('text').value"
+
+                    ></sentinel-markdown-editor>
                     <mat-error *ngIf="questionGroup.get('text').hasError('required')">Question text cannot be empty</mat-error>
-                  </mat-form-field>
+                  </div>
                 </div>
                 <div *ngIf="phase.questionnaireType === questionnaireTypes.Adaptive">
                   <h2>Answers:</h2>
@@ -88,11 +93,15 @@
                 <mat-divider></mat-divider>
 
                 <div class="question-container">
-                  <mat-form-field class="text-field" appearance="outline">
-                    <mat-label>Text</mat-label>
-                    <input matInput placeholder="Text" formControlName="text" required/>
+                  <div class='question-text'>
+                    <sentinel-markdown-editor
+                      class="mrkdwn-content"
+                      [sentinel-markdown-file-upload]="false"
+                      (contentChange)="questionGroup.get('text').setValue($event)"
+                      [content]="questionGroup.get('text').value"
+                    ></sentinel-markdown-editor>
                     <mat-error *ngIf="questionGroup.get('text').hasError('required')">Question text cannot be empty</mat-error>
-                  </mat-form-field>
+                  </div>
                 </div>
                 <h2>Options:</h2>
                 <div formArrayName="choices">
@@ -130,11 +139,15 @@
                 </div>
                 <mat-divider></mat-divider>
                 <div class="question-container">
-                  <mat-form-field class="text-field" appearance="outline">
-                    <mat-label>Text</mat-label>
-                    <input matInput placeholder="Text" formControlName="text" required/>
+                  <div class='question-text'>
+                    <sentinel-markdown-editor
+                      class="mrkdwn-content"
+                      [sentinel-markdown-file-upload]="false"
+                      (contentChange)="questionGroup.get('text').setValue($event)"
+                      [content]="questionGroup.get('text').value"
+                    ></sentinel-markdown-editor>
                     <mat-error *ngIf="questionGroup.get('text').hasError('required')">Question text cannot be empty</mat-error>
-                  </mat-form-field>
+                  </div>
                   <div class="rating-level-field">
                     <span>Rating Level</span>
                     <div class="question-fields">

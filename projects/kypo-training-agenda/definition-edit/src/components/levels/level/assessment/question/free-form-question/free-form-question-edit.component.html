@@ -1,16 +1,16 @@
 <form [formGroup]="freeFormQuestionFormGroup.freeFormQuestionFormGroup">
   <div class="content">
     <!-- TITLE field-->
-    <mat-form-field appearance="outline"
-      (keydown.enter)="$event.preventDefault()">
-      <mat-label>Title</mat-label>
-      <input matInput placeholder="Title" formControlName="title" required>
-      <button mat-button *ngIf="title" matSuffix mat-icon-button
-        aria-label="Clear" (click)="title.setValue('')">
-        <mat-icon>close</mat-icon>
-      </button>
+    <h3>Title</h3>
+    <div class='question-text'>
+      <sentinel-markdown-editor
+        class="mrkdwn-content"
+        [sentinel-markdown-file-upload]="false"
+        (contentChange)="title.setValue($event)"
+        [content]="title.value"
+      ></sentinel-markdown-editor>
       <mat-error *ngIf="title.hasError('whitespace')">Title cannot be empty</mat-error>
-    </mat-form-field>
+    </div>
 
     <div class="inline-input">
       <!-- SCORE field -->
