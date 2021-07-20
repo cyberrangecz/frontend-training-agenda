@@ -90,3 +90,15 @@ button.clear-answers {
 
 @media screen and (max-width: 850px) {
 }
+
+.question-text {
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 10px);
+  margin-bottom: 10px;
+}
+
+.mrkdwn-content {
+  border: 1px solid #E0E0E0;
+  border-radius: 6px;
+}
