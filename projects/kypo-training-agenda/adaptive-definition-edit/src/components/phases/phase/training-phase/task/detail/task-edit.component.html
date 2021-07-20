@@ -77,10 +77,10 @@
           hintLabel="Max 50 characters"
           (keydown.enter)="$event.preventDefault()"
         >
-          <mat-label>Answer</mat-label>
+          <mat-label>Correct Answer</mat-label>
           <input
             matInput
-            placeholder="Answer"
+            placeholder="Correct Answer"
             maxlength="50"
             formControlName="answer"
             required
@@ -96,7 +96,7 @@
             <mat-icon>close</mat-icon>
           </button>
           <mat-hint align="end">{{ answer.value?.length || 0 }}/50</mat-hint>
-          <mat-error>Answer cannot be empty or larger than 50 characters</mat-error>
+          <mat-error>Correct Answer cannot be empty or larger than 50 characters</mat-error>
         </mat-form-field>
 
         <div class="modify-sandbox">

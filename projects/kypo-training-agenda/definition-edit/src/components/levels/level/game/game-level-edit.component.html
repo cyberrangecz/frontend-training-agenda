@@ -123,10 +123,10 @@
           hintLabel="Max 50 characters"
           (keydown.enter)="$event.preventDefault()"
         >
-          <mat-label>Flag</mat-label>
+          <mat-label>Correct Flag</mat-label>
           <input
             matInput
-            placeholder="Flag"
+            placeholder="Correct Flag"
             maxlength="50"
             formControlName="flag"
             required
@@ -143,7 +143,7 @@
           </button>
           <mat-hint align="end">{{ flag.value?.length || 0 }}/50</mat-hint>
           <mat-error
-            >Flag cannot be empty or larger than 50 characters</mat-error
+            >Correct Flag cannot be empty or larger than 50 characters</mat-error
           >
         </mat-form-field>
 
