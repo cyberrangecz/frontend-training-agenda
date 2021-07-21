@@ -9,6 +9,7 @@ export * from './model/level-stepper-adapter';
 export * from './model/phase-stepper-adapter';
 export * from './model/question-stepper-adapter';
 
+export * from './services/pagination.service';
 export * from './services/context/training-agenda-context.service';
 
 export * from './services/training-run/running/running-training-run.service';

@@ -8,7 +8,7 @@ import { map, take, takeWhile, tap } from 'rxjs/operators';
 import { TrainingInstanceEditControls } from '../model/adapter/training-instance-edit-controls';
 import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
 import { TrainingInstanceChangeEvent } from '../model/events/training-instance-change-event';
-import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
+import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
 import { TrainingInstanceEditService } from '../services/state/edit/training-instance-edit.service';
 
 /**
@@ -34,11 +34,11 @@ export class TrainingInstanceEditOverviewComponent extends SentinelBaseDirective
   constructor(
     private router: Router,
     private activeRoute: ActivatedRoute,
-    private context: TrainingAgendaContext,
+    private paginationService: PaginationService,
     private editService: TrainingInstanceEditService
   ) {
     super();
-    this.defaultPaginationSize = this.context.config.defaultPaginationSize;
+    this.defaultPaginationSize = this.paginationService.getPagination();
     this.trainingInstance$ = this.editService.trainingInstance$;
     this.hasStarted$ = this.editService.hasStarted$;
     this.tiTitle$ = this.editService.trainingInstance$.pipe(map((ti) => ti.title));

@@ -8,8 +8,8 @@ import { Observable } from 'rxjs';
 import { map, take, takeWhile } from 'rxjs/operators';
 import { TrainingDefinitionOverviewControls } from '../model/training-definition-overview-controls';
 import { TrainingDefinitionTable } from '../model/training-definition-table';
-import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
 import { AdaptiveDefinitionService } from '../services/state/adaptive-definition.service';
+import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
 
 /**
  * Main smart component of training definition overview
@@ -30,7 +30,7 @@ export class AdaptiveDefinitionOverviewComponent extends SentinelBaseDirective i
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private context: TrainingAgendaContext,
+    private paginationService: PaginationService,
     private trainingDefinitionService: AdaptiveDefinitionService
   ) {
     super();
@@ -46,6 +46,8 @@ export class AdaptiveDefinitionOverviewComponent extends SentinelBaseDirective i
    * @param loadEvent event emitted by table component to get new data
    */
   onLoadEvent(loadEvent: LoadTableEvent): void {
+    this.paginationService.setPagination(loadEvent.pagination.size);
+    loadEvent.pagination.size = this.paginationService.getPagination();
     this.trainingDefinitionService
       .getAll(loadEvent.pagination, loadEvent.filter)
       .pipe(takeWhile(() => this.isAlive))
@@ -76,7 +78,7 @@ export class AdaptiveDefinitionOverviewComponent extends SentinelBaseDirective i
     );
     const initialPagination = new RequestedPagination(
       0,
-      this.context.config.defaultPaginationSize,
+      this.paginationService.getPagination(),
       this.INIT_SORT_NAME,
       this.INIT_SORT_DIR
     );

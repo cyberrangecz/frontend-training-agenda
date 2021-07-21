@@ -6,7 +6,7 @@ import { SentinelPipesModule } from '@sentinel/common';
 import { SentinelControlsModule } from '@sentinel/components/controls';
 import { SentinelTableModule } from '@sentinel/components/table';
 import { TrainingAgendaConfig, TrainingDefaultNavigator, TrainingNavigator } from '@muni-kypo-crp/training-agenda';
-import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
+import { TrainingAgendaContext, PaginationService } from '@muni-kypo-crp/training-agenda/internal';
 import { AdaptiveFileUploadProgressService } from '../services/file-upload/adaptive-file-upload-progress.service';
 import { AdaptiveDefinitionConcreteService } from '../services/state/adaptive-definition.concrete.service';
 import { AdaptiveDefinitionService } from '../services/state/adaptive-definition.service';
@@ -38,6 +38,7 @@ import { TrainingDefinitionUploadDialogComponent } from './upload-dialog/trainin
   ],
   providers: [
     AdaptiveFileUploadProgressService,
+    PaginationService,
     TrainingAgendaContext,
     { provide: TrainingNavigator, useClass: TrainingDefaultNavigator },
     { provide: AdaptiveDefinitionService, useClass: AdaptiveDefinitionConcreteService },

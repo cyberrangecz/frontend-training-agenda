@@ -6,6 +6,7 @@ import { SentinelPipesModule } from '@sentinel/common';
 import { SentinelTableModule } from '@sentinel/components/table';
 import { TrainingAgendaConfig, TrainingDefaultNavigator, TrainingNavigator } from '@muni-kypo-crp/training-agenda';
 import {
+  PaginationService,
   TrainingAgendaContext,
   RunningAdaptiveRunService,
   RunningAdaptiveRunConcreteService,
@@ -52,6 +53,7 @@ import { LoadingDialogModule } from '@muni-kypo-crp/training-agenda/internal';
     AccessAdaptiveRunResolver,
     TrainingRunResultsResolver,
     TrainingAgendaContext,
+    PaginationService,
     { provide: TrainingNavigator, useClass: TrainingDefaultNavigator },
     { provide: RunningTrainingRunService, useClass: RunningTrainingRunConcreteService },
     { provide: AdaptiveRunTrainingPhaseService, useClass: AdaptiveRunTrainingPhaseConcreteService },

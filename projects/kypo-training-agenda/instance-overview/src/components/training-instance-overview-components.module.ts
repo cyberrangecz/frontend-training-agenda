@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SentinelControlsModule } from '@sentinel/components/controls';
 import { SentinelTableModule } from '@sentinel/components/table';
 import { TrainingAgendaConfig, TrainingDefaultNavigator, TrainingNavigator } from '@muni-kypo-crp/training-agenda';
-import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
+import { TrainingAgendaContext, PaginationService } from '@muni-kypo-crp/training-agenda/internal';
 import {
   TrainingInstanceBreadcrumbResolver,
   TrainingInstanceResolver,
@@ -22,6 +22,7 @@ import { TrainingInstanceOverviewComponent } from './training-instance-overview.
   imports: [CommonModule, FormsModule, ReactiveFormsModule, SentinelTableModule, SentinelControlsModule],
   declarations: [TrainingInstanceOverviewComponent],
   providers: [
+    PaginationService,
     TrainingAgendaContext,
     TrainingInstanceResolver,
     TrainingInstanceTitleResolver,

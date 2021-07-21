@@ -13,6 +13,7 @@ import {
 import { AdaptiveInstanceOverviewComponent } from './adaptive-instance-overview.component';
 import { AdaptiveInstanceOverviewService } from '../services/state/adaptive-instance-overview.service';
 import { AdaptiveInstanceOverviewConcreteService } from '../services/state/adaptive-instance-overview-concrete.service';
+import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
 
 /**
  * Main module of training instance agenda. Contains components and providers for displaying table of training instance
@@ -23,6 +24,7 @@ import { AdaptiveInstanceOverviewConcreteService } from '../services/state/adapt
   declarations: [AdaptiveInstanceOverviewComponent],
   providers: [
     TrainingAgendaContext,
+    PaginationService,
     AdaptiveInstanceResolver,
     AdaptiveInstanceTitleResolver,
     AdaptiveInstanceBreadcrumbResolver,

@@ -6,7 +6,7 @@ import { SentinelControlItem } from '@sentinel/components/controls';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, take, takeWhile, tap } from 'rxjs/operators';
 import { AdaptiveInstanceEditService } from '../services/state/edit/adaptive-instance-edit.service';
-import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
+import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
 import { AdaptiveInstanceEditControls } from '../models/adapter/adaptive-instance-edit-controls';
 import { ADAPTIVE_INSTANCE_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
 import { AdaptiveInstanceChangeEvent } from '../models/events/adaptive-instance-change-event';
@@ -31,11 +31,11 @@ export class AdaptiveInstanceEditOverviewComponent extends SentinelBaseDirective
   constructor(
     private router: Router,
     private activeRoute: ActivatedRoute,
-    private context: TrainingAgendaContext,
+    private paginationService: PaginationService,
     private editService: AdaptiveInstanceEditService
   ) {
     super();
-    this.defaultPaginationSize = this.context.config.defaultPaginationSize;
+    this.defaultPaginationSize = this.paginationService.getPagination();
     this.trainingInstance$ = this.editService.trainingInstance$;
     this.hasStarted$ = this.editService.hasStarted$;
     this.tiTitle$ = this.editService.trainingInstance$.pipe(map((ti) => ti.title));

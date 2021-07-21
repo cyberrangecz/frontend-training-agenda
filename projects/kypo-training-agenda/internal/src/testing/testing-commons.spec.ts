@@ -21,6 +21,7 @@ import { TrainingDefinitionService } from '../../../definition-overview/src/serv
 import { FileUploadProgressService } from '../../../definition-overview/src/services/file-upload/file-upload-progress.service';
 import { SentinelAuthService } from '@sentinel/auth';
 import { AdaptiveFileUploadProgressService } from '../../../adaptive-definition-overview/src/services/file-upload/adaptive-file-upload-progress.service';
+import { PaginationService } from '../services/pagination.service';
 
 export function createErrorHandlerSpy(): jasmine.SpyObj<TrainingErrorHandler> {
   return jasmine.createSpyObj('TrainingErrorHandler', ['emit']);
@@ -200,6 +201,11 @@ export function createContext(): TrainingAgendaContext {
   config.defaultPaginationSize = 10;
   return new TrainingAgendaContext(config);
 }
+
+export function createPaginationServiceSpy(): jasmine.SpyObj<PaginationService> {
+  return jasmine.createSpyObj('PaginationService', ['setPagination', 'getPagination']);
+}
+
 export function createActivatedRouteSpy(): jasmine.SpyObj<ActivatedRoute> {
   return jasmine.createSpyObj('ActivatedRoute', ['']);
 }

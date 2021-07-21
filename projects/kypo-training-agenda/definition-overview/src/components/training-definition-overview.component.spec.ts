@@ -1,11 +1,11 @@
-import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
+import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
 import { ActivatedRoute } from '@angular/router';
 import { TrainingDefinitionOverviewComponent } from './training-definition-overview.component';
 import { TestBed, async, ComponentFixture, fakeAsync } from '@angular/core/testing';
 import { TrainingDefinitionService } from '@muni-kypo-crp/training-agenda/definition-overview';
 import {
   createActivatedRouteSpy,
-  createContext,
+  createPaginationServiceSpy,
   createTrainingDefinitionServiceSpy,
 } from '../../../internal/src/testing/testing-commons.spec';
 import { Level, GameLevel, AssessmentLevel, InfoLevel, TrainingDefinition } from '@muni-kypo-crp/training-model';
@@ -20,12 +20,12 @@ describe('TrainingDefinitionOverviewComponent', () => {
   let fixture: ComponentFixture<TrainingDefinitionOverviewComponent>;
 
   let activatedRouteSpy: jasmine.SpyObj<ActivatedRoute>;
-  let context: TrainingAgendaContext;
+  let paginationServiceSpy: jasmine.SpyObj<PaginationService>;
   let trainingDefinitionServiceSpy: jasmine.SpyObj<TrainingDefinitionService>;
 
   beforeEach(async(() => {
     activatedRouteSpy = createActivatedRouteSpy();
-    context = createContext();
+    paginationServiceSpy = createPaginationServiceSpy();
     trainingDefinitionServiceSpy = createTrainingDefinitionServiceSpy();
     initValues();
     TestBed.configureTestingModule({
@@ -33,7 +33,7 @@ describe('TrainingDefinitionOverviewComponent', () => {
       declarations: [TrainingDefinitionOverviewComponent],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteSpy },
-        { provide: TrainingAgendaContext, useValue: context },
+        { provide: PaginationService, useValue: paginationServiceSpy },
         { provide: TrainingDefinitionService, useValue: trainingDefinitionServiceSpy },
       ],
     }).compileComponents();
@@ -59,6 +59,7 @@ describe('TrainingDefinitionOverviewComponent', () => {
 
   it('should get data for table', () => {
     trainingDefinitionServiceSpy.getAll.and.returnValue(asyncData(createPaginatedMock()));
+    paginationServiceSpy.getPagination.and.returnValue(1);
     component.onLoadEvent(new LoadTableEvent(new RequestedPagination(1, 1, '', ''), ''));
     expect(trainingDefinitionServiceSpy.getAll).toHaveBeenCalledTimes(1);
     expect(trainingDefinitionServiceSpy.getAll).toHaveBeenCalledWith(new RequestedPagination(1, 1, '', ''), '');
