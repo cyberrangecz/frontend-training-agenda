@@ -5,7 +5,7 @@ import { TrainingDefinition } from '@muni-kypo-crp/training-model';
 import { TrainingDefinitionInfo } from '@muni-kypo-crp/training-model';
 import { merge, Observable } from 'rxjs';
 import { takeWhile } from 'rxjs/operators';
-import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
+import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
 import { TrainingDefinitionOrganizerSelectConcreteService } from '../../services/state/training-definition-selector/training-definition-organizer-select-concrete.service';
 
 /**
@@ -34,12 +34,12 @@ export class TrainingDefinitionSelectComponent extends SentinelBaseDirective imp
   constructor(
     @Optional() @Inject(MAT_DIALOG_DATA) public data: TrainingDefinition,
     public dialogRef: MatDialogRef<TrainingDefinitionSelectComponent>,
-    private context: TrainingAgendaContext,
+    private paginationService: PaginationService,
     @Inject('releasedService') private releasedService: TrainingDefinitionOrganizerSelectConcreteService,
     @Inject('unreleasedService') private unreleasedService: TrainingDefinitionOrganizerSelectConcreteService
   ) {
     super();
-    this.PAGE_SIZE = this.context.config.defaultPaginationSize;
+    this.PAGE_SIZE = this.paginationService.getPagination();
     this.selected = [this.data];
   }
 

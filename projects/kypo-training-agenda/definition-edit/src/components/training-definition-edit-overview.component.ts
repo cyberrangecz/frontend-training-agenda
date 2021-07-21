@@ -9,7 +9,7 @@ import { map, takeWhile, tap } from 'rxjs/operators';
 import { TrainingDefinitionEditControls } from '../model/adapters/training-definition-edit-controls';
 import { TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
 import { TrainingDefinitionChangeEvent } from '../model/events/training-definition-change-event';
-import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
+import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
 import { TrainingDefinitionEditService } from '../services/state/edit/training-definition-edit.service';
 
 /**
@@ -35,11 +35,11 @@ export class TrainingDefinitionEditOverviewComponent extends SentinelBaseDirecti
 
   constructor(
     private activeRoute: ActivatedRoute,
-    private context: TrainingAgendaContext,
+    private paginationService: PaginationService,
     private editService: TrainingDefinitionEditService
   ) {
     super();
-    this.defaultPaginationSize = this.context.config.defaultPaginationSize;
+    this.defaultPaginationSize = this.paginationService.getPagination();
     this.trainingDefinition$ = this.editService.trainingDefinition$;
     this.tdTitle$ = this.editService.trainingDefinition$.pipe(map((td) => td.title));
     this.saveDisabled$ = this.editService.saveDisabled$;

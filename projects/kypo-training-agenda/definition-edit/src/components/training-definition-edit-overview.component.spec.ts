@@ -1,10 +1,11 @@
-import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
+import { PaginationService, TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
 import { ActivatedRoute } from '@angular/router';
 import { TrainingDefinitionEditOverviewComponent } from '@muni-kypo-crp/training-agenda/definition-edit';
 import { ComponentFixture, TestBed, async, fakeAsync } from '@angular/core/testing';
 import {
   createActivatedRouteSpy,
   createTrainingDefinitionEditServiceSpy,
+  createPaginationServiceSpy,
   createContext,
 } from '../../../internal/src/testing/testing-commons.spec';
 import { TrainingDefinitionEditService } from '@muni-kypo-crp/training-agenda/definition-edit';
@@ -19,14 +20,16 @@ describe('TrainingDefinitionEditOverviewComponent', () => {
   let component: TrainingDefinitionEditOverviewComponent;
   let fixture: ComponentFixture<TrainingDefinitionEditOverviewComponent>;
 
+  let context: TrainingAgendaContext;
   let activatedRouteSpy: jasmine.SpyObj<ActivatedRoute>;
   let editServiceSpy: jasmine.SpyObj<TrainingDefinitionEditService>;
-  let context: TrainingAgendaContext;
+  let paginationServiceSpy: jasmine.SpyObj<PaginationService>;
 
   beforeEach(async(() => {
     activatedRouteSpy = createActivatedRouteSpy();
     editServiceSpy = createTrainingDefinitionEditServiceSpy();
     context = createContext();
+    paginationServiceSpy = createPaginationServiceSpy();
     initComponentData();
     TestBed.configureTestingModule({
       imports: [MaterialTestingModule, BrowserAnimationsModule],
@@ -34,7 +37,7 @@ describe('TrainingDefinitionEditOverviewComponent', () => {
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteSpy },
         { provide: TrainingDefinitionEditService, useValue: editServiceSpy },
-        { provide: TrainingAgendaContext, useValue: context },
+        { provide: PaginationService, useValue: paginationServiceSpy },
       ],
     }).compileComponents();
   }));
@@ -49,7 +52,6 @@ describe('TrainingDefinitionEditOverviewComponent', () => {
   });
 
   it('should set correct values', () => {
-    expect(component.defaultPaginationSize).toEqual(10);
     component.trainingDefinition$.subscribe((val) => expect(val).toEqual(createMock()));
     component.tdTitle$.subscribe((val) => expect(val).toEqual(createMock().title));
     component.saveDisabled$.subscribe((val) => expect(val).toEqual(false));

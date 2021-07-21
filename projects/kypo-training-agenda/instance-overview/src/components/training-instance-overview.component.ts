@@ -8,8 +8,8 @@ import { map, take, takeWhile } from 'rxjs/operators';
 import { TrainingInstanceOverviewControls } from '../model/adapters/training-instance-overview-controls';
 import { TrainingInstanceTable } from '../model/adapters/training-instance-table';
 import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
-import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
 import { TrainingInstanceOverviewService } from '../services/state/training-instance-overview.service';
+import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
 
 /**
  * Main component of organizer overview.
@@ -31,7 +31,7 @@ export class TrainingInstanceOverviewComponent extends SentinelBaseDirective imp
 
   constructor(
     private service: TrainingInstanceOverviewService,
-    private context: TrainingAgendaContext,
+    private paginationService: PaginationService,
     private navigator: TrainingNavigator
   ) {
     super();
@@ -47,6 +47,7 @@ export class TrainingInstanceOverviewComponent extends SentinelBaseDirective imp
   }
 
   onInstancesLoadEvent(loadEvent: LoadTableEvent): void {
+    this.paginationService.setPagination(loadEvent.pagination.size);
     this.service
       .getAll(loadEvent.pagination, loadEvent.filter)
       .pipe(takeWhile(() => this.isAlive))
@@ -59,12 +60,7 @@ export class TrainingInstanceOverviewComponent extends SentinelBaseDirective imp
 
   private initTable() {
     const initLoadEvent = new LoadTableEvent(
-      new RequestedPagination(
-        0,
-        this.context.config.defaultPaginationSize,
-        this.INITIAL_SORT_NAME,
-        this.INITIAL_SORT_DIR
-      )
+      new RequestedPagination(0, this.paginationService.getPagination(), this.INITIAL_SORT_NAME, this.INITIAL_SORT_DIR)
     );
     this.instances$ = this.service.resource$.pipe(
       map((instances) => new TrainingInstanceTable(instances, this.service, this.navigator))

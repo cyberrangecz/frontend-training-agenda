@@ -13,6 +13,7 @@ import { TrainingNavigator, ADAPTIVE_INSTANCE_DATA_ATTRIBUTE_NAME } from '@muni-
 import { AdaptiveInstanceSummaryService } from '../services/state/summary/adaptive-instance-summary.service';
 import { ActiveAdaptiveRunService } from '../services/state/active-runs/active-adaptive-run.service';
 import { ArchivedAdaptiveRunService } from '../services/state/archived-runs/archived-adaptive-run.service';
+import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
 
 /**
  * Smart component of adaptive instance summary
@@ -50,6 +51,7 @@ export class AdaptiveInstanceSummaryComponent extends SentinelBaseDirective impl
   constructor(
     private activeRoute: ActivatedRoute,
     private navigator: TrainingNavigator,
+    private paginationService: PaginationService,
     private adaptiveInstanceSummaryService: AdaptiveInstanceSummaryService,
     private activeTrainingRunService: ActiveAdaptiveRunService,
     private archivedTrainingRunService: ArchivedAdaptiveRunService
@@ -99,6 +101,7 @@ export class AdaptiveInstanceSummaryComponent extends SentinelBaseDirective impl
    * @param event reload data event emitted from table
    */
   onActiveTrainingRunTableLoadEvent(event: LoadTableEvent): void {
+    this.paginationService.setPagination(event.pagination.size);
     this.trainingInstance$
       .pipe(
         switchMap((ti) => this.activeTrainingRunService.getAll(ti.id, event.pagination)),
@@ -136,6 +139,7 @@ export class AdaptiveInstanceSummaryComponent extends SentinelBaseDirective impl
    * @param event event to load new data emitted by table
    */
   onArchivedTrainingRunTableLoadEvent(event: LoadTableEvent): void {
+    this.paginationService.setPagination(event.pagination.size);
     this.trainingInstance$
       .pipe(
         switchMap((ti) => this.archivedTrainingRunService.getAll(ti.id, event.pagination)),
@@ -180,7 +184,7 @@ export class AdaptiveInstanceSummaryComponent extends SentinelBaseDirective impl
   }
 
   private initActiveRunOverviewComponent() {
-    const initialPagination = new RequestedPagination(0, 10, '', '');
+    const initialPagination = new RequestedPagination(0, this.paginationService.getPagination(), '', '');
     this.trainingInstance$
       .pipe(
         take(1),
@@ -195,7 +199,7 @@ export class AdaptiveInstanceSummaryComponent extends SentinelBaseDirective impl
   }
 
   private initArchivedTrainingRunOverviewComponent() {
-    const initialPagination = new RequestedPagination(0, 10, '', '');
+    const initialPagination = new RequestedPagination(0, this.paginationService.getPagination(), '', '');
     this.trainingInstance$
       .pipe(
         take(1),

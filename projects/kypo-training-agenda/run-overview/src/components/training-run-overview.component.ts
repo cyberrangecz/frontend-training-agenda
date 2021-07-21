@@ -5,7 +5,7 @@ import { SentinelTable, LoadTableEvent, TableActionEvent } from '@sentinel/compo
 import { Observable } from 'rxjs';
 import { map, take, takeWhile } from 'rxjs/operators';
 import { AccessedTrainingRunTable } from '../model/accessed-training-run-table';
-import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
+import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
 import { AccessedTrainingRunService } from '../services/state/training/accessed-training-run.service';
 import { AccessedAdaptiveRunService } from '../services/state/adaptive/accessed-adaptive-run.service';
 
@@ -26,7 +26,7 @@ export class TrainingRunOverviewComponent extends SentinelBaseDirective implemen
   constructor(
     private trainingRunOverviewService: AccessedTrainingRunService,
     private accessedAdaptiveRunService: AccessedAdaptiveRunService,
-    private context: TrainingAgendaContext
+    private paginationService: PaginationService
   ) {
     super();
   }
@@ -64,18 +64,19 @@ export class TrainingRunOverviewComponent extends SentinelBaseDirective implemen
 
   /**
    * Loads training run data for the table component
-   * @param event load table event
+   * @param loadEvent load table event
    */
-  loadAccessedTrainingRuns(event: LoadTableEvent): void {
+  loadAccessedTrainingRuns(loadEvent: LoadTableEvent): void {
+    this.paginationService.setPagination(loadEvent.pagination.size);
     this.trainingRunOverviewService
-      .getAll(event.pagination)
+      .getAll(loadEvent.pagination)
       .pipe(takeWhile(() => this.isAlive))
       .subscribe();
   }
 
   private initTable() {
     const initialLoadEvent: LoadTableEvent = new LoadTableEvent(
-      new RequestedPagination(0, this.context.config.defaultPaginationSize, '', '')
+      new RequestedPagination(0, this.paginationService.getPagination(), '', '')
     );
 
     this.trainingRuns$ = this.trainingRunOverviewService.resource$.pipe(
