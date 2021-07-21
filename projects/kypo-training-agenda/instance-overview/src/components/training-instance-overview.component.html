@@ -5,6 +5,7 @@
     [defaultSortDirection]="INITIAL_SORT_DIR"
     [data]="instances$ | async"
     [hasError]="hasError$ | async"
+    [titlecasedActions]=false
     (rowAction)="onInstanceAction($event)"
     (refresh)="onInstancesLoadEvent($event)">
   </sentinel-table>

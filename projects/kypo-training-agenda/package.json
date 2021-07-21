@@ -6,7 +6,7 @@
     "@angular/core": "~12.0.3",
     "@angular/material": "^12.0.3",
     "@sentinel/common": "~12.1.0",
-    "@sentinel/components": "~12.1.1",
+    "@sentinel/components": "~12.2.1",
     "angular-file": "^3.6.0",
     "@danielmoncada/angular-datetime-picker": "^12.0.0",
     "@muni-kypo-crp/sandbox-api": "~12.0.0",

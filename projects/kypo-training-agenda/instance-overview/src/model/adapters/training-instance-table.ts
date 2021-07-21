@@ -79,17 +79,21 @@ export class TrainingInstanceTable extends SentinelTable<TrainingInstanceRowAdap
         of(false),
         defer(() => service.delete(ti.id))
       ),
-      new DownloadAction(
+      new RowAction(
+        'download_data',
+        'Download Data',
+        'cloud_download',
+        'primary',
         'Download ZIP file containing all training instance data',
         of(false),
         defer(() => service.download(ti.id))
       ),
       new RowAction(
-        'access',
-        'Get Access',
+        'get_ssh_access',
+        'Get SSH Access',
         'vpn_key',
         'primary',
-        'Get SSH Access',
+        'Download management SSH access',
         of(false),
         defer(() => service.getSshAccess(ti.poolId))
       ),
