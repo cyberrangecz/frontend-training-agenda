@@ -195,7 +195,7 @@
         <ng-template matExpansionPanelContent>
           <div formArrayName="phaseRelations">
             <div *ngFor="let relationGroup of phaseRelations.controls; index as k;" [formGroupName]="k">
-              <mat-divider></mat-divider>
+              <mat-divider class='bold-mat-divider'></mat-divider>
               <div class="question-container">
                 <h1>{{ getTrainingPhaseTitle(phaseRelations.at(k).value.phaseId) }}</h1>
                 <div class="question-options">
