@@ -1,4 +1,4 @@
-<div class="content">
+<div>
   <form [formGroup]="questionnaireFormGroup.formGroup">
     <!-- TITLE filed -->
     <mat-form-field
@@ -25,166 +25,12 @@
       <mat-error *ngIf="title.hasError('required')">Title cannot be empty</mat-error>
     </mat-form-field>
 
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>Questions</mat-panel-title>
-      </mat-expansion-panel-header>
-      <ng-template matExpansionPanelContent>
-        <div formArrayName="questions">
-          <!--Free Form Question-->
-          <div *ngFor="let questionGroup of questions.controls; index as i;" [formGroupName]="i">
-            <ng-container [ngSwitch]="questions.at(i).get('questionType').value">
-              <mat-divider></mat-divider>
-              <div *ngSwitchCase="questionTypes.FFQ">
-                <div class="question-container">
-                  <div>
-                    <mat-icon class="title-icon" >edit</mat-icon>
-                    <span style="font-size: 20px"> Question {{i + 1}} (Free Form):</span>
-                  </div>
-                  <div class="question-options">
-                    <button mat-flat-button color="warn" (click)="deleteQuestion(i)">Delete</button>
-                  </div>
-                </div>
-                <mat-divider></mat-divider>
-
-                <div class="question-container">
-                  <div class='question-text'>
-                    <sentinel-markdown-editor
-                    class="mrkdwn-content"
-                    [sentinel-markdown-file-upload]="false"
-                    (contentChange)="questionGroup.get('text').setValue($event)"
-                    [content]="questionGroup.get('text').value"
-
-                    ></sentinel-markdown-editor>
-                    <mat-error *ngIf="questionGroup.get('text').hasError('required')">Question text cannot be empty</mat-error>
-                  </div>
-                </div>
-                <div *ngIf="phase.questionnaireType === questionnaireTypes.Adaptive">
-                  <h2>Answers:</h2>
-                  <div formArrayName="choices">
-                    <div *ngFor="let choicesGroup of this.getChoices(i).controls; index as j;" [formGroupName]="j">
-                      <mat-form-field appearance="outline">
-                        <mat-label>Answer {{ j+1 }}</mat-label>
-                        <input matInput placeholder="Answer text" formControlName="text" required/>
-                        <mat-error *ngIf="choicesGroup.get('text').hasError('required')">Answer text cannot be empty</mat-error>
-                      </mat-form-field>
-                      <button mat-button matSuffix mat-icon-button aria-label="Delete option"
-                              color="warn" matTooltip="Delete option"
-                              (click)="deleteOption(i, j)">
-                        <mat-icon>remove_circle</mat-icon>
-                      </button>
-                    </div>
-                    <button (click)="addOption(i, 'new Answer')" mat-button color="primary">Add Answer</button>
-                  </div>
-                </div>
-              </div>
-
-              <!--Multiple Choice Question-->
-              <div *ngSwitchCase="questionTypes.MCQ">
-                <div class="question-container">
-                  <div>
-                    <mat-icon style="font-size: 20px; vertical-align: sub; horiz-align: left">check_circle_outline</mat-icon>
-                    <span style="font-size: 20px"> Question {{i + 1}} (Multiple Choice):</span>
-                  </div>
-                  <div class="question-options">
-                    <button mat-flat-button color="warn" (click)="deleteQuestion(i)">Delete</button>
-                  </div>
-                </div>
-                <mat-divider></mat-divider>
-
-                <div class="question-container">
-                  <div class='question-text'>
-                    <sentinel-markdown-editor
-                      class="mrkdwn-content"
-                      [sentinel-markdown-file-upload]="false"
-                      (contentChange)="questionGroup.get('text').setValue($event)"
-                      [content]="questionGroup.get('text').value"
-                    ></sentinel-markdown-editor>
-                    <mat-error *ngIf="questionGroup.get('text').hasError('required')">Question text cannot be empty</mat-error>
-                  </div>
-                </div>
-                <h2>Options:</h2>
-                <div formArrayName="choices">
-                  <div *ngFor="let choicesGroup of this.getChoices(i).controls; index as j;" [formGroupName]="j">
-                    <mat-checkbox *ngIf="phase.questionnaireType === questionnaireTypes.Adaptive"
-                                  class="option-checkbox"
-                                  matTooltip="Correct"
-                                  formControlName="correct">
-                    </mat-checkbox>
-                    <mat-form-field appearance="outline">
-                      <mat-label>Option {{ j+1 }}</mat-label>
-                      <input matInput placeholder="Option Text" formControlName="text" required/>
-                      <mat-error *ngIf="choicesGroup.get('text').hasError('required')">Option text cannot be empty</mat-error>
-                    </mat-form-field>
-                    <button mat-button matSuffix mat-icon-button aria-label="Delete option"
-                            color="warn" matTooltip="Delete option"
-                            (click)="deleteOption(i, j)">
-                      <mat-icon>remove_circle</mat-icon>
-                    </button>
-                  </div>
-                </div>
-                <button (click)="addOption(i, 'new Option')" mat-button color="primary">Add option</button>
-              </div>
-
-              <!--Rating Form Question-->
-              <div *ngSwitchCase="questionTypes.RFQ">
-                <div class="question-container">
-                  <div>
-                    <mat-icon class="title-icon">star_half</mat-icon>
-                    <span style="font-size: 20px"> Question {{i + 1}} (Rating Form):</span>
-                  </div>
-                  <div class="question-options">
-                    <button mat-flat-button color="warn" (click)="deleteQuestion(i)">Delete</button>
-                  </div>
-                </div>
-                <mat-divider></mat-divider>
-                <div class="question-container">
-                  <div class='question-text'>
-                    <sentinel-markdown-editor
-                      class="mrkdwn-content"
-                      [sentinel-markdown-file-upload]="false"
-                      (contentChange)="questionGroup.get('text').setValue($event)"
-                      [content]="questionGroup.get('text').value"
-                    ></sentinel-markdown-editor>
-                    <mat-error *ngIf="questionGroup.get('text').hasError('required')">Question text cannot be empty</mat-error>
-                  </div>
-                  <div class="rating-level-field">
-                    <span>Rating Level</span>
-                    <div class="question-fields">
-                      <mat-form-field appearance="fill">
-                        <mat-label> {{questions.at(i).get('choices').value.length}}</mat-label>
-                        <mat-select>
-                          <mat-option *ngFor="let number of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
-                                      value="{{ number }}"
-                                      (onSelectionChange)="ratingLevelChanged(number, i)">
-                            {{ number }}
-                          </mat-option>
-                        </mat-select>
-                      </mat-form-field>
-                    </div>
-                  </div>
-                </div>
-                <div class="rating-form-choices" formArrayName="choices">
-                  <div class="rating-level" *ngFor="let choicesGroup of this.getChoices(i).controls; index as j;" [formGroupName]="j">
-                    <mat-checkbox *ngIf="phase.questionnaireType === questionnaireTypes.Adaptive"
-                                  class="option-checkbox"
-                                  matTooltip="Correct"
-                                  formControlName="correct">
-                    </mat-checkbox>
-                    <mat-form-field appearance="outline">
-                      <mat-label>Level {{ j+1 }}</mat-label>
-                      <input matInput placeholder="Level Text" formControlName="text" required/>
-                      <mat-error *ngIf="choicesGroup.get('text').hasError('required')">Level text cannot be empty</mat-error>
-                    </mat-form-field>
-                  </div>
-                </div>
-              </div>
-            </ng-container>
-          </div>
-        </div>
-        <sentinel-controls [controls]="addQuestionControls" (itemClicked)="onControlAction($event)"></sentinel-controls>
-      </ng-template>
-    </mat-expansion-panel>
+    <!-- QUESTIONS component -->
+    <kypo-adaptive-questions-overview [questions]="phase.questions"
+                                      [questionnaireType]="phase.questionnaireType"
+                                      (questionsChange)="onQuestionsChanged($event)"
+                                      (deleteRelationChange)="removeQuestionFromRelations($event)">
+    </kypo-adaptive-questions-overview>
 
     <div *ngIf="phase.questionnaireType === questionnaireTypes.Adaptive">
       <mat-divider></mat-divider>
@@ -203,7 +49,7 @@
                     <span>Add Question</span>
                     <mat-icon inline="true">arrow_drop_down</mat-icon>
                   </button>
-                  <mat-menu class="question-menu" #menu="matMenu">
+                  <mat-menu #menu="matMenu">
                     <div *ngIf="getValidQuestionMenuItems(k).length > 0 else noQuestions">
                       <button mat-menu-item *ngFor="let question of getValidQuestionMenuItems(k)"
                               (click)="onQuestionAddedToRelation(k, question.id)">
