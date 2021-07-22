@@ -1,0 +1,29 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      <h3>Question {{ index + 1 }}: {{ question.text }}</h3>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <ng-container [ngSwitch]="true">
+      <kypo-adaptive-multiple-choice-question-edit *ngSwitchCase="question.questionType === questionTypes.MCQ"
+                                          (questionChange)="questionChanged($event)"
+                                          [questionnaireType]="questionnaireType"
+                                          [question]="question">
+      </kypo-adaptive-multiple-choice-question-edit>
+      <kypo-adaptive-free-form-question-edit *ngSwitchCase="question.questionType === questionTypes.FFQ"
+                                    (questionChange)="questionChanged($event)"
+                                    [questionnaireType]="questionnaireType"
+                                    [question]="question">
+      </kypo-adaptive-free-form-question-edit>
+      <kypo-rating-form-question-edit *ngSwitchCase="question.questionType === questionTypes.RFQ"
+                                    (questionChange)="questionChanged($event)"
+                                    [questionnaireType]="questionnaireType"
+                                    [question]="question">
+      </kypo-rating-form-question-edit>
+    </ng-container>
+  </mat-card-content>
+  <mat-card-actions align="end">
+    <button mat-flat-button color="warn" (click)="onDelete(index)">Delete</button>
+  </mat-card-actions>
+</mat-card>

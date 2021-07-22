@@ -1,8 +1,8 @@
-.question-options button{
+.question-options button {
   margin-left: 10px;
 }
 
-mat-divider{
+mat-divider {
   padding-bottom: 10px;
   margin-top: 10px;
 }
@@ -12,90 +12,38 @@ mat-divider{
   margin-bottom: 15px;
 }
 
-.question-container{
+.question-container {
   display: flex;
   justify-content: space-between;
   width: 100%;
 }
 
-.question-text {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
-.question-fields{
-  display: flex;
-  flex-direction: column;
-}
-
-.text-field{
-  width: 500px;
-}
-
-.option-checkbox{
-  margin-right: 10px;
-}
-
-
-.right-button{
-  margin-right: 1000px;
-}
-
-.title-icon{
-  font-size: 20px;
-  vertical-align: sub;
-}
-
-.rating-form-choices{
-  display: flex;
-  flex-direction: row;
-}
-
-.rating-level{
-  justify-content: center;
-  display: flex;
-  flex-direction: column;
-  margin-right: 10px;
-}
-
-.rating-level mat-form-field{
-  width: 100px;
-}
-
-.rating-level mat-checkbox{
-  margin-left: 45px;
-  margin-bottom: 5px;
-}
-
-.relation-options{
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
-}
-
-.relation-fields{
+.relation-fields {
   display: flex;
   justify-content: space-between;
   width: 100%;
   margin-bottom: 20px;
 }
 
-.question-in-relation{
+.question-in-relation {
   display: flex;
   flex-direction: row;
   width: 500px;
 }
 
-.question-in-relation span{
+.question-in-relation span {
   width: auto;
 }
 
-.question-in-relation button{
+.question-in-relation button {
   margin-top: -10px;
 }
 
-.empty-menu-text{
+.question-in-relation mat-icon {
+  margin-top: -3px;
+}
+
+.empty-menu-text {
   margin-top: 15px;
   margin-left: 5px;
   margin-right: 5px;
@@ -103,20 +51,8 @@ mat-divider{
   font-family: Arial;
 }
 
-.question-in-relation mat-icon{
+.question-in-relation mat-icon {
   margin-top: -3px;
-}
-
-.rating-level-field{
-  display: flex;
-  flex-direction: row;
-  margin-left: 50px;
-}
-
-.rating-level-field span{
-  padding-top: 15px;
-  white-space:nowrap;
-  margin-right: 10px;
 }
 
 ::ng-deep div.mat-menu-panel {
@@ -126,9 +62,4 @@ mat-divider{
   max-height: calc(100vh - 48px);
   border-radius: 4px;
   outline: 0;
-}
-
-.mrkdwn-content {
-  border: 1px solid #E0E0E0;
-  border-radius: 6px;
 }

@@ -1,5 +1,5 @@
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { AdaptiveQuestion, Choice, PhaseRelation, QuestionnairePhase } from '@muni-kypo-crp/training-model';
+import { AdaptiveQuestion, PhaseRelation, QuestionnairePhase } from '@muni-kypo-crp/training-model';
 
 /**
  * @dynamic
@@ -32,26 +32,15 @@ export class QuestionnairePhaseEditFormGroup {
   private static createQuestions(question: AdaptiveQuestion): FormGroup {
     return new FormGroup({
       text: new FormControl(question.text, Validators.required),
-      choices: new FormArray(question.choices.map((choice) => QuestionnairePhaseEditFormGroup.createChoices(choice))),
       id: new FormControl(question.id),
       order: new FormControl(question.order),
       questionType: new FormControl(question.questionType),
     });
   }
 
-  private static createChoices(choice: Choice): FormGroup {
-    return new FormGroup({
-      text: new FormControl(choice.text, Validators.required),
-      correct: new FormControl(choice.correct, Validators.required),
-      id: new FormControl(choice.id),
-      order: new FormControl(choice.order),
-    });
-  }
-
   setToPhase(phase: QuestionnairePhase): void {
     phase.title = this.formGroup.get('title').value;
-    phase.questions = this.formGroup.get('questions').value;
     phase.phaseRelations = this.formGroup.get('phaseRelations').value;
-    phase.valid = this.formGroup.valid;
+    phase.valid = this.formGroup.valid && phase.questions.every((question) => question.valid);
   }
 }
