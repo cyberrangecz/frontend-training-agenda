@@ -31,7 +31,6 @@
         <kypo-adaptive-question-edit [question]="stepperQuestions.items[selectedStep].question"
                                      [questionnaireType]="questionnaireType"
                                      [index]="selectedStep"
-                                     (delete)="deleteQuestion($event)"
                                      (questionChange)="onQuestionChanged($event)">
         </kypo-adaptive-question-edit>
       </div>

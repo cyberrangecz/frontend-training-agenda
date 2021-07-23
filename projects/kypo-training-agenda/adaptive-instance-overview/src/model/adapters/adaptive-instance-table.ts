@@ -1,14 +1,6 @@
 import { SentinelDateTimeFormatPipe, PaginatedResource } from '@sentinel/common';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
-import {
-  Column,
-  SentinelTable,
-  Row,
-  RowAction,
-  EditAction,
-  DeleteAction,
-  DownloadAction,
-} from '@sentinel/components/table';
+import { Column, SentinelTable, Row, RowAction, EditAction, DeleteAction } from '@sentinel/components/table';
 import { defer, of } from 'rxjs';
 import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
 import { AdaptiveInstanceRowAdapter } from './adaptive-instance-row-adapter';
@@ -80,8 +72,8 @@ export class AdaptiveInstanceTable extends SentinelTable<AdaptiveInstanceRowAdap
         defer(() => service.delete(ti.id))
       ),
       new RowAction(
-        'download_data',
-        'Download Data',
+        'get_data',
+        'Get Data',
         'cloud_download',
         'primary',
         'Download ZIP file containing all training instance data',
@@ -89,11 +81,11 @@ export class AdaptiveInstanceTable extends SentinelTable<AdaptiveInstanceRowAdap
         defer(() => service.download(ti.id))
       ),
       new RowAction(
-        'get_ssh_access',
-        'Get SSH Access',
+        'get_ssh_configs',
+        'Get SSH Configs',
         'vpn_key',
         'primary',
-        'Download management SSH access',
+        'Download management SSH configs',
         of(!ti.hasPool()),
         defer(() => service.getSshAccess(ti.poolId))
       ),

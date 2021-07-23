@@ -11,6 +11,12 @@ import {
 import { defer, of } from 'rxjs';
 import { takeWhile } from 'rxjs/operators';
 import { QuestionChangeEvent } from '../../../../../../model/events/question-change-event';
+import { MatDialog } from '@angular/material/dialog';
+import {
+  SentinelConfirmationDialogComponent,
+  SentinelConfirmationDialogConfig,
+  SentinelDialogResultEnum,
+} from '@sentinel/components/dialogs';
 
 @Component({
   selector: 'kypo-adaptive-questions-overview',
@@ -27,6 +33,10 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
   controls: SentinelControlItem[];
   questionsHasError: boolean;
   selectedStep: number;
+
+  constructor(public dialog: MatDialog) {
+    super();
+  }
 
   ngOnInit(): void {
     this.selectedStep = 0;
@@ -62,12 +72,29 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
     this.onQuestionChanged();
   }
 
-  deleteQuestion(questionIndex: number) {
-    this.deleteRelationChange.emit(questionIndex);
-    this.stepperQuestions.items.splice(questionIndex, 1);
-    this.stepperQuestions.items.forEach((question, index) => (question.order = index));
-    this.changeSelectedStepAfterRemoving(questionIndex);
-    this.onQuestionChanged();
+  deleteActiveQuestion() {
+    const question = this.stepperQuestions.items[this.selectedStep];
+    const dialogRef = this.dialog.open(SentinelConfirmationDialogComponent, {
+      data: new SentinelConfirmationDialogConfig(
+        'Delete Question',
+        `Do you want to delete question "${question.title}"?`,
+        'Cancel',
+        'Delete'
+      ),
+    });
+
+    dialogRef
+      .afterClosed()
+      .pipe(takeWhile(() => this.isAlive))
+      .subscribe((result) => {
+        if (result === SentinelDialogResultEnum.CONFIRMED) {
+          this.deleteRelationChange.emit(this.selectedStep);
+          this.stepperQuestions.items.splice(this.selectedStep, 1);
+          this.stepperQuestions.items.forEach((question, index) => (question.order = index));
+          this.changeSelectedStepAfterRemoving(this.selectedStep);
+          this.onQuestionChanged();
+        }
+      });
   }
 
   /**
@@ -155,6 +182,15 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
           'star_half'
         ),
       ]),
+      new SentinelControlItem(
+        'delete',
+        'Delete',
+        'warn',
+        of(false),
+        //deleteDisabled$,
+        //this.deleteDisabledSubject$.asObservable(),
+        defer(() => this.deleteActiveQuestion())
+      ),
     ];
   }
 }
