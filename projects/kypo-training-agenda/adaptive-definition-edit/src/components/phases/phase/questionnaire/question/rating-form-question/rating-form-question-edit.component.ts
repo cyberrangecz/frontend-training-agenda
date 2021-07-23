@@ -21,6 +21,8 @@ export class RatingFormQuestionEditComponent extends SentinelBaseDirective imple
 
   questionnaireTypes = QuestionnaireTypeEnum;
   ratingFormFormGroup: QuestionFormGroup;
+  selectedRatingLevel: number;
+  ratingLevelOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   get title(): AbstractControl {
     return this.ratingFormFormGroup.questionFormGroup.get('title');
@@ -32,6 +34,7 @@ export class RatingFormQuestionEditComponent extends SentinelBaseDirective imple
   ngOnChanges(changes: SimpleChanges): void {
     if ('question' in changes) {
       this.ratingFormFormGroup = new QuestionFormGroup(this.question);
+      this.selectedRatingLevel = this.question.choices.length;
       this.ratingFormFormGroup.questionFormGroup.valueChanges
         .pipe(takeWhile(() => this.isAlive))
         .subscribe(() => this.questionChanged());
