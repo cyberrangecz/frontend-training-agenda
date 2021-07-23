@@ -162,6 +162,7 @@ export class LevelEditConcreteService extends LevelEditService {
     const levels = this.levelsSubject$.getValue();
     const from = levels[fromIndex];
     this.moveInternally(fromIndex, toIndex);
+    this.setLevelCanBeSaved(this.getSelected());
     return this.api.moveLevelTo(this.trainingDefinitionId, from.id, toIndex).pipe(
       tap(
         (_) => _,
@@ -275,7 +276,7 @@ export class LevelEditConcreteService extends LevelEditService {
     this.unsavedLevelsSubject$.next(this.levelsSubject$.getValue().filter((level) => level.isUnsaved));
   }
 
-  private moveInternally(fromIndex: number, toIndex: number) {
+  private moveInternally(fromIndex: number, toIndex: number, activeIndex?: number) {
     const levels = this.levelsSubject$.getValue();
     levels.splice(toIndex, 0, levels.splice(fromIndex, 1)[0]);
     levels.forEach((level, index) => (level.order = index));

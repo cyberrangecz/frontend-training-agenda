@@ -69,7 +69,7 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
     }
     if ('isTest' in changes && !changes.isTest.isFirstChange()) {
       if (this.isTest && this.questions) {
-        this.questions.forEach((question) => (question.required = true));
+        this.stepperQuestions.items.forEach((question) => (question.required = true));
         this.onQuestionChanged();
       }
     }
@@ -207,11 +207,10 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
    * Displays confirmation dialog, on confirmation, deletes question on given index
    */
   onDelete(): void {
-    const index = this.selectedStep;
     const dialogRef = this.dialog.open(SentinelConfirmationDialogComponent, {
       data: new SentinelConfirmationDialogConfig(
         'Delete question',
-        `Do you want to delete question "${this.questions[index].title}"?`,
+        `Do you want to delete question "${this.stepperQuestions[this.selectedStep].title}"?`,
         'Cancel',
         'Delete'
       ),
@@ -222,8 +221,8 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
       .pipe(takeWhile(() => this.isAlive))
       .subscribe((result) => {
         if (result === SentinelDialogResultEnum.CONFIRMED) {
-          this.stepperQuestions.items.splice(index, 1);
-          this.changeSelectedStepAfterRemoving(index);
+          this.stepperQuestions.items.splice(this.selectedStep, 1);
+          this.changeSelectedStepAfterRemoving(this.selectedStep);
           this.onQuestionChanged();
         }
       });
@@ -246,7 +245,7 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
   }
 
   private calculateHasError() {
-    this.questionsHasError = this.questions.some((question) => !question.valid);
+    this.questionsHasError = this.stepperQuestions.items.some((question) => !question.valid);
   }
 
   private initControls() {
