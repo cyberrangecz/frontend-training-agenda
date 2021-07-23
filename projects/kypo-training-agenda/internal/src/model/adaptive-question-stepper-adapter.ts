@@ -6,6 +6,7 @@ export class AdaptiveQuestionStepperAdapter {
   id: number;
   title: string;
   order: number;
+  valid: boolean;
   isActive: boolean;
   primaryIcon: string;
   state: StepperItemState;
@@ -15,6 +16,7 @@ export class AdaptiveQuestionStepperAdapter {
     this.id = question.id;
     this.order = question.order;
     this.title = question.text;
+    this.valid = question.valid;
     this.state = new StepperItemState();
     this.state.icon = AdaptiveQuestionStepperAdapter.iconType(question.questionType);
     this.state.hasState = false;

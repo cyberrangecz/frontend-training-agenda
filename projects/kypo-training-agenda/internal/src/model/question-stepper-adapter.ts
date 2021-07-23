@@ -6,6 +6,8 @@ export class QuestionStepperAdapter {
   id: number;
   title: string;
   isActive: boolean;
+  required: boolean;
+  valid: boolean;
   primaryIcon: string;
   state: StepperItemState;
 
@@ -13,7 +15,9 @@ export class QuestionStepperAdapter {
     this._question = question;
     this.id = question.id;
     this.title = question.title;
+    this.valid = question.valid;
     this.state = new StepperItemState();
+    this.required = question.required;
     this.state.icon = 'help_outline';
     this.state.hasState = false;
     this.primaryIcon = 'help_outline';
