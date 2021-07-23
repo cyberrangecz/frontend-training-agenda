@@ -48,6 +48,7 @@
 .rating-form-choices {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .option-checkbox {
