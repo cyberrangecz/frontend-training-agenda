@@ -1,14 +1,6 @@
 import { SentinelDateTimeFormatPipe, PaginatedResource } from '@sentinel/common';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
-import {
-  Column,
-  SentinelTable,
-  Row,
-  RowAction,
-  EditAction,
-  DeleteAction,
-  DownloadAction,
-} from '@sentinel/components/table';
+import { Column, SentinelTable, Row, RowAction, EditAction, DeleteAction } from '@sentinel/components/table';
 import { defer, of } from 'rxjs';
 import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
 import { AdaptiveInstanceRowAdapter } from './adaptive-instance-row-adapter';
