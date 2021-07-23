@@ -47,7 +47,7 @@ export class RatingFormQuestionEditComponent extends SentinelBaseDirective imple
         this.createNewChoice((i + 1).toString());
       }
     } else if (currentChoiceNum > ratingLevel) {
-      this.choices.controls.splice(ratingLevel, currentChoiceNum - ratingLevel);
+      this.choices.patchValue(this.choices.controls.splice(ratingLevel, currentChoiceNum - ratingLevel));
     }
     this.questionChanged();
   }

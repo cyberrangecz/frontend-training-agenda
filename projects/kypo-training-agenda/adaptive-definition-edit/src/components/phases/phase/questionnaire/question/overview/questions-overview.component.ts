@@ -64,7 +64,7 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
     newQuestion.questionType = type;
     newQuestion.choices = [];
     newQuestion.text = 'Question text?';
-    newQuestion.order = this.questions.length;
+    newQuestion.order = this.stepperQuestions.items.length + 1;
     const questionStepperAdapter = new AdaptiveQuestionStepperAdapter(newQuestion);
     questionStepperAdapter.isActive = true;
     this.stepperQuestions.items.push(questionStepperAdapter);
@@ -89,9 +89,8 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
       .subscribe((result) => {
         if (result === SentinelDialogResultEnum.CONFIRMED) {
           this.deleteRelationChange.emit(this.selectedStep);
-          this.questions.splice(this.selectedStep, 1);
           this.stepperQuestions.items.splice(this.selectedStep, 1);
-          this.questions.forEach((question, index) => (question.order = index));
+          this.stepperQuestions.items.forEach((question, index) => (question.order = index));
           this.changeSelectedStepAfterRemoving(this.selectedStep);
           this.onQuestionChanged();
         }
@@ -136,7 +135,7 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
   }
 
   private calculateHasError() {
-    this.questionsHasError = this.questions.some((question) => !question.valid);
+    this.questionsHasError = this.stepperQuestions.items.some((question) => !question.valid);
   }
 
   /**
