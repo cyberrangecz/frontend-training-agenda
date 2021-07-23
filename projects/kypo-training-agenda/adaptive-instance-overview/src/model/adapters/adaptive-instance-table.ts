@@ -94,7 +94,7 @@ export class AdaptiveInstanceTable extends SentinelTable<AdaptiveInstanceRowAdap
         'vpn_key',
         'primary',
         'Download management SSH access',
-        of(false),
+        of(!ti.hasPool()),
         defer(() => service.getSshAccess(ti.poolId))
       ),
     ];
