@@ -123,7 +123,7 @@ export class RunningAdaptiveRunConcreteService extends RunningAdaptiveRunService
   private displayDialogToNextTask(): MatDialogRef<LoadingDialogComponent> {
     return this.dialog.open(LoadingDialogComponent, {
       data: new LoadingDialogConfig(
-        'Generating a suitable task for you',
+        'Choosing a suitable task for you',
         `Please wait while your next task is being prepared`
       ),
     });
