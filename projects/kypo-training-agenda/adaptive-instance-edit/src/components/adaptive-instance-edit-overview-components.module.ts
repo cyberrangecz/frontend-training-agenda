@@ -6,17 +6,14 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angul
 import { SentinelPipesModule } from '@sentinel/common';
 import { SentinelControlsModule } from '@sentinel/components/controls';
 import { SentinelListModule } from '@sentinel/components/list';
-import { SentinelUserAssignModule, SentinelUserAssignService } from '@sentinel/components/user-assign';
+import { SentinelUserAssignModule } from '@sentinel/components/user-assign';
 import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
-import { OrganizersAssignService } from '../services/state/organizers-assign/organizers-assign.service';
 import { PoolAssignComponent } from './pool-assign/pool-assign.component';
 import { AdaptiveDefinitionSelectComponent } from './adaptive-definition-select/adaptive-definition-select.component';
 import { AdaptiveInstanceEditComponent } from './adaptive-instance-edit/adaptive-instance-edit.component';
 import { AdaptiveInstanceEditOverviewMaterialModule } from './adaptive-instance-edit-overview-material.module';
 import { AdaptiveInstanceEditOverviewComponent } from './adaptive-instance-edit-overview.component';
 import { AdaptiveInstanceCanDeactivate } from '../services/can-deactivate/adaptive-instance-can-deactivate.service';
-import { AdaptiveInstanceEditService } from '../services/state/edit/adaptive-instance-edit.service';
-import { AdaptiveInstanceEditConcreteService } from '../services/state/edit/adaptive-instance-edit-concrete.service';
 
 /**
  * Main module of training instance edit components and providers
@@ -41,11 +38,7 @@ import { AdaptiveInstanceEditConcreteService } from '../services/state/edit/adap
     AdaptiveDefinitionSelectComponent,
     PoolAssignComponent,
   ],
-  providers: [
-    AdaptiveInstanceCanDeactivate,
-    { provide: SentinelUserAssignService, useClass: OrganizersAssignService },
-    { provide: AdaptiveInstanceEditService, useClass: AdaptiveInstanceEditConcreteService },
-  ],
+  providers: [AdaptiveInstanceCanDeactivate],
 })
 export class AdaptiveInstanceEditOverviewComponentsModule {
   static forRoot(config: TrainingAgendaConfig): ModuleWithProviders<AdaptiveInstanceEditOverviewComponentsModule> {

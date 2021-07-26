@@ -10,6 +10,9 @@ import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-a
 import { TrainingInstanceChangeEvent } from '../model/events/training-instance-change-event';
 import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
 import { TrainingInstanceEditService } from '../services/state/edit/training-instance-edit.service';
+import { TrainingInstanceEditConcreteService } from '../services/state/edit/training-instance-edit-concrete.service';
+import { SentinelUserAssignService } from '@sentinel/components/user-assign';
+import { OrganizersAssignService } from '../services/state/organizers-assign/organizers-assign.service';
 
 /**
  * Main component of training instance edit/create page. Serves mainly as a smart component wrapper
@@ -19,6 +22,10 @@ import { TrainingInstanceEditService } from '../services/state/edit/training-ins
   templateUrl: './training-instance-edit-overview.component.html',
   styleUrls: ['./training-instance-edit-overview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    { provide: TrainingInstanceEditService, useClass: TrainingInstanceEditConcreteService },
+    { provide: SentinelUserAssignService, useClass: OrganizersAssignService },
+  ],
 })
 export class TrainingInstanceEditOverviewComponent extends SentinelBaseDirective {
   trainingInstance$: Observable<TrainingInstance>;

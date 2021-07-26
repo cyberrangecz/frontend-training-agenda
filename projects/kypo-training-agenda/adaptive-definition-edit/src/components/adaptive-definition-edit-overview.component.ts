@@ -10,6 +10,9 @@ import { TrainingDefinitionChangeEvent } from '../model/events/training-definiti
 import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
 import { AdaptiveDefinitionEditService } from '../services/state/edit/adaptive-definition-edit.service';
 import { ADAPTIVE_DEFINITION_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
+import { AdaptiveDefinitionEditConcreteService } from '../services/state/edit/adaptive-definition-edit-concrete.service';
+import { SentinelUserAssignService } from '@sentinel/components/user-assign';
+import { AuthorsAssignService } from '../services/state/authors-assign/authors-assign.service';
 
 /**
  * Main smart component of training definition edit/new page.
@@ -19,6 +22,10 @@ import { ADAPTIVE_DEFINITION_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training
   templateUrl: './adaptive-definition-edit-overview.component.html',
   styleUrls: ['./adaptive-definition-edit-overview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    { provide: AdaptiveDefinitionEditService, useClass: AdaptiveDefinitionEditConcreteService },
+    { provide: SentinelUserAssignService, useClass: AuthorsAssignService },
+  ],
 })
 export class AdaptiveDefinitionEditOverviewComponent extends SentinelBaseDirective {
   trainingDefinition$: Observable<TrainingDefinition>;
