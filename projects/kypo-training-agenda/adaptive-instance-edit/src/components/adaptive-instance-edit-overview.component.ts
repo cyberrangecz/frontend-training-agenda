@@ -10,12 +10,19 @@ import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
 import { AdaptiveInstanceEditControls } from '../models/adapter/adaptive-instance-edit-controls';
 import { ADAPTIVE_INSTANCE_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
 import { AdaptiveInstanceChangeEvent } from '../models/events/adaptive-instance-change-event';
+import { AdaptiveInstanceEditConcreteService } from '../services/state/edit/adaptive-instance-edit-concrete.service';
+import { SentinelUserAssignService } from '@sentinel/components/user-assign';
+import { OrganizersAssignService } from '../services/state/organizers-assign/organizers-assign.service';
 
 @Component({
   selector: 'kypo-adaptive-instance-edit-overview',
   templateUrl: './adaptive-instance-edit-overview.component.html',
   styleUrls: ['./adaptive-instance-edit-overview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    { provide: AdaptiveInstanceEditService, useClass: AdaptiveInstanceEditConcreteService },
+    { provide: SentinelUserAssignService, useClass: OrganizersAssignService },
+  ],
 })
 export class AdaptiveInstanceEditOverviewComponent extends SentinelBaseDirective {
   trainingInstance$: Observable<TrainingInstance>;

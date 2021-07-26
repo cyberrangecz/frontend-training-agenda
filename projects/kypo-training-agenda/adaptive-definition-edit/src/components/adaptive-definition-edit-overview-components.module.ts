@@ -3,12 +3,9 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SentinelPipesModule } from '@sentinel/common';
 import { SentinelControlsModule } from '@sentinel/components/controls';
-import { SentinelUserAssignModule, SentinelUserAssignService } from '@sentinel/components/user-assign';
+import { SentinelUserAssignModule } from '@sentinel/components/user-assign';
 import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
 import { AdaptiveDefinitionCanDeactivate } from '../services/can-deactivate/adaptive-definition-can-deactivate.service';
-import { AuthorsAssignService } from '../services/state/authors-assign/authors-assign.service';
-import { AdaptiveDefinitionEditConcreteService } from '../services/state/edit/adaptive-definition-edit-concrete.service';
-import { AdaptiveDefinitionEditService } from '../services/state/edit/adaptive-definition-edit.service';
 import { AdaptiveTrainingDefinitionEditComponent } from './adaptive-definition/adaptive-training-definition-edit.component';
 import { AdaptiveDefinitionEditOverviewMaterialModule } from './adaptive-definition-edit-overview-material.module';
 import { AdaptiveDefinitionEditOverviewComponent } from './adaptive-definition-edit-overview.component';
@@ -40,8 +37,6 @@ import {
     AdaptiveDefinitionResolver,
     AdaptiveDefinitionTitleResolver,
     AdaptiveDefinitionBreadcrumbResolver,
-    { provide: AdaptiveDefinitionEditService, useClass: AdaptiveDefinitionEditConcreteService },
-    { provide: SentinelUserAssignService, useClass: AuthorsAssignService },
   ],
 })
 export class AdaptiveDefinitionEditOverviewComponentsModule {

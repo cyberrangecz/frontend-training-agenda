@@ -11,6 +11,9 @@ import { TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training
 import { TrainingDefinitionChangeEvent } from '../model/events/training-definition-change-event';
 import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
 import { TrainingDefinitionEditService } from '../services/state/edit/training-definition-edit.service';
+import { SentinelUserAssignService } from '@sentinel/components/user-assign';
+import { AuthorsAssignService } from '../services/state/authors-assign/authors-assign.service';
+import { TrainingDefinitionEditConcreteService } from '../services/state/edit/training-definition-edit-concrete.service';
 
 /**
  * Main smart component of training definition edit/new page.
@@ -20,6 +23,10 @@ import { TrainingDefinitionEditService } from '../services/state/edit/training-d
   templateUrl: './training-definition-edit-overview.component.html',
   styleUrls: ['./training-definition-edit-overview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    { provide: SentinelUserAssignService, useClass: AuthorsAssignService },
+    { provide: TrainingDefinitionEditService, useClass: TrainingDefinitionEditConcreteService },
+  ],
 })
 export class TrainingDefinitionEditOverviewComponent extends SentinelBaseDirective {
   trainingDefinition$: Observable<TrainingDefinition>;
@@ -66,6 +73,7 @@ export class TrainingDefinitionEditOverviewComponent extends SentinelBaseDirecti
    * Determines if all changes in sub components are saved and user can navigate to different page
    */
   canDeactivate(): boolean {
+    console.log(this.canDeactivateTDEdit, this.canDeactivateAuthors, this.unsavedLevels.length);
     return this.canDeactivateTDEdit && this.canDeactivateAuthors && this.unsavedLevels.length <= 0;
   }
 

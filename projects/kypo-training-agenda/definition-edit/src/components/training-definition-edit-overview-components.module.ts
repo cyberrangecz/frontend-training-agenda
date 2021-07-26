@@ -3,7 +3,7 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SentinelPipesModule } from '@sentinel/common';
 import { SentinelControlsModule } from '@sentinel/components/controls';
-import { SentinelUserAssignModule, SentinelUserAssignService } from '@sentinel/components/user-assign';
+import { SentinelUserAssignModule } from '@sentinel/components/user-assign';
 import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
 import { TrainingDefinitionCanDeactivate } from '../services/can-deactivate/training-definition-can-deactivate.service';
 import {
@@ -11,9 +11,6 @@ import {
   TrainingDefinitionResolver,
   TrainingDefinitionTitleResolver,
 } from '@muni-kypo-crp/training-agenda/resolvers';
-import { AuthorsAssignService } from '../services/state/authors-assign/authors-assign.service';
-import { TrainingDefinitionEditConcreteService } from '../services/state/edit/training-definition-edit-concrete.service';
-import { TrainingDefinitionEditService } from '../services/state/edit/training-definition-edit.service';
 import { TrainingDefinitionEditComponent } from './definition/training-definition-edit.component';
 import { LevelOverviewComponentsModule } from './levels/level-overview-components.module';
 import { TrainingDefinitionEditOverviewMaterialModule } from './training-definition-edit-overview-material.module';
@@ -41,8 +38,6 @@ import { SentinelFreeFormModule } from '@sentinel/components/free-form';
     TrainingDefinitionResolver,
     TrainingDefinitionTitleResolver,
     TrainingDefinitionBreadcrumbResolver,
-    { provide: TrainingDefinitionEditService, useClass: TrainingDefinitionEditConcreteService },
-    { provide: SentinelUserAssignService, useClass: AuthorsAssignService },
   ],
 })
 export class TrainingDefinitionEditOverviewComponentsModule {

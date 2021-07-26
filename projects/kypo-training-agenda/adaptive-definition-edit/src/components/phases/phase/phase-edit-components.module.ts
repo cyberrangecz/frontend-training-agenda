@@ -78,6 +78,5 @@ const markdownConfig = {
     MultipleChoiceQuestionEditComponent,
     RatingFormQuestionEditComponent,
   ],
-  providers: [],
 })
 export class PhaseEditComponentsModule {}

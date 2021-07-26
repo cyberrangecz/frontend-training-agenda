@@ -18,6 +18,7 @@ import { PhaseStepperAdapter } from '@muni-kypo-crp/training-agenda/internal';
 import { PhaseEditService } from '../../../services/state/phase/phase-edit.service';
 import { PhaseMoveEvent } from '../../../model/events/phase-move-event';
 import { PhaseOverviewControls } from '../../../model/adapters/phase-overview-controls';
+import { PhaseEditConcreteService } from '../../../services/state/phase/phase-edit-concrete.service';
 
 /**
  * Smart component for phases stepper and phases edit components
@@ -27,6 +28,7 @@ import { PhaseOverviewControls } from '../../../model/adapters/phase-overview-co
   templateUrl: './phase-overview.component.html',
   styleUrls: ['./phase-overview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [{ provide: PhaseEditService, useClass: PhaseEditConcreteService }],
 })
 export class PhaseOverviewComponent extends SentinelBaseDirective implements OnInit, OnChanges {
   @Output() unsavedPhases: EventEmitter<Phase[]> = new EventEmitter();

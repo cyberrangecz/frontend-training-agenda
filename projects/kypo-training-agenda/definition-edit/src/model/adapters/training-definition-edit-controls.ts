@@ -1,5 +1,5 @@
 import { SentinelControlItem } from '@sentinel/components/controls';
-import { defer, Observable } from 'rxjs';
+import { defer, Observable, of } from 'rxjs';
 import { TrainingDefinitionEditService } from '../../services/state/edit/training-definition-edit.service';
 
 /**

@@ -19,6 +19,7 @@ import { LevelOverviewControls } from '../../../model/adapters/level-overview-co
 import { LevelStepperAdapter } from '@muni-kypo-crp/training-agenda/internal';
 import { LevelMoveEvent } from '../../../model/events/level-move-event';
 import { LevelEditService } from '../../../services/state/level/level-edit.service';
+import { LevelEditConcreteService } from '../../../services/state/level/level-edit-concrete.service';
 
 /**
  * Smart component for level stepper and level edit components
@@ -27,6 +28,7 @@ import { LevelEditService } from '../../../services/state/level/level-edit.servi
   selector: 'kypo-level-overview',
   templateUrl: './level-overview.component.html',
   styleUrls: ['./level-overview.component.scss'],
+  providers: [{ provide: LevelEditService, useClass: LevelEditConcreteService }],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LevelOverviewComponent extends SentinelBaseDirective implements OnInit, OnChanges {

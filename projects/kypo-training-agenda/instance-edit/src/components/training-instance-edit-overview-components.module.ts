@@ -6,12 +6,9 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angul
 import { SentinelPipesModule } from '@sentinel/common';
 import { SentinelControlsModule } from '@sentinel/components/controls';
 import { SentinelListModule } from '@sentinel/components/list';
-import { SentinelUserAssignModule, SentinelUserAssignService } from '@sentinel/components/user-assign';
+import { SentinelUserAssignModule } from '@sentinel/components/user-assign';
 import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
 import { TrainingInstanceCanDeactivate } from '../services/can-deactivate/training-instance-can-deactivate.service';
-import { TrainingInstanceEditConcreteService } from '../services/state/edit/training-instance-edit-concrete.service';
-import { TrainingInstanceEditService } from '../services/state/edit/training-instance-edit.service';
-import { OrganizersAssignService } from '../services/state/organizers-assign/organizers-assign.service';
 import { PoolAssignComponent } from './pool-assign/pool-assign.component';
 import { TrainingDefinitionSelectComponent } from './training-definition-select/training-definition-select.component';
 import { TrainingInstanceEditOverviewMaterialModule } from './training-instance-edit-overview-material.module';
@@ -41,11 +38,7 @@ import { TrainingInstanceEditComponent } from './training-instance-edit/training
     TrainingDefinitionSelectComponent,
     PoolAssignComponent,
   ],
-  providers: [
-    TrainingInstanceCanDeactivate,
-    { provide: SentinelUserAssignService, useClass: OrganizersAssignService },
-    { provide: TrainingInstanceEditService, useClass: TrainingInstanceEditConcreteService },
-  ],
+  providers: [TrainingInstanceCanDeactivate],
 })
 export class TrainingInstanceEditOverviewComponentsModule {
   static forRoot(config: TrainingAgendaConfig): ModuleWithProviders<TrainingInstanceEditOverviewComponentsModule> {
