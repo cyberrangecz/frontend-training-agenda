@@ -6,9 +6,10 @@ import { PoolApi } from '@muni-kypo-crp/sandbox-api';
 import { Pool } from '@muni-kypo-crp/sandbox-model';
 import { TrainingInstanceApi } from '@muni-kypo-crp/training-api';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
-import { throwError } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import {
   createContext,
+  createDialogSpy,
   createErrorHandlerSpy,
   createNavigatorSpy,
   createNotificationSpy,
@@ -21,10 +22,13 @@ import { TrainingNavigator } from '../../../../src/services/training-navigator.s
 import { TrainingNotificationService } from '../../../../src/services/training-notification.service';
 import { TrainingAgendaContext } from '../../../../internal/src/services/context/training-agenda-context.service';
 import { TrainingInstanceOverviewConcreteService } from './training-instance-overview-concrete.service';
+import { SentinelDialogResultEnum } from '@sentinel/components/dialogs';
+import { MatDialog } from '@angular/material/dialog';
 
 describe('TrainingInstanceOverviewConcreteService', () => {
   let errorHandlerSpy: jasmine.SpyObj<TrainingErrorHandler>;
   let trainingInstanceApiSpy: jasmine.SpyObj<TrainingInstanceApi>;
+  let dialogSpy: jasmine.SpyObj<MatDialog>;
   let poolApiSpy: jasmine.SpyObj<PoolApi>;
   let service: TrainingInstanceOverviewConcreteService;
   let navigatorSpy: jasmine.SpyObj<TrainingNavigator>;
@@ -36,6 +40,7 @@ describe('TrainingInstanceOverviewConcreteService', () => {
     errorHandlerSpy = createErrorHandlerSpy();
     notificationSpy = createNotificationSpy();
     trainingInstanceApiSpy = createTrainingInstanceApiSpy();
+    dialogSpy = createDialogSpy();
     poolApiSpy = createPoolApiSpy();
     navigatorSpy = createNavigatorSpy();
     routerSpy = createRouterSpy();
@@ -44,6 +49,7 @@ describe('TrainingInstanceOverviewConcreteService', () => {
     TestBed.configureTestingModule({
       providers: [
         TrainingInstanceOverviewConcreteService,
+        { provide: MatDialog, useValue: dialogSpy },
         { provide: TrainingInstanceApi, useValue: trainingInstanceApiSpy },
         { provide: PoolApi, useValue: poolApiSpy },
         { provide: Router, useValue: routerSpy },
@@ -117,9 +123,11 @@ describe('TrainingInstanceOverviewConcreteService', () => {
   });
 
   it('should delete training instance', (done) => {
-    trainingInstanceApiSpy.delete.and.returnValue(asyncData(true));
+    trainingInstanceApiSpy.delete.and.returnValue(asyncData(null));
     trainingInstanceApiSpy.getAll.and.returnValue(asyncData(createInstancesPaginatedMock()));
-    service.delete(2).subscribe(
+    const dialogRefSpyObj = jasmine.createSpyObj({ afterClosed: of(SentinelDialogResultEnum.CONFIRMED), close: null });
+    dialogSpy.open.and.returnValue(dialogRefSpyObj);
+    service.delete(createInstancesMock()[1]).subscribe(
       (res) => {
         expect(trainingInstanceApiSpy.delete).toHaveBeenCalledTimes(1);
         expect(res).toEqual(createInstancesPaginatedMock());
@@ -133,11 +141,14 @@ describe('TrainingInstanceOverviewConcreteService', () => {
 
   it('should emit error when  delete training instance fails', (done) => {
     trainingInstanceApiSpy.delete.and.returnValue(throwError(null));
-    service.delete(2).subscribe(
+    trainingInstanceApiSpy.getAll.and.returnValue(asyncData(createInstancesPaginatedMock()));
+    const dialogRefSpyObj = jasmine.createSpyObj({ afterClosed: of(SentinelDialogResultEnum.CONFIRMED), close: null });
+    dialogSpy.open.and.returnValue(dialogRefSpyObj);
+    service.delete(createInstancesMock()[1]).subscribe(
       () => fail,
-      () => {
-        expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
+      (err) => {
         expect(trainingInstanceApiSpy.delete).toHaveBeenCalledTimes(1);
+        expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         done();
       }
     );
@@ -166,11 +177,15 @@ describe('TrainingInstanceOverviewConcreteService', () => {
     return pool;
   }
 
-  function createInstancesPaginatedMock(): PaginatedResource<TrainingInstance> {
+  function createInstancesMock(): TrainingInstance[] {
     const ti1 = new TrainingInstance();
     ti1.id = 0;
     const ti2 = new TrainingInstance();
     ti2.id = 1;
-    return new PaginatedResource([ti1, ti2], new SentinelPagination(1, 2, 2, 2, 1));
+    return [ti1, ti2];
+  }
+
+  function createInstancesPaginatedMock(): PaginatedResource<TrainingInstance> {
+    return new PaginatedResource(createInstancesMock(), new SentinelPagination(1, 2, 2, 2, 1));
   }
 });

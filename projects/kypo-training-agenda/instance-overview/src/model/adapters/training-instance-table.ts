@@ -77,7 +77,7 @@ export class TrainingInstanceTable extends SentinelTable<TrainingInstanceRowAdap
       new DeleteAction(
         'Delete training instance',
         of(false),
-        defer(() => service.delete(ti.id))
+        defer(() => service.delete(ti))
       ),
       new RowAction(
         'get_data',

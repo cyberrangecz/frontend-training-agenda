@@ -11,7 +11,7 @@ export abstract class AdaptiveInstanceOverviewService extends PaginatedResourceS
 
   abstract download(id: number): Observable<any>;
 
-  abstract delete(id: number): Observable<any>;
+  abstract delete(trainingInstance: TrainingInstance): Observable<PaginatedResource<TrainingInstance>>;
 
   abstract getPoolState(poolId: number): Observable<string>;
 

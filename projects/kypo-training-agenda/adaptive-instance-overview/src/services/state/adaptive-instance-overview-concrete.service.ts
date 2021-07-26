@@ -10,14 +10,21 @@ import { AdaptiveInstanceFilter } from '../../model/adapters/adaptive-instance-f
 import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } from '@muni-kypo-crp/training-agenda';
 import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
 import { AdaptiveInstanceOverviewService } from './adaptive-instance-overview.service';
+import {
+  SentinelConfirmationDialogComponent,
+  SentinelConfirmationDialogConfig,
+  SentinelDialogResultEnum,
+} from '@sentinel/components/dialogs';
+import { MatDialog } from '@angular/material/dialog';
 
 @Injectable()
 export class AdaptiveInstanceOverviewConcreteService extends AdaptiveInstanceOverviewService {
   private lastPagination: RequestedPagination;
-  private lastFilter: string;
+  private lastFilters: string;
 
   constructor(
     private adaptiveInstanceApi: AdaptiveInstanceApi,
+    private dialog: MatDialog,
     private poolApi: PoolApi,
     private router: Router,
     private navigator: TrainingNavigator,
@@ -30,7 +37,7 @@ export class AdaptiveInstanceOverviewConcreteService extends AdaptiveInstanceOve
 
   getAll(pagination: RequestedPagination, filter: string = null): Observable<PaginatedResource<TrainingInstance>> {
     this.lastPagination = pagination;
-    this.lastFilter = filter;
+    this.lastFilters = filter;
     this.hasErrorSubject$.next(false);
     const filters = filter ? [new AdaptiveInstanceFilter(filter)] : [];
     return this.adaptiveInstanceApi.getAll(pagination, filters).pipe(
@@ -60,15 +67,11 @@ export class AdaptiveInstanceOverviewConcreteService extends AdaptiveInstanceOve
       .pipe(tap({ error: (err) => this.errorHandler.emit(err, 'Downloading training instance') }));
   }
 
-  delete(id: number): Observable<any> {
-    return this.adaptiveInstanceApi.delete(id).pipe(
-      tap(() => this.notificationService.emit('success', 'Training instance was successfully deleted')),
-      catchError((err) =>
-        this.errorHandler
-          .emit(err, 'Deleting training instance', 'Force')
-          .pipe(switchMap((shouldForce) => (shouldForce ? this.forceDelete(id) : EMPTY)))
-      ),
-      switchMap(() => this.getAll(this.lastPagination, this.lastFilter))
+  delete(trainingInstance: TrainingInstance): Observable<PaginatedResource<TrainingInstance>> {
+    return this.displayDialogToDelete(trainingInstance).pipe(
+      switchMap((result) =>
+        result === SentinelDialogResultEnum.CONFIRMED ? this.callApiToDelete(trainingInstance) : EMPTY
+      )
     );
   }
 
@@ -82,6 +85,30 @@ export class AdaptiveInstanceOverviewConcreteService extends AdaptiveInstanceOve
         this.errorHandler.emit(err, 'Management SSH Access');
         return EMPTY;
       })
+    );
+  }
+
+  private displayDialogToDelete(trainingInstance: TrainingInstance): Observable<SentinelDialogResultEnum> {
+    const dialogRef = this.dialog.open(SentinelConfirmationDialogComponent, {
+      data: new SentinelConfirmationDialogConfig(
+        'Delete Training Instance',
+        `Do you want to delete training instance "${trainingInstance.title}"?`,
+        'Cancel',
+        'Delete'
+      ),
+    });
+    return dialogRef.afterClosed();
+  }
+
+  private callApiToDelete(trainingInstance: TrainingInstance): Observable<PaginatedResource<TrainingInstance>> {
+    return this.adaptiveInstanceApi.delete(trainingInstance.id).pipe(
+      tap(() => this.notificationService.emit('success', 'Training instance was successfully deleted')),
+      catchError((err) =>
+        this.errorHandler
+          .emit(err, 'Deleting training instance', 'Force')
+          .pipe(switchMap((shouldForce) => (shouldForce ? this.forceDelete(trainingInstance.id) : EMPTY)))
+      ),
+      switchMap(() => this.getAll(this.lastPagination, this.lastFilters))
     );
   }
 
