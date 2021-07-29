@@ -3,8 +3,8 @@ import { SentinelValidators } from '@sentinel/common';
 import { GameLevel } from '@muni-kypo-crp/training-model';
 
 export const MAX_SCORE = 100;
-export const INCORRECT_FLAG_LIMIT = 100;
-export const MAX_FLAG = 50;
+export const INCORRECT_ANSWER_LIMIT = 100;
+export const MAX_ANSWER = 50;
 export const MAX_ESTIMATED_DURATION = 60;
 
 /**
@@ -25,13 +25,13 @@ export class GameLevelEditFormGroup {
         Validators.max(MAX_SCORE),
       ]),
       solutionPenalized: new FormControl(level.solutionPenalized),
-      incorrectFlagLimit: new FormControl(level.incorrectFlagLimit, [
+      incorrectAnswerLimit: new FormControl(level.incorrectAnswerLimit, [
         Validators.required,
         Validators.pattern('^[0-9]*$'),
         Validators.min(1),
-        Validators.max(INCORRECT_FLAG_LIMIT),
+        Validators.max(INCORRECT_ANSWER_LIMIT),
       ]),
-      flag: new FormControl(level.flag, [SentinelValidators.noWhitespace, Validators.maxLength(MAX_FLAG)]),
+      answer: new FormControl(level.answer, [SentinelValidators.noWhitespace, Validators.maxLength(MAX_ANSWER)]),
       estimatedDuration: new FormControl(level.estimatedDuration, [
         Validators.pattern('^[0-9]*$'),
         Validators.min(1),
@@ -50,8 +50,8 @@ export class GameLevelEditFormGroup {
     level.solution = this.formGroup.get('solution').value;
     level.maxScore = this.formGroup.get('maxScore').value;
     level.solutionPenalized = this.formGroup.get('solutionPenalized').value;
-    level.incorrectFlagLimit = this.formGroup.get('incorrectFlagLimit').value;
-    level.flag = this.formGroup.get('flag').value;
+    level.incorrectAnswerLimit = this.formGroup.get('incorrectAnswerLimit').value;
+    level.answer = this.formGroup.get('answer').value;
     level.estimatedDuration = this.formGroup.get('estimatedDuration').value;
     level.valid = this.formGroup.valid && level.hints.every((hint) => hint.valid);
   }

@@ -52,7 +52,7 @@ kypo2-topology-graph {
   flex-direction: column;
 }
 
-.flag-input {
+.answer-input {
   display: flex;
   flex-direction: row;
   align-content: baseline;

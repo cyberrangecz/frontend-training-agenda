@@ -26,7 +26,7 @@ import { TrainingErrorHandler } from '@muni-kypo-crp/training-agenda';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 /**
- * Component of a game level in a training run. Users needs to find out correct solution (flag) and submit it
+ * Component of a game level in a training run. Users needs to find out correct solution (answer) and submit it
  * before he can continue to the next level. User can optionally take hints.
  */
 export class GameLevelComponent extends SentinelBaseDirective implements OnInit, OnChanges {
@@ -39,9 +39,9 @@ export class GameLevelComponent extends SentinelBaseDirective implements OnInit,
   topologyWidth: number;
   topologyHeight: number;
   isTopologyDisplayed: boolean;
-  flag: string;
+  answer: string;
   displayedHintsContent$: Observable<string>;
-  isCorrectFlagSubmitted$: Observable<boolean>;
+  isCorrectAnswerSubmitted$: Observable<boolean>;
   isSolutionRevelead$: Observable<boolean>;
   isLoading$: Observable<boolean>;
   hintsButtons$: Observable<HintButton[]>;
@@ -67,10 +67,10 @@ export class GameLevelComponent extends SentinelBaseDirective implements OnInit,
   ngOnChanges(changes: SimpleChanges): void {
     if ('level' in changes) {
       this.initTopology();
-      this.flag = '';
+      this.answer = '';
       this.gameLevelService.init(this.level);
       this.displayedHintsContent$ = this.gameLevelService.displayedHintsContent$;
-      this.isCorrectFlagSubmitted$ = this.gameLevelService.isCorrectFlagSubmitted$;
+      this.isCorrectAnswerSubmitted$ = this.gameLevelService.isCorrectAnswerSubmitted$;
       this.isSolutionRevelead$ = this.gameLevelService.isSolutionRevealed$;
       this.isLoading$ = this.gameLevelService.isLoading$;
       this.hintsButtons$ = this.gameLevelService.hints$;
@@ -97,19 +97,19 @@ export class GameLevelComponent extends SentinelBaseDirective implements OnInit,
   }
 
   /**
-   * Calls service to check whether the flag is correct
+   * Calls service to check whether the answer is correct
    */
-  submitFlag(): void {
-    this.gameLevelService.submitFlag(this.flag).pipe(take(1)).subscribe();
+  submitAnswer(): void {
+    this.gameLevelService.submitAnswer(this.answer).pipe(take(1)).subscribe();
   }
 
   /**
-   * Checks whether user confirmed flag input with Enter
+   * Checks whether user confirmed answer input with Enter
    * @param event keydown event
    */
-  keyboardSubmitFlag(event: KeyboardEvent): void {
+  keyboardSubmitAnswer(event: KeyboardEvent): void {
     if (event.key === 'Enter') {
-      this.submitFlag();
+      this.submitAnswer();
     }
   }
 

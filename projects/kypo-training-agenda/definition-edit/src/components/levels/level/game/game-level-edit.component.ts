@@ -43,11 +43,11 @@ export class GameLevelEditComponent extends SentinelBaseDirective implements OnC
   get solutionPenalized(): AbstractControl {
     return this.gameLevelConfigFormGroup.formGroup.get('solutionPenalized');
   }
-  get incorrectFlagLimit(): AbstractControl {
-    return this.gameLevelConfigFormGroup.formGroup.get('incorrectFlagLimit');
+  get incorrectAnswerLimit(): AbstractControl {
+    return this.gameLevelConfigFormGroup.formGroup.get('incorrectAnswerLimit');
   }
-  get flag(): AbstractControl {
-    return this.gameLevelConfigFormGroup.formGroup.get('flag');
+  get answer(): AbstractControl {
+    return this.gameLevelConfigFormGroup.formGroup.get('answer');
   }
   get estimatedDuration(): AbstractControl {
     return this.gameLevelConfigFormGroup.formGroup.get('estimatedDuration');

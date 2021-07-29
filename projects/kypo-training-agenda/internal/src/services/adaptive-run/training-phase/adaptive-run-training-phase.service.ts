@@ -1,7 +1,7 @@
 import { MatDialog } from '@angular/material/dialog';
 import { RunningAdaptiveRunService } from '../running/running-adaptive-run.service';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { AnswerCheck, FlagCheck, TrainingPhase } from '@muni-kypo-crp/training-model';
+import { PhaseAnswerCheck, LevelAnswerCheck, TrainingPhase } from '@muni-kypo-crp/training-model';
 import {
   SentinelConfirmationDialogComponent,
   SentinelConfirmationDialogConfig,
@@ -54,7 +54,7 @@ export abstract class AdaptiveRunTrainingPhaseService {
     this.isSolutionRevealedSubject$.next(true);
   }
 
-  protected shouldSolutionBeRevealed(answerCheck: AnswerCheck): boolean {
+  protected shouldSolutionBeRevealed(answerCheck: PhaseAnswerCheck): boolean {
     return !this.isSolutionRevealedSubject$.getValue() && !answerCheck.hasRemainingAttempts();
   }
 
@@ -63,14 +63,14 @@ export abstract class AdaptiveRunTrainingPhaseService {
     return this.runningAdaptiveRunService.next();
   }
 
-  protected onWrongAnswerSubmitted(answerCheck: AnswerCheck): Observable<any> {
+  protected onWrongAnswerSubmitted(answerCheck: PhaseAnswerCheck): Observable<any> {
     if (this.shouldSolutionBeRevealed(answerCheck)) {
       this.onSolutionRevealed(answerCheck.solution);
     }
     return this.displayWrongAnswerDialog(answerCheck);
   }
 
-  protected displayWrongAnswerDialog(answerCheck: FlagCheck): Observable<SentinelDialogResultEnum> {
+  protected displayWrongAnswerDialog(answerCheck: LevelAnswerCheck): Observable<SentinelDialogResultEnum> {
     let dialogMessage = 'You have submitted incorrect answer.\n';
     dialogMessage +=
       !this.isSolutionRevealedSubject$.getValue() && answerCheck.remainingAttempts > 0

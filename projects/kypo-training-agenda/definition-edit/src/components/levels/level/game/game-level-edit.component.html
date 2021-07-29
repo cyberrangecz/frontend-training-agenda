@@ -96,54 +96,54 @@
           >
         </mat-form-field>
 
-        <!-- INCORRECT FLAG LIMIT field -->
+        <!-- INCORRECT ANSWER LIMIT field -->
         <mat-form-field
           appearance="outline"
           hintLabel="1 to 100. If the limit
           will be overreached, solution will be displayed automatically."
         >
-          <mat-label>Incorrect Flag Limit</mat-label>
+          <mat-label>Incorrect Answer Limit</mat-label>
           <input
             matInput
-            placeholder="Incorrect Flag Limit"
+            placeholder="Incorrect Answer Limit"
             type="number"
             min="1"
             max="100"
-            formControlName="incorrectFlagLimit"
+            formControlName="incorrectAnswerLimit"
             required
           />
           <mat-error
-            >Incorrect flag limit must be in range of 1 to 100</mat-error
+            >Incorrect answer limit must be in range of 1 to 100</mat-error
           >
         </mat-form-field>
 
-        <!-- FLAG field -->
+        <!-- ANSWER field -->
         <mat-form-field
           appearance="outline"
           hintLabel="Max 50 characters"
           (keydown.enter)="$event.preventDefault()"
         >
-          <mat-label>Correct Flag</mat-label>
+          <mat-label>Correct Answer</mat-label>
           <input
             matInput
-            placeholder="Correct Flag"
+            placeholder="Correct Answer"
             maxlength="50"
-            formControlName="flag"
+            formControlName="answer"
             required
           />
           <button
             mat-button
-            *ngIf="flag"
+            *ngIf="answer"
             matSuffix
             mat-icon-button
             aria-label="Clear"
-            (click)="flag.setValue('')"
+            (click)="answer.setValue('')"
           >
             <mat-icon>close</mat-icon>
           </button>
-          <mat-hint align="end">{{ flag.value?.length || 0 }}/50</mat-hint>
+          <mat-hint align="end">{{ answer.value?.length || 0 }}/50</mat-hint>
           <mat-error
-            >Correct Flag cannot be empty or larger than 50 characters</mat-error
+            >Correct Answer cannot be empty or larger than 50 characters</mat-error
           >
         </mat-form-field>
 
