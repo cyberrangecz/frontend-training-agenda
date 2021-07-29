@@ -4,9 +4,8 @@ import {
   SentinelConfirmationDialogConfig,
   SentinelDialogResultEnum,
 } from '@sentinel/components/dialogs';
-import { GameLevel } from '@muni-kypo-crp/training-model';
+import { PhaseAnswerCheck, GameLevel, LevelAnswerCheck } from '@muni-kypo-crp/training-model';
 import { Hint } from '@muni-kypo-crp/training-model';
-import { FlagCheck } from '@muni-kypo-crp/training-model';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HintButton } from '../../../../model/hint-button';
 import { RunningTrainingRunService } from '../../running/running-training-run.service';
@@ -23,13 +22,13 @@ export abstract class TrainingRunGameLevelService {
   protected isSolutionRevealedSubject$: BehaviorSubject<boolean>;
   isSolutionRevealed$: Observable<boolean>;
 
-  protected isCorrectFlagSubmittedSubject$: BehaviorSubject<boolean>;
-  isCorrectFlagSubmitted$: Observable<boolean>;
+  protected isCorrectAnswerSubmittedSubject$: BehaviorSubject<boolean>;
+  isCorrectAnswerSubmitted$: Observable<boolean>;
 
   protected isLoadingSubject$: BehaviorSubject<boolean>;
   isLoading$: Observable<boolean>;
 
-  abstract submitFlag(flag: string): Observable<any>;
+  abstract submitAnswer(answer: string): Observable<any>;
 
   abstract revealSolution(level: GameLevel): Observable<string>;
 
@@ -50,8 +49,8 @@ export abstract class TrainingRunGameLevelService {
     this.displayedHintsContent$ = this.displayedHintsContentSubject$.asObservable();
     this.isSolutionRevealedSubject$ = new BehaviorSubject(false);
     this.isSolutionRevealed$ = this.isSolutionRevealedSubject$.asObservable();
-    this.isCorrectFlagSubmittedSubject$ = new BehaviorSubject(false);
-    this.isCorrectFlagSubmitted$ = this.isCorrectFlagSubmittedSubject$.asObservable();
+    this.isCorrectAnswerSubmittedSubject$ = new BehaviorSubject(false);
+    this.isCorrectAnswerSubmitted$ = this.isCorrectAnswerSubmittedSubject$.asObservable();
     this.isLoadingSubject$ = new BehaviorSubject(false);
     this.isLoading$ = this.isLoadingSubject$.asObservable();
   }
@@ -103,31 +102,31 @@ export abstract class TrainingRunGameLevelService {
     this.isSolutionRevealedSubject$.next(true);
   }
 
-  protected shouldSolutionBeRevealed(flagCheck: FlagCheck): boolean {
-    return !this.isSolutionRevealedSubject$.getValue() && !flagCheck.hasRemainingAttempts();
+  protected shouldSolutionBeRevealed(answerCheck: PhaseAnswerCheck): boolean {
+    return !this.isSolutionRevealedSubject$.getValue() && !answerCheck.hasRemainingAttempts();
   }
 
-  protected onCorrectFlagSubmitted(): Observable<any> {
-    this.isCorrectFlagSubmittedSubject$.next(true);
+  protected onCorrectAnswerSubmitted(): Observable<any> {
+    this.isCorrectAnswerSubmittedSubject$.next(true);
     return this.runningTrainingRunService.next();
   }
 
-  protected onWrongFlagSubmitted(flagCheck: FlagCheck): Observable<any> {
-    if (this.shouldSolutionBeRevealed(flagCheck)) {
-      this.onSolutionRevealed(flagCheck.solution);
+  protected onWrongAnswerSubmitted(answerCheck: PhaseAnswerCheck): Observable<any> {
+    if (this.shouldSolutionBeRevealed(answerCheck)) {
+      this.onSolutionRevealed(answerCheck.solution);
     }
-    return this.displayWrongFlagDialog(flagCheck);
+    return this.displayWrongAnswerDialog(answerCheck);
   }
 
-  protected displayWrongFlagDialog(flagCheck: FlagCheck): Observable<SentinelDialogResultEnum> {
-    let dialogMessage = 'You have submitted incorrect flag.\n';
+  protected displayWrongAnswerDialog(answerCheck: LevelAnswerCheck): Observable<SentinelDialogResultEnum> {
+    let dialogMessage = 'You have submitted incorrect answer.\n';
     dialogMessage +=
-      !this.isSolutionRevealedSubject$.getValue() && flagCheck.remainingAttempts > 0
-        ? `You have ${flagCheck.remainingAttempts} remaining attempts.`
-        : 'Please insert the flag according to revealed solution.';
+      !this.isSolutionRevealedSubject$.getValue() && answerCheck.remainingAttempts > 0
+        ? `You have ${answerCheck.remainingAttempts} remaining attempts.`
+        : 'Please insert the answer according to revealed solution.';
 
     const dialogRef = this.dialog.open(SentinelConfirmationDialogComponent, {
-      data: new SentinelConfirmationDialogConfig('Incorrect Flag', dialogMessage, '', 'OK'),
+      data: new SentinelConfirmationDialogConfig('Incorrect Answer', dialogMessage, '', 'OK'),
     });
     return dialogRef.afterClosed();
   }

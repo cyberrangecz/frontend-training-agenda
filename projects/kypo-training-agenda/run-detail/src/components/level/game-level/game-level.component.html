@@ -26,7 +26,7 @@
             color="primary"
             [disabled]="
               (isSolutionRevelead$ | async) ||
-              (isCorrectFlagSubmitted$ | async) ||
+              (isCorrectAnswerSubmitted$ | async) ||
               (hintButton.disabled$ | async) ||
               (isLoading$ | async)
             "
@@ -42,7 +42,7 @@
             color="warn"
             [disabled]="
               (isSolutionRevelead$ | async) ||
-              (isCorrectFlagSubmitted$ | async) ||
+              (isCorrectAnswerSubmitted$ | async) ||
               (isLoading$ | async)
             "
             (click)="revealSolution()"
@@ -52,31 +52,31 @@
           </button>
 
           <div class="spacer"></div>
-          <div class="flag-input">
-            <!-- FLAG field-->
+          <div class="answer-input">
+            <!-- ANSWER field-->
             <form autocomplete="off">
               <mat-form-field
                 appearance="outline"
                 (keydown.enter)="$event.preventDefault()"
               >
-                <mat-label>Flag</mat-label>
+                <mat-label>Answer</mat-label>
                 <input
                   matInput
-                  placeholder="Flag"
+                  placeholder="Answer"
                   autocomplete="off"
-                  (keydown)="keyboardSubmitFlag($event)"
-                  [disabled]="isCorrectFlagSubmitted$ | async"
-                  [(ngModel)]="flag"
+                  (keydown)="keyboardSubmitAnswer($event)"
+                  [disabled]="isCorrectAnswerSubmitted$ | async"
+                  [(ngModel)]="answer"
                   [ngModelOptions]="{ standalone: true }"
                 />
                 <button
-                  *ngIf="flag"
+                  *ngIf="answer"
                   mat-button
                   matSuffix
                   mat-icon-button
                   aria-label="Clear"
-                  [disabled]="isCorrectFlagSubmitted$ | async"
-                  (click)="flag = ''"
+                  [disabled]="isCorrectAnswerSubmitted$ | async"
+                  (click)="answer = ''"
                 >
                   <mat-icon>close</mat-icon>
                 </button>
@@ -85,8 +85,8 @@
             <button
               mat-button
               color="accent"
-              [disabled]="!flag || (isCorrectFlagSubmitted$ | async)"
-              (click)="submitFlag()"
+              [disabled]="!answer || (isCorrectAnswerSubmitted$ | async)"
+              (click)="submitAnswer()"
             >
               Submit
             </button>
@@ -98,7 +98,7 @@
           mat-raised-button
           color="primary"
           [disabled]="(isLoading$ | async) ||
-                        (isCorrectFlagSubmitted$ | async)
+                        (isCorrectAnswerSubmitted$ | async)
             "
           (click)="download()"
           matTooltip="Download config for SSH client"
@@ -116,7 +116,7 @@
       </div>
     </div>
   </div>
-  <div *ngIf="isCorrectFlagSubmitted$ | async" class="footer">
+  <div *ngIf="isCorrectAnswerSubmitted$ | async" class="footer">
     <kypo-next-level-button [isLast]="isLast" (next)="onNext()">
     </kypo-next-level-button>
   </div>

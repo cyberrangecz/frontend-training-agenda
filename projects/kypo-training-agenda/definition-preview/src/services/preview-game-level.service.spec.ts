@@ -63,25 +63,25 @@ describe('PreviewGameLevelService', () => {
     });
   });
 
-  it('should submit flag', (done) => {
-    const flag = 'flag';
+  it('should submit answer', (done) => {
+    const answer = 'answer';
     const gameLevel = createMock();
-    runningTrainingRunSpy.next.and.returnValue(asyncData(flag));
+    runningTrainingRunSpy.next.and.returnValue(asyncData(answer));
     service.init(gameLevel);
-    service.submitFlag(flag).subscribe((res) => {
+    service.submitAnswer(answer).subscribe((res) => {
       expect(res).toBeTruthy();
-      expect(res).toEqual(flag);
+      expect(res).toEqual(answer);
       done();
     });
   });
 
-  it('should submit wrong flag', () => {
+  it('should submit wrong answer', () => {
     const dialogRefSpyObj = jasmine.createSpyObj({ afterClosed: of(SentinelDialogResultEnum.CONFIRMED), close: null });
     dialogSpy.open.and.returnValue(dialogRefSpyObj);
-    const flag = 'wrong flag';
+    const answer = 'wrong answer';
     const gameLevel = createMock();
     service.init(gameLevel);
-    service.submitFlag(flag).subscribe((res) => {
+    service.submitAnswer(answer).subscribe((res) => {
       expect(res).toBeTruthy();
       expect(res).toEqual(SentinelDialogResultEnum.CONFIRMED);
     });
@@ -92,7 +92,7 @@ describe('PreviewGameLevelService', () => {
     gameLevel.id = 0;
     gameLevel.solution = 'solution';
     gameLevel.hints = createHints();
-    gameLevel.flag = 'flag';
+    gameLevel.answer = 'answer';
     gameLevel.solutionPenalized = false;
     return gameLevel;
   }

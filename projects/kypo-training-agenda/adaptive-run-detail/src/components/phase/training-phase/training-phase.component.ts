@@ -89,7 +89,7 @@ export class TrainingPhaseComponent extends SentinelBaseDirective implements OnI
   }
 
   /**
-   * Checks whether user confirmed flag input with Enter
+   * Checks whether user confirmed answer input with Enter
    * @param event keydown event
    */
   keyboardSubmitAnswer(event: KeyboardEvent): void {

@@ -41,20 +41,20 @@ export class TrainingRunGameLevelConcreteService extends TrainingRunGameLevelSer
   }
 
   /**
-   * Evaluates if flag entered by trainee is correct
-   * @param flag flag entered by trainee
+   * Evaluates if answer entered by trainee is correct
+   * @param answer answer entered by trainee
    */
-  submitFlag(flag: string): Observable<any> {
+  submitAnswer(answer: string): Observable<any> {
     this.isLoadingSubject$.next(true);
-    return this.api.isCorrectFlag(this.runningTrainingRunService.trainingRunId, flag).pipe(
-      switchMap((flagCheckResult) =>
-        flagCheckResult.isCorrect ? this.onCorrectFlagSubmitted() : this.onWrongFlagSubmitted(flagCheckResult)
+    return this.api.isCorrectAnswer(this.runningTrainingRunService.trainingRunId, answer).pipe(
+      switchMap((answerCheckResult) =>
+        answerCheckResult.isCorrect ? this.onCorrectAnswerSubmitted() : this.onWrongAnswerSubmitted(answerCheckResult)
       ),
       tap(
         () => this.isLoadingSubject$.next(false),
         (err) => {
           this.isLoadingSubject$.next(false);
-          this.errorHandler.emit(err, 'Submitting flag');
+          this.errorHandler.emit(err, 'Submitting answer');
         }
       )
     );

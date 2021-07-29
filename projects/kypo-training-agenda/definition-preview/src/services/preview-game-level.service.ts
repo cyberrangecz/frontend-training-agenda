@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SentinelDialogResultEnum } from '@sentinel/components/dialogs';
-import { FlagCheck } from '@muni-kypo-crp/training-model';
-import { GameLevel } from '@muni-kypo-crp/training-model';
+import { GameLevel, LevelAnswerCheck } from '@muni-kypo-crp/training-model';
 import { Hint } from '@muni-kypo-crp/training-model';
 import { EMPTY, Observable, of } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
@@ -28,7 +27,7 @@ export class PreviewGameLevelService extends TrainingRunGameLevelService {
   init(level: GameLevel): void {
     super.init(level);
     this._currentLevel = level;
-    this._remainingAttempts = this._currentLevel.incorrectFlagLimit;
+    this._remainingAttempts = this._currentLevel.incorrectAnswerLimit;
   }
 
   getAccessFile(): Observable<any> {
@@ -49,18 +48,18 @@ export class PreviewGameLevelService extends TrainingRunGameLevelService {
     );
   }
 
-  submitFlag(flag: string): Observable<any> {
-    const result = new FlagCheck();
-    if (flag && flag.toLowerCase() === this._currentLevel.flag.toLowerCase()) {
+  submitAnswer(answer: string): Observable<any> {
+    const result = new LevelAnswerCheck();
+    if (answer && answer.toLowerCase() === this._currentLevel.answer.toLowerCase()) {
       result.isCorrect = true;
       result.remainingAttempts = 0;
-      return this.onCorrectFlagSubmitted();
+      return this.onCorrectAnswerSubmitted();
     } else {
       result.isCorrect = false;
       this._remainingAttempts--;
       result.remainingAttempts = this._remainingAttempts;
       result.solution = this._currentLevel.solution;
-      return this.onWrongFlagSubmitted(result);
+      return this.onWrongAnswerSubmitted(result);
     }
   }
 
