@@ -14,7 +14,7 @@ export class LevelOverviewControls {
   static readonly ADD_ACTION_ID = 'add';
   static readonly DELETE_ACTION_ID = 'delete';
   static readonly SAVE_ACTION_ID = 'save';
-  static readonly ADD_GAME_LEVEL_ID = 'add_game_level';
+  static readonly ADD_TRAINING_LEVEL_ID = 'add_training_level';
   static readonly ADD_ASSESSMENT_LEVEL_ID = 'add_assessment_level';
   static readonly ADD_INFO_LEVEL_ID = 'add_info_level';
 
@@ -51,11 +51,11 @@ export class LevelOverviewControls {
   private static createAddExpandedMenuControlButtons(service: LevelEditService): SentinelControlMenuItem[] {
     return [
       new SentinelControlMenuItem(
-        this.ADD_GAME_LEVEL_ID,
-        'Game Level',
+        this.ADD_TRAINING_LEVEL_ID,
+        'Training Level',
         'primary',
         of(false),
-        defer(() => service.add(AbstractLevelTypeEnum.Game)),
+        defer(() => service.add(AbstractLevelTypeEnum.Training)),
         'videogame_asset'
       ),
       new SentinelControlMenuItem(

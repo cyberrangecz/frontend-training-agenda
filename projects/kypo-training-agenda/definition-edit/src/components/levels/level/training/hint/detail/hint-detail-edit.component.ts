@@ -20,7 +20,7 @@ import { HintEditFormGroup } from './hint-edit-form-group';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 /**
- * Component to edit new or existing game level hint
+ * Component to edit new or existing training level hint
  */
 export class HintDetailEditComponent extends SentinelBaseDirective implements OnChanges {
   @Input() hint: Hint;

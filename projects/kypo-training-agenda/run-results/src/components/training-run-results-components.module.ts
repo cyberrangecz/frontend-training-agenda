@@ -9,7 +9,7 @@ import { TrainingRunResultsMaterialModule } from './training-run-results-materia
 import { TrainingRunResultsComponent } from './training-run-results.component';
 
 /**
- * Module containing components for trainees results in game
+ * Module containing components for trainees results in training
  */
 @NgModule({
   imports: [CommonModule, TrainingRunResultsMaterialModule, Kypo2TrainingsVisualizationOverviewLibModule],

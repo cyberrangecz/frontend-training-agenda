@@ -50,15 +50,15 @@ export class AccessedTrainingRunConcreteService extends AccessedTrainingRunServi
    * @param id id of training run to resume
    */
   resumeLinear(id: number): Observable<any> {
-    return from(this.router.navigate([this.navigator.toResumeTrainingRunGame(id)]));
+    return from(this.router.navigate([this.navigator.toResumeTrainingRun(id)]));
   }
 
   resumeAdaptive(id: number): Observable<any> {
-    return from(this.router.navigate([this.navigator.toResumeAdaptiveRunGame(id)]));
+    return from(this.router.navigate([this.navigator.toResumeAdaptiveRun(id)]));
   }
 
   access(token: string): Observable<any> {
-    return from(this.router.navigate([this.navigator.toAccessTrainingRunGame(token)]));
+    return from(this.router.navigate([this.navigator.toAccessTrainingRun(token)]));
   }
 
   results(id: number): Observable<any> {

@@ -13,7 +13,7 @@ import { LoadingDialogConfig } from '../../../loading-dialog/loading-dialog-conf
 import { EMPTY } from 'rxjs';
 
 /**
- * Main service for running training game. Holds levels and its state. Handles user general training run user actions and events.
+ * Main service for running training training. Holds levels and its state. Handles user general training run user actions and events.
  * Subscribe to activeLevel$ to receive latest data updates.
  */
 @Injectable()

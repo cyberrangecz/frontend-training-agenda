@@ -4,8 +4,8 @@ import { FormsModule } from '@angular/forms';
 import {
   TrainingRunAssessmentLevelConcreteService,
   TrainingRunAssessmentLevelService,
-  TrainingRunGameLevelConcreteService,
-  TrainingRunGameLevelService,
+  TrainingRunTrainingLevelConcreteService,
+  TrainingRunTrainingLevelService,
 } from '@muni-kypo-crp/training-agenda/internal';
 
 /**
@@ -15,7 +15,7 @@ import {
   imports: [CommonModule, FormsModule],
   declarations: [],
   providers: [
-    { provide: TrainingRunGameLevelService, useClass: TrainingRunGameLevelConcreteService },
+    { provide: TrainingRunTrainingLevelService, useClass: TrainingRunTrainingLevelConcreteService },
     { provide: TrainingRunAssessmentLevelService, useClass: TrainingRunAssessmentLevelConcreteService },
   ],
 })

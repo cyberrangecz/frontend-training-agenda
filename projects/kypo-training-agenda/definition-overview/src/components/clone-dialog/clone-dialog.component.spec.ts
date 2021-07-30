@@ -2,7 +2,7 @@ import { CloneDialogComponent } from './clone-dialog.component';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { TrainingDefinitionEditOverviewMaterialModule } from '../../../../definition-edit/src/components/training-definition-edit-overview-material.module';
-import { TrainingDefinition, Level, GameLevel, AssessmentLevel, InfoLevel } from '@muni-kypo-crp/training-model';
+import { TrainingDefinition, Level, AssessmentLevel, InfoLevel, TrainingLevel } from '@muni-kypo-crp/training-model';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SentinelPipesModule } from '@sentinel/common';
 import { createDialogRefSpy } from '../../../../internal/src/testing/testing-commons.spec';
@@ -65,7 +65,7 @@ describe('CloneDialogComponent', () => {
   }
 
   function createLevelsMock(): Level[] {
-    const level1 = new GameLevel();
+    const level1 = new TrainingLevel();
     const level2 = new AssessmentLevel();
     const level3 = new InfoLevel();
     return [level1, level2, level3];

@@ -2,20 +2,19 @@ import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SentinelDialogResultEnum } from '@sentinel/components/dialogs';
 import { TrainingRunApi } from '@muni-kypo-crp/training-api';
-import { Hint } from '@muni-kypo-crp/training-model';
-import { GameLevel } from '@muni-kypo-crp/training-model';
+import { Hint, TrainingLevel } from '@muni-kypo-crp/training-model';
 import { EMPTY, Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { TrainingErrorHandler } from '@muni-kypo-crp/training-agenda';
-import { TrainingRunGameLevelService } from './training-run-game-level.service';
+import { TrainingRunTrainingLevelService } from './training-run-training-level.service';
 import { RunningTrainingRunService } from '../../running/running-training-run.service';
 import { SandboxInstanceApi } from '@muni-kypo-crp/sandbox-api';
 
 @Injectable()
 /**
- * Handles events and actions specific for game level in training run
+ * Handles events and actions specific for training level in training run
  */
-export class TrainingRunGameLevelConcreteService extends TrainingRunGameLevelService {
+export class TrainingRunTrainingLevelConcreteService extends TrainingRunTrainingLevelService {
   constructor(
     private api: TrainingRunApi,
     private sandboxApi: SandboxInstanceApi,
@@ -61,9 +60,9 @@ export class TrainingRunGameLevelConcreteService extends TrainingRunGameLevelSer
   }
 
   /**
-   * Displays solution of current game level
+   * Displays solution of current training level
    */
-  revealSolution(level: GameLevel): Observable<string> {
+  revealSolution(level: TrainingLevel): Observable<string> {
     return this.displayRevealSolutionDialog(level.solutionPenalized).pipe(
       switchMap((result) =>
         result === SentinelDialogResultEnum.CONFIRMED

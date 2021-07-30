@@ -19,8 +19,8 @@ export * from './services/adaptive-run/running/running-adaptive-run.service';
 export * from './services/adaptive-run/running/running-adaptive-run-concrete.service';
 export * from './services/training-run/level/assessment/training-run-assessment-level.service';
 export * from './services/training-run/level/assessment/training-run-assessment-level-concrete.service';
-export * from './services/training-run/level/game/training-run-game-level.service';
-export * from './services/training-run/level/game/training-run-game-level-concrete.service';
+export * from './services/training-run/level/training/training-run-training-level.service';
+export * from './services/training-run/level/training/training-run-training-level-concrete.service';
 export * from './services/adaptive-run/training-phase/adaptive-run-training-phase.service';
 export * from './services/adaptive-run/training-phase/adaptive-run-training-phase-concrete.service';
 

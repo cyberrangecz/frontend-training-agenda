@@ -6,9 +6,8 @@ import {
   SentinelDialogResultEnum,
 } from '@sentinel/components/dialogs';
 import { TrainingDefinitionApi } from '@muni-kypo-crp/training-api';
-import { Level } from '@muni-kypo-crp/training-model';
+import { Level, TrainingLevel } from '@muni-kypo-crp/training-model';
 import { AssessmentLevel } from '@muni-kypo-crp/training-model';
-import { GameLevel } from '@muni-kypo-crp/training-model';
 import { InfoLevel } from '@muni-kypo-crp/training-model';
 import { AbstractLevelTypeEnum } from '@muni-kypo-crp/training-model';
 import { EMPTY, Observable } from 'rxjs';
@@ -111,8 +110,8 @@ export class LevelEditConcreteService extends LevelEditService {
         added$ = this.addAssessmentLevel();
         break;
       }
-      case AbstractLevelTypeEnum.Game: {
-        added$ = this.addGameLevel();
+      case AbstractLevelTypeEnum.Training: {
+        added$ = this.addTrainingLevel();
         break;
       }
       default:
@@ -180,12 +179,12 @@ export class LevelEditConcreteService extends LevelEditService {
     this.setActiveLevel(fromIndex);
   }
 
-  private addGameLevel(): Observable<GameLevel> {
-    return this.api.createGameLevel(this.trainingDefinitionId).pipe(
-      switchMap((basicLevelInfo) => this.api.getLevel(basicLevelInfo.id) as Observable<GameLevel>),
+  private addTrainingLevel(): Observable<TrainingLevel> {
+    return this.api.createTrainingLevel(this.trainingDefinitionId).pipe(
+      switchMap((basicLevelInfo) => this.api.getLevel(basicLevelInfo.id) as Observable<TrainingLevel>),
       tap(
         (level) => this.onLevelAdded(level),
-        (err) => this.errorHandler.emit(err, 'Adding game level')
+        (err) => this.errorHandler.emit(err, 'Adding training level')
       )
     );
   }
@@ -246,8 +245,8 @@ export class LevelEditConcreteService extends LevelEditService {
         return this.saveInfoLevel(level as InfoLevel);
       case level instanceof AssessmentLevel:
         return this.saveAssessmentLevel(level as AssessmentLevel);
-      case level instanceof GameLevel:
-        return this.saveGameLevel(level as GameLevel);
+      case level instanceof TrainingLevel:
+        return this.saveTrainingLevel(level as TrainingLevel);
       default:
         console.error('Unsupported instance of level in save method od LevelEditService');
     }
@@ -257,8 +256,8 @@ export class LevelEditConcreteService extends LevelEditService {
     return this.api.updateInfoLevel(this.trainingDefinitionId, level);
   }
 
-  private saveGameLevel(level: GameLevel): Observable<any> {
-    return this.api.updateGameLevel(this.trainingDefinitionId, level);
+  private saveTrainingLevel(level: TrainingLevel): Observable<any> {
+    return this.api.updateTrainingLevel(this.trainingDefinitionId, level);
   }
 
   private saveAssessmentLevel(level: AssessmentLevel): Observable<any> {

@@ -138,28 +138,28 @@ export abstract class TrainingNavigator {
   abstract toTrainingRunOverview(): string;
 
   /**
-   * Returns route to training run game page
+   * Returns route to training run training page
    * @param id id of the training run
    */
-  abstract toResumeTrainingRunGame(id: number | string): string;
+  abstract toResumeTrainingRun(id: number | string): string;
 
   /**
-   * Returns route to adaptive run game page
+   * Returns route to adaptive run training page
    * @param id id of the adaptive run
    */
-  abstract toResumeAdaptiveRunGame(id: number | string): string;
+  abstract toResumeAdaptiveRun(id: number | string): string;
 
   /**
-   * Returns route to training run game
-   * @param token access token to the game
+   * Returns route to training run training
+   * @param token access token to the training
    */
-  abstract toAccessTrainingRunGame(token: string): string;
+  abstract toAccessTrainingRun(token: string): string;
 
   /**
-   * Returns route to adaptive run game
-   * @param token access token to the game
+   * Returns route to adaptive run training
+   * @param token access token to the training
    */
-  abstract toAccessAdaptiveRunGame(token: string): string;
+  abstract toAccessAdaptiveRun(token: string): string;
 
   /**
    * Returns route to training run results page

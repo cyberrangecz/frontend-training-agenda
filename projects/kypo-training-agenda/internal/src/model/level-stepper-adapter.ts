@@ -24,7 +24,7 @@ export class LevelStepperAdapter implements StepItem {
     switch (level.type) {
       case AbstractLevelTypeEnum.Assessment:
         return 'assignment';
-      case AbstractLevelTypeEnum.Game:
+      case AbstractLevelTypeEnum.Training:
         return 'videogame_asset';
       case AbstractLevelTypeEnum.Info:
         return 'info';
