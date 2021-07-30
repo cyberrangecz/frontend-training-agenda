@@ -2,7 +2,7 @@ import { SentinelFreeFormModule } from '@sentinel/components/free-form';
 import { TrainingDefinitionEditComponent } from './training-definition-edit.component';
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { SimpleChanges, SimpleChange } from '@angular/core';
-import { TrainingDefinition, GameLevel, Level, AssessmentLevel, InfoLevel } from '@muni-kypo-crp/training-model';
+import { TrainingDefinition, Level, AssessmentLevel, InfoLevel, TrainingLevel } from '@muni-kypo-crp/training-model';
 import { TrainingDefinitionChangeEvent } from '../../model/events/training-definition-change-event';
 import { MaterialTestingModule } from '../../../../internal/src/testing/material-testing.module';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
@@ -108,7 +108,7 @@ describe('TrainingDefinitionEditComponent', () => {
   }
 
   function createLevelsMock(): Level[] {
-    const level1 = new GameLevel();
+    const level1 = new TrainingLevel();
     const level2 = new AssessmentLevel();
     const level3 = new InfoLevel();
     return [level1, level2, level3];

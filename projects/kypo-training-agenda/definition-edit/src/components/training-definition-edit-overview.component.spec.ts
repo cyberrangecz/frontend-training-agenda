@@ -9,11 +9,9 @@ import {
   createContext,
 } from '../../../internal/src/testing/testing-commons.spec';
 import { TrainingDefinitionEditService } from '@muni-kypo-crp/training-agenda/definition-edit';
-import { TrainingDefinition, Level, GameLevel, AssessmentLevel, InfoLevel } from '@muni-kypo-crp/training-model';
+import { TrainingDefinition, Level, AssessmentLevel, InfoLevel, TrainingLevel } from '@muni-kypo-crp/training-model';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TrainingDefinitionChangeEvent } from '../model/events/training-definition-change-event';
 import { asyncData } from '@sentinel/common';
-import { SentinelControlItem } from '@sentinel/components/controls';
 import { MaterialTestingModule } from '../../../internal/src/testing/material-testing.module';
 
 describe('TrainingDefinitionEditOverviewComponent', () => {
@@ -111,7 +109,7 @@ describe('TrainingDefinitionEditOverviewComponent', () => {
   }
 
   function createLevelsMock(): Level[] {
-    const level1 = new GameLevel();
+    const level1 = new TrainingLevel();
     const level2 = new AssessmentLevel();
     const level3 = new InfoLevel();
     return [level1, level2, level3];

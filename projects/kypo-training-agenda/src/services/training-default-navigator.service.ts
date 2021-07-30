@@ -204,26 +204,26 @@ export class TrainingDefaultNavigator extends TrainingNavigator {
   }
 
   /**
-   * Returns route to training run game page
+   * Returns route to training run training page
    * @param id id of the training run
    */
-  toResumeTrainingRunGame(id: number | string): string {
+  toResumeTrainingRun(id: number | string): string {
     return `${TRAINING_RUN_PATH}/${TRAINING_RUN_RESUME_PATH}/${id}`;
   }
 
   /**
-   * Returns route to adaptive run game page
+   * Returns route to adaptive run training page
    * @param id id of the adaptive run
    */
-  toResumeAdaptiveRunGame(id: number | string): string {
+  toResumeAdaptiveRun(id: number | string): string {
     return `${TRAINING_RUN_PATH}/${ADAPTIVE_RUN_PATH}/${TRAINING_RUN_RESUME_PATH}/${id}`;
   }
 
-  toAccessTrainingRunGame(token: string): string {
+  toAccessTrainingRun(token: string): string {
     return `${TRAINING_RUN_PATH}/${TRAINING_RUN_ACCESS_PATH}/${token}`;
   }
 
-  toAccessAdaptiveRunGame(token: string): string {
+  toAccessAdaptiveRun(token: string): string {
     return `${TRAINING_RUN_PATH}/${ADAPTIVE_RUN_PATH}/${TRAINING_RUN_ACCESS_PATH}/${token}`;
   }
 

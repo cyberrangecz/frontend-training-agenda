@@ -15,9 +15,9 @@ import { ExtendedMatchingItemsEditComponent } from './assessment/question/extend
 import { FreeFormQuestionEditComponent } from './assessment/question/free-form-question/free-form-question-edit.component';
 import { MultipleChoiceQuestionEditComponent } from './assessment/question/multiple-choice-question/multiple-choice-question-edit.component';
 import { QuestionsOverviewComponent } from './assessment/question/overview/questions-overview.component';
-import { GameLevelEditComponent } from './game/game-level-edit.component';
-import { HintDetailEditComponent } from './game/hint/detail/hint-detail-edit.component';
-import { HintsOverviewComponent } from './game/hint/overview/hints-overview.component';
+import { TrainingLevelEditComponent } from './training/training-level-edit.component';
+import { HintDetailEditComponent } from './training/hint/detail/hint-detail-edit.component';
+import { HintsOverviewComponent } from './training/hint/overview/hints-overview.component';
 import { InfoLevelEditComponent } from './info/info-level-edit.component';
 import { LevelEditMaterialModule } from './level-edit-material.module';
 
@@ -58,7 +58,7 @@ const markdownConfig = {
   ],
   exports: [AbstractLevelEditComponent],
   declarations: [
-    GameLevelEditComponent,
+    TrainingLevelEditComponent,
     InfoLevelEditComponent,
     AssessmentLevelEditComponent,
     AbstractLevelEditComponent,

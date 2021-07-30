@@ -1,30 +1,30 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SentinelDialogResultEnum } from '@sentinel/components/dialogs';
-import { GameLevel, LevelAnswerCheck } from '@muni-kypo-crp/training-model';
+import { LevelAnswerCheck, TrainingLevel } from '@muni-kypo-crp/training-model';
 import { Hint } from '@muni-kypo-crp/training-model';
 import { EMPTY, Observable, of } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import {
   HintButton,
   RunningTrainingRunService,
-  TrainingRunGameLevelService,
+  TrainingRunTrainingLevelService,
 } from '@muni-kypo-crp/training-agenda/internal';
 import { saveAs } from 'file-saver';
 
 @Injectable()
 /**
- * Mocks behavior of training run game level service connected to backend for designers preview purposes
+ * Mocks behavior of training run training level service connected to backend for designers preview purposes
  */
-export class PreviewGameLevelService extends TrainingRunGameLevelService {
+export class PreviewTrainingLevelService extends TrainingRunTrainingLevelService {
   constructor(protected dialog: MatDialog, protected runningTrainingRunService: RunningTrainingRunService) {
     super(dialog, runningTrainingRunService);
   }
 
-  private _currentLevel: GameLevel;
+  private _currentLevel: TrainingLevel;
   private _remainingAttempts = -1;
 
-  init(level: GameLevel): void {
+  init(level: TrainingLevel): void {
     super.init(level);
     this._currentLevel = level;
     this._remainingAttempts = this._currentLevel.incorrectAnswerLimit;
@@ -36,7 +36,7 @@ export class PreviewGameLevelService extends TrainingRunGameLevelService {
     return of(true);
   }
 
-  revealSolution(level: GameLevel): Observable<string> {
+  revealSolution(level: TrainingLevel): Observable<string> {
     return this.displayRevealSolutionDialog(level.solutionPenalized).pipe(
       switchMap((result) => (result === SentinelDialogResultEnum.CONFIRMED ? this.takeSolution() : EMPTY))
     );

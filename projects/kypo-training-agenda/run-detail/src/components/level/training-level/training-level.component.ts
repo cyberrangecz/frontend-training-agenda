@@ -12,25 +12,25 @@ import {
   ViewChild,
 } from '@angular/core';
 import { SentinelBaseDirective } from '@sentinel/common';
-import { GameLevel } from '@muni-kypo-crp/training-model';
 import { Kypo2TopologyErrorService } from '@muni-kypo-crp/topology-graph';
 import { Observable } from 'rxjs';
 import { take, takeWhile } from 'rxjs/operators';
-import { HintButton, TrainingRunGameLevelService } from '@muni-kypo-crp/training-agenda/internal';
+import { HintButton, TrainingRunTrainingLevelService } from '@muni-kypo-crp/training-agenda/internal';
 import { TrainingErrorHandler } from '@muni-kypo-crp/training-agenda';
+import { TrainingLevel } from '@muni-kypo-crp/training-model';
 
 @Component({
-  selector: 'kypo-game-level',
-  templateUrl: './game-level.component.html',
-  styleUrls: ['./game-level.component.css'],
+  selector: 'kypo-training-level',
+  templateUrl: './training-level.component.html',
+  styleUrls: ['./training-level.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 /**
- * Component of a game level in a training run. Users needs to find out correct solution (answer) and submit it
+ * Component of a training level in a training run. Users needs to find out correct solution (answer) and submit it
  * before he can continue to the next level. User can optionally take hints.
  */
-export class GameLevelComponent extends SentinelBaseDirective implements OnInit, OnChanges {
-  @Input() level: GameLevel;
+export class TrainingLevelComponent extends SentinelBaseDirective implements OnInit, OnChanges {
+  @Input() level: TrainingLevel;
   @Input() isLast: boolean;
   @Input() sandboxId: number;
   @Output() next: EventEmitter<void> = new EventEmitter();
@@ -47,7 +47,7 @@ export class GameLevelComponent extends SentinelBaseDirective implements OnInit,
   hintsButtons$: Observable<HintButton[]>;
 
   constructor(
-    private gameLevelService: TrainingRunGameLevelService,
+    private trainingLevelService: TrainingRunTrainingLevelService,
     private topologyErrorService: Kypo2TopologyErrorService,
     private errorHandler: TrainingErrorHandler
   ) {
@@ -68,12 +68,12 @@ export class GameLevelComponent extends SentinelBaseDirective implements OnInit,
     if ('level' in changes) {
       this.initTopology();
       this.answer = '';
-      this.gameLevelService.init(this.level);
-      this.displayedHintsContent$ = this.gameLevelService.displayedHintsContent$;
-      this.isCorrectAnswerSubmitted$ = this.gameLevelService.isCorrectAnswerSubmitted$;
-      this.isSolutionRevelead$ = this.gameLevelService.isSolutionRevealed$;
-      this.isLoading$ = this.gameLevelService.isLoading$;
-      this.hintsButtons$ = this.gameLevelService.hints$;
+      this.trainingLevelService.init(this.level);
+      this.displayedHintsContent$ = this.trainingLevelService.displayedHintsContent$;
+      this.isCorrectAnswerSubmitted$ = this.trainingLevelService.isCorrectAnswerSubmitted$;
+      this.isSolutionRevelead$ = this.trainingLevelService.isSolutionRevealed$;
+      this.isLoading$ = this.trainingLevelService.isLoading$;
+      this.hintsButtons$ = this.trainingLevelService.hints$;
     }
   }
 
@@ -86,21 +86,21 @@ export class GameLevelComponent extends SentinelBaseDirective implements OnInit,
    * @param hintButton hint button clicked by the user
    */
   revealHint(hintButton: HintButton): void {
-    this.gameLevelService.revealHint(hintButton.hint).pipe(take(1)).subscribe();
+    this.trainingLevelService.revealHint(hintButton.hint).pipe(take(1)).subscribe();
   }
 
   /**
    * Calls service to reveal solution
    */
   revealSolution(): void {
-    this.gameLevelService.revealSolution(this.level).pipe(take(1)).subscribe();
+    this.trainingLevelService.revealSolution(this.level).pipe(take(1)).subscribe();
   }
 
   /**
    * Calls service to check whether the answer is correct
    */
   submitAnswer(): void {
-    this.gameLevelService.submitAnswer(this.answer).pipe(take(1)).subscribe();
+    this.trainingLevelService.submitAnswer(this.answer).pipe(take(1)).subscribe();
   }
 
   /**
@@ -117,7 +117,7 @@ export class GameLevelComponent extends SentinelBaseDirective implements OnInit,
    * Calls service to download ssh access for user
    */
   download(): void {
-    this.gameLevelService.getAccessFile().pipe(take(1)).subscribe();
+    this.trainingLevelService.getAccessFile().pipe(take(1)).subscribe();
   }
 
   private initTopology() {

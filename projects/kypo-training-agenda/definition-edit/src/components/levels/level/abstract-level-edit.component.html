@@ -1,8 +1,8 @@
 <ng-container [ngSwitch]="level.type">
-  <kypo-game-level-edit *ngSwitchCase="levelTypes.Game"
+  <kypo-training-level-edit *ngSwitchCase="levelTypes.Training"
                         [level]="level"
                         (levelChange)="onLevelChange($event)">
-  </kypo-game-level-edit>
+  </kypo-training-level-edit>
   <kypo-info-level-configuration *ngSwitchCase="levelTypes.Info"
                                  [level]="level"
                                  (levelChange)="onLevelChange($event)">

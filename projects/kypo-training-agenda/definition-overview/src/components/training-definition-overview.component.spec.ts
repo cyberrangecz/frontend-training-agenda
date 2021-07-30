@@ -8,7 +8,7 @@ import {
   createPaginationServiceSpy,
   createTrainingDefinitionServiceSpy,
 } from '../../../internal/src/testing/testing-commons.spec';
-import { Level, GameLevel, AssessmentLevel, InfoLevel, TrainingDefinition } from '@muni-kypo-crp/training-model';
+import { Level, AssessmentLevel, InfoLevel, TrainingDefinition, TrainingLevel } from '@muni-kypo-crp/training-model';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { asyncData, PaginatedResource, SentinelPagination, RequestedPagination } from '@sentinel/common';
 import { LoadTableEvent, SentinelTableModule } from '@sentinel/components/table';
@@ -80,7 +80,7 @@ describe('TrainingDefinitionOverviewComponent', () => {
   }
 
   function createLevelsMock(): Level[] {
-    const level1 = new GameLevel();
+    const level1 = new TrainingLevel();
     const level2 = new AssessmentLevel();
     const level3 = new InfoLevel();
     return [level1, level2, level3];

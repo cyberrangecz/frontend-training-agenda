@@ -5,12 +5,12 @@
                          [isLast]=isLast
                          (next)="onNext()">
   </kypo-assessment-level>
-  <kypo-game-level *ngSwitchCase="levelTypes.Game"
+  <kypo-training-level *ngSwitchCase="levelTypes.Training"
                    [level]="level"
                    [isLast]=isLast
                    [sandboxId]="sandboxId"
                    (next)="onNext()">
-  </kypo-game-level>
+  </kypo-training-level>
   <kypo-info-level *ngSwitchCase="levelTypes.Info"
                    [level]="level"
                    [isLast]="isLast"

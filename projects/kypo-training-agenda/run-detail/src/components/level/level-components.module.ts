@@ -11,7 +11,7 @@ import { ExtendedMatchingItemsTraineeComponent } from './assessment-level/questi
 import { FreeFormQuestionTraineeComponent } from './assessment-level/question/free-form-question/free-form-question-trainee.component';
 import { MultipleChoiceQuestionTraineeComponent } from './assessment-level/question/multiple-choice-question/multiple-choice-question-trainee.component';
 import { TraineeQuestionComponent } from './assessment-level/question/trainee-question.component';
-import { GameLevelComponent } from './game-level/game-level.component';
+import { TrainingLevelComponent } from './training-level/training-level.component';
 import { InfoLevelComponent } from './info-level/info-level.component';
 import { LevelMaterialModule } from './level-material.module';
 
@@ -45,7 +45,7 @@ const markdownParserConfig = {
     NextLevelButtonComponent,
     AbstractLevelComponent,
     InfoLevelComponent,
-    GameLevelComponent,
+    TrainingLevelComponent,
     AssessmentLevelComponent,
     TraineeQuestionComponent,
     FreeFormQuestionTraineeComponent,
@@ -55,7 +55,7 @@ const markdownParserConfig = {
   exports: [
     AbstractLevelComponent,
     InfoLevelComponent,
-    GameLevelComponent,
+    TrainingLevelComponent,
     AssessmentLevelComponent,
     TraineeQuestionComponent,
     FreeFormQuestionTraineeComponent,

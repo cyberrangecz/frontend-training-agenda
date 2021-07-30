@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SentinelDialogResultEnum } from '@sentinel/components/dialogs';
 import { asyncData } from '@sentinel/common';
 import { TrainingDefinitionApi } from '@muni-kypo-crp/training-api';
-import { AbstractLevelTypeEnum, AssessmentLevel, GameLevel, InfoLevel } from '@muni-kypo-crp/training-model';
+import { AbstractLevelTypeEnum, AssessmentLevel, InfoLevel, TrainingLevel } from '@muni-kypo-crp/training-model';
 import { of, throwError } from 'rxjs';
 
 import {
@@ -112,14 +112,14 @@ describe('LevelEditConcreteService', () => {
     );
   });
 
-  it('should add new game level', (done) => {
-    const gameLevel = new GameLevel();
-    apiSpy.createGameLevel.and.returnValue(asyncData(gameLevel));
-    apiSpy.getLevel.and.returnValue(asyncData(gameLevel));
-    service.add(AbstractLevelTypeEnum.Game).subscribe(
+  it('should add new training level', (done) => {
+    const trainingLevel = new TrainingLevel();
+    apiSpy.createTrainingLevel.and.returnValue(asyncData(trainingLevel));
+    apiSpy.getLevel.and.returnValue(asyncData(trainingLevel));
+    service.add(AbstractLevelTypeEnum.Training).subscribe(
       (res) => {
-        expect(apiSpy.createGameLevel).toHaveBeenCalledTimes(1);
-        expect(res).toEqual(gameLevel);
+        expect(apiSpy.createTrainingLevel).toHaveBeenCalledTimes(1);
+        expect(res).toEqual(trainingLevel);
         done();
       },
       () => fail
@@ -154,11 +154,11 @@ describe('LevelEditConcreteService', () => {
     );
   });
 
-  it('should emit error when should add new game level fails', (done) => {
-    const gameLevel = new GameLevel();
-    apiSpy.createGameLevel.and.returnValue(throwError(null));
-    apiSpy.getLevel.and.returnValue(asyncData(gameLevel));
-    service.add(AbstractLevelTypeEnum.Game).subscribe(
+  it('should emit error when should add new training level fails', (done) => {
+    const trainingLevel = new TrainingLevel();
+    apiSpy.createTrainingLevel.and.returnValue(throwError(null));
+    apiSpy.getLevel.and.returnValue(asyncData(trainingLevel));
+    service.add(AbstractLevelTypeEnum.Training).subscribe(
       () => fail,
       (err) => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
@@ -182,7 +182,7 @@ describe('LevelEditConcreteService', () => {
   });
 
   it('should save changes in level', (done) => {
-    apiSpy.updateGameLevel.and.returnValue(asyncData(new GameLevel()));
+    apiSpy.updateTrainingLevel.and.returnValue(asyncData(new TrainingLevel()));
     service.set(1, createMock());
     service.setActiveLevel(1);
     service.saveSelected().subscribe(
@@ -196,7 +196,7 @@ describe('LevelEditConcreteService', () => {
   });
 
   it('should emit error when level cannot be saved', (done) => {
-    apiSpy.updateGameLevel.and.returnValue(throwError(null));
+    apiSpy.updateTrainingLevel.and.returnValue(throwError(null));
     service.set(1, createMock());
     service.setActiveLevel(1);
     service.saveSelected().subscribe(
@@ -240,12 +240,12 @@ describe('LevelEditConcreteService', () => {
   });
 
   function createMock() {
-    const gameLevel1 = new GameLevel();
-    gameLevel1.id = 0;
-    gameLevel1.title = '1';
-    const gameLevel2 = new GameLevel();
-    gameLevel2.id = 1;
-    gameLevel2.title = '2';
-    return [gameLevel1, gameLevel2];
+    const trainingLevel1 = new TrainingLevel();
+    trainingLevel1.id = 0;
+    trainingLevel1.title = '1';
+    const trainingLevel2 = new TrainingLevel();
+    trainingLevel2.id = 1;
+    trainingLevel2.title = '2';
+    return [trainingLevel1, trainingLevel2];
   }
 });

@@ -1,6 +1,6 @@
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SentinelValidators } from '@sentinel/common';
-import { GameLevel } from '@muni-kypo-crp/training-model';
+import { TrainingLevel } from '@muni-kypo-crp/training-model';
 
 export const MAX_SCORE = 100;
 export const INCORRECT_ANSWER_LIMIT = 100;
@@ -8,12 +8,12 @@ export const MAX_ANSWER = 50;
 export const MAX_ESTIMATED_DURATION = 60;
 
 /**
- * Form control class for game level edit component
+ * Form control class for training level edit component
  */
-export class GameLevelEditFormGroup {
+export class TrainingLevelEditFormGroup {
   formGroup: FormGroup;
 
-  constructor(level: GameLevel) {
+  constructor(level: TrainingLevel) {
     this.formGroup = new FormGroup({
       title: new FormControl(level.title, SentinelValidators.noWhitespace),
       content: new FormControl(level.content, SentinelValidators.noWhitespace),
@@ -41,10 +41,10 @@ export class GameLevelEditFormGroup {
   }
 
   /**
-   * Sets inserted form values from inputs to game level
+   * Sets inserted form values from inputs to training level
    * @param level level which values should be filled
    */
-  setToLevel(level: GameLevel): void {
+  setToLevel(level: TrainingLevel): void {
     level.title = this.formGroup.get('title').value;
     level.content = this.formGroup.get('content').value;
     level.solution = this.formGroup.get('solution').value;

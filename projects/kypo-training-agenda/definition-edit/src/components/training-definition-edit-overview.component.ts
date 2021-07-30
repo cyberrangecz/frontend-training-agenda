@@ -73,7 +73,6 @@ export class TrainingDefinitionEditOverviewComponent extends SentinelBaseDirecti
    * Determines if all changes in sub components are saved and user can navigate to different page
    */
   canDeactivate(): boolean {
-    console.log(this.canDeactivateTDEdit, this.canDeactivateAuthors, this.unsavedLevels.length);
     return this.canDeactivateTDEdit && this.canDeactivateAuthors && this.unsavedLevels.length <= 0;
   }
 

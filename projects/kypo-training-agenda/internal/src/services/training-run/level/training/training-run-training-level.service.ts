@@ -4,13 +4,13 @@ import {
   SentinelConfirmationDialogConfig,
   SentinelDialogResultEnum,
 } from '@sentinel/components/dialogs';
-import { PhaseAnswerCheck, GameLevel, LevelAnswerCheck } from '@muni-kypo-crp/training-model';
+import { PhaseAnswerCheck, LevelAnswerCheck, TrainingLevel } from '@muni-kypo-crp/training-model';
 import { Hint } from '@muni-kypo-crp/training-model';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HintButton } from '../../../../model/hint-button';
 import { RunningTrainingRunService } from '../../running/running-training-run.service';
 
-export abstract class TrainingRunGameLevelService {
+export abstract class TrainingRunTrainingLevelService {
   protected constructor(protected dialog: MatDialog, protected runningTrainingRunService: RunningTrainingRunService) {}
 
   protected hintsSubject$: BehaviorSubject<HintButton[]>;
@@ -30,13 +30,13 @@ export abstract class TrainingRunGameLevelService {
 
   abstract submitAnswer(answer: string): Observable<any>;
 
-  abstract revealSolution(level: GameLevel): Observable<string>;
+  abstract revealSolution(level: TrainingLevel): Observable<string>;
 
   abstract revealHint(hint: Hint): Observable<Hint>;
 
   abstract getAccessFile(): Observable<boolean>;
 
-  init(level: GameLevel): void {
+  init(level: TrainingLevel): void {
     this.initObservables();
     this.initHints(level.hints);
     this.initSolutionState(level);
@@ -55,7 +55,7 @@ export abstract class TrainingRunGameLevelService {
     this.isLoading$ = this.isLoadingSubject$.asObservable();
   }
 
-  protected initSolutionState(level: GameLevel): void {
+  protected initSolutionState(level: TrainingLevel): void {
     if (level.hasSolution()) {
       this.isSolutionRevealedSubject$.next(true);
       this.onSolutionRevealed(level.solution);

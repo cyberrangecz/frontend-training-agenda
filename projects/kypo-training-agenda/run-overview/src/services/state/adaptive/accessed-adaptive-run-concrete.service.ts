@@ -48,11 +48,11 @@ export class AccessedAdaptiveRunConcreteService extends AccessedAdaptiveRunServi
    * @param id id of adaptive run to resume
    */
   resume(id: number): Observable<any> {
-    return from(this.router.navigate([this.navigator.toResumeAdaptiveRunGame(id)]));
+    return from(this.router.navigate([this.navigator.toResumeAdaptiveRun(id)]));
   }
 
   access(token: string): Observable<any> {
-    return from(this.router.navigate([this.navigator.toAccessAdaptiveRunGame(token)]));
+    return from(this.router.navigate([this.navigator.toAccessAdaptiveRun(token)]));
   }
 
   results(id: number): Observable<any> {

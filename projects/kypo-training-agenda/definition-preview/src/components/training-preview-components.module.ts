@@ -6,12 +6,12 @@ import {
   TrainingDefinitionResolver,
 } from '@muni-kypo-crp/training-agenda/resolvers';
 import { PreviewAssessmentLevelService } from '../services/preview-assessment-level.service';
-import { PreviewGameLevelService } from '../services/preview-game-level.service';
+import { PreviewTrainingLevelService } from '../services/preview-training-level.service';
 import { PreviewTrainingRunService } from '../services/preview-training-run.service';
 import {
   RunningTrainingRunService,
   TrainingRunAssessmentLevelService,
-  TrainingRunGameLevelService,
+  TrainingRunTrainingLevelService,
 } from '@muni-kypo-crp/training-agenda/internal';
 import { TrainingRunDetailComponentsModule } from '@muni-kypo-crp/training-agenda/run-detail';
 import { TrainingPreviewComponent } from './training-preview.component';
@@ -26,7 +26,7 @@ import { TrainingPreviewComponent } from './training-preview.component';
     TrainingDefinitionResolver,
     TrainingDefinitionBreadcrumbResolver,
     { provide: RunningTrainingRunService, useClass: PreviewTrainingRunService },
-    { provide: TrainingRunGameLevelService, useClass: PreviewGameLevelService },
+    { provide: TrainingRunTrainingLevelService, useClass: PreviewTrainingLevelService },
     { provide: TrainingRunAssessmentLevelService, useClass: PreviewAssessmentLevelService },
   ],
 })

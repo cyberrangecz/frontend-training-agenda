@@ -2,7 +2,7 @@ import { asyncData } from '@sentinel/common';
 import { TrainingDefinitionEditOverviewMaterialModule } from '../../../definition-edit/src/components/training-definition-edit-overview-material.module';
 import { TrainingPreviewComponent } from './training-preview.component';
 import { TestBed, ComponentFixture, async } from '@angular/core/testing';
-import { Level, GameLevel, AssessmentLevel, InfoLevel, TrainingDefinition } from '@muni-kypo-crp/training-model';
+import { Level, AssessmentLevel, InfoLevel, TrainingDefinition, TrainingLevel } from '@muni-kypo-crp/training-model';
 import { RunningTrainingRunService } from '../../../internal/src/services/training-run/running/running-training-run.service';
 import { ActivatedRoute } from '@angular/router';
 import {
@@ -54,7 +54,7 @@ describe('TrainingPreviewComponent', () => {
   }
 
   function createLevelsMock(): Level[] {
-    const level1 = new GameLevel();
+    const level1 = new TrainingLevel();
     const level2 = new AssessmentLevel();
     const level3 = new InfoLevel();
     return [level1, level2, level3];
