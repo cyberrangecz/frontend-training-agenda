@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { asyncData, PaginatedResource, SentinelPagination, RequestedPagination } from '@sentinel/common';
 import { PoolApi } from '@muni-kypo-crp/sandbox-api';
-import { Pool } from '@muni-kypo-crp/sandbox-model';
+import { Pool, SandboxInstance } from '@muni-kypo-crp/sandbox-model';
 import { TrainingInstanceApi } from '@muni-kypo-crp/training-api';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { of, throwError } from 'rxjs';
@@ -156,10 +156,17 @@ describe('TrainingInstanceOverviewConcreteService', () => {
 
   it('should get pool state', (done) => {
     const pool = createPoolMock();
+    const paginatedSandboxes = createPaginatedSandboxesMock();
     poolApiSpy.getPool.and.returnValue(asyncData(pool));
+    poolApiSpy.getPoolsSandboxes.and.returnValue(asyncData(paginatedSandboxes));
     service.getPoolState(2).subscribe((res) => {
+      console.log(res);
       expect(res).toBeTruthy();
-      expect(res).toEqual(`${pool.maxSize} (${pool.maxSize - pool.usedSize} free)`);
+      expect(res).toEqual(
+        `${pool.maxSize} (${
+          paginatedSandboxes.elements.length - paginatedSandboxes.elements.filter((s) => s.lockId).length
+        } free)`
+      );
       expect(poolApiSpy.getPool).toHaveBeenCalledTimes(1);
       done();
     });
@@ -175,6 +182,35 @@ describe('TrainingInstanceOverviewConcreteService', () => {
     pool.maxSize = 5;
     pool.usedSize = 2;
     return pool;
+  }
+
+  function createPaginatedSandboxesMock(): PaginatedResource<SandboxInstance> {
+    const sandbox1 = new SandboxInstance();
+    sandbox1.id = 1;
+    sandbox1.lockId = 1;
+    sandbox1.allocationUnitId = 1;
+
+    const sandbox2 = new SandboxInstance();
+    sandbox2.id = 2;
+    sandbox2.lockId = undefined;
+    sandbox2.allocationUnitId = 2;
+
+    const sandbox3 = new SandboxInstance();
+    sandbox3.id = 3;
+    sandbox3.lockId = 2;
+    sandbox3.allocationUnitId = 3;
+
+    const sandbox4 = new SandboxInstance();
+    sandbox4.id = 4;
+    sandbox4.lockId = undefined;
+    sandbox4.allocationUnitId = 4;
+
+    const sandbox5 = new SandboxInstance();
+    sandbox5.id = 5;
+    sandbox5.lockId = undefined;
+    sandbox5.allocationUnitId = 5;
+
+    return new PaginatedResource([sandbox1, sandbox2], new SentinelPagination(1, 2, 2, 2, 1));
   }
 
   function createInstancesMock(): TrainingInstance[] {
