@@ -4,8 +4,8 @@ import { RequestedPagination, PaginatedResource } from '@sentinel/common';
 import { PoolApi } from '@muni-kypo-crp/sandbox-api';
 import { TrainingInstanceApi } from '@muni-kypo-crp/training-api';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
-import { EMPTY, Observable, of } from 'rxjs';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { EMPTY, Observable, of, zip } from 'rxjs';
+import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
 import { TrainingInstanceFilter } from '../../model/adapters/training-instance-filter';
 import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } from '@muni-kypo-crp/training-agenda';
 import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
@@ -76,7 +76,19 @@ export class TrainingInstanceOverviewConcreteService extends TrainingInstanceOve
   }
 
   getPoolState(poolId: number): Observable<string> {
-    return this.poolApi.getPool(poolId).pipe(map((pool) => `${pool.maxSize} (${pool.maxSize - pool.usedSize} free)`));
+    const pool$ = this.poolApi.getPool(poolId).pipe(take(1));
+    const sandboxes$ = this.poolApi.getPoolsSandboxes(
+      poolId,
+      new RequestedPagination(0, Number.MAX_SAFE_INTEGER, '', '')
+    );
+    return zip(pool$, sandboxes$).pipe(
+      map(
+        (value) =>
+          `${value[0].maxSize} (${
+            value[1].elements.length - value[1].elements.filter((sandbox) => sandbox.lockId != undefined).length
+          } free)`
+      )
+    );
   }
 
   getSshAccess(poolId: number): Observable<boolean> {

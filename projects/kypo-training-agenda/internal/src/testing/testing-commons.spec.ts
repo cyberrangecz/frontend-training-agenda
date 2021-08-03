@@ -32,7 +32,7 @@ export function createNotificationSpy(): jasmine.SpyObj<TrainingNotificationServ
 }
 
 export function createPoolApiSpy(): jasmine.SpyObj<PoolApi> {
-  return jasmine.createSpyObj('PoolApi', ['getPools', 'getPool']);
+  return jasmine.createSpyObj('PoolApi', ['getPools', 'getPool', 'getPoolsSandboxes']);
 }
 
 export function createTrainingInstanceApiSpy(): jasmine.SpyObj<TrainingInstanceApi> {
