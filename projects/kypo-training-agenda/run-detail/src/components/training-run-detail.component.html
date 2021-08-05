@@ -1,8 +1,16 @@
   <div class="header">
     <!-- LEVEL STEPPER -->
-    <div *ngIf="isStepperDisplayed && stepper?.items" class="training-run-stepper">
+    <div [ngClass]="isPreview ? 'training-run-preview-stepper' : 'training-run-stepper'"
+         *ngIf="(isStepperDisplayed || isPreview) && stepper?.items">
+      <h3 *ngIf="isPreview && !isStepperDisplayed" class="message">
+        *Stepper is shown only in preview mode to allow navigation between levels. It won't be displayed in training run as requested.
+      </h3>
+      <h3 *ngIf="isPreview && isStepperDisplayed" class="message">
+        *Use stepper to navigate between levels.
+      </h3>
       <sentinel-stepper [dragDisabled]="true"
-                        [selectable]="false"
+                        [selectable]="isPreview"
+                        (indexSelected)="activeStepChanged($event)"
                         [stepperItems]="stepper"
                         [activeIndex]="stepper.activeLevelIndex">
       </sentinel-stepper>
@@ -18,6 +26,7 @@
   <kypo-abstract-level [level]="activeLevel$ | async"
                        [isLast]="isLast"
                        [sandboxId]="sandboxId"
+                       [isPreview]="isPreview"
                        (next)="next()">
   </kypo-abstract-level>
 

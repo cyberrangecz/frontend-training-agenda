@@ -16,6 +16,7 @@ import { Level } from '@muni-kypo-crp/training-model';
 export class AbstractLevelComponent extends SentinelBaseDirective {
   @Input() level: Level;
   @Input() isLast: boolean;
+  @Input() isPreview: boolean;
   @Input() sandboxId: number;
 
   @Output() next: EventEmitter<void> = new EventEmitter();

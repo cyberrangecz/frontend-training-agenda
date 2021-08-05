@@ -32,6 +32,7 @@ import { TrainingLevel } from '@muni-kypo-crp/training-model';
 export class TrainingLevelComponent extends SentinelBaseDirective implements OnInit, OnChanges {
   @Input() level: TrainingLevel;
   @Input() isLast: boolean;
+  @Input() isPreview: boolean;
   @Input() sandboxId: number;
   @Output() next: EventEmitter<void> = new EventEmitter();
   @ViewChild('rightPanel', { static: true }) rightPanelDiv: ElementRef;

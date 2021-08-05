@@ -15,6 +15,8 @@ export abstract class RunningTrainingRunService {
 
   abstract init(trainingRunInfo: AccessTrainingRunInfo): void;
 
+  abstract setActiveLevelIndex(index: number);
+
   abstract getLevels(): Level[];
 
   abstract getActiveLevel(): Level;
@@ -24,6 +26,8 @@ export abstract class RunningTrainingRunService {
   abstract getStartTime(): Date;
 
   abstract getIsStepperDisplayed(): boolean;
+
+  abstract getIsPreview(): boolean;
 
   abstract next(): Observable<any>;
 

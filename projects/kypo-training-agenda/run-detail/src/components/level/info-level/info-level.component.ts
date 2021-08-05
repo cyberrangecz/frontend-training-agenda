@@ -14,6 +14,7 @@ import { InfoLevel } from '@muni-kypo-crp/training-model';
 export class InfoLevelComponent extends SentinelBaseDirective {
   @Input() level: InfoLevel;
   @Input() isLast: boolean;
+  @Input() isPreview: boolean;
   @Output() next: EventEmitter<void> = new EventEmitter();
 
   constructor() {
