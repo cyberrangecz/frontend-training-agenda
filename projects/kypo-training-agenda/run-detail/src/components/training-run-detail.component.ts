@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { Level } from '@muni-kypo-crp/training-model';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { take, takeWhile, tap } from 'rxjs/operators';
 import { LevelStepperAdapter, RunningTrainingRunService } from '@muni-kypo-crp/training-agenda/internal';
 import { TrainingRunStepper } from '../model/training-run-stepper';
@@ -25,6 +25,7 @@ export class TrainingRunDetailComponent extends SentinelBaseDirective implements
   stepper: TrainingRunStepper;
 
   isStepperDisplayed: boolean;
+  isPreview: boolean;
   isTimerDisplayed: boolean;
   startTime: Date;
   isLast: boolean;
@@ -44,8 +45,9 @@ export class TrainingRunDetailComponent extends SentinelBaseDirective implements
     this.startTime = this.trainingRunService.getStartTime();
     this.isTimerDisplayed = true;
     this.isStepperDisplayed = this.trainingRunService.getIsStepperDisplayed();
+    this.isPreview = this.trainingRunService.getIsPreview();
     this.sandboxId = this.trainingRunService.sandboxInstanceId;
-    if (this.isStepperDisplayed) {
+    if (this.isStepperDisplayed || this.isPreview) {
       const stepperAdapterLevels = this.levels.map((level) => new LevelStepperAdapter(level));
       this.stepper = new TrainingRunStepper(stepperAdapterLevels, this.trainingRunService.getActiveLevelPosition());
     }
@@ -54,14 +56,32 @@ export class TrainingRunDetailComponent extends SentinelBaseDirective implements
       takeWhile(() => this.isAlive),
       tap(() => {
         this.isLast = this.trainingRunService.isLast();
-        if (this.isStepperDisplayed) {
+        if (this.isStepperDisplayed || this.isPreview) {
           this.stepper.onActiveLevelUpdated(this.trainingRunService.getActiveLevelPosition());
         }
       })
     );
   }
 
+  /**
+   * Jump to training run level. This only works for training run in preview mode.
+   * @param index of desired level
+   */
+  activeStepChanged(index: number): void {
+    if (this.isPreview) {
+      this.stepper.activeLevelIndex = index;
+      this.trainingRunService.setActiveLevelIndex(index);
+      this.activeLevel$ = of(this.levels[index]);
+    }
+  }
+
   next(): void {
-    this.trainingRunService.next().pipe(take(1)).subscribe();
+    if (this.isPreview) {
+      this.stepper.items[this.stepper.activeLevelIndex].isActive = false;
+      this.activeStepChanged(++this.stepper.activeLevelIndex);
+      this.stepper.items[this.stepper.activeLevelIndex].isActive = true;
+    } else {
+      this.trainingRunService.next().pipe(take(1)).subscribe();
+    }
   }
 }

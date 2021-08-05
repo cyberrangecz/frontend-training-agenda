@@ -52,7 +52,7 @@
           </button>
 
           <div class="spacer"></div>
-          <div class="answer-input">
+          <div *ngIf="!isPreview" class="answer-input">
             <!-- ANSWER field-->
             <form autocomplete="off">
               <mat-form-field
@@ -107,11 +107,23 @@
         </button>
 
         <div class="hint-content">
+          <h3 id="solution" *ngIf="isPreview">Level solution:</h3>
           <markdown
             *ngIf="displayedHintsContent$ | async as hintsContent"
             [data]="hintsContent"
           >
           </markdown>
+
+          <!-- Level hints displayed in preview mode -->
+          <div *ngIf="isPreview">
+            <h3>Level hints:</h3>
+            <div *ngFor="let hint of level.hints">
+              <markdown
+                [data]="hint.content"
+              >
+              </markdown>
+            </div>
+          </div>
         </div>
       </div>
     </div>

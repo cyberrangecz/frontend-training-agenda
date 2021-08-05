@@ -78,6 +78,10 @@ mat-form-field {
   width: 150px;
 }
 
+#solution {
+  margin-top: 10px;
+}
+
 @media screen and (max-width: 1900px) {
   .content {
     width: 90%;

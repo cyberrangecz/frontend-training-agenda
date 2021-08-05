@@ -2,17 +2,20 @@
 <ng-container [ngSwitch]="level?.type">
   <kypo-assessment-level *ngSwitchCase="levelTypes.Assessment"
                          [level]="level"
+                         [isPreview]="isPreview"
                          [isLast]=isLast
                          (next)="onNext()">
   </kypo-assessment-level>
   <kypo-training-level *ngSwitchCase="levelTypes.Training"
                    [level]="level"
                    [isLast]=isLast
+                   [isPreview]="isPreview"
                    [sandboxId]="sandboxId"
                    (next)="onNext()">
   </kypo-training-level>
   <kypo-info-level *ngSwitchCase="levelTypes.Info"
                    [level]="level"
+                   [isPreview]="isPreview"
                    [isLast]="isLast"
                    (next)="onNext()">
   </kypo-info-level>

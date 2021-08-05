@@ -10,8 +10,11 @@
   flex: 1 1 0;
 }
 
-.training-run-stepper {
+.training-run-stepper, .training-run-preview-stepper {
   width: 100%;
+}
+
+.training-run-stepper {
   pointer-events: none !important;
 }
 
@@ -19,4 +22,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.message {
+  color: #999999;
 }

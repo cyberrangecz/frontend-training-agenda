@@ -43,6 +43,7 @@ export class TrainingPreviewComponent extends SentinelBaseDirective implements O
 
   private createMockTrainingRun(training: TrainingDefinition) {
     const mockRun = new AccessTrainingRunInfo();
+    mockRun.isPreview = true;
     mockRun.levels = training.levels as Level[];
     mockRun.isStepperDisplayed = training.showStepperBar;
     return mockRun;

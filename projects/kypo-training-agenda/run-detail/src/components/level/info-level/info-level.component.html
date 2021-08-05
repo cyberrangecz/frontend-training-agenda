@@ -2,7 +2,7 @@
   <div class="content">
     <markdown [data]="level.content"></markdown>
   </div>
-  <div class="footer">
+  <div *ngIf="!isPreview" class="footer">
     <kypo-next-level-button [isLast]="isLast"
                             (next)="onNext()">
     </kypo-next-level-button>

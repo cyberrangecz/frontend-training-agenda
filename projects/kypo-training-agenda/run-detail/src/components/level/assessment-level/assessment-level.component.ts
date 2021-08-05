@@ -32,6 +32,7 @@ import { TraineeQuestionComponent } from './question/trainee-question.component'
 export class AssessmentLevelComponent extends SentinelBaseDirective implements OnInit, OnChanges {
   @Input() level: AssessmentLevel;
   @Input() isLast: boolean;
+  @Input() isPreview: boolean;
   @Output() next: EventEmitter<void> = new EventEmitter();
   @ViewChildren(TraineeQuestionComponent) questionComponents: QueryList<TraineeQuestionComponent>;
 

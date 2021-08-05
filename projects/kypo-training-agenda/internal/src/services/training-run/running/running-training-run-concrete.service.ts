@@ -31,6 +31,8 @@ export class RunningTrainingRunConcreteService extends RunningTrainingRunService
   private activeLevels: Level[] = [];
   private startTime: Date;
   private isStepperDisplayed: boolean;
+  private isPreview: boolean;
+  private activeLevelIndex: number;
 
   /**
    * Initializes the service from training run access info
@@ -40,9 +42,14 @@ export class RunningTrainingRunConcreteService extends RunningTrainingRunService
     this.trainingRunId = trainingRunInfo.trainingRunId;
     this.sandboxInstanceId = trainingRunInfo.sandboxInstanceId;
     this.isStepperDisplayed = trainingRunInfo.isStepperDisplayed;
+    this.isPreview = trainingRunInfo.isPreview;
     this.startTime = trainingRunInfo.startTime;
     this.activeLevels = trainingRunInfo.levels as Level[];
     this.setActiveLevel(trainingRunInfo.currentLevel as Level);
+  }
+
+  setActiveLevelIndex(index: number) {
+    this.activeLevelIndex = index;
   }
 
   getLevels(): Level[] {
@@ -63,6 +70,10 @@ export class RunningTrainingRunConcreteService extends RunningTrainingRunService
 
   getIsStepperDisplayed(): boolean {
     return this.isStepperDisplayed;
+  }
+
+  getIsPreview(): boolean {
+    return this.isPreview;
   }
 
   /**
