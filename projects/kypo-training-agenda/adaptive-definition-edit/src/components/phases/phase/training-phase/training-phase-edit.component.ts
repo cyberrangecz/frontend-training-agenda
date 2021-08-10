@@ -50,10 +50,19 @@ export class TrainingPhaseEditComponent extends SentinelBaseDirective implements
   ngOnChanges(changes: SimpleChanges): void {
     if ('phase' in changes || 'updateMatrixFlag' in changes) {
       this.phaseConfigFormGroup = new TrainingPhaseEditFormGroup(this.phase);
+      this.setFormsAsTouched();
       this.phaseConfigFormGroup.formGroup.valueChanges.pipe(takeWhile(() => this.isAlive)).subscribe(() => {
         this.phaseConfigFormGroup.setToPhase(this.phase);
         this.phaseChange.emit(this.phase);
       });
     }
+  }
+
+  private setFormsAsTouched(): void {
+    this.title.markAsTouched();
+    this.allowedWrongAnswers.markAsTouched();
+    this.allowedCommands.markAsTouched();
+    this.estimatedDuration.markAsTouched();
+    this.decisionMatrixRows.markAllAsTouched();
   }
 }

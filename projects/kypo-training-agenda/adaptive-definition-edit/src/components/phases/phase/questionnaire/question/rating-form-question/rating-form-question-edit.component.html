@@ -18,7 +18,7 @@
                     matTooltip="Correct"
                     formControlName="correct">
       </mat-checkbox>
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" class="rating-level-node">
         <mat-label>Level {{ i+1 }}</mat-label>
         <input matInput placeholder="Level Text" formControlName="text" required/>
         <mat-error *ngIf="choiceGroup.get('text').hasError('required')">Level text cannot be empty</mat-error>

@@ -48,10 +48,17 @@ export class TaskEditComponent extends SentinelBaseDirective implements OnChange
   ngOnChanges(changes: SimpleChanges): void {
     if ('task' in changes) {
       this.taskConfigFormGroup = new TaskEditFormGroup(this.task);
+      this.markFormsAsTouched();
       this.taskConfigFormGroup.formGroup.valueChanges.pipe(takeWhile(() => this.isAlive)).subscribe(() => {
         this.taskConfigFormGroup.setToTask(this.task);
         this.taskChange.emit(this.task);
       });
     }
+  }
+
+  private markFormsAsTouched(): void {
+    this.title.markAsTouched();
+    this.incorrectAnswerLimit.markAsTouched();
+    this.answer.markAsTouched();
   }
 }

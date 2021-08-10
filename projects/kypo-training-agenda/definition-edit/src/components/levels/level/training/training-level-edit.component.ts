@@ -58,6 +58,7 @@ export class TrainingLevelEditComponent extends SentinelBaseDirective implements
   ngOnChanges(changes: SimpleChanges): void {
     if ('level' in changes) {
       this.trainingLevelConfigFormGroup = new TrainingLevelEditFormGroup(this.level);
+      this.setFormsAsTouched();
       this.trainingLevelConfigFormGroup.formGroup.valueChanges.pipe(takeWhile(() => this.isAlive)).subscribe(() => {
         this.trainingLevelConfigFormGroup.setToLevel(this.level);
         this.levelChange.emit(this.level);
@@ -73,5 +74,16 @@ export class TrainingLevelEditComponent extends SentinelBaseDirective implements
     this.level.hints = hints;
     this.trainingLevelConfigFormGroup.setToLevel(this.level);
     this.levelChange.emit(this.level);
+  }
+
+  /**
+   * Sets state of selected forms to touched. This is done due to proper error rendering when component is reloaded.
+   */
+  private setFormsAsTouched(): void {
+    this.title.markAsTouched();
+    this.estimatedDuration.markAsTouched();
+    this.maxScore.markAsTouched();
+    this.incorrectAnswerLimit.markAsTouched();
+    this.answer.markAsTouched();
   }
 }

@@ -41,6 +41,10 @@
   margin-right: 10px;
 }
 
+.rating-level-node {
+  margin-bottom: 10px;
+}
+
 .question-fields {
   display: flex;
   flex-direction: column;

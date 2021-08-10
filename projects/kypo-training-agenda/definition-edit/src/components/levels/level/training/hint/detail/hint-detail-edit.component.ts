@@ -1,9 +1,12 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   EventEmitter,
+  HostListener,
   Input,
   OnChanges,
+  OnDestroy,
   Output,
   SimpleChanges,
 } from '@angular/core';
@@ -49,6 +52,8 @@ export class HintDetailEditComponent extends SentinelBaseDirective implements On
   ngOnChanges(changes: SimpleChanges): void {
     if ('hint' in changes) {
       this.hintConfigurationFormGroup = new HintEditFormGroup(this.hint);
+      this.title.markAsTouched();
+      this.hintPenalty.markAsTouched();
       this.calculateMaxPenalty();
       this.subscribeFormChanges();
     }

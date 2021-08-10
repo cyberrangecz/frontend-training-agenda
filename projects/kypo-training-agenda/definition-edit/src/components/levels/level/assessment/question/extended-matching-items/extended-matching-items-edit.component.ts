@@ -57,6 +57,8 @@ export class ExtendedMatchingItemsEditComponent extends SentinelBaseDirective im
     if ('question' in changes) {
       this.extendedMatchingQuestionFormGroup = new ExtendedMatchingItemsFormGroup(this.question);
       this.checkState();
+      this.options.markAllAsTouched();
+      this.statements.markAllAsTouched();
       this.extendedMatchingQuestionFormGroup.formGroup.valueChanges
         .pipe(takeWhile(() => this.isAlive))
         .subscribe(() => this.questionChanged());
@@ -221,6 +223,9 @@ export class ExtendedMatchingItemsEditComponent extends SentinelBaseDirective im
       this.extendedMatchingQuestionFormGroup.removeAnswersValidator();
     }
     if (this.required && this.isTest) {
+      this.penalty.enable();
+    } else if (this.isTest) {
+      this.score.enable();
       this.penalty.enable();
     } else {
       this.score.disable();

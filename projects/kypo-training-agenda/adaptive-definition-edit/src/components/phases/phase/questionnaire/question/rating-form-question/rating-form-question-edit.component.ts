@@ -35,6 +35,7 @@ export class RatingFormQuestionEditComponent extends SentinelBaseDirective imple
     if ('question' in changes) {
       this.ratingFormFormGroup = new QuestionFormGroup(this.question);
       this.selectedRatingLevel = this.question.choices.length;
+      this.choices.markAllAsTouched();
       this.ratingFormFormGroup.questionFormGroup.valueChanges
         .pipe(takeWhile(() => this.isAlive))
         .subscribe(() => this.questionChanged());

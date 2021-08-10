@@ -38,6 +38,7 @@ export class InfoLevelEditComponent extends SentinelBaseDirective implements OnC
   ngOnChanges(changes: SimpleChanges): void {
     if ('level' in changes) {
       this.infoLevelConfigFormGroup = new InfoLevelEditFormGroup(this.level);
+      this.title.markAsTouched();
       this.infoLevelConfigFormGroup.formGroup.valueChanges.pipe(takeWhile(() => this.isAlive)).subscribe(() => {
         this.infoLevelConfigFormGroup.setToLevel(this.level);
         this.levelChange.emit(this.level);

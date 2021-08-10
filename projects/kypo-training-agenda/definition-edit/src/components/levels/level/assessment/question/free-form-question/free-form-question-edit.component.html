@@ -12,7 +12,7 @@
       <mat-error *ngIf="title.hasError('whitespace')">Title cannot be empty</mat-error>
     </div>
 
-    <div class="inline-input">
+    <div *ngIf="isTest" class="inline-input">
       <!-- SCORE field -->
       <mat-form-field appearance="outline" hintLabel="Number in range from 0 to
         {{ maxQuestionScore }}">

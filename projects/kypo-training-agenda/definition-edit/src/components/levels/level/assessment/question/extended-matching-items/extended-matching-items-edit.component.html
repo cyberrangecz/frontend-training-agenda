@@ -13,7 +13,7 @@
       </div>
 
       <!--SCORE field -->
-      <div class="inline-input">
+      <div *ngIf="isTest" class="inline-input">
         <mat-form-field appearance="outline" hintLabel="Number in range from 0
           to {{ maxQuestionScore }}">
           <mat-label>Points</mat-label>

@@ -18,6 +18,7 @@ export class AssessmentLevelEditFormGroup {
       estimatedDuration: new FormControl(level.estimatedDuration, [
         Validators.max(maxLevelDuration),
         Validators.min(1),
+        Validators.pattern('^[0-9]*$'),
       ]),
     });
   }
