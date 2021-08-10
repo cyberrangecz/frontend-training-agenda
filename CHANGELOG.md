@@ -1,3 +1,194 @@
+### 12.0.6 Stepper for questions, sanitize function for markdown, change input to markdown for question text, rename flag to answer and game level to training level, save user preffered pagination, rename get SSH button, fix - number of free sandboxes, movement between levels in preview mode, integration of the APG functionality, display all related questions in training phase.
+* 2751978 -- [CI/CD] Update packages.json version based on GitLab tag.
+*   2077814 -- Merge branch '445537-master-patch-15953' into 'master'
+|\  
+| * d1903d2 -- Update VERSION.txt
+|/  
+*   6c93206 -- Merge branch '98-add-expansion-panel-with-related-questions-to-the-training-phase' into 'master'
+|\  
+| * 346787c -- Added expansion panel to training phase to display all related questions.
+|/  
+*   659722e -- Merge branch '93-integrate-functionality-for-automatic-problem-generation-apg' into 'master'
+|\  
+| * 5ea1298 -- Renaming variantAnswers to variantSandboxes and flagIdentifier to...
+|/  
+*   5939b2d -- Merge branch '112-trigger-form-validity-when-new-element-is-added' into 'master'
+|\  
+| * 3754e2f -- Resolve "Trigger form validity when new element is added"
+|/  
+*   a1e8b78 -- Merge branch '83-allow-movement-between-levels-in-preview-mode' into 'master'
+|\  
+| * 265181e -- Resolve "Allow movement between levels in preview mode"
+|/  
+*   afcd7bd -- Merge branch '99-fix-computation-of-the-free-sandboxes-in-the-training-instance-overview' into 'master'
+|\  
+| * 06d38bd -- Resolve "Fix computation of the free sandboxes in the training instance overview"
+|/  
+*   3f89758 -- Merge branch '111-rename-game-level-to-training-level' into 'master'
+|\  
+| * 345ecd6 -- Resolve "Rename game level to training level"
+|/  
+*   69acd54 -- Merge branch '110-rename-the-flag-attribute-to-answer-in-linear-training-definition' into 'master'
+|\  
+| * cc308c9 -- Resolve "Rename the flag attribute to answer in linear training definition"
+|/  
+*   9e88679 -- Merge branch '108-improve-the-text-in-the-modal-window-in-the-transition-process-between-adaptive-phases' into 'master'
+|\  
+| * 19bc340 -- Resolve "Improve the text in the modal window in the transition process between adaptive phases"
+|/  
+*   5dcd554 -- Merge branch '107-add-confirmation-for-deleting-instances' into 'master'
+|\  
+| * 04acc38 -- Resolve "Add confirmation for deleting instances"
+* |   4d76117 -- Merge branch '102-fix-saving-discarding-of-changes-for-levels-phases' into 'master'
+|\ \  
+| |/  
+|/|   
+| * 517daae -- Resolve "Fix saving/discarding of changes for levels/phases"
+|/  
+*   feb0d00 -- Merge branch '103-add-missing-theme-styles-for-sentinel-markdown' into 'master'
+|\  
+| *   e2233bb -- Merge with latest changes
+| |\  
+| | *   7094223 -- Merge branch '92-rename-button-for-downloading-ssh-access' of gitlab.ics.muni.cz:muni-kypo-crp/frontend-angular/agendas/kypo-training-agenda into 92-rename-button-for-downloading-ssh-access
+| | |\  
+| | | * 6e7e4fc -- Remove unused import
+| | | * 18c9685 -- Update ssh access buttons
+| | * | a495d64 -- Remove unused import
+| | * | 55f4648 -- Update ssh access buttons
+| |/ /  
+|/| |   
+* | |   ae6f9bb -- Merge branch '105-fix-adaptive-questionnaire-ratining-form-questions' into 'master'
+|\ \ \  
+| * | | cb3418d -- Fix stepper, remove redundant array, fix rating forms
+| | |/  
+| |/|   
+* | |   d6fde8d -- Merge branch '106-check-if-there-is-assigned-pool-when-downloading-management-access' into 'master'
+|\ \ \  
+| |/ /  
+|/| |   
+| * | 2d1a29f -- Disabled get ssh without pool
+|/ /  
+| * f3aaabf -- Move rating level select
+| * 1618cef -- Add margin for markdown
+| * 9a15055 -- Fix choices overflow
+| * f38df4a -- Move delete question button
+| * 6207292 -- Add markdown theme styles
+|/  
+*   144f367 -- Merge branch '95-use-stepper-for-questions-in-questionnaire-phase' into 'master'
+|\  
+| * 37c50b0 -- Resolve "Use stepper for questions in questionnaire phase"
+* |   77a3886 -- Merge branch '92-rename-button-for-downloading-ssh-access' into 'master'
+|\ \  
+| |/  
+|/|   
+| * ea4bca6 -- Resolve "Rename button for downloading SSH access"
+|/  
+*   5f51e43 -- Merge branch '86-save-user-prefered-pagination-in-session' into 'master'
+|\  
+| * 235b1c5 -- Resolve "Save user prefered pagination in session"
+|/  
+*   18121d9 -- Merge branch '97-increase-the-separator-s-width-above-add-question-in-question-phase-relations' into 'master'
+|\  
+| * 0294f16 -- Resolve "Increase the separator's width above Add-Question in Question-Phase Relations"
+|/  
+*   e8881e7 -- Merge branch '101-specify-input-min-value-for-allowed-wrong-answers-commands-and-estimation-duration-in-training' into 'master'
+|\  
+| * 6a602dd -- Input min values specified for the allowed wrong answers, commands, and estimation duration.
+|/  
+*   5054495 -- Merge branch '96-rename-the-label-answer-to-correct-answer-in-the-tasks-of-training-phases' into 'master'
+|\  
+| * 07f7ac9 -- Label Answer renamed to Correct Answer.
+* |   64cb89a -- Merge branch '100-modify-the-question-text-in-the-questionnaires-assessments-to-markdown' into 'master'
+|\ \  
+| |/  
+|/|   
+| * 6433541 -- Resolve "Modify the question text in the questionnaires/assessments to markdown"
+|/  
+*   038851f -- Merge branch '89-changes-in-one-free-form-question-propagate-to-all-others-in-assessment-level' into 'master'
+|\  
+| * c07e020 -- Resolve "Changes in one free form question propagate to all others in assessment level"
+* |   430f379 -- Merge branch '90-clear-button-in-flag-field-in-training-run-not-working' into 'master'
+|\ \  
+| |/  
+|/|   
+| * 5fab08c -- Fixed flag clear button
+|/  
+*   f9b75f4 -- Merge branch '94-bump-version-of-sentinel' into 'master'
+|\  
+| * c0f6b63 -- Bump version of sentinel
+|/  
+*   8e6eeef -- Merge branch '91-provide-sanitize-function-for-markdown-editor-component' into 'master'
+|\  
+| * 49f0ef3 -- Resolve "Provide sanitize function for markdown-editor component"
+|/  
+*   010604e -- Merge branch '88-fix-local-config-paths' into 'master'
+|\  
+| * 3c6ea3c -- Fix paths
+|/  
+*   c8346d3 -- Merge branch '87-add-build-example-app-to-ci' into 'master'
+|\  
+| * 4c91f53 -- Add build example app
+|/  
+*   c5a1e07 -- Merge branch '84-use-stepper-for-questions-in-assessment-levels' into 'master'
+|\  
+| * f647f42 -- Resolve "Use stepper for questions in assessment levels"
+* |   147155e -- Merge branch '85-set-maximum-size-for-adaptive-questionnaire-to-1023' into 'master'
+|\ \  
+| * | 073bb01 -- Resolve "Set maximum size for adaptive questionnaire to 1023"
+|/ /  
+* |   cd94c46 -- Merge branch '82-change-functionality-of-submit-button-for-flags' into 'master'
+|\ \  
+| |/  
+|/|   
+| * f52903a -- Resolve "Change functionality of submit button for flags"
+|/  
+* d793dfe -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* 867bd95 -- [CI/CD] Update packages.json version based on GitLab tag.
+*   0ecac50 -- Merge branch '80-add-loading-for-overview-visualization-and-fix-questionare-points' into 'master'
+|\  
+| * dad42c0 -- Resolve "Add loading for overview visualization and fix questionare points"
+|/  
+* dfb6e95 -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* 97891e5 -- [CI/CD] Update packages.json version based on GitLab tag.
+*   3d58a8e -- Merge branch '81-simplify-gitlab-ci-cd-using-csirt-mu-docker-image' into 'master'
+|\  
+| * b1be3ab -- Update gitlab CI
+|/  
+* c764397 -- Update project package.json version based on GitLab tag. Done by CI
+*   aa79008 -- Merge branch '79-bump-version-of-overview-visualization' into 'master'
+|\  
+| * e6eb1ac -- Bump overview visualization version
+|/  
+* f8a11e5 -- Update project package.json version based on GitLab tag. Done by CI
+*   da1b525 -- Merge branch '78-bump-sentinel-layout-version' into 'master'
+|\  
+| * edd8903 -- Resolve "Bump sentinel layout version"
+|/  
+* 9b70cd2 -- Update project package.json version based on GitLab tag. Done by CI
+*   5a1f207 -- Merge branch '77-bump-version-of-sentinel' into 'master'
+|\  
+| * 8d8f3c3 -- Resolve "Bump version of Sentinel"
+|/  
+* d6158db -- Update project package.json version based on GitLab tag. Done by CI
+*   ff6c3f3 -- Merge branch '76-update-to-angular-12' into 'master'
+|\  
+| * d1cb42b -- Resolve "Update to Angular 12"
+|/  
+* 1ea1e2f -- Update project package.json version based on GitLab tag. Done by CI
+*   d5ea5d5 -- Merge branch '75-task-and-matrix-inconsistencies-occur-after-phase-moves' into 'master'
+|\  
+| * 64eaa19 -- Matrix and tasks are correctly updated after each move
+|/  
+* 3b33cea -- Update project package.json version based on GitLab tag. Done by CI
+*   bdf2f20 -- Merge branch 'fix-can-be-submitted-emi-question' into 'master'
+|\  
+| * 1f3cb34 -- Update extended-matching-items-trainee.component.ts
+|/  
+* 9f598d2 -- Update project package.json version based on GitLab tag. Done by CI
+*   cfc269d -- Merge branch '74-bump-version-of-adaptive-training-visualization' into 'master'
+|\  
+| * ece2da6 -- Bump version of adaptive training visualization
+* b82adfa -- Update project package.json version based on GitLab tag. Done by CI
 ### 12.0.5 Spinner for finished training runs, disable points for non test questions
 * 867bd95 -- [CI/CD] Update packages.json version based on GitLab tag.
 *   0ecac50 -- Merge branch '80-add-loading-for-overview-visualization-and-fix-questionare-points' into 'master'
