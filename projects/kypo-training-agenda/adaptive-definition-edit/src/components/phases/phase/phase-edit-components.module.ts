@@ -19,6 +19,7 @@ import { MatTableModule } from '@angular/material/table';
 import { TaskStepperComponent } from './training-phase/task/stepper/task-stepper.component';
 import { QuestionnairePhaseEditComponent } from './questionnaire/questionnaire-phase-edit.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { RelatedQuestionsComponent } from './training-phase/related-questions/related-questions.component';
 import { QuestionEditComponent } from './questionnaire/question/detail/question-edit.component';
 import { QuestionsOverviewComponent } from './questionnaire/question/overview/questions-overview.component';
 import { FreeFormQuestionEditComponent } from './questionnaire/question/free-form-question/free-form-question-edit.component';
@@ -71,6 +72,7 @@ const markdownConfig = {
     TrainingPhaseEditComponent,
     TasksOverviewComponent,
     TaskStepperComponent,
+    RelatedQuestionsComponent,
     QuestionnairePhaseEditComponent,
     QuestionEditComponent,
     QuestionsOverviewComponent,

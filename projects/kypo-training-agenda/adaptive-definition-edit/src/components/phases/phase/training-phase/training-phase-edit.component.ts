@@ -11,7 +11,7 @@ import {
 import { TrainingPhaseEditFormGroup } from './training-phase-edit-form-group';
 import { takeWhile } from 'rxjs/operators';
 import { AbstractControl, FormArray } from '@angular/forms';
-import { TrainingPhase } from '@muni-kypo-crp/training-model';
+import { AdaptiveQuestion, TrainingPhase } from '@muni-kypo-crp/training-model';
 
 @Component({
   selector: 'kypo-training-phase-configuration',
@@ -23,6 +23,7 @@ export class TrainingPhaseEditComponent extends SentinelBaseDirective implements
   @Input() phase: TrainingPhase;
   @Input() updateMatrixFlag: boolean;
   @Input() presentTrainingPhases: TrainingPhase[];
+  @Input() relatedQuestions: AdaptiveQuestion[];
   @Output() phaseChange: EventEmitter<TrainingPhase> = new EventEmitter();
 
   phaseConfigFormGroup: TrainingPhaseEditFormGroup;
