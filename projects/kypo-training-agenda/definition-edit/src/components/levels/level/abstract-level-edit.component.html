@@ -1,5 +1,6 @@
 <ng-container [ngSwitch]="level.type">
   <kypo-training-level-edit *ngSwitchCase="levelTypes.Training"
+                        [variantSandboxes]="variantSandboxes"
                         [level]="level"
                         (levelChange)="onLevelChange($event)">
   </kypo-training-level-edit>

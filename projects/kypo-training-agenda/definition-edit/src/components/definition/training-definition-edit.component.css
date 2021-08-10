@@ -47,5 +47,20 @@
   }
 }
 
+.alert-warning {
+  padding: 5px;
+  border: 2px solid #ffeeba;
+  border-radius: 5px;
+  color: #c58108;
+  background-color: #fff3cd;
+}
+
+.alert-warning-center {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+}
+
 
 

@@ -35,6 +35,7 @@ export class LevelOverviewComponent extends SentinelBaseDirective implements OnI
   @Output() unsavedLevels: EventEmitter<Level[]> = new EventEmitter();
   @Output() levelsCount: EventEmitter<number> = new EventEmitter();
   @Input() trainingDefinition: TrainingDefinition;
+  @Input() variantSandboxes: boolean;
 
   activeStep$: Observable<number>;
   stepperLevels: Observable<LevelStepperAdapter[]>;

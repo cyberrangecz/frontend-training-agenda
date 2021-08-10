@@ -34,6 +34,9 @@ export class TrainingDefinitionEditComponent extends SentinelBaseDirective imple
   get showProgress(): AbstractControl {
     return this.trainingDefinitionEditFormGroup.formGroup.get('showProgress');
   }
+  get variantSandboxes(): AbstractControl {
+    return this.trainingDefinitionEditFormGroup.formGroup.get('variantSandboxes');
+  }
   get outcomes(): FormArray {
     return this.trainingDefinitionEditFormGroup.formGroup.get('outcomes') as FormArray;
   }
