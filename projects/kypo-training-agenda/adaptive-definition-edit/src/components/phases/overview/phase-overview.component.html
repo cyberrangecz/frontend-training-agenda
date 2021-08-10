@@ -12,6 +12,8 @@
  <mat-divider></mat-divider>
  <kypo-phase-edit [phase]="(stepperPhases | async)[activeStep$ | async].phase"
                   [updateMatrix$]="updateMatrix$"
+                  [phaseRelations]="phaseRelations"
+                  [questions]="questions"
                   [presentTrainingPhases$]="presentTrainingPhases$"
                   (phaseChange)="onActivePhaseChanged($event)">
  </kypo-phase-edit>

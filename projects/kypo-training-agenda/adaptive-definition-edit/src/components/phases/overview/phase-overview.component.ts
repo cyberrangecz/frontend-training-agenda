@@ -13,11 +13,19 @@ import { SentinelBaseDirective } from '@sentinel/common';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { Observable } from 'rxjs';
 import { map, takeWhile, tap } from 'rxjs/operators';
-import { Phase, TrainingDefinition, TrainingPhase } from '@muni-kypo-crp/training-model';
+import {
+  AdaptiveQuestion,
+  Phase,
+  QuestionnairePhase,
+  QuestionnaireTypeEnum,
+  TrainingDefinition,
+  TrainingPhase,
+} from '@muni-kypo-crp/training-model';
 import { PhaseStepperAdapter } from '@muni-kypo-crp/training-agenda/internal';
 import { PhaseEditService } from '../../../services/state/phase/phase-edit.service';
 import { PhaseMoveEvent } from '../../../model/events/phase-move-event';
 import { PhaseOverviewControls } from '../../../model/adapters/phase-overview-controls';
+import { PhaseRelation } from '@muni-kypo-crp/training-model/lib/phase/questionnaire-phase/phase-relation';
 import { PhaseEditConcreteService } from '../../../services/state/phase/phase-edit-concrete.service';
 
 /**
@@ -42,6 +50,8 @@ export class PhaseOverviewComponent extends SentinelBaseDirective implements OnI
   updateMatrix$: Observable<boolean>;
   updateQuestionsFlag$: Observable<boolean>;
   presentTrainingPhases$: Observable<TrainingPhase[]>;
+  phaseRelations: PhaseRelation[] = [];
+  questions: Map<number, AdaptiveQuestion> = new Map<number, AdaptiveQuestion>();
 
   constructor(private dialog: MatDialog, private phaseService: PhaseEditService) {
     super();
@@ -67,6 +77,9 @@ export class PhaseOverviewComponent extends SentinelBaseDirective implements OnI
   ngOnChanges(changes: SimpleChanges): void {
     if ('trainingDefinition' in changes) {
       this.phaseService.set(this.trainingDefinition.id, this.trainingDefinition.levels as Phase[]);
+      this.phaseService.phases$
+        .pipe(takeWhile(() => this.isAlive))
+        .subscribe((phases) => this.updateQuestionsAndPhaseRelations(phases));
     }
   }
 
@@ -100,5 +113,22 @@ export class PhaseOverviewComponent extends SentinelBaseDirective implements OnI
     const saveDisabled$ = this.phaseService.activePhaseCanBeSaved$.pipe(map((canBeSaved) => !canBeSaved));
     const deleteDisabled$ = this.phaseService.phases$.pipe(map((phases) => phases.length <= 0));
     this.controls = PhaseOverviewControls.create(this.phaseService, saveDisabled$, deleteDisabled$);
+  }
+
+  private updateQuestionsAndPhaseRelations(phases: Phase[]) {
+    const newPhaseRelations = [];
+    const newQuestions = new Map<number, AdaptiveQuestion>();
+    phases
+      .filter(
+        (phase) =>
+          phase instanceof QuestionnairePhase &&
+          (phase as QuestionnairePhase).questionnaireType === QuestionnaireTypeEnum.Adaptive
+      )
+      .forEach((phase) => {
+        newPhaseRelations.push(...(phase as QuestionnairePhase).phaseRelations);
+        (phase as QuestionnairePhase).questions.forEach((question) => newQuestions.set(question.id, question));
+      });
+    this.phaseRelations = newPhaseRelations;
+    this.questions = newQuestions;
   }
 }
