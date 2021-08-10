@@ -54,6 +54,7 @@ export class MultipleChoiceQuestionEditComponent extends SentinelBaseDirective i
     if ('question' in changes) {
       this.multipleChoicesFormGroup = new MultipleChoiceFormGroup(this.question);
       this.checkState();
+      this.choices.markAllAsTouched();
       this.multipleChoicesFormGroup.formGroup.valueChanges
         .pipe(takeWhile(() => this.isAlive))
         .subscribe(() => this.questionChanged());
@@ -155,6 +156,9 @@ export class MultipleChoiceQuestionEditComponent extends SentinelBaseDirective i
       this.multipleChoicesFormGroup.removeAnswersValidator();
     }
     if (this.required && this.isTest) {
+      this.penalty.enable();
+    } else if (this.isTest) {
+      this.score.enable();
       this.penalty.enable();
     } else {
       this.penalty.disable();

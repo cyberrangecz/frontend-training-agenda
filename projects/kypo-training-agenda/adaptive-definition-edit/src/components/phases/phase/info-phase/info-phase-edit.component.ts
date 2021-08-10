@@ -38,6 +38,7 @@ export class InfoPhaseEditComponent extends SentinelBaseDirective implements OnC
   ngOnChanges(changes: SimpleChanges): void {
     if ('phase' in changes) {
       this.phaseConfigFormGroup = new InfoPhaseEditFormGroup(this.phase);
+      this.phaseConfigFormGroup.formGroup.get('title').markAsTouched();
       this.phaseConfigFormGroup.formGroup.valueChanges.pipe(takeWhile(() => this.isAlive)).subscribe(() => {
         this.phaseConfigFormGroup.setToPhase(this.phase);
         this.phaseChange.emit(this.phase);

@@ -44,6 +44,8 @@ export class AssessmentLevelEditComponent extends SentinelBaseDirective implemen
   ngOnChanges(changes: SimpleChanges): void {
     if ('level' in changes) {
       this.assessmentFormGroup = new AssessmentLevelEditFormGroup(this.level);
+      this.title.markAsTouched();
+      this.estimatedDuration.markAsTouched();
       this.assessmentFormGroup.formGroup.valueChanges.pipe(takeWhile(() => this.isAlive)).subscribe(() => {
         this.assessmentFormGroup.setToLevel(this.level);
         this.levelChange.emit(this.level);

@@ -50,6 +50,7 @@ export class QuestionnairePhaseEditComponent extends SentinelBaseDirective imple
   ngOnChanges(changes: SimpleChanges) {
     if ('phase' in changes || 'updateQuestionsFlag' in changes) {
       this.questionnaireFormGroup = new QuestionnairePhaseEditFormGroup(this.phase);
+      this.title.markAsTouched();
       this.questionnaireFormGroup.formGroup.valueChanges.pipe(takeWhile(() => this.isAlive)).subscribe(() => {
         this.questionnaireFormGroup.setToPhase(this.phase);
         this.phaseChange.emit(this.phase);

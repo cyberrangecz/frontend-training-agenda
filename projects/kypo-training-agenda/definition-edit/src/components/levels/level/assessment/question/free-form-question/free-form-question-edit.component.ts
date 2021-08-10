@@ -52,6 +52,7 @@ export class FreeFormQuestionEditComponent extends SentinelBaseDirective impleme
     if ('question' in changes) {
       this.freeFormQuestionFormGroup = new FreeFormQuestionFormGroup(this.question);
       this.checkState();
+      this.choices.markAllAsTouched();
       this.freeFormQuestionFormGroup.freeFormQuestionFormGroup.valueChanges
         .pipe(takeWhile(() => this.isAlive))
         .subscribe(() => this.questionChanged());
@@ -120,6 +121,11 @@ export class FreeFormQuestionEditComponent extends SentinelBaseDirective impleme
     }
   }
 
+  clearChoices(): void {
+    this.choices.clear();
+    this.questionChanged();
+  }
+
   /**
    * Enables/disables score and penalty form field based on required and isTest inputs
    */
@@ -136,15 +142,13 @@ export class FreeFormQuestionEditComponent extends SentinelBaseDirective impleme
     }
     if (this.required && this.isTest) {
       this.penalty.enable();
+    } else if (this.isTest) {
+      this.score.enable();
+      this.penalty.enable();
     } else {
       this.penalty.disable();
       this.score.disable();
     }
     this.freeFormQuestionFormGroup.freeFormQuestionFormGroup.updateValueAndValidity();
-  }
-
-  clearChoices(): void {
-    this.choices.clear();
-    this.questionChanged();
   }
 }

@@ -12,7 +12,7 @@
     </div>
 
 
-    <div class="inline-input">
+    <div *ngIf="isTest" class="inline-input">
       <!-- SCORE field -->
       <mat-form-field appearance="outline" hintLabel="Number in range from 0 to
         {{ maxQuestionScore }}">
@@ -48,10 +48,10 @@
     </div>
 
     <!-- CHOICES field -->
-    <div formArrayName="choices">
+    <div formArrayName="choices" class="choices-content">
       <div *ngFor="let choice of choices.controls; index as i; trackBy:
         trackByFn" class="choice" [formGroupName]="i">
-          <mat-checkbox
+          <mat-checkbox *ngIf="isTest"
             formControlName="correct"></mat-checkbox>
           <mat-form-field (keydown.enter)="$event.preventDefault()">
             <mat-label>Choice {{ i + 1 }}</mat-label>
