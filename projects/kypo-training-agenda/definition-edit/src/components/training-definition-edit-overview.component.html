@@ -71,6 +71,7 @@
   <ng-template matExpansionPanelContent>
     <kypo-level-overview *ngIf="editMode$ | async"
                          [trainingDefinition]="trainingDefinition$ | async"
+                         [variantSandboxes]="variantSandboxes$ | async"
                          (levelsCount)="onLevelsCountChanged($event)"
                          (unsavedLevels)="onUnsavedLevelsChanged($event)">
     </kypo-level-overview>

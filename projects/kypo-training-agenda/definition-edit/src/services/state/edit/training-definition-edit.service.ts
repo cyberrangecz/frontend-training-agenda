@@ -4,7 +4,9 @@ import { filter } from 'rxjs/operators';
 import { TrainingDefinitionChangeEvent } from '../../../model/events/training-definition-change-event';
 
 export abstract class TrainingDefinitionEditService {
-  protected trainingDefinitionSubject$: ReplaySubject<TrainingDefinition> = new ReplaySubject();
+  protected trainingDefinitionSubject$: BehaviorSubject<TrainingDefinition> = new BehaviorSubject<TrainingDefinition>(
+    null
+  );
   /**
    * Currently edited training definition
    */
@@ -23,6 +25,12 @@ export abstract class TrainingDefinitionEditService {
    * True if it is possible to save edited training definition in its current state, false otherwise
    */
   saveDisabled$ = this.saveDisabledSubject$.asObservable();
+
+  protected variantSandboxesSubject$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  /**
+   * True if it is the training definition supports variant answers, false otherwise
+   */
+  variantSandboxes$ = this.variantSandboxesSubject$.asObservable();
 
   /**
    * Sets training definition as currently edited

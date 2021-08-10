@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, HostListener } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { SentinelControlItem } from '@sentinel/components/controls';
@@ -30,6 +30,7 @@ import { TrainingDefinitionEditConcreteService } from '../services/state/edit/tr
 })
 export class TrainingDefinitionEditOverviewComponent extends SentinelBaseDirective {
   trainingDefinition$: Observable<TrainingDefinition>;
+  variantSandboxes$: Observable<boolean>;
   editMode$: Observable<boolean>;
   tdTitle$: Observable<string>;
   levelsCount = -1;
@@ -48,6 +49,7 @@ export class TrainingDefinitionEditOverviewComponent extends SentinelBaseDirecti
     super();
     this.defaultPaginationSize = this.paginationService.getPagination();
     this.trainingDefinition$ = this.editService.trainingDefinition$;
+    this.variantSandboxes$ = this.editService.variantSandboxes$;
     this.tdTitle$ = this.editService.trainingDefinition$.pipe(map((td) => td.title));
     this.saveDisabled$ = this.editService.saveDisabled$;
     this.activeRoute.data

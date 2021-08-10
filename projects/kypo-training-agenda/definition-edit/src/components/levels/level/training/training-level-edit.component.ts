@@ -24,6 +24,7 @@ import { AbstractControl } from '@angular/forms';
 })
 export class TrainingLevelEditComponent extends SentinelBaseDirective implements OnChanges {
   @Input() level: TrainingLevel;
+  @Input() variantSandboxes: boolean;
   @Output() levelChange: EventEmitter<TrainingLevel> = new EventEmitter();
   trainingLevelConfigFormGroup: TrainingLevelEditFormGroup;
 
@@ -48,6 +49,9 @@ export class TrainingLevelEditComponent extends SentinelBaseDirective implements
   get answer(): AbstractControl {
     return this.trainingLevelConfigFormGroup.formGroup.get('answer');
   }
+  get answerVariableName(): AbstractControl {
+    return this.trainingLevelConfigFormGroup.formGroup.get('answerVariableName');
+  }
   get estimatedDuration(): AbstractControl {
     return this.trainingLevelConfigFormGroup.formGroup.get('estimatedDuration');
   }
@@ -56,13 +60,21 @@ export class TrainingLevelEditComponent extends SentinelBaseDirective implements
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if ('level' in changes) {
-      this.trainingLevelConfigFormGroup = new TrainingLevelEditFormGroup(this.level);
+    if ('level' in changes || 'variantSandboxes' in changes) {
+      this.trainingLevelConfigFormGroup = new TrainingLevelEditFormGroup(this.level, this.variantSandboxes);
       this.setFormsAsTouched();
       this.trainingLevelConfigFormGroup.formGroup.valueChanges.pipe(takeWhile(() => this.isAlive)).subscribe(() => {
         this.trainingLevelConfigFormGroup.setToLevel(this.level);
         this.levelChange.emit(this.level);
       });
+    }
+    if ('variantSandboxes' in changes) {
+      if (this.variantSandboxes) {
+        this.answerVariableName.enable();
+      } else {
+        this.answerVariableName.setValue(null);
+        this.answerVariableName.disable();
+      }
     }
   }
 

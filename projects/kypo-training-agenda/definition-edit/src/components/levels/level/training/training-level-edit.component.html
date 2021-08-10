@@ -122,13 +122,13 @@
           hintLabel="Max 50 characters"
           (keydown.enter)="$event.preventDefault()"
         >
-          <mat-label>Correct Answer</mat-label>
+          <mat-label>Correct Answer - Static</mat-label>
           <input
             matInput
-            placeholder="Correct Answer"
+            placeholder="Correct Answer - Static"
             maxlength="50"
             formControlName="answer"
-            required
+            [required]="!variantSandboxes"
           />
           <button
             mat-button
@@ -136,15 +136,46 @@
             matSuffix
             mat-icon-button
             aria-label="Clear"
-            (click)="answer.setValue('')"
+            (click)="answer.setValue(null)"
           >
             <mat-icon>close</mat-icon>
           </button>
           <mat-hint align="end">{{ answer.value?.length || 0 }}/50</mat-hint>
-          <mat-error
-            >Correct Answer cannot be empty or larger than 50 characters</mat-error
-          >
+          <mat-error>Correct Answer cannot be empty or larger than 50 characters</mat-error>
         </mat-form-field>
+
+        <!-- VARIABLE NAME field -->
+        <mat-form-field
+          appearance="outline"
+          hintLabel="{{ variantSandboxes ? 'Max 50 characters' : 'Check \'Generate variant sandboxes\' to enable this field' }}"
+          (keydown.enter)="$event.preventDefault()"
+        >
+          <mat-label>Correct Answer - Variable Name</mat-label>
+          <input
+            matInput
+            placeholder="Correct Answer - Variable Name"
+            maxlength="50"
+            formControlName="answerVariableName"
+          />
+          <button
+            mat-button
+            *ngIf="answerVariableName"
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            [disabled]="!variantSandboxes"
+            (click)="answerVariableName.setValue(null)"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+          <mat-hint *ngIf="variantSandboxes" align="end">{{ answerVariableName.value?.length || 0 }}/50</mat-hint>
+        </mat-form-field>
+        <div class="panel-description-error" *ngIf="trainingLevelConfigFormGroup.formGroup.hasError('answerOrVariableNameRequired')">
+          <mat-icon color="warn">warning</mat-icon>
+          <mat-error>
+            Both Answer and Variable Name cannot be empty
+          </mat-error>
+        </div>
 
         <!-- SOLUTION PENALIZED field -->
         <mat-checkbox

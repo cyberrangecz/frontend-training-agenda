@@ -41,7 +41,30 @@
             </mat-checkbox>
           </div>
         </div>
+
+      <!-- SHOW VARIANT ANSWERS checkbox -->
+      <div class="form-line">
+        <div class="form-line-content">
+          <span class="spacer"></span>
+          <mat-checkbox matTooltip="When active, answers are validated against the answers in the special storage."
+                        labelPosition="before"
+                        formControlName="variantSandboxes">
+            Generate variant sandboxes
+          </mat-checkbox>
+        </div>
+        <div class="form-line-content">
+          <span class="spacer"></span>
+          <div class="alert-warning" style='display: inline-flex' *ngIf='trainingDefinition.variantSandboxes'>
+            <div class="alert-warning-center">
+              <mat-icon>warning</mat-icon>
+            </div>
+            <div class="alert-warning-center" style='padding-left: 5px'>
+              Requires a sandbox definition with defined variables which will be generated uniquely for each sandbox
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
 
       <div class="right-col">
         <!-- PREREQUISITES field-->

@@ -37,6 +37,7 @@ export class TrainingDefinitionEditConcreteService extends TrainingDefinitionEdi
     if (td === null) {
       td = new TrainingDefinition();
     }
+    this.variantSandboxesSubject$.next(td.variantSandboxes === undefined ? false : td.variantSandboxes);
     this.trainingDefinitionSubject$.next(td);
   }
 
@@ -62,6 +63,9 @@ export class TrainingDefinitionEditConcreteService extends TrainingDefinitionEdi
   change(changeEvent: TrainingDefinitionChangeEvent): void {
     this.saveDisabledSubject$.next(!changeEvent.isValid);
     this.editedSnapshot = changeEvent.trainingDefinition;
+    if (this.variantSandboxesSubject$.value != this.editedSnapshot.variantSandboxes) {
+      this.variantSandboxesSubject$.next(this.editedSnapshot.variantSandboxes);
+    }
   }
 
   private setEditMode(trainingDefinition: TrainingDefinition) {

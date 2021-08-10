@@ -4,7 +4,6 @@
   margin: 20px;
 }
 
-
 div .spacer {
   flex: 1 1 auto;
 }
@@ -53,4 +52,17 @@ sentinel-markdown-editor.mrkdwn-solution {
   div .right-panel {
     margin-left: 0;
   }
+}
+
+.panel-description-error {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  margin-top: -10px;
+}
+
+.panel-description-error mat-icon {
+  margin-right: 5px;
 }
