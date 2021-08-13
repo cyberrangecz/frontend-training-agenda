@@ -1,4 +1,4 @@
-<mat-expansion-panel  [expanded]="(editMode$ | async) === false">
+<mat-expansion-panel [expanded]="true">
   <mat-expansion-panel-header>
     <mat-panel-title>
       <span *ngIf="(editMode$ | async) else newTrainingTitle">Edit {{ tdTitle$ | async }}</span>
@@ -7,7 +7,7 @@
     <mat-panel-description>
       <span>{{ tdTitle$ | async }}</span>
       <span class="spacer"></span>
-      <div class="panel-description-error" *ngIf="!canDeactivateTDEdit">
+      <div class="panel-description-error" *ngIf="!canDeactivateTDEdit || (unsavedLevels$ | async).length !== 0">
         <mat-icon color="warn">warning</mat-icon>
         <mat-error>Changes are not saved</mat-error>
       </div>
@@ -20,15 +20,34 @@
                    (itemClicked)="onControlsAction($event)">
     </sentinel-controls>
     <mat-divider></mat-divider>
+    <!-- EDIT TRAINING DEFINITION -->
     <kypo-training-definition-edit
       (edited)="onTrainingDefinitionChanged($event)"
       [trainingDefinition]="trainingDefinition$ | async">
     </kypo-training-definition-edit>
-  </ng-template>
 
+    <mat-divider></mat-divider>
+    <!-- EDIT LEVELS -->
+    <div>
+      <div class="levels-header">
+        <h3>Edit Levels</h3>
+        <span class="levels-info" *ngIf="(levelsCount >= 0 && (editMode$ | async)) else levelCountFromTD">Training definition contains {{ levelsCount }} level(s)</span>
+        <ng-template #levelCountFromTD>
+          <span class="levels-info">Save training definition to add first level to it</span>
+        </ng-template>
+        <mat-icon class="header-icon">games</mat-icon>
+      </div>
+      <kypo-level-overview [trainingDefinition]="trainingDefinition$ | async"
+                           [variantSandboxes]="variantSandboxes$ | async"
+                           [editMode]="editMode$ | async"
+                           (levelsCount)="onLevelsCountChanged($event)"
+                           (unsavedLevels)="onUnsavedLevelsChanged($event)">
+      </kypo-level-overview>
+    </div>
+  </ng-template>
 </mat-expansion-panel>
 
-<mat-expansion-panel [disabled]="(editMode$ | async) === false" [expanded]="editMode$ | async">
+<mat-expansion-panel *ngIf="(editMode$ | async)" [expanded]="editMode$ | async">
   <mat-expansion-panel-header>
     <mat-panel-title>Edit Authors</mat-panel-title>
     <mat-panel-description>
@@ -49,31 +68,5 @@
                       toAssignTitle="Designers"
                       assigneesTitle="Authors">
     </sentinel-user-assign>
-  </ng-template>
-</mat-expansion-panel>
-
-<mat-expansion-panel [disabled]="(editMode$ | async) === false" [expanded]="editMode$ | async">
-  <mat-expansion-panel-header>
-    <mat-panel-title>Edit Levels</mat-panel-title>
-    <mat-panel-description>
-      <span *ngIf="levelsCount >= 0 else levelCountFromTD">Training definition contains {{ levelsCount }} level(s)</span>
-      <ng-template #levelCountFromTD>
-        <span>Training definition contains {{ (trainingDefinition$ | async).levels.length}} level(s)</span>
-      </ng-template>
-      <span class="spacer"></span>
-      <div class="panel-description-error" *ngIf="unsavedLevels.length > 0">
-        <mat-icon color="warn">warning</mat-icon>
-        <mat-error>Some levels are not saved</mat-error>
-      </div>
-      <mat-icon>games</mat-icon>
-    </mat-panel-description>
-  </mat-expansion-panel-header>
-  <ng-template matExpansionPanelContent>
-    <kypo-level-overview *ngIf="editMode$ | async"
-                         [trainingDefinition]="trainingDefinition$ | async"
-                         [variantSandboxes]="variantSandboxes$ | async"
-                         (levelsCount)="onLevelsCountChanged($event)"
-                         (unsavedLevels)="onUnsavedLevelsChanged($event)">
-    </kypo-level-overview>
   </ng-template>
 </mat-expansion-panel>

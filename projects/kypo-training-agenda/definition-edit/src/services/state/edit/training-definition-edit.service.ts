@@ -1,4 +1,4 @@
-import { TrainingDefinition } from '@muni-kypo-crp/training-model';
+import { Level, TrainingDefinition } from '@muni-kypo-crp/training-model';
 import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { TrainingDefinitionChangeEvent } from '../../../model/events/training-definition-change-event';
@@ -42,8 +42,6 @@ export abstract class TrainingDefinitionEditService {
    * Saves/creates training definition based on edit mode or handles error.
    */
   abstract save(): Observable<any>;
-
-  abstract createAndStay(): Observable<any>;
 
   /**
    * Updated saveDisabled$ and saved snapshot of edited training definition

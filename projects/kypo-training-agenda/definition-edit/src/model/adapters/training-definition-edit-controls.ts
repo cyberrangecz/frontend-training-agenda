@@ -1,26 +1,30 @@
 import { SentinelControlItem } from '@sentinel/components/controls';
-import { defer, Observable, of } from 'rxjs';
+import { combineLatest, defer, Observable } from 'rxjs';
 import { TrainingDefinitionEditService } from '../../services/state/edit/training-definition-edit.service';
+import { map } from 'rxjs/operators';
 
 /**
  * @dynamic
  */
 export class TrainingDefinitionEditControls {
   static readonly SAVE_ACTION_ID = 'save';
-  static readonly SAVE_AND_STAY_ACTION_ID = 'save_and_stay';
 
   static create(
     service: TrainingDefinitionEditService,
-    isEditMode: boolean,
-    saveDisabled$: Observable<boolean>
+    definitionSaveDisabled$: Observable<boolean>,
+    levelSaveDisabled$: Observable<boolean>
   ): SentinelControlItem[] {
-    return isEditMode ? this.editModeControls(service, saveDisabled$) : this.createModeControls(service, saveDisabled$);
+    return this.editModeControls(service, definitionSaveDisabled$, levelSaveDisabled$);
   }
 
   private static editModeControls(
     service: TrainingDefinitionEditService,
-    saveDisabled$: Observable<boolean>
+    definitionSaveDisabled$: Observable<boolean>,
+    levelSaveDisabled$: Observable<boolean>
   ): SentinelControlItem[] {
+    const saveDisabled$: Observable<boolean> = combineLatest(definitionSaveDisabled$, levelSaveDisabled$).pipe(
+      map((save) => save[0] && save[1])
+    );
     return [
       new SentinelControlItem(
         this.SAVE_ACTION_ID,
@@ -28,28 +32,6 @@ export class TrainingDefinitionEditControls {
         'primary',
         saveDisabled$,
         defer(() => service.save())
-      ),
-    ];
-  }
-
-  private static createModeControls(
-    service: TrainingDefinitionEditService,
-    saveDisabled$: Observable<boolean>
-  ): SentinelControlItem[] {
-    return [
-      new SentinelControlItem(
-        this.SAVE_ACTION_ID,
-        'Create',
-        'primary',
-        saveDisabled$,
-        defer(() => service.save())
-      ),
-      new SentinelControlItem(
-        this.SAVE_AND_STAY_ACTION_ID,
-        'Create and continue editing',
-        'primary',
-        saveDisabled$,
-        defer(() => service.createAndStay())
       ),
     ];
   }

@@ -22,11 +22,11 @@ export abstract class LevelEditService {
    */
   activeStep$ = this.activeStepSubject$.asObservable();
 
-  protected activeLevelCanBeSavedSubject$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  protected levelsSaveDisabledSubject$: BehaviorSubject<boolean> = new BehaviorSubject(true);
   /**
    * True if selected level is valid and can be saved, false otherwise
    */
-  activeLevelCanBeSaved$: Observable<boolean> = this.activeLevelCanBeSavedSubject$.asObservable();
+  levelsSaveDisabled$: Observable<boolean> = this.levelsSaveDisabledSubject$.asObservable();
 
   protected unsavedLevelsSubject$: BehaviorSubject<Level[]> = new BehaviorSubject([]);
 
@@ -49,14 +49,6 @@ export abstract class LevelEditService {
    */
   abstract onActiveLevelChanged(level: Level): void;
 
-  /**
-   * Determines whether passed level can be saved. Optionally, if value is passed as an argument,
-   * it uses value of the argument.
-   * @param level level to determine
-   * @param value pre-determined result
-   */
-  abstract setLevelCanBeSaved(level: Level, value?: boolean): void;
-
   abstract getSelected(): Level;
 
   abstract navigateToLastLevel(): void;
@@ -70,9 +62,9 @@ export abstract class LevelEditService {
   abstract add(levelType: AbstractLevelTypeEnum): Observable<Level>;
 
   /**
-   * Saves changes in edited level and optionally informs on result of the operation
+   * Saves changes in edited levels and optionally informs on result of the operation
    */
-  abstract saveSelected(): Observable<any>;
+  abstract saveUnsavedLevels(): Observable<any>;
 
   /**
    * Displays dialog to delete selected level and displays alert with result of the operation

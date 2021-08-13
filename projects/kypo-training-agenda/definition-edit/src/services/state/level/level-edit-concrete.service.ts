@@ -47,7 +47,6 @@ export class LevelEditConcreteService extends LevelEditService {
 
   setActiveLevel(levelIndex: number): void {
     this.activeStepSubject$.next(levelIndex);
-    this.setLevelCanBeSaved(this.getSelected());
   }
 
   /**
@@ -58,25 +57,8 @@ export class LevelEditConcreteService extends LevelEditService {
     level.isUnsaved = true;
     const newLevels = this.levelsSubject$.getValue();
     newLevels[this.activeStepSubject$.getValue()] = level;
-    this.levelsSubject$.next(newLevels);
-    this.setLevelCanBeSaved(level);
-    this.emitUnsavedLevels();
-  }
-
-  /**
-   * Determines whether passed level can be saved. Optionally, if value is passed as an argument,
-   * it uses value of the argument.
-   * @param level level to determine
-   * @param value pre-determined result
-   */
-  setLevelCanBeSaved(level: Level, value?: boolean): void {
-    if (this.levelsSubject$.getValue().length > 0 && level.id === this.getSelected().id) {
-      if (value !== undefined) {
-        this.activeLevelCanBeSavedSubject$.next(value);
-      } else {
-        this.activeLevelCanBeSavedSubject$.next(level.valid && level.isUnsaved);
-      }
-    }
+    this.unsavedLevelsSubject$.next(newLevels);
+    this.levelsSaveDisabledSubject$.next(!level.valid);
   }
 
   getSelected(): Level {
@@ -120,26 +102,23 @@ export class LevelEditConcreteService extends LevelEditService {
     return added$.pipe(tap(() => this.navigateToLastLevel()));
   }
 
-  /**
-   * Saves changes in edited level and optionally informs on result of the operation
-   */
-  saveSelected(): Observable<any> {
-    // need to pass levels as new object to trigger change detection in level stepper component
-    this.levelsSubject$.next(Array.from(this.levelsSubject$.value));
-    const level = this.getSelected();
-    this.setLevelCanBeSaved(level, false);
-    return this.sendRequestToSaveLevel(level).pipe(
-      tap(
-        () => {
-          this.onLevelSaved(level);
-          this.notificationService.emit('success', `Level ${level.title} saved`);
-        },
-        (err) => {
-          this.setLevelCanBeSaved(level);
-          this.errorHandler.emit(err, `Saving level ${level.title}`);
-        }
-      )
-    );
+  saveUnsavedLevels(): Observable<any> {
+    if (this.unsavedLevelsSubject$.getValue()) {
+      //.length > 0
+      return this.sendRequestToSaveLevels(this.unsavedLevelsSubject$.getValue()).pipe(
+        tap(
+          () => {
+            this.setLevelsCanBeSaved(this.unsavedLevelsSubject$.getValue());
+          },
+          (err) => {
+            this.setLevelsCanBeSaved(this.unsavedLevelsSubject$.getValue());
+            this.errorHandler.emit(err, `Saving levels in training definition`);
+          }
+        )
+      );
+    } else {
+      return EMPTY;
+    }
   }
 
   /**
@@ -161,7 +140,6 @@ export class LevelEditConcreteService extends LevelEditService {
     const levels = this.levelsSubject$.getValue();
     const from = levels[fromIndex];
     this.moveInternally(fromIndex, toIndex);
-    this.setLevelCanBeSaved(this.getSelected());
     return this.api.moveLevelTo(this.trainingDefinitionId, from.id, toIndex).pipe(
       tap(
         (_) => _,
@@ -239,40 +217,16 @@ export class LevelEditConcreteService extends LevelEditService {
     this.levelsSubject$.next([...this.levelsSubject$.getValue(), level]);
   }
 
-  private sendRequestToSaveLevel(level: Level): Observable<any> {
-    switch (true) {
-      case level instanceof InfoLevel:
-        return this.saveInfoLevel(level as InfoLevel);
-      case level instanceof AssessmentLevel:
-        return this.saveAssessmentLevel(level as AssessmentLevel);
-      case level instanceof TrainingLevel:
-        return this.saveTrainingLevel(level as TrainingLevel);
-      default:
-        console.error('Unsupported instance of level in save method od LevelEditService');
-    }
+  private sendRequestToSaveLevels(levels: Level[]): Observable<any> {
+    return this.api.updateTrainingDefinitionLevels(this.trainingDefinitionId, levels);
   }
 
-  private saveInfoLevel(level: InfoLevel): Observable<any> {
-    return this.api.updateInfoLevel(this.trainingDefinitionId, level);
-  }
-
-  private saveTrainingLevel(level: TrainingLevel): Observable<any> {
-    return this.api.updateTrainingLevel(this.trainingDefinitionId, level);
-  }
-
-  private saveAssessmentLevel(level: AssessmentLevel): Observable<any> {
-    return this.api.updateAssessmentLevel(this.trainingDefinitionId, level);
-  }
-
-  private onLevelSaved(level: Level) {
-    level.isUnsaved = false;
-    level.valid = true;
-    this.setLevelCanBeSaved(level);
-    this.emitUnsavedLevels();
-  }
-
-  private emitUnsavedLevels() {
-    this.unsavedLevelsSubject$.next(this.levelsSubject$.getValue().filter((level) => level.isUnsaved));
+  private setLevelsCanBeSaved(levels: Level[]): void {
+    levels.forEach((level) => {
+      level.isUnsaved = true;
+      level.valid = true;
+      this.unsavedLevelsSubject$.next([]);
+    });
   }
 
   private moveInternally(fromIndex: number, toIndex: number, activeIndex?: number) {

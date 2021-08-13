@@ -16,6 +16,8 @@ import { LevelOverviewComponentsModule } from './levels/level-overview-component
 import { TrainingDefinitionEditOverviewMaterialModule } from './training-definition-edit-overview-material.module';
 import { TrainingDefinitionEditOverviewComponent } from './training-definition-edit-overview.component';
 import { SentinelFreeFormModule } from '@sentinel/components/free-form';
+import { LevelEditService } from '../services/state/level/level-edit.service';
+import { LevelEditConcreteService } from '../services/state/level/level-edit-concrete.service';
 
 /**
  * Module containing components and providers of training definition detail/edt/new actions.
@@ -38,6 +40,7 @@ import { SentinelFreeFormModule } from '@sentinel/components/free-form';
     TrainingDefinitionResolver,
     TrainingDefinitionTitleResolver,
     TrainingDefinitionBreadcrumbResolver,
+    { provide: LevelEditService, useClass: LevelEditConcreteService },
   ],
 })
 export class TrainingDefinitionEditOverviewComponentsModule {

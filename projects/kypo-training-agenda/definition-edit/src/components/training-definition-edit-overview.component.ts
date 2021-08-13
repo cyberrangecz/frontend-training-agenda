@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { SentinelControlItem } from '@sentinel/components/controls';
@@ -14,6 +14,7 @@ import { TrainingDefinitionEditService } from '../services/state/edit/training-d
 import { SentinelUserAssignService } from '@sentinel/components/user-assign';
 import { AuthorsAssignService } from '../services/state/authors-assign/authors-assign.service';
 import { TrainingDefinitionEditConcreteService } from '../services/state/edit/training-definition-edit-concrete.service';
+import { LevelEditService } from '../services/state/level/level-edit.service';
 
 /**
  * Main smart component of training definition edit/new page.
@@ -35,7 +36,9 @@ export class TrainingDefinitionEditOverviewComponent extends SentinelBaseDirecti
   tdTitle$: Observable<string>;
   levelsCount = -1;
   saveDisabled$: Observable<boolean>;
+  levelSaveDisabled$: Observable<boolean>;
   unsavedLevels: Level[] = [];
+  unsavedLevels$: Observable<Level[]>;
   canDeactivateAuthors = true;
   canDeactivateTDEdit = true;
   defaultPaginationSize: number;
@@ -44,7 +47,8 @@ export class TrainingDefinitionEditOverviewComponent extends SentinelBaseDirecti
   constructor(
     private activeRoute: ActivatedRoute,
     private paginationService: PaginationService,
-    private editService: TrainingDefinitionEditService
+    private editService: TrainingDefinitionEditService,
+    private levelEditService: LevelEditService
   ) {
     super();
     this.defaultPaginationSize = this.paginationService.getPagination();
@@ -52,13 +56,19 @@ export class TrainingDefinitionEditOverviewComponent extends SentinelBaseDirecti
     this.variantSandboxes$ = this.editService.variantSandboxes$;
     this.tdTitle$ = this.editService.trainingDefinition$.pipe(map((td) => td.title));
     this.saveDisabled$ = this.editService.saveDisabled$;
+    this.levelSaveDisabled$ = this.levelEditService.levelsSaveDisabled$;
+    this.unsavedLevels$ = levelEditService.unsavedLevels$;
     this.activeRoute.data
       .pipe(takeWhile(() => this.isAlive))
       .subscribe((data) => this.editService.set(data[TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME]));
     this.editMode$ = this.editService.editMode$.pipe(
       tap(
-        (isEditMode) =>
-          (this.controls = TrainingDefinitionEditControls.create(this.editService, isEditMode, this.saveDisabled$))
+        () =>
+          (this.controls = TrainingDefinitionEditControls.create(
+            this.editService,
+            this.saveDisabled$,
+            this.levelSaveDisabled$
+          ))
       )
     );
   }

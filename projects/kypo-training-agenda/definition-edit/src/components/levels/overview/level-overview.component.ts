@@ -19,8 +19,6 @@ import { LevelOverviewControls } from '../../../model/adapters/level-overview-co
 import { LevelStepperAdapter } from '@muni-kypo-crp/training-agenda/internal';
 import { LevelMoveEvent } from '../../../model/events/level-move-event';
 import { LevelEditService } from '../../../services/state/level/level-edit.service';
-import { LevelEditConcreteService } from '../../../services/state/level/level-edit-concrete.service';
-
 /**
  * Smart component for level stepper and level edit components
  */
@@ -28,7 +26,6 @@ import { LevelEditConcreteService } from '../../../services/state/level/level-ed
   selector: 'kypo-level-overview',
   templateUrl: './level-overview.component.html',
   styleUrls: ['./level-overview.component.scss'],
-  providers: [{ provide: LevelEditService, useClass: LevelEditConcreteService }],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LevelOverviewComponent extends SentinelBaseDirective implements OnInit, OnChanges {
@@ -36,6 +33,7 @@ export class LevelOverviewComponent extends SentinelBaseDirective implements OnI
   @Output() levelsCount: EventEmitter<number> = new EventEmitter();
   @Input() trainingDefinition: TrainingDefinition;
   @Input() variantSandboxes: boolean;
+  @Input() editMode: boolean;
 
   activeStep$: Observable<number>;
   stepperLevels: Observable<LevelStepperAdapter[]>;
@@ -103,8 +101,7 @@ export class LevelOverviewComponent extends SentinelBaseDirective implements OnI
   }
 
   private initControl() {
-    const saveDisabled$ = this.levelService.activeLevelCanBeSaved$.pipe(map((canBeSaved) => !canBeSaved));
     const deleteDisabled$ = this.levelService.levels$.pipe(map((levels) => levels.length <= 0));
-    this.controls = LevelOverviewControls.create(this.levelService, saveDisabled$, deleteDisabled$);
+    this.controls = LevelOverviewControls.create(this.levelService, this.editMode, deleteDisabled$);
   }
 }

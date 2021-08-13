@@ -36,7 +36,6 @@ export class AbstractPhaseEditComponent extends SentinelBaseDirective implements
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
     if ('phase' in changes || 'phaseRelations' in changes) {
       this.relatedQuestions = this.phaseRelations
         .filter((phaseRelation) => phaseRelation.phaseId === this.phase.id)
