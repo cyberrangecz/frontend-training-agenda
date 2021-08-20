@@ -4,6 +4,7 @@ import {
   EventEmitter,
   Input,
   OnChanges,
+  OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
@@ -67,14 +68,6 @@ export class TrainingLevelEditComponent extends SentinelBaseDirective implements
         this.trainingLevelConfigFormGroup.setToLevel(this.level);
         this.levelChange.emit(this.level);
       });
-    }
-    if ('variantSandboxes' in changes) {
-      if (this.variantSandboxes) {
-        this.answerVariableName.enable();
-      } else {
-        this.answerVariableName.setValue(null);
-        this.answerVariableName.disable();
-      }
     }
   }
 

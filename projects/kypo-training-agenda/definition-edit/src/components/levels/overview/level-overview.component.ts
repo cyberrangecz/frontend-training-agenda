@@ -11,14 +11,14 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { SentinelControlItem } from '@sentinel/components/controls';
-import { TrainingDefinition } from '@muni-kypo-crp/training-model';
-import { Level } from '@muni-kypo-crp/training-model';
+import { AbstractLevelTypeEnum, Level, TrainingDefinition } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
 import { map, takeWhile, tap } from 'rxjs/operators';
 import { LevelOverviewControls } from '../../../model/adapters/level-overview-controls';
 import { LevelStepperAdapter } from '@muni-kypo-crp/training-agenda/internal';
 import { LevelMoveEvent } from '../../../model/events/level-move-event';
 import { LevelEditService } from '../../../services/state/level/level-edit.service';
+
 /**
  * Smart component for level stepper and level edit components
  */
@@ -60,6 +60,13 @@ export class LevelOverviewComponent extends SentinelBaseDirective implements OnI
   ngOnChanges(changes: SimpleChanges): void {
     if ('trainingDefinition' in changes) {
       this.levelService.set(this.trainingDefinition.id, this.trainingDefinition.levels as Level[]);
+    }
+    if ('variantSandboxes' in changes && !this.variantSandboxes) {
+      this.trainingDefinition.levels.forEach((level) => {
+        if (level.type === AbstractLevelTypeEnum.Training) {
+          level.answerVariableName = null;
+        }
+      });
     }
   }
 

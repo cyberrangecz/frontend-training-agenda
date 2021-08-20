@@ -108,12 +108,10 @@ export class LevelEditConcreteService extends LevelEditService {
       return this.sendRequestToSaveLevels(this.unsavedLevelsSubject$.getValue()).pipe(
         tap(
           () => {
-            this.setLevelsCanBeSaved(this.unsavedLevelsSubject$.getValue());
+            this.onLevelsSaved();
+            this.notificationService.emit('success', `Levels have been saved`);
           },
-          (err) => {
-            this.setLevelsCanBeSaved(this.unsavedLevelsSubject$.getValue());
-            this.errorHandler.emit(err, `Saving levels in training definition`);
-          }
+          (err) => this.errorHandler.emit(err, `Saving levels in training definition`)
         )
       );
     } else {
@@ -221,12 +219,13 @@ export class LevelEditConcreteService extends LevelEditService {
     return this.api.updateTrainingDefinitionLevels(this.trainingDefinitionId, levels);
   }
 
-  private setLevelsCanBeSaved(levels: Level[]): void {
-    levels.forEach((level) => {
-      level.isUnsaved = true;
+  private onLevelsSaved(): void {
+    this.unsavedLevelsSubject$.getValue().forEach((level) => {
+      level.isUnsaved = false;
       level.valid = true;
-      this.unsavedLevelsSubject$.next([]);
     });
+    this.unsavedLevelsSubject$.next([]);
+    this.levelsSaveDisabledSubject$.next(true);
   }
 
   private moveInternally(fromIndex: number, toIndex: number, activeIndex?: number) {
