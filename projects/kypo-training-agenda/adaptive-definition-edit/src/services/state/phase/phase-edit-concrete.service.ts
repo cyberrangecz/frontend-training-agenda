@@ -329,14 +329,6 @@ export class PhaseEditConcreteService extends PhaseEditService {
     return this.api.updateTrainingPhases(this.trainingDefinitionId, phases);
   }
 
-  private saveQuestionnairePhase(phase: QuestionnairePhase): Observable<any> {
-    return this.api.updateQuestionnairePhase(this.trainingDefinitionId, phase).pipe(
-      map((response) => {
-        this.updateQuestionnaireData(response);
-      })
-    );
-  }
-
   private onPhaseAdded(phase: Phase): void {
     this.phasesSubject$.next([...this.phasesSubject$.getValue(), phase]);
   }
@@ -435,12 +427,6 @@ export class PhaseEditConcreteService extends PhaseEditService {
       }
     });
     this.phasesSubject$.next(updated);
-  }
-
-  private updateQuestionnaireData(questionnaire: QuestionnairePhase) {
-    const phases = this.phasesSubject$.value;
-    phases[this.activeStepSubject$.value] = questionnaire;
-    this.phasesSubject$.next(phases);
   }
 
   private updateOrder(): void {
