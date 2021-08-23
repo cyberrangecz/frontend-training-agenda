@@ -59,6 +59,8 @@ export class LevelEditConcreteService extends LevelEditService {
     newLevels[this.activeStepSubject$.getValue()] = level;
     this.unsavedLevelsSubject$.next(newLevels);
     this.levelsSaveDisabledSubject$.next(!level.valid);
+    this.levelsValidSubject$.next(level.valid);
+    this.levelsSubject$.next(newLevels);
   }
 
   getSelected(): Level {

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { TrainingDefinitionApi } from '@muni-kypo-crp/training-api';
-import { Level, TrainingDefinition } from '@muni-kypo-crp/training-model';
+import { TrainingDefinition } from '@muni-kypo-crp/training-model';
 import { concat, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { TrainingDefinitionChangeEvent } from '../../../model/events/training-definition-change-event';
@@ -64,6 +64,7 @@ export class TrainingDefinitionEditConcreteService extends TrainingDefinitionEdi
    * @param changeEvent training definition object and its validity
    */
   change(changeEvent: TrainingDefinitionChangeEvent): void {
+    this.definitionValidSubject$.next(changeEvent.isValid);
     this.saveDisabledSubject$.next(!changeEvent.isValid);
     this.editedSnapshot = changeEvent.trainingDefinition;
     if (this.variantSandboxesSubject$.value != this.editedSnapshot.variantSandboxes) {

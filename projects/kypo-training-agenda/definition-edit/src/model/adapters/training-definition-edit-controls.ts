@@ -12,18 +12,20 @@ export class TrainingDefinitionEditControls {
   static create(
     service: TrainingDefinitionEditService,
     definitionSaveDisabled$: Observable<boolean>,
-    levelSaveDisabled$: Observable<boolean>
+    levelSaveDisabled$: Observable<boolean>,
+    valid$: Observable<boolean>
   ): SentinelControlItem[] {
-    return this.editModeControls(service, definitionSaveDisabled$, levelSaveDisabled$);
+    return this.editModeControls(service, definitionSaveDisabled$, levelSaveDisabled$, valid$);
   }
 
   private static editModeControls(
     service: TrainingDefinitionEditService,
     definitionSaveDisabled$: Observable<boolean>,
-    levelSaveDisabled$: Observable<boolean>
+    levelSaveDisabled$: Observable<boolean>,
+    valid$: Observable<boolean>
   ): SentinelControlItem[] {
-    const saveDisabled$: Observable<boolean> = combineLatest(definitionSaveDisabled$, levelSaveDisabled$).pipe(
-      map((save) => save[0] && save[1])
+    const saveDisabled$: Observable<boolean> = combineLatest(definitionSaveDisabled$, levelSaveDisabled$, valid$).pipe(
+      map((save) => (save[0] && save[1]) || !save[2])
     );
     return [
       new SentinelControlItem(

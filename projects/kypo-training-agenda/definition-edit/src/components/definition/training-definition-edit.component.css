@@ -49,6 +49,7 @@
 
 .alert-warning {
   padding: 5px;
+  margin-top: 5px;
   border: 2px solid #ffeeba;
   border-radius: 5px;
   color: #c58108;
@@ -59,6 +60,12 @@
   display: flex;
   justify-content: center;
   align-content: center;
+  flex-direction: column;
+}
+
+.checkboxes-container {
+  display: flex;
+  justify-content: flex-start;
   flex-direction: column;
 }
 

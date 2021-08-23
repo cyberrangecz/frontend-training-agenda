@@ -4,7 +4,7 @@ import { SentinelBaseDirective } from '@sentinel/common';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { TrainingDefinition } from '@muni-kypo-crp/training-model';
 import { Level } from '@muni-kypo-crp/training-model';
-import { Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { map, takeWhile, tap } from 'rxjs/operators';
 import { TrainingDefinitionEditControls } from '../model/adapters/training-definition-edit-controls';
 import { TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
@@ -56,6 +56,10 @@ export class TrainingDefinitionEditOverviewComponent extends SentinelBaseDirecti
     this.variantSandboxes$ = this.editService.variantSandboxes$;
     this.tdTitle$ = this.editService.trainingDefinition$.pipe(map((td) => td.title));
     this.saveDisabled$ = this.editService.saveDisabled$;
+    const valid$: Observable<boolean> = combineLatest(
+      this.editService.definitionValid$,
+      this.levelEditService.levelsValid$
+    ).pipe(map((valid) => valid[0] && valid[1]));
     this.levelSaveDisabled$ = this.levelEditService.levelsSaveDisabled$;
     this.unsavedLevels$ = levelEditService.unsavedLevels$;
     this.activeRoute.data
@@ -67,7 +71,8 @@ export class TrainingDefinitionEditOverviewComponent extends SentinelBaseDirecti
           (this.controls = TrainingDefinitionEditControls.create(
             this.editService,
             this.saveDisabled$,
-            this.levelSaveDisabled$
+            this.levelSaveDisabled$,
+            valid$
           ))
       )
     );

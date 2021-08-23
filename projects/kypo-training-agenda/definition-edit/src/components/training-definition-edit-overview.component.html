@@ -1,11 +1,10 @@
 <mat-expansion-panel [expanded]="true">
   <mat-expansion-panel-header>
     <mat-panel-title>
-      <span *ngIf="(editMode$ | async) else newTrainingTitle">Edit {{ tdTitle$ | async }}</span>
+      <span *ngIf="(editMode$ | async) else newTrainingTitle">Training Definition</span>
       <ng-template #newTrainingTitle>Create Linear Training Definition</ng-template>
     </mat-panel-title>
     <mat-panel-description>
-      <span>{{ tdTitle$ | async }}</span>
       <span class="spacer"></span>
       <div class="panel-description-error" *ngIf="!canDeactivateTDEdit || (unsavedLevels$ | async).length !== 0">
         <mat-icon color="warn">warning</mat-icon>
@@ -46,7 +45,7 @@
 
 <mat-expansion-panel *ngIf="(editMode$ | async)" [expanded]="editMode$ | async">
   <mat-expansion-panel-header>
-    <mat-panel-title>Edit Authors</mat-panel-title>
+    <mat-panel-title>Authors</mat-panel-title>
     <mat-panel-description>
       <span class="spacer"></span>
       <div class="panel-description-error" *ngIf="!canDeactivateAuthors">

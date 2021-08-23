@@ -75,6 +75,10 @@ export class TrainingDefinitionEditComponent extends SentinelBaseDirective imple
     });
   }
 
+  checkboxTouched(): void {
+    this.title.markAsTouched();
+  }
+
   private setupOnFormChangedEvent() {
     this.trainingDefinitionEditFormGroup.formGroup.valueChanges
       .pipe(takeWhile(() => this.isAlive))
