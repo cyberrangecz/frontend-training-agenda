@@ -24,13 +24,13 @@ export abstract class LevelEditService {
 
   protected levelsSaveDisabledSubject$: BehaviorSubject<boolean> = new BehaviorSubject(true);
   /**
-   * True if selected level is valid and can be saved, false otherwise
+   * True if levels are valid and can be saved, false otherwise
    */
   levelsSaveDisabled$: Observable<boolean> = this.levelsSaveDisabledSubject$.asObservable();
 
   protected levelsValidSubject$: BehaviorSubject<boolean> = new BehaviorSubject(true);
   /**
-   * True if selected level is valid, false otherwise
+   * True if all levels are valid, false otherwise
    */
   levelsValid$: Observable<boolean> = this.levelsValidSubject$.asObservable();
 

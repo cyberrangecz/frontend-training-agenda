@@ -1,13 +1,12 @@
-<mat-expansion-panel  [expanded]="(editMode$ | async) === false">
+<mat-expansion-panel [expanded]="true">
   <mat-expansion-panel-header>
     <mat-panel-title>
-      <span *ngIf="(editMode$ | async) else newTrainingTitle">Edit {{ tdTitle$ | async }}</span>
-      <ng-template #newTrainingTitle>Create Training Definition</ng-template>
+      <span *ngIf="(editMode$ | async) else newTrainingTitle">Adaptive Training Definition</span>
+      <ng-template #newTrainingTitle>Create Adaptive Training Definition</ng-template>
     </mat-panel-title>
     <mat-panel-description>
-      <span>{{ tdTitle$ | async }}</span>
       <span class="spacer"></span>
-      <div class="panel-description-error" *ngIf="!canDeactivateTDEdit">
+      <div class="panel-description-error" *ngIf="!canDeactivateTDEdit || (unsavedPhases).length !== 0">
         <mat-icon color="warn">warning</mat-icon>
         <mat-error>Changes are not saved</mat-error>
       </div>
@@ -20,17 +19,33 @@
                    (itemClicked)="onControlsAction($event)">
     </sentinel-controls>
     <mat-divider></mat-divider>
+    <!-- EDIT ADAPTIVE TRAINING DEFINITION -->
     <kypo-adaptive-definition-edit
       (edited)="onTrainingDefinitionChanged($event)"
       [trainingDefinition]="trainingDefinition$ | async">
     </kypo-adaptive-definition-edit>
+
+    <mat-divider></mat-divider>
+    <!-- EDIT PHASES -->
+    <div>
+      <div class="phases-header">
+        <h3>Phases</h3>
+        <span class="phases-info" *ngIf="phasesCount >= 0">Training definition contains {{ phasesCount }} phase(s)</span>
+        <mat-icon>games</mat-icon>
+      </div>
+      <kypo-phase-overview [trainingDefinition]="trainingDefinition$ | async"
+                           (phasesCount)="onPhasesCountChanged($event)"
+                           (unsavedPhases)="onUnsavedPhasesChanged($event)">
+      </kypo-phase-overview>
+    </div>
   </ng-template>
 
 </mat-expansion-panel>
 
-<mat-expansion-panel [disabled]="(editMode$ | async) === false" [expanded]="editMode$ | async">
+<!-- EDIT AUTHORS -->
+<mat-expansion-panel *ngIf="(editMode$ | async)" [expanded]="editMode$ | async">
   <mat-expansion-panel-header>
-    <mat-panel-title>Edit Authors</mat-panel-title>
+    <mat-panel-title>Authors</mat-panel-title>
     <mat-panel-description>
       <span class="spacer"></span>
       <div class="panel-description-error" *ngIf="!canDeactivateAuthors">
@@ -49,30 +64,5 @@
                       toAssignTitle="Designers"
                       assigneesTitle="Authors">
     </sentinel-user-assign>
-  </ng-template>
-</mat-expansion-panel>
-
-<mat-expansion-panel [disabled]="(editMode$ | async) === false" [expanded]="editMode$ | async">
-  <mat-expansion-panel-header>
-    <mat-panel-title>Edit Phases</mat-panel-title>
-    <mat-panel-description>
-      <span *ngIf="phasesCount >= 0 else phaseCountFromTD">Training definition contains {{ phasesCount }} phase(s)</span>
-      <ng-template #phaseCountFromTD>
-        <span>Training definition contains {{ (trainingDefinition$ | async).levels.length}} phase(s)</span>
-      </ng-template>
-      <span class="spacer"></span>
-      <div class="panel-description-error" *ngIf="unsavedPhases.length > 0">
-        <mat-icon color="warn">warning</mat-icon>
-        <mat-error>Some phases are not saved</mat-error>
-      </div>
-      <mat-icon>games</mat-icon>
-    </mat-panel-description>
-  </mat-expansion-panel-header>
-  <ng-template matExpansionPanelContent>
-    <kypo-phase-overview *ngIf="editMode$ | async"
-                         [trainingDefinition]="trainingDefinition$ | async"
-                         (phasesCount)="onPhasesCountChanged($event)"
-                         (unsavedPhases)="onUnsavedPhasesChanged($event)">
-    </kypo-phase-overview>
   </ng-template>
 </mat-expansion-panel>

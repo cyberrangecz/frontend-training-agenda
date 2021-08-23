@@ -48,8 +48,8 @@ export class TrainingDefinitionEditConcreteService extends TrainingDefinitionEdi
    */
   save(): Observable<any> {
     if (this.editModeSubject$.getValue()) {
+      // checks if TD was edited if not only levels are updated
       if (this.editedSnapshot) {
-        // checks if TD was edited if not only levels are updated
         return concat(this.update(), this.levelEditService.saveUnsavedLevels());
       } else {
         return this.levelEditService.saveUnsavedLevels();

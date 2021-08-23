@@ -33,8 +33,14 @@ export abstract class PhaseEditService {
   protected updateQuestionsFlagSubject$: BehaviorSubject<boolean> = new BehaviorSubject(true);
   updateQuestionsFlag$ = this.updateQuestionsFlagSubject$.asObservable();
 
-  protected activePhaseCanBeSavedSubject$: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  activePhaseCanBeSaved$: Observable<boolean> = this.activePhaseCanBeSavedSubject$.asObservable();
+  protected saveDisabledSubject$: BehaviorSubject<boolean> = new BehaviorSubject(true);
+  saveDisabled$: Observable<boolean> = this.saveDisabledSubject$.asObservable();
+
+  protected phasesValidSubject$: BehaviorSubject<boolean> = new BehaviorSubject(true);
+  /**
+   * True if all phases are valid, false otherwise
+   */
+  phasesValid$: Observable<boolean> = this.phasesValidSubject$.asObservable();
 
   protected questionnairePresentSubject$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   questionnairePresent$ = this.questionnairePresentSubject$.asObservable();
@@ -57,16 +63,6 @@ export abstract class PhaseEditService {
    */
   abstract onActivePhaseChanged(phase: Phase): void;
 
-  /**
-   * Determines whether passed phases can be saved. Optionally, if value is passed as an argument,
-   * it uses value of the argument.
-   * @param phase phases to determine
-   * @param value pre-determined result
-   */
-  abstract setPhaseCanBeSaved(phase: Phase, value?: boolean): void;
-
-  abstract getSelected(): Phase;
-
   abstract navigateToLastPhase(): void;
 
   abstract navigateToPreviousPhase(): void;
@@ -76,7 +72,7 @@ export abstract class PhaseEditService {
   /**
    * Saves changes in edited phases and optionally informs on result of the operation
    */
-  abstract saveSelected(): Observable<any>;
+  abstract saveUnsavedPhases(): Observable<any>;
 
   /**
    * Displays dialog to delete selected phases and displays alert with result of the operation

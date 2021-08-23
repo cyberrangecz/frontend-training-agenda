@@ -15,6 +15,7 @@ import { SentinelUserAssignService } from '@sentinel/components/user-assign';
 import { AuthorsAssignService } from '../services/state/authors-assign/authors-assign.service';
 import { TrainingDefinitionEditConcreteService } from '../services/state/edit/training-definition-edit-concrete.service';
 import { LevelEditService } from '../services/state/level/level-edit.service';
+import { LevelEditConcreteService } from '../services/state/level/level-edit-concrete.service';
 
 /**
  * Main smart component of training definition edit/new page.
@@ -26,6 +27,7 @@ import { LevelEditService } from '../services/state/level/level-edit.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     { provide: SentinelUserAssignService, useClass: AuthorsAssignService },
+    { provide: LevelEditService, useClass: LevelEditConcreteService },
     { provide: TrainingDefinitionEditService, useClass: TrainingDefinitionEditConcreteService },
   ],
 })

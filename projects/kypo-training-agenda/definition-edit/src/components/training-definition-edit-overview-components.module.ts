@@ -40,7 +40,6 @@ import { LevelEditConcreteService } from '../services/state/level/level-edit-con
     TrainingDefinitionResolver,
     TrainingDefinitionTitleResolver,
     TrainingDefinitionBreadcrumbResolver,
-    { provide: LevelEditService, useClass: LevelEditConcreteService },
   ],
 })
 export class TrainingDefinitionEditOverviewComponentsModule {
