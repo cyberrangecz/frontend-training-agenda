@@ -6,7 +6,7 @@ import {
   SentinelDialogResultEnum,
 } from '@sentinel/components/dialogs';
 import { EMPTY, Observable } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { switchMap, tap } from 'rxjs/operators';
 import { PhaseEditService } from './phase-edit.service';
 import { AdaptiveDefinitionApiService } from '@muni-kypo-crp/training-api';
 import {
@@ -22,6 +22,8 @@ import { TrainingErrorHandler, TrainingNotificationService } from '@muni-kypo-cr
 
 @Injectable()
 export class PhaseEditConcreteService extends PhaseEditService {
+  private unsavedTasks: number[] = [];
+
   constructor(
     private api: AdaptiveDefinitionApiService,
     private dialog: MatDialog,
@@ -58,7 +60,7 @@ export class PhaseEditConcreteService extends PhaseEditService {
     phase.isUnsaved = true;
     const newPhases = this.phasesSubject$.getValue();
     newPhases[this.activeStepSubject$.getValue()] = phase;
-    this.unsavedPhasesSubject$.next(newPhases);
+    this.phasesSubject$.next(newPhases);
     this.phasesValidSubject$.next(phase.valid);
     this.saveDisabledSubject$.next(!phase.valid);
     this.emitUnsavedPhases();
@@ -69,9 +71,9 @@ export class PhaseEditConcreteService extends PhaseEditService {
     this.getSelected().isUnsaved = true;
     const newPhases = this.phasesSubject$.getValue();
     (newPhases[this.activeStepSubject$.getValue()] as TrainingPhase).tasks[task.order] = task;
-    this.unsavedPhasesSubject$.next(newPhases);
     this.saveDisabledSubject$.next(!task.valid);
     this.updateActiveTasks();
+    this.emitUnsavedTasks(task.id);
     this.emitUnsavedPhases();
   }
 
@@ -119,7 +121,15 @@ export class PhaseEditConcreteService extends PhaseEditService {
   }
 
   saveUnsavedPhases(): Observable<any> {
-    if (this.unsavedPhasesSubject$.getValue()) {
+    if (this.unsavedPhasesSubject$.getValue().length > 0) {
+      const phases: Phase[] = this.unsavedPhasesSubject$.getValue();
+      this.unsavedPhasesSubject$.getValue().forEach((phase, index) => {
+        if (phase.type === AbstractPhaseTypeEnum.Training) {
+          (phases[index] as TrainingPhase).tasks = (phase as TrainingPhase).tasks.filter((task) =>
+            this.unsavedTasks.includes(task.id)
+          );
+        }
+      });
       return this.sendRequestToSavePhases(this.unsavedPhasesSubject$.getValue()).pipe(
         tap(
           () => {
@@ -326,7 +336,7 @@ export class PhaseEditConcreteService extends PhaseEditService {
   }
 
   private sendRequestToSavePhases(phases: Phase[]): Observable<any> {
-    return this.api.updateTrainingPhases(this.trainingDefinitionId, phases);
+    return this.api.updatePhases(this.trainingDefinitionId, phases);
   }
 
   private onPhaseAdded(phase: Phase): void {
@@ -338,6 +348,7 @@ export class PhaseEditConcreteService extends PhaseEditService {
       phase.isUnsaved = false;
       phase.valid = true;
     });
+    this.unsavedTasks = [];
     this.saveDisabledSubject$.next(true);
     this.emitUnsavedPhases();
   }
@@ -366,11 +377,18 @@ export class PhaseEditConcreteService extends PhaseEditService {
       this.activeStepSubject$.getValue()
     ] as TrainingPhase).tasks.filter((task) => task.id !== id);
     this.navigateToPreviousTask();
+    // this.unsavedTasks.filter(taskId => taskId !== id);
     this.updateActiveTasks();
   }
 
   private emitUnsavedPhases(): void {
     this.unsavedPhasesSubject$.next(this.phasesSubject$.getValue().filter((phase) => phase.isUnsaved));
+  }
+
+  private emitUnsavedTasks(taskId: number): void {
+    if (!this.unsavedTasks.includes(taskId)) {
+      this.unsavedTasks.push(taskId);
+    }
   }
 
   private callApiToMove(fromIndex: number, toIndex: number, phaseId: number): Observable<any> {

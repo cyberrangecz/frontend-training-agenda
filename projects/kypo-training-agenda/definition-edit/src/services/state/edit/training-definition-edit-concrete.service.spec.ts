@@ -8,6 +8,7 @@ import { TrainingDefinitionChangeEvent } from '../../../model/events/training-de
 import {
   createContext,
   createErrorHandlerSpy,
+  createLevelEditServiceSpy,
   createNavigatorSpy,
   createNotificationSpy,
   createRouterSpy,
@@ -18,11 +19,13 @@ import { TrainingNavigator } from '../../../../../src/services/training-navigato
 import { TrainingNotificationService } from '../../../../../src/services/training-notification.service';
 import { TrainingAgendaContext } from '../../../../../internal/src/services/context/training-agenda-context.service';
 import { TrainingDefinitionEditConcreteService } from './training-definition-edit-concrete.service';
+import { LevelEditService } from '../level/level-edit.service';
 
 describe('TrainingDefinitionEditConcreteService', () => {
   let errorHandlerSpy: jasmine.SpyObj<TrainingErrorHandler>;
   let notificationSpy: jasmine.SpyObj<TrainingNotificationService>;
   let apiSpy: jasmine.SpyObj<TrainingDefinitionApi>;
+  let levelEditServiceSpy: jasmine.SpyObj<LevelEditService>;
   let service: TrainingDefinitionEditConcreteService;
   let context: TrainingAgendaContext;
   let navigatorSpy: jasmine.SpyObj<TrainingNavigator>;
@@ -32,6 +35,7 @@ describe('TrainingDefinitionEditConcreteService', () => {
     errorHandlerSpy = createErrorHandlerSpy();
     notificationSpy = createNotificationSpy();
     apiSpy = createTrainingDefinitionApiSpy();
+    levelEditServiceSpy = createLevelEditServiceSpy();
     navigatorSpy = createNavigatorSpy();
     routerSpy = createRouterSpy();
     context = createContext();
@@ -43,6 +47,7 @@ describe('TrainingDefinitionEditConcreteService', () => {
         { provide: TrainingNavigator, useValue: navigatorSpy },
         { provide: TrainingNotificationService, useValue: notificationSpy },
         { provide: TrainingDefinitionApi, useValue: apiSpy },
+        { provide: LevelEditService, useValue: levelEditServiceSpy },
         { provide: TrainingErrorHandler, useValue: errorHandlerSpy },
         { provide: TrainingAgendaContext, useValue: context },
       ],
@@ -74,6 +79,7 @@ describe('TrainingDefinitionEditConcreteService', () => {
   it('should save existing training definition', (done) => {
     apiSpy.update.and.returnValue(asyncData(0));
     service.set(createMock());
+    service.change(createChangeEventMock());
     service.save().subscribe(
       (res) => {
         expect(apiSpy.update).toHaveBeenCalledTimes(1);
@@ -93,7 +99,7 @@ describe('TrainingDefinitionEditConcreteService', () => {
       () => {
         expect(apiSpy.create).toHaveBeenCalledTimes(1);
         expect(routerSpy.navigate).toHaveBeenCalledTimes(1);
-        expect(navigatorSpy.toTrainingDefinitionOverview).toHaveBeenCalledTimes(1);
+        expect(navigatorSpy.toTrainingDefinitionEdit).toHaveBeenCalledTimes(1);
         expect(notificationSpy.emit).toHaveBeenCalledWith('success', jasmine.anything());
         done();
       },
@@ -104,6 +110,7 @@ describe('TrainingDefinitionEditConcreteService', () => {
   it('should emit error when save existing training definition fails', (done) => {
     apiSpy.update.and.returnValue(throwError(null));
     service.set(createMock());
+    service.change(createChangeEventMock());
     service.save().subscribe(
       () => fail,
       (err) => {
@@ -130,7 +137,7 @@ describe('TrainingDefinitionEditConcreteService', () => {
   it('should create training definition and stay on edit page', (done) => {
     apiSpy.create.and.returnValue(asyncData(createMock()));
     routerSpy.navigate.and.returnValue(asyncData(true).toPromise());
-    service.createAndStay().subscribe(
+    service.save().subscribe(
       () => {
         expect(apiSpy.create).toHaveBeenCalledTimes(1);
         expect(routerSpy.navigate).toHaveBeenCalledTimes(1);
@@ -145,7 +152,7 @@ describe('TrainingDefinitionEditConcreteService', () => {
   it('should emit error when create training definition and stay on edit page fails', (done) => {
     apiSpy.create.and.returnValue(throwError(null));
     routerSpy.navigate.and.returnValue(asyncData(true).toPromise());
-    service.createAndStay().subscribe(
+    service.save().subscribe(
       () => fail,
       (err) => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
@@ -167,5 +174,9 @@ describe('TrainingDefinitionEditConcreteService', () => {
     def1.state = TrainingDefinitionStateEnum.Released;
 
     return def1;
+  }
+
+  function createChangeEventMock(): TrainingDefinitionChangeEvent {
+    return new TrainingDefinitionChangeEvent(createMock(), true);
   }
 });

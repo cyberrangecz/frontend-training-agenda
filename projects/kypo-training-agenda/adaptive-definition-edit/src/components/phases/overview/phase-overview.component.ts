@@ -42,7 +42,7 @@ export class PhaseOverviewComponent extends SentinelBaseDirective implements OnI
   @Input() trainingDefinition: TrainingDefinition;
 
   activeStep$: Observable<number>;
-  stepperPhases: Observable<PhaseStepperAdapter[]>;
+  stepperPhases$: Observable<PhaseStepperAdapter[]>;
   controls: SentinelControlItem[];
   phaseMovingInProgress: boolean;
   updateMatrix$: Observable<boolean>;
@@ -57,7 +57,7 @@ export class PhaseOverviewComponent extends SentinelBaseDirective implements OnI
 
   ngOnInit(): void {
     this.activeStep$ = this.phaseService.activeStep$;
-    this.stepperPhases = this.phaseService.phases$.pipe(
+    this.stepperPhases$ = this.phaseService.phases$.pipe(
       map((phases) => phases.map((phase) => new PhaseStepperAdapter(phase))),
       tap(() => this.phasesCount.emit(this.phaseService.getPhasesCount()))
     );

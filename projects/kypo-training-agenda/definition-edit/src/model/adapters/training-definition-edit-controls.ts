@@ -15,10 +15,10 @@ export class TrainingDefinitionEditControls {
     levelSaveDisabled$: Observable<boolean>,
     valid$: Observable<boolean>
   ): SentinelControlItem[] {
-    return this.editModeControls(service, definitionSaveDisabled$, levelSaveDisabled$, valid$);
+    return this.controls(service, definitionSaveDisabled$, levelSaveDisabled$, valid$);
   }
 
-  private static editModeControls(
+  private static controls(
     service: TrainingDefinitionEditService,
     definitionSaveDisabled$: Observable<boolean>,
     levelSaveDisabled$: Observable<boolean>,

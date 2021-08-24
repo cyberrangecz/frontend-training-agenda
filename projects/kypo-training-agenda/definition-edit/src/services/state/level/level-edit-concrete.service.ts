@@ -57,10 +57,10 @@ export class LevelEditConcreteService extends LevelEditService {
     level.isUnsaved = true;
     const newLevels = this.levelsSubject$.getValue();
     newLevels[this.activeStepSubject$.getValue()] = level;
-    this.unsavedLevelsSubject$.next(newLevels);
     this.levelsSaveDisabledSubject$.next(!level.valid);
     this.levelsValidSubject$.next(level.valid);
     this.levelsSubject$.next(newLevels);
+    this.unsavedLevelsSubject$.next(this.levelsSubject$.getValue().filter((level) => level.isUnsaved));
   }
 
   getSelected(): Level {
@@ -105,8 +105,7 @@ export class LevelEditConcreteService extends LevelEditService {
   }
 
   saveUnsavedLevels(): Observable<any> {
-    if (this.unsavedLevelsSubject$.getValue()) {
-      //.length > 0
+    if (this.unsavedLevelsSubject$.getValue().length > 0) {
       return this.sendRequestToSaveLevels(this.unsavedLevelsSubject$.getValue()).pipe(
         tap(
           () => {
