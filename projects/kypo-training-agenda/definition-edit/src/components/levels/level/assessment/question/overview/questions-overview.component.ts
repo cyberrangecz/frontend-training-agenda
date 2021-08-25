@@ -65,6 +65,7 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
     }
     if ('questions' in changes && this.questions) {
       this.stepperQuestions.items = this.questions.map((question) => new QuestionStepperAdapter(question));
+      this.selectedStep = this.stepperQuestions.items.length - 1;
       this.calculateHasError();
     }
     if ('isTest' in changes && !changes.isTest.isFirstChange()) {
