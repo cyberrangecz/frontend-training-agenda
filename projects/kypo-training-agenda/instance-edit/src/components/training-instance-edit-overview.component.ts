@@ -52,16 +52,7 @@ export class TrainingInstanceEditOverviewComponent extends SentinelBaseDirective
     this.activeRoute.data
       .pipe(takeWhile(() => this.isAlive))
       .subscribe((data) => this.editService.set(data[TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME]));
-    this.editMode$ = this.editService.editMode$.pipe(
-      tap(
-        (isEditMode) =>
-          (this.controls = TrainingInstanceEditControls.create(
-            this.editService,
-            isEditMode,
-            this.editService.saveDisabled$
-          ))
-      )
-    );
+    this.controls = TrainingInstanceEditControls.create(this.editService, this.editService.saveDisabled$);
   }
 
   /**
@@ -74,6 +65,7 @@ export class TrainingInstanceEditOverviewComponent extends SentinelBaseDirective
 
   onControlsAction(control: SentinelControlItem): void {
     this.canDeactivateTIEdit = true;
+    this.canDeactivatePoolAssign = true;
     control.result$.pipe(take(1)).subscribe();
   }
 
@@ -91,6 +83,15 @@ export class TrainingInstanceEditOverviewComponent extends SentinelBaseDirective
    */
   onOrganizersChanged(hasUnsavedChanges: boolean): void {
     this.canDeactivateOrganizers = !hasUnsavedChanges;
+  }
+
+  /**
+   * Changes canDeactivate state of the component
+   * @param poolId pool ID of selected pool
+   */
+  onPoolSelectionChanged(poolId: number): void {
+    this.canDeactivatePoolAssign = false;
+    this.editService.poolSelectionChange(poolId);
   }
 
   /**

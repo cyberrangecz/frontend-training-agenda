@@ -15,6 +15,7 @@ import { TrainingInstanceEditService } from './training-instance-edit.service';
 @Injectable()
 export class TrainingInstanceEditConcreteService extends TrainingInstanceEditService {
   private editedSnapshot: TrainingInstance;
+  private selectedPool: number;
 
   constructor(
     private trainingInstanceApi: TrainingInstanceApi,
@@ -37,22 +38,34 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
   }
 
   /**
-   * Saves/creates training instance based on current edit mode or handles error.
+   * Handles change of pool selection
+   * @param poolId pool ID of selected pool
+   */
+  poolSelectionChange(poolId: number): void {
+    this.selectedPool = poolId;
+    this.saveDisabledSubject$.next(false);
+  }
+
+  /**
+   * Saves/creates training instance or handles error.
    */
   save(): Observable<any> {
     if (this.editModeSubject$.getValue()) {
       return this.update();
     } else {
-      return this.create().pipe(
-        switchMap(() => from(this.router.navigate([this.navigator.toTrainingInstanceOverview()])))
-      );
+      if (this.selectedPool) {
+        let instanceId: number;
+        return this.create().pipe(
+          tap((id) => (instanceId = id)),
+          switchMap((id) => this.trainingInstanceApi.assignPool(id, this.selectedPool)),
+          switchMap(() => from(this.router.navigate([this.navigator.toTrainingInstanceEdit(instanceId)])))
+        );
+      } else {
+        return this.create().pipe(
+          switchMap((id) => from(this.router.navigate([this.navigator.toTrainingInstanceEdit(id)])))
+        );
+      }
     }
-  }
-
-  createAndStay(): Observable<any> {
-    return this.create().pipe(
-      switchMap((id) => from(this.router.navigate([this.navigator.toTrainingInstanceEdit(id)])))
-    );
   }
 
   /**
@@ -75,7 +88,32 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
     this.editModeSubject$.next(trainingInstance !== null);
   }
 
+  private create(): Observable<number> {
+    return this.trainingInstanceApi.create(this.editedSnapshot).pipe(
+      map((ti) => ti.id),
+      tap(
+        () => {
+          this.notificationService.emit('success', 'Training instance was created');
+          this.onSaved();
+        },
+        (err) => this.errorHandler.emit(err, 'Creating training instance')
+      )
+    );
+  }
+
   private update(): Observable<number> {
+    if (this.editedSnapshot) {
+      if (this.selectedPool !== this.editedSnapshot.poolId) {
+        return this.updateDefinition().pipe(switchMap(() => this.updatePool()));
+      } else {
+        return this.updateDefinition();
+      }
+    } else {
+      return this.updatePool();
+    }
+  }
+
+  private updateDefinition(): Observable<number> {
     return this.trainingInstanceApi.update(this.editedSnapshot).pipe(
       map(() => this.editedSnapshot.id),
       tap(
@@ -88,15 +126,14 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
     );
   }
 
-  private create(): Observable<number> {
-    return this.trainingInstanceApi.create(this.editedSnapshot).pipe(
-      map((ti) => ti.id),
+  private updatePool() {
+    return this.trainingInstanceApi.assignPool(this.trainingInstanceSubject$.getValue().id, this.selectedPool).pipe(
       tap(
         () => {
-          this.notificationService.emit('success', 'Training instance was created');
+          this.notificationService.emit('success', 'Pool assign to training instance was successfully saved');
           this.onSaved();
         },
-        (err) => this.errorHandler.emit(err, 'Creating training instance')
+        (err) => this.errorHandler.emit(err, 'Editing training instance')
       )
     );
   }
