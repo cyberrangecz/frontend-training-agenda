@@ -48,6 +48,7 @@ export class TrainingInstanceEditOverviewComponent extends SentinelBaseDirective
     this.defaultPaginationSize = this.paginationService.getPagination();
     this.trainingInstance$ = this.editService.trainingInstance$;
     this.hasStarted$ = this.editService.hasStarted$;
+    this.editMode$ = this.editService.editMode$;
     this.tiTitle$ = this.editService.trainingInstance$.pipe(map((ti) => ti.title));
     this.activeRoute.data
       .pipe(takeWhile(() => this.isAlive))

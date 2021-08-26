@@ -37,6 +37,7 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
     this.saveDisabledSubject$.next(!changeEvent.isValid);
     this.instanceValid = changeEvent.isValid;
     this.editedSnapshot = changeEvent.trainingInstance;
+    this.editedSnapshot.poolId = this.selectedPool;
   }
 
   /**
@@ -45,7 +46,10 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
    */
   poolSelectionChange(poolId: number): void {
     this.selectedPool = poolId;
-    if (this.instanceValid) {
+    if (this.instanceValid !== false) {
+      if (this.editedSnapshot) {
+        this.editedSnapshot.poolId = this.selectedPool;
+      }
       this.saveDisabledSubject$.next(false);
     }
   }
@@ -57,18 +61,9 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
     if (this.editModeSubject$.getValue()) {
       return this.update();
     } else {
-      if (this.selectedPool) {
-        let instanceId: number;
-        return this.create().pipe(
-          tap((id) => (instanceId = id)),
-          switchMap((id) => this.trainingInstanceApi.assignPool(id, this.selectedPool)),
-          switchMap(() => from(this.router.navigate([this.navigator.toTrainingInstanceEdit(instanceId)])))
-        );
-      } else {
-        return this.create().pipe(
-          switchMap((id) => from(this.router.navigate([this.navigator.toTrainingInstanceEdit(id)])))
-        );
-      }
+      return this.create().pipe(
+        switchMap((id) => from(this.router.navigate([this.navigator.toTrainingInstanceEdit(id)])))
+      );
     }
   }
 
@@ -106,35 +101,15 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
   }
 
   private update(): Observable<number> {
-    if (this.editedSnapshot) {
-      if (this.selectedPool !== this.editedSnapshot.poolId) {
-        return this.updateDefinition().pipe(switchMap(() => this.updatePool()));
-      } else {
-        return this.updateDefinition();
-      }
-    } else {
-      return this.updatePool();
+    if (!this.editedSnapshot) {
+      this.editedSnapshot = this.trainingInstanceSubject$.getValue();
+      this.editedSnapshot.poolId = this.selectedPool;
     }
-  }
-
-  private updateDefinition(): Observable<number> {
     return this.trainingInstanceApi.update(this.editedSnapshot).pipe(
       map(() => this.editedSnapshot.id),
       tap(
         () => {
           this.notificationService.emit('success', 'Training instance was successfully saved');
-          this.onSaved();
-        },
-        (err) => this.errorHandler.emit(err, 'Editing training instance')
-      )
-    );
-  }
-
-  private updatePool() {
-    return this.trainingInstanceApi.assignPool(this.trainingInstanceSubject$.getValue().id, this.selectedPool).pipe(
-      tap(
-        () => {
-          this.notificationService.emit('success', 'Pool assign to training instance was successfully saved');
           this.onSaved();
         },
         (err) => this.errorHandler.emit(err, 'Editing training instance')

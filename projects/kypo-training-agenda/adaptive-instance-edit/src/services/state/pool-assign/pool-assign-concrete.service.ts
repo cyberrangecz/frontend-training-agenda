@@ -43,30 +43,4 @@ export class PoolAssignConcreteService extends PoolAssignService {
       )
     );
   }
-
-  assign(trainingInstance: TrainingInstance): Observable<any> {
-    const poolId = this.selectedSubject$.getValue().id;
-    return this.trainingInstanceApi.assignPool(trainingInstance.id, poolId).pipe(
-      tap(
-        () => {
-          this.notificationService.emit('success', `Pool ${poolId} was assigned`);
-          this.assignedPoolSubject$.next(poolId);
-        },
-        (err) => this.errorHandler.emit(err, `Assigning pool ${poolId}`)
-      )
-    );
-  }
-
-  unassign(trainingInstance: TrainingInstance): Observable<any> {
-    return this.trainingInstanceApi.unassignPool(trainingInstance.id).pipe(
-      switchMap(() => this.getAll(this.lastPagination)),
-      tap(
-        () => {
-          this.notificationService.emit('success', `Pool was unassigned`);
-          this.assignedPoolSubject$.next(undefined);
-        },
-        (err) => this.errorHandler.emit(err, `Unassigning pool`)
-      )
-    );
-  }
 }

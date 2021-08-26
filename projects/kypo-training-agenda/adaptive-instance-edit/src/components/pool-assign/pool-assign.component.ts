@@ -75,6 +75,11 @@ export class PoolAssignComponent extends SentinelBaseDirective implements OnInit
   }
 
   onSelectionChange(poolTitle: string): void {
+    if (poolTitle) {
+      this.onSelectionChanged.emit(Number(poolTitle.replace(/[^0-9]/g, '')));
+    } else {
+      this.onSelectionChanged.emit(null);
+    }
     this.onSelectionChanged.emit(Number(poolTitle.replace(/[^0-9]/g, '')));
   }
 

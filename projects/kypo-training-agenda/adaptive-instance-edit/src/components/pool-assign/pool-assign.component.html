@@ -1,6 +1,7 @@
 <mat-form-field *ngIf="!(hasPool$ | async) else hasPoolTemplate" appearance="fill">
   <mat-label>Available Pools</mat-label>
   <mat-select (selectionChange)="onSelectionChange($event.value)">
+    <mat-option>None</mat-option>
     <mat-option *ngFor="let pool of (pools$ | async)" [value]="pool.title">
       {{pool.title}}
     </mat-option>
