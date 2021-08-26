@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSelectModule } from '@angular/material/select';
 
 /**
  * Material component imports for training instance edit pages
@@ -23,6 +24,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatDividerModule,
     MatProgressBarModule,
     MatListModule,
+    MatSelectModule,
   ],
   exports: [
     MatButtonModule,
@@ -34,6 +36,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatDividerModule,
     MatProgressBarModule,
     MatListModule,
+    MatSelectModule,
   ],
 })
 export class AdaptiveInstanceEditOverviewMaterialModule {}

@@ -49,16 +49,7 @@ export class AdaptiveInstanceEditOverviewComponent extends SentinelBaseDirective
     this.activeRoute.data
       .pipe(takeWhile(() => this.isAlive))
       .subscribe((data) => this.editService.set(data[ADAPTIVE_INSTANCE_DATA_ATTRIBUTE_NAME]));
-    this.editMode$ = this.editService.editMode$.pipe(
-      tap(
-        (isEditMode) =>
-          (this.controls = AdaptiveInstanceEditControls.create(
-            this.editService,
-            isEditMode,
-            this.editService.saveDisabled$
-          ))
-      )
-    );
+    this.controls = AdaptiveInstanceEditControls.create(this.editService, this.editService.saveDisabled$);
   }
 
   /**
@@ -88,6 +79,15 @@ export class AdaptiveInstanceEditOverviewComponent extends SentinelBaseDirective
    */
   onOrganizersChanged(hasUnsavedChanges: boolean): void {
     this.canDeactivateOrganizers = !hasUnsavedChanges;
+  }
+
+  /**
+   * Changes canDeactivate state of the component
+   * @param poolId pool ID of selected pool
+   */
+  onPoolSelectionChanged(poolId: number): void {
+    this.canDeactivatePoolAssign = false;
+    this.editService.poolSelectionChange(poolId);
   }
 
   /**
