@@ -22,6 +22,13 @@ export abstract class TrainingInstanceEditService {
 
   editMode$: Observable<boolean> = this.editModeSubject$.asObservable();
 
+  protected instanceValidSubject$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
+  /**
+   * True if it training instance is in valid state, false otherwise
+   */
+  instanceValid$ = this.instanceValidSubject$.asObservable();
+
   hasStarted$: Observable<boolean>;
 
   /**
@@ -34,6 +41,13 @@ export abstract class TrainingInstanceEditService {
    * True if it is possible to save edited training instance in its current state, false otherwise
    */
   saveDisabled$: Observable<boolean> = this.saveDisabledSubject$.asObservable();
+
+  protected poolSaveDisabledSubject$: BehaviorSubject<boolean> = new BehaviorSubject(true);
+
+  /**
+   * True if it is possible to save edited pool in its current state, false otherwise
+   */
+  poolSaveDisabled$: Observable<boolean> = this.poolSaveDisabledSubject$.asObservable();
 
   protected constructor() {
     this.hasStarted$ = timer(1).pipe(

@@ -1,6 +1,7 @@
 import { SentinelControlItem } from '@sentinel/components/controls';
-import { defer, Observable } from 'rxjs';
+import { combineLatest, defer, Observable } from 'rxjs';
 import { TrainingInstanceEditService } from '../../services/state/edit/training-instance-edit.service';
+import { map, tap } from 'rxjs/operators';
 
 /**
  * @dynamic
@@ -8,20 +9,29 @@ import { TrainingInstanceEditService } from '../../services/state/edit/training-
 export class TrainingInstanceEditControls {
   static readonly SAVE_ACTION_ID = 'save';
 
-  static create(service: TrainingInstanceEditService, saveDisabled$: Observable<boolean>): SentinelControlItem[] {
-    return TrainingInstanceEditControls.createControls(service, saveDisabled$);
+  static create(
+    service: TrainingInstanceEditService,
+    saveDisabled$: Observable<boolean>,
+    instanceValid$: Observable<boolean>
+  ): SentinelControlItem[] {
+    return TrainingInstanceEditControls.createControls(service, saveDisabled$, instanceValid$);
   }
 
   private static createControls(
     service: TrainingInstanceEditService,
-    saveDisabled$: Observable<boolean>
+    saveDisabled$: Observable<boolean>,
+    instanceValid$: Observable<boolean>
   ): SentinelControlItem[] {
+    const disabled$: Observable<boolean> = combineLatest(saveDisabled$, instanceValid$).pipe(
+      tap((s) => console.log(s[0], s[1])),
+      map((save) => save[0] || !save[1])
+    );
     return [
       new SentinelControlItem(
         this.SAVE_ACTION_ID,
         'Save',
         'primary',
-        saveDisabled$,
+        disabled$,
         defer(() => service.save())
       ),
     ];

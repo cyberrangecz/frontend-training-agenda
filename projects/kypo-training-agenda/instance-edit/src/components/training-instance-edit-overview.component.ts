@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
-import { Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { map, take, takeWhile, tap } from 'rxjs/operators';
 import { TrainingInstanceEditControls } from '../model/adapter/training-instance-edit-controls';
 import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
@@ -32,6 +32,7 @@ export class TrainingInstanceEditOverviewComponent extends SentinelBaseDirective
   hasStarted$: Observable<boolean>;
   editMode$: Observable<boolean>;
   tiTitle$: Observable<string>;
+  instanceValid$: Observable<boolean>;
   canDeactivateOrganizers = true;
   canDeactivatePoolAssign = true;
   canDeactivateTIEdit = true;
@@ -48,11 +49,16 @@ export class TrainingInstanceEditOverviewComponent extends SentinelBaseDirective
     this.defaultPaginationSize = this.paginationService.getPagination();
     this.trainingInstance$ = this.editService.trainingInstance$;
     this.hasStarted$ = this.editService.hasStarted$;
+    this.instanceValid$ = this.editService.instanceValid$;
+    const saveDisabled$: Observable<boolean> = combineLatest(
+      this.editService.saveDisabled$,
+      this.editService.poolSaveDisabled$
+    ).pipe(map((valid) => valid[0] && valid[1]));
     this.tiTitle$ = this.editService.trainingInstance$.pipe(map((ti) => ti.title));
     this.activeRoute.data
       .pipe(takeWhile(() => this.isAlive))
       .subscribe((data) => this.editService.set(data[TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME]));
-    this.controls = TrainingInstanceEditControls.create(this.editService, this.editService.saveDisabled$);
+    this.controls = TrainingInstanceEditControls.create(this.editService, saveDisabled$, this.instanceValid$);
   }
 
   /**

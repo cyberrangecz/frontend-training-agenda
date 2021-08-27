@@ -34,6 +34,7 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
    */
   change(changeEvent: TrainingInstanceChangeEvent): void {
     this.saveDisabledSubject$.next(!changeEvent.isValid);
+    this.instanceValidSubject$.next(changeEvent.isValid);
     this.editedSnapshot = changeEvent.trainingInstance;
   }
 
@@ -43,7 +44,7 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
    */
   poolSelectionChange(poolId: number): void {
     this.selectedPool = poolId;
-    this.saveDisabledSubject$.next(false);
+    this.poolSaveDisabledSubject$.next(false);
   }
 
   /**
