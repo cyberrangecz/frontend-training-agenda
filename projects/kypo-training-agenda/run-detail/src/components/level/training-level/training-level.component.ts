@@ -14,7 +14,7 @@ import {
 import { SentinelBaseDirective } from '@sentinel/common';
 import { Kypo2TopologyErrorService } from '@muni-kypo-crp/topology-graph';
 import { Observable } from 'rxjs';
-import { take, takeWhile } from 'rxjs/operators';
+import { delay, take, takeWhile } from 'rxjs/operators';
 import { HintButton, TrainingRunTrainingLevelService } from '@muni-kypo-crp/training-agenda/internal';
 import { TrainingErrorHandler } from '@muni-kypo-crp/training-agenda';
 import { TrainingLevel } from '@muni-kypo-crp/training-model';
@@ -36,6 +36,7 @@ export class TrainingLevelComponent extends SentinelBaseDirective implements OnI
   @Input() sandboxId: number;
   @Output() next: EventEmitter<void> = new EventEmitter();
   @ViewChild('rightPanel', { static: true }) rightPanelDiv: ElementRef;
+  @ViewChild('levelContent') private levelContent: ElementRef;
 
   topologyWidth: number;
   topologyHeight: number;
@@ -46,6 +47,7 @@ export class TrainingLevelComponent extends SentinelBaseDirective implements OnI
   isSolutionRevelead$: Observable<boolean>;
   isLoading$: Observable<boolean>;
   hintsButtons$: Observable<HintButton[]>;
+  displayedSolutionContent$: Observable<string>;
 
   constructor(
     private trainingLevelService: TrainingRunTrainingLevelService,
@@ -75,6 +77,7 @@ export class TrainingLevelComponent extends SentinelBaseDirective implements OnI
       this.isSolutionRevelead$ = this.trainingLevelService.isSolutionRevealed$;
       this.isLoading$ = this.trainingLevelService.isLoading$;
       this.hintsButtons$ = this.trainingLevelService.hints$;
+      this.displayedSolutionContent$ = this.trainingLevelService.displayedSolutionContent$;
     }
   }
 
@@ -87,14 +90,20 @@ export class TrainingLevelComponent extends SentinelBaseDirective implements OnI
    * @param hintButton hint button clicked by the user
    */
   revealHint(hintButton: HintButton): void {
-    this.trainingLevelService.revealHint(hintButton.hint).pipe(take(1)).subscribe();
+    this.trainingLevelService
+      .revealHint(hintButton.hint)
+      .pipe(take(1), delay(50))
+      .subscribe(() => this.scrollToBottom());
   }
 
   /**
    * Calls service to reveal solution
    */
   revealSolution(): void {
-    this.trainingLevelService.revealSolution(this.level).pipe(take(1)).subscribe();
+    this.trainingLevelService
+      .revealSolution(this.level)
+      .pipe(take(1), delay(50))
+      .subscribe(() => this.scrollToBottom());
   }
 
   /**
@@ -102,6 +111,7 @@ export class TrainingLevelComponent extends SentinelBaseDirective implements OnI
    */
   submitAnswer(): void {
     this.trainingLevelService.submitAnswer(this.answer).pipe(take(1)).subscribe();
+    this.scrollToTop();
   }
 
   /**
@@ -131,13 +141,28 @@ export class TrainingLevelComponent extends SentinelBaseDirective implements OnI
       window.innerWidth >= 1920
         ? this.rightPanelDiv.nativeElement.getBoundingClientRect().width
         : window.innerWidth / 2;
-    this.topologyHeight = (this.topologyWidth / 4) * 3;
+    this.topologyHeight = this.topologyWidth;
   }
 
   private subscribeToTopologyErrorHandler() {
     this.topologyErrorService.error$.pipe(takeWhile(() => this.isAlive)).subscribe({
       next: (event) => this.errorHandler.emit(event.err, event.action),
       error: (err) => this.errorHandler.emit(err, 'There is a problem with topology error handler.'),
+    });
+  }
+
+  private scrollToBottom(): void {
+    this.levelContent.nativeElement.scrollTo({
+      left: 0,
+      top: this.levelContent.nativeElement.scrollHeight,
+      behavior: 'smooth',
+    });
+  }
+
+  private scrollToTop(): void {
+    this.levelContent.nativeElement.scrollTo({
+      left: 0,
+      top: 0,
     });
   }
 }

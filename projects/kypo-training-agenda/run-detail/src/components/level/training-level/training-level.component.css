@@ -9,6 +9,10 @@ markdown ::ng-deep pre {
   overflow-wrap: break-word;
 }
 
+::ng-deep .mat-form-field-outline {
+  background-color: white;
+}
+
 kypo2-topology-graph {
   border: 1px solid gainsboro;
 }
@@ -75,11 +79,32 @@ button {
 }
 
 mat-form-field {
-  width: 150px;
+  width: 250px;
+}
+
+.level-content {
+  height: 55vh;
+  overflow: auto;
+}
+
+.ssh-button {
+  width: fit-content;
+  margin: 0;
+  margin-top: 10px;
+  align-self: flex-end;
+}
+
+.submit-button {
+  margin: 0;
+  margin-left: 10px;
 }
 
 #solution {
   margin-top: 10px;
+}
+
+h3 {
+  margin: 0;
 }
 
 @media screen and (max-width: 1900px) {

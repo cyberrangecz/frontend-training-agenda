@@ -16,8 +16,9 @@ import { TrainingPhase } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
 import { Kypo2TopologyErrorService } from '@muni-kypo-crp/topology-graph';
 import { TrainingErrorHandler } from '@muni-kypo-crp/training-agenda';
-import { take, takeWhile } from 'rxjs/operators';
+import { delay, take, takeWhile } from 'rxjs/operators';
 import { AdaptiveRunTrainingPhaseService } from '@muni-kypo-crp/training-agenda/internal';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'kypo-training-phase',
@@ -31,6 +32,7 @@ export class TrainingPhaseComponent extends SentinelBaseDirective implements OnI
   @Input() sandboxId: number;
   @Output() next: EventEmitter<void> = new EventEmitter();
   @ViewChild('rightPanel', { static: true }) rightPanelDiv: ElementRef;
+  @ViewChild('levelContent') private levelContent: ElementRef;
 
   topologyWidth: number;
   topologyHeight: number;
@@ -45,7 +47,8 @@ export class TrainingPhaseComponent extends SentinelBaseDirective implements OnI
   constructor(
     private trainingPhaseService: AdaptiveRunTrainingPhaseService,
     private topologyErrorService: Kypo2TopologyErrorService,
-    private errorHandler: TrainingErrorHandler
+    private errorHandler: TrainingErrorHandler,
+    private scroller: ViewportScroller
   ) {
     super();
   }
@@ -77,7 +80,10 @@ export class TrainingPhaseComponent extends SentinelBaseDirective implements OnI
   }
 
   revealSolution(): void {
-    this.trainingPhaseService.revealSolution().pipe(take(1)).subscribe();
+    this.trainingPhaseService
+      .revealSolution()
+      .pipe(take(1), delay(50))
+      .subscribe(() => this.scrollToBottom());
   }
 
   submitAnswer(): void {
@@ -86,6 +92,7 @@ export class TrainingPhaseComponent extends SentinelBaseDirective implements OnI
       .submitAnswer(this.answer)
       .pipe(take(1))
       .subscribe(() => (this.calculating = false));
+    this.scrollToTop();
   }
 
   /**
@@ -107,7 +114,7 @@ export class TrainingPhaseComponent extends SentinelBaseDirective implements OnI
       window.innerWidth >= 1920
         ? this.rightPanelDiv.nativeElement.getBoundingClientRect().width
         : window.innerWidth / 2;
-    this.topologyHeight = (this.topologyWidth / 4) * 3;
+    this.topologyHeight = this.topologyWidth;
   }
 
   private initTopology() {
@@ -119,6 +126,21 @@ export class TrainingPhaseComponent extends SentinelBaseDirective implements OnI
     this.topologyErrorService.error$.pipe(takeWhile(() => this.isAlive)).subscribe({
       next: (event) => this.errorHandler.emit(event.err, event.action),
       error: (err) => this.errorHandler.emit(err, 'There is a problem with topology error handler.'),
+    });
+  }
+
+  private scrollToBottom(): void {
+    this.levelContent.nativeElement.scrollTo({
+      left: 0,
+      top: this.levelContent.nativeElement.scrollHeight,
+      behavior: 'smooth',
+    });
+  }
+
+  private scrollToTop(): void {
+    this.levelContent.nativeElement.scrollTo({
+      left: 0,
+      top: 0,
     });
   }
 }
