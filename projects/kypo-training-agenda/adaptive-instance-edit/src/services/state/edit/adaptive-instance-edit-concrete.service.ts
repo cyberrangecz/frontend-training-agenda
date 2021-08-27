@@ -80,6 +80,8 @@ export class AdaptiveInstanceEditConcreteService extends AdaptiveInstanceEditSer
       ti.startTime = new Date();
       ti.startTime.setMinutes(ti.startTime.getMinutes() + delay);
       this.instanceValidSubject$.next(false);
+    } else {
+      this.assignedPoolSubject$.next(trainingInstance.poolId)
     }
     this.trainingInstanceSubject$.next(ti);
   }
@@ -123,6 +125,7 @@ export class AdaptiveInstanceEditConcreteService extends AdaptiveInstanceEditSer
     this.saveDisabledSubject$.next(true);
     this.poolSaveDisabledSubject$.next(true);
     this.trainingInstanceSubject$.next(this.editedSnapshot);
+    this.assignedPoolSubject$.next(this.editedSnapshot.poolId);
     this.editedSnapshot = null;
   }
 }

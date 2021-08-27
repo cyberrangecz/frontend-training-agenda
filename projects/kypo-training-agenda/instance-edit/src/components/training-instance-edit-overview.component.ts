@@ -37,6 +37,7 @@ export class TrainingInstanceEditOverviewComponent extends SentinelBaseDirective
   canDeactivatePoolAssign = true;
   canDeactivateTIEdit = true;
   defaultPaginationSize: number;
+  hasAssignedPool: boolean;
   controls: SentinelControlItem[];
 
   constructor(
@@ -50,6 +51,11 @@ export class TrainingInstanceEditOverviewComponent extends SentinelBaseDirective
     this.trainingInstance$ = this.editService.trainingInstance$;
     this.hasStarted$ = this.editService.hasStarted$;
     this.instanceValid$ = this.editService.instanceValid$;
+    this.editService.assignedPool$
+      .pipe(
+        takeWhile(() => this.isAlive),
+        tap((assignedPool) => this.hasAssignedPool = assignedPool ? true : false))
+      .subscribe();
     const saveDisabled$: Observable<boolean> = combineLatest(
       this.editService.saveDisabled$,
       this.editService.poolSaveDisabled$

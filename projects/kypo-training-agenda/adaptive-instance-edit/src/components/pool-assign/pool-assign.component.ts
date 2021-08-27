@@ -31,6 +31,7 @@ export class PoolAssignComponent extends SentinelBaseDirective implements OnInit
   readonly PAGE_SIZE: number;
 
   @Input() trainingInstance: TrainingInstance;
+  @Input() hasAssignedPool: boolean;
   @Output() poolChanged: EventEmitter<TrainingInstance> = new EventEmitter();
   @Output() onSelectionChanged: EventEmitter<number> = new EventEmitter();
 

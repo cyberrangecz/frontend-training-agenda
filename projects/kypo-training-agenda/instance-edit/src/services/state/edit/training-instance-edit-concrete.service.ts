@@ -82,6 +82,7 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
       this.instanceValidSubject$.next(false);
     }
     this.trainingInstanceSubject$.next(ti);
+    this.assignedPoolSubject$.next(trainingInstance.poolId)
   }
 
   private setEditMode(trainingInstance: TrainingInstance) {
@@ -123,6 +124,7 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
     this.saveDisabledSubject$.next(true);
     this.poolSaveDisabledSubject$.next(true);
     this.trainingInstanceSubject$.next(this.editedSnapshot);
+    this.assignedPoolSubject$.next(this.editedSnapshot.poolId);
     this.editedSnapshot = null;
   }
 }

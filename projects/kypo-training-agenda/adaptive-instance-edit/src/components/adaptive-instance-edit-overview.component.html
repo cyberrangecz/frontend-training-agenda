@@ -31,6 +31,7 @@
         <mat-icon class="header-icon">view_module</mat-icon>
       </div>
       <kypo-pool-assign [trainingInstance]="trainingInstance$ | async"
+                        [hasAssignedPool]="hasAssignedPool"
                         (onSelectionChanged)="onPoolSelectionChanged($event)">
       </kypo-pool-assign>
     </div>

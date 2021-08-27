@@ -18,6 +18,10 @@ export abstract class TrainingInstanceEditService {
     .asObservable()
     .pipe(filter((ti) => ti !== undefined && ti !== null));
 
+  protected assignedPoolSubject$: BehaviorSubject<number> = new BehaviorSubject(undefined);
+
+  assignedPool$: Observable<number> = this.assignedPoolSubject$.asObservable();
+
   protected editModeSubject$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   editMode$: Observable<boolean> = this.editModeSubject$.asObservable();
