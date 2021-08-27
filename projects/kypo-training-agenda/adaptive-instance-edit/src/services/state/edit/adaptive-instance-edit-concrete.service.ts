@@ -15,6 +15,8 @@ import { AdaptiveInstanceApi } from '@muni-kypo-crp/training-api';
 @Injectable()
 export class AdaptiveInstanceEditConcreteService extends AdaptiveInstanceEditService {
   private editedSnapshot: TrainingInstance;
+  private selectedPool: number;
+  private instanceValid: boolean;
 
   constructor(
     private trainingInstanceApi: AdaptiveInstanceApi,
@@ -33,7 +35,23 @@ export class AdaptiveInstanceEditConcreteService extends AdaptiveInstanceEditSer
    */
   change(changeEvent: AdaptiveInstanceChangeEvent): void {
     this.saveDisabledSubject$.next(!changeEvent.isValid);
+    this.instanceValid = changeEvent.isValid;
     this.editedSnapshot = changeEvent.trainingInstance;
+    this.editedSnapshot.poolId = this.selectedPool;
+  }
+
+  /**
+   * Handles change of pool selection
+   * @param poolId pool ID of selected pool
+   */
+  poolSelectionChange(poolId: number): void {
+    this.selectedPool = poolId;
+    if (this.instanceValid !== false) {
+      if (this.editedSnapshot) {
+        this.editedSnapshot.poolId = this.selectedPool;
+      }
+      this.saveDisabledSubject$.next(false);
+    }
   }
 
   /**
@@ -44,15 +62,9 @@ export class AdaptiveInstanceEditConcreteService extends AdaptiveInstanceEditSer
       return this.update();
     } else {
       return this.create().pipe(
-        switchMap(() => from(this.router.navigate([this.navigator.toAdaptiveInstanceOverview()])))
+        switchMap((id) => from(this.router.navigate([this.navigator.toTrainingInstanceEdit(id)])))
       );
     }
-  }
-
-  createAndStay(): Observable<any> {
-    return this.create().pipe(
-      switchMap((id) => from(this.router.navigate([this.navigator.toAdaptiveInstanceEdit(id)])))
-    );
   }
 
   /**
@@ -75,29 +87,32 @@ export class AdaptiveInstanceEditConcreteService extends AdaptiveInstanceEditSer
     this.editModeSubject$.next(trainingInstance !== null);
   }
 
-  private update(): Observable<number> {
-    return this.trainingInstanceApi.update(this.editedSnapshot).pipe(
-      map(() => this.editedSnapshot.id),
-      tap(
-        () => {
-          this.notificationService.emit('success', 'Adaptive instance was successfully saved');
-          this.onSaved();
-        },
-        (err) => this.errorHandler.emit(err, 'Editing training instance')
-      )
-    );
-  }
-
   private create(): Observable<number> {
     return this.trainingInstanceApi.create(this.editedSnapshot).pipe(
       map((ti) => ti.id),
-      tap((id) => (this.editedSnapshot.id = id)),
       tap(
         () => {
           this.notificationService.emit('success', 'Adaptive instance was created');
           this.onSaved();
         },
         (err) => this.errorHandler.emit(err, 'Creating adaptive instance')
+      )
+    );
+  }
+
+  private update(): Observable<number> {
+    if (!this.editedSnapshot) {
+      this.editedSnapshot = this.trainingInstanceSubject$.getValue();
+      this.editedSnapshot.poolId = this.selectedPool;
+    }
+    return this.trainingInstanceApi.update(this.editedSnapshot).pipe(
+      map(() => this.editedSnapshot.id),
+      tap(
+        () => {
+          this.notificationService.emit('success', 'Training instance was successfully saved');
+          this.onSaved();
+        },
+        (err) => this.errorHandler.emit(err, 'Editing training instance')
       )
     );
   }

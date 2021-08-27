@@ -1,16 +1,12 @@
-<sentinel-controls [controls]="controls" (itemClicked)="onControlsAction($event)"></sentinel-controls>
-<sentinel-list *ngIf="(hasPool$ | async) === false else hasPoolTemplate"
-           resourceName="Pools"
-           mode="radio"
-           [resourceMapping]="resourceMapping"
-           [resource]="pools$ | async"
-           [hasError]="hasError$ | async"
-           [isLoading]="isLoading$ | async"
-           [selected]="selected$ | async"
-           [pageSize]="PAGE_SIZE"
-           (fetch)="fetch($event)"
-           (selectionChange)="onSelectionChange($event)">
-</sentinel-list>
+<mat-form-field *ngIf="!(hasPool$ | async) else hasPoolTemplate" appearance="fill">
+  <mat-label>Available Pools</mat-label>
+  <mat-select (selectionChange)="onSelectionChange($event.value)">
+    <mat-option>None</mat-option>
+    <mat-option *ngFor="let pool of (pools$ | async)" [value]="pool.title">
+      {{pool.title}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
 <ng-template #hasPoolTemplate>
   <h4>Pool {{ trainingInstance.poolId}} is assigned to this training instance.
     <a mat-button color="accent" [routerLink]="this.poolDetailRoute">Show</a>

@@ -54,6 +54,7 @@ export class TrainingInstanceEditOverviewComponent extends SentinelBaseDirective
       this.editService.saveDisabled$,
       this.editService.poolSaveDisabled$
     ).pipe(map((valid) => valid[0] && valid[1]));
+    this.editMode$ = this.editService.editMode$;
     this.tiTitle$ = this.editService.trainingInstance$.pipe(map((ti) => ti.title));
     this.activeRoute.data
       .pipe(takeWhile(() => this.isAlive))

@@ -30,3 +30,16 @@ mat-divider {
 mat-expansion-panel {
   margin: 10px 0;
 }
+
+.pools-header {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  width: 100%;
+  margin-top: 35px;
+}
+
+.header-icon {
+  margin-top: -7px;
+  color: rgba(0,0,0,.54);
+}

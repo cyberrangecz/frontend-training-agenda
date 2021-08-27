@@ -9,7 +9,7 @@ import { AdaptiveInstanceChangeEvent } from '../../../models/events/adaptive-ins
  * Subscribe to trainingInstance$ to receive latest data updates.
  */
 export abstract class AdaptiveInstanceEditService {
-  protected trainingInstanceSubject$: ReplaySubject<TrainingInstance> = new ReplaySubject();
+  protected trainingInstanceSubject$: BehaviorSubject<TrainingInstance> = new BehaviorSubject(undefined);
 
   /**
    * Currently edited training instance
@@ -20,12 +20,12 @@ export abstract class AdaptiveInstanceEditService {
 
   protected editModeSubject$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-  hasStarted$: Observable<boolean>;
-
   /**
    * Current mode (edit - true or create - false)
    */
   editMode$: Observable<boolean> = this.editModeSubject$.asObservable();
+
+  hasStarted$: Observable<boolean>;
 
   protected saveDisabledSubject$: BehaviorSubject<boolean> = new BehaviorSubject(true);
 
@@ -52,11 +52,15 @@ export abstract class AdaptiveInstanceEditService {
    */
   abstract save(): Observable<any>;
 
-  abstract createAndStay(): Observable<any>;
-
   /**
    * Handles changes of edited training instance
    * @param changeEvent training instance object and its validity
    */
   abstract change(changeEvent: AdaptiveInstanceChangeEvent): void;
+
+  /**
+   * Handles change of pool selection
+   * @param poolId pool ID of selected pool
+   */
+  abstract poolSelectionChange(poolId: number): void;
 }

@@ -14,10 +14,6 @@ export abstract class PoolAssignService extends PaginatedResourceService<Pool> {
 
   abstract getAll(requestedPagination: RequestedPagination): Observable<PaginatedResource<Pool>>;
 
-  abstract assign(trainingInstance: TrainingInstance): Observable<any>;
-
-  abstract unassign(trainingInstance: TrainingInstance): Observable<any>;
-
   select(selected: Pool): void {
     this.selectedSubject$.next(selected);
   }
