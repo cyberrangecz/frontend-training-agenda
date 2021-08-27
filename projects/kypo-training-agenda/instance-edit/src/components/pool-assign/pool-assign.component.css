@@ -2,3 +2,11 @@ h3 {
   text-align: center;
   color: #3f51b5;
 }
+
+.selected-pool {
+  margin-left: 10px;
+}
+
+mat-list-option[aria-selected="true"] {
+  color: #3f51b5;
+}

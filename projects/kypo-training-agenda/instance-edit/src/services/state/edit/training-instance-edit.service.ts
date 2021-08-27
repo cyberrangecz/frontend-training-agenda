@@ -22,7 +22,7 @@ export abstract class TrainingInstanceEditService {
 
   editMode$: Observable<boolean> = this.editModeSubject$.asObservable();
 
-  protected instanceValidSubject$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  protected instanceValidSubject$: BehaviorSubject<boolean> = new BehaviorSubject(true);
 
   /**
    * True if it training instance is in valid state, false otherwise

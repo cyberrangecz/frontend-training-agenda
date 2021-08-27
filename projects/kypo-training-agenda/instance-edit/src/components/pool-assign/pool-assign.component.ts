@@ -40,6 +40,7 @@ export class PoolAssignComponent extends SentinelBaseDirective implements OnInit
 
   poolDetailRoute: string;
   hasPool$: Observable<boolean>;
+  selectedPool: string;
 
   constructor(
     private assignService: PoolAssignService,
@@ -84,7 +85,15 @@ export class PoolAssignComponent extends SentinelBaseDirective implements OnInit
 
   private initList() {
     const pagination = new RequestedPagination(0, this.PAGE_SIZE, '', '');
-    this.pools$ = this.assignService.resource$.pipe(map((resource) => this.mapToAdapter(resource)));
+    this.pools$ = this.assignService.resource$.pipe(
+      map((resource) => this.mapToAdapter(resource)),
+      tap((pools) => {
+        const pool = pools.find((pool) => pool.id === this.trainingInstance.poolId);
+        if (pool) {
+          this.selectedPool = pool.title;
+        }
+      })
+    );
     this.assignService.getAll(pagination).pipe(take(1)).subscribe();
   }
 

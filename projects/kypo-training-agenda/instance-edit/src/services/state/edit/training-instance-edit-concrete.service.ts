@@ -79,6 +79,7 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
       const delay = 5;
       ti.startTime = new Date();
       ti.startTime.setMinutes(ti.startTime.getMinutes() + delay);
+      this.instanceValidSubject$.next(false);
     }
     this.trainingInstanceSubject$.next(ti);
   }
@@ -120,6 +121,7 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
   private onSaved() {
     this.editModeSubject$.next(true);
     this.saveDisabledSubject$.next(true);
+    this.poolSaveDisabledSubject$.next(true);
     this.trainingInstanceSubject$.next(this.editedSnapshot);
     this.editedSnapshot = null;
   }

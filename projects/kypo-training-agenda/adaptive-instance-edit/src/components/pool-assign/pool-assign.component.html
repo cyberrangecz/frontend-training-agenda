@@ -1,14 +1,16 @@
-<mat-form-field *ngIf="!(hasPool$ | async) else hasPoolTemplate" appearance="fill">
-  <mat-label>Available Pools</mat-label>
-  <mat-select (selectionChange)="onSelectionChange($event.value)">
-    <mat-option>None</mat-option>
-    <mat-option *ngFor="let pool of (pools$ | async)" [value]="pool.title">
-      {{pool.title}}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
-<ng-template #hasPoolTemplate>
-  <h4>Pool {{ trainingInstance.poolId}} is assigned to this training instance.
-    <a mat-button color="accent" [routerLink]="this.poolDetailRoute">Show</a>
-  </h4>
-</ng-template>
+<div>
+  <mat-form-field appearance="fill">
+    <mat-label>Available Pools</mat-label>
+    <mat-select (selectionChange)="onSelectionChange($event.value)" [(value)]="selectedPool">
+      <mat-option>None</mat-option>
+      <mat-option *ngFor="let pool of (pools$ | async)" value="{{pool.title}}">
+        {{pool.title}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div class="selected-pool" *ngIf="(hasPool$ | async)">
+    <h4>Pool {{ trainingInstance.poolId}} is assigned currently assigned to this training instance.
+      <a mat-button color="accent" [routerLink]="this.poolDetailRoute">Show</a>
+    </h4>
+  </div>
+</div>

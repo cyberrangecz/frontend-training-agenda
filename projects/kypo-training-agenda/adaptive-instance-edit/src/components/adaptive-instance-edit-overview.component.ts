@@ -29,6 +29,7 @@ export class AdaptiveInstanceEditOverviewComponent extends SentinelBaseDirective
   hasStarted$: Observable<boolean>;
   editMode$: Observable<boolean>;
   tiTitle$: Observable<string>;
+  instanceValid$: Observable<boolean>;
   canDeactivateOrganizers = true;
   canDeactivatePoolAssign = true;
   canDeactivateTIEdit = true;
@@ -45,12 +46,17 @@ export class AdaptiveInstanceEditOverviewComponent extends SentinelBaseDirective
     this.defaultPaginationSize = this.paginationService.getPagination();
     this.trainingInstance$ = this.editService.trainingInstance$;
     this.hasStarted$ = this.editService.hasStarted$;
+    this.instanceValid$ = this.editService.instanceValid$;
     this.editMode$ = this.editService.editMode$;
     this.tiTitle$ = this.editService.trainingInstance$.pipe(map((ti) => ti.title));
     this.activeRoute.data
       .pipe(takeWhile(() => this.isAlive))
       .subscribe((data) => this.editService.set(data[ADAPTIVE_INSTANCE_DATA_ATTRIBUTE_NAME]));
-    this.controls = AdaptiveInstanceEditControls.create(this.editService, this.editService.saveDisabled$);
+    this.controls = AdaptiveInstanceEditControls.create(
+      this.editService,
+      this.editService.saveDisabled$,
+      this.instanceValid$
+    );
   }
 
   /**
@@ -63,6 +69,7 @@ export class AdaptiveInstanceEditOverviewComponent extends SentinelBaseDirective
 
   onControlsAction(control: SentinelControlItem): void {
     this.canDeactivateTIEdit = true;
+    this.canDeactivatePoolAssign = true;
     control.result$.pipe(take(1)).subscribe();
   }
 

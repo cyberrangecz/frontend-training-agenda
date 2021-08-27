@@ -5,7 +5,7 @@ import { Pool } from '@muni-kypo-crp/sandbox-model';
 import { TrainingInstanceApi } from '@muni-kypo-crp/training-api';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { TrainingErrorHandler, TrainingNotificationService } from '@muni-kypo-crp/training-agenda';
 import { PoolAssignService } from './pool-assign.service';
 

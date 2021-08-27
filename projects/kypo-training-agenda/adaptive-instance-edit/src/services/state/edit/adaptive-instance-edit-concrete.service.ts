@@ -35,7 +35,7 @@ export class AdaptiveInstanceEditConcreteService extends AdaptiveInstanceEditSer
    */
   change(changeEvent: AdaptiveInstanceChangeEvent): void {
     this.saveDisabledSubject$.next(!changeEvent.isValid);
-    this.instanceValid = changeEvent.isValid;
+    this.instanceValidSubject$.next(changeEvent.isValid);
     this.editedSnapshot = changeEvent.trainingInstance;
     this.editedSnapshot.poolId = this.selectedPool;
   }
@@ -46,11 +46,11 @@ export class AdaptiveInstanceEditConcreteService extends AdaptiveInstanceEditSer
    */
   poolSelectionChange(poolId: number): void {
     this.selectedPool = poolId;
+    this.poolSaveDisabledSubject$.next(false);
     if (this.instanceValid !== false) {
       if (this.editedSnapshot) {
         this.editedSnapshot.poolId = this.selectedPool;
       }
-      this.saveDisabledSubject$.next(false);
     }
   }
 
@@ -79,6 +79,7 @@ export class AdaptiveInstanceEditConcreteService extends AdaptiveInstanceEditSer
       const delay = 5;
       ti.startTime = new Date();
       ti.startTime.setMinutes(ti.startTime.getMinutes() + delay);
+      this.instanceValidSubject$.next(false);
     }
     this.trainingInstanceSubject$.next(ti);
   }
@@ -120,6 +121,7 @@ export class AdaptiveInstanceEditConcreteService extends AdaptiveInstanceEditSer
   private onSaved() {
     this.editModeSubject$.next(true);
     this.saveDisabledSubject$.next(true);
+    this.poolSaveDisabledSubject$.next(true);
     this.trainingInstanceSubject$.next(this.editedSnapshot);
     this.editedSnapshot = null;
   }
