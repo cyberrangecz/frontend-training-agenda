@@ -19,6 +19,9 @@ export abstract class TrainingRunTrainingLevelService {
   protected displayedHintsContentSubject$: BehaviorSubject<string>;
   displayedHintsContent$: Observable<string>;
 
+  protected displayedSolutionContentSubject$: BehaviorSubject<string>;
+  displayedSolutionContent$: Observable<string>;
+
   protected isSolutionRevealedSubject$: BehaviorSubject<boolean>;
   isSolutionRevealed$: Observable<boolean>;
 
@@ -47,6 +50,8 @@ export abstract class TrainingRunTrainingLevelService {
     this.hints$ = this.hintsSubject$.asObservable();
     this.displayedHintsContentSubject$ = new BehaviorSubject(undefined);
     this.displayedHintsContent$ = this.displayedHintsContentSubject$.asObservable();
+    this.displayedSolutionContentSubject$ = new BehaviorSubject(undefined);
+    this.displayedSolutionContent$ = this.displayedSolutionContentSubject$.asObservable();
     this.isSolutionRevealedSubject$ = new BehaviorSubject(false);
     this.isSolutionRevealed$ = this.isSolutionRevealedSubject$.asObservable();
     this.isCorrectAnswerSubmittedSubject$ = new BehaviorSubject(false);
@@ -98,7 +103,7 @@ export abstract class TrainingRunTrainingLevelService {
   }
 
   protected onSolutionRevealed(solution: string): void {
-    this.displayedHintsContentSubject$.next(solution);
+    this.displayedSolutionContentSubject$.next(solution);
     this.isSolutionRevealedSubject$.next(true);
   }
 

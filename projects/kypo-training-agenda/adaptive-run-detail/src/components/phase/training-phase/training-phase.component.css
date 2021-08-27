@@ -9,6 +9,14 @@ markdown ::ng-deep pre {
   overflow-wrap: break-word;
 }
 
+markdown ::ng-deep {
+  background-color: transparent;
+}
+
+::ng-deep .mat-form-field-outline {
+  background-color: white;
+}
+
 kypo2-topology-graph {
   border: 1px solid gainsboro;
 }
@@ -67,6 +75,7 @@ kypo2-topology-graph {
   display: flex;
   flex-direction: row;
   align-items: baseline;
+  justify-content: space-between;
   margin: 20px 0;
 }
 
@@ -76,17 +85,31 @@ kypo2-topology-graph {
   flex-direction: column;
 }
 
+.level-content {
+  height: 55vh;
+  overflow: auto;
+}
+
+.ssh-button {
+  width: fit-content;
+  margin: 0;
+  margin-top: 10px;
+  align-self: flex-end;
+}
+
+.submit-button {
+  margin: 0;
+  margin-left: 10px;
+}
+
 button {
   margin-right: 10px;
 }
 
 mat-form-field {
-  width: 150px;
+  width: 250px;
 }
 
-.solution-color {
-  background-color: greenyellow;
-}
 
 @media screen and (max-width: 1900px) {
   .content {
