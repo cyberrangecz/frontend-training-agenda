@@ -1,3 +1,4 @@
+12.0.7 Modify save strategy for definitions and instances. Change training run hint, solution and submit buttons position and design.
 12.0.6 Stepper for questions, sanitize function for markdown, change input to markdown for question text, rename flag to answer and game level to training level, save user preffered pagination, rename get SSH button, fix - number of free sandboxes, movement between levels in preview mode, integration of the APG functionality, display all related questions in training phase.
 12.0.5 Spinner for finished training runs, disable points for non test questions
 12.0.4 Update gitlab CI
