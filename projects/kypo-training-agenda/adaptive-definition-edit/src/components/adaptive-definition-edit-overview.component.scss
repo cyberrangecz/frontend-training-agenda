@@ -19,6 +19,18 @@
   margin-right: 10px;
 }
 
+.phases-header {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  width: 100%;
+  margin-top: 35px;
+}
+
+.phases-info {
+  color: rgba(0,0,0,.54);
+}
+
 .spacer {
   flex: 1 1 0;
 }

@@ -26,7 +26,6 @@ import { PhaseEditService } from '../../../services/state/phase/phase-edit.servi
 import { PhaseMoveEvent } from '../../../model/events/phase-move-event';
 import { PhaseOverviewControls } from '../../../model/adapters/phase-overview-controls';
 import { PhaseRelation } from '@muni-kypo-crp/training-model/lib/phase/questionnaire-phase/phase-relation';
-import { PhaseEditConcreteService } from '../../../services/state/phase/phase-edit-concrete.service';
 
 /**
  * Smart component for phases stepper and phases edit components
@@ -36,7 +35,6 @@ import { PhaseEditConcreteService } from '../../../services/state/phase/phase-ed
   templateUrl: './phase-overview.component.html',
   styleUrls: ['./phase-overview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [{ provide: PhaseEditService, useClass: PhaseEditConcreteService }],
 })
 export class PhaseOverviewComponent extends SentinelBaseDirective implements OnInit, OnChanges {
   @Output() unsavedPhases: EventEmitter<Phase[]> = new EventEmitter();
@@ -44,7 +42,7 @@ export class PhaseOverviewComponent extends SentinelBaseDirective implements OnI
   @Input() trainingDefinition: TrainingDefinition;
 
   activeStep$: Observable<number>;
-  stepperPhases: Observable<PhaseStepperAdapter[]>;
+  stepperPhases$: Observable<PhaseStepperAdapter[]>;
   controls: SentinelControlItem[];
   phaseMovingInProgress: boolean;
   updateMatrix$: Observable<boolean>;
@@ -59,7 +57,7 @@ export class PhaseOverviewComponent extends SentinelBaseDirective implements OnI
 
   ngOnInit(): void {
     this.activeStep$ = this.phaseService.activeStep$;
-    this.stepperPhases = this.phaseService.phases$.pipe(
+    this.stepperPhases$ = this.phaseService.phases$.pipe(
       map((phases) => phases.map((phase) => new PhaseStepperAdapter(phase))),
       tap(() => this.phasesCount.emit(this.phaseService.getPhasesCount()))
     );
@@ -110,9 +108,8 @@ export class PhaseOverviewComponent extends SentinelBaseDirective implements OnI
   }
 
   private initControl(): void {
-    const saveDisabled$ = this.phaseService.activePhaseCanBeSaved$.pipe(map((canBeSaved) => !canBeSaved));
     const deleteDisabled$ = this.phaseService.phases$.pipe(map((phases) => phases.length <= 0));
-    this.controls = PhaseOverviewControls.create(this.phaseService, saveDisabled$, deleteDisabled$);
+    this.controls = PhaseOverviewControls.create(this.phaseService, deleteDisabled$);
   }
 
   private updateQuestionsAndPhaseRelations(phases: Phase[]) {

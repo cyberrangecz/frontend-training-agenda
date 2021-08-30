@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { SandboxInstanceApi } from '@muni-kypo-crp/sandbox-api';
+import { PoolApi, SandboxInstanceApi } from '@muni-kypo-crp/sandbox-api';
 import { TrainingInstanceApi } from '@muni-kypo-crp/training-api';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { from, Observable } from 'rxjs';
@@ -8,6 +8,8 @@ import { map, switchMap, tap } from 'rxjs/operators';
 import { TrainingInstanceChangeEvent } from '../../../model/events/training-instance-change-event';
 import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } from '@muni-kypo-crp/training-agenda';
 import { TrainingInstanceEditService } from './training-instance-edit.service';
+import { PaginatedResource, RequestedPagination } from '@sentinel/common';
+import { Pool } from '@muni-kypo-crp/sandbox-model';
 
 /**
  * Basic implementation of layer between component and API service.
@@ -15,10 +17,14 @@ import { TrainingInstanceEditService } from './training-instance-edit.service';
 @Injectable()
 export class TrainingInstanceEditConcreteService extends TrainingInstanceEditService {
   private editedSnapshot: TrainingInstance;
+  private selectedPool: number;
+  private instanceValid: boolean;
+  private lastPagination: RequestedPagination;
 
   constructor(
     private trainingInstanceApi: TrainingInstanceApi,
     private sandboxInstanceApi: SandboxInstanceApi,
+    private poolApi: PoolApi,
     private router: Router,
     private navigator: TrainingNavigator,
     private errorHandler: TrainingErrorHandler,
@@ -33,26 +39,36 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
    */
   change(changeEvent: TrainingInstanceChangeEvent): void {
     this.saveDisabledSubject$.next(!changeEvent.isValid);
+    this.instanceValidSubject$.next(changeEvent.isValid);
     this.editedSnapshot = changeEvent.trainingInstance;
+    this.editedSnapshot.poolId = this.selectedPool;
   }
 
   /**
-   * Saves/creates training instance based on current edit mode or handles error.
+   * Handles change of pool selection
+   * @param poolId pool ID of selected pool
+   */
+  poolSelectionChange(poolId: number): void {
+    this.selectedPool = poolId;
+    this.poolSaveDisabledSubject$.next(false);
+    if (this.instanceValid !== false) {
+      if (this.editedSnapshot) {
+        this.editedSnapshot.poolId = this.selectedPool;
+      }
+    }
+  }
+
+  /**
+   * Saves/creates training instance or handles error.
    */
   save(): Observable<any> {
     if (this.editModeSubject$.getValue()) {
       return this.update();
     } else {
       return this.create().pipe(
-        switchMap(() => from(this.router.navigate([this.navigator.toTrainingInstanceOverview()])))
+        switchMap((id) => from(this.router.navigate([this.navigator.toTrainingInstanceEdit(id)])))
       );
     }
-  }
-
-  createAndStay(): Observable<any> {
-    return this.create().pipe(
-      switchMap((id) => from(this.router.navigate([this.navigator.toTrainingInstanceEdit(id)])))
-    );
   }
 
   /**
@@ -67,25 +83,31 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
       const delay = 5;
       ti.startTime = new Date();
       ti.startTime.setMinutes(ti.startTime.getMinutes() + delay);
+      this.instanceValidSubject$.next(false);
+    } else {
+      this.assignedPoolSubject$.next(trainingInstance.poolId);
     }
     this.trainingInstanceSubject$.next(ti);
   }
 
-  private setEditMode(trainingInstance: TrainingInstance) {
-    this.editModeSubject$.next(trainingInstance !== null);
+  init(trainingInstance: TrainingInstance): void {
+    this.assignedPoolSubject$.next(trainingInstance.poolId);
   }
 
-  private update(): Observable<number> {
-    return this.trainingInstanceApi.update(this.editedSnapshot).pipe(
-      map(() => this.editedSnapshot.id),
+  getAll(requestedPagination: RequestedPagination): Observable<PaginatedResource<Pool>> {
+    this.lastPagination = requestedPagination;
+    return this.poolApi.getPools(requestedPagination).pipe(
       tap(
-        () => {
-          this.notificationService.emit('success', 'Training instance was successfully saved');
-          this.onSaved();
+        (pools) => {
+          this.poolsSubject$.next(pools);
         },
-        (err) => this.errorHandler.emit(err, 'Editing training instance')
+        (err) => this.errorHandler.emit(err, 'Fetching available pools')
       )
     );
+  }
+
+  private setEditMode(trainingInstance: TrainingInstance) {
+    this.editModeSubject$.next(trainingInstance !== null);
   }
 
   private create(): Observable<number> {
@@ -101,10 +123,36 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
     );
   }
 
+  private update(): Observable<any> {
+    if (!this.editedSnapshot) {
+      this.editedSnapshot = this.trainingInstanceSubject$.getValue();
+      this.editedSnapshot.poolId = this.selectedPool;
+    }
+    const pagination = new RequestedPagination(0, 10, '', '');
+    this.saveDisabledSubject$.next(true);
+    this.poolSaveDisabledSubject$.next(true);
+    return this.trainingInstanceApi.update(this.editedSnapshot).pipe(
+      switchMap((_) => this.getAll(pagination)),
+      tap(
+        () => {
+          this.notificationService.emit('success', 'Training instance was successfully saved');
+          this.onSaved();
+        },
+        (err) => {
+          this.poolSaveDisabledSubject$.next(false);
+          this.saveDisabledSubject$.next(false);
+          this.errorHandler.emit(err, 'Editing training instance');
+        }
+      )
+    );
+  }
+
   private onSaved() {
     this.editModeSubject$.next(true);
     this.saveDisabledSubject$.next(true);
+    this.poolSaveDisabledSubject$.next(true);
     this.trainingInstanceSubject$.next(this.editedSnapshot);
+    this.assignedPoolSubject$.next(this.editedSnapshot.poolId);
     this.editedSnapshot = null;
   }
 }

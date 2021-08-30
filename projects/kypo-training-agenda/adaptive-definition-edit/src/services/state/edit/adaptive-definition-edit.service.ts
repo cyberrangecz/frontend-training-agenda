@@ -24,6 +24,12 @@ export abstract class AdaptiveDefinitionEditService {
    */
   saveDisabled$ = this.saveDisabledSubject$.asObservable();
 
+  protected definitionValidSubject$: BehaviorSubject<boolean> = new BehaviorSubject(true);
+  /**
+   * True if training definition is in valid state, false otherwise
+   */
+  definitionValid$ = this.definitionValidSubject$.asObservable();
+
   /**
    * Sets training definition as currently edited
    * @param trainingDefinition to set as currently edited
@@ -34,8 +40,6 @@ export abstract class AdaptiveDefinitionEditService {
    * Saves/creates training definition based on edit mode or handles error.
    */
   abstract save(): Observable<any>;
-
-  abstract createAndStay(): Observable<any>;
 
   /**
    * Updated saveDisabled$ and saved snapshot of edited training definition

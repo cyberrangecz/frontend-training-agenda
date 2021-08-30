@@ -181,11 +181,12 @@ describe('LevelEditConcreteService', () => {
     );
   });
 
-  it('should save changes in level', (done) => {
-    apiSpy.updateTrainingLevel.and.returnValue(asyncData(new TrainingLevel()));
+  it('should save changes in levels', (done) => {
+    apiSpy.updateTrainingDefinitionLevels.and.returnValue(asyncData(0));
     service.set(1, createMock());
     service.setActiveLevel(1);
-    service.saveSelected().subscribe(
+    service.onActiveLevelChanged(createMock()[0]);
+    service.saveUnsavedLevels().subscribe(
       () => {
         expect(notificationSpy.emit).toHaveBeenCalledTimes(1);
         expect(notificationSpy.emit).toHaveBeenCalledWith('success', jasmine.anything());
@@ -196,10 +197,11 @@ describe('LevelEditConcreteService', () => {
   });
 
   it('should emit error when level cannot be saved', (done) => {
-    apiSpy.updateTrainingLevel.and.returnValue(throwError(null));
+    apiSpy.updateTrainingDefinitionLevels.and.returnValue(throwError(null));
     service.set(1, createMock());
     service.setActiveLevel(1);
-    service.saveSelected().subscribe(
+    service.onActiveLevelChanged(createMock()[0]);
+    service.saveUnsavedLevels().subscribe(
       () => fail,
       (err) => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);

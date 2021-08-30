@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AdaptiveDefinitionApiService } from '@muni-kypo-crp/training-api';
 import { TrainingDefinition } from '@muni-kypo-crp/training-model';
-import { Observable } from 'rxjs';
+import { concat, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { TrainingDefinitionChangeEvent } from '../../../model/events/training-definition-change-event';
 import { TrainingNotificationService, TrainingNavigator, TrainingErrorHandler } from '@muni-kypo-crp/training-agenda';
 import { AdaptiveDefinitionEditService } from './adaptive-definition-edit.service';
+import { PhaseEditService } from '../phase/phase-edit.service';
 
 /**
  * Service handling editing of training definition and related operations.
@@ -22,7 +23,8 @@ export class AdaptiveDefinitionEditConcreteService extends AdaptiveDefinitionEdi
     private api: AdaptiveDefinitionApiService,
     private errorHandler: TrainingErrorHandler,
     private navigator: TrainingNavigator,
-    private notificationService: TrainingNotificationService
+    private notificationService: TrainingNotificationService,
+    private phaseEditService: PhaseEditService
   ) {
     super();
   }
@@ -45,14 +47,15 @@ export class AdaptiveDefinitionEditConcreteService extends AdaptiveDefinitionEdi
    */
   save(): Observable<any> {
     if (this.editModeSubject$.getValue()) {
-      return this.update();
+      // checks if TD was edited if not only phases are updated
+      if (this.editedSnapshot) {
+        return concat(this.update(), this.phaseEditService.saveUnsavedPhases());
+      } else {
+        return this.phaseEditService.saveUnsavedPhases();
+      }
     } else {
-      return this.create().pipe(map(() => this.router.navigate([this.navigator.toAdaptiveDefinitionOverview()])));
+      return this.create().pipe(map((id) => this.router.navigate([this.navigator.toAdaptiveDefinitionEdit(id)])));
     }
-  }
-
-  createAndStay(): Observable<any> {
-    return this.create().pipe(map((id) => this.router.navigate([this.navigator.toAdaptiveDefinitionEdit(id)])));
   }
 
   /**
@@ -61,6 +64,7 @@ export class AdaptiveDefinitionEditConcreteService extends AdaptiveDefinitionEdi
    */
   change(changeEvent: TrainingDefinitionChangeEvent): void {
     this.saveDisabledSubject$.next(!changeEvent.isValid);
+    this.definitionValidSubject$.next(changeEvent.isValid);
     this.editedSnapshot = changeEvent.trainingDefinition;
   }
 

@@ -1,23 +1,30 @@
-<sentinel-controls [controls]="controls"
-               (itemClicked)="onControlAction($event)">
-</sentinel-controls>
-<mat-divider></mat-divider>
-<div *ngIf="(stepperLevels | async).length > 0 else noLevels">
- <kypo-levels-stepper [activeStep]="activeStep$ | async"
-                      [levels]="stepperLevels | async"
-                      [movingInProgress]="levelMovingInProgress"
-                      (levelMove)="onLevelMoved($event)"
-                      (activeStepChange)="onActiveLevelChange($event)">
- </kypo-levels-stepper>
- <mat-divider></mat-divider>
- <kypo-level-edit [level]="(stepperLevels | async)[activeStep$ | async].level"
-                  [variantSandboxes]='trainingDefinition.variantSandboxes'
-                  (levelChange)="onActiveLevelChanged($event)">
- </kypo-level-edit>
+<div *ngIf="trainingDefinition.id else trainingDefinitionNotCreated">
+  <sentinel-controls [controls]="controls"
+                     (itemClicked)="onControlAction($event)">
+  </sentinel-controls>
+  <mat-divider></mat-divider>
+  <div *ngIf="(stepperLevels | async).length > 0 else noLevels">
+    <kypo-levels-stepper [activeStep]="activeStep$ | async"
+                         [levels]="stepperLevels | async"
+                         [movingInProgress]="levelMovingInProgress"
+                         (levelMove)="onLevelMoved($event)"
+                         (activeStepChange)="onActiveLevelChange($event)">
+    </kypo-levels-stepper>
+    <mat-divider></mat-divider>
+    <kypo-level-edit [level]="(stepperLevels | async)[activeStep$ | async].level"
+                     [variantSandboxes]='trainingDefinition.variantSandboxes'
+                     (levelChange)="onActiveLevelChanged($event)">
+    </kypo-level-edit>
+  </div>
+
+  <ng-template #noLevels>
+    <h3>Start by clicking on Add button</h3>
+  </ng-template>
 </div>
 
-<ng-template #noLevels>
- <h3>Start by clicking on Add button</h3>
+<ng-template #trainingDefinitionNotCreated>
+  <h3>To add levels, fill in and save the basic information about the training definition.</h3>
 </ng-template>
+
 
 

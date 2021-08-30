@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { Phase, TrainingDefinition } from '@muni-kypo-crp/training-model';
-import { Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { map, takeWhile, tap } from 'rxjs/operators';
 import { TrainingDefinitionEditControls } from '../model/adapters/training-definition-edit-controls';
 import { TrainingDefinitionChangeEvent } from '../model/events/training-definition-change-event';
@@ -13,6 +13,8 @@ import { ADAPTIVE_DEFINITION_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training
 import { AdaptiveDefinitionEditConcreteService } from '../services/state/edit/adaptive-definition-edit-concrete.service';
 import { SentinelUserAssignService } from '@sentinel/components/user-assign';
 import { AuthorsAssignService } from '../services/state/authors-assign/authors-assign.service';
+import { PhaseEditService } from '../services/state/phase/phase-edit.service';
+import { PhaseEditConcreteService } from '../services/state/phase/phase-edit-concrete.service';
 
 /**
  * Main smart component of training definition edit/new page.
@@ -24,6 +26,7 @@ import { AuthorsAssignService } from '../services/state/authors-assign/authors-a
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     { provide: AdaptiveDefinitionEditService, useClass: AdaptiveDefinitionEditConcreteService },
+    { provide: PhaseEditService, useClass: PhaseEditConcreteService },
     { provide: SentinelUserAssignService, useClass: AuthorsAssignService },
   ],
 })
@@ -32,7 +35,8 @@ export class AdaptiveDefinitionEditOverviewComponent extends SentinelBaseDirecti
   editMode$: Observable<boolean>;
   tdTitle$: Observable<string>;
   phasesCount = -1;
-  saveDisabled$: Observable<boolean>;
+  definitionSaveDisabled$: Observable<boolean>;
+  phasesSaveDisabled$: Observable<boolean>;
   unsavedPhases: Phase[] = [];
   canDeactivateAuthors = true;
   canDeactivateTDEdit = true;
@@ -42,20 +46,31 @@ export class AdaptiveDefinitionEditOverviewComponent extends SentinelBaseDirecti
   constructor(
     private activeRoute: ActivatedRoute,
     private paginationService: PaginationService,
-    private editService: AdaptiveDefinitionEditService
+    private editService: AdaptiveDefinitionEditService,
+    private phaseEditService: PhaseEditService
   ) {
     super();
     this.defaultPaginationSize = this.paginationService.getPagination();
     this.trainingDefinition$ = this.editService.trainingDefinition$;
     this.tdTitle$ = this.editService.trainingDefinition$.pipe(map((td) => td.title));
-    this.saveDisabled$ = this.editService.saveDisabled$;
+    this.definitionSaveDisabled$ = this.editService.saveDisabled$;
+    this.phasesSaveDisabled$ = this.phaseEditService.saveDisabled$;
+    const valid$: Observable<boolean> = combineLatest(
+      this.editService.definitionValid$,
+      this.phaseEditService.phasesValid$
+    ).pipe(map((valid) => valid[0] && valid[1]));
     this.activeRoute.data
       .pipe(takeWhile(() => this.isAlive))
       .subscribe((data) => this.editService.set(data[ADAPTIVE_DEFINITION_DATA_ATTRIBUTE_NAME]));
     this.editMode$ = this.editService.editMode$.pipe(
       tap(
-        (isEditMode) =>
-          (this.controls = TrainingDefinitionEditControls.create(this.editService, isEditMode, this.saveDisabled$))
+        () =>
+          (this.controls = TrainingDefinitionEditControls.create(
+            this.editService,
+            this.definitionSaveDisabled$,
+            this.phasesSaveDisabled$,
+            valid$
+          ))
       )
     );
   }

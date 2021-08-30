@@ -13,14 +13,13 @@ import { LevelEditService } from '../../services/state/level/level-edit.service'
 export class LevelOverviewControls {
   static readonly ADD_ACTION_ID = 'add';
   static readonly DELETE_ACTION_ID = 'delete';
-  static readonly SAVE_ACTION_ID = 'save';
   static readonly ADD_TRAINING_LEVEL_ID = 'add_training_level';
   static readonly ADD_ASSESSMENT_LEVEL_ID = 'add_assessment_level';
   static readonly ADD_INFO_LEVEL_ID = 'add_info_level';
 
   static create(
     service: LevelEditService,
-    saveDisabled$: Observable<boolean>,
+    editMode: boolean,
     deleteDisabled$: Observable<boolean>
   ): SentinelControlItem[] {
     return [
@@ -28,7 +27,7 @@ export class LevelOverviewControls {
         this.ADD_ACTION_ID,
         'Add',
         'primary',
-        of(false),
+        of(!editMode),
         this.createAddExpandedMenuControlButtons(service)
       ),
       new SentinelControlItem(
@@ -37,13 +36,6 @@ export class LevelOverviewControls {
         'warn',
         deleteDisabled$,
         defer(() => service.deleteSelected())
-      ),
-      new SentinelControlItem(
-        this.SAVE_ACTION_ID,
-        'Save',
-        'primary',
-        saveDisabled$,
-        defer(() => service.saveSelected())
       ),
     ];
   }

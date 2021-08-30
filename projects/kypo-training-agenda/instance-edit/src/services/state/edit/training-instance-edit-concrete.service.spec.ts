@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { asyncData } from '@sentinel/common';
-import { SandboxInstanceApi } from '@muni-kypo-crp/sandbox-api';
+import { asyncData, PaginatedResource, SentinelPagination } from '@sentinel/common';
+import { PoolApi, SandboxInstanceApi } from '@muni-kypo-crp/sandbox-api';
 import { TrainingInstanceApi } from '@muni-kypo-crp/training-api';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { throwError } from 'rxjs';
@@ -12,6 +12,7 @@ import {
   createErrorHandlerSpy,
   createNavigatorSpy,
   createNotificationSpy,
+  createPoolApiSpy,
   createRouterSpy,
   createSandboxInstanceApiSpy,
   createTrainingInstanceApiSpy,
@@ -21,10 +22,12 @@ import { TrainingNavigator } from '../../../../../src/services/training-navigato
 import { TrainingNotificationService } from '../../../../../src/services/training-notification.service';
 import { TrainingAgendaContext } from '../../../../../internal/src/services/context/training-agenda-context.service';
 import { TrainingInstanceEditConcreteService } from './training-instance-edit-concrete.service';
+import { Pool } from '@muni-kypo-crp/sandbox-model';
 
 describe('TrainingInstanceEditConcreteService', () => {
   let errorHandlerSpy: jasmine.SpyObj<TrainingErrorHandler>;
   let trainingInstanceApiSpy: jasmine.SpyObj<TrainingInstanceApi>;
+  let poolApiSpy: jasmine.SpyObj<PoolApi>;
   let sandboxInstanceApiSpy: jasmine.SpyObj<SandboxInstanceApi>;
   let service: TrainingInstanceEditConcreteService;
   let navigatorSpy: jasmine.SpyObj<TrainingNavigator>;
@@ -36,6 +39,7 @@ describe('TrainingInstanceEditConcreteService', () => {
     errorHandlerSpy = createErrorHandlerSpy();
     notificationSpy = createNotificationSpy();
     trainingInstanceApiSpy = createTrainingInstanceApiSpy();
+    poolApiSpy = createPoolApiSpy();
     sandboxInstanceApiSpy = createSandboxInstanceApiSpy();
     navigatorSpy = createNavigatorSpy();
     routerSpy = createRouterSpy();
@@ -46,6 +50,7 @@ describe('TrainingInstanceEditConcreteService', () => {
         TrainingInstanceEditConcreteService,
         { provide: TrainingInstanceApi, useValue: trainingInstanceApiSpy },
         { provide: SandboxInstanceApi, useValue: sandboxInstanceApiSpy },
+        { provide: PoolApi, useValue: poolApiSpy },
         { provide: Router, useValue: routerSpy },
         { provide: TrainingErrorHandler, useValue: errorHandlerSpy },
         { provide: TrainingNotificationService, useValue: notificationSpy },
@@ -81,6 +86,7 @@ describe('TrainingInstanceEditConcreteService', () => {
 
   it('should save existing training instance', (done) => {
     trainingInstanceApiSpy.update.and.returnValue(asyncData(''));
+    poolApiSpy.getPools.and.returnValue(asyncData(createPoolsPaginatedMock()));
     service.set(createMock());
     service.change(new TrainingInstanceChangeEvent(createMock(), true));
     service.save().subscribe(
@@ -88,7 +94,7 @@ describe('TrainingInstanceEditConcreteService', () => {
         expect(trainingInstanceApiSpy.update).toHaveBeenCalledTimes(1);
         expect(notificationSpy.emit).toHaveBeenCalledTimes(1);
         expect(notificationSpy.emit).toHaveBeenCalledWith('success', jasmine.anything());
-        expect(res).toEqual(0);
+        expect(res).toEqual(createPoolsPaginatedMock());
         done();
       },
       () => fail
@@ -98,11 +104,12 @@ describe('TrainingInstanceEditConcreteService', () => {
   it('should save new training instance', (done) => {
     trainingInstanceApiSpy.create.and.returnValue(asyncData(createMock()));
     routerSpy.navigate.and.returnValue(asyncData(true).toPromise());
+    service.change(new TrainingInstanceChangeEvent(createMock(), true));
     service.save().subscribe(
       (res) => {
         expect(trainingInstanceApiSpy.create).toHaveBeenCalledTimes(1);
         expect(routerSpy.navigate).toHaveBeenCalledTimes(1);
-        expect(navigatorSpy.toTrainingInstanceOverview).toHaveBeenCalledTimes(1);
+        expect(navigatorSpy.toTrainingInstanceEdit).toHaveBeenCalledTimes(1);
         expect(notificationSpy.emit).toHaveBeenCalledWith('success', jasmine.anything());
         expect(res).toEqual(true);
         done();
@@ -137,25 +144,10 @@ describe('TrainingInstanceEditConcreteService', () => {
     );
   });
 
-  it('should create training instance and stay on edit page', (done) => {
-    trainingInstanceApiSpy.create.and.returnValue(asyncData(createMock()));
-    routerSpy.navigate.and.returnValue(asyncData(true).toPromise());
-    service.createAndStay().subscribe(
-      () => {
-        expect(trainingInstanceApiSpy.create).toHaveBeenCalledTimes(1);
-        expect(routerSpy.navigate).toHaveBeenCalledTimes(1);
-        expect(navigatorSpy.toTrainingInstanceEdit).toHaveBeenCalledTimes(1);
-        expect(notificationSpy.emit).toHaveBeenCalledWith('success', jasmine.anything());
-        done();
-      },
-      () => fail
-    );
-  });
-
   it('should emit error when create training instance and stay on edit page fails', (done) => {
     trainingInstanceApiSpy.create.and.returnValue(throwError(null));
     routerSpy.navigate.and.returnValue(asyncData(true).toPromise());
-    service.createAndStay().subscribe(
+    service.save().subscribe(
       () => fail,
       (err) => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
@@ -175,5 +167,13 @@ describe('TrainingInstanceEditConcreteService', () => {
     trainingInstance.id = 0;
     trainingInstance.startTime = new Date();
     return trainingInstance;
+  }
+
+  function createPoolsPaginatedMock(): PaginatedResource<Pool> {
+    const pool1 = new Pool();
+    pool1.id = 0;
+    const pool2 = new Pool();
+    pool2.id = 1;
+    return new PaginatedResource([pool1, pool2], new SentinelPagination(1, 2, 2, 2, 1));
   }
 });

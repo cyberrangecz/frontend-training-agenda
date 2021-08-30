@@ -4,6 +4,7 @@ import { Agenda, AgendaContainer } from '@sentinel/layout';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { SentinelAuthService, User } from '@sentinel/auth';
+import { LoadingService } from './services/loading.service';
 
 @Component({
   selector: 'app-root',
@@ -11,13 +12,20 @@ import { SentinelAuthService, User } from '@sentinel/auth';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
+  isLoading$: Observable<boolean>;
   activeUser$: Observable<User>;
   title$: Observable<string>;
   agendaContainers$: Observable<AgendaContainer[]>;
   notificationRoute = 'notifications';
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private auth: SentinelAuthService) {
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private auth: SentinelAuthService,
+    private loadingService: LoadingService
+  ) {
     this.activeUser$ = this.auth.activeUser$;
+    this.isLoading$ = this.loadingService.isLoading$;
     this.title$ = this.getTitleFromRouter();
 
     this.agendaContainers$ = this.auth.activeUser$.pipe(

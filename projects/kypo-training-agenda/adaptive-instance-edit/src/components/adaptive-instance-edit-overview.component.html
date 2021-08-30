@@ -1,4 +1,4 @@
-<mat-expansion-panel  [expanded]="(editMode$ | async) === false">
+<mat-expansion-panel [expanded]=true>
   <mat-expansion-panel-header>
     <mat-panel-title>
       <span *ngIf="(editMode$ | async) else newTrainingTitle">Edit Adaptive Training Instance</span>
@@ -7,7 +7,7 @@
     <mat-panel-description>
       <span>{{ tiTitle$ | async }}</span>
       <span class="spacer"></span>
-      <div class="panel-description-error" *ngIf="!canDeactivateTIEdit">
+      <div class="panel-description-error" *ngIf="!(canDeactivateTIEdit && canDeactivatePoolAssign)">
         <mat-icon color="warn">warning</mat-icon>
         <mat-error>Changes are not saved</mat-error>
       </div>
@@ -23,30 +23,24 @@
       [hasStarted]="hasStarted$ | async"
       [trainingInstance]="trainingInstance$ | async">
     </kypo-adaptive-instance-edit>
-  </ng-template>
-</mat-expansion-panel>
 
-<mat-expansion-panel [disabled]="(editMode$ | async) === false" [expanded]="editMode$ | async">
-  <mat-expansion-panel-header>
-    <mat-panel-title>Assign Pool</mat-panel-title>
-    <mat-panel-description>
-      <span class="spacer"></span>
-      <div class="panel-description-error" *ngIf="!canDeactivatePoolAssign">
-        <mat-icon color="warn">warning</mat-icon>
-        <mat-error>Pool is not saved</mat-error>
+    <mat-divider></mat-divider>
+    <div>
+      <div class="pools-header">
+        <h3>Pools</h3>
+        <mat-icon class="header-icon">view_module</mat-icon>
       </div>
-      <mat-icon>view_module</mat-icon>
-    </mat-panel-description>
-  </mat-expansion-panel-header>
-  <ng-template matExpansionPanelContent>
-    <kypo-pool-assign [trainingInstance]="trainingInstance$ | async">
-    </kypo-pool-assign>
+      <kypo-pool-assign [trainingInstance]="trainingInstance$ | async"
+                        [hasAssignedPool]="hasAssignedPool"
+                        (selectionChanged)="onPoolSelectionChanged($event)">
+      </kypo-pool-assign>
+    </div>
   </ng-template>
 </mat-expansion-panel>
 
-<mat-expansion-panel [disabled]="(editMode$ | async) === false" [expanded]="editMode$ | async">
+<mat-expansion-panel *ngIf="(editMode$ | async)" [expanded]="editMode$ | async">
   <mat-expansion-panel-header>
-    <mat-panel-title>Edit Organizers</mat-panel-title>
+    <mat-panel-title>Organizers</mat-panel-title>
     <mat-panel-description>
       <span class="spacer"></span>
       <div class="panel-description-error" *ngIf="!canDeactivateOrganizers">

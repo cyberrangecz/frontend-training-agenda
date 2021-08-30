@@ -1,6 +1,6 @@
 import { SentinelBaseDirective } from '@sentinel/common';
 import { ChangeDetectionStrategy, Component, HostListener } from '@angular/core';
-import { Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -29,10 +29,12 @@ export class AdaptiveInstanceEditOverviewComponent extends SentinelBaseDirective
   hasStarted$: Observable<boolean>;
   editMode$: Observable<boolean>;
   tiTitle$: Observable<string>;
+  instanceValid$: Observable<boolean>;
   canDeactivateOrganizers = true;
   canDeactivatePoolAssign = true;
   canDeactivateTIEdit = true;
   defaultPaginationSize: number;
+  hasAssignedPool: boolean;
   controls: SentinelControlItem[];
 
   constructor(
@@ -45,20 +47,23 @@ export class AdaptiveInstanceEditOverviewComponent extends SentinelBaseDirective
     this.defaultPaginationSize = this.paginationService.getPagination();
     this.trainingInstance$ = this.editService.trainingInstance$;
     this.hasStarted$ = this.editService.hasStarted$;
+    this.instanceValid$ = this.editService.instanceValid$;
+    this.editMode$ = this.editService.editMode$;
+    this.editService.assignedPool$
+      .pipe(
+        takeWhile(() => this.isAlive),
+        tap((assignedPool) => (this.hasAssignedPool = assignedPool ? true : false))
+      )
+      .subscribe();
+    const saveDisabled$: Observable<boolean> = combineLatest(
+      this.editService.saveDisabled$,
+      this.editService.poolSaveDisabled$
+    ).pipe(map((valid) => valid[0] && valid[1]));
     this.tiTitle$ = this.editService.trainingInstance$.pipe(map((ti) => ti.title));
     this.activeRoute.data
       .pipe(takeWhile(() => this.isAlive))
       .subscribe((data) => this.editService.set(data[ADAPTIVE_INSTANCE_DATA_ATTRIBUTE_NAME]));
-    this.editMode$ = this.editService.editMode$.pipe(
-      tap(
-        (isEditMode) =>
-          (this.controls = AdaptiveInstanceEditControls.create(
-            this.editService,
-            isEditMode,
-            this.editService.saveDisabled$
-          ))
-      )
-    );
+    this.controls = AdaptiveInstanceEditControls.create(this.editService, saveDisabled$, this.instanceValid$);
   }
 
   /**
@@ -71,6 +76,7 @@ export class AdaptiveInstanceEditOverviewComponent extends SentinelBaseDirective
 
   onControlsAction(control: SentinelControlItem): void {
     this.canDeactivateTIEdit = true;
+    this.canDeactivatePoolAssign = true;
     control.result$.pipe(take(1)).subscribe();
   }
 
@@ -88,6 +94,15 @@ export class AdaptiveInstanceEditOverviewComponent extends SentinelBaseDirective
    */
   onOrganizersChanged(hasUnsavedChanges: boolean): void {
     this.canDeactivateOrganizers = !hasUnsavedChanges;
+  }
+
+  /**
+   * Changes canDeactivate state of the component
+   * @param poolId pool ID of selected pool
+   */
+  onPoolSelectionChanged(poolId: number): void {
+    this.canDeactivatePoolAssign = false;
+    this.editService.poolSelectionChange(poolId);
   }
 
   /**

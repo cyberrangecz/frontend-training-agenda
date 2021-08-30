@@ -11,15 +11,13 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { SentinelControlItem } from '@sentinel/components/controls';
-import { TrainingDefinition } from '@muni-kypo-crp/training-model';
-import { Level } from '@muni-kypo-crp/training-model';
+import { AbstractLevelTypeEnum, Level, TrainingDefinition } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
 import { map, takeWhile, tap } from 'rxjs/operators';
 import { LevelOverviewControls } from '../../../model/adapters/level-overview-controls';
 import { LevelStepperAdapter } from '@muni-kypo-crp/training-agenda/internal';
 import { LevelMoveEvent } from '../../../model/events/level-move-event';
 import { LevelEditService } from '../../../services/state/level/level-edit.service';
-import { LevelEditConcreteService } from '../../../services/state/level/level-edit-concrete.service';
 
 /**
  * Smart component for level stepper and level edit components
@@ -28,7 +26,6 @@ import { LevelEditConcreteService } from '../../../services/state/level/level-ed
   selector: 'kypo-level-overview',
   templateUrl: './level-overview.component.html',
   styleUrls: ['./level-overview.component.scss'],
-  providers: [{ provide: LevelEditService, useClass: LevelEditConcreteService }],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LevelOverviewComponent extends SentinelBaseDirective implements OnInit, OnChanges {
@@ -36,6 +33,7 @@ export class LevelOverviewComponent extends SentinelBaseDirective implements OnI
   @Output() levelsCount: EventEmitter<number> = new EventEmitter();
   @Input() trainingDefinition: TrainingDefinition;
   @Input() variantSandboxes: boolean;
+  @Input() editMode: boolean;
 
   activeStep$: Observable<number>;
   stepperLevels: Observable<LevelStepperAdapter[]>;
@@ -62,6 +60,13 @@ export class LevelOverviewComponent extends SentinelBaseDirective implements OnI
   ngOnChanges(changes: SimpleChanges): void {
     if ('trainingDefinition' in changes) {
       this.levelService.set(this.trainingDefinition.id, this.trainingDefinition.levels as Level[]);
+    }
+    if ('variantSandboxes' in changes && !this.variantSandboxes) {
+      this.trainingDefinition.levels.forEach((level) => {
+        if (level.type === AbstractLevelTypeEnum.Training) {
+          level.answerVariableName = null;
+        }
+      });
     }
   }
 
@@ -103,8 +108,7 @@ export class LevelOverviewComponent extends SentinelBaseDirective implements OnI
   }
 
   private initControl() {
-    const saveDisabled$ = this.levelService.activeLevelCanBeSaved$.pipe(map((canBeSaved) => !canBeSaved));
     const deleteDisabled$ = this.levelService.levels$.pipe(map((levels) => levels.length <= 0));
-    this.controls = LevelOverviewControls.create(this.levelService, saveDisabled$, deleteDisabled$);
+    this.controls = LevelOverviewControls.create(this.levelService, this.editMode, deleteDisabled$);
   }
 }

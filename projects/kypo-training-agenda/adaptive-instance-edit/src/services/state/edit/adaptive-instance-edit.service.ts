@@ -1,7 +1,9 @@
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
-import { BehaviorSubject, Observable, ReplaySubject, timer } from 'rxjs';
+import { BehaviorSubject, Observable, timer } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
 import { AdaptiveInstanceChangeEvent } from '../../../models/events/adaptive-instance-change-event';
+import { Pool } from '@muni-kypo-crp/sandbox-model';
+import { PaginatedResource, RequestedPagination, SentinelPagination } from '@sentinel/common';
 
 /**
  * Layer between component and API service. Implement concrete service by extending this class.
@@ -9,7 +11,7 @@ import { AdaptiveInstanceChangeEvent } from '../../../models/events/adaptive-ins
  * Subscribe to trainingInstance$ to receive latest data updates.
  */
 export abstract class AdaptiveInstanceEditService {
-  protected trainingInstanceSubject$: ReplaySubject<TrainingInstance> = new ReplaySubject();
+  protected trainingInstanceSubject$: BehaviorSubject<TrainingInstance> = new BehaviorSubject(undefined);
 
   /**
    * Currently edited training instance
@@ -18,14 +20,29 @@ export abstract class AdaptiveInstanceEditService {
     .asObservable()
     .pipe(filter((ti) => ti !== undefined && ti !== null));
 
-  protected editModeSubject$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  protected assignedPoolSubject$: BehaviorSubject<number> = new BehaviorSubject(undefined);
 
-  hasStarted$: Observable<boolean>;
+  assignedPool$: Observable<number> = this.assignedPoolSubject$.asObservable();
+
+  protected poolsSubject$: BehaviorSubject<PaginatedResource<Pool>> = new BehaviorSubject(this.initSubject(10));
+
+  pools$: Observable<PaginatedResource<Pool>> = this.poolsSubject$.asObservable();
 
   /**
    * Current mode (edit - true or create - false)
    */
+  protected editModeSubject$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
   editMode$: Observable<boolean> = this.editModeSubject$.asObservable();
+
+  protected instanceValidSubject$: BehaviorSubject<boolean> = new BehaviorSubject(true);
+
+  /**
+   * True if it training instance is in valid state, false otherwise
+   */
+  instanceValid$ = this.instanceValidSubject$.asObservable();
+
+  hasStarted$: Observable<boolean>;
 
   protected saveDisabledSubject$: BehaviorSubject<boolean> = new BehaviorSubject(true);
 
@@ -33,6 +50,13 @@ export abstract class AdaptiveInstanceEditService {
    * True if it is possible to save edited training instance in its current state, false otherwise
    */
   saveDisabled$: Observable<boolean> = this.saveDisabledSubject$.asObservable();
+
+  protected poolSaveDisabledSubject$: BehaviorSubject<boolean> = new BehaviorSubject(true);
+
+  /**
+   * True if it is possible to save edited pool in its current state, false otherwise
+   */
+  poolSaveDisabled$: Observable<boolean> = this.poolSaveDisabledSubject$.asObservable();
 
   protected constructor() {
     this.hasStarted$ = timer(1).pipe(
@@ -52,11 +76,23 @@ export abstract class AdaptiveInstanceEditService {
    */
   abstract save(): Observable<any>;
 
-  abstract createAndStay(): Observable<any>;
-
   /**
    * Handles changes of edited training instance
    * @param changeEvent training instance object and its validity
    */
   abstract change(changeEvent: AdaptiveInstanceChangeEvent): void;
+
+  /**
+   * Handles change of pool selection
+   * @param poolId pool ID of selected pool
+   */
+  abstract poolSelectionChange(poolId: number): void;
+
+  abstract getAll(requestedPagination: RequestedPagination): Observable<PaginatedResource<Pool>>;
+
+  abstract init(trainingInstance: TrainingInstance): void;
+
+  protected initSubject(pageSize: number): PaginatedResource<Pool> {
+    return new PaginatedResource([], new SentinelPagination(0, 0, pageSize, 0, 0));
+  }
 }

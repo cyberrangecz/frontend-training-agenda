@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SentinelConfirmationDialogModule } from '@sentinel/components/dialogs';
 import { SentinelLayout1Module } from '@sentinel/layout/layout1';
@@ -10,6 +10,8 @@ import { AppComponent } from './app.component';
 import { SentinelAuthModule } from '@sentinel/auth';
 import { SentinelAuthGuardWithLogin, SentinelNegativeAuthGuard } from '@sentinel/auth/guards';
 import { HomeComponent } from './home/home.component';
+import { LoadingService } from './services/loading.service';
+import { LoadingInterceptor } from './services/loading-interceptor';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent],
@@ -22,7 +24,12 @@ import { HomeComponent } from './home/home.component';
     HttpClientModule,
     SentinelAuthModule.forRoot(environment.authConfig),
   ],
-  providers: [SentinelAuthGuardWithLogin, SentinelNegativeAuthGuard],
+  providers: [
+    SentinelAuthGuardWithLogin,
+    SentinelNegativeAuthGuard,
+    LoadingService,
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,5 +1,5 @@
 import { TrainingDefinition } from '@muni-kypo-crp/training-model';
-import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { TrainingDefinitionChangeEvent } from '../../../model/events/training-definition-change-event';
 
@@ -26,9 +26,15 @@ export abstract class TrainingDefinitionEditService {
    */
   saveDisabled$ = this.saveDisabledSubject$.asObservable();
 
+  protected definitionValidSubject$: BehaviorSubject<boolean> = new BehaviorSubject(true);
+  /**
+   * True if it training definition is in valid state, false otherwise
+   */
+  definitionValid$ = this.definitionValidSubject$.asObservable();
+
   protected variantSandboxesSubject$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   /**
-   * True if it is the training definition supports variant answers, false otherwise
+   * True if is the training definition supports variant answers, false otherwise
    */
   variantSandboxes$ = this.variantSandboxesSubject$.asObservable();
 
@@ -42,8 +48,6 @@ export abstract class TrainingDefinitionEditService {
    * Saves/creates training definition based on edit mode or handles error.
    */
   abstract save(): Observable<any>;
-
-  abstract createAndStay(): Observable<any>;
 
   /**
    * Updated saveDisabled$ and saved snapshot of edited training definition

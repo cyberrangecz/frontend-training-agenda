@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { TrainingDefinitionApi } from '@muni-kypo-crp/training-api';
 import { TrainingDefinition } from '@muni-kypo-crp/training-model';
-import { Observable } from 'rxjs';
+import { concat, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { TrainingDefinitionChangeEvent } from '../../../model/events/training-definition-change-event';
 import { TrainingNotificationService, TrainingNavigator, TrainingErrorHandler } from '@muni-kypo-crp/training-agenda';
 import { TrainingDefinitionEditService } from './training-definition-edit.service';
+import { LevelEditService } from '../level/level-edit.service';
 
 /**
  * Service handling editing of training definition and related operations.
@@ -22,7 +23,8 @@ export class TrainingDefinitionEditConcreteService extends TrainingDefinitionEdi
     private api: TrainingDefinitionApi,
     private errorHandler: TrainingErrorHandler,
     private navigator: TrainingNavigator,
-    private notificationService: TrainingNotificationService
+    private notificationService: TrainingNotificationService,
+    private levelEditService: LevelEditService
   ) {
     super();
   }
@@ -46,14 +48,15 @@ export class TrainingDefinitionEditConcreteService extends TrainingDefinitionEdi
    */
   save(): Observable<any> {
     if (this.editModeSubject$.getValue()) {
-      return this.update();
+      // checks if TD was edited if not only levels are updated
+      if (this.editedSnapshot) {
+        return concat(this.update(), this.levelEditService.saveUnsavedLevels());
+      } else {
+        return this.levelEditService.saveUnsavedLevels();
+      }
     } else {
-      return this.create().pipe(map(() => this.router.navigate([this.navigator.toTrainingDefinitionOverview()])));
+      return this.create().pipe(map((id) => this.router.navigate([this.navigator.toTrainingDefinitionEdit(id)])));
     }
-  }
-
-  createAndStay(): Observable<any> {
-    return this.create().pipe(map((id) => this.router.navigate([this.navigator.toTrainingDefinitionEdit(id)])));
   }
 
   /**
@@ -61,6 +64,7 @@ export class TrainingDefinitionEditConcreteService extends TrainingDefinitionEdi
    * @param changeEvent training definition object and its validity
    */
   change(changeEvent: TrainingDefinitionChangeEvent): void {
+    this.definitionValidSubject$.next(changeEvent.isValid);
     this.saveDisabledSubject$.next(!changeEvent.isValid);
     this.editedSnapshot = changeEvent.trainingDefinition;
     if (this.variantSandboxesSubject$.value != this.editedSnapshot.variantSandboxes) {

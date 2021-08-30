@@ -22,6 +22,7 @@ import { FileUploadProgressService } from '../../../definition-overview/src/serv
 import { SentinelAuthService } from '@sentinel/auth';
 import { AdaptiveFileUploadProgressService } from '../../../adaptive-definition-overview/src/services/file-upload/adaptive-file-upload-progress.service';
 import { PaginationService } from '../services/pagination.service';
+import { LevelEditService } from '../../../definition-edit/src/services/state/level/level-edit.service';
 
 export function createErrorHandlerSpy(): jasmine.SpyObj<TrainingErrorHandler> {
   return jasmine.createSpyObj('TrainingErrorHandler', ['emit']);
@@ -29,6 +30,22 @@ export function createErrorHandlerSpy(): jasmine.SpyObj<TrainingErrorHandler> {
 
 export function createNotificationSpy(): jasmine.SpyObj<TrainingNotificationService> {
   return jasmine.createSpyObj('TrainingNotificationService', ['emit']);
+}
+
+export function createLevelEditServiceSpy(): jasmine.SpyObj<LevelEditService> {
+  return jasmine.createSpyObj('LevelEditService', [
+    'set',
+    'getLevelsCount',
+    'setActiveLevel',
+    'onActiveLevelChanged',
+    'getSelected',
+    'navigateToLastLevel',
+    'navigateToPreviousLevel',
+    'add',
+    'saveUnsavedLevels',
+    'deleteSelected',
+    'move',
+  ]);
 }
 
 export function createPoolApiSpy(): jasmine.SpyObj<PoolApi> {
@@ -92,9 +109,7 @@ export function createTrainingDefinitionApiSpy(): jasmine.SpyObj<TrainingDefinit
     'createInfoLevel',
     'createAssessmentLevel',
     'getLevel',
-    'updateInfoLevel',
-    'updateTrainingLevel',
-    'updateAssessmentLevel',
+    'updateTrainingDefinitionLevels',
     'deleteLevel',
     'getAll',
     'delete',

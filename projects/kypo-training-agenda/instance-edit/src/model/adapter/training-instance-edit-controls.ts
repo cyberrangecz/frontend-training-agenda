@@ -1,54 +1,36 @@
 import { SentinelControlItem } from '@sentinel/components/controls';
-import { defer, Observable } from 'rxjs';
+import { combineLatest, defer, Observable } from 'rxjs';
 import { TrainingInstanceEditService } from '../../services/state/edit/training-instance-edit.service';
+import { map } from 'rxjs/operators';
 
 /**
  * @dynamic
  */
 export class TrainingInstanceEditControls {
   static readonly SAVE_ACTION_ID = 'save';
-  static readonly SAVE_AND_STAY_ACTION_ID = 'save_and_stay';
 
   static create(
     service: TrainingInstanceEditService,
-    isEditMode: boolean,
-    saveDisabled$: Observable<boolean>
+    saveDisabled$: Observable<boolean>,
+    instanceValid$: Observable<boolean>
   ): SentinelControlItem[] {
-    return isEditMode ? this.editModeControls(service, saveDisabled$) : this.createModeControls(service, saveDisabled$);
+    return TrainingInstanceEditControls.createControls(service, saveDisabled$, instanceValid$);
   }
 
-  private static createModeControls(
+  private static createControls(
     service: TrainingInstanceEditService,
-    saveDisabled$: Observable<boolean>
+    saveDisabled$: Observable<boolean>,
+    instanceValid$: Observable<boolean>
   ): SentinelControlItem[] {
-    return [
-      new SentinelControlItem(
-        this.SAVE_ACTION_ID,
-        'Create',
-        'primary',
-        saveDisabled$,
-        defer(() => service.save())
-      ),
-      new SentinelControlItem(
-        this.SAVE_AND_STAY_ACTION_ID,
-        'Create and continue editing',
-        'primary',
-        saveDisabled$,
-        defer(() => service.createAndStay())
-      ),
-    ];
-  }
-
-  private static editModeControls(
-    service: TrainingInstanceEditService,
-    saveDisabled$: Observable<boolean>
-  ): SentinelControlItem[] {
+    const disabled$: Observable<boolean> = combineLatest(saveDisabled$, instanceValid$).pipe(
+      map((save) => save[0] || !save[1])
+    );
     return [
       new SentinelControlItem(
         this.SAVE_ACTION_ID,
         'Save',
         'primary',
-        saveDisabled$,
+        disabled$,
         defer(() => service.save())
       ),
     ];

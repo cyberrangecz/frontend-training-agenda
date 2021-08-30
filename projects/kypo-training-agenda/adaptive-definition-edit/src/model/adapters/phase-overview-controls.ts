@@ -13,17 +13,12 @@ import { AbstractPhaseTypeEnum, QuestionnaireTypeEnum } from '@muni-kypo-crp/tra
 export class PhaseOverviewControls {
   static readonly ADD_ACTION_ID = 'add';
   static readonly DELETE_ACTION_ID = 'delete';
-  static readonly SAVE_ACTION_ID = 'save';
   static readonly ADD_TRAINING_PHASE_ID = 'add_training_phase';
   static readonly ADD_ADAPTIVE_QUESTIONNAIRE_PHASE_ID = 'add_adaptive_questionnaire_phase';
   static readonly ADD_GENERAL_QUESTIONNAIRE_PHASE_ID = 'add_general_questionnaire_phase';
   static readonly ADD_INFO_PHASE_ID = 'add_info_phase';
 
-  static create(
-    service: PhaseEditService,
-    saveDisabled$: Observable<boolean>,
-    deleteDisabled$: Observable<boolean>
-  ): SentinelControlItem[] {
+  static create(service: PhaseEditService, deleteDisabled$: Observable<boolean>): SentinelControlItem[] {
     return [
       new SentinelExpandableControlItem(
         this.ADD_ACTION_ID,
@@ -38,13 +33,6 @@ export class PhaseOverviewControls {
         'warn',
         deleteDisabled$,
         defer(() => service.deleteSelected())
-      ),
-      new SentinelControlItem(
-        this.SAVE_ACTION_ID,
-        'Save',
-        'primary',
-        saveDisabled$,
-        defer(() => service.saveSelected())
       ),
     ];
   }

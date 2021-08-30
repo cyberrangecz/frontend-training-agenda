@@ -33,7 +33,10 @@ export class TrainingLevelEditFormGroup {
           Validators.max(INCORRECT_ANSWER_LIMIT),
         ]),
         answer: new FormControl(level.answer, Validators.maxLength(MAX_ANSWER)),
-        answerVariableName: new FormControl(level.answerVariableName, Validators.maxLength(MAX_ANSWER)),
+        answerVariableName: new FormControl(
+          variantSandboxes ? level.answerVariableName : '',
+          Validators.maxLength(MAX_ANSWER)
+        ),
         estimatedDuration: new FormControl(level.estimatedDuration, [
           Validators.pattern('^[0-9]*$'),
           Validators.min(1),
@@ -42,6 +45,16 @@ export class TrainingLevelEditFormGroup {
       },
       this.answerOrVariableName(variantSandboxes)
     );
+    this.setAnswerVariableName(variantSandboxes);
+  }
+
+  setAnswerVariableName(variantSandboxes: boolean) {
+    if (variantSandboxes) {
+      this.formGroup.get('answerVariableName').enable();
+    } else {
+      this.formGroup.get('answerVariableName').setValue(null);
+      this.formGroup.get('answerVariableName').disable();
+    }
   }
 
   /**
