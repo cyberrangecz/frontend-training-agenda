@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { SandboxInstanceApi } from '@muni-kypo-crp/sandbox-api';
+import { PoolApi, SandboxInstanceApi } from '@muni-kypo-crp/sandbox-api';
 import { TrainingInstanceApi } from '@muni-kypo-crp/training-api';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { from, Observable } from 'rxjs';
@@ -8,6 +8,8 @@ import { map, switchMap, tap } from 'rxjs/operators';
 import { TrainingInstanceChangeEvent } from '../../../model/events/training-instance-change-event';
 import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } from '@muni-kypo-crp/training-agenda';
 import { TrainingInstanceEditService } from './training-instance-edit.service';
+import { PaginatedResource, RequestedPagination } from '@sentinel/common';
+import { Pool } from '@muni-kypo-crp/sandbox-model';
 
 /**
  * Basic implementation of layer between component and API service.
@@ -17,10 +19,12 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
   private editedSnapshot: TrainingInstance;
   private selectedPool: number;
   private instanceValid: boolean;
+  private lastPagination: RequestedPagination;
 
   constructor(
     private trainingInstanceApi: TrainingInstanceApi,
     private sandboxInstanceApi: SandboxInstanceApi,
+    private poolApi: PoolApi,
     private router: Router,
     private navigator: TrainingNavigator,
     private errorHandler: TrainingErrorHandler,
@@ -80,9 +84,26 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
       ti.startTime = new Date();
       ti.startTime.setMinutes(ti.startTime.getMinutes() + delay);
       this.instanceValidSubject$.next(false);
+    } else {
+      this.assignedPoolSubject$.next(trainingInstance.poolId);
     }
     this.trainingInstanceSubject$.next(ti);
-    this.assignedPoolSubject$.next(trainingInstance.poolId)
+  }
+
+  init(trainingInstance: TrainingInstance): void {
+    this.assignedPoolSubject$.next(trainingInstance.poolId);
+  }
+
+  getAll(requestedPagination: RequestedPagination): Observable<PaginatedResource<Pool>> {
+    this.lastPagination = requestedPagination;
+    return this.poolApi.getPools(requestedPagination).pipe(
+      tap(
+        (pools) => {
+          this.poolsSubject$.next(pools);
+        },
+        (err) => this.errorHandler.emit(err, 'Fetching available pools')
+      )
+    );
   }
 
   private setEditMode(trainingInstance: TrainingInstance) {
@@ -102,19 +123,26 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
     );
   }
 
-  private update(): Observable<number> {
+  private update(): Observable<any> {
     if (!this.editedSnapshot) {
       this.editedSnapshot = this.trainingInstanceSubject$.getValue();
       this.editedSnapshot.poolId = this.selectedPool;
     }
+    const pagination = new RequestedPagination(0, 10, '', '');
+    this.saveDisabledSubject$.next(true);
+    this.poolSaveDisabledSubject$.next(true);
     return this.trainingInstanceApi.update(this.editedSnapshot).pipe(
-      map(() => this.editedSnapshot.id),
+      switchMap((_) => this.getAll(pagination)),
       tap(
         () => {
           this.notificationService.emit('success', 'Training instance was successfully saved');
           this.onSaved();
         },
-        (err) => this.errorHandler.emit(err, 'Editing training instance')
+        (err) => {
+          this.poolSaveDisabledSubject$.next(false);
+          this.saveDisabledSubject$.next(false);
+          this.errorHandler.emit(err, 'Editing training instance');
+        }
       )
     );
   }

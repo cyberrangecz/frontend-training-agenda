@@ -1,4 +1,4 @@
-<mat-expansion-panel  [expanded]="true">
+<mat-expansion-panel [expanded]="true">
   <mat-expansion-panel-header>
     <mat-panel-title>
       <span *ngIf="(editMode$ | async) else newTrainingTitle">Linear Training Instance</span>
@@ -33,7 +33,7 @@
       </div>
       <kypo-pool-assign [trainingInstance]="trainingInstance$ | async"
                         [hasAssignedPool]="hasAssignedPool"
-                        (onSelectionChanged)="onPoolSelectionChanged($event)">
+                        (selectionChanged)="onPoolSelectionChanged($event)">
       </kypo-pool-assign>
     </div>
   </ng-template>

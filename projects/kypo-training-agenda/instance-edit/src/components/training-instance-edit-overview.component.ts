@@ -54,7 +54,8 @@ export class TrainingInstanceEditOverviewComponent extends SentinelBaseDirective
     this.editService.assignedPool$
       .pipe(
         takeWhile(() => this.isAlive),
-        tap((assignedPool) => this.hasAssignedPool = assignedPool ? true : false))
+        tap((assignedPool) => (this.hasAssignedPool = assignedPool ? true : false))
+      )
       .subscribe();
     const saveDisabled$: Observable<boolean> = combineLatest(
       this.editService.saveDisabled$,

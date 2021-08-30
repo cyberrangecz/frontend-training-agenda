@@ -78,6 +78,7 @@ describe('TrainingDefinitionEditConcreteService', () => {
 
   it('should save existing training definition', (done) => {
     apiSpy.update.and.returnValue(asyncData(0));
+    levelEditServiceSpy.saveUnsavedLevels.and.returnValue(asyncData(0));
     service.set(createMock());
     service.change(createChangeEventMock());
     service.save().subscribe(

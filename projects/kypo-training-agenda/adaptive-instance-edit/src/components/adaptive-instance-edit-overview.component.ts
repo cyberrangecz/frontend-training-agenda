@@ -52,7 +52,8 @@ export class AdaptiveInstanceEditOverviewComponent extends SentinelBaseDirective
     this.editService.assignedPool$
       .pipe(
         takeWhile(() => this.isAlive),
-        tap((assignedPool) => this.hasAssignedPool = assignedPool ? true : false))
+        tap((assignedPool) => (this.hasAssignedPool = assignedPool ? true : false))
+      )
       .subscribe();
     const saveDisabled$: Observable<boolean> = combineLatest(
       this.editService.saveDisabled$,
@@ -62,11 +63,7 @@ export class AdaptiveInstanceEditOverviewComponent extends SentinelBaseDirective
     this.activeRoute.data
       .pipe(takeWhile(() => this.isAlive))
       .subscribe((data) => this.editService.set(data[ADAPTIVE_INSTANCE_DATA_ATTRIBUTE_NAME]));
-    this.controls = AdaptiveInstanceEditControls.create(
-      this.editService,
-      saveDisabled$,
-      this.instanceValid$
-    );
+    this.controls = AdaptiveInstanceEditControls.create(this.editService, saveDisabled$, this.instanceValid$);
   }
 
   /**

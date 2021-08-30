@@ -9,7 +9,6 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { SentinelBaseDirective, PaginatedResource, RequestedPagination } from '@sentinel/common';
-import { SentinelControlItem } from '@sentinel/components/controls';
 import { Pool } from '@muni-kypo-crp/sandbox-model';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
@@ -17,15 +16,13 @@ import { map, take, takeWhile, tap } from 'rxjs/operators';
 import { SandboxPoolListAdapter } from '../../model/adapter/sandbox-pool-list-adapter';
 import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
 import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
-import { PoolAssignConcreteService } from '../../services/state/pool-assign/pool-assign-concrete.service';
-import { PoolAssignService } from '../../services/state/pool-assign/pool-assign.service';
+import { TrainingInstanceEditService } from '../../services/state/edit/training-instance-edit.service';
 
 @Component({
   selector: 'kypo-pool-assign',
   templateUrl: './pool-assign.component.html',
   styleUrls: ['./pool-assign.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [{ provide: PoolAssignService, useClass: PoolAssignConcreteService }],
 })
 export class PoolAssignComponent extends SentinelBaseDirective implements OnInit, OnChanges {
   readonly PAGE_SIZE: number;
@@ -33,7 +30,7 @@ export class PoolAssignComponent extends SentinelBaseDirective implements OnInit
   @Input() trainingInstance: TrainingInstance;
   @Input() hasAssignedPool: boolean;
   @Output() poolChanged: EventEmitter<TrainingInstance> = new EventEmitter();
-  @Output() onSelectionChanged: EventEmitter<number> = new EventEmitter();
+  @Output() selectionChanged: EventEmitter<number> = new EventEmitter();
 
   pools$: Observable<SandboxPoolListAdapter[]>;
   hasError$: Observable<boolean>;
@@ -44,7 +41,7 @@ export class PoolAssignComponent extends SentinelBaseDirective implements OnInit
   selectedPool: string;
 
   constructor(
-    private assignService: PoolAssignService,
+    private editService: TrainingInstanceEditService,
     private context: TrainingAgendaContext,
     private navigator: TrainingNavigator
   ) {
@@ -54,7 +51,7 @@ export class PoolAssignComponent extends SentinelBaseDirective implements OnInit
 
   ngOnInit(): void {
     this.initList();
-    this.hasPool$ = this.assignService.assignedPool$.pipe(
+    this.hasPool$ = this.editService.assignedPool$.pipe(
       takeWhile(() => this.isAlive),
       tap((poolId) => this.onPoolChanged(poolId)),
       map((poolId) => poolId !== undefined && poolId !== null)
@@ -63,30 +60,26 @@ export class PoolAssignComponent extends SentinelBaseDirective implements OnInit
 
   ngOnChanges(changes: SimpleChanges): void {
     if ('trainingInstance' in changes) {
-      this.assignService.init(this.trainingInstance);
+      this.editService.init(this.trainingInstance);
       this.createPoolDetailRoute(this.trainingInstance.poolId);
     }
   }
 
-  onControlsAction(controlItem: SentinelControlItem): void {
-    controlItem.result$.pipe(take(1)).subscribe();
-  }
-
   fetch(pagination: RequestedPagination): void {
-    this.assignService.getAll(pagination).pipe(take(1)).subscribe();
+    this.editService.getAll(pagination).pipe(take(1)).subscribe();
   }
 
   onSelectionChange(poolTitle: string): void {
     if (poolTitle) {
-      this.onSelectionChanged.emit(Number(poolTitle.replace(/[^0-9]/g, '')));
+      this.selectionChanged.emit(Number(poolTitle.replace(/[^0-9]/g, '')));
     } else {
-      this.onSelectionChanged.emit(null);
+      this.selectionChanged.emit(null);
     }
   }
 
   private initList() {
     const pagination = new RequestedPagination(0, this.PAGE_SIZE, '', '');
-    this.pools$ = this.assignService.resource$.pipe(
+    this.pools$ = this.editService.pools$.pipe(
       map((resource) => this.mapToAdapter(resource)),
       tap((pools) => {
         const pool = pools.find((pool) => pool.id === this.trainingInstance.poolId);
@@ -95,7 +88,7 @@ export class PoolAssignComponent extends SentinelBaseDirective implements OnInit
         }
       })
     );
-    this.assignService.getAll(pagination).pipe(take(1)).subscribe();
+    this.editService.getAll(pagination).pipe(take(1)).subscribe();
   }
 
   private onPoolChanged(poolId: number) {

@@ -2,6 +2,8 @@ import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { BehaviorSubject, Observable, ReplaySubject, timer } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
 import { TrainingInstanceChangeEvent } from '../../../model/events/training-instance-change-event';
+import { PaginatedResource, RequestedPagination, SentinelPagination } from '@sentinel/common';
+import { Pool } from '@muni-kypo-crp/sandbox-model';
 
 /**
  * Layer between component and API service. Implement concrete service by extending this class.
@@ -22,6 +24,13 @@ export abstract class TrainingInstanceEditService {
 
   assignedPool$: Observable<number> = this.assignedPoolSubject$.asObservable();
 
+  protected poolsSubject$: BehaviorSubject<PaginatedResource<Pool>> = new BehaviorSubject(this.initSubject(10));
+
+  pools$: Observable<PaginatedResource<Pool>> = this.poolsSubject$.asObservable();
+
+  /**
+   * Current mode (edit - true or create - false)
+   */
   protected editModeSubject$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   editMode$: Observable<boolean> = this.editModeSubject$.asObservable();
@@ -34,10 +43,6 @@ export abstract class TrainingInstanceEditService {
   instanceValid$ = this.instanceValidSubject$.asObservable();
 
   hasStarted$: Observable<boolean>;
-
-  /**
-   * Current mode (edit - true or create - false)
-   */
 
   protected saveDisabledSubject$: BehaviorSubject<boolean> = new BehaviorSubject(true);
 
@@ -82,4 +87,12 @@ export abstract class TrainingInstanceEditService {
    * @param poolId pool ID of selected pool
    */
   abstract poolSelectionChange(poolId: number): void;
+
+  abstract getAll(requestedPagination: RequestedPagination): Observable<PaginatedResource<Pool>>;
+
+  abstract init(trainingInstance: TrainingInstance): void;
+
+  protected initSubject(pageSize: number): PaginatedResource<Pool> {
+    return new PaginatedResource([], new SentinelPagination(0, 0, pageSize, 0, 0));
+  }
 }
