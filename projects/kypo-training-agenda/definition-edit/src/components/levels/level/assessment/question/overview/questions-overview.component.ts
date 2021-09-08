@@ -65,7 +65,6 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
     }
     if ('questions' in changes && this.questions) {
       this.stepperQuestions.items = this.questions.map((question) => new QuestionStepperAdapter(question));
-      this.selectedStep = this.stepperQuestions.items.length - 1;
       this.calculateHasError();
     }
     if ('isTest' in changes && !changes.isTest.isFirstChange()) {
@@ -211,7 +210,7 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
     const dialogRef = this.dialog.open(SentinelConfirmationDialogComponent, {
       data: new SentinelConfirmationDialogConfig(
         'Delete question',
-        `Do you want to delete question "${this.stepperQuestions[this.selectedStep].title}"?`,
+        `Do you want to delete question "${this.stepperQuestions.items[this.selectedStep].title}"?`,
         'Cancel',
         'Delete'
       ),
