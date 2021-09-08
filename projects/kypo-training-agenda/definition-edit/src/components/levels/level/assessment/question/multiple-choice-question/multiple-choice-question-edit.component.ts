@@ -131,6 +131,10 @@ export class MultipleChoiceQuestionEditComponent extends SentinelBaseDirective i
     }
   }
 
+  onCorrectOptionChanged(index, event): void {
+    this.choices.at(index).get('correct').setValue(event.checked);
+  }
+
   /**
    * Check if at least one choice is selected as correct.
    * @return true if at least one choice is selected as correct, false otherwise
