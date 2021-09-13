@@ -17,7 +17,7 @@
     "@muni-kypo-crp/topology-model": "~12.0.0",
     "@muni-kypo-crp/assessment-visualization": "~12.0.1",
     "@muni-kypo-crp/hurdling-visualization": "~12.0.1",
-    "@muni-kypo-crp/overview-visualization": "~12.0.5"
+    "@muni-kypo-crp/overview-visualization": "~12.0.8"
   },
   "dependencies": {
     "tslib": "^2.0.0"
