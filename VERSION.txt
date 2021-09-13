@@ -1,3 +1,4 @@
+12.0.10 Fix linear questions, latest overview visualization.
 12.0.9 Fix adaptive training instance edit redirect
 12.0.8 Bump visualizations to latest versions.
 12.0.7 Modify save strategy for definitions and instances. Change training run hint, solution and submit buttons position and design.
