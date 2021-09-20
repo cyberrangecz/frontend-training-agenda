@@ -15,6 +15,7 @@ export class AdaptiveTrainingDefinitionEditFormGroup {
       prerequisites: new FormArray(trainingDefinition.prerequisites.map((prereq) => new FormControl(prereq))),
       outcomes: new FormArray(trainingDefinition.outcomes.map((outcomes) => new FormControl(outcomes))),
       showProgress: new FormControl(trainingDefinition.showStepperBar),
+      defaultContent: new FormControl(trainingDefinition.defaultContent),
     });
   }
 
@@ -28,5 +29,6 @@ export class AdaptiveTrainingDefinitionEditFormGroup {
     trainingDefinition.showStepperBar = this.formGroup.get('showProgress').value;
     trainingDefinition.outcomes = this.formGroup.get('outcomes').value;
     trainingDefinition.prerequisites = this.formGroup.get('prerequisites').value;
+    trainingDefinition.defaultContent = this.formGroup.get('defaultContent').value;
   }
 }

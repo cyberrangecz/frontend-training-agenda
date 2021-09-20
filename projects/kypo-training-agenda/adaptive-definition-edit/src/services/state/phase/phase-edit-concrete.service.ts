@@ -37,7 +37,9 @@ export class PhaseEditConcreteService extends PhaseEditService {
     this.trainingDefinitionId = trainingDefinitionId;
     this.phasesSubject$.next(phases);
     this.updatePresentTrainingPhases();
-    this.updateActiveTasks();
+    if (phases.length != 0) {
+      this.updateActiveTasks();
+    }
   }
 
   setActivePhase(phaseIndex: number): void {
