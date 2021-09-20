@@ -87,4 +87,8 @@ export class AdaptiveTrainingDefinitionEditComponent extends SentinelBaseDirecti
       )
     );
   }
+
+  checkboxTouched(): void {
+    this.title.markAsTouched();
+  }
 }

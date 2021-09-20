@@ -65,6 +65,18 @@
               </div>
             </div>
           </div>
+
+          <!-- DEFAULT CONTENT checkbox -->
+          <div class="form-line" *ngIf="!trainingDefinition.id">
+            <div class="form-line-content">
+              <mat-checkbox matTooltip="When active, predefined levels will be created when definition is saved."
+                            labelPosition="after"
+                            formControlName="defaultContent"
+                            (change)="checkboxTouched()">
+                Create predefined levels
+              </mat-checkbox>
+            </div>
+          </div>
         </div>
 
     </div>
