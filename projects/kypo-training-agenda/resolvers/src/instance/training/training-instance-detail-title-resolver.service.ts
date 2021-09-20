@@ -3,7 +3,13 @@ import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/r
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { Observable, of } from 'rxjs';
 import { catchError, mergeMap, take } from 'rxjs/operators';
-import { ACCESS_TOKEN_PATH, PROGRESS_PATH, RESULTS_PATH, SUMMARY_PATH } from '@muni-kypo-crp/training-agenda';
+import {
+  ACCESS_TOKEN_PATH,
+  PROGRESS_PATH,
+  RESULTS_PATH,
+  RUNS_PATH,
+  SUMMARY_PATH,
+} from '@muni-kypo-crp/training-agenda';
 import { TrainingInstanceResolver } from './training-instance-resolver.service';
 
 @Injectable()
@@ -36,6 +42,9 @@ export class TrainingInstanceDetailTitleResolver implements Resolve<string> {
     }
     if (state.url.includes(ACCESS_TOKEN_PATH)) {
       return `Access Token of ${ti.title}`;
+    }
+    if (state.url.includes(RUNS_PATH)) {
+      return `Training Runs of ${ti.title}`;
     }
     return ti.title;
   }

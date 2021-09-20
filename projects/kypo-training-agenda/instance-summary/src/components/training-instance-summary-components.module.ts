@@ -8,15 +8,12 @@ import { SentinelTableModule } from '@sentinel/components/table';
 import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
 import { TrainingInstanceSummaryConcreteService } from '../services/state/summary/training-instance-summary-concrete.service';
 import { TrainingInstanceSummaryService } from '../services/state/summary/training-instance-summary.service';
-import { ActiveTrainingRunConcreteService } from '../services/state/active-runs/active-training-run-concrete.service';
-import { ActiveTrainingRunService } from '../services/state/active-runs/active-training-run.service';
-import { ArchivedTrainingRunConcreteService } from '../services/state/archived-runs/archived-training-run-concrete.service';
-import { ArchivedTrainingRunService } from '../services/state/archived-runs/archived-training-run.service';
-import { ActiveTrainingRunOverviewComponent } from './active-training-run-overview/active-training-run-overview.component';
-import { ArchivedTrainingRunOverviewComponent } from './archived-training-run-overview/archived-training-run-overview.component';
 import { TrainingInstanceInfoComponent } from './info/training-instance-info.component';
 import { TrainingInstanceSummaryMaterialModule } from './training-instance-summary-material.module';
 import { TrainingInstanceSummaryComponent } from './training-instance-summary.component';
+import { TrainingInstanceRunsComponent } from './runs/training-instance-runs.component';
+import { TrainingRunConcreteService } from '../services/state/runs/training-run-concrete.service';
+import { TrainingRunService } from '../services/state/runs/training-run.service';
 
 /**
  * Components and providers for training instance summaries.
@@ -31,16 +28,10 @@ import { TrainingInstanceSummaryComponent } from './training-instance-summary.co
     SentinelTableModule,
     SentinelControlsModule,
   ],
-  declarations: [
-    TrainingInstanceSummaryComponent,
-    TrainingInstanceInfoComponent,
-    ActiveTrainingRunOverviewComponent,
-    ArchivedTrainingRunOverviewComponent,
-  ],
+  declarations: [TrainingInstanceSummaryComponent, TrainingInstanceInfoComponent, TrainingInstanceRunsComponent],
   providers: [
     { provide: TrainingInstanceSummaryService, useClass: TrainingInstanceSummaryConcreteService },
-    { provide: ArchivedTrainingRunService, useClass: ArchivedTrainingRunConcreteService },
-    { provide: ActiveTrainingRunService, useClass: ActiveTrainingRunConcreteService },
+    { provide: TrainingRunService, useClass: TrainingRunConcreteService },
   ],
 })
 export class TrainingInstanceSummaryComponentsModule {

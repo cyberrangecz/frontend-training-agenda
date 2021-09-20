@@ -1,0 +1,91 @@
+import { async, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { MatDialog } from '@angular/material/dialog';
+import { RequestedPagination, SentinelPagination, PaginatedResource, asyncData } from '@sentinel/common';
+import { SandboxInstanceApi } from '@muni-kypo-crp/sandbox-api';
+import { SandboxAllocationUnitsApi } from '@muni-kypo-crp/sandbox-api';
+import { TrainingInstanceApi, TrainingRunApi } from '@muni-kypo-crp/training-api';
+import { throwError } from 'rxjs';
+import { skip, take } from 'rxjs/operators';
+import {
+  createContext,
+  createDialogSpy,
+  createErrorHandlerSpy,
+  createNotificationSpy,
+  createSauApi,
+  createSandboxInstanceApiSpy,
+  createTrainingInstanceApiSpy,
+  createTrainingRunApiSpy,
+} from '../../../../../internal/src/testing/testing-commons.spec';
+import { TrainingErrorHandler } from '../../../../../src/services/training-error.handler.service';
+import { TrainingNotificationService } from '../../../../../src/services/training-notification.service';
+import { TrainingAgendaContext } from '../../../../../internal/src/services/context/training-agenda-context.service';
+import { TrainingRunConcreteService } from './training-run-concrete.service';
+
+describe('TrainingRunConcreteService', () => {
+  let errorHandlerSpy: jasmine.SpyObj<TrainingErrorHandler>;
+  let notificationSpy: jasmine.SpyObj<TrainingNotificationService>;
+  let dialogSpy: jasmine.SpyObj<MatDialog>;
+  let trainingInstanceApiSpy: jasmine.SpyObj<TrainingInstanceApi>;
+  let trainingRunApiSpy: jasmine.SpyObj<TrainingRunApi>;
+  let sandboxInstanceApiSpy: jasmine.SpyObj<SandboxInstanceApi>;
+  let sauApiSpy: jasmine.SpyObj<SandboxAllocationUnitsApi>;
+  let service: TrainingRunConcreteService;
+  let context: TrainingAgendaContext;
+
+  beforeEach(async(() => {
+    errorHandlerSpy = createErrorHandlerSpy();
+    notificationSpy = createNotificationSpy();
+    sandboxInstanceApiSpy = createSandboxInstanceApiSpy();
+    sauApiSpy = createSauApi();
+    trainingInstanceApiSpy = createTrainingInstanceApiSpy();
+    trainingRunApiSpy = createTrainingRunApiSpy();
+    dialogSpy = createDialogSpy();
+    context = createContext();
+    TestBed.configureTestingModule({
+      providers: [
+        TrainingRunConcreteService,
+        { provide: MatDialog, useValue: dialogSpy },
+        { provide: TrainingInstanceApi, useValue: trainingInstanceApiSpy },
+        { provide: TrainingRunApi, useValue: trainingRunApiSpy },
+        { provide: SandboxAllocationUnitsApi, useValue: sauApiSpy },
+        { provide: SandboxInstanceApi, useValue: sandboxInstanceApiSpy },
+        { provide: TrainingErrorHandler, useValue: errorHandlerSpy },
+        { provide: TrainingNotificationService, useValue: notificationSpy },
+        { provide: TrainingAgendaContext, useValue: context },
+      ],
+    });
+    service = TestBed.inject(TrainingRunConcreteService);
+  }));
+
+  it('should be created', () => {
+    expect(service).toBeTruthy();
+  });
+
+  it('should emit hasError on err', (done) => {
+    const pagination = createPagination();
+    trainingInstanceApiSpy.getAssociatedTrainingRuns.and.returnValue(throwError(null));
+    service.hasError$
+      .pipe(
+        skip(1) // we ignore initial value
+      )
+      .subscribe(
+        (hasError) => {
+          expect(hasError).toBeTruthy();
+          done();
+        },
+        () => fail
+      );
+    service.getAll(0, pagination).subscribe(
+      () => fail,
+      (_) => _
+    );
+  });
+
+  function createPagination() {
+    return new RequestedPagination(1, 5, '', '');
+  }
+
+  function createMock() {
+    return new PaginatedResource([], new SentinelPagination(1, 0, 5, 5, 1));
+  }
+});

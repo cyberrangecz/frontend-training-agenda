@@ -9,10 +9,11 @@ import {
   DeleteAction,
   DownloadAction,
 } from '@sentinel/components/table';
-import { defer, of } from 'rxjs';
+import { combineLatest, defer, of } from 'rxjs';
 import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
 import { TrainingInstanceOverviewService } from '../../services/state/training-instance-overview.service';
 import { TrainingInstanceRowAdapter } from './training-instance-row-adapter';
+import { DateHelper } from '@muni-kypo-crp/training-agenda/internal';
 
 /**
  * @dynamic
@@ -24,10 +25,12 @@ export class TrainingInstanceTable extends SentinelTable<TrainingInstanceRowAdap
     navigator: TrainingNavigator
   ) {
     const columns = [
-      new Column('id', 'Id', true),
       new Column('title', 'Title', true),
-      new Column('date', 'Date', true, 'startTime'),
+      new Column('startTimeFormatted', 'Start Time', true, 'startTime'),
+      new Column('endTimeFormatted', 'End Time', true, 'endTime'),
+      new Column('expiresIn', 'Expires In', false),
       new Column('tdTitle', 'Training Definition', false),
+      new Column('lastEditBy', 'Last Edit By', false),
       new Column('poolTitle', 'Pool', false),
       new Column('poolSize', 'Pool Size', false),
       new Column('accessToken', 'Access Token', false),
@@ -48,7 +51,10 @@ export class TrainingInstanceTable extends SentinelTable<TrainingInstanceRowAdap
     const adapter = ti as TrainingInstanceRowAdapter;
     const datePipe = new SentinelDateTimeFormatPipe('en-EN');
     adapter.tdTitle = adapter.trainingDefinition.title;
-    adapter.date = `${datePipe.transform(adapter.startTime)} - ${datePipe.transform(adapter.endTime)}`;
+    adapter.startTimeFormatted = `${datePipe.transform(adapter.startTime)}`;
+    adapter.endTimeFormatted = `${datePipe.transform(adapter.endTime)}`;
+    adapter.expiresIn =
+      DateHelper.timeToDate(adapter.endTime).length !== 0 ? DateHelper.timeToDate(adapter.endTime) : 'expired';
     if (adapter.hasPool()) {
       adapter.poolTitle = `Pool ${adapter.poolId}`;
     } else {
@@ -57,12 +63,12 @@ export class TrainingInstanceTable extends SentinelTable<TrainingInstanceRowAdap
     const row = new Row(adapter, this.createActions(ti, service));
 
     row.addLink('title', navigator.toTrainingInstanceDetail(ti.id));
-    row.addLink('accessToken', navigator.toTrainingInstanceAccessToken(ti.id));
+    row.addLink('tdTitle', navigator.toTrainingDefinitionDetail(adapter.trainingDefinition.id));
     if (ti.hasPool()) {
-      row.element.poolSize = service.getPoolState(ti.poolId);
+      row.element.poolSize = combineLatest([service.getPoolSize(ti.poolId), service.getAvailableSandboxes(ti.poolId)]);
       row.addLink('poolTitle', navigator.toPool(ti.poolId));
     } else {
-      row.element.poolSize = of('-');
+      row.element.poolSize = of(['-', '']);
     }
     return row;
   }
@@ -96,6 +102,42 @@ export class TrainingInstanceTable extends SentinelTable<TrainingInstanceRowAdap
         'Download management SSH configs',
         of(!ti.hasPool()),
         defer(() => service.getSshAccess(ti.poolId))
+      ),
+      new RowAction(
+        'training_runs',
+        'Training Runs',
+        'run_circle',
+        'primary',
+        'Manage training runs',
+        of(false),
+        defer(() => service.runs(ti.id))
+      ),
+      new RowAction(
+        'display_token',
+        'Display Token',
+        'pin',
+        'primary',
+        'Display page containing access token',
+        of(false),
+        defer(() => service.token(ti.id))
+      ),
+      new RowAction(
+        'progress',
+        'Show Progress',
+        'insights',
+        'primary',
+        'Shows progress of training runs',
+        of(!ti.hasStarted()),
+        defer(() => service.progress(ti.id))
+      ),
+      new RowAction(
+        'results',
+        'Show Results',
+        'assessment',
+        'primary',
+        'Shows results of training runs',
+        of(!ti.hasStarted()),
+        defer(() => service.results(ti.id))
       ),
     ];
   }

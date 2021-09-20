@@ -75,18 +75,44 @@ export class TrainingInstanceOverviewConcreteService extends TrainingInstanceOve
     );
   }
 
-  getPoolState(poolId: number): Observable<string> {
-    const pool$ = this.poolApi.getPool(poolId).pipe(take(1));
-    const sandboxes$ = this.poolApi.getPoolsSandboxes(
-      poolId,
-      new RequestedPagination(0, Number.MAX_SAFE_INTEGER, '', '')
-    );
-    return zip(pool$, sandboxes$).pipe(
+  runs(id: number): Observable<any> {
+    return of(this.router.navigate([this.navigator.toTrainingInstanceRuns(id)]));
+  }
+
+  token(id: number): Observable<any> {
+    return of(this.router.navigate([this.navigator.toTrainingInstanceAccessToken(id)]));
+  }
+
+  progress(id: number): Observable<any> {
+    return of(this.router.navigate([this.navigator.toTrainingInstanceProgress(id)]));
+  }
+
+  results(id: number): Observable<any> {
+    return of(this.router.navigate([this.navigator.toTrainingInstanceResults(id)]));
+  }
+
+  getPoolSize(poolId: number): Observable<string> {
+    return this.poolApi.getPool(poolId).pipe(
       map(
-        (value) =>
-          `${value[0].maxSize} (${
-            value[1].elements.length - value[1].elements.filter((sandbox) => sandbox.lockId != undefined).length
-          } free)`
+        (pool) => pool.maxSize.toString(),
+        (err) => {
+          this.hasErrorSubject$.next(true);
+          this.errorHandler.emit(err, 'Fetching pool size');
+          return EMPTY;
+        }
+      )
+    );
+  }
+
+  getAvailableSandboxes(poolId: number): Observable<string> {
+    return this.poolApi.getPoolsSandboxes(poolId).pipe(
+      map(
+        (sandboxes) => sandboxes.elements.filter((sandbox) => !sandbox.isLocked()).length.toString(),
+        (err) => {
+          this.hasErrorSubject$.next(true);
+          this.errorHandler.emit(err, 'Fetching available sandboxes');
+          return EMPTY;
+        }
       )
     );
   }

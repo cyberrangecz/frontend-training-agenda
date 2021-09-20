@@ -1,7 +1,13 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import { ACCESS_TOKEN_PATH, PROGRESS_PATH, RESULTS_PATH, SUMMARY_PATH } from '@muni-kypo-crp/training-agenda';
+import {
+  ACCESS_TOKEN_PATH,
+  PROGRESS_PATH,
+  RESULTS_PATH,
+  RUNS_PATH,
+  SUMMARY_PATH,
+} from '@muni-kypo-crp/training-agenda';
 
 /**
  * Router breadcrumb title resolver
@@ -25,6 +31,9 @@ export class TrainingInstanceDetailBreadcrumbResolver implements Resolve<string>
     }
     if (state.url.includes(ACCESS_TOKEN_PATH)) {
       return 'Access Token';
+    }
+    if (state.url.includes(RUNS_PATH)) {
+      return 'Training Runs';
     }
     return '';
   }

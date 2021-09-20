@@ -12,32 +12,45 @@ import {
   DownloadAction,
 } from '@sentinel/components/table';
 import { defer, of } from 'rxjs';
-import { TrainingDefinitionDetailComponent } from '../components/detail/training-definition-detail.component';
 import { AdaptiveDefinitionService } from '../services/state/adaptive-definition.service';
+import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
 
 /**
  * Helper class transforming paginated resource to class for common table component
  * @dynamic
  */
 export class TrainingDefinitionTable extends SentinelTable<TrainingDefinition> {
-  constructor(resource: PaginatedResource<TrainingDefinition>, service: AdaptiveDefinitionService) {
+  constructor(
+    resource: PaginatedResource<TrainingDefinition>,
+    service: AdaptiveDefinitionService,
+    navigator: TrainingNavigator
+  ) {
     const columns = [
-      new Column('id', 'id', true),
       new Column('title', 'title', true),
       new Column('state', 'state', true),
       new Column('lastEditTimeFormatted', 'last edit', true, 'lastEdited'),
+      new Column('lastEditBy', 'last edit by', false),
     ];
 
-    const rows = resource.elements.map(
-      (definition) => new Row(definition, TrainingDefinitionTable.createActions(definition, service))
+    const rows = resource.elements.map((definition) =>
+      TrainingDefinitionTable.createRow(definition, service, navigator)
     );
     super(rows, columns);
 
-    this.expand = new RowExpand(TrainingDefinitionDetailComponent);
     this.pagination = resource.pagination;
     this.filterLabel = 'Filter by title';
     this.filterable = true;
     this.selectable = false;
+  }
+
+  private static createRow(
+    td: TrainingDefinition,
+    service: AdaptiveDefinitionService,
+    navigator: TrainingNavigator
+  ): Row<TrainingDefinition> {
+    const row = new Row(td, TrainingDefinitionTable.createActions(td, service));
+    row.addLink('title', navigator.toAdaptiveDefinitionDetail(td.id));
+    return row;
   }
 
   private static createActions(td: TrainingDefinition, service: AdaptiveDefinitionService): RowAction[] {

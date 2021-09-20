@@ -191,6 +191,8 @@ export function createNavigatorSpy(): jasmine.SpyObj<TrainingNavigator> {
     'toResumeAdaptiveRun',
     'toAccessTrainingRun',
     'toAccessAdaptiveRun',
+    'toTrainingDefinitionDetail',
+    'toAdaptiveDefinitionDetail',
   ]);
 }
 

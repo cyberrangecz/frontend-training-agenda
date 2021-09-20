@@ -1,0 +1,13 @@
+
+<div *ngIf="(trainingDefinition$ | async) as trainingDefinition">
+    <mat-card class="overview-container">
+        <mat-card-content>
+            <kypo-training-definition-info [trainingDefinition]="trainingDefinition"></kypo-training-definition-info>
+        </mat-card-content>
+    </mat-card>
+    <mat-card>
+        <mat-card-content class="levels-container">
+            <kypo-training-definition-levels [levels]="trainingDefinition.levels"></kypo-training-definition-levels>
+        </mat-card-content>
+    </mat-card>
+</div>

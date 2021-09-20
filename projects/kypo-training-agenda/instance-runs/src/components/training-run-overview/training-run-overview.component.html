@@ -1,0 +1,8 @@
+<sentinel-table
+  elevation="0"
+  [data]="trainingRuns"
+  [hasError]="hasError"
+  [isLoading]="isLoading"
+  (rowAction)="onTableAction($event)"
+  (refresh)="onLoadTableEvent($event)">
+</sentinel-table>

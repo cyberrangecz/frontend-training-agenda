@@ -1,0 +1,72 @@
+<mat-expansion-panel class="mat-elevation-z0">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <h3>
+        <mat-icon class="level-type" [inline]="true" matTooltip="Training Level"> videogame_asset </mat-icon>
+        <span> {{ level.order + 1 }}.</span>
+        <span> {{ level.title }}</span>
+      </h3>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <div class="data-field">
+    <div class="key-field">Estimated Duration:</div>
+    <div>{{ level.estimatedDuration }}</div>
+  </div>
+  <div class="data-field">
+    <div class="key-field">Hints:</div>
+    <div>{{ level.hints.length }}</div>
+  </div>
+  <div *ngIf="level.answerVariableName; else answer" class="data-field">
+    <div class="key-field">Answer Variable Name:</div>
+    <div>{{ level.answerVariableName }}</div>
+  </div>
+  <ng-template #answer>
+    <div class="data-field">
+      <div class="key-field">Answer:</div>
+      <div>{{ level.answer }}</div>
+    </div>
+  </ng-template>
+  <div class="data-field">
+    <div class="key-field">Content:</div>
+    <div>
+      <markdown [data]="level?.content"></markdown>
+    </div>
+  </div>
+  <div class="data-field">
+    <div class="key-field">Solution:</div>
+    <div><markdown [data]="level?.solution"></markdown></div>
+  </div>
+
+  <div class="data-field">
+    <div class="key-field">Hints:</div>
+    <div class="hints-container">
+      <div *ngFor="let hint of level?.hints" class="hint-container">
+        <div class="data-field">
+          <h4>{{ hint?.title }}</h4>
+        </div>
+        <div>
+          <div class="data-field">
+            <div class="key-field">Content:</div>
+            <div><markdown [data]="hint?.content"></markdown></div>
+          </div>
+          <div class="data-field">
+            <div class="key-field">Penalty:</div>
+            <div>{{ hint?.penalty }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="data-field">
+    <div class="key-field">Points:</div>
+    <div>{{ level?.maxScore }}</div>
+  </div>
+  <div class="data-field">
+    <div class="key-field">Incorrect Answer Limit:</div>
+    <div>{{ level?.incorrectAnswerLimit }}</div>
+  </div>
+  <div class="data-field">
+    <div class="key-field">Solution Penalized:</div>
+    <div>{{ level?.solutionPenalized }}</div>
+  </div>
+</mat-expansion-panel>

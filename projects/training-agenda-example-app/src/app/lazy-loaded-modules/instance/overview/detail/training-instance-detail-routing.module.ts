@@ -6,6 +6,7 @@ import {
   PROGRESS_PATH,
   RESULTS_PATH,
   SUMMARY_PATH,
+  RUNS_PATH,
 } from '@muni-kypo-crp/training-agenda';
 import {
   TrainingInstanceDetailBreadcrumbResolver,
@@ -57,6 +58,15 @@ const routes: Routes = [
       title: TrainingInstanceDetailTitleResolver,
     },
     loadChildren: () => import('./token/access-token-detail.module').then((m) => m.AccessTokenDetailModule),
+  },
+  {
+    path: RUNS_PATH,
+    resolve: {
+      trainingInstance: TrainingInstanceResolver,
+      breadcrumb: TrainingInstanceDetailBreadcrumbResolver,
+      title: TrainingInstanceDetailTitleResolver,
+    },
+    loadChildren: () => import('./runs/training-instance-runs.module').then((m) => m.TrainingInstanceRunsModule),
   },
 ];
 

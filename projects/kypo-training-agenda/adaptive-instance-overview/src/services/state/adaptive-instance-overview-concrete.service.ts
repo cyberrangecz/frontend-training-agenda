@@ -4,8 +4,8 @@ import { RequestedPagination, PaginatedResource } from '@sentinel/common';
 import { PoolApi } from '@muni-kypo-crp/sandbox-api';
 import { AdaptiveInstanceApi } from '@muni-kypo-crp/training-api';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
-import { EMPTY, Observable, of, zip } from 'rxjs';
-import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
+import { EMPTY, Observable, of } from 'rxjs';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { AdaptiveInstanceFilter } from '../../model/adapters/adaptive-instance-filter';
 import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } from '@muni-kypo-crp/training-agenda';
 import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
@@ -75,16 +75,44 @@ export class AdaptiveInstanceOverviewConcreteService extends AdaptiveInstanceOve
     );
   }
 
-  getPoolState(poolId: number): Observable<string> {
-    const pool$ = this.poolApi.getPool(poolId).pipe(take(1));
-    const sandboxes$ = this.poolApi.getPoolsSandboxes(
-      poolId,
-      new RequestedPagination(0, Number.MAX_SAFE_INTEGER, '', '')
-    );
-    return zip(pool$, sandboxes$).pipe(
+  runs(id: number): Observable<any> {
+    return of(this.router.navigate([this.navigator.toAdaptiveInstanceRuns(id)]));
+  }
+
+  token(id: number): Observable<any> {
+    return of(this.router.navigate([this.navigator.toAdaptiveInstanceAccessToken(id)]));
+  }
+
+  progress(id: number): Observable<any> {
+    return of(this.router.navigate([this.navigator.toAdaptiveInstanceProgress(id)]));
+  }
+
+  results(id: number): Observable<any> {
+    return of(this.router.navigate([this.navigator.toAdaptiveInstanceResults(id)]));
+  }
+
+  getPoolSize(poolId: number): Observable<string> {
+    return this.poolApi.getPool(poolId).pipe(
       map(
-        (value) => `${value[0].maxSize}
-    (${value[1].elements.length - value[1].elements.filter((sandbox) => sandbox.lockId != undefined).length} free)`
+        (pool) => pool.maxSize.toString(),
+        (err) => {
+          this.hasErrorSubject$.next(true);
+          this.errorHandler.emit(err, 'Fetching pool size');
+          return EMPTY;
+        }
+      )
+    );
+  }
+
+  getAvailableSandboxes(poolId: number): Observable<string> {
+    return this.poolApi.getPoolsSandboxes(poolId).pipe(
+      map(
+        (sandboxes) => sandboxes.elements.filter((sandbox) => !sandbox.isLocked()).length.toString(),
+        (err) => {
+          this.hasErrorSubject$.next(true);
+          this.errorHandler.emit(err, 'Fetching available sandboxes');
+          return EMPTY;
+        }
       )
     );
   }

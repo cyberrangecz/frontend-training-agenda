@@ -28,3 +28,5 @@ export * from './loading-dialog/loading-dialog.module';
 export * from './loading-dialog/loading-dialog.component';
 
 export * from './loading-dialog/pipes/title-case-except.pipe';
+
+export * from './utils/date-helper';

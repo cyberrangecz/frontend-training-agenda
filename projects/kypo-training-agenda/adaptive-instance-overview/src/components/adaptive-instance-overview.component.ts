@@ -6,7 +6,7 @@ import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { map, take, takeWhile } from 'rxjs/operators';
 import { AdaptiveInstanceOverviewService } from '../services/state/adaptive-instance-overview.service';
-import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
+import { TrainingNavigator, TrainingNotificationService } from '@muni-kypo-crp/training-agenda';
 import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
 import { AdaptiveInstanceOverviewControls } from '../model/adapters/adaptive-instance-overview-controls';
 import { AdaptiveInstanceTable } from '../model/adapters/adaptive-instance-table';
@@ -29,7 +29,8 @@ export class AdaptiveInstanceOverviewComponent extends SentinelBaseDirective imp
   constructor(
     private service: AdaptiveInstanceOverviewService,
     private paginationService: PaginationService,
-    private navigator: TrainingNavigator
+    private navigator: TrainingNavigator,
+    private notificationService: TrainingNotificationService
   ) {
     super();
   }
@@ -64,5 +65,9 @@ export class AdaptiveInstanceOverviewComponent extends SentinelBaseDirective imp
     );
     this.hasError$ = this.service.hasError$;
     this.onInstancesLoadEvent(initLoadEvent);
+  }
+
+  onCopyToken(): void {
+    this.notificationService.emit('success', 'Access token has been copied');
   }
 }
