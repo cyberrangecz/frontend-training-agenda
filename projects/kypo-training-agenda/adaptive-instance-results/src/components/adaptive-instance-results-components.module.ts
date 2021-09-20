@@ -15,18 +15,9 @@ import { AdaptiveInstanceResultsComponent } from './adaptive-instance-results.co
 })
 export class AdaptiveInstanceResultsComponentsModule {
   static forRoot(config: TrainingAgendaConfig): ModuleWithProviders<AdaptiveInstanceResultsComponentsModule> {
-    const visualizationConfig = {
-      adaptiveTrainingServiceUrl: config.visualizationConfig.adaptiveBasePath,
-    };
     return {
       ngModule: AdaptiveInstanceResultsComponentsModule,
-      providers: [
-        {
-          provide: AdaptiveVisualizationConfig,
-          useValue: visualizationConfig,
-        },
-        { provide: TrainingAgendaConfig, useValue: config },
-      ],
+      providers: [{ provide: TrainingAgendaConfig, useValue: config }],
     };
   }
 }

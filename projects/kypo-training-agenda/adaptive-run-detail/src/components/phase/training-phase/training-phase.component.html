@@ -72,6 +72,19 @@
         [style.height.px]="topologyHeight"
       >
       </kypo2-topology-graph>
+         <!-- GET SSH ACCESS BUTTON-->
+         <button
+         mat-raised-button
+         color="primary"
+         style="width: fit-content; align-self: flex-end; margin: 0; margin-top: 7px;"
+         [disabled]="(isLoading$ | async) ||
+                       (isCorrectAnswerSubmitted$ | async)
+           "
+         (click)="download()"
+         matTooltip="Download config for SSH client"
+       >
+         Get SSH Config
+       </button>
 
       <!-- GET SSH ACCESS BUTTON-->
       <button

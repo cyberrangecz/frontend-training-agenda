@@ -14,13 +14,21 @@ import { AdaptiveInstanceOverviewComponent } from './adaptive-instance-overview.
 import { AdaptiveInstanceOverviewService } from '../services/state/adaptive-instance-overview.service';
 import { AdaptiveInstanceOverviewConcreteService } from '../services/state/adaptive-instance-overview-concrete.service';
 import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
+import { AdaptiveInstanceOverviewMaterialModule } from './adaptive-instance-overview-material.module';
 
 /**
  * Main module of training instance agenda. Contains components and providers for displaying table of training instance
  * and CRUD operations on them. It contains routing to more feature modules (detail atc.)
  */
 @NgModule({
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, SentinelTableModule, SentinelControlsModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    SentinelTableModule,
+    SentinelControlsModule,
+    AdaptiveInstanceOverviewMaterialModule,
+  ],
   declarations: [AdaptiveInstanceOverviewComponent],
   providers: [
     TrainingAgendaContext,

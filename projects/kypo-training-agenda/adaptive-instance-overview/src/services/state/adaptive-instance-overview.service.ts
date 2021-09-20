@@ -13,7 +13,17 @@ export abstract class AdaptiveInstanceOverviewService extends PaginatedResourceS
 
   abstract delete(trainingInstance: TrainingInstance): Observable<PaginatedResource<TrainingInstance>>;
 
-  abstract getPoolState(poolId: number): Observable<string>;
+  abstract runs(id: number): Observable<any>;
+
+  abstract token(id: number): Observable<any>;
+
+  abstract progress(id: number): Observable<any>;
+
+  abstract results(id: number): Observable<any>;
+
+  abstract getPoolSize(poolId: number): Observable<string>;
+
+  abstract getAvailableSandboxes(poolId: number): Observable<string>;
 
   abstract getSshAccess(poolId: number): Observable<boolean>;
 }

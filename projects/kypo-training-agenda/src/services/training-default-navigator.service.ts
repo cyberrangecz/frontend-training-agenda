@@ -14,6 +14,7 @@ import {
   TRAINING_DEFINITION_NEW_PATH,
   TRAINING_DEFINITION_PATH,
   TRAINING_DEFINITION_PREVIEW_PATH,
+  TRAINING_DEFINITION_DETAIL_PATH,
   TRAINING_INSTANCE_DETAIL_PATH,
   TRAINING_INSTANCE_EDIT_PATH,
   TRAINING_INSTANCE_NEW_PATH,
@@ -22,6 +23,8 @@ import {
   TRAINING_RUN_PATH,
   TRAINING_RUN_RESULTS_PATH,
   TRAINING_RUN_RESUME_PATH,
+  ADAPTIVE_DEFINITION_DETAIL_PATH,
+  RUNS_PATH,
 } from '../model/default-paths';
 
 @Injectable()
@@ -73,6 +76,14 @@ export class TrainingDefaultNavigator extends TrainingNavigator {
 
   toNewAdaptiveDefinition(): string {
     return `${ADAPTIVE_DEFINITION_PATH}/${TRAINING_DEFINITION_NEW_PATH}`;
+  }
+
+  /**
+   * Returns route to training definition detail page
+   * @param id id of the training definition
+   */
+  toTrainingDefinitionDetail(id: number): string {
+    return `${TRAINING_DEFINITION_PATH}/${id}/${TRAINING_DEFINITION_DETAIL_PATH}`;
   }
 
   /**
@@ -186,6 +197,22 @@ export class TrainingDefaultNavigator extends TrainingNavigator {
   }
 
   /**
+   * Returns route to training instance runs page
+   * @param id id of the training instance
+   */
+  toTrainingInstanceRuns(id: number | string): string {
+    return `${this.toTrainingInstanceDetail(id)}/${RUNS_PATH}`;
+  }
+
+  /**
+   * Returns route to adaptive instance runs page
+   * @param id id of the adaptive instance
+   */
+  toAdaptiveInstanceRuns(id: number | string): string {
+    return `${this.toAdaptiveInstanceDetail(id)}/${RUNS_PATH}`;
+  }
+
+  /**
    * Returns route to new training instance page
    */
   toNewTrainingInstance(): string {
@@ -245,5 +272,13 @@ export class TrainingDefaultNavigator extends TrainingNavigator {
 
   toPool(id: number | string): string {
     return `${SANDBOX_POOL_PATH}/${id}`;
+  }
+
+  /**
+   * Returns route to adaptive definition detail page
+   * @param id id of the adaptive definition
+   */
+  toAdaptiveDefinitionDetail(id: number): string {
+    return `${ADAPTIVE_DEFINITION_PATH}/${id}/${ADAPTIVE_DEFINITION_DETAIL_PATH}`;
   }
 }

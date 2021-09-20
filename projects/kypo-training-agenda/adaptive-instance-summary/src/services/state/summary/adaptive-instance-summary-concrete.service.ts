@@ -20,4 +20,8 @@ export class AdaptiveInstanceSummaryConcreteService extends AdaptiveInstanceSumm
   showResults(): Observable<any> {
     return from(this.router.navigate([this.navigator.toAdaptiveInstanceResults(this.trainingInstance.id)]));
   }
+
+  showToken(): Observable<any> {
+    return from(this.router.navigate([this.navigator.toAdaptiveInstanceAccessToken(this.trainingInstance.id)]));
+  }
 }

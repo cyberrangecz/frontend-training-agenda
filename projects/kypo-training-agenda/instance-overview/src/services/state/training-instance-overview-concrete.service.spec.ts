@@ -159,14 +159,9 @@ describe('TrainingInstanceOverviewConcreteService', () => {
     const paginatedSandboxes = createPaginatedSandboxesMock();
     poolApiSpy.getPool.and.returnValue(asyncData(pool));
     poolApiSpy.getPoolsSandboxes.and.returnValue(asyncData(paginatedSandboxes));
-    service.getPoolState(2).subscribe((res) => {
-      console.log(res);
+    service.getPoolSize(2).subscribe((res) => {
       expect(res).toBeTruthy();
-      expect(res).toEqual(
-        `${pool.maxSize} (${
-          paginatedSandboxes.elements.length - paginatedSandboxes.elements.filter((s) => s.lockId).length
-        } free)`
-      );
+      expect(res).toEqual(pool.maxSize.toString());
       expect(poolApiSpy.getPool).toHaveBeenCalledTimes(1);
       done();
     });

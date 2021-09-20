@@ -15,6 +15,11 @@ import { TrainingDefinitionDetailComponent } from './detail/training-definition-
 import { TrainingDefinitionOverviewMaterialModule } from './training-definition-overview-material.module';
 import { TrainingDefinitionOverviewComponent } from './training-definition-overview.component';
 import { TrainingDefinitionUploadDialogComponent } from './upload-dialog/training-definition-upload-dialog.component';
+import {
+  TrainingDefinitionBreadcrumbResolver,
+  TrainingDefinitionResolver,
+  TrainingDefinitionTitleResolver,
+} from '@muni-kypo-crp/training-agenda/resolvers';
 
 /**
  * Module containing components and providers for training definition overview.
@@ -40,6 +45,9 @@ import { TrainingDefinitionUploadDialogComponent } from './upload-dialog/trainin
     FileUploadProgressService,
     PaginationService,
     TrainingAgendaContext,
+    TrainingDefinitionBreadcrumbResolver,
+    TrainingDefinitionResolver,
+    TrainingDefinitionTitleResolver,
     { provide: TrainingNavigator, useClass: TrainingDefaultNavigator },
     { provide: TrainingDefinitionService, useClass: TrainingDefinitionConcreteService },
   ],

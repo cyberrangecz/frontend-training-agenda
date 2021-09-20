@@ -1,0 +1,18 @@
+<kypo-free-form-question-detail
+  *ngIf="question.questionType === QuestionTypeEnum.FFQ"
+  [question]="question"
+  [questionnaireType]="questionnaireType"
+>
+</kypo-free-form-question-detail>
+<kypo-multiple-choice-question-detail
+  *ngIf="question.questionType === QuestionTypeEnum.MCQ"
+  [question]="question"
+  [questionnaireType]="questionnaireType"
+>
+</kypo-multiple-choice-question-detail>
+<kypo-rating-form-question-detail
+  *ngIf="question.questionType === QuestionTypeEnum.RFQ"
+  [question]="question"
+  [questionnaireType]="questionnaireType"
+>
+</kypo-rating-form-question-detail>

@@ -11,10 +11,14 @@ import { AdaptiveFileUploadProgressService } from '../services/file-upload/adapt
 import { AdaptiveDefinitionConcreteService } from '../services/state/adaptive-definition.concrete.service';
 import { AdaptiveDefinitionService } from '../services/state/adaptive-definition.service';
 import { CloneDialogComponent } from './clone-dialog/clone-dialog.component';
-import { TrainingDefinitionDetailComponent } from './detail/training-definition-detail.component';
 import { AdaptiveDefinitionOverviewMaterialModule } from './adaptive-definition-overview-material.module';
 import { AdaptiveDefinitionOverviewComponent } from './adaptive-definition-overview.component';
 import { TrainingDefinitionUploadDialogComponent } from './upload-dialog/training-definition-upload-dialog.component';
+import {
+  AdaptiveDefinitionBreadcrumbResolver,
+  AdaptiveDefinitionResolver,
+  AdaptiveDefinitionTitleResolver,
+} from '@muni-kypo-crp/training-agenda/resolvers';
 
 /**
  * Module containing components and providers for training definition overview.
@@ -30,16 +34,14 @@ import { TrainingDefinitionUploadDialogComponent } from './upload-dialog/trainin
     SentinelTableModule,
     SentinelControlsModule,
   ],
-  declarations: [
-    AdaptiveDefinitionOverviewComponent,
-    TrainingDefinitionUploadDialogComponent,
-    CloneDialogComponent,
-    TrainingDefinitionDetailComponent,
-  ],
+  declarations: [AdaptiveDefinitionOverviewComponent, TrainingDefinitionUploadDialogComponent, CloneDialogComponent],
   providers: [
     AdaptiveFileUploadProgressService,
     PaginationService,
     TrainingAgendaContext,
+    AdaptiveDefinitionResolver,
+    AdaptiveDefinitionBreadcrumbResolver,
+    AdaptiveDefinitionTitleResolver,
     { provide: TrainingNavigator, useClass: TrainingDefaultNavigator },
     { provide: AdaptiveDefinitionService, useClass: AdaptiveDefinitionConcreteService },
   ],

@@ -49,8 +49,6 @@ export class AccessAdaptiveRunResolver implements Resolve<AccessTrainingRunInfo>
       tap((trainingRunInfo) => this.runningAdaptiveRunService.init(trainingRunInfo)),
       mergeMap((tr) => (tr ? of(tr) : this.navigateToOverview())),
       catchError((err) => {
-        // TODO remove only here to see error for current_phase.tasks[0]
-        console.log(err);
         this.errorHandler.emit(err, 'Resuming adaptive run');
         return this.navigateToOverview();
       })

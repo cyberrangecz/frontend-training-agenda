@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { SentinelBaseDirective, RequestedPagination } from '@sentinel/common';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { TrainingDefinition } from '@muni-kypo-crp/training-model';
@@ -9,6 +8,7 @@ import { map, take, takeWhile } from 'rxjs/operators';
 import { TrainingDefinitionOverviewControls } from '../model/training-definition-overview-controls';
 import { TrainingDefinitionTable } from '../model/training-definition-table';
 import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
+import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
 import { TrainingDefinitionService } from '../services/state/training-definition.service';
 
 /**
@@ -29,9 +29,9 @@ export class TrainingDefinitionOverviewComponent extends SentinelBaseDirective i
   controls: SentinelControlItem[] = [];
 
   constructor(
-    private activatedRoute: ActivatedRoute,
     private trainingDefinitionService: TrainingDefinitionService,
-    private paginationService: PaginationService
+    private paginationService: PaginationService,
+    private navigator: TrainingNavigator
   ) {
     super();
   }
@@ -73,7 +73,7 @@ export class TrainingDefinitionOverviewComponent extends SentinelBaseDirective i
     this.hasError$ = this.trainingDefinitionService.hasError$;
     this.isLoading$ = this.trainingDefinitionService.isLoading$;
     this.trainingDefinitions$ = this.trainingDefinitionService.resource$.pipe(
-      map((resource) => new TrainingDefinitionTable(resource, this.trainingDefinitionService))
+      map((resource) => new TrainingDefinitionTable(resource, this.trainingDefinitionService, this.navigator))
     );
     const initialPagination = new RequestedPagination(
       0,

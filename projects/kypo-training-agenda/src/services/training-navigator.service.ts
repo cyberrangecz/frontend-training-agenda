@@ -20,6 +20,12 @@ export abstract class TrainingNavigator {
   abstract toTrainingDefinitionPreview(id: number | string): string;
 
   /**
+   * Returns route to adaptive definition detail page
+   * @param id id of the adaptive definition
+   */
+  abstract toAdaptiveDefinitionDetail(id: number): string;
+
+  /**
    * Returns route to training definition edit page
    * @param id id of the training definition
    */
@@ -39,6 +45,12 @@ export abstract class TrainingNavigator {
    * Returns route to new adaptive definition page
    */
   abstract toNewAdaptiveDefinition(): string;
+
+  /**
+   * Returns route to training definition detail page
+   * @param id id of the training definition
+   */
+  abstract toTrainingDefinitionDetail(id: number): string;
 
   /**
    * Returns route to training instance overview page
@@ -121,6 +133,18 @@ export abstract class TrainingNavigator {
    * @param id id of the adaptive instance
    */
   abstract toAdaptiveInstanceResults(id: number | string): string;
+
+  /**
+   * Returns route to training instance runs page
+   * @param id id of the training instance
+   */
+  abstract toTrainingInstanceRuns(id: number | string): string;
+
+  /**
+   * Returns route to adaptive instance runs page
+   * @param id id of the adaptive instance
+   */
+  abstract toAdaptiveInstanceRuns(id: number | string): string;
 
   /**
    * Returns route to new training instance page

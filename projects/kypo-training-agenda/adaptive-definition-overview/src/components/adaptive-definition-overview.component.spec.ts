@@ -5,6 +5,7 @@ import { TestBed, async, ComponentFixture, fakeAsync } from '@angular/core/testi
 import { TrainingDefinitionService } from '@muni-kypo-crp/training-agenda/definition-overview';
 import {
   createActivatedRouteSpy,
+  createNavigatorSpy,
   createPaginationServiceSpy,
   createTrainingDefinitionServiceSpy,
 } from '../../../internal/src/testing/testing-commons.spec';
@@ -15,17 +16,18 @@ import { LoadTableEvent, SentinelTableModule } from '@sentinel/components/table'
 import { SentinelControlsModule } from '@sentinel/components/controls';
 import { MaterialTestingModule } from '../../../internal/src/testing/material-testing.module';
 import { AdaptiveDefinitionService } from '../services/state/adaptive-definition.service';
+import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
 
-describe('TrainingDefinitionOverviewComponent', () => {
+describe('AdaptiveDefinitionOverviewComponent', () => {
   let component: AdaptiveDefinitionOverviewComponent;
   let fixture: ComponentFixture<AdaptiveDefinitionOverviewComponent>;
 
-  let activatedRouteSpy: jasmine.SpyObj<ActivatedRoute>;
+  let navigatorSpy: jasmine.SpyObj<TrainingNavigator>;
   let paginationServiceSpy: jasmine.SpyObj<PaginationService>;
   let adaptiveDefinitionServiceSpy: jasmine.SpyObj<TrainingDefinitionService>;
 
   beforeEach(async(() => {
-    activatedRouteSpy = createActivatedRouteSpy();
+    navigatorSpy = createNavigatorSpy();
     paginationServiceSpy = createPaginationServiceSpy();
     adaptiveDefinitionServiceSpy = createTrainingDefinitionServiceSpy();
     initValues();
@@ -33,7 +35,7 @@ describe('TrainingDefinitionOverviewComponent', () => {
       imports: [MaterialTestingModule, SentinelTableModule, BrowserAnimationsModule, SentinelControlsModule],
       declarations: [AdaptiveDefinitionOverviewComponent],
       providers: [
-        { provide: ActivatedRoute, useValue: activatedRouteSpy },
+        { provide: TrainingNavigator, useValue: navigatorSpy },
         { provide: PaginationService, useValue: paginationServiceSpy },
         { provide: AdaptiveDefinitionService, useValue: adaptiveDefinitionServiceSpy },
       ],
@@ -43,20 +45,21 @@ describe('TrainingDefinitionOverviewComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AdaptiveDefinitionOverviewComponent);
     component = fixture.componentInstance;
+    navigatorSpy.toAdaptiveDefinitionDetail.and.returnValue('');
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should init values', fakeAsync(() => {
+  it('should init values', () => {
     adaptiveDefinitionServiceSpy.getAll.and.returnValue(asyncData(createPaginatedMock()));
     fixture.detectChanges();
     expect(component.controls.length).toEqual(2);
     component.hasError$.subscribe((val) => expect(val).toBeFalse());
     component.isLoading$.subscribe((val) => expect(val).toBeFalse());
     component.trainingDefinitions$.subscribe((val) => expect(val).toBeTruthy());
-  }));
+  });
 
   it('should get data for table', () => {
     adaptiveDefinitionServiceSpy.getAll.and.returnValue(asyncData(createPaginatedMock()));

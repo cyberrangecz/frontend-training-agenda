@@ -1,0 +1,53 @@
+.question-matrix-header-container {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
+.inner-td {
+  text-align: center;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+th {
+  padding-right: 10px;
+}
+
+tr {
+  border-bottom: 1px solid #ddd;
+}
+
+tr:last-of-type {
+  border-bottom: 0px;
+}
+
+.key-field {
+  color: gray;
+  margin-right: 6px;
+  margin-left: 10px;
+}
+
+.data-field {
+  display: flex;
+  flex-direction: row;
+}
+
+h4 {
+  margin: 0;
+}
+
+.question-type {
+  vertical-align: bottom;
+}
+
+mat-icon {
+  -webkit-touch-callout: none; 
+    -webkit-user-select: none; 
+     -khtml-user-select: none; 
+       -moz-user-select: none; 
+        -ms-user-select: none; 
+            user-select: none;
+}

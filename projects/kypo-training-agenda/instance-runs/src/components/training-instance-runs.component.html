@@ -1,0 +1,11 @@
+<div *ngIf="trainingInstance$ | async as trainingInstance">
+  <mat-card>
+    <kypo-training-run-overview
+      [trainingRuns]="trainingRuns$ | async"
+      [hasError]="trainingRunsHasError$ | async"
+      [isLoading]="loadingTrainingRuns$ | async"
+      (tableAction)="onTrainingRunsTableAction($event)"
+    >
+    </kypo-training-run-overview>
+  </mat-card>
+</div>
