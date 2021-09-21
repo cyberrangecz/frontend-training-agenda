@@ -1,3 +1,4 @@
+12.0.13 New version of the topology graph package - added missing configuration for Apache Guacamole.
 12.0.12 Add checkbox to support creation of default content in the training definition.
 12.0.11 Add detail pages for training definition and instace.
 12.0.10 Fix linear questions, latest overview visualization.
