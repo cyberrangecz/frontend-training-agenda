@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="content">
+  <div class="content" [ngStyle]="{ 'margin-bottom': getControlsPanelOffset() }">
     <div class="questions" *ngFor="let question of phase.questions; index as i" >
       <h2>{{i+1}}. {{ question.text }}</h2>
 
@@ -39,12 +39,12 @@
       </ng-container>
     </div>
   </div>
-
-
-  <div class="footer">
-    <button *ngIf="!isSubmitted" [disabled]="isLoading" mat-raised-button color="primary" (click)="submit()">Submit</button>
-    <kypo-next-phase-button *ngIf="isSubmitted" [isLast]="isLast" (next)="onNext()"></kypo-next-phase-button>
-  </div>
+  <mat-card #controls class="controls">
+    <div class="controls-container">
+      <button *ngIf="!isSubmitted" [disabled]="isLoading" mat-raised-button color="primary" (click)="submit()">Submit</button>
+      <kypo-next-phase-button *ngIf="isSubmitted" [isLast]="isLast" (next)="onNext()"></kypo-next-phase-button>
+    </div>
+  </mat-card>
 
 </div>
 

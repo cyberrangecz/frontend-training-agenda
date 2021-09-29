@@ -1,63 +1,11 @@
 <div class="container">
-  <div class="content">
+  <div class="content" [ngStyle]="{ 'margin-bottom': getControlsPanelOffset() }">
     <div class="left-panel">
       <div #levelContent #solution class="level-content">
         <markdown [data]="phase.currentTask.content"></markdown>
         <div *ngIf="displayedSolutionContent$ | async as solutionContent" class="solution-content">
-          <h2><span class="solution-color"> Solution: </span></h2>
+          <h2><span> Solution: </span></h2>
           <markdown [data]="solutionContent"> </markdown>
-        </div>
-      </div>
-      <div class="game-control-bar">
-        <div>
-          <!-- SOLUTION BUTTON-->
-          <button
-            mat-raised-button
-            color="warn"
-            [disabled]="(isSolutionRevealed$ | async) || (isCorrectAnswerSubmitted$ | async) || (isLoading$ | async)"
-            (click)="revealSolution()"
-            matTooltip="Display solution"
-          >
-            Solution
-          </button>
-        </div>
-
-        <div class="answer-input">
-          <!-- ANSWER field-->
-          <form autocomplete="off">
-            <mat-form-field appearance="outline" (keydown.enter)="$event.preventDefault()">
-              <mat-label>Answer</mat-label>
-              <input
-                matInput
-                placeholder="Answer"
-                autocomplete="off"
-                (keydown)="keyboardSubmitAnswer($event)"
-                [disabled]="isCorrectAnswerSubmitted$ | async"
-                [(ngModel)]="answer"
-                [ngModelOptions]="{ standalone: true }"
-              />
-              <button
-                *ngIf="answer"
-                mat-button
-                matSuffix
-                mat-icon-button
-                aria-label="Clear"
-                [disabled]="isCorrectAnswerSubmitted$ | async"
-                (click)="answer = ''"
-              >
-                <mat-icon>close</mat-icon>
-              </button>
-            </mat-form-field>
-          </form>
-          <button
-            class="submit-button"
-            mat-raised-button
-            color="accent"
-            [disabled]="!answer || (isCorrectAnswerSubmitted$ | async) || calculating"
-            (click)="submitAnswer()"
-          >
-            Submit
-          </button>
         </div>
       </div>
     </div>
@@ -72,36 +20,82 @@
         [style.height.px]="topologyHeight"
       >
       </kypo2-topology-graph>
-         <!-- GET SSH ACCESS BUTTON-->
-         <button
-         mat-raised-button
-         color="primary"
-         style="width: fit-content; align-self: flex-end; margin: 0; margin-top: 7px;"
-         [disabled]="(isLoading$ | async) ||
-                       (isCorrectAnswerSubmitted$ | async)
-           "
-         (click)="download()"
-         matTooltip="Download config for SSH client"
-       >
-         Get SSH Config
-       </button>
-
-      <!-- GET SSH ACCESS BUTTON-->
-      <button
-        class="ssh-button"
-        mat-raised-button
-        color="primary"
-        [disabled]="(isLoading$ | async) || (isCorrectAnswerSubmitted$ | async)"
-        (click)="download()"
-        matTooltip="Download config for SSH client"
-      >
-        Get SSH Config
-      </button>
     </div>
   </div>
-  <div *ngIf="isCorrectAnswerSubmitted$ | async" class="footer">
-    <kypo-next-phase-button [isLast]="isLast" (next)="onNext()"> </kypo-next-phase-button>
-  </div>
+  <mat-card #controls class="controls">
+    <div #controlsContainer [ngClass]="!isWrapped() ? 'controls-container' : 'controls-container wrapped'">
+      <div [ngClass]="!isWrapped() ? 'solution' : 'solution wrapped'">
+        <!-- SOLUTION BUTTON-->
+        <div class="solution-button" [ngClass]="{ divider: !isWrapped() }">
+          <button
+            mat-raised-button
+            color="warn"
+            [disabled]="(isSolutionRevealed$ | async) || (isCorrectAnswerSubmitted$ | async) || (isLoading$ | async)"
+            (click)="revealSolution()"
+            matTooltip="Display solution"
+          >
+            Reveal Solution
+          </button>
+        </div>
+      </div>
+      <div [ngClass]="!isWrapped() ? 'answer-ssh' : 'answer-ssh wrapped'">
+        <!-- ANSWER field-->
+        <div class="answer-input" [ngClass]="{ divider: !isWrapped() }">
+          <div *ngIf="(isCorrectAnswerSubmitted$ | async) && (isLoading$ | async) !== true; else answerInput">
+            <kypo-next-phase-button [isLast]="isLast" (next)="onNext()"> </kypo-next-phase-button>
+          </div>
+          <ng-template #answerInput>
+            <form autocomplete="off">
+              <mat-form-field shouldLabelFloat="false" appearance="outline" (keydown.enter)="$event.preventDefault()">
+                <mat-label>Answer</mat-label>
+                <input
+                  matInput
+                  placeholder="Answer"
+                  autocomplete="off"
+                  (keydown)="keyboardSubmitAnswer($event)"
+                  [disabled]="isCorrectAnswerSubmitted$ | async"
+                  [(ngModel)]="answer"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+                <button
+                  *ngIf="answer"
+                  mat-button
+                  matSuffix
+                  mat-icon-button
+                  aria-label="Clear"
+                  [disabled]="isCorrectAnswerSubmitted$ | async"
+                  (click)="answer = ''"
+                >
+                  <mat-icon>close</mat-icon>
+                </button>
+              </mat-form-field>
+            </form>
+            <button
+              mat-raised-button
+              class="submit-button"
+              color="primary"
+              [disabled]="isCorrectAnswerSubmitted$ | async"
+              (click)="submitAnswer()"
+            >
+              Submit
+            </button>
+          </ng-template>
+        </div>
+        <!-- GET SSH ACCESS BUTTON-->
+        <div class="ssh-button">
+          <button
+            mat-raised-button
+            color="primary"
+            [disabled]="(isLoading$ | async) || (isCorrectAnswerSubmitted$ | async)"
+            (click)="download()"
+            matTooltip="Download config for SSH client"
+          >
+            Get SSH Config
+          </button>
+        </div>
+      </div>
+    </div>
+  </mat-card>
 </div>
 
 <ng-template #topologyPlaceholder>

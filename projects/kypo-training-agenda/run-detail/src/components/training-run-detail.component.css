@@ -4,10 +4,7 @@
   align-items: center;
   width: 100%;
   margin-bottom: 10px;
-}
-
-.spacer {
-  flex: 1 1 0;
+  justify-content: flex-end;
 }
 
 .training-run-stepper, .training-run-preview-stepper {
@@ -22,8 +19,16 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  align-self: flex-end;
 }
 
 .message {
   color: #999999;
+}
+
+
+@media screen and (max-width: 1400px) {
+ .header {
+   flex-wrap: wrap;
+ }
 }

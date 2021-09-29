@@ -1,29 +1,23 @@
 <div class="container">
-  <div class="content">
+  <div class="content" [ngStyle]="{ 'margin-bottom': getControlsPanelOffset() }">
     <markdown [data]="level.instructions"></markdown>
     <!-- QUESTIONS -->
     <div class="questions">
       <div *ngFor="let question of level.questions; index as i" class="question">
         <mat-divider></mat-divider>
-        <kypo-trainee-question
-          [question]="question"
-          [index]="i + 1"
-          (contentChanged)="onContentChanged()">
+        <kypo-trainee-question [question]="question" [index]="i + 1" (contentChanged)="onContentChanged()">
         </kypo-trainee-question>
       </div>
     </div>
   </div>
-  <div *ngIf="!isPreview" class="footer">
-    <button *ngIf="!isSubmitted"
-            mat-raised-button
-            color="primary"
-            [disabled]="!canSubmit"
-            (click)="submit()">
-      Submit
-    </button>
-    <kypo-next-level-button *ngIf="isSubmitted"
-                            [isLast]="isLast"
-                            (next)="onNext()">
-    </kypo-next-level-button>
+  <div [hidden]="isPreview">
+    <mat-card #controls class="controls">
+      <div class="controls-container">
+        <button *ngIf="!isSubmitted" mat-raised-button color="primary" (click)="submit()">
+          Submit
+        </button>
+        <kypo-next-level-button *ngIf="isSubmitted" [isLast]="isLast" (next)="onNext()"> </kypo-next-level-button>
+      </div>
+    </mat-card>
   </div>
 </div>
