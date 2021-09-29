@@ -32,7 +32,8 @@ export class TrainingPhaseComponent extends SentinelBaseDirective implements OnI
   @Input() sandboxId: number;
   @Output() next: EventEmitter<void> = new EventEmitter();
   @ViewChild('rightPanel', { static: true }) rightPanelDiv: ElementRef;
-  @ViewChild('levelContent') private levelContent: ElementRef;
+  @ViewChild('controls', { read: ElementRef }) controlsPanel: ElementRef;
+  @ViewChild('controlsContainer', { static: true, read: ElementRef }) controlsContainer: ElementRef;
 
   topologyWidth: number;
   topologyHeight: number;
@@ -110,10 +111,7 @@ export class TrainingPhaseComponent extends SentinelBaseDirective implements OnI
   }
 
   private calculateTopologySize() {
-    this.topologyWidth =
-      window.innerWidth >= 1920
-        ? this.rightPanelDiv.nativeElement.getBoundingClientRect().width
-        : window.innerWidth / 2;
+    this.topologyWidth = this.rightPanelDiv.nativeElement.getBoundingClientRect().width;
     this.topologyHeight = this.topologyWidth;
   }
 
@@ -130,17 +128,30 @@ export class TrainingPhaseComponent extends SentinelBaseDirective implements OnI
   }
 
   private scrollToBottom(): void {
-    this.levelContent.nativeElement.scrollTo({
+    window.scrollTo({
       left: 0,
-      top: this.levelContent.nativeElement.scrollHeight,
+      top: document.body.scrollHeight,
       behavior: 'smooth',
     });
   }
 
   private scrollToTop(): void {
-    this.levelContent.nativeElement.scrollTo({
+    window.scrollTo({
       left: 0,
       top: 0,
     });
+  }
+
+  // Workaround since position:sticky is not working due to overflow in mat-content
+  getControlsPanelOffset(): string {
+    return this.controlsPanel?.nativeElement.offsetHeight + 'px';
+  }
+
+  // Checks if items in control bar are wrapped based on their top offset
+  isWrapped(): boolean {
+    const elements = Array.from(this.controlsContainer.nativeElement.childNodes).filter(
+      (elem: HTMLElement) => elem.offsetTop !== undefined
+    );
+    return elements.some((elem: HTMLElement) => elem.offsetTop !== (elements[0] as HTMLElement).offsetTop);
   }
 }

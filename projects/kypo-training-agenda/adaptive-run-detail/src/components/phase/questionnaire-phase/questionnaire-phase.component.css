@@ -12,13 +12,6 @@
   width: 60%;
 }
 
-.footer {
-  margin-top: 30px;
-  width: 90%;
-  display: flex;
-  flex-direction: row-reverse;
-}
-
 .questions {
   margin-top: 60px;
   display: flex;
@@ -55,4 +48,26 @@
 
 #max-length-ffq-answer {
   color: #999999;
+}
+
+/* (100vw - 100%) is used to account for scrollbar */
+.controls {
+  position: fixed; 
+  bottom: 0;
+  left: 140px;
+  z-index: 10;
+  width: calc(100vw - (100vw - 100%) - 16px - 140px);
+  padding: 8px;
+}
+
+.controls-container {
+  display: flex;
+  width: 80%;
+  flex-direction: row-reverse;
+}
+
+@media screen and (max-width: 1500px) {
+  .content {
+    width: 90%;
+  }
 }

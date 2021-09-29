@@ -1,12 +1,14 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
   EventEmitter,
   Input,
   OnChanges,
   OnInit,
   Output,
   SimpleChanges,
+  ViewChild,
 } from '@angular/core';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { take } from 'rxjs/operators';
@@ -23,6 +25,7 @@ export class QuestionnairePhaseComponent extends SentinelBaseDirective implement
   @Input() phase: QuestionnairePhase;
   @Input() isLast: boolean;
   @Output() next: EventEmitter<void> = new EventEmitter();
+  @ViewChild('controls', { read: ElementRef, static: true }) controlsPanel: ElementRef;
 
   isSubmitted = false;
   isLoading = false;
@@ -90,5 +93,10 @@ export class QuestionnairePhaseComponent extends SentinelBaseDirective implement
         this.isSubmitted = true;
         this.isLoading = false;
       });
+  }
+
+  // Workaround since position:sticky is not working due to overflow in mat-content
+  getControlsPanelOffset(): string {
+    return this.controlsPanel?.nativeElement.offsetHeight + 'px';
   }
 }

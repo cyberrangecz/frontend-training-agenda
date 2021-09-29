@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
   EventEmitter,
   Input,
   OnChanges,
@@ -8,6 +9,7 @@ import {
   Output,
   QueryList,
   SimpleChanges,
+  ViewChild,
   ViewChildren,
 } from '@angular/core';
 import { SentinelBaseDirective } from '@sentinel/common';
@@ -35,6 +37,7 @@ export class AssessmentLevelComponent extends SentinelBaseDirective implements O
   @Input() isPreview: boolean;
   @Output() next: EventEmitter<void> = new EventEmitter();
   @ViewChildren(TraineeQuestionComponent) questionComponents: QueryList<TraineeQuestionComponent>;
+  @ViewChild('controls', { read: ElementRef }) controlsPanel: ElementRef;
 
   canSubmit: boolean;
   isSubmitted = false;
@@ -106,5 +109,10 @@ export class AssessmentLevelComponent extends SentinelBaseDirective implements O
       }
     }
     this.canSubmit = true;
+  }
+
+  // Workaround since position:sticky is not working due to overflow in mat-content
+  getControlsPanelOffset(): string {
+    return this.controlsPanel?.nativeElement.offsetHeight + 'px';
   }
 }

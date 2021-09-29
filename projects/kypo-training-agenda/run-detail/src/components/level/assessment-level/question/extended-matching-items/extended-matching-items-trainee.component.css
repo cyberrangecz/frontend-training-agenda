@@ -23,6 +23,10 @@ tr {
   border-bottom: 1px solid #ddd;
 }
 
+tr:last-child {
+  border-bottom: 0;
+}
+
 tr.inner:hover {
   background-color: gainsboro;
 }

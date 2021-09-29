@@ -9,8 +9,10 @@ markdown ::ng-deep pre {
   overflow-wrap: break-word;
 }
 
-::ng-deep .mat-form-field-outline {
-  background-color: white;
+/* removes padding and margin from the bottom of the form field to reduce bottom bar height */
+::ng-deep .mat-form-field-wrapper {
+  padding: 0;
+  margin: 0;
 }
 
 kypo2-topology-graph {
@@ -21,6 +23,11 @@ kypo2-topology-graph {
   border: 1px solid gainsboro;
 }
 
+mat-form-field {
+  width: 230px;
+}
+
+
 .container {
   display: flex;
   flex-direction: column;
@@ -28,19 +35,11 @@ kypo2-topology-graph {
   align-content: center;
 }
 
-.footer {
-  margin-top: 30px;
-  width: 90%;
-  display: flex;
-  flex-direction: row-reverse;
-}
-
 .content {
   margin-top: 10px;
   display: flex;
   width: 90%;
   flex-direction: row;
-
 }
 
 .left-panel {
@@ -61,42 +60,40 @@ kypo2-topology-graph {
   flex-direction: row;
   align-content: baseline;
   align-items: baseline;
-}
-
-.spacer {
-  flex: 1 1 0;
-}
-
-.game-control-bar {
-  display: flex;
-  flex-direction: row;
-  align-items: baseline;
-  margin: 20px 0;
-}
-
-button {
-  margin-right: 10px;
-}
-
-mat-form-field {
-  width: 250px;
-}
-
-.level-content {
-  height: 55vh;
-  overflow: auto;
-}
-
-.ssh-button {
-  width: fit-content;
-  margin: 0;
-  margin-top: 10px;
-  align-self: flex-end;
+  position: relative;
 }
 
 .submit-button {
-  margin: 0;
   margin-left: 10px;
+  align-self: center;
+}
+
+.ssh-button {
+  display: flex;
+  align-items: center;
+}
+
+.hint-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.solution-button {
+  display: flex;
+  align-items: center;
+  position: relative;
+} 
+
+.divider::after {
+  content: '';
+  position: absolute;
+  border-left: 1px solid rgba(0,0,0,.12);
+  right: -1vw;
+  height: 100%; 
 }
 
 #solution {
@@ -107,9 +104,70 @@ h3 {
   margin: 0;
 }
 
-@media screen and (max-width: 1900px) {
+/* (100vw - 100%) is used to account for scrollbar */
+.controls {
+  position: fixed; 
+  bottom: 0;
+  left: 140px;
+  z-index: 10;
+  width: calc(100vw - (100vw - 100%) - 16px - 140px);
+  padding: 8px;
+}
+
+button {
+  height: fit-content;
+}
+
+.controls-container {
+  height: fit-content;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2vw;
+}
+
+.controls-container.wrapped{
+  height: fit-content;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1vw;
+}
+
+.hint-solution {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: fit-content;
+  gap: 2vw;
+}
+
+.hint-solution.wrapped {
+  flex-grow: 1;
+  padding: 0.5vw 1vw 0 1vw;
+  gap: 0.5vw;
+}
+
+.answer-ssh {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: fit-content;
+  gap: 2vw;
+}
+
+.answer-ssh.wrapped {
+  flex-grow: 1;
+  padding: 0 1vw;
+  gap: 0.5vw;
+}
+
+@media screen and (max-width: 1500px) {
   .content {
-    width: 90%;
     flex-direction: column;
   }
 
@@ -125,17 +183,14 @@ h3 {
     display: flex;
     flex-direction: row;
   }
-
-  .game-control-panel {
-    display: flex;
-    flex-direction: column;
-    margin-left: 20px;
-  }
-
-  .game-control-bar {
-    display: flex;
-    flex-direction: row;
-    align-items: baseline;
-  }
+  
 }
 
+/* Breakpoint based on sentinel layout (when navbar is hidden) */
+@media(max-width: 748px ) {
+  .controls {
+    left: 0;
+    width: calc(100vw - (100vw - 100%) - 16px);
+    
+  }
+}

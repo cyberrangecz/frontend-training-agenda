@@ -7,8 +7,6 @@
                         [activeIndex]="stepper.activePhaseIndex">
       </sentinel-stepper>
     </div>
-
-    <span class="spacer"></span>
     <div class="right-panel">
       <sentinel-user-card [user]="user$ | async"></sentinel-user-card>
       <kypo-training-timer *ngIf="isTimerDisplayed && startTime" [startTime]="startTime"></kypo-training-timer>

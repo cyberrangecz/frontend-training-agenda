@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { InfoPhase } from '@muni-kypo-crp/training-model';
 
@@ -13,6 +13,7 @@ export class InfoPhaseComponent extends SentinelBaseDirective {
   @Input() isLast: boolean;
   @Input() isLoading = false;
   @Output() next: EventEmitter<void> = new EventEmitter();
+  @ViewChild('controls', { read: ElementRef, static: true }) controlsPanel: ElementRef;
 
   constructor() {
     super();
@@ -20,5 +21,10 @@ export class InfoPhaseComponent extends SentinelBaseDirective {
 
   onNext(): void {
     this.next.emit();
+  }
+
+  // Workaround since position:sticky is not working due to overflow in mat-content
+  getControlsPanelOffset(): string {
+    return this.controlsPanel?.nativeElement.offsetHeight + 'px';
   }
 }
