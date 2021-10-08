@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RequestedPagination, SentinelBaseDirective } from '@sentinel/common';
 import { TrainingInstance, TrainingRun } from '@muni-kypo-crp/training-model';
-import { Observable } from 'rxjs';
-import { map, switchMap, take, takeWhile, tap } from 'rxjs/operators';
+import { combineLatest, forkJoin, Observable, zip } from 'rxjs';
+import { concatMap, map, switchMap, take, takeWhile, tap } from 'rxjs/operators';
 import {
   TrainingNavigator,
   TrainingNotificationService,
@@ -76,6 +76,11 @@ export class TrainingInstanceSummaryComponent extends SentinelBaseDirective impl
       )
       .subscribe();
   }
+
+  onTrainingRunTableRowExpand(trainingRunId: number): void {
+    this.trainingRunService.getInfo(trainingRunId).pipe();
+  }
+
   private initSummaryComponent(trainingInstance: TrainingInstance) {
     this.trainingInstanceSummaryService.init(trainingInstance);
     this.trainingInstanceAccessTokenLink = `/${this.navigator.toTrainingInstanceAccessToken(trainingInstance.id)}`;

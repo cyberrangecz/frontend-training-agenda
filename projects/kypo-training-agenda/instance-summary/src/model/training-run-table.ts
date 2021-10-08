@@ -1,8 +1,9 @@
 import { PaginatedResource, SentinelDateTimeFormatPipe } from '@sentinel/common';
-import { TrainingRun, TrainingRunStateEnum } from '@muni-kypo-crp/training-model';
-import { Column, SentinelTable, Row } from '@sentinel/components/table';
+import { TrainingDefinition, TrainingInstance, TrainingRun, TrainingRunStateEnum } from '@muni-kypo-crp/training-model';
+import { Column, SentinelTable, Row, RowExpand } from '@sentinel/components/table';
 import { TrainingRunRowAdapter } from './training-run-row-adapter';
 import { DateHelper } from '@muni-kypo-crp/training-agenda/internal';
+import { TrainingRunInfoComponent } from '../components/runs/detail/training-run-info.component';
 
 /**
  * @dynamic
@@ -19,6 +20,8 @@ export class TrainingRunTable extends SentinelTable<TrainingRunRowAdapter> {
     ];
     const rows = resource.elements.map((element) => TrainingRunTable.createRow(element));
     super(rows, columns);
+    this.expand = new RowExpand(TrainingRunInfoComponent);
+    // this.expand.component...componentInstance.visibility.subscribe()
     this.pagination = resource.pagination;
     this.filterable = false;
   }
@@ -27,6 +30,7 @@ export class TrainingRunTable extends SentinelTable<TrainingRunRowAdapter> {
     const datePipe = new SentinelDateTimeFormatPipe('en-EN');
     const adapter = element as TrainingRunRowAdapter;
     adapter.playerName = adapter.player.name;
+    // adapter.trainingDefinition = trainingDefinition;
     adapter.startTimeFormatted = `${datePipe.transform(adapter.startTime)}`;
     if (adapter.state === TrainingRunStateEnum.FINISHED) {
       adapter.endTimeFormatted = `${datePipe.transform(adapter.endTime)}`;

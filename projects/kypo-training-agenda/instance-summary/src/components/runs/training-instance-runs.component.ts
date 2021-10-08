@@ -15,6 +15,7 @@ export class TrainingInstanceRunsComponent extends SentinelBaseDirective {
 
   @Output() tableAction: EventEmitter<TableActionEvent<TrainingRun>> = new EventEmitter();
   @Output() loadTableEvent: EventEmitter<LoadTableEvent> = new EventEmitter();
+  @Output() rowExpanded: EventEmitter<number> = new EventEmitter();
 
   /**
    * Emits table action event
@@ -22,6 +23,10 @@ export class TrainingInstanceRunsComponent extends SentinelBaseDirective {
    */
   onTableAction(event: TableActionEvent<TrainingRun>): void {
     this.tableAction.emit(event);
+  }
+
+  onTableRowExpand(event: TableActionEvent<TrainingRun>): void {
+    this.rowExpanded.emit(event.element.id);
   }
 
   /**

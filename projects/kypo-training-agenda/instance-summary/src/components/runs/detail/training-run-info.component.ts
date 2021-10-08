@@ -1,0 +1,31 @@
+import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { TrainingRun, TrainingRunInfo } from '@muni-kypo-crp/training-model';
+import { TrainingRunConcreteService } from '../../../services/state/runs/training-run-concrete.service';
+import { TrainingRunService } from '../../../services/state/runs/training-run.service';
+import { SentinelTable } from '@sentinel/components/table';
+import { TrainingInfoTable } from '../../../model/training-info-table';
+
+@Component({
+  selector: 'kypo-training-run-info',
+  templateUrl: './training-run-info.component.html',
+  styleUrls: ['./training-run-info.component.css'],
+  providers: [{ provide: TrainingRunService, useClass: TrainingRunConcreteService }],
+})
+export class TrainingRunInfoComponent implements OnInit {
+  @HostBinding('style.width') width = '100%';
+  @Input() data: TrainingRun;
+  info: SentinelTable<TrainingRunInfo>;
+  hasError = false;
+
+  constructor(private trainingRunService: TrainingRunService) {}
+
+  ngOnInit(): void {
+    this.trainingRunService.getInfo(this.data.id).subscribe(
+      (res) => {
+        this.info = new TrainingInfoTable(res);
+        this.hasError = false;
+      },
+      () => (this.hasError = true)
+    );
+  }
+}

@@ -14,6 +14,7 @@ import { TrainingInstanceSummaryComponent } from './training-instance-summary.co
 import { TrainingInstanceRunsComponent } from './runs/training-instance-runs.component';
 import { TrainingRunConcreteService } from '../services/state/runs/training-run-concrete.service';
 import { TrainingRunService } from '../services/state/runs/training-run.service';
+import { TrainingRunInfoComponent } from './runs/detail/training-run-info.component';
 
 /**
  * Components and providers for training instance summaries.
@@ -28,7 +29,12 @@ import { TrainingRunService } from '../services/state/runs/training-run.service'
     SentinelTableModule,
     SentinelControlsModule,
   ],
-  declarations: [TrainingInstanceSummaryComponent, TrainingInstanceInfoComponent, TrainingInstanceRunsComponent],
+  declarations: [
+    TrainingInstanceSummaryComponent,
+    TrainingInstanceInfoComponent,
+    TrainingInstanceRunsComponent,
+    TrainingRunInfoComponent,
+  ],
   providers: [
     { provide: TrainingInstanceSummaryService, useClass: TrainingInstanceSummaryConcreteService },
     { provide: TrainingRunService, useClass: TrainingRunConcreteService },
