@@ -25,7 +25,6 @@ import { AbstractControl } from '@angular/forms';
 })
 export class TrainingLevelEditComponent extends SentinelBaseDirective implements OnChanges {
   @Input() level: TrainingLevel;
-  @Input() variantSandboxes: boolean;
   @Output() levelChange: EventEmitter<TrainingLevel> = new EventEmitter();
   trainingLevelConfigFormGroup: TrainingLevelEditFormGroup;
 
@@ -47,6 +46,9 @@ export class TrainingLevelEditComponent extends SentinelBaseDirective implements
   get incorrectAnswerLimit(): AbstractControl {
     return this.trainingLevelConfigFormGroup.formGroup.get('incorrectAnswerLimit');
   }
+  get variantAnswers(): AbstractControl {
+    return this.trainingLevelConfigFormGroup.formGroup.get('variantAnswers');
+  }
   get answer(): AbstractControl {
     return this.trainingLevelConfigFormGroup.formGroup.get('answer');
   }
@@ -61,10 +63,11 @@ export class TrainingLevelEditComponent extends SentinelBaseDirective implements
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if ('level' in changes || 'variantSandboxes' in changes) {
-      this.trainingLevelConfigFormGroup = new TrainingLevelEditFormGroup(this.level, this.variantSandboxes);
+    if ('level' in changes) {
+      this.trainingLevelConfigFormGroup = new TrainingLevelEditFormGroup(this.level);
       this.setFormsAsTouched();
       this.trainingLevelConfigFormGroup.formGroup.valueChanges.pipe(takeWhile(() => this.isAlive)).subscribe(() => {
+        this.variantAnswers.value ? this.enableVariableName() : this.enableAnswer();
         this.trainingLevelConfigFormGroup.setToLevel(this.level);
         this.levelChange.emit(this.level);
       });
@@ -90,5 +93,18 @@ export class TrainingLevelEditComponent extends SentinelBaseDirective implements
     this.maxScore.markAsTouched();
     this.incorrectAnswerLimit.markAsTouched();
     this.answer.markAsTouched();
+    this.answerVariableName.markAsTouched();
+  }
+
+  private enableVariableName() {
+    this.answerVariableName.enable({ emitEvent: false });
+    this.answer.setValue(null, { emitEvent: false });
+    this.answer.disable({ emitEvent: false });
+  }
+
+  private enableAnswer() {
+    this.answer.enable({ emitEvent: false });
+    this.answerVariableName.setValue(null, { emitEvent: false });
+    this.answerVariableName.disable({ emitEvent: false });
   }
 }

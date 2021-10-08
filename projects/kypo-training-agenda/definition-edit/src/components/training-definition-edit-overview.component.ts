@@ -33,7 +33,6 @@ import { LevelEditConcreteService } from '../services/state/level/level-edit-con
 })
 export class TrainingDefinitionEditOverviewComponent extends SentinelBaseDirective {
   trainingDefinition$: Observable<TrainingDefinition>;
-  variantSandboxes$: Observable<boolean>;
   editMode$: Observable<boolean>;
   tdTitle$: Observable<string>;
   levelsCount = -1;
@@ -55,7 +54,6 @@ export class TrainingDefinitionEditOverviewComponent extends SentinelBaseDirecti
     super();
     this.defaultPaginationSize = this.paginationService.getPagination();
     this.trainingDefinition$ = this.editService.trainingDefinition$;
-    this.variantSandboxes$ = this.editService.variantSandboxes$;
     this.tdTitle$ = this.editService.trainingDefinition$.pipe(map((td) => td.title));
     this.saveDisabled$ = this.editService.saveDisabled$;
     const valid$: Observable<boolean> = combineLatest(

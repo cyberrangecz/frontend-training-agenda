@@ -12,7 +12,6 @@
     </kypo-levels-stepper>
     <mat-divider></mat-divider>
     <kypo-level-edit [level]="(stepperLevels | async)[activeStep$ | async].level"
-                     [variantSandboxes]='trainingDefinition.variantSandboxes'
                      (levelChange)="onActiveLevelChanged($event)">
     </kypo-level-edit>
   </div>

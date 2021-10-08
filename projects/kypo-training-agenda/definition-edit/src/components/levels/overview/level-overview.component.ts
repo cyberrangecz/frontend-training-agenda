@@ -32,7 +32,6 @@ export class LevelOverviewComponent extends SentinelBaseDirective implements OnI
   @Output() unsavedLevels: EventEmitter<Level[]> = new EventEmitter();
   @Output() levelsCount: EventEmitter<number> = new EventEmitter();
   @Input() trainingDefinition: TrainingDefinition;
-  @Input() variantSandboxes: boolean;
   @Input() editMode: boolean;
 
   activeStep$: Observable<number>;
@@ -60,13 +59,6 @@ export class LevelOverviewComponent extends SentinelBaseDirective implements OnI
   ngOnChanges(changes: SimpleChanges): void {
     if ('trainingDefinition' in changes) {
       this.levelService.set(this.trainingDefinition.id, this.trainingDefinition.levels as Level[]);
-    }
-    if ('variantSandboxes' in changes && !this.variantSandboxes) {
-      this.trainingDefinition.levels.forEach((level) => {
-        if (level.type === AbstractLevelTypeEnum.Training) {
-          level.answerVariableName = null;
-        }
-      });
     }
   }
 

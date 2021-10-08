@@ -15,7 +15,6 @@ export class TrainingDefinitionEditFormGroup {
       prerequisites: new FormArray(trainingDefinition.prerequisites.map((prereq) => new FormControl(prereq))),
       outcomes: new FormArray(trainingDefinition.outcomes.map((outcomes) => new FormControl(outcomes))),
       showProgress: new FormControl(trainingDefinition.showStepperBar),
-      variantSandboxes: new FormControl(trainingDefinition.variantSandboxes),
       defaultContent: new FormControl(trainingDefinition.defaultContent),
     });
   }
@@ -28,7 +27,6 @@ export class TrainingDefinitionEditFormGroup {
     trainingDefinition.title = this.formGroup.get('title').value;
     trainingDefinition.description = this.formGroup.get('description').value;
     trainingDefinition.showStepperBar = this.formGroup.get('showProgress').value;
-    trainingDefinition.variantSandboxes = this.formGroup.get('variantSandboxes').value;
     trainingDefinition.outcomes = this.formGroup.get('outcomes').value;
     trainingDefinition.prerequisites = this.formGroup.get('prerequisites').value;
     trainingDefinition.defaultContent = this.formGroup.get('defaultContent').value;
