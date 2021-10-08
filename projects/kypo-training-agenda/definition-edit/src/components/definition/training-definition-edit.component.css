@@ -17,21 +17,6 @@
   flex-direction: column;
 }
 
-.form-line {
-  margin-bottom: 30px;
-}
-
-.form-line-content {
-  display: flex;
-  flex-direction: row;
-  align-items: baseline;
-  place-content: space-between;
-}
-
-.form-line-content p {
-  color: grey;
-}
-
 .spacer {
   flex: 1 1 0;
 }

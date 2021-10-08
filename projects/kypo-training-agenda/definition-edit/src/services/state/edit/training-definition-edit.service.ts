@@ -32,12 +32,6 @@ export abstract class TrainingDefinitionEditService {
    */
   definitionValid$ = this.definitionValidSubject$.asObservable();
 
-  protected variantSandboxesSubject$: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  /**
-   * True if is the training definition supports variant answers, false otherwise
-   */
-  variantSandboxes$ = this.variantSandboxesSubject$.asObservable();
-
   /**
    * Sets training definition as currently edited
    * @param trainingDefinition to set as currently edited

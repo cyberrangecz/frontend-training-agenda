@@ -14,7 +14,6 @@ import { Level } from '@muni-kypo-crp/training-model';
 })
 export class AbstractLevelEditComponent extends SentinelBaseDirective {
   @Input() level: Level;
-  @Input() variantSandboxes: boolean;
   @Output() levelChange: EventEmitter<Level> = new EventEmitter();
   levelTypes = AbstractLevelTypeEnum;
 

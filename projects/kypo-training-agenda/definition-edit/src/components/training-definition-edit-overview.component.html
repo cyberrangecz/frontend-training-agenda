@@ -36,7 +36,6 @@
         <mat-icon class="header-icon">games</mat-icon>
       </div>
       <kypo-level-overview [trainingDefinition]="trainingDefinition$ | async"
-                           [variantSandboxes]="variantSandboxes$ | async"
                            [editMode]="editMode$ | async"
                            (levelsCount)="onLevelsCountChanged($event)"
                            (unsavedLevels)="onUnsavedLevelsChanged($event)">
