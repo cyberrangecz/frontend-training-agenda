@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { PaginatedResource, RequestedPagination, PaginatedResourceService } from '@sentinel/common';
-import { TrainingRun } from '@muni-kypo-crp/training-model';
+import { TrainingRun, TrainingRunInfo } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
 
 /**
@@ -18,4 +18,6 @@ export abstract class TrainingRunService extends PaginatedResourceService<Traini
     trainingInstanceId: number,
     pagination: RequestedPagination
   ): Observable<PaginatedResource<TrainingRun>>;
+
+  abstract getInfo(trainingRunId: number): Observable<TrainingRunInfo[]>;
 }

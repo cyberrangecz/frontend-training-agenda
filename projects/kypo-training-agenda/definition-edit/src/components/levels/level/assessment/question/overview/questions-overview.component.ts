@@ -4,6 +4,7 @@ import {
   EventEmitter,
   Input,
   OnChanges,
+  OnDestroy,
   OnInit,
   Output,
   SimpleChanges,
@@ -60,6 +61,10 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
+    // if (changes['question'] === this.questions[this.selectedStep]) {
+    //   console.log('same')
+    // }
     if ('questions' in changes && changes['questions'].isFirstChange()) {
       this.selectedStep = 0;
     }

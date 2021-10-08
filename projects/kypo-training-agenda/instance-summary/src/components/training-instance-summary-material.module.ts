@@ -7,6 +7,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatListModule } from '@angular/material/list';
 
 /**
  * Material components for training instance summary module
@@ -21,6 +22,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatDividerModule,
     MatTooltipModule,
     ClipboardModule,
+    MatListModule,
   ],
   exports: [
     MatExpansionModule,
@@ -31,6 +33,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatDividerModule,
     MatTooltipModule,
     ClipboardModule,
+    MatListModule,
   ],
 })
 export class TrainingInstanceSummaryMaterialModule {}

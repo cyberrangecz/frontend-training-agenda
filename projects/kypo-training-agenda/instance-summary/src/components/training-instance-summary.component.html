@@ -18,6 +18,7 @@
       [hasError]="trainingRunsHasError$ | async"
       (tableAction)="onTrainingRunTableAction($event)"
       (loadTableEvent)="onTrainingRunTableLoadEvent($event)"
+      (rowExpanded)="onTrainingRunTableRowExpand($event)"
     >
     </kypo-training-instance-runs>
   </mat-card>

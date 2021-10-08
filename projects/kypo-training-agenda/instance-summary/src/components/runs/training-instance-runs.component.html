@@ -4,6 +4,7 @@
     [data]="trainingRuns"
     [hasError]="hasError"
     (rowAction)="onTableAction($event)"
+    (rowClick)="onTableRowExpand($event)"
     (refresh)="onLoadTableEvent($event)"
   >
   </sentinel-table>

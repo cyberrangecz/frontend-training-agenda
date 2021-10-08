@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { PaginatedResource, RequestedPagination } from '@sentinel/common';
-import { TrainingInstanceApi } from '@muni-kypo-crp/training-api';
-import { TrainingRun } from '@muni-kypo-crp/training-model';
+import { TrainingInstanceApi, TrainingRunApi } from '@muni-kypo-crp/training-api';
+import { TrainingRun, TrainingRunInfo } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
@@ -15,7 +15,11 @@ import { TrainingRunService } from './training-run.service';
 export class TrainingRunConcreteService extends TrainingRunService {
   private lastTrainingInstanceId: number;
 
-  constructor(private trainingInstanceApi: TrainingInstanceApi, private context: TrainingAgendaContext) {
+  constructor(
+    private trainingInstanceApi: TrainingInstanceApi,
+    private context: TrainingAgendaContext,
+    private trainingRunApi: TrainingRunApi
+  ) {
     super(context.config.defaultPaginationSize);
   }
 
@@ -31,6 +35,15 @@ export class TrainingRunConcreteService extends TrainingRunService {
           this.resourceSubject$.next(runs);
         },
         () => this.onGetAllError()
+      )
+    );
+  }
+
+  getInfo(trainingRunId: number): Observable<TrainingRunInfo[]> {
+    return this.trainingRunApi.getInfo(trainingRunId).pipe(
+      tap(
+        (_) => _,
+        () => this.hasErrorSubject$.next(true)
       )
     );
   }

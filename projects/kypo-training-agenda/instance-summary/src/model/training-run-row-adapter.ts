@@ -1,4 +1,4 @@
-import { TrainingRun } from '@muni-kypo-crp/training-model';
+import { TrainingDefinition, TrainingRun } from '@muni-kypo-crp/training-model';
 
 /**
  * Class representing row of training run table
@@ -8,4 +8,5 @@ export class TrainingRunRowAdapter extends TrainingRun {
   startTimeFormatted: string;
   endTimeFormatted: string;
   duration: string;
+  trainingDefinition: TrainingDefinition;
 }
