@@ -12,6 +12,7 @@ import { Hint, TrainingLevel } from '@muni-kypo-crp/training-model';
 import { takeWhile } from 'rxjs/operators';
 import { TrainingLevelEditFormGroup } from './training-level-edit-form-group';
 import { AbstractControl } from '@angular/forms';
+import { SentinelControlItem } from '@sentinel/components/controls';
 
 /**
  * Component for editing new or existing training level
@@ -26,6 +27,7 @@ export class TrainingLevelEditComponent extends SentinelBaseDirective implements
   @Input() level: TrainingLevel;
   @Output() levelChange: EventEmitter<TrainingLevel> = new EventEmitter();
   trainingLevelConfigFormGroup: TrainingLevelEditFormGroup;
+  controls: SentinelControlItem[];
 
   get title(): AbstractControl {
     return this.trainingLevelConfigFormGroup.formGroup.get('title');
@@ -56,6 +58,9 @@ export class TrainingLevelEditComponent extends SentinelBaseDirective implements
   }
   get estimatedDuration(): AbstractControl {
     return this.trainingLevelConfigFormGroup.formGroup.get('estimatedDuration');
+  }
+  get referenceSolution(): AbstractControl {
+    return this.trainingLevelConfigFormGroup.formGroup.get('referenceSolution');
   }
   get hints(): AbstractControl {
     return this.trainingLevelConfigFormGroup.formGroup.get('hints');
@@ -88,6 +93,7 @@ export class TrainingLevelEditComponent extends SentinelBaseDirective implements
    */
   private setFormsAsTouched(): void {
     this.title.markAsTouched();
+    this.referenceSolution.markAllAsTouched();
     this.estimatedDuration.markAsTouched();
     this.maxScore.markAsTouched();
     this.incorrectAnswerLimit.markAsTouched();

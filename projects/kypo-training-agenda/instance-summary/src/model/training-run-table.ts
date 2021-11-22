@@ -1,5 +1,5 @@
 import { PaginatedResource, SentinelDateTimeFormatPipe } from '@sentinel/common';
-import { TrainingDefinition, TrainingInstance, TrainingRun, TrainingRunStateEnum } from '@muni-kypo-crp/training-model';
+import { TrainingRun, TrainingRunStateEnum } from '@muni-kypo-crp/training-model';
 import { Column, SentinelTable, Row, RowExpand } from '@sentinel/components/table';
 import { TrainingRunRowAdapter } from './training-run-row-adapter';
 import { DateHelper } from '@muni-kypo-crp/training-agenda/internal';

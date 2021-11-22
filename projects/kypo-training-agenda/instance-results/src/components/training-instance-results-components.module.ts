@@ -12,6 +12,10 @@ import {
 import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
 import { TrainingInstanceResultsMaterialModule } from './training-instance-results-material.module';
 import { TrainingInstanceResultsComponent } from './training-instance-results.component';
+import { SummaryGraphModule } from '@muni-kypo-crp/command-visualizations/summary-graph';
+import { TimelineModule } from '@muni-kypo-crp/command-visualizations/timeline';
+import { MistakeModule } from '@muni-kypo-crp/command-visualizations/mistake';
+import { TraineeGraphModule } from '@muni-kypo-crp/command-visualizations/trainee-graph';
 
 /**
  * Module containing components and providers for training instance results page
@@ -21,8 +25,12 @@ import { TrainingInstanceResultsComponent } from './training-instance-results.co
     CommonModule,
     TrainingInstanceResultsMaterialModule,
     Kypo2TrainingsHurdlingVizLibModule,
+    SummaryGraphModule,
     Kypo2AssessmentsResultsVisualizationModule,
     Kypo2TrainingsVisualizationOverviewLibModule,
+    TimelineModule,
+    MistakeModule,
+    TraineeGraphModule,
   ],
   declarations: [TrainingInstanceResultsComponent],
   providers: [],
@@ -36,6 +44,10 @@ export class TrainingInstanceResultsComponentsModule {
     return {
       ngModule: TrainingInstanceResultsComponentsModule,
       providers: [
+        SummaryGraphModule.forRoot(config.visualizationConfig).providers,
+        TimelineModule.forRoot(config.visualizationConfig).providers,
+        MistakeModule.forRoot(config.visualizationConfig).providers,
+        TraineeGraphModule.forRoot(config.visualizationConfig).providers,
         {
           provide: VisualizationOverviewConfig,
           useValue: visualizationConfig,

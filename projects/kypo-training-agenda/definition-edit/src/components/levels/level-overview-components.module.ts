@@ -8,6 +8,8 @@ import { SentinelStepperModule } from '@sentinel/components/stepper';
 import { LevelEditComponentsModule } from './level/level-edit-components.module';
 import { LevelOverviewComponent } from './overview/level-overview.component';
 import { TrainingLevelStepperComponent } from './stepper/training-level-stepper.component';
+import { ngfModule } from 'angular-file';
+import { TrainingDefinitionEditOverviewMaterialModule } from '../training-definition-edit-overview-material.module';
 
 /**
  * Module containing component and providers for training definition levels' overview
@@ -22,6 +24,8 @@ import { TrainingLevelStepperComponent } from './stepper/training-level-stepper.
     SentinelStepperModule,
     MatDividerModule,
     SentinelControlsModule,
+    TrainingDefinitionEditOverviewMaterialModule,
+    ngfModule,
   ],
   declarations: [TrainingLevelStepperComponent, LevelOverviewComponent],
   exports: [LevelOverviewComponent],

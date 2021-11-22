@@ -1,28 +1,87 @@
-<div class="container">
-  <div class="content" *ngIf="(visualizationInfo$ | async) as vizInfo">
-    <div class="left-panel">
-      <kypo2-viz-overview-table
-        [trainingDefinitionId]="vizInfo.trainingDefinitionId"
-        [standalone]="true"
-        [trainingInstanceId]="vizInfo.trainingInstanceId"
-        [traineeModeInfo]="traineeModeInfo$ | async">
-      </kypo2-viz-overview-table>
-      <kypo2-viz-overview-timeline
-        [size]="vizSize"
-        [traineeModeInfo]="traineeModeInfo$ | async"
-        [trainingDefinitionId]="vizInfo.trainingDefinitionId"
-        [trainingInstanceId]="vizInfo.trainingInstanceId">
-      </kypo2-viz-overview-timeline>
-    </div>
-    <div class="middle-panel">
-      <kypo2-viz-overview-clustering
-        [size]="vizSize"
-        [traineeModeInfo]="traineeModeInfo$ | async"
-        [trainingDefinitionId]="vizInfo.trainingDefinitionId"
-        [trainingInstanceId]="vizInfo.trainingInstanceId">
-      </kypo2-viz-overview-clustering>
-    </div>
-    <div class="right-panel">
-    </div>
-  </div>
-</div>
+<mat-tab-group mat-stretch-tabs class="mat-elevation-z4" *ngIf="(visualizationInfo$ | async) as vizInfo">
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon class="tab-icon">score</mat-icon>
+      Score Development
+    </ng-template>
+    <ng-template matTabContent>
+      <div class="container">
+        <div class="left-panel">
+          <kypo2-viz-overview-table
+            [trainingDefinitionId]="vizInfo.trainingDefinitionId"
+            [standalone]="true"
+            [trainingInstanceId]="vizInfo.trainingInstanceId"
+            [traineeModeInfo]="traineeModeInfo$ | async">
+          </kypo2-viz-overview-table>
+          <kypo2-viz-overview-timeline
+            [size]="vizSize"
+            [traineeModeInfo]="traineeModeInfo$ | async"
+            [trainingDefinitionId]="vizInfo.trainingDefinitionId"
+            [trainingInstanceId]="vizInfo.trainingInstanceId">
+          </kypo2-viz-overview-timeline>
+        </div>
+        <div class="middle-panel">
+          <kypo2-viz-overview-clustering
+            [size]="vizSize"
+            [traineeModeInfo]="traineeModeInfo$ | async"
+            [trainingDefinitionId]="vizInfo.trainingDefinitionId"
+            [trainingInstanceId]="vizInfo.trainingInstanceId">
+          </kypo2-viz-overview-clustering>
+        </div>
+        <div class="right-panel">
+        </div>
+      </div>
+    </ng-template>
+  </mat-tab>
+
+  <ng-container *ngIf='hasReferenceSolution$ | async'>
+    <mat-tab >
+      <ng-template mat-tab-label>
+        <mat-icon class="tab-icon">keyboard</mat-icon>
+        Command Analysis
+      </ng-template>
+      <ng-template matTabContent>
+        <div class="container">
+          <kypo-mistake [trainingRunId]="vizInfo.trainingRunId"></kypo-mistake>
+        </div>
+      </ng-template>
+    </mat-tab>
+
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="tab-icon">timeline</mat-icon>
+        Command Timeline
+      </ng-template>
+      <ng-template matTabContent>
+        <div class="container">
+          <kypo-timeline [trainingRunId]="vizInfo.trainingRunId"></kypo-timeline>
+        </div>
+      </ng-template>
+    </mat-tab>
+
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="tab-icon">poll</mat-icon>
+        Reference Graph
+      </ng-template>
+      <ng-template matTabContent>
+        <div class="container">
+          <kypo-reference-graph [trainingRunId]="vizInfo.trainingRunId"></kypo-reference-graph>
+        </div>
+      </ng-template>
+    </mat-tab>
+
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="tab-icon">trending_up</mat-icon>
+        Trainee Graph
+      </ng-template>
+      <ng-template matTabContent>
+        <div class="container">
+          <kypo-trainee-graph [trainingRunId]="vizInfo.trainingRunId"></kypo-trainee-graph>
+        </div>
+      </ng-template>
+    </mat-tab>
+  </ng-container>
+
+</mat-tab-group>

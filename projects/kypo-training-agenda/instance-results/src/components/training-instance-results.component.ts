@@ -5,6 +5,7 @@ import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
 import { map, takeWhile, tap } from 'rxjs/operators';
 import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
+import { TrainingDefinitionApi } from '@muni-kypo-crp/training-api';
 
 /**
  * Component displaying training instance results visualizations
@@ -16,10 +17,11 @@ import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-a
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TrainingInstanceResultsComponent extends SentinelBaseDirective implements OnInit {
+  hasReferenceSolution$: Observable<boolean>;
   trainingInstance$: Observable<TrainingInstance>;
   vizSize: { width: number; height: number };
 
-  constructor(private activeRoute: ActivatedRoute) {
+  constructor(private activeRoute: ActivatedRoute, private trainingDefinitionApi: TrainingDefinitionApi) {
     super();
   }
 
@@ -32,6 +34,10 @@ export class TrainingInstanceResultsComponent extends SentinelBaseDirective impl
     this.trainingInstance$ = this.activeRoute.data.pipe(
       takeWhile(() => this.isAlive),
       map((data) => data[TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME]),
+      tap(
+        (data) =>
+          (this.hasReferenceSolution$ = this.trainingDefinitionApi.hasReferenceSolution(data.trainingDefinition.id))
+      ),
       tap(() => this.calculateVisualizationSize(window.innerWidth, window.innerHeight))
     );
   }

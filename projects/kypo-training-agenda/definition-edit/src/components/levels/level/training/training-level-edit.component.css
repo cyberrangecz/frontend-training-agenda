@@ -31,6 +31,28 @@ div .right-panel mat-form-field {
   margin-bottom: 20px;
 }
 
+.reference-solution-container {
+  display: flex;
+  flex-direction: column;
+  padding-top: 10px;
+}
+
+.reference-solution-area, textarea {
+  height: 200px;
+}
+
+.reference-error {
+  font-size: 13px;
+}
+
+sentinel-controls {
+  margin-left: -10px;
+}
+
+.reference-solution-container h4 {
+  padding-left: 10px;
+}
+
 sentinel-markdown-editor.mrkdwn-content {
   margin-bottom: 20px;
   height: 30vh;

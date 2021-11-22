@@ -4,9 +4,10 @@ import { SentinelBaseDirective } from '@sentinel/common';
 import { TrainingRun } from '@muni-kypo-crp/training-model';
 import { Kypo2TraineeModeInfo } from '@muni-kypo-crp/overview-visualization';
 import { Observable } from 'rxjs';
-import { map, takeWhile } from 'rxjs/operators';
+import { map, takeWhile, tap } from 'rxjs/operators';
 import { VisualizationInfo } from '@muni-kypo-crp/training-agenda/internal';
 import { TRAINING_RUN_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
+import { TrainingDefinitionApi } from '@muni-kypo-crp/training-api';
 
 @Component({
   selector: 'kypo-training-run-results',
@@ -20,10 +21,11 @@ import { TRAINING_RUN_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda
 export class TrainingRunResultsComponent extends SentinelBaseDirective implements OnInit {
   vizSize: { width: number; height: number };
 
+  hasReferenceSolution$: Observable<boolean>;
   visualizationInfo$: Observable<VisualizationInfo>;
   traineeModeInfo$: Observable<Kypo2TraineeModeInfo>;
 
-  constructor(private activatedRoute: ActivatedRoute) {
+  constructor(private activatedRoute: ActivatedRoute, private trainingDefinitionApi: TrainingDefinitionApi) {
     super();
   }
 
@@ -46,6 +48,10 @@ export class TrainingRunResultsComponent extends SentinelBaseDirective implement
       map((data) => this.createTrainingVisualizationInfo(data[TRAINING_RUN_DATA_ATTRIBUTE_NAME]))
     );
     this.traineeModeInfo$ = this.visualizationInfo$.pipe(
+      tap(
+        (vizInfo) =>
+          (this.hasReferenceSolution$ = this.trainingDefinitionApi.hasReferenceSolution(vizInfo.trainingDefinitionId))
+      ),
       map((vizInfo) => {
         const traineeModeInfo = new Kypo2TraineeModeInfo();
         traineeModeInfo.trainingRunId = vizInfo.trainingRunId;
