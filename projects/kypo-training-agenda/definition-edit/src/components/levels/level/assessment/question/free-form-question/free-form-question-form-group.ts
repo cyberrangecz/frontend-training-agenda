@@ -2,7 +2,6 @@ import { FormArray, FormControl, FormGroup, ValidationErrors, ValidatorFn, Valid
 import { SentinelValidators } from '@sentinel/common';
 import { Question } from '@muni-kypo-crp/training-model';
 import { FreeFormQuestion } from '@muni-kypo-crp/training-model';
-import { QuestionChoice } from '@muni-kypo-crp/training-model/lib/questions/question-choice';
 
 /**
  * Form control for free form question component

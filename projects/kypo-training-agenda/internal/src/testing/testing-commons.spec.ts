@@ -23,6 +23,7 @@ import { SentinelAuthService } from '@sentinel/auth';
 import { AdaptiveFileUploadProgressService } from '../../../adaptive-definition-overview/src/services/file-upload/adaptive-file-upload-progress.service';
 import { PaginationService } from '../services/pagination.service';
 import { LevelEditService } from '../../../definition-edit/src/services/state/level/level-edit.service';
+import { TopologyApi } from '@muni-kypo-crp/topology-graph';
 
 export function createErrorHandlerSpy(): jasmine.SpyObj<TrainingErrorHandler> {
   return jasmine.createSpyObj('TrainingErrorHandler', ['emit']);
@@ -140,6 +141,16 @@ export function createAdaptiveDefinitionApiSpy(): jasmine.SpyObj<AdaptiveDefinit
     'changeState',
     'upload',
     'getAllForOrganizer',
+  ]);
+}
+
+export function createTopologyApiSpy(): jasmine.SpyObj<TopologyApi> {
+  return jasmine.createSpyObj('TopologyApi', [
+    'getTopology',
+    'getVMConsoleUrl',
+    'getVMConsolesUrl',
+    'establishGuacamoleRemoteConnection',
+    'performVMAction',
   ]);
 }
 

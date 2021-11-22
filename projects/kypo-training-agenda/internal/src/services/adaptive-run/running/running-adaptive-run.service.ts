@@ -1,6 +1,7 @@
 import { BehaviorSubject, Observable } from 'rxjs';
 import { skipWhile } from 'rxjs/operators';
 import { AccessTrainingRunInfo, Phase, QuestionAnswer } from '@muni-kypo-crp/training-model';
+import { ConsoleUrl } from '@muni-kypo-crp/topology-graph';
 
 export abstract class RunningAdaptiveRunService {
   sandboxInstanceId: number;
@@ -21,4 +22,5 @@ export abstract class RunningAdaptiveRunService {
   abstract isLast(): boolean;
   abstract clear(): void;
   abstract submitQuestionnaire(answers: QuestionAnswer[]): Observable<any>;
+  abstract loadConsoles(sandboxId: number): Observable<ConsoleUrl[]>;
 }

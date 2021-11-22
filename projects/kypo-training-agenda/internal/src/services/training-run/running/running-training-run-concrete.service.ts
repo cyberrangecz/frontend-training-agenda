@@ -11,6 +11,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { LoadingDialogComponent } from '../../../loading-dialog/loading-dialog.component';
 import { LoadingDialogConfig } from '../../../loading-dialog/loading-dialog-config';
 import { EMPTY } from 'rxjs';
+import { ConsoleUrl, TopologyApi } from '@muni-kypo-crp/topology-graph';
 
 /**
  * Main service for running training training. Holds levels and its state. Handles user general training run user actions and events.
@@ -20,6 +21,7 @@ import { EMPTY } from 'rxjs';
 export class RunningTrainingRunConcreteService extends RunningTrainingRunService {
   constructor(
     private api: TrainingRunApi,
+    private topologyService: TopologyApi,
     private errorHandler: TrainingErrorHandler,
     private navigator: TrainingNavigator,
     private router: Router,
@@ -48,7 +50,7 @@ export class RunningTrainingRunConcreteService extends RunningTrainingRunService
     this.setActiveLevel(trainingRunInfo.currentLevel as Level);
   }
 
-  setActiveLevelIndex(index: number) {
+  setActiveLevelIndex(index: number): void {
     this.activeLevelIndex = index;
   }
 
@@ -96,6 +98,20 @@ export class RunningTrainingRunConcreteService extends RunningTrainingRunService
     this.startTime = undefined;
     this.activeLevelSubject$.next(undefined);
     this.activeLevels = [];
+  }
+
+  /**
+   * Preloads VM console for user and stores it into browser storage for further use in topology.
+   * @param sandboxId id of sandbox in which the vm exists
+   */
+  loadConsoles(sandboxId: number): Observable<ConsoleUrl[]> {
+    const storage = window.localStorage;
+    return this.topologyService.getVMConsolesUrl(sandboxId).pipe(
+      tap(
+        (consoles) => storage.setItem('vm-consoles', JSON.stringify(consoles)),
+        (err) => this.errorHandler.emit(err, 'Obtaining console URL')
+      )
+    );
   }
 
   private setActiveLevel(level: Level) {

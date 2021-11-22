@@ -56,7 +56,7 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
     }
   }
 
-  addQuestion(type: QuestionTypeEnum) {
+  addQuestion(type: QuestionTypeEnum): void {
     if (this.stepperQuestions.items.length >= 1) {
       this.stepperQuestions.items[this.selectedStep].isActive = false;
     }
@@ -72,7 +72,7 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
     this.onQuestionChanged();
   }
 
-  deleteActiveQuestion() {
+  deleteActiveQuestion(): void {
     const question = this.stepperQuestions.items[this.selectedStep];
     const dialogRef = this.dialog.open(SentinelConfirmationDialogComponent, {
       data: new SentinelConfirmationDialogConfig(

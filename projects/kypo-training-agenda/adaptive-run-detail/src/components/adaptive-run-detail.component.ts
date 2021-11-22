@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { Phase } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
@@ -19,7 +19,7 @@ import { PhaseStepperAdapter } from '@muni-kypo-crp/training-agenda/internal';
  * Main component of trainees training. Displays window with current level of a training and navigation to the next.
  * Optionally displays stepper with progress of the training and timer counting time from the start of a training.
  */
-export class AdaptiveRunDetailComponent extends SentinelBaseDirective implements OnInit {
+export class AdaptiveRunDetailComponent extends SentinelBaseDirective implements OnInit, AfterViewInit {
   user$: Observable<SentinelUser>;
   activePhase$: Observable<Phase>;
   phases: Phase[];
@@ -38,6 +38,10 @@ export class AdaptiveRunDetailComponent extends SentinelBaseDirective implements
 
   ngOnInit(): void {
     this.init();
+  }
+
+  ngAfterViewInit(): void {
+    this.trainingRunService.loadConsoles(this.sandboxId).pipe(take(1)).subscribe();
   }
 
   private init() {
@@ -68,6 +72,6 @@ export class AdaptiveRunDetailComponent extends SentinelBaseDirective implements
     this.trainingRunService
       .next()
       .pipe(take(1))
-      .subscribe((_) => (this.isLoading = false));
+      .subscribe(() => (this.isLoading = false));
   }
 }

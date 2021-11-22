@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RequestedPagination, SentinelBaseDirective } from '@sentinel/common';
 import { TrainingInstance, TrainingRun } from '@muni-kypo-crp/training-model';
-import { combineLatest, forkJoin, Observable, zip } from 'rxjs';
-import { concatMap, map, switchMap, take, takeWhile, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map, switchMap, take, takeWhile, tap } from 'rxjs/operators';
 import {
   TrainingNavigator,
   TrainingNotificationService,

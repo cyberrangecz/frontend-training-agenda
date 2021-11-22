@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { Level } from '@muni-kypo-crp/training-model';
 import { Observable, of } from 'rxjs';
@@ -18,7 +18,7 @@ import { SentinelAuthService } from '@sentinel/auth';
  * Main component of trainees training. Displays window with current level of a training and navigation to the next.
  * Optionally displays stepper with progress of the training and timer counting time from the start of a training.
  */
-export class TrainingRunDetailComponent extends SentinelBaseDirective implements OnInit {
+export class TrainingRunDetailComponent extends SentinelBaseDirective implements OnInit, AfterViewInit {
   user$: Observable<SentinelUser>;
   activeLevel$: Observable<Level>;
   levels: Level[];
@@ -39,6 +39,10 @@ export class TrainingRunDetailComponent extends SentinelBaseDirective implements
     this.init();
   }
 
+  ngAfterViewInit(): void {
+    this.trainingRunService.loadConsoles(this.sandboxId).pipe(take(1)).subscribe();
+  }
+
   private init() {
     this.user$ = this.auth.activeUser$;
     this.levels = this.trainingRunService.getLevels();
@@ -51,7 +55,6 @@ export class TrainingRunDetailComponent extends SentinelBaseDirective implements
       const stepperAdapterLevels = this.levels.map((level) => new LevelStepperAdapter(level));
       this.stepper = new TrainingRunStepper(stepperAdapterLevels, this.trainingRunService.getActiveLevelPosition());
     }
-
     this.activeLevel$ = this.trainingRunService.activeLevel$.pipe(
       takeWhile(() => this.isAlive),
       tap(() => {
