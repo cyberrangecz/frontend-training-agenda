@@ -5,6 +5,7 @@ import { AccessTrainingRunInfo } from '@muni-kypo-crp/training-model';
 import { from, Observable, of } from 'rxjs';
 import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
 import { RunningTrainingRunService } from '@muni-kypo-crp/training-agenda/internal';
+import { ConsoleUrl } from '@muni-kypo-crp/topology-graph';
 
 @Injectable()
 /**
@@ -29,7 +30,7 @@ export class PreviewTrainingRunService extends RunningTrainingRunService {
     this.activeLevelSubject$.next(firstLevel as Level);
   }
 
-  setActiveLevelIndex(index: number) {
+  setActiveLevelIndex(index: number): void {
     this.activeLevelIndex = index;
   }
 
@@ -68,6 +69,10 @@ export class PreviewTrainingRunService extends RunningTrainingRunService {
   clear(): void {
     this.levels = [];
     this.activeLevelIndex = 0;
+  }
+
+  loadConsoles(sandboxId: number): Observable<ConsoleUrl[]> {
+    return of([]);
   }
 
   private nextLevel(): Observable<any> {

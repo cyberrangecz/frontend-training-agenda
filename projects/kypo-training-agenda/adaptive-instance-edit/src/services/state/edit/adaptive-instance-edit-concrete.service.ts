@@ -132,7 +132,7 @@ export class AdaptiveInstanceEditConcreteService extends AdaptiveInstanceEditSer
     this.saveDisabledSubject$.next(true);
     this.poolSaveDisabledSubject$.next(true);
     return this.trainingInstanceApi.update(this.editedSnapshot).pipe(
-      switchMap((_) => this.getAll(pagination)),
+      switchMap(() => this.getAll(pagination)),
       tap(
         () => {
           this.notificationService.emit('success', 'Adaptive training instance was successfully saved');

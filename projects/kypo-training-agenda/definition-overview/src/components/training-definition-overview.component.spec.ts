@@ -1,29 +1,13 @@
 import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
 import { TrainingDefinitionOverviewComponent } from './training-definition-overview.component';
-import {
-  TestBed,
-  async,
-  ComponentFixture,
-  fakeAsync,
-  waitForAsync,
-  flush,
-  tick,
-  discardPeriodicTasks,
-} from '@angular/core/testing';
+import { TestBed, ComponentFixture, waitForAsync } from '@angular/core/testing';
 import { TrainingDefinitionService } from '@muni-kypo-crp/training-agenda/definition-overview';
 import {
   createNavigatorSpy,
   createPaginationServiceSpy,
   createTrainingDefinitionServiceSpy,
 } from '../../../internal/src/testing/testing-commons.spec';
-import {
-  Level,
-  AssessmentLevel,
-  InfoLevel,
-  TrainingDefinition,
-  TrainingLevel,
-  TrainingDefinitionStateEnum,
-} from '@muni-kypo-crp/training-model';
+import { Level, AssessmentLevel, InfoLevel, TrainingDefinition, TrainingLevel } from '@muni-kypo-crp/training-model';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { asyncData, PaginatedResource, SentinelPagination, RequestedPagination } from '@sentinel/common';
 import { LoadTableEvent, SentinelTableModule } from '@sentinel/components/table';

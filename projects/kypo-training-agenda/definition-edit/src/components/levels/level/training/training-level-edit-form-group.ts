@@ -1,4 +1,4 @@
-import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SentinelValidators } from '@sentinel/common';
 import { TrainingLevel } from '@muni-kypo-crp/training-model';
 

@@ -13,6 +13,7 @@ import { QuestionnairePhaseEditFormGroup } from './questionnaire-phase-edit-form
 import { AbstractControl, FormArray } from '@angular/forms';
 import {
   AdaptiveQuestion,
+  Phase,
   PhaseRelation,
   QuestionnairePhase,
   QuestionnaireTypeEnum,
@@ -47,7 +48,7 @@ export class QuestionnairePhaseEditComponent extends SentinelBaseDirective imple
     return this.questionnaireFormGroup.formGroup.get('phaseRelations') as FormArray;
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
     if ('phase' in changes || 'updateQuestionsFlag' in changes) {
       this.questionnaireFormGroup = new QuestionnairePhaseEditFormGroup(this.phase);
       this.title.markAsTouched();
@@ -68,19 +69,19 @@ export class QuestionnairePhaseEditComponent extends SentinelBaseDirective imple
     this.phaseChange.emit(this.phase);
   }
 
-  getTrainingPhaseTitle(id: number) {
+  getTrainingPhaseTitle(id: number): string {
     let result = '';
     result = this.presentTrainingPhases.find((phase) => phase.id === id).title;
     return result;
   }
 
-  deleteRelation(relationIndex: number) {
+  deleteRelation(relationIndex: number): void {
     this.phase.phaseRelations.splice(relationIndex, 1);
     this.phase.phaseRelations.forEach((relation, index) => (relation.order = index));
     this.updateForm();
   }
 
-  onQuestionAddedToRelation(relationIndex: number, questionId: number) {
+  onQuestionAddedToRelation(relationIndex: number, questionId: number): void {
     this.phase.phaseRelations[relationIndex].questionIds.push(questionId);
     this.updateForm();
   }
@@ -100,13 +101,13 @@ export class QuestionnairePhaseEditComponent extends SentinelBaseDirective imple
     }
   }
 
-  get phaseRelationMenuItems() {
-    const menuItems = [];
+  get phaseRelationMenuItems(): Phase[] {
+    const menuItems: Phase[] = [];
     this.presentTrainingPhases.forEach((phase) => menuItems.push(phase));
     return menuItems;
   }
 
-  getValidQuestionMenuItems(relationIndex: number) {
+  getValidQuestionMenuItems(relationIndex: number): AdaptiveQuestion[] {
     let questionsWithIds = this.phase.questions.filter((q) => q.id !== undefined && q.id !== null);
     this.phase.phaseRelations[relationIndex].questionIds.forEach((id) => {
       questionsWithIds = questionsWithIds.filter((question) => question.id !== id);
@@ -114,14 +115,14 @@ export class QuestionnairePhaseEditComponent extends SentinelBaseDirective imple
     return questionsWithIds;
   }
 
-  onQuestionRemovedFromRelation(relationIndex: number, qId: number) {
+  onQuestionRemovedFromRelation(relationIndex: number, qId: number): void {
     this.phase.phaseRelations[relationIndex].questionIds = this.phase.phaseRelations[relationIndex].questionIds.filter(
       (id) => id !== qId
     );
     this.updateForm();
   }
 
-  onRelationCreated(phase: TrainingPhase) {
+  onRelationCreated(phase: TrainingPhase): void {
     const newRelation = new PhaseRelation();
     newRelation.questionIds = [];
     newRelation.successRate = 0;
@@ -131,7 +132,7 @@ export class QuestionnairePhaseEditComponent extends SentinelBaseDirective imple
     this.updateForm();
   }
 
-  removeQuestionFromRelations(qId: number) {
+  removeQuestionFromRelations(qId: number): void {
     this.phase.phaseRelations.forEach((relation) => {
       relation.questionIds = relation.questionIds.filter((id) => id !== qId);
     });

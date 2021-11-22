@@ -3,6 +3,7 @@ import { AccessTrainingRunInfo } from '@muni-kypo-crp/training-model';
 import { BehaviorSubject } from 'rxjs';
 import { Observable } from 'rxjs';
 import { skipWhile } from 'rxjs/operators';
+import { ConsoleUrl } from '@muni-kypo-crp/topology-graph';
 
 export abstract class RunningTrainingRunService {
   sandboxInstanceId: number;
@@ -15,7 +16,7 @@ export abstract class RunningTrainingRunService {
 
   abstract init(trainingRunInfo: AccessTrainingRunInfo): void;
 
-  abstract setActiveLevelIndex(index: number);
+  abstract setActiveLevelIndex(index: number): void;
 
   abstract getLevels(): Level[];
 
@@ -34,4 +35,6 @@ export abstract class RunningTrainingRunService {
   abstract isLast(): boolean;
 
   abstract clear(): void;
+
+  abstract loadConsoles(sandboxId: number): Observable<ConsoleUrl[]>;
 }

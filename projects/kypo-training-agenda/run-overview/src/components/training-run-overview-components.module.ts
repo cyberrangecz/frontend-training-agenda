@@ -30,6 +30,7 @@ import { AdaptiveRunTrainingPhaseConcreteService } from '@muni-kypo-crp/training
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { LoadingDialogModule } from '@muni-kypo-crp/training-agenda/internal';
+import { TopologyApiModule } from '@muni-kypo-crp/topology-graph';
 
 /**
  * Main module for trainee agenda. Contains components and top level routing
@@ -46,6 +47,7 @@ import { LoadingDialogModule } from '@muni-kypo-crp/training-agenda/internal';
     MatProgressBarModule,
     MatDialogModule,
     LoadingDialogModule,
+    TopologyApiModule,
   ],
   declarations: [TrainingRunOverviewComponent, AccessTrainingRunComponent],
   providers: [
@@ -66,7 +68,10 @@ export class TrainingRunOverviewComponentsModule {
   static forRoot(config: TrainingAgendaConfig): ModuleWithProviders<TrainingRunOverviewComponentsModule> {
     return {
       ngModule: TrainingRunOverviewComponentsModule,
-      providers: [{ provide: TrainingAgendaConfig, useValue: config }],
+      providers: [
+        { provide: TrainingAgendaConfig, useValue: config },
+        TopologyApiModule.forRoot(config.kypo2TopologyConfig).providers,
+      ],
     };
   }
 }

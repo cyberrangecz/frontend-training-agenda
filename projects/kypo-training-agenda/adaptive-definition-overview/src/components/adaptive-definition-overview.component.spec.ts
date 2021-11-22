@@ -1,10 +1,8 @@
 import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
-import { ActivatedRoute } from '@angular/router';
 import { AdaptiveDefinitionOverviewComponent } from './adaptive-definition-overview.component';
-import { TestBed, async, ComponentFixture, fakeAsync } from '@angular/core/testing';
+import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { TrainingDefinitionService } from '@muni-kypo-crp/training-agenda/definition-overview';
 import {
-  createActivatedRouteSpy,
   createNavigatorSpy,
   createPaginationServiceSpy,
   createTrainingDefinitionServiceSpy,

@@ -32,14 +32,14 @@ export class QuestionnairePhaseComponent extends SentinelBaseDirective implement
   questionAnswers: QuestionAnswer[] = [];
   questionTypes = QuestionTypeEnum;
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
     if ('phase' in changes) {
       this.initEmptyAnswers();
       this.isSubmitted = false;
     }
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.initEmptyAnswers();
     this.isSubmitted = false;
   }
@@ -62,11 +62,11 @@ export class QuestionnairePhaseComponent extends SentinelBaseDirective implement
     this.next.emit();
   }
 
-  onFFQChanged(event, questionIndex: number) {
+  onFFQChanged(event, questionIndex: number): void {
     console.log(event);
   }
 
-  onMCQChecked(event, questionIndex: number, answer: string) {
+  onMCQChecked(event, questionIndex: number, answer: string): void {
     if (event.checked) {
       this.questionAnswers[questionIndex].answers.push(answer);
     } else {
@@ -76,7 +76,7 @@ export class QuestionnairePhaseComponent extends SentinelBaseDirective implement
     }
   }
 
-  onRFQChecked(event, questionIndex: number, answer: string) {
+  onRFQChecked(event, questionIndex: number, answer: string): void {
     if (event.checked) {
       this.questionAnswers[questionIndex].answers[0] = answer;
     } else {
@@ -84,7 +84,7 @@ export class QuestionnairePhaseComponent extends SentinelBaseDirective implement
     }
   }
 
-  submit() {
+  submit(): void {
     this.isLoading = true;
     this.runningAdaptiveRunService
       .submitQuestionnaire(this.questionAnswers)

@@ -9,6 +9,7 @@ import { switchMap, tap } from 'rxjs/operators';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { LoadingDialogComponent } from '../../../loading-dialog/loading-dialog.component';
 import { LoadingDialogConfig } from '../../../loading-dialog/loading-dialog-config';
+import { ConsoleUrl, TopologyApi } from '@muni-kypo-crp/topology-graph';
 
 @Injectable()
 export class RunningAdaptiveRunConcreteService extends RunningAdaptiveRunService {
@@ -18,6 +19,7 @@ export class RunningAdaptiveRunConcreteService extends RunningAdaptiveRunService
 
   constructor(
     private api: AdaptiveRunApi,
+    private topologyService: TopologyApi,
     private errorHandler: TrainingErrorHandler,
     private navigator: TrainingNavigator,
     private router: Router,
@@ -78,6 +80,20 @@ export class RunningAdaptiveRunConcreteService extends RunningAdaptiveRunService
         (err) => this.errorHandler.emit(err, 'Submitting answers')
       ),
       switchMap(() => this.next())
+    );
+  }
+
+  /**
+   * Preloads VM console for user and stores it into browser storage for further use in topology.
+   * @param sandboxId id of sandbox in which the vm exists
+   */
+  loadConsoles(sandboxId: number): Observable<ConsoleUrl[]> {
+    const storage = window.localStorage;
+    return this.topologyService.getVMConsolesUrl(sandboxId).pipe(
+      tap(
+        (consoles) => storage.setItem('vm-consoles', JSON.stringify(consoles)),
+        (err) => this.errorHandler.emit(err, 'Obtaining console URL')
+      )
     );
   }
 

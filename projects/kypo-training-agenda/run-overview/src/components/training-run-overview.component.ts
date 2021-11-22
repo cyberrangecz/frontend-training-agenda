@@ -45,12 +45,12 @@ export class TrainingRunOverviewComponent extends SentinelBaseDirective implemen
       this.accessedAdaptiveRunService
         .access(accessToken)
         .pipe(takeWhile(() => this.isAlive))
-        .subscribe((_) => (this.isLoading = false));
+        .subscribe(() => (this.isLoading = false));
     } else {
       this.trainingRunOverviewService
         .access(accessToken)
         .pipe(takeWhile(() => this.isAlive))
-        .subscribe((_) => (this.isLoading = false));
+        .subscribe(() => (this.isLoading = false));
     }
   }
 

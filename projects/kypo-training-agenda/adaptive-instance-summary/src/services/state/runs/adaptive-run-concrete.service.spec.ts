@@ -1,11 +1,11 @@
-import { async, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { async, TestBed } from '@angular/core/testing';
 import { MatDialog } from '@angular/material/dialog';
-import { RequestedPagination, SentinelPagination, PaginatedResource, asyncData } from '@sentinel/common';
+import { RequestedPagination, SentinelPagination, PaginatedResource } from '@sentinel/common';
 import { SandboxInstanceApi } from '@muni-kypo-crp/sandbox-api';
 import { SandboxAllocationUnitsApi } from '@muni-kypo-crp/sandbox-api';
 import { AdaptiveInstanceApi, AdaptiveRunApi } from '@muni-kypo-crp/training-api';
 import { throwError } from 'rxjs';
-import { skip, take } from 'rxjs/operators';
+import { skip } from 'rxjs/operators';
 import {
   createContext,
   createDialogSpy,

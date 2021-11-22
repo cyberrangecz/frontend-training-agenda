@@ -1,5 +1,5 @@
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
-import { BehaviorSubject, Observable, ReplaySubject, timer } from 'rxjs';
+import { BehaviorSubject, Observable, timer } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
 import { TrainingInstanceChangeEvent } from '../../../model/events/training-instance-change-event';
 import { PaginatedResource, RequestedPagination, SentinelPagination } from '@sentinel/common';

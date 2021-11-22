@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SentinelBaseDirective, RequestedPagination } from '@sentinel/common';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { TrainingInstance, TrainingRun } from '@muni-kypo-crp/training-model';
-import { SentinelTable, LoadTableEvent, TableActionEvent } from '@sentinel/components/table';
+import { SentinelTable, TableActionEvent } from '@sentinel/components/table';
 import { Observable } from 'rxjs';
 import { map, switchMap, take, takeWhile, tap } from 'rxjs/operators';
 import { AdaptiveRunTable } from '../model/adaptive-run-table';

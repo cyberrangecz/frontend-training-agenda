@@ -6,7 +6,6 @@ import {
   SentinelTable,
   Row,
   RowAction,
-  RowExpand,
   DeleteAction,
   EditAction,
   DownloadAction,

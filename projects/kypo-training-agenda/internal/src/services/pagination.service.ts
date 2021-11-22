@@ -18,7 +18,7 @@ export class PaginationService {
    * Sets desired pagination for to local storage
    * @param pagination desired pagination
    */
-  setPagination(pagination: number) {
+  setPagination(pagination: number): void {
     const storage = window.localStorage;
     storage.setItem('pagination', `${pagination}`);
   }

@@ -11,6 +11,7 @@ import {
   createErrorHandlerSpy,
   createNavigatorSpy,
   createRouterSpy,
+  createTopologyApiSpy,
   createTrainingRunApiSpy,
 } from '../../../testing/testing-commons.spec';
 import { TrainingErrorHandler } from '../../../../../src/services/training-error.handler.service';
@@ -18,10 +19,12 @@ import { TrainingNavigator } from '../../../../../src/services/training-navigato
 import { TrainingAgendaContext } from '../../context/training-agenda-context.service';
 import { RunningTrainingRunConcreteService } from './running-training-run-concrete.service';
 import { MatDialog } from '@angular/material/dialog';
+import { TopologyApi } from '@muni-kypo-crp/topology-graph';
 
 describe('RunningTrainingRunConcreteService', () => {
   let errorHandlerSpy: jasmine.SpyObj<TrainingErrorHandler>;
   let apiSpy: jasmine.SpyObj<TrainingRunApi>;
+  let topologySpi: jasmine.SpyObj<TopologyApi>;
   let service: RunningTrainingRunConcreteService;
   let navigatorSpy: jasmine.SpyObj<TrainingNavigator>;
   let routerSpy: jasmine.SpyObj<Router>;
@@ -31,6 +34,7 @@ describe('RunningTrainingRunConcreteService', () => {
   beforeEach(() => {
     errorHandlerSpy = createErrorHandlerSpy();
     apiSpy = createTrainingRunApiSpy();
+    topologySpi = createTopologyApiSpy();
     navigatorSpy = createNavigatorSpy();
     routerSpy = createRouterSpy();
     dialogSpy = createDialogSpy();
@@ -40,6 +44,7 @@ describe('RunningTrainingRunConcreteService', () => {
       providers: [
         RunningTrainingRunConcreteService,
         { provide: TrainingRunApi, useValue: apiSpy },
+        { provide: TopologyApi, useValue: topologySpi },
         { provide: Router, useValue: routerSpy },
         { provide: MatDialog, useValue: dialogSpy },
         { provide: TrainingErrorHandler, useValue: errorHandlerSpy },
