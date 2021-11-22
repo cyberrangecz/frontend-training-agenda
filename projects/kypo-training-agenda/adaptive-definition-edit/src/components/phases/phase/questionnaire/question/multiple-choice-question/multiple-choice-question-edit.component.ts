@@ -24,7 +24,7 @@ export class MultipleChoiceQuestionEditComponent extends SentinelBaseDirective i
 
   ngOnChanges(changes: SimpleChanges): void {
     if ('question' in changes) {
-      this.multipleChoicesFormGroup = new QuestionFormGroup(this.question);
+      this.multipleChoicesFormGroup = new QuestionFormGroup(this.question, this.questionnaireType);
       this.choices.markAllAsTouched();
       this.multipleChoicesFormGroup.questionFormGroup.valueChanges
         .pipe(takeWhile(() => this.isAlive))

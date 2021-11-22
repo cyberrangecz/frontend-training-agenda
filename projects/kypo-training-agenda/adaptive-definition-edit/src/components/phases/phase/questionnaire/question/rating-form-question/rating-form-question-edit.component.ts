@@ -33,7 +33,7 @@ export class RatingFormQuestionEditComponent extends SentinelBaseDirective imple
 
   ngOnChanges(changes: SimpleChanges): void {
     if ('question' in changes) {
-      this.ratingFormFormGroup = new QuestionFormGroup(this.question);
+      this.ratingFormFormGroup = new QuestionFormGroup(this.question, this.questionnaireType);
       this.selectedRatingLevel = this.question.choices.length;
       this.choices.markAllAsTouched();
       this.ratingFormFormGroup.questionFormGroup.valueChanges

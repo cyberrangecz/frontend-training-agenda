@@ -43,6 +43,7 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
   @Input() questions: Question[];
   @Input() isTest: boolean;
   @Input() disabled: boolean;
+  @Input() assessmentOrder: number;
   @Output() questionsChange: EventEmitter<Question[]> = new EventEmitter();
 
   questionsHasError: boolean;
@@ -60,10 +61,12 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
-    // if (changes['question'] === this.questions[this.selectedStep]) {
-    //   console.log('same')
-    // }
+    if (
+      changes['assessmentOrder'] &&
+      changes['assessmentOrder'].previousValue !== changes['assessmentOrder'].currentValue
+    ) {
+      this.selectedStep = 0;
+    }
     if ('questions' in changes && changes['questions'].isFirstChange()) {
       this.selectedStep = 0;
     }
@@ -71,9 +74,9 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
       this.stepperQuestions.items = this.questions.map((question) => new QuestionStepperAdapter(question));
       this.calculateHasError();
     }
-    if ('isTest' in changes && !changes.isTest.isFirstChange()) {
+    if ('isTest' in changes) {
       if (this.isTest && this.questions) {
-        this.stepperQuestions.items.forEach((question) => (question.required = true));
+        this.stepperQuestions.items.forEach((question) => (question.requiredState = true));
         this.onQuestionChanged();
       }
     }

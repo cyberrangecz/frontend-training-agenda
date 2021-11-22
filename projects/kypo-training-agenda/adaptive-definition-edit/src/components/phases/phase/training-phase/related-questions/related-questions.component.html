@@ -8,8 +8,8 @@
       <div *ngFor='let question of relatedQuestions' class='question-in-relation'>
         <ng-container [ngSwitch]="question.questionType">
           <mat-icon style="vertical-align: middle" *ngSwitchCase='questionTypes.RFQ'>star_half</mat-icon>
-          <mat-icon style="vertical-align: middle" *ngSwitchCase='questionTypes.FFQ'>'edit'</mat-icon>
-          <mat-icon style="vertical-align: middle" *ngSwitchCase='questionTypes.MCQ'>'check_circle_outline'</mat-icon>
+          <mat-icon style="vertical-align: middle" *ngSwitchCase='questionTypes.FFQ'>edit</mat-icon>
+          <mat-icon style="vertical-align: middle" *ngSwitchCase='questionTypes.MCQ'>check_circle_outline</mat-icon>
         </ng-container>
         <span> {{ question.id }}: {{ question.text }}</span>
       </div>

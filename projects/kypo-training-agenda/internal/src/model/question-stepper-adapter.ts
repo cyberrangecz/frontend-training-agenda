@@ -36,6 +36,11 @@ export class QuestionStepperAdapter {
     this._question = value;
     this.id = value.id;
     this.title = value.title;
+    this.required = value.required;
+  }
+
+  set requiredState(value: boolean) {
+    this._question.required = value;
   }
 
   private static iconType(question: Question): string {
