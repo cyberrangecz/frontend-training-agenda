@@ -1,9 +1,14 @@
 {
-    "lib": {
-        "entryFile": "src/public_api.ts",
-        "umdModuleIds": {
-            "@sentinel/common": "sentinel.common",
-            "@muni-kypo-crp/overview-visualization": "muni-kypo-crp.overview-visualization"
-        }
+  "lib": {
+    "entryFile": "src/public_api.ts",
+    "umdModuleIds": {
+      "@sentinel/common": "sentinel.common",
+      "@muni-kypo-crp/training-api": "muni-kypo-crp.training-api",
+      "@muni-kypo-crp/overview-visualization": "muni-kypo-crp.overview-visualization",
+      "@muni-kypo-crp/command-visualizations/mistake": "muni-kypo-crp.command-visualizations.mistake",
+      "@muni-kypo-crp/command-visualizations/timeline": "muni-kypo-crp.command-visualizations.timeline",
+      "@muni-kypo-crp/command-visualizations/reference-graph": "muni-kypo-crp.command-visualizations.reference-graph",
+      "@muni-kypo-crp/command-visualizations/trainee-graph": "muni-kypo-crp.command-visualizations.trainee-graph"
     }
+  }
 }

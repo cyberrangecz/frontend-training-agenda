@@ -146,7 +146,7 @@ describe('TrainingInstanceOverviewConcreteService', () => {
     dialogSpy.open.and.returnValue(dialogRefSpyObj);
     service.delete(createInstancesMock()[1]).subscribe(
       () => fail,
-      (err) => {
+      () => {
         expect(trainingInstanceApiSpy.delete).toHaveBeenCalledTimes(1);
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         done();

@@ -77,4 +77,55 @@
       </kypo2-viz-overview-clustering>
     </ng-template>
   </mat-tab>
+
+  <ng-container *ngIf="hasReferenceSolution$ | async">
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="tab-icon">stacked_line_chart</mat-icon>
+        Summary graph
+      </ng-template>
+      <ng-template matTabContent>
+        <div class="container">
+         <kypo-summary-graph [trainingInstanceId]="trainingInstance.id"></kypo-summary-graph>
+        </div>
+      </ng-template>
+    </mat-tab>
+
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="tab-icon">trending_up</mat-icon>
+        Trainee graph
+      </ng-template>
+      <ng-template matTabContent>
+        <div class="container">
+          <kypo-trainee-graph [trainingInstanceId]="trainingInstance.id"></kypo-trainee-graph>
+        </div>
+      </ng-template>
+    </mat-tab>
+
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="tab-icon">insights</mat-icon>
+        Command timeline
+      </ng-template>
+      <ng-template matTabContent>
+        <div class="container">
+          <kypo-timeline [trainingInstanceId]="trainingInstance?.id"></kypo-timeline>
+        </div>
+      </ng-template>
+    </mat-tab>
+
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="tab-icon">analytics</mat-icon>
+        Command analysis
+      </ng-template>
+      <ng-template matTabContent>
+        <div class="container">
+          <kypo-mistake [trainingInstanceId]="trainingInstance?.id"></kypo-mistake>
+        </div>
+      </ng-template>
+    </mat-tab>
+  </ng-container>
+
 </mat-tab-group>

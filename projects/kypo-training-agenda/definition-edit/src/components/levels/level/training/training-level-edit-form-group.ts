@@ -1,6 +1,6 @@
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { SentinelValidators } from '@sentinel/common';
-import { TrainingLevel } from '@muni-kypo-crp/training-model';
+import { ReferenceSolutionNode, TrainingLevel } from '@muni-kypo-crp/training-model';
 
 export const MAX_SCORE = 100;
 export const INCORRECT_ANSWER_LIMIT = 100;
@@ -45,7 +45,28 @@ export class TrainingLevelEditFormGroup {
         Validators.min(1),
         Validators.max(MAX_ESTIMATED_DURATION),
       ]),
+      referenceSolution: new FormControl(JSON.stringify(level.referenceSolution, null, 2), [
+        this.referenceSolutionValidator,
+      ]),
     });
+  }
+
+  setReferenceSolution(referenceSolution: string): ReferenceSolutionNode[] {
+    try {
+      const data = JSON.parse(referenceSolution);
+      return data.map((solution) => {
+        const refSolution: ReferenceSolutionNode = new ReferenceSolutionNode();
+        refSolution.cmd = solution.cmd;
+        refSolution.cmd_type = solution.cmd_type;
+        refSolution.cmd_regex = solution.cmd_regex;
+        refSolution.optional = solution.optional;
+        refSolution.state_name = solution.state_name;
+        refSolution.prereq_state = solution.prereq_state;
+        return refSolution;
+      });
+    } catch (e) {
+      return null;
+    }
   }
 
   /**
@@ -65,6 +86,15 @@ export class TrainingLevelEditFormGroup {
     level.answerVariableName = this.formGroup.get('answerVariableName').value;
     level.answerVariableName = level.answerVariableName ? level.answerVariableName.trim() : level.answerVariableName;
     level.estimatedDuration = this.formGroup.get('estimatedDuration').value;
+    level.referenceSolution = this.setReferenceSolution(this.formGroup.get('referenceSolution').value);
     level.valid = this.formGroup.valid && level.hints.every((hint) => hint.valid);
   }
+
+  private referenceSolutionValidator: ValidatorFn = (control: FormControl): ValidationErrors | null => {
+    let error = null;
+    if (!this.setReferenceSolution(control.value) && control.value) {
+      error = { referenceSolution: true };
+    }
+    return error ? error : null;
+  };
 }
