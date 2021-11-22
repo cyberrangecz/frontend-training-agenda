@@ -74,14 +74,26 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
 
   deleteActiveQuestion(): void {
     const question = this.stepperQuestions.items[this.selectedStep];
-    const dialogRef = this.dialog.open(SentinelConfirmationDialogComponent, {
-      data: new SentinelConfirmationDialogConfig(
-        'Delete Question',
-        `Do you want to delete question "${question.title}"?`,
-        'Cancel',
-        'Delete'
-      ),
-    });
+    let dialogRef;
+    if (question.hasRelation) {
+      dialogRef = this.dialog.open(SentinelConfirmationDialogComponent, {
+        data: new SentinelConfirmationDialogConfig(
+          'Question in Relation',
+          `Cannot delete question "${question.title}" with existing relation.
+           Remove Question from relation(s) and delete in afterwards.`,
+          'Cancel'
+        ),
+      });
+    } else {
+      dialogRef = this.dialog.open(SentinelConfirmationDialogComponent, {
+        data: new SentinelConfirmationDialogConfig(
+          'Delete Question',
+          `Do you want to delete question "${question.title}"?`,
+          'Cancel',
+          'Delete'
+        ),
+      });
+    }
 
     dialogRef
       .afterClosed()

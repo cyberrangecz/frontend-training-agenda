@@ -41,7 +41,7 @@ export class FreeFormQuestionEditComponent extends SentinelBaseDirective impleme
 
   ngOnChanges(changes: SimpleChanges): void {
     if ('question' in changes) {
-      this.freeFormQuestionFormGroup = new QuestionFormGroup(this.question);
+      this.freeFormQuestionFormGroup = new QuestionFormGroup(this.question, this.questionnaireType);
       this.choices.markAllAsTouched();
       this.freeFormQuestionFormGroup.questionFormGroup.valueChanges
         .pipe(takeWhile(() => this.isAlive))

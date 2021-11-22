@@ -66,7 +66,5 @@ export class TrainingLevelEditFormGroup {
     level.answerVariableName = level.answerVariableName ? level.answerVariableName.trim() : level.answerVariableName;
     level.estimatedDuration = this.formGroup.get('estimatedDuration').value;
     level.valid = this.formGroup.valid && level.hints.every((hint) => hint.valid);
-
-    console.log(level);
   }
 }

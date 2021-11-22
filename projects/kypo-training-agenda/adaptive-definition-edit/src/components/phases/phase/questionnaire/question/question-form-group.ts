@@ -1,11 +1,13 @@
 import { FormArray, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { AdaptiveQuestion } from '@muni-kypo-crp/training-model';
+import { AdaptiveQuestion, QuestionnaireTypeEnum } from '@muni-kypo-crp/training-model';
 import { SentinelValidators } from '@sentinel/common';
 
 export class QuestionFormGroup {
   questionFormGroup: FormGroup;
+  questionnaireType: QuestionnaireTypeEnum;
 
-  constructor(ffq: AdaptiveQuestion) {
+  constructor(ffq: AdaptiveQuestion, questionnaireType: QuestionnaireTypeEnum) {
+    this.questionnaireType = questionnaireType;
     this.questionFormGroup = new FormGroup(
       {
         title: new FormControl(ffq.text, SentinelValidators.noWhitespace),
@@ -38,7 +40,7 @@ export class QuestionFormGroup {
   private noSelectedChoices: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
     let error = null;
     const choices = control.get('choices');
-    if (choices && choices.value.length === 0) {
+    if (choices && choices.value.length === 0 && this.questionnaireType === QuestionnaireTypeEnum.Adaptive) {
       error = { noSelectedChoices: true };
     }
     return error ? error : null;

@@ -50,7 +50,7 @@
     </div>
 
     <!-- QUESTIONS component -->
-    <kypo-question-overview (questionsChange)="onQuestionsChanged($event)"
+    <kypo-question-overview (questionsChange)="onQuestionsChanged($event)" [assessmentOrder]='level.order'
                             [questions]="level.questions" [isTest]="isTest.value"></kypo-question-overview>
   </form>
 </div>
