@@ -1,45 +1,19 @@
 <mat-tab-group mat-stretch-tabs class="mat-elevation-z4" *ngIf="(trainingInstance$ | async) as trainingInstance">
   <mat-tab>
     <ng-template mat-tab-label>
-      <mat-icon class="tab-icon">score</mat-icon>
-      Score Development
+      <mat-icon class="tab-icon">dashboard</mat-icon>
+      Dashboard
     </ng-template>
     <ng-template matTabContent>
-      <kypo2-viz-overview-timeline
-        [size]="vizSize"
-        [trainingInstanceId]="trainingInstance?.id"
-        [trainingDefinitionId]="trainingInstance?.trainingDefinition?.id">
-      </kypo2-viz-overview-timeline>
+      <div class="container">
+        <kypo-dashboard
+          [hasReferenceSolution]="hasReferenceSolution$ | async"
+          [trainingInstanceId]="trainingInstance?.id"
+          [trainingDefinitionId]="trainingInstance?.trainingDefinition?.id">
+        </kypo-dashboard>
+      </div>
     </ng-template>
   </mat-tab>
-
-  <mat-tab>
-    <ng-template mat-tab-label>
-      <mat-icon class="tab-icon">scatter_plot</mat-icon>
-      Score Scatter Plot
-    </ng-template>
-    <ng-template matTabContent>
-      <kypo2-viz-overview-clustering
-        [size]="vizSize"
-        [trainingInstanceId]="trainingInstance?.id"
-        [trainingDefinitionId]="trainingInstance?.trainingDefinition?.id">
-      </kypo2-viz-overview-clustering>
-    </ng-template>
-  </mat-tab>
-
-  <mat-tab>
-    <ng-template mat-tab-label>
-      <mat-icon class="tab-icon">timeline</mat-icon>
-      Progress
-    </ng-template>
-    <ng-template matTabContent>
-      <kypo-hurdling-visualization
-        view="overview"
-        [trainingInstanceId]="trainingInstance?.id">
-      </kypo-hurdling-visualization>
-    </ng-template>
-  </mat-tab>
-
   <mat-tab>
     <ng-template mat-tab-label>
       <mat-icon class="tab-icon">assignment</mat-icon>
@@ -52,45 +26,7 @@
       </kypo2-assessment-results-viz>
     </ng-template>
   </mat-tab>
-
-  <mat-tab>
-    <ng-template mat-tab-label>
-      <mat-icon class="tab-icon">dashboard</mat-icon>
-      Overview
-    </ng-template>
-    <ng-template matTabContent>
-      <kypo-hurdling-visualization
-        view="overview"
-        [trainingInstanceId]="trainingInstance?.id">
-      </kypo-hurdling-visualization>
-
-      <kypo2-viz-overview-timeline
-        [size]="vizSize"
-        [trainingInstanceId]="trainingInstance?.id"
-        [trainingDefinitionId]="trainingInstance?.trainingDefinition?.id">
-      </kypo2-viz-overview-timeline>
-
-      <kypo2-viz-overview-clustering
-        [size]="vizSize"
-        [trainingInstanceId]="trainingInstance?.id"
-        [trainingDefinitionId]="trainingInstance?.trainingDefinition?.id">
-      </kypo2-viz-overview-clustering>
-    </ng-template>
-  </mat-tab>
-
   <ng-container *ngIf="hasReferenceSolution$ | async">
-    <mat-tab>
-      <ng-template mat-tab-label>
-        <mat-icon class="tab-icon">stacked_line_chart</mat-icon>
-        Summary graph
-      </ng-template>
-      <ng-template matTabContent>
-        <div class="container">
-         <kypo-summary-graph [trainingInstanceId]="trainingInstance.id"></kypo-summary-graph>
-        </div>
-      </ng-template>
-    </mat-tab>
-
     <mat-tab>
       <ng-template mat-tab-label>
         <mat-icon class="tab-icon">trending_up</mat-icon>
@@ -127,5 +63,4 @@
       </ng-template>
     </mat-tab>
   </ng-container>
-
 </mat-tab-group>

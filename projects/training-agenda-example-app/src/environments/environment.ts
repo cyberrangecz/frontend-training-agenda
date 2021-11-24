@@ -64,6 +64,7 @@ export const environment = {
     interceptorAllowedUrls: [
       // all matching urls will have authorization token header
       baseURL,
+      'http://localhost',
     ],
     authorizationStrategyConfig: {
       authorizationUrl: userAngGroupURL + 'users/info',
@@ -76,7 +77,7 @@ export const environment = {
         backgroundColor: '#002776',
         oidcConfig: {
           issuer: 'https://172.19.0.22:8443/csirtmu-dummy-issuer-server/',
-          clientId: '4bfa4a2a-51a0-43ca-96e1-d73fd78f36c9',
+          clientId: '9333e00b-b413-42ca-9aab-65cd2709dfdf',
           redirectUri: homeURL, // redirect after successful login
           scope: 'openid email profile',
           logoutUrl: 'https://172.19.0.22/csirtmu-dummy-issuer-server/endsession',

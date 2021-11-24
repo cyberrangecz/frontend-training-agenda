@@ -1,3 +1,4 @@
+12.1.0 Add adaptive transition visualization, visualizations for command analysis, dashboard for organizer and Preloading of consoles for VMs.
 12.0.14 New training run design. Move checkbox for variant sandboxes to training levels. Add overview of correct answers for each sandbox.
 12.0.13 New version of the topology graph package - added missing configuration for Apache Guacamole.
 12.0.12 Add checkbox to support creation of default content in the training definition.
