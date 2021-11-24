@@ -1,0 +1,9 @@
+{
+    "lib": {
+        "entryFile": "src/public_api.ts",
+        "umdModuleIds": {
+            "@sentinel/common": "sentinel.common",
+            "@muni-kypo-crp/adaptive-transition-visualization": "muni-kypo-crp.adaptive-transition-visualization"
+        }
+    }
+}

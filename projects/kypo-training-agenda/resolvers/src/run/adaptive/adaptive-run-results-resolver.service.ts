@@ -4,7 +4,7 @@ import { AdaptiveRunApi } from '@muni-kypo-crp/training-api';
 import { TrainingRun } from '@muni-kypo-crp/training-model';
 import { EMPTY, Observable, of } from 'rxjs';
 import { catchError, mergeMap, take } from 'rxjs/operators';
-import { TrainingErrorHandler, TrainingNavigator, TRAINING_RUN_SELECTOR } from '@muni-kypo-crp/training-agenda';
+import { ADAPTIVE_RUN_SELECTOR, TrainingErrorHandler, TrainingNavigator } from '@muni-kypo-crp/training-agenda';
 
 @Injectable()
 export class AdaptiveRunResultsResolver implements Resolve<TrainingRun> {
@@ -16,8 +16,8 @@ export class AdaptiveRunResultsResolver implements Resolve<TrainingRun> {
   ) {}
 
   resolve(route: ActivatedRouteSnapshot): Observable<TrainingRun> | Promise<TrainingRun> | TrainingRun {
-    if (route.paramMap.has(TRAINING_RUN_SELECTOR)) {
-      const id = Number(route.paramMap.get(TRAINING_RUN_SELECTOR));
+    if (route.paramMap.has(ADAPTIVE_RUN_SELECTOR)) {
+      const id = Number(route.paramMap.get(ADAPTIVE_RUN_SELECTOR));
       return this.api.get(id).pipe(
         take(1),
         mergeMap((tr) => (tr ? of(tr) : this.navigateToOverview())),

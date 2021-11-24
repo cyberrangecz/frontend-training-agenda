@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { RunningAdaptiveRunService } from './running-adaptive-run.service';
-import { from, Observable } from 'rxjs';
+import { EMPTY, from, Observable } from 'rxjs';
 import { AbstractPhaseTypeEnum, AccessTrainingRunInfo, Phase, QuestionAnswer } from '@muni-kypo-crp/training-model';
 import { AdaptiveRunApi } from '@muni-kypo-crp/training-api';
 import { Router } from '@angular/router';
@@ -104,8 +104,15 @@ export class RunningAdaptiveRunConcreteService extends RunningAdaptiveRunService
   private callApiToFinish(): Observable<any> {
     return this.api.finish(this.trainingRunId).pipe(
       tap({ error: (err) => this.errorHandler.emit(err, 'Finishing training') }),
-      // temporary because visualizations are not finished
-      switchMap(() => from(this.router.navigate([this.navigator.toTrainingRunOverview()]))),
+      switchMap(() => {
+        const dialog = this.displayLoadingDialog();
+        const tmpTrainingRunId = this.trainingRunId;
+        setTimeout(() => {
+          dialog.close();
+          this.router.navigate([this.navigator.toAdaptiveRunResult(tmpTrainingRunId)]);
+        }, 5000);
+        return EMPTY;
+      }),
       tap(() => this.clear())
     );
   }
@@ -141,6 +148,15 @@ export class RunningAdaptiveRunConcreteService extends RunningAdaptiveRunService
       data: new LoadingDialogConfig(
         'Choosing a suitable task for you',
         `Please wait while your next task is being prepared`
+      ),
+    });
+  }
+
+  private displayLoadingDialog(): MatDialogRef<LoadingDialogComponent> {
+    return this.dialog.open(LoadingDialogComponent, {
+      data: new LoadingDialogConfig(
+        'Processing training data for visualization',
+        `Please wait while your training data are being processed`
       ),
     });
   }

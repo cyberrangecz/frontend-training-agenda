@@ -17,6 +17,7 @@ import {
   AccessTrainingRunResolver,
   AccessAdaptiveRunResolver,
   TrainingRunResultsResolver,
+  AdaptiveRunResultsResolver,
 } from '@muni-kypo-crp/training-agenda/resolvers';
 import { AccessedTrainingRunConcreteService } from '../services/state/training/accessed-training-run-concrete.service';
 import { AccessedTrainingRunService } from '../services/state/training/accessed-training-run.service';
@@ -54,6 +55,7 @@ import { TopologyApiModule } from '@muni-kypo-crp/topology-graph';
     AccessTrainingRunResolver,
     AccessAdaptiveRunResolver,
     TrainingRunResultsResolver,
+    AdaptiveRunResultsResolver,
     TrainingAgendaContext,
     PaginationService,
     { provide: TrainingNavigator, useClass: TrainingDefaultNavigator },

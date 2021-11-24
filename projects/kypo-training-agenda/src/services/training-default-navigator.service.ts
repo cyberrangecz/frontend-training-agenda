@@ -25,6 +25,7 @@ import {
   TRAINING_RUN_RESUME_PATH,
   ADAPTIVE_DEFINITION_DETAIL_PATH,
   RUNS_PATH,
+  ADAPTIVE_RUN_RESULTS_PATH,
 } from '../model/default-paths';
 
 @Injectable()
@@ -267,7 +268,7 @@ export class TrainingDefaultNavigator extends TrainingNavigator {
    * @param id id of the adaptive run
    */
   toAdaptiveRunResult(id: number | string): string {
-    return `${ADAPTIVE_RUN_PATH}/${TRAINING_RUN_RESULTS_PATH}/${id}`;
+    return `${TRAINING_RUN_PATH}/${ADAPTIVE_RUN_RESULTS_PATH}/${id}`;
   }
 
   toPool(id: number | string): string {

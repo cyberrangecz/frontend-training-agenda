@@ -11,10 +11,14 @@ import {
   TRAINING_RUN_RESULTS_PATH,
   TRAINING_RUN_RESUME_PATH,
   TRAINING_RUN_SELECTOR,
+  ADAPTIVE_RUN_DATA_ATTRIBUTE_NAME,
+  ADAPTIVE_RUN_SELECTOR,
+  ADAPTIVE_RUN_RESULTS_PATH,
 } from '@muni-kypo-crp/training-agenda';
 import {
   AccessAdaptiveRunResolver,
   AccessTrainingRunResolver,
+  AdaptiveRunResultsResolver,
   TrainingRunResultsResolver,
 } from '@muni-kypo-crp/training-agenda/resolvers';
 
@@ -61,12 +65,22 @@ const routes: Routes = [
   },
   {
     path: `${TRAINING_RUN_RESULTS_PATH}/:${TRAINING_RUN_SELECTOR}`,
-    loadChildren: () => import('./results/training-run-results.module').then((m) => m.TrainingRunResultsModule),
+    loadChildren: () => import('./results/linear/training-run-results.module').then((m) => m.TrainingRunResultsModule),
     data: {
       breadcrumb: 'Results',
       title: 'Training Run Results',
     },
     resolve: { [TRAINING_RUN_DATA_ATTRIBUTE_NAME]: TrainingRunResultsResolver },
+  },
+  {
+    path: `${ADAPTIVE_RUN_RESULTS_PATH}/:${ADAPTIVE_RUN_SELECTOR}`,
+    loadChildren: () =>
+      import('./results/adaptive/adaptive-run-results.module').then((m) => m.AdaptiveRunResultsModule),
+    data: {
+      breadcrumb: 'Results',
+      title: 'Training Run Results',
+    },
+    resolve: { [ADAPTIVE_RUN_DATA_ATTRIBUTE_NAME]: AdaptiveRunResultsResolver },
   },
 ];
 
