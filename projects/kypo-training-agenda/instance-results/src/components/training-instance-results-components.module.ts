@@ -12,6 +12,8 @@ import {
 import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
 import { TrainingInstanceResultsMaterialModule } from './training-instance-results-material.module';
 import { TrainingInstanceResultsComponent } from './training-instance-results.component';
+import { DashboardModule } from '@muni-kypo-crp/visualization-dashboard/dashboard';
+import { VisualizationDashboardConfig } from '@muni-kypo-crp/visualization-dashboard/internal';
 import { SummaryGraphModule } from '@muni-kypo-crp/command-visualizations/summary-graph';
 import { TimelineModule } from '@muni-kypo-crp/command-visualizations/timeline';
 import { MistakeModule } from '@muni-kypo-crp/command-visualizations/mistake';
@@ -28,6 +30,7 @@ import { TraineeGraphModule } from '@muni-kypo-crp/command-visualizations/traine
     SummaryGraphModule,
     Kypo2AssessmentsResultsVisualizationModule,
     Kypo2TrainingsVisualizationOverviewLibModule,
+    DashboardModule,
     TimelineModule,
     MistakeModule,
     TraineeGraphModule,
@@ -44,6 +47,7 @@ export class TrainingInstanceResultsComponentsModule {
     return {
       ngModule: TrainingInstanceResultsComponentsModule,
       providers: [
+        DashboardModule.forRoot(config.visualizationConfig).providers,
         SummaryGraphModule.forRoot(config.visualizationConfig).providers,
         TimelineModule.forRoot(config.visualizationConfig).providers,
         MistakeModule.forRoot(config.visualizationConfig).providers,
