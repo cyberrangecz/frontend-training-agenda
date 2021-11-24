@@ -51,7 +51,16 @@ export class AccessedTrainingRunTable extends SentinelTable<AccessedTrainingRun>
         'primary',
         'Access Results',
         of(trainingRun.action !== TraineeAccessTrainingRunActionEnum.Results),
-        defer(() => service.results(trainingRun.trainingRunId))
+        defer(() => {
+          switch (trainingRun.type) {
+            case TrainingRunTypeEnum.LINEAR:
+              service.resultsLinear(trainingRun.trainingRunId);
+              break;
+            case TrainingRunTypeEnum.ADAPTIVE:
+              service.resultsAdaptive(trainingRun.trainingRunId);
+              break;
+          }
+        })
       ),
     ];
   }

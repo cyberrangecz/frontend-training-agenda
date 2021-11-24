@@ -22,7 +22,9 @@ export abstract class AccessedTrainingRunService extends PaginatedResourceServic
 
   abstract resumeAdaptive(id: number): Observable<any>;
 
-  abstract results(trainingRunId: number): Observable<any>;
+  abstract resultsLinear(trainingRunId: number): Observable<any>;
+
+  abstract resultsAdaptive(trainingRunId: number): Observable<any>;
 
   abstract access(token: string): Observable<any>;
 }

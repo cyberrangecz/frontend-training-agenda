@@ -61,8 +61,12 @@ export class AccessedTrainingRunConcreteService extends AccessedTrainingRunServi
     return from(this.router.navigate([this.navigator.toAccessTrainingRun(token)]));
   }
 
-  results(id: number): Observable<any> {
+  resultsLinear(id: number): Observable<any> {
     return from(this.router.navigate([this.navigator.toTrainingRunResult(id)]));
+  }
+
+  resultsAdaptive(id: number): Observable<any> {
+    return from(this.router.navigate([this.navigator.toAdaptiveRunResult(id)]));
   }
 
   private getAllAdaptive(

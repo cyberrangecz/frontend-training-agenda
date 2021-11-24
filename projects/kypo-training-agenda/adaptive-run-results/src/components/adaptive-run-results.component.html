@@ -1,0 +1,6 @@
+<mat-card *ngIf="trainingRun$ | async">
+  <kypo-adaptive-transition-visualization
+    [trainingRunId]="(trainingRun$ | async).id"
+    [progress]="false"
+  ></kypo-adaptive-transition-visualization>
+</mat-card>
