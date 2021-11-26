@@ -1,3 +1,154 @@
+### 12.1.2 Add topology legend, update environment base paths.
+* 577f969 -- [CI/CD] Update packages.json version based on GitLab tag.
+*   298298d -- Merge branch '138-add-topology-legend-and-bump-dashboard-version' into 'master'
+|\  
+| * f52f0d3 -- Add topology legend, update environment
+|/  
+* 3166dd3 -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* 8d958c7 -- [CI/CD] Update packages.json version based on GitLab tag.
+*   68bb48c -- Merge branch '137-export-all-modules-from-library' into 'master'
+|\  
+| * 9c290dd -- Add missing exports
+|/  
+* 8cfe83e -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* a1ced9a -- [CI/CD] Update packages.json version based on GitLab tag.
+*   f8de5cb -- Merge branch '134-integrate-dasboard-visualization' into 'master'
+|\  
+| * 9a07460 -- Resolve "Integrate Dasboard visualization"
+|/  
+*   ba832ed -- Merge branch '136-integrate-adaptive-transition-visualization' into 'master'
+|\  
+| * 72726bb -- Resolve "Integrate adaptive transition visualization"
+|/  
+*   cbd6aaa -- Merge branch '127-integrate-command-visualization' into 'master'
+|\  
+| * 40784a8 -- Resolve "Integrate command visualization"
+|/  
+*   5082a65 -- Merge branch '133-fix-training-definition' into 'master'
+|\  
+| * 439f847 -- Resolve "Fix training definition"
+|/  
+*   8d3cafa -- Merge branch '135-preload-vm-console-when-training-run-starts' into 'master'
+|\  
+| * ae589ad -- Resolve "Preload VM console when training run starts"
+|/  
+*   8bcac1c -- Merge branch '132-add-license-file' into 'master'
+|\  
+| * 44587cb -- Add license file
+|/  
+*   903e816 -- Merge branch '131-bump-version-of-sentinel' into 'master'
+|\  
+| * 52c3902 -- Resolve "Bump version of sentinel"
+|/  
+*   97e56c5 -- Merge branch '130-change-order-of-icons-in-detail-pages' into 'master'
+|\  
+| * 7291a1f -- Changed order of icons
+|/  
+* 9f14afb -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* 879562f -- [CI/CD] Update packages.json version based on GitLab tag.
+*   ffb87da -- Merge branch '128-add-overview-of-correct-answers-for-each-sandbox-training-run-in-apg-games' into 'master'
+|\  
+| * ebb6c46 -- Resolve "add overview of correct answers for each sandbox/training run in APG games"
+|/  
+*   aa6880f -- Merge branch '129-move-checkbox-variant-sandboxes-from-definition-to-training-level' into 'master'
+|\  
+| * db75fa5 -- Resolve "Move checkbox variant sandboxes from definition to training level"
+|/  
+*   87fd2ef -- Merge branch '125-update-design-for-training-run' into 'master'
+|\  
+| * 8b5d376 -- Resolve "Update design for training run"
+|/  
+* e0e1509 -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* e838ee1 -- [CI/CD] Update packages.json version based on GitLab tag.
+*   67b6b97 -- Merge branch '126-update-version-of-the-topology-graph-package' into 'master'
+|\  
+| * 96072e8 -- New version of the topology graph package with configuration for Guacamole.
+|/  
+* 338e3e9 -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* 7f786fa -- [CI/CD] Update packages.json version based on GitLab tag.
+*   a11f544 -- Merge branch '123-add-option-to-create-default-content-on-create-training-definition-page' into 'master'
+|\  
+| * e1d2b14 -- Resolve "Add option to create default content on Create Training Definition page"
+|/  
+*   4189c82 -- Merge branch '113-add-detail-page-for-td' into 'master'
+|\  
+| * 5e50b44 -- Resolve "Add detail page for TD"
+|/  
+* 347d9f1 -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* a8c8637 -- [CI/CD] Update packages.json version based on GitLab tag.
+*   59daf8b -- Merge branch '124-create-tag-with-latest-changes' into 'master'
+|\  
+| * 9afda99 -- Tag message and overview visualization bump
+|/  
+*   dca38f6 -- Merge branch '122-fix-assessment-question-stepper' into 'master'
+|\  
+| * 3c22dab -- Resolve "Fix assessment question stepper"
+|/  
+* adcd8c6 -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* 37a41d4 -- [CI/CD] Update packages.json version based on GitLab tag.
+*   caa5670 -- Merge branch '121-bump-version' into 'master'
+|\  
+| * 3f137db -- Bump version
+|/  
+*   e5eae2d -- Merge branch '120-fix-redirection-after-saving-ati' into 'master'
+|\  
+| * 0c8886a -- Fix redirect
+|/  
+* ed627a1 -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* 8effcae -- [CI/CD] Update packages.json version based on GitLab tag.
+*   fc82c41 -- Merge branch '119-bump-visualization-versions' into 'master'
+|\  
+| * ec9ff9c -- Bump visualizations
+|/  
+* e326249 -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* f3207f5 -- [CI/CD] Update packages.json version based on GitLab tag.
+*   066382a -- Merge branch '117-modify-save-strategy-for-training-definition' into 'master'
+|\  
+| * 8db9243 -- Bump training api version and add tag message
+| * 2422cd7 -- Fixed tests and saving strategy for adaptive ti
+| * b69c7ff -- Adaptive instance save strategy
+| * 89a2a8a -- Fix ti save strategy
+| *   20775d1 -- Merge changes
+| |\  
+| | * 5d45198 -- fix saving problems
+| | * d115ea6 -- Draft: Adaptive instance change save strategy
+| * | 272c031 -- Draft: save fix
+| |/  
+| * 8280c43 -- Change save strategy for linear training instance
+| * 56da3fe -- Fix problems with adaptive td save strategy, fix failing tests for linear and adaptive TD
+| * 2777939 -- Prettier changes
+| * ccab86c -- Adaptive definition save strategy changed
+*   9be061b -- Merge branch '109-make-the-submit-button-more-visible-in-the-adaptive-training' into 'master'
+|\  
+| * c7c8e10 -- Resolve "Make the submit button more visible in the adaptive training"
+|/  
+*   3414c95 -- Merge branch '114-display-training-definition-id-when-selecting-training-definition-for-training-instance' into 'master'
+|\  
+| * a2eae2c -- Fix assessment questions
+|/  
+*   a910c12 -- Merge branch '115-display-default-value-of-the-input-fields-in-the-training-phase' into 'master'
+|\  
+| * d387e33 -- Added information about default value in wrong answers, allowed command and estimated duration input fields.
+* |   19eaf37 -- Merge branch '116-add-node-modules-to-gitignore' into 'master'
+|\ \  
+| |/  
+|/|   
+| * a34dc2c -- Resolve "Add node modules to .gitignore"
+|/  
+* 45dacff -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* 2751978 -- [CI/CD] Update packages.json version based on GitLab tag.
+*   2077814 -- Merge branch '445537-master-patch-15953' into 'master'
+|\  
+| * d1903d2 -- Update VERSION.txt
+|/  
+*   6c93206 -- Merge branch '98-add-expansion-panel-with-related-questions-to-the-training-phase' into 'master'
+|\  
+| * 346787c -- Added expansion panel to training phase to display all related questions.
+|/  
+*   659722e -- Merge branch '93-integrate-functionality-for-automatic-problem-generation-apg' into 'master'
+|\  
+| * 5ea1298 -- Renaming variantAnswers to variantSandboxes and flagIdentifier to...
+* 5939b2d -- Merge branch '112-trigger-form-validity-when-new-element-is-added' into 'master'
 ### 12.1.1 Export missing modules from library.
 * 8d958c7 -- [CI/CD] Update packages.json version based on GitLab tag.
 *   68bb48c -- Merge branch '137-export-all-modules-from-library' into 'master'
