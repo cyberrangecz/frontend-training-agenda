@@ -17,12 +17,12 @@
     "@muni-kypo-crp/topology-model": "~12.0.3",
     "@muni-kypo-crp/training-model": "~12.1.0",
     "@muni-kypo-crp/d3-service": "12.0.2",
-    "@muni-kypo-crp/visualization-dashboard": "~12.0.1",
+    "@muni-kypo-crp/visualization-dashboard": "~12.0.2",
     "@muni-kypo-crp/adaptive-visualization": "~12.0.3",
     "@muni-kypo-crp/adaptive-transition-visualization": "~12.0.2",
     "@muni-kypo-crp/assessment-visualization": "~12.0.4",
     "@muni-kypo-crp/command-visualizations": "~12.0.1",
-    "@muni-kypo-crp/hurdling-visualization": "~12.0.5",
+    "@muni-kypo-crp/hurdling-visualization": "~12.0.7",
     "@muni-kypo-crp/overview-visualization": "~12.1.0"
   },
   "dependencies": {
