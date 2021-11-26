@@ -18,7 +18,7 @@ import { AdaptiveRunResultsComponent } from './adaptive-run-results.component';
 export class AdaptiveRunResultsComponentsModule {
   static forRoot(config: TrainingAgendaConfig): ModuleWithProviders<AdaptiveRunResultsComponentsModule> {
     const visualizationConfig: AdaptiveTransitionVisualizationConfig = {
-      trainingServiceUrl: config.visualizationConfig.adaptiveTrainingBasePath,
+      trainingServiceUrl: config.visualizationConfig.adaptiveBasePath,
     };
     return {
       ngModule: AdaptiveRunResultsComponentsModule,

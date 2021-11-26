@@ -52,7 +52,7 @@ mat-form-field {
 .right-panel {
   width: 40%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 }
 
 .answer-input {
@@ -86,14 +86,14 @@ mat-form-field {
   display: flex;
   align-items: center;
   position: relative;
-} 
+}
 
 .divider::after {
   content: '';
   position: absolute;
   border-left: 1px solid rgba(0,0,0,.12);
   right: -1vw;
-  height: 100%; 
+  height: 100%;
 }
 
 #solution {
@@ -106,7 +106,7 @@ h3 {
 
 /* (100vw - 100%) is used to account for scrollbar */
 .controls {
-  position: fixed; 
+  position: fixed;
   bottom: 0;
   left: 140px;
   z-index: 10;
@@ -183,7 +183,7 @@ button {
     display: flex;
     flex-direction: row;
   }
-  
+
 }
 
 /* Breakpoint based on sentinel layout (when navbar is hidden) */
@@ -191,6 +191,5 @@ button {
   .controls {
     left: 0;
     width: calc(100vw - (100vw - 100%) - 16px);
-    
   }
 }

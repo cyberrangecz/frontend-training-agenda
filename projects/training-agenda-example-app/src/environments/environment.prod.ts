@@ -31,7 +31,6 @@ export const kypo2TopologyConfig = {
 };
 
 export const visualizationConfig = {
-  adaptiveTrainingBasePath: adaptiveTrainingURL,
   trainingBasePath: trainingURL,
   adaptiveBasePath: adaptiveTrainingURL,
   elasticSearchBasePath: elasticSearchURL,
