@@ -1,3 +1,4 @@
+12.1.3 Fix duration of training runs in instance and run detail, fix adaptive definition detail, bump visualizations.
 12.1.2 Add topology legend, update environment base paths.
 12.1.1 Export missing modules from library.
 12.1.0 Add adaptive transition visualization, visualizations for command analysis, dashboard for organizer and Preloading of consoles for VMs.
