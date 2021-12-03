@@ -51,7 +51,7 @@ kypo2-topology-graph {
 .right-panel {
   width: 40%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 }
 
 .solution-content {
@@ -91,14 +91,14 @@ kypo2-topology-graph {
   display: flex;
   align-items: center;
   position: relative;
-} 
+}
 
 .divider::after {
   content: '';
   position: absolute;
   border-left: 1px solid rgba(0,0,0,.12);
   right: -1vw;
-  height: 100%; 
+  height: 100%;
 }
 
 mat-form-field {
@@ -107,7 +107,7 @@ mat-form-field {
 
 /* (100vw - 100%) is used to account for scrollbar */
 .controls {
-  position: fixed; 
+  position: fixed;
   bottom: 0;
   left: 140px;
   z-index: 10;
@@ -185,7 +185,7 @@ button {
     display: flex;
     flex-direction: row;
   }
-  
+
 }
 
 /* Breakpoint based on sentinel layout (when navbar is hidden) */
@@ -193,7 +193,7 @@ button {
   .controls {
     left: 0;
     width: calc(100vw - (100vw - 100%) - 16px);
-    
+
   }
 }
 
