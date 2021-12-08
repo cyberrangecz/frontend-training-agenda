@@ -17,6 +17,10 @@ export class AdaptiveInstanceSummaryConcreteService extends AdaptiveInstanceSumm
     this.hasStarted$ = timer(0, 60000).pipe(map(() => this.trainingInstance.hasStarted()));
   }
 
+  showProgress(): Observable<any> {
+    return from(this.router.navigate([this.navigator.toAdaptiveInstanceProgress(this.trainingInstance.id)]));
+  }
+
   showResults(): Observable<any> {
     return from(this.router.navigate([this.navigator.toAdaptiveInstanceResults(this.trainingInstance.id)]));
   }

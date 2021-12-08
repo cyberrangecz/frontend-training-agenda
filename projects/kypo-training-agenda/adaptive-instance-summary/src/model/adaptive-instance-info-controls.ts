@@ -12,7 +12,7 @@ export class AdaptiveInstanceInfoControls {
     return [
       new SentinelControlItem(
         this.RESULTS_ACTION_ID,
-        'Show Results',
+        'Show Progress',
         'primary',
         disabled$,
         defer(() => of(showResultsEmitter.emit(true)))

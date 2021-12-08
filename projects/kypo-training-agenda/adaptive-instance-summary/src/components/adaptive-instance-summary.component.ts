@@ -105,7 +105,7 @@ export class AdaptiveInstanceSummaryComponent extends SentinelBaseDirective impl
   }
 
   onShowProgress(): void {
-    this.adaptiveInstanceSummaryService.showResults();
+    this.adaptiveInstanceSummaryService.showProgress();
   }
 
   onShowNotification(data: string[]): void {
