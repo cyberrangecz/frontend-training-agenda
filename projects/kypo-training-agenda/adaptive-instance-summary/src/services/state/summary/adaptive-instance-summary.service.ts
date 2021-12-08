@@ -7,6 +7,8 @@ export abstract class AdaptiveInstanceSummaryService {
 
   abstract init(ti: TrainingInstance): void;
 
+  abstract showProgress(): Observable<any>;
+
   abstract showResults(): Observable<any>;
 
   abstract showToken(): Observable<any>;
