@@ -96,6 +96,7 @@ export class AdaptiveInstanceEditConcreteService extends AdaptiveInstanceEditSer
 
   getAll(requestedPagination: RequestedPagination): Observable<PaginatedResource<Pool>> {
     this.lastPagination = requestedPagination;
+    this.lastPagination.size = Number.MAX_SAFE_INTEGER;
     return this.poolApi.getPools(requestedPagination).pipe(
       tap(
         (pools) => {

@@ -167,7 +167,6 @@ export class MultipleChoiceQuestionEditComponent extends SentinelBaseDirective i
     } else {
       this.penalty.disable();
       this.score.disable();
-      this.choices.controls.forEach((choice) => choice.get('correct').disable());
     }
     this.multipleChoicesFormGroup.formGroup.updateValueAndValidity();
   }

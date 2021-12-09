@@ -15,7 +15,7 @@
     <!-- CHOICES field -->
     <h2>Answers:</h2>
     <div formArrayName="choices">
-      <div *ngFor="let choicesGroup of choices.controls; index as i; trackBy: trackByFn" [formGroupName]="i">
+      <div *ngFor="let choicesGroup of choices.controls; index as i;" [formGroupName]="i">
         <mat-form-field appearance="outline">
           <mat-label>Answer {{ i+1 }}</mat-label>
           <input matInput placeholder="Answer text" formControlName="text" required/>
