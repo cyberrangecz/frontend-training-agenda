@@ -128,10 +128,12 @@ export class RunningTrainingRunConcreteService extends RunningTrainingRunService
   }
 
   private callApiToFinish(): Observable<any> {
+    const dialog = this.displayLoadingDialog();
     return this.api.finish(this.trainingRunId).pipe(
-      tap({ error: (err) => this.errorHandler.emit(err, 'Finishing training') }),
+      tap({
+        error: (err) => this.errorHandler.emit(err, 'Finishing training'),
+      }),
       switchMap(() => {
-        const dialog = this.displayLoadingDialog();
         const tmpTrainingRunId = this.trainingRunId;
         setTimeout(() => {
           dialog.close();
