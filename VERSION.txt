@@ -1,3 +1,4 @@
+12.1.6 Fix loading of spinner
 12.1.5 Fix default pagination for pool selection in training instances.
 12.1.4 Fix adaptive progress route
 12.1.3 Fix duration of training runs in instance and run detail, fix adaptive definition detail, bump visualizations.
