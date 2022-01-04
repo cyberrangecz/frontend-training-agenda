@@ -13,7 +13,7 @@
   <div [hidden]="isPreview">
     <mat-card #controls class="controls">
       <div class="controls-container">
-        <button *ngIf="!isSubmitted" mat-raised-button color="primary" (click)="submit()">
+        <button *ngIf="!isSubmitted" mat-raised-button color="primary" (click)="submit()" [disabled]="!canSubmit">
           Submit
         </button>
         <kypo-next-level-button *ngIf="isSubmitted" [isLast]="isLast" (next)="onNext()"> </kypo-next-level-button>
