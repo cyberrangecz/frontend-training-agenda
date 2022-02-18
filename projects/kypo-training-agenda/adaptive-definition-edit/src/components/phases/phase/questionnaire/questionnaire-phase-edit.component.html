@@ -27,6 +27,7 @@
 
     <!-- QUESTIONS component -->
     <kypo-adaptive-questions-overview [questions]="phase.questions"
+                                      [questionnaireOrder]="phase.order"
                                       [questionnaireType]="phase.questionnaireType"
                                       (questionsChange)="onQuestionsChanged($event)"
                                       (deleteRelationChange)="removeQuestionFromRelations($event)">

@@ -9,7 +9,7 @@ export class AdaptiveQuestionStepperAdapter {
   valid: boolean;
   isActive: boolean;
   primaryIcon: string;
-  hasRelation: boolean;
+  relations: number;
   state: StepperItemState;
 
   constructor(question: AdaptiveQuestion) {
@@ -21,7 +21,7 @@ export class AdaptiveQuestionStepperAdapter {
     this.state = new StepperItemState();
     this.state.icon = AdaptiveQuestionStepperAdapter.iconType(question.questionType);
     this.state.hasState = false;
-    this.hasRelation = question.hasRelation;
+    this.relations = question.relations;
     this.primaryIcon = AdaptiveQuestionStepperAdapter.iconType(question.questionType);
   }
 
@@ -33,7 +33,7 @@ export class AdaptiveQuestionStepperAdapter {
     this._question = value;
     this.title = value.text;
     this.order = value.order;
-    this.hasRelation = value.hasRelation;
+    this.relations = value.relations;
     this.id = value.id;
   }
 

@@ -25,6 +25,7 @@ import {
 })
 export class QuestionsOverviewComponent extends SentinelBaseDirective implements OnInit, OnChanges {
   @Input() questions: AdaptiveQuestion[];
+  @Input() questionnaireOrder: number;
   @Input() questionnaireType: QuestionTypeEnum;
   @Output() deleteRelationChange: EventEmitter<number> = new EventEmitter();
   @Output() questionsChange: EventEmitter<AdaptiveQuestion[]> = new EventEmitter();
@@ -44,6 +45,12 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    if (
+      changes['questionnaireOrder'] &&
+      changes['questionnaireOrder'].previousValue !== changes['questionnaireOrder'].currentValue
+    ) {
+      this.selectedStep = 0;
+    }
     if ('questions' in changes && changes['questions'].isFirstChange()) {
       this.selectedStep = 0;
     }
@@ -75,7 +82,7 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
   deleteActiveQuestion(): void {
     const question = this.stepperQuestions.items[this.selectedStep];
     let dialogRef;
-    if (question.hasRelation) {
+    if (question.relations > 0) {
       dialogRef = this.dialog.open(SentinelConfirmationDialogComponent, {
         data: new SentinelConfirmationDialogConfig(
           'Question in Relation',
