@@ -17,7 +17,6 @@ import { Pool } from '@muni-kypo-crp/sandbox-model';
 @Injectable()
 export class TrainingInstanceEditConcreteService extends TrainingInstanceEditService {
   private editedSnapshot: TrainingInstance;
-  private selectedPool: number;
   private instanceValid: boolean;
   private lastPagination: RequestedPagination;
 
@@ -41,7 +40,7 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
     this.saveDisabledSubject$.next(!changeEvent.isValid);
     this.instanceValidSubject$.next(changeEvent.isValid);
     this.editedSnapshot = changeEvent.trainingInstance;
-    this.editedSnapshot.poolId = this.selectedPool;
+    this.editedSnapshot.poolId = this.assignedPoolSubject$.getValue();
   }
 
   /**
@@ -49,13 +48,13 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
    * @param poolId pool ID of selected pool
    */
   poolSelectionChange(poolId: number): void {
-    this.selectedPool = poolId;
     this.poolSaveDisabledSubject$.next(false);
     if (this.instanceValid !== false) {
       if (this.editedSnapshot) {
-        this.editedSnapshot.poolId = this.selectedPool;
+        this.editedSnapshot.poolId = poolId;
       }
     }
+    this.assignedPoolSubject$.next(poolId);
   }
 
   /**
@@ -127,8 +126,8 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
   private update(): Observable<any> {
     if (!this.editedSnapshot) {
       this.editedSnapshot = this.trainingInstanceSubject$.getValue();
-      this.editedSnapshot.poolId = this.selectedPool;
     }
+    this.editedSnapshot.poolId = this.assignedPoolSubject$.getValue();
     const pagination = new RequestedPagination(0, 10, '', '');
     this.saveDisabledSubject$.next(true);
     this.poolSaveDisabledSubject$.next(true);

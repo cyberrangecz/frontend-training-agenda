@@ -51,7 +51,12 @@ export class AdaptiveDefinitionEditConcreteService extends AdaptiveDefinitionEdi
       if (this.editedSnapshot) {
         return concat(this.update(), this.phaseEditService.saveUnsavedPhases());
       } else {
-        return this.phaseEditService.saveUnsavedPhases();
+        return concat(
+          this.phaseEditService.saveUnsavedPhases(),
+          this.api
+            .get(this.trainingDefinitionSubject$.getValue().id, true)
+            .pipe(tap((val) => this.trainingDefinitionSubject$.next(val)))
+        );
       }
     } else {
       return this.create().pipe(map((id) => this.router.navigate([this.navigator.toAdaptiveDefinitionEdit(id)])));

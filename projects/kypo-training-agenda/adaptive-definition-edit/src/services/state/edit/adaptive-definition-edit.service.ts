@@ -1,10 +1,10 @@
 import { TrainingDefinition } from '@muni-kypo-crp/training-model';
-import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { TrainingDefinitionChangeEvent } from '../../../model/events/training-definition-change-event';
 
 export abstract class AdaptiveDefinitionEditService {
-  protected trainingDefinitionSubject$: ReplaySubject<TrainingDefinition> = new ReplaySubject();
+  protected trainingDefinitionSubject$: BehaviorSubject<TrainingDefinition> = new BehaviorSubject(null);
   /**
    * Currently edited training definition
    */
