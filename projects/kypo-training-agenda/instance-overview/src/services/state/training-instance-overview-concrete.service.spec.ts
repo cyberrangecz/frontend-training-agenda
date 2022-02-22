@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { asyncData, PaginatedResource, SentinelPagination, RequestedPagination } from '@sentinel/common';
+import { asyncData, PaginatedResource, OffsetPagination, OffsetPaginationEvent } from '@sentinel/common';
 import { PoolApi } from '@muni-kypo-crp/sandbox-api';
 import { Pool, SandboxInstance } from '@muni-kypo-crp/sandbox-model';
 import { TrainingInstanceApi } from '@muni-kypo-crp/training-api';
@@ -168,7 +168,7 @@ describe('TrainingInstanceOverviewConcreteService', () => {
   });
 
   function createPagination() {
-    return new RequestedPagination(1, 5, '', '');
+    return new OffsetPaginationEvent(1, 5, '', '');
   }
 
   function createPoolMock(): Pool {
@@ -205,7 +205,7 @@ describe('TrainingInstanceOverviewConcreteService', () => {
     sandbox5.lockId = undefined;
     sandbox5.allocationUnitId = 5;
 
-    return new PaginatedResource([sandbox1, sandbox2], new SentinelPagination(1, 2, 2, 2, 1));
+    return new PaginatedResource([sandbox1, sandbox2], new OffsetPagination(1, 2, 2, 2, 1));
   }
 
   function createInstancesMock(): TrainingInstance[] {
@@ -217,6 +217,6 @@ describe('TrainingInstanceOverviewConcreteService', () => {
   }
 
   function createInstancesPaginatedMock(): PaginatedResource<TrainingInstance> {
-    return new PaginatedResource(createInstancesMock(), new SentinelPagination(1, 2, 2, 2, 1));
+    return new PaginatedResource(createInstancesMock(), new OffsetPagination(1, 2, 2, 2, 1));
   }
 });

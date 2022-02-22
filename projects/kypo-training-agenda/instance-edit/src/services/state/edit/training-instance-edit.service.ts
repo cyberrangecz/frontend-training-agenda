@@ -2,7 +2,7 @@ import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { BehaviorSubject, Observable, timer } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
 import { TrainingInstanceChangeEvent } from '../../../model/events/training-instance-change-event';
-import { PaginatedResource, RequestedPagination, SentinelPagination } from '@sentinel/common';
+import { PaginatedResource, OffsetPaginationEvent, OffsetPagination } from '@sentinel/common';
 import { Pool } from '@muni-kypo-crp/sandbox-model';
 
 /**
@@ -88,11 +88,11 @@ export abstract class TrainingInstanceEditService {
    */
   abstract poolSelectionChange(poolId: number): void;
 
-  abstract getAll(requestedPagination: RequestedPagination): Observable<PaginatedResource<Pool>>;
+  abstract getAll(OffsetPaginationEvent: OffsetPaginationEvent): Observable<PaginatedResource<Pool>>;
 
   abstract init(trainingInstance: TrainingInstance): void;
 
   protected initSubject(pageSize: number): PaginatedResource<Pool> {
-    return new PaginatedResource([], new SentinelPagination(0, 0, pageSize, 0, 0));
+    return new PaginatedResource([], new OffsetPagination(0, 0, pageSize, 0, 0));
   }
 }

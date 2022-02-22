@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { RequestedPagination, PaginatedResource, SentinelPagination } from '@sentinel/common';
+import { OffsetPaginationEvent, PaginatedResource, OffsetPagination } from '@sentinel/common';
 import { UserApi } from '@muni-kypo-crp/training-api';
 import { Designer } from '@muni-kypo-crp/training-model';
 import { SentinelUserAssignService } from '@sentinel/components/user-assign';
@@ -22,7 +22,7 @@ export class AuthorsAssignService extends SentinelUserAssignService {
     super();
   }
 
-  private lastAssignedPagination: RequestedPagination;
+  private lastAssignedPagination: OffsetPaginationEvent;
   private lastAssignedFilter: string;
   private assignedUsersSubject: BehaviorSubject<PaginatedResource<Designer>> = new BehaviorSubject(this.initSubject());
   /**
@@ -76,7 +76,7 @@ export class AuthorsAssignService extends SentinelUserAssignService {
    */
   getAssigned(
     resourceId: number,
-    pagination: RequestedPagination,
+    pagination: OffsetPaginationEvent,
     filter: string = null
   ): Observable<PaginatedResource<Designer>> {
     this.clearSelectedAssignedUsers();
@@ -109,7 +109,7 @@ export class AuthorsAssignService extends SentinelUserAssignService {
     return this.userApi
       .getDesignersNotInTD(
         resourceId,
-        new RequestedPagination(0, paginationSize, 'familyName', 'asc'),
+        new OffsetPaginationEvent(0, paginationSize, 'familyName', 'asc'),
         false,
         UserNameFilters.create(filter)
       )
@@ -158,6 +158,6 @@ export class AuthorsAssignService extends SentinelUserAssignService {
   }
 
   private initSubject(): PaginatedResource<Designer> {
-    return new PaginatedResource([], new SentinelPagination(0, 0, this.context.config.defaultPaginationSize, 0, 0));
+    return new PaginatedResource([], new OffsetPagination(0, 0, this.context.config.defaultPaginationSize, 0, 0));
   }
 }

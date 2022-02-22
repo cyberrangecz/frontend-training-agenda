@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { asyncData, PaginatedResource, SentinelPagination } from '@sentinel/common';
+import { asyncData, PaginatedResource, OffsetPagination } from '@sentinel/common';
 import { PoolApi, SandboxInstanceApi } from '@muni-kypo-crp/sandbox-api';
 import { TrainingInstanceApi } from '@muni-kypo-crp/training-api';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
@@ -174,6 +174,6 @@ describe('TrainingInstanceEditConcreteService', () => {
     pool1.id = 0;
     const pool2 = new Pool();
     pool2.id = 1;
-    return new PaginatedResource([pool1, pool2], new SentinelPagination(1, 2, 2, 2, 1));
+    return new PaginatedResource([pool1, pool2], new OffsetPagination(1, 2, 2, 2, 1));
   }
 });

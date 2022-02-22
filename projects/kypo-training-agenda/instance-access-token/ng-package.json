@@ -1,8 +1,5 @@
 {
     "lib": {
-        "entryFile": "src/public_api.ts",
-        "umdModuleIds": {
-            "@sentinel/common": "sentinel.common"
-        }
+        "entryFile": "src/public_api.ts"
     }
 }

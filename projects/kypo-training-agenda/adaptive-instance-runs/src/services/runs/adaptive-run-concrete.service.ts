@@ -5,7 +5,7 @@ import {
   SentinelConfirmationDialogConfig,
   SentinelDialogResultEnum,
 } from '@sentinel/components/dialogs';
-import { PaginatedResource, RequestedPagination } from '@sentinel/common';
+import { PaginatedResource, OffsetPaginationEvent } from '@sentinel/common';
 import { SandboxAllocationUnitsApi, SandboxInstanceApi } from '@muni-kypo-crp/sandbox-api';
 import { SandboxInstance } from '@muni-kypo-crp/sandbox-model';
 import { AdaptiveInstanceApi, AdaptiveRunApi } from '@muni-kypo-crp/training-api';
@@ -42,7 +42,7 @@ export class AdaptiveRunConcreteService extends AdaptiveRunService {
    * @param trainingInstanceId which adaptive runs should be requested
    * @param pagination requested pagination
    */
-  getAll(trainingInstanceId: number, pagination: RequestedPagination): Observable<PaginatedResource<TrainingRun>> {
+  getAll(trainingInstanceId: number, pagination: OffsetPaginationEvent): Observable<PaginatedResource<TrainingRun>> {
     this.onManualResourceRefresh(pagination, trainingInstanceId);
     return this.adaptiveInstanceApi.getAssociatedTrainingRuns(trainingInstanceId, pagination).pipe(
       tap(
@@ -80,7 +80,7 @@ export class AdaptiveRunConcreteService extends AdaptiveRunService {
       .pipe(tap({ error: () => this.onGetAllError() }));
   }
 
-  protected onManualResourceRefresh(pagination: RequestedPagination, ...params: any[]): void {
+  protected onManualResourceRefresh(pagination: OffsetPaginationEvent, ...params: any[]): void {
     super.onManualResourceRefresh(pagination, ...params);
     this.lastTrainingInstanceId = params[0];
   }

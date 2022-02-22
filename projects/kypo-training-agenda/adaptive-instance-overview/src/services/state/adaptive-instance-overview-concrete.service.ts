@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { RequestedPagination, PaginatedResource } from '@sentinel/common';
+import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common';
 import { PoolApi } from '@muni-kypo-crp/sandbox-api';
 import { AdaptiveInstanceApi } from '@muni-kypo-crp/training-api';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
@@ -19,7 +19,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 @Injectable()
 export class AdaptiveInstanceOverviewConcreteService extends AdaptiveInstanceOverviewService {
-  private lastPagination: RequestedPagination;
+  private lastPagination: OffsetPaginationEvent;
   private lastFilters: string;
 
   constructor(
@@ -35,7 +35,7 @@ export class AdaptiveInstanceOverviewConcreteService extends AdaptiveInstanceOve
     super(context.config.defaultPaginationSize);
   }
 
-  getAll(pagination: RequestedPagination, filter: string = null): Observable<PaginatedResource<TrainingInstance>> {
+  getAll(pagination: OffsetPaginationEvent, filter: string = null): Observable<PaginatedResource<TrainingInstance>> {
     this.lastPagination = pagination;
     this.lastFilters = filter;
     this.hasErrorSubject$.next(false);

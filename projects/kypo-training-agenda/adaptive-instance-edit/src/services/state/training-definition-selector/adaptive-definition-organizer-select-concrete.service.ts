@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { PaginatedResource, RequestedPagination, SentinelFilter } from '@sentinel/common';
+import { PaginatedResource, OffsetPaginationEvent, SentinelFilter } from '@sentinel/common';
 import { AdaptiveDefinitionApiService } from '@muni-kypo-crp/training-api';
 import { TrainingDefinitionInfo } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
@@ -26,7 +26,10 @@ export class AdaptiveDefinitionOrganizerSelectConcreteService extends TrainingDe
    * @param pagination requested pagination
    * @param stateFilter filter (state attribute) which should be applied to requested training definitions
    */
-  getAll(pagination: RequestedPagination, stateFilter: string): Observable<PaginatedResource<TrainingDefinitionInfo>> {
+  getAll(
+    pagination: OffsetPaginationEvent,
+    stateFilter: string
+  ): Observable<PaginatedResource<TrainingDefinitionInfo>> {
     this.hasErrorSubject$.next(false);
     this.isLoadingSubject$.next(true);
     return this.api.getAllForOrganizer(pagination, [new SentinelFilter('state', stateFilter)]).pipe(

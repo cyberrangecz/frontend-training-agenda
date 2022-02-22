@@ -7,7 +7,7 @@
     [hasError]="hasError$ | async"
     [titlecasedActions]="false"
     (rowAction)="onInstanceAction($event)"
-    (refresh)="onInstancesLoadEvent($event)"
+    (tableLoad)="onInstancesLoadEvent($event)"
   >
     <ng-container *sentinelRow="'accessToken'; template: accessToken"></ng-container>
     <ng-container *sentinelRow="'poolSize'; template: poolSize"></ng-container>

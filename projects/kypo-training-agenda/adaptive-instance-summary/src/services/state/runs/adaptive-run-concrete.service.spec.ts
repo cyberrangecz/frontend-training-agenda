@@ -1,6 +1,6 @@
 import { async, TestBed } from '@angular/core/testing';
 import { MatDialog } from '@angular/material/dialog';
-import { RequestedPagination, SentinelPagination, PaginatedResource } from '@sentinel/common';
+import { OffsetPaginationEvent, OffsetPagination, PaginatedResource } from '@sentinel/common';
 import { SandboxInstanceApi } from '@muni-kypo-crp/sandbox-api';
 import { SandboxAllocationUnitsApi } from '@muni-kypo-crp/sandbox-api';
 import { AdaptiveInstanceApi, AdaptiveRunApi } from '@muni-kypo-crp/training-api';
@@ -82,10 +82,10 @@ describe('TrainingRunConcreteService', () => {
   });
 
   function createPagination() {
-    return new RequestedPagination(1, 5, '', '');
+    return new OffsetPaginationEvent(1, 5, '', '');
   }
 
   function createMock() {
-    return new PaginatedResource([], new SentinelPagination(1, 0, 5, 5, 1));
+    return new PaginatedResource([], new OffsetPagination(1, 0, 5, 5, 1));
   }
 });

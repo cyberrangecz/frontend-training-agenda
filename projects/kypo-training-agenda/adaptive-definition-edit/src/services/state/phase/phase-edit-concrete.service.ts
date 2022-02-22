@@ -373,11 +373,9 @@ export class PhaseEditConcreteService extends PhaseEditService {
   }
 
   private onTaskDeleted(id: number): void {
-    (this.phasesSubject$.getValue()[
-      this.activeStepSubject$.getValue()
-    ] as TrainingPhase).tasks = (this.phasesSubject$.getValue()[
-      this.activeStepSubject$.getValue()
-    ] as TrainingPhase).tasks.filter((task) => task.id !== id);
+    (this.phasesSubject$.getValue()[this.activeStepSubject$.getValue()] as TrainingPhase).tasks = (
+      this.phasesSubject$.getValue()[this.activeStepSubject$.getValue()] as TrainingPhase
+    ).tasks.filter((task) => task.id !== id);
     this.navigateToPreviousTask();
     // this.unsavedTasks.filter(taskId => taskId !== id);
     this.updateActiveTasks();

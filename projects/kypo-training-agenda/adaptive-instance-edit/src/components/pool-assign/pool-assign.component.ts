@@ -8,7 +8,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { SentinelBaseDirective, PaginatedResource, RequestedPagination } from '@sentinel/common';
+import { SentinelBaseDirective, PaginatedResource, OffsetPaginationEvent } from '@sentinel/common';
 import { Pool } from '@muni-kypo-crp/sandbox-model';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
@@ -65,7 +65,7 @@ export class PoolAssignComponent extends SentinelBaseDirective implements OnInit
     }
   }
 
-  fetch(pagination: RequestedPagination): void {
+  fetch(pagination: OffsetPaginationEvent): void {
     this.editService.getAll(pagination).pipe(take(1)).subscribe();
   }
 
@@ -78,7 +78,7 @@ export class PoolAssignComponent extends SentinelBaseDirective implements OnInit
   }
 
   private initList() {
-    const pagination = new RequestedPagination(0, this.PAGE_SIZE, '', '');
+    const pagination = new OffsetPaginationEvent(0, this.PAGE_SIZE, '', '');
     this.pools$ = this.editService.pools$.pipe(
       map((resource) => this.mapToAdapter(resource)),
       tap((pools) => {

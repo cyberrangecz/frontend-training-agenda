@@ -8,7 +8,7 @@ import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } 
 import { AdaptiveInstanceEditService } from './adaptive-instance-edit.service';
 import { AdaptiveInstanceChangeEvent } from '../../../models/events/adaptive-instance-change-event';
 import { AdaptiveInstanceApi } from '@muni-kypo-crp/training-api';
-import { PaginatedResource, RequestedPagination } from '@sentinel/common';
+import { PaginatedResource, OffsetPaginationEvent } from '@sentinel/common';
 import { Pool } from '@muni-kypo-crp/sandbox-model';
 
 /**
@@ -18,7 +18,7 @@ import { Pool } from '@muni-kypo-crp/sandbox-model';
 export class AdaptiveInstanceEditConcreteService extends AdaptiveInstanceEditService {
   private editedSnapshot: TrainingInstance;
   private instanceValid: boolean;
-  private lastPagination: RequestedPagination;
+  private lastPagination: OffsetPaginationEvent;
 
   constructor(
     private trainingInstanceApi: AdaptiveInstanceApi,
@@ -93,10 +93,10 @@ export class AdaptiveInstanceEditConcreteService extends AdaptiveInstanceEditSer
     this.assignedPoolSubject$.next(trainingInstance.poolId);
   }
 
-  getAll(requestedPagination: RequestedPagination): Observable<PaginatedResource<Pool>> {
-    this.lastPagination = requestedPagination;
+  getAll(OffsetPaginationEvent: OffsetPaginationEvent): Observable<PaginatedResource<Pool>> {
+    this.lastPagination = OffsetPaginationEvent;
     this.lastPagination.size = Number.MAX_SAFE_INTEGER;
-    return this.poolApi.getPools(requestedPagination).pipe(
+    return this.poolApi.getPools(OffsetPaginationEvent).pipe(
       tap(
         (pools) => {
           this.poolsSubject$.next(pools);
@@ -128,7 +128,7 @@ export class AdaptiveInstanceEditConcreteService extends AdaptiveInstanceEditSer
       this.editedSnapshot = this.trainingInstanceSubject$.getValue();
     }
     this.editedSnapshot.poolId = this.assignedPoolSubject$.getValue();
-    const pagination = new RequestedPagination(0, 10, '', '');
+    const pagination = new OffsetPaginationEvent(0, 10, '', '');
     this.saveDisabledSubject$.next(true);
     this.poolSaveDisabledSubject$.next(true);
     return this.trainingInstanceApi.update(this.editedSnapshot).pipe(

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { RequestedPagination, PaginatedResource } from '@sentinel/common';
+import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common';
 import { AdaptiveRunApi } from '@muni-kypo-crp/training-api';
 import { AccessedTrainingRun } from '@muni-kypo-crp/training-model';
 import { from, Observable } from 'rxjs';
@@ -28,7 +28,7 @@ export class AccessedAdaptiveRunConcreteService extends AccessedAdaptiveRunServi
    * Gets paginated accessed training runs and updates related observables or handles error.
    * @param pagination requested pagination info
    */
-  getAll(pagination: RequestedPagination): Observable<PaginatedResource<AccessedTrainingRun>> {
+  getAll(pagination: OffsetPaginationEvent): Observable<PaginatedResource<AccessedTrainingRun>> {
     this.hasErrorSubject$.next(false);
     return this.api.getAccessed(pagination).pipe(
       tap(

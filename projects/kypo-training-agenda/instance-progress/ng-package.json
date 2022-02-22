@@ -1,9 +1,5 @@
 {
     "lib": {
-        "entryFile": "src/public_api.ts",
-        "umdModuleIds": {
-            "@sentinel/common": "sentinel.common",
-            "@muni-kypo-crp/hurdling-visualization": "muni-kypo-crp.hurdling-visualization"
-        }
+        "entryFile": "src/public_api.ts"
     }
 }

@@ -9,8 +9,8 @@ import {
 } from '../../../internal/src/testing/testing-commons.spec';
 import { Level, AssessmentLevel, InfoLevel, TrainingDefinition, TrainingLevel } from '@muni-kypo-crp/training-model';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { asyncData, PaginatedResource, SentinelPagination, RequestedPagination } from '@sentinel/common';
-import { LoadTableEvent, SentinelTableModule } from '@sentinel/components/table';
+import { asyncData, PaginatedResource, OffsetPagination, OffsetPaginationEvent } from '@sentinel/common';
+import { TableLoadEvent, SentinelTableModule } from '@sentinel/components/table';
 import { SentinelControlsModule } from '@sentinel/components/controls';
 import { MaterialTestingModule } from '../../../internal/src/testing/material-testing.module';
 import { AdaptiveDefinitionService } from '../services/state/adaptive-definition.service';
@@ -60,11 +60,16 @@ describe('AdaptiveDefinitionOverviewComponent', () => {
   });
 
   it('should get data for table', () => {
+    const tableEvent: TableLoadEvent = {
+      pagination: new OffsetPaginationEvent(0, 1, '', ''),
+      filter: '',
+    };
+
     adaptiveDefinitionServiceSpy.getAll.and.returnValue(asyncData(createPaginatedMock()));
     paginationServiceSpy.getPagination.and.returnValue(1);
-    component.onLoadEvent(new LoadTableEvent(new RequestedPagination(1, 1, '', ''), ''));
+    component.onLoadEvent(tableEvent);
     expect(adaptiveDefinitionServiceSpy.getAll).toHaveBeenCalledTimes(1);
-    expect(adaptiveDefinitionServiceSpy.getAll).toHaveBeenCalledWith(new RequestedPagination(1, 1, '', ''), '');
+    expect(adaptiveDefinitionServiceSpy.getAll).toHaveBeenCalledWith(new OffsetPaginationEvent(0, 1, '', ''), '');
   });
 
   function createMock(): TrainingDefinition {
@@ -78,7 +83,7 @@ describe('AdaptiveDefinitionOverviewComponent', () => {
   }
 
   function createPaginatedMock(): PaginatedResource<TrainingDefinition> {
-    return new PaginatedResource([createMock()], new SentinelPagination(1, 1, 1, 1, 1));
+    return new PaginatedResource([createMock()], new OffsetPagination(1, 1, 1, 1, 1));
   }
 
   function createLevelsMock(): Level[] {

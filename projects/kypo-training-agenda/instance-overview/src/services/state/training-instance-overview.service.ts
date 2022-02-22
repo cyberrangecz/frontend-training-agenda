@@ -1,9 +1,9 @@
-import { PaginatedResourceService, PaginatedResource, RequestedPagination } from '@sentinel/common';
+import { OffsetPaginatedElementsService, PaginatedResource, OffsetPaginationEvent } from '@sentinel/common';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
 
-export abstract class TrainingInstanceOverviewService extends PaginatedResourceService<TrainingInstance> {
-  abstract getAll(pagination: RequestedPagination, filter: string): Observable<PaginatedResource<TrainingInstance>>;
+export abstract class TrainingInstanceOverviewService extends OffsetPaginatedElementsService<TrainingInstance> {
+  abstract getAll(pagination: OffsetPaginationEvent, filter: string): Observable<PaginatedResource<TrainingInstance>>;
 
   abstract create(): Observable<any>;
 

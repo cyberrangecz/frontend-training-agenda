@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { PaginatedResource, RequestedPagination } from '@sentinel/common';
+import { PaginatedResource, OffsetPaginationEvent } from '@sentinel/common';
 import { AdaptiveInstanceApi } from '@muni-kypo-crp/training-api';
 import { TrainingRun } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
@@ -24,7 +24,7 @@ export class AdaptiveRunConcreteService extends AdaptiveRunService {
    * @param trainingInstanceId which adaptive runs should be requested
    * @param pagination requested pagination
    */
-  getAll(trainingInstanceId: number, pagination: RequestedPagination): Observable<PaginatedResource<TrainingRun>> {
+  getAll(trainingInstanceId: number, pagination: OffsetPaginationEvent): Observable<PaginatedResource<TrainingRun>> {
     return this.adaptiveInstanceApi.getAssociatedTrainingRuns(trainingInstanceId, pagination).pipe(
       tap(
         (runs) => {

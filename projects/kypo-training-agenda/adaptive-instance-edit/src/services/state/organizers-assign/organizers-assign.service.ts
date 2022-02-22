@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SentinelPagination, RequestedPagination, PaginatedResource } from '@sentinel/common';
+import { OffsetPagination, OffsetPaginationEvent, PaginatedResource } from '@sentinel/common';
 import { UserApi } from '@muni-kypo-crp/training-api';
 import { Organizer } from '@muni-kypo-crp/training-model';
 import { SentinelUserAssignService } from '@sentinel/components/user-assign';
@@ -22,7 +22,7 @@ export class OrganizersAssignService extends SentinelUserAssignService {
     super();
   }
 
-  private lastAssignedPagination: RequestedPagination;
+  private lastAssignedPagination: OffsetPaginationEvent;
   private lastAssignedFilter: string;
   private assignedUsersSubject: BehaviorSubject<PaginatedResource<Organizer>> = new BehaviorSubject(this.initSubject());
 
@@ -54,7 +54,7 @@ export class OrganizersAssignService extends SentinelUserAssignService {
    */
   getAssigned(
     resourceId: number,
-    pagination: RequestedPagination,
+    pagination: OffsetPaginationEvent,
     filter: string = null
   ): Observable<PaginatedResource<Organizer>> {
     this.clearSelectedAssignedUsers();
@@ -87,7 +87,7 @@ export class OrganizersAssignService extends SentinelUserAssignService {
     return this.userApi
       .getOrganizersNotInTI(
         resourceId,
-        new RequestedPagination(0, paginationSize, 'familyName', 'asc'),
+        new OffsetPaginationEvent(0, paginationSize, 'familyName', 'asc'),
         true,
         UserNameFilters.create(filter)
       )
@@ -131,7 +131,7 @@ export class OrganizersAssignService extends SentinelUserAssignService {
   }
 
   private initSubject(): PaginatedResource<Organizer> {
-    return new PaginatedResource([], new SentinelPagination(0, 0, this.context.config.defaultPaginationSize, 0, 0));
+    return new PaginatedResource([], new OffsetPagination(0, 0, this.context.config.defaultPaginationSize, 0, 0));
   }
 
   private callApiToAssign(resourceId: number, userIds: number[]): Observable<any> {

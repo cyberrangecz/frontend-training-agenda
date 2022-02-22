@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { TrainingRun } from '@muni-kypo-crp/training-model';
 import { SentinelBaseDirective } from '@sentinel/common';
-import { LoadTableEvent, SentinelTable, TableActionEvent } from '@sentinel/components/table';
+import { TableLoadEvent, SentinelTable, TableActionEvent } from '@sentinel/components/table';
 
 @Component({
   selector: 'kypo-training-instance-runs',
@@ -14,7 +14,7 @@ export class TrainingInstanceRunsComponent extends SentinelBaseDirective {
   @Input() hasError: boolean;
 
   @Output() tableAction: EventEmitter<TableActionEvent<TrainingRun>> = new EventEmitter();
-  @Output() loadTableEvent: EventEmitter<LoadTableEvent> = new EventEmitter();
+  @Output() TableLoadEvent: EventEmitter<TableLoadEvent> = new EventEmitter();
   @Output() rowExpanded: EventEmitter<number> = new EventEmitter();
 
   /**
@@ -33,7 +33,7 @@ export class TrainingInstanceRunsComponent extends SentinelBaseDirective {
    * Emits load table vent
    * @param event reload data event emitted from table
    */
-  onLoadTableEvent(event: LoadTableEvent): void {
-    this.loadTableEvent.emit(event);
+  onTableLoadEvent(event: TableLoadEvent): void {
+    this.TableLoadEvent.emit(event);
   }
 }

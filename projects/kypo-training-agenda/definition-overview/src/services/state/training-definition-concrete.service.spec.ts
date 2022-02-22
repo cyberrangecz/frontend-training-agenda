@@ -6,8 +6,8 @@ import {
   asyncData,
   SentinelFilter,
   PaginatedResource,
-  SentinelPagination,
-  RequestedPagination,
+  OffsetPagination,
+  OffsetPaginationEvent,
 } from '@sentinel/common';
 import { TrainingDefinitionApi } from '@muni-kypo-crp/training-api';
 import { TrainingDefinition, TrainingDefinitionStateEnum } from '@muni-kypo-crp/training-model';
@@ -256,10 +256,10 @@ describe('TrainingDefinitionConcreteService', () => {
   }
 
   function createPaginatedMock(): PaginatedResource<TrainingDefinition> {
-    return new PaginatedResource<TrainingDefinition>(createMock(), new SentinelPagination(1, 3, 3, 3, 1));
+    return new PaginatedResource<TrainingDefinition>(createMock(), new OffsetPagination(1, 3, 3, 3, 1));
   }
 
   function createPagination() {
-    return new RequestedPagination(1, 3, '', '');
+    return new OffsetPaginationEvent(1, 3, '', '');
   }
 });
