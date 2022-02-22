@@ -8,7 +8,7 @@ import { map, switchMap, tap } from 'rxjs/operators';
 import { TrainingInstanceChangeEvent } from '../../../model/events/training-instance-change-event';
 import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } from '@muni-kypo-crp/training-agenda';
 import { TrainingInstanceEditService } from './training-instance-edit.service';
-import { PaginatedResource, RequestedPagination } from '@sentinel/common';
+import { PaginatedResource, OffsetPaginationEvent } from '@sentinel/common';
 import { Pool } from '@muni-kypo-crp/sandbox-model';
 
 /**
@@ -18,7 +18,7 @@ import { Pool } from '@muni-kypo-crp/sandbox-model';
 export class TrainingInstanceEditConcreteService extends TrainingInstanceEditService {
   private editedSnapshot: TrainingInstance;
   private instanceValid: boolean;
-  private lastPagination: RequestedPagination;
+  private lastPagination: OffsetPaginationEvent;
 
   constructor(
     private trainingInstanceApi: TrainingInstanceApi,
@@ -93,10 +93,10 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
     this.assignedPoolSubject$.next(trainingInstance.poolId);
   }
 
-  getAll(requestedPagination: RequestedPagination): Observable<PaginatedResource<Pool>> {
-    this.lastPagination = requestedPagination;
+  getAll(OffsetPaginationEvent: OffsetPaginationEvent): Observable<PaginatedResource<Pool>> {
+    this.lastPagination = OffsetPaginationEvent;
     this.lastPagination.size = Number.MAX_SAFE_INTEGER;
-    return this.poolApi.getPools(requestedPagination).pipe(
+    return this.poolApi.getPools(OffsetPaginationEvent).pipe(
       tap(
         (pools) => {
           this.poolsSubject$.next(pools);
@@ -128,7 +128,7 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
       this.editedSnapshot = this.trainingInstanceSubject$.getValue();
     }
     this.editedSnapshot.poolId = this.assignedPoolSubject$.getValue();
-    const pagination = new RequestedPagination(0, 10, '', '');
+    const pagination = new OffsetPaginationEvent(0, 10, '', '');
     this.saveDisabledSubject$.next(true);
     this.poolSaveDisabledSubject$.next(true);
     return this.trainingInstanceApi.update(this.editedSnapshot).pipe(

@@ -8,7 +8,7 @@ import {
   SentinelControlMenuItem,
   SentinelExpandableControlItem,
 } from '@sentinel/components/controls';
-import { defer, of } from 'rxjs';
+import { defer, EMPTY, Observable, of } from 'rxjs';
 import { takeWhile } from 'rxjs/operators';
 import { QuestionChangeEvent } from '../../../../../../model/events/question-change-event';
 import { MatDialog } from '@angular/material/dialog';
@@ -63,7 +63,7 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
     }
   }
 
-  addQuestion(type: QuestionTypeEnum): void {
+  addQuestion(type: QuestionTypeEnum): Observable<void> {
     if (this.stepperQuestions.items.length >= 1) {
       this.stepperQuestions.items[this.selectedStep].isActive = false;
     }
@@ -77,9 +77,10 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
     this.stepperQuestions.items.push(questionStepperAdapter);
     this.selectedStep = this.stepperQuestions.items.length - 1;
     this.onQuestionChanged();
+    return EMPTY;
   }
 
-  deleteActiveQuestion(): void {
+  deleteActiveQuestion(): Observable<void> {
     const question = this.stepperQuestions.items[this.selectedStep];
     let dialogRef;
     if (question.relations > 0) {
@@ -100,6 +101,7 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
           'Delete'
         ),
       });
+      return EMPTY;
     }
 
     dialogRef

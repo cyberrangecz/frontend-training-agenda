@@ -1,4 +1,4 @@
-import { RequestedPagination, PaginatedResource, PaginatedResourceService } from '@sentinel/common';
+import { OffsetPaginationEvent, PaginatedResource, OffsetPaginatedElementsService } from '@sentinel/common';
 import { TrainingDefinitionStateEnum } from '@muni-kypo-crp/training-model';
 import { TrainingDefinition } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
  * You can use get methods to get paginated resources and other operations to modify data.
  * Subscribe to trainingDefinitions$ to receive latest data updates.
  */
-export abstract class AdaptiveDefinitionService extends PaginatedResourceService<TrainingDefinition> {
+export abstract class AdaptiveDefinitionService extends OffsetPaginatedElementsService<TrainingDefinition> {
   abstract create(): Observable<any>;
 
   abstract edit(trainingDefinition: TrainingDefinition): Observable<any>;
@@ -21,7 +21,7 @@ export abstract class AdaptiveDefinitionService extends PaginatedResourceService
    * @param pagination requested pagination
    * @param filter filter to be applied on training definition
    */
-  abstract getAll(pagination: RequestedPagination, filter: string): Observable<PaginatedResource<TrainingDefinition>>;
+  abstract getAll(pagination: OffsetPaginationEvent, filter: string): Observable<PaginatedResource<TrainingDefinition>>;
 
   /**
    * Deletes selected training definition

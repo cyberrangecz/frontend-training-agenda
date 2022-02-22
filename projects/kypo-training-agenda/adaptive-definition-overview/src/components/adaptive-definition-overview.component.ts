@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { SentinelBaseDirective, RequestedPagination } from '@sentinel/common';
+import { SentinelBaseDirective, OffsetPaginationEvent } from '@sentinel/common';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { TrainingDefinition } from '@muni-kypo-crp/training-model';
-import { SentinelTable, LoadTableEvent, TableActionEvent } from '@sentinel/components/table';
+import { SentinelTable, TableLoadEvent, TableActionEvent } from '@sentinel/components/table';
 import { Observable } from 'rxjs';
 import { map, take, takeWhile } from 'rxjs/operators';
 import { TrainingDefinitionOverviewControls } from '../model/training-definition-overview-controls';
@@ -45,11 +45,19 @@ export class AdaptiveDefinitionOverviewComponent extends SentinelBaseDirective i
    * Gets new data for table
    * @param loadEvent event emitted by table component to get new data
    */
-  onLoadEvent(loadEvent: LoadTableEvent): void {
+  onLoadEvent(loadEvent: TableLoadEvent): void {
     this.paginationService.setPagination(loadEvent.pagination.size);
     loadEvent.pagination.size = this.paginationService.getPagination();
     this.trainingDefinitionService
-      .getAll(loadEvent.pagination, loadEvent.filter)
+      .getAll(
+        new OffsetPaginationEvent(
+          0,
+          loadEvent.pagination.size,
+          loadEvent.pagination.sort,
+          loadEvent.pagination.sortDir
+        ),
+        loadEvent.filter
+      )
       .pipe(takeWhile(() => this.isAlive))
       .subscribe();
   }
@@ -76,12 +84,12 @@ export class AdaptiveDefinitionOverviewComponent extends SentinelBaseDirective i
     this.trainingDefinitions$ = this.trainingDefinitionService.resource$.pipe(
       map((resource) => new TrainingDefinitionTable(resource, this.trainingDefinitionService, this.trainingNavigator))
     );
-    const initialPagination = new RequestedPagination(
+    const initialPagination = new OffsetPaginationEvent(
       0,
       this.paginationService.getPagination(),
       this.INIT_SORT_NAME,
       this.INIT_SORT_DIR
     );
-    this.onLoadEvent(new LoadTableEvent(initialPagination, null));
+    this.onLoadEvent({ pagination: initialPagination });
   }
 }

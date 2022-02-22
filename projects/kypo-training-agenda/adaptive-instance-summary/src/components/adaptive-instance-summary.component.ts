@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { RequestedPagination, SentinelBaseDirective } from '@sentinel/common';
+import { OffsetPaginationEvent, SentinelBaseDirective } from '@sentinel/common';
 import { TrainingInstance, TrainingRun } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
 import { map, switchMap, take, takeWhile, tap } from 'rxjs/operators';
@@ -10,7 +10,7 @@ import {
   TrainingNotificationService,
 } from '@muni-kypo-crp/training-agenda';
 import { AdaptiveInstanceSummaryService } from '../services/state/summary/adaptive-instance-summary.service';
-import { LoadTableEvent, SentinelTable, TableActionEvent } from '@sentinel/components/table';
+import { TableLoadEvent, SentinelTable, TableActionEvent } from '@sentinel/components/table';
 import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
 import { AdaptiveRunService } from '../services/state/runs/adaptive-run.service';
 import { AdaptiveRunTable } from '../model/adaptive-run-table';
@@ -68,11 +68,16 @@ export class AdaptiveInstanceSummaryComponent extends SentinelBaseDirective impl
    * Calls service to get new data for table
    * @param event reload data event emitted from table
    */
-  onTrainingRunTableLoadEvent(event: LoadTableEvent): void {
+  onTrainingRunTableLoadEvent(event: TableLoadEvent): void {
     this.paginationService.setPagination(event.pagination.size);
     this.trainingInstance$
       .pipe(
-        switchMap((ti) => this.adaptiveRunService.getAll(ti.id, event.pagination)),
+        switchMap((ti) =>
+          this.adaptiveRunService.getAll(
+            ti.id,
+            new OffsetPaginationEvent(0, event.pagination.size, event.pagination.sort, event.pagination.sort)
+          )
+        ),
         takeWhile(() => this.isAlive)
       )
       .subscribe();
@@ -90,7 +95,7 @@ export class AdaptiveInstanceSummaryComponent extends SentinelBaseDirective impl
   }
 
   private initAdaptiveRunsComponent() {
-    const initialPagination = new RequestedPagination(0, this.paginationService.getPagination(), '', '');
+    const initialPagination = new OffsetPaginationEvent(0, this.paginationService.getPagination(), '', '');
     this.trainingInstance$
       .pipe(
         take(1),

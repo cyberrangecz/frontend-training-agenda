@@ -3,7 +3,7 @@
   <sentinel-table
     [data]="trainingRuns$ | async"
     [hasError]="hasError$ | async"
-    (refresh)="loadAccessedTrainingRuns($event)"
+    (tableLoad)="loadAccessedTrainingRuns($event)"
     (rowAction)="onTableAction($event)">
   </sentinel-table>
 </div>

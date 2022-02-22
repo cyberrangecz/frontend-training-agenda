@@ -1,6 +1,6 @@
 import { EventEmitter } from '@angular/core';
 import { SentinelControlItem } from '@sentinel/components/controls';
-import { defer, Observable } from 'rxjs';
+import { defer, EMPTY, Observable } from 'rxjs';
 
 /**
  * @dynamic
@@ -20,14 +20,20 @@ export class TrainingInstanceInfoControls {
         'Show Progress',
         'primary',
         disabled$,
-        defer(() => showProgressEmitter.emit(true))
+        defer(() => {
+          showProgressEmitter.emit(true);
+          return EMPTY;
+        })
       ),
       new SentinelControlItem(
         this.RESULTS_ACTION_ID,
         'Show Results',
         'primary',
         disabled$,
-        defer(() => showResultsEmitter.emit(false))
+        defer(() => {
+          showResultsEmitter.emit(false);
+          return EMPTY;
+        })
       ),
     ];
   }

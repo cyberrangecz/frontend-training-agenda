@@ -17,7 +17,7 @@
       [trainingRuns]="adaptiveRuns$ | async"
       [hasError]="adaptiveRunsHasError$ | async"
       (tableAction)="onTrainingRunTableAction($event)"
-      (loadTableEvent)="onTrainingRunTableLoadEvent($event)"
+      (TableLoadEvent)="onTrainingRunTableLoadEvent($event)"
     >
     </kypo-adaptive-instance-runs>
   </mat-card>

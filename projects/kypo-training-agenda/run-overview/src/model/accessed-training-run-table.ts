@@ -5,7 +5,7 @@ import {
   TrainingRunTypeEnum,
 } from '@muni-kypo-crp/training-model';
 import { Column, Row, RowAction, SentinelTable } from '@sentinel/components/table';
-import { defer, of } from 'rxjs';
+import { defer, EMPTY, of } from 'rxjs';
 import { AccessedTrainingRunService } from '../services/state/training/accessed-training-run.service';
 
 /**
@@ -60,6 +60,7 @@ export class AccessedTrainingRunTable extends SentinelTable<AccessedTrainingRun>
               service.resultsAdaptive(trainingRun.trainingRunId);
               break;
           }
+          return EMPTY;
         })
       ),
     ];

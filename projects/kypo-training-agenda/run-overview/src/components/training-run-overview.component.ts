@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { SentinelBaseDirective, RequestedPagination } from '@sentinel/common';
+import { SentinelBaseDirective, OffsetPaginationEvent } from '@sentinel/common';
 import { AccessedTrainingRun } from '@muni-kypo-crp/training-model';
-import { SentinelTable, LoadTableEvent, TableActionEvent } from '@sentinel/components/table';
+import { SentinelTable, TableLoadEvent, TableActionEvent } from '@sentinel/components/table';
 import { Observable } from 'rxjs';
 import { map, take, takeWhile } from 'rxjs/operators';
 import { AccessedTrainingRunTable } from '../model/accessed-training-run-table';
@@ -66,18 +66,20 @@ export class TrainingRunOverviewComponent extends SentinelBaseDirective implemen
    * Loads training run data for the table component
    * @param loadEvent load table event
    */
-  loadAccessedTrainingRuns(loadEvent: LoadTableEvent): void {
+  loadAccessedTrainingRuns(loadEvent: TableLoadEvent): void {
     this.paginationService.setPagination(loadEvent.pagination.size);
     this.trainingRunOverviewService
-      .getAll(loadEvent.pagination)
+      .getAll(
+        new OffsetPaginationEvent(0, loadEvent.pagination.size, loadEvent.pagination.sort, loadEvent.pagination.sortDir)
+      )
       .pipe(takeWhile(() => this.isAlive))
       .subscribe();
   }
 
   private initTable() {
-    const initialLoadEvent: LoadTableEvent = new LoadTableEvent(
-      new RequestedPagination(0, this.paginationService.getPagination(), '', '')
-    );
+    const initialLoadEvent: TableLoadEvent = {
+      pagination: new OffsetPaginationEvent(0, this.paginationService.getPagination(), '', ''),
+    };
 
     this.trainingRuns$ = this.trainingRunOverviewService.resource$.pipe(
       map((resource) => new AccessedTrainingRunTable(resource, this.trainingRunOverviewService))

@@ -1,7 +1,7 @@
-import { RequestedPagination, SentinelBaseDirective } from '@sentinel/common';
+import { OffsetPaginationEvent, SentinelBaseDirective } from '@sentinel/common';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { LoadTableEvent, SentinelTable, TableActionEvent } from '@sentinel/components/table';
+import { TableLoadEvent, SentinelTable, TableActionEvent } from '@sentinel/components/table';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { map, take, takeWhile } from 'rxjs/operators';
@@ -44,10 +44,10 @@ export class AdaptiveInstanceOverviewComponent extends SentinelBaseDirective imp
     control.result$.pipe(takeWhile(() => this.isAlive)).subscribe();
   }
 
-  onInstancesLoadEvent(loadEvent: LoadTableEvent): void {
+  onInstancesLoadEvent(loadEvent: TableLoadEvent): void {
     this.paginationService.setPagination(loadEvent.pagination.size);
     this.service
-      .getAll(loadEvent.pagination, loadEvent.filter)
+      .getAll(new OffsetPaginationEvent(0, loadEvent.pagination.size), loadEvent.filter)
       .pipe(takeWhile(() => this.isAlive))
       .subscribe();
   }
@@ -57,9 +57,14 @@ export class AdaptiveInstanceOverviewComponent extends SentinelBaseDirective imp
   }
 
   private initTable() {
-    const initLoadEvent = new LoadTableEvent(
-      new RequestedPagination(0, this.paginationService.getPagination(), this.INITIAL_SORT_NAME, this.INITIAL_SORT_DIR)
-    );
+    const initLoadEvent: TableLoadEvent = {
+      pagination: new OffsetPaginationEvent(
+        0,
+        this.paginationService.getPagination(),
+        this.INITIAL_SORT_NAME,
+        this.INITIAL_SORT_DIR
+      ),
+    };
     this.instances$ = this.service.resource$.pipe(
       map((instances) => new AdaptiveInstanceTable(instances, this.service, this.navigator))
     );

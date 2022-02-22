@@ -1,5 +1,5 @@
 import { async, TestBed } from '@angular/core/testing';
-import { SentinelPagination, PaginatedResource, asyncData, RequestedPagination } from '@sentinel/common';
+import { OffsetPagination, PaginatedResource, asyncData, OffsetPaginationEvent } from '@sentinel/common';
 import { UserApi } from '@muni-kypo-crp/training-api';
 import { throwError } from 'rxjs';
 import { skip, take } from 'rxjs/operators';
@@ -166,12 +166,12 @@ describe('AuthorsAssignService', () => {
   });
 
   function createPagination() {
-    return new RequestedPagination(1, 5, '', '');
+    return new OffsetPaginationEvent(1, 5, '', '');
   }
 
   function createMock() {
     const user1: Designer = { id: 1, name: '', login: '', mail: '', picture: '' };
     const user2: Designer = { id: 2, name: '', login: '', mail: '', picture: '' };
-    return new PaginatedResource([user1, user2], new SentinelPagination(1, 2, 5, 2, 1));
+    return new PaginatedResource([user1, user2], new OffsetPagination(1, 2, 5, 2, 1));
   }
 });

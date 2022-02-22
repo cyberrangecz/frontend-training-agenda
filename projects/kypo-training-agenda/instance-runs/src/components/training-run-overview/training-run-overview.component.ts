@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { TrainingRun } from '@muni-kypo-crp/training-model';
-import { SentinelTable, LoadTableEvent, TableActionEvent } from '@sentinel/components/table';
+import { SentinelTable, TableLoadEvent, TableActionEvent } from '@sentinel/components/table';
 
 /**
  * Component displaying training runs and its state in real time.
@@ -18,7 +18,7 @@ export class TrainingRunOverviewComponent extends SentinelBaseDirective {
   @Input() isLoading: boolean;
 
   @Output() tableAction: EventEmitter<TableActionEvent<TrainingRun>> = new EventEmitter();
-  @Output() loadTableEvent: EventEmitter<LoadTableEvent> = new EventEmitter();
+  @Output() TableLoadEvent: EventEmitter<TableLoadEvent> = new EventEmitter();
 
   /**
    * Emits table action event
@@ -32,7 +32,7 @@ export class TrainingRunOverviewComponent extends SentinelBaseDirective {
    * Emits load table vent
    * @param event reload data event emitted from table
    */
-  onLoadTableEvent(event: LoadTableEvent): void {
-    this.loadTableEvent.emit(event);
+  onTableLoadEvent(event: TableLoadEvent): void {
+    this.TableLoadEvent.emit(event);
   }
 }

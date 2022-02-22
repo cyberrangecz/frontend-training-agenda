@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Inject, OnInit, Optional } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { SentinelBaseDirective, RequestedPagination, PaginatedResource } from '@sentinel/common';
+import { SentinelBaseDirective, OffsetPaginationEvent, PaginatedResource } from '@sentinel/common';
 import { TrainingDefinition } from '@muni-kypo-crp/training-model';
 import { TrainingDefinitionInfo } from '@muni-kypo-crp/training-model';
 import { merge, Observable } from 'rxjs';
@@ -44,7 +44,7 @@ export class AdaptiveDefinitionSelectComponent extends SentinelBaseDirective imp
   }
 
   ngOnInit(): void {
-    const pagination = new RequestedPagination(0, this.PAGE_SIZE, 'title', 'asc');
+    const pagination = new OffsetPaginationEvent(0, this.PAGE_SIZE, 'title', 'asc');
     this.released$ = this.releasedService.resource$;
     this.releasedHasError$ = this.releasedService.hasError$;
     this.unreleased$ = this.unreleasedService.resource$;
@@ -65,7 +65,7 @@ export class AdaptiveDefinitionSelectComponent extends SentinelBaseDirective imp
    * @param pagination requested pagination
    * @param released true if released training definitions should be fetched, false if unreleased
    */
-  fetch(pagination: RequestedPagination, released: boolean): void {
+  fetch(pagination: OffsetPaginationEvent, released: boolean): void {
     if (released) {
       this.releasedService
         .getAll(pagination, 'RELEASED')

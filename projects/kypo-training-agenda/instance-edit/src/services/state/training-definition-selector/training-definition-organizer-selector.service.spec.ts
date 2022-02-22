@@ -1,5 +1,5 @@
 import { async, TestBed } from '@angular/core/testing';
-import { PaginatedResource, SentinelPagination, RequestedPagination, asyncData } from '@sentinel/common';
+import { PaginatedResource, OffsetPagination, OffsetPaginationEvent, asyncData } from '@sentinel/common';
 import { TrainingDefinitionApi } from '@muni-kypo-crp/training-api';
 import { TrainingDefinitionInfo } from '@muni-kypo-crp/training-model';
 import { throwError } from 'rxjs';
@@ -89,7 +89,7 @@ describe('TrainingDefinitionOrganizerSelectorService', () => {
   });
 
   function createPagination() {
-    return new RequestedPagination(1, 5, '', '');
+    return new OffsetPaginationEvent(1, 5, '', '');
   }
 
   function createMock() {
@@ -97,6 +97,6 @@ describe('TrainingDefinitionOrganizerSelectorService', () => {
     td1.id = 0;
     const td2 = new TrainingDefinitionInfo();
     td2.id = 1;
-    return new PaginatedResource([td1, td2], new SentinelPagination(1, 2, 5, 2, 1));
+    return new PaginatedResource([td1, td2], new OffsetPagination(1, 2, 5, 2, 1));
   }
 });

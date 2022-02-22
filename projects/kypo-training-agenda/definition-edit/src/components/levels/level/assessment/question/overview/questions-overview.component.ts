@@ -24,7 +24,7 @@ import { ExtendedMatchingItems } from '@muni-kypo-crp/training-model';
 import { Question } from '@muni-kypo-crp/training-model';
 import { MultipleChoiceQuestion } from '@muni-kypo-crp/training-model';
 import { FreeFormQuestion } from '@muni-kypo-crp/training-model';
-import { defer, of } from 'rxjs';
+import { defer, EMPTY, Observable, of } from 'rxjs';
 import { takeWhile } from 'rxjs/operators';
 import { QuestionChangeEvent } from '../../../../../../model/events/question-change-event';
 import { SentinelStepper } from '@sentinel/components/stepper';
@@ -113,7 +113,7 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
   /**
    * Creates new free form question
    */
-  addFFQ(): void {
+  addFFQ(): Observable<void> {
     if (this.stepperQuestions.items.length >= 1) {
       this.stepperQuestions.items[this.selectedStep].isActive = false;
     }
@@ -130,12 +130,13 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
     this.stepperQuestions.items.push(questionStepperAdapter);
     this.selectedStep = this.stepperQuestions.items.length - 1;
     this.onQuestionChanged();
+    return EMPTY;
   }
 
   /**
    * Creates new multiple choice question
    */
-  addMCQ(): void {
+  addMCQ(): Observable<void> {
     if (this.stepperQuestions.items.length >= 1) {
       this.stepperQuestions.items[this.selectedStep].isActive = false;
     }
@@ -158,12 +159,13 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
     this.stepperQuestions.items.push(questionStepperAdapter);
     this.selectedStep = this.stepperQuestions.items.length - 1;
     this.onQuestionChanged();
+    return EMPTY;
   }
 
   /**
    * Creates new extended matching items question
    */
-  addEMI(): void {
+  addEMI(): Observable<void> {
     if (this.stepperQuestions.items.length >= 1) {
       this.stepperQuestions.items[this.selectedStep].isActive = false;
     }
@@ -196,6 +198,7 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
     this.stepperQuestions.items.push(questionStepperAdapter);
     this.selectedStep = this.stepperQuestions.items.length - 1;
     this.onQuestionChanged();
+    return EMPTY;
   }
 
   /**

@@ -19,7 +19,7 @@ import { SentinelBaseDirective } from '@sentinel/common';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { Hint } from '@muni-kypo-crp/training-model';
 import { SentinelStepper } from '@sentinel/components/stepper';
-import { BehaviorSubject, defer, of } from 'rxjs';
+import { BehaviorSubject, defer, EMPTY, Observable, of } from 'rxjs';
 import { takeWhile } from 'rxjs/operators';
 import { HintStepperAdapter } from '../../../../../../model/adapters/hint-stepper-adapter';
 
@@ -83,7 +83,7 @@ export class HintsOverviewComponent extends SentinelBaseDirective implements OnI
   /**
    * Creates new hint with default values
    */
-  addHint(): void {
+  addHint(): Observable<void> {
     if (this.stepperHints.items.length >= 1) {
       this.stepperHints.items[this.selectedStep].isActive = false;
     }
@@ -97,12 +97,13 @@ export class HintsOverviewComponent extends SentinelBaseDirective implements OnI
     this.stepperHints.items.push(hintStepperAdapter);
     this.selectedStep = this.stepperHints.items.length - 1;
     this.onHintsChanged();
+    return EMPTY;
   }
 
   /**
    * Displays confirmation dialog window, if confirmed, deletes given active hint from list of hints
    */
-  deleteActiveHint(): void {
+  deleteActiveHint(): Observable<void> {
     const hint = this.stepperHints.items[this.selectedStep];
     const index = this.selectedStep;
     const dialogRef = this.dialog.open(SentinelConfirmationDialogComponent, {
@@ -124,6 +125,7 @@ export class HintsOverviewComponent extends SentinelBaseDirective implements OnI
           this.onOrderUpdate();
         }
       });
+    return EMPTY;
   }
 
   /**

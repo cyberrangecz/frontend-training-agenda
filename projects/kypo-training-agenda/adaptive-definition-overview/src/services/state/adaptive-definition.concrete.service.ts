@@ -6,7 +6,7 @@ import {
   SentinelConfirmationDialogConfig,
   SentinelDialogResultEnum,
 } from '@sentinel/components/dialogs';
-import { SentinelFilter, PaginatedResource, RequestedPagination } from '@sentinel/common';
+import { SentinelFilter, PaginatedResource, OffsetPaginationEvent } from '@sentinel/common';
 import { AdaptiveDefinitionApiService, TrainingDefinitionApi } from '@muni-kypo-crp/training-api';
 import { TrainingDefinition } from '@muni-kypo-crp/training-model';
 import { TrainingDefinitionStateEnum } from '@muni-kypo-crp/training-model';
@@ -38,7 +38,7 @@ export class AdaptiveDefinitionConcreteService extends AdaptiveDefinitionService
     super(context.config.defaultPaginationSize);
   }
 
-  private lastPagination: RequestedPagination;
+  private lastPagination: OffsetPaginationEvent;
   private lastFilters: string;
 
   /**
@@ -46,7 +46,7 @@ export class AdaptiveDefinitionConcreteService extends AdaptiveDefinitionService
    * @param pagination requested pagination
    * @param filter filter to be applied on training definitions (attribute title)
    */
-  getAll(pagination: RequestedPagination, filter: string): Observable<PaginatedResource<TrainingDefinition>> {
+  getAll(pagination: OffsetPaginationEvent, filter: string): Observable<PaginatedResource<TrainingDefinition>> {
     this.lastPagination = pagination;
     this.lastFilters = filter;
     const filters = filter ? [new SentinelFilter('title', filter)] : [];
@@ -141,7 +141,7 @@ export class AdaptiveDefinitionConcreteService extends AdaptiveDefinitionService
   }
 
   private callApiToGetAll(
-    pagination: RequestedPagination,
+    pagination: OffsetPaginationEvent,
     filters: SentinelFilter[]
   ): Observable<PaginatedResource<TrainingDefinition>> {
     return this.api.getAll(pagination, filters).pipe(

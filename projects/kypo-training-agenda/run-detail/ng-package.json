@@ -1,14 +1,5 @@
 {
     "lib": {
-        "entryFile": "src/public_api.ts",
-        "umdModuleIds": {
-            "@sentinel/layout/user-card": "sentinel.layout.user-card",
-            "@sentinel/common": "sentinel.common",
-            "@sentinel/components/stepper": "sentinel.components.stepper",
-            "@muni-kypo-crp/topology-graph": "muni-kypo-crp.topology-graph",
-            "ngx-markdown": "ngx-markdown",
-            "@muni-kypo-crp/training-model": "muni-kypo-crp.training-model",
-            "@sentinel/auth": "sentinel.auth"
-        }
+        "entryFile": "src/public_api.ts"
     }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { PaginatedResource, RequestedPagination, PaginatedResourceService } from '@sentinel/common';
+import { PaginatedResource, OffsetPaginationEvent, OffsetPaginatedElementsService } from '@sentinel/common';
 import { TrainingRun, TrainingRunInfo } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
 
@@ -9,14 +9,14 @@ import { Observable } from 'rxjs';
  * You can use get methods to get paginated resources and other actions to modify data.
  */
 @Injectable()
-export abstract class TrainingRunService extends PaginatedResourceService<TrainingRun> {
+export abstract class TrainingRunService extends OffsetPaginatedElementsService<TrainingRun> {
   /**
    * @param trainingInstanceId id of associated training instance
    * @param pagination requested pagination
    */
   abstract getAll(
     trainingInstanceId: number,
-    pagination: RequestedPagination
+    pagination: OffsetPaginationEvent
   ): Observable<PaginatedResource<TrainingRun>>;
 
   abstract getInfo(trainingRunId: number): Observable<TrainingRunInfo[]>;

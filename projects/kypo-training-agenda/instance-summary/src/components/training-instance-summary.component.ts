@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { RequestedPagination, SentinelBaseDirective } from '@sentinel/common';
+import { OffsetPaginationEvent, SentinelBaseDirective } from '@sentinel/common';
 import { TrainingInstance, TrainingRun } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
 import { map, switchMap, take, takeWhile, tap } from 'rxjs/operators';
@@ -10,7 +10,7 @@ import {
   TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME,
 } from '@muni-kypo-crp/training-agenda';
 import { TrainingInstanceSummaryService } from '../services/state/summary/training-instance-summary.service';
-import { LoadTableEvent, SentinelTable, TableActionEvent } from '@sentinel/components/table';
+import { TableLoadEvent, SentinelTable, TableActionEvent } from '@sentinel/components/table';
 import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
 import { TrainingRunService } from '../services/state/runs/training-run.service';
 import { TrainingRunTable } from '../model/training-run-table';
@@ -67,11 +67,16 @@ export class TrainingInstanceSummaryComponent extends SentinelBaseDirective impl
    * Calls service to get new data for table
    * @param event reload data event emitted from table
    */
-  onTrainingRunTableLoadEvent(event: LoadTableEvent): void {
+  onTrainingRunTableLoadEvent(event: TableLoadEvent): void {
     this.paginationService.setPagination(event.pagination.size);
     this.trainingInstance$
       .pipe(
-        switchMap((ti) => this.trainingRunService.getAll(ti.id, event.pagination)),
+        switchMap((ti) =>
+          this.trainingRunService.getAll(
+            ti.id,
+            new OffsetPaginationEvent(0, event.pagination.size, event.pagination.sort, event.pagination.sortDir)
+          )
+        ),
         takeWhile(() => this.isAlive)
       )
       .subscribe();
@@ -92,7 +97,7 @@ export class TrainingInstanceSummaryComponent extends SentinelBaseDirective impl
   }
 
   private initTrainingRunsComponent() {
-    const initialPagination = new RequestedPagination(0, this.paginationService.getPagination(), '', '');
+    const initialPagination = new OffsetPaginationEvent(0, this.paginationService.getPagination(), '', '');
     this.trainingInstance$
       .pipe(
         take(1),

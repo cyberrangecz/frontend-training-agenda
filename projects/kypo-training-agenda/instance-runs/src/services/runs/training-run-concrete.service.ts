@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { PaginatedResource, RequestedPagination } from '@sentinel/common';
+import { PaginatedResource, OffsetPaginationEvent } from '@sentinel/common';
 import { TrainingInstanceApi, TrainingRunApi } from '@muni-kypo-crp/training-api';
 import { TrainingRun } from '@muni-kypo-crp/training-model';
 import { EMPTY, Observable, of } from 'rxjs';
@@ -42,7 +42,7 @@ export class TrainingRunConcreteService extends TrainingRunService {
    * @param trainingInstanceId which training runs should be requested
    * @param pagination requested pagination
    */
-  getAll(trainingInstanceId: number, pagination: RequestedPagination): Observable<PaginatedResource<TrainingRun>> {
+  getAll(trainingInstanceId: number, pagination: OffsetPaginationEvent): Observable<PaginatedResource<TrainingRun>> {
     this.onManualResourceRefresh(pagination, trainingInstanceId);
     return this.trainingInstanceApi.getAssociatedTrainingRuns(trainingInstanceId, pagination).pipe(
       tap(
@@ -80,7 +80,7 @@ export class TrainingRunConcreteService extends TrainingRunService {
       .pipe(tap({ error: () => this.onGetAllError() }));
   }
 
-  protected onManualResourceRefresh(pagination: RequestedPagination, ...params: any[]): void {
+  protected onManualResourceRefresh(pagination: OffsetPaginationEvent, ...params: any[]): void {
     super.onManualResourceRefresh(pagination, ...params);
     this.lastTrainingInstanceId = params[0];
   }

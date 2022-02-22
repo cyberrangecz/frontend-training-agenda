@@ -1,12 +1,5 @@
 {
     "lib": {
-        "entryFile": "src/public_api.ts",
-        "umdModuleIds": {
-            "@sentinel/common": "sentinel.common",
-            "@sentinel/components/dialogs": "sentinel.components.dialogs",
-            "@muni-kypo-crp/training-api": "muni-kypo-crp.training-api",
-            "@muni-kypo-crp/training-model": "muni-kypo-crp.training-model",
-            "file-saver": "file-saver"
-        }
+        "entryFile": "src/public_api.ts"
     }
 }

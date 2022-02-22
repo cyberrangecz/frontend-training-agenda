@@ -77,7 +77,7 @@ export abstract class PhaseEditService {
   /**
    * Displays dialog to delete selected phases and displays alert with result of the operation
    */
-  abstract deleteSelected(): void;
+  abstract deleteSelected(): Observable<any>;
 
   /**
    * Moves phases from index to a new one. Updates optimistically and rollback is performed on error
@@ -88,7 +88,7 @@ export abstract class PhaseEditService {
 
   abstract addTask(): Observable<Task>;
   abstract cloneTask(): Observable<Task>;
-  abstract deleteTask(): void;
+  abstract deleteTask(): Observable<any>;
   abstract onActiveTaskChanged(task: Task): void;
   abstract setActiveTask(index: number): void;
   abstract moveTasks(fromIndex: number, toIndex: number): void;
