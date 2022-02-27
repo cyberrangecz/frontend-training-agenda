@@ -1,0 +1,20 @@
+<div>
+  <mat-form-field appearance="fill" >
+    <mat-label *ngIf="selectedSandboxDefinitionId">Sandbox Definition</mat-label>
+    <mat-label *ngIf="!selectedSandboxDefinitionId">No Selected Sandbox Definition</mat-label>
+    <mat-select
+      (selectionChange)="onSelectionChange($event.value)"
+      [(value)]="selectedSandboxDefinitionId"
+    >
+      <mat-option>None</mat-option>
+      <mat-option *ngFor="let sandboxDefinition of sandboxDefinitions" [value]="sandboxDefinition.id">
+        {{sandboxDefinition.title}} (ID: {{sandboxDefinition.id}}, rev: {{sandboxDefinition.rev}})
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div class="selected-definition" *ngIf="selectedSandboxDefinitionId">
+    <h4>Sandbox definition {{ selectedSandboxDefinitionId }} is currently assigned to this training instance.
+      <a mat-button color="accent" [href]="this.sandboxDefinitionDetailRoute" target="_blank">Show</a>
+    </h4>
+  </div>
+</div>

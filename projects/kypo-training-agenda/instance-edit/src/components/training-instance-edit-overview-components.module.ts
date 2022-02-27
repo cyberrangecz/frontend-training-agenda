@@ -14,6 +14,7 @@ import { TrainingDefinitionSelectComponent } from './training-definition-select/
 import { TrainingInstanceEditOverviewMaterialModule } from './training-instance-edit-overview-material.module';
 import { TrainingInstanceEditOverviewComponent } from './training-instance-edit-overview.component';
 import { TrainingInstanceEditComponent } from './training-instance-edit/training-instance-edit.component';
+import { SandboxDefinitionAssignComponent } from './sandbox-definition-assign/sandbox-definition-assign.component';
 
 /**
  * Main module of training instance edit components and providers
@@ -37,6 +38,7 @@ import { TrainingInstanceEditComponent } from './training-instance-edit/training
     TrainingInstanceEditComponent,
     TrainingDefinitionSelectComponent,
     PoolAssignComponent,
+    SandboxDefinitionAssignComponent,
   ],
   providers: [TrainingInstanceCanDeactivate],
 })

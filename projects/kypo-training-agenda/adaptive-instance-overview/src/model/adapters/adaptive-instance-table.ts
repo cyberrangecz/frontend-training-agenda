@@ -49,6 +49,8 @@ export class AdaptiveInstanceTable extends SentinelTable<AdaptiveInstanceRowAdap
       DateHelper.timeToDate(adapter.endTime).length !== 0 ? DateHelper.timeToDate(adapter.endTime) : 'expired';
     if (adapter.hasPool()) {
       adapter.poolTitle = `Pool ${adapter.poolId}`;
+    } else if (adapter.localEnvironment) {
+      adapter.poolTitle = `Local`;
     } else {
       adapter.poolTitle = '-';
     }

@@ -14,6 +14,7 @@ export class LevelOverviewControls {
   static readonly ADD_ACTION_ID = 'add';
   static readonly DELETE_ACTION_ID = 'delete';
   static readonly ADD_TRAINING_LEVEL_ID = 'add_training_level';
+  static readonly ADD_ACCESS_LEVEL_ID = 'add_access_level';
   static readonly ADD_ASSESSMENT_LEVEL_ID = 'add_assessment_level';
   static readonly ADD_INFO_LEVEL_ID = 'add_info_level';
 
@@ -49,6 +50,14 @@ export class LevelOverviewControls {
         of(false),
         defer(() => service.add(AbstractLevelTypeEnum.Training)),
         'videogame_asset'
+      ),
+      new SentinelControlMenuItem(
+        this.ADD_ACCESS_LEVEL_ID,
+        'Access Level',
+        'primary',
+        of(false),
+        defer(() => service.add(AbstractLevelTypeEnum.Access)),
+        'settings'
       ),
       new SentinelControlMenuItem(
         this.ADD_ASSESSMENT_LEVEL_ID,

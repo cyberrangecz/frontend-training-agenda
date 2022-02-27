@@ -30,7 +30,9 @@ export class AdaptiveRunDetailComponent extends SentinelBaseDirective implements
   startTime: Date;
   isLast: boolean;
   isLoading = false;
-  sandboxId: number;
+  sandboxInstanceId: number;
+  sandboxDefinitionId: number;
+  localEnvironment: boolean;
 
   constructor(private trainingRunService: RunningAdaptiveRunService, private auth: SentinelAuthService) {
     super();
@@ -41,7 +43,9 @@ export class AdaptiveRunDetailComponent extends SentinelBaseDirective implements
   }
 
   ngAfterViewInit(): void {
-    this.trainingRunService.loadConsoles(this.sandboxId).pipe(take(1)).subscribe();
+    if (!this.localEnvironment) {
+      this.trainingRunService.loadConsoles(this.sandboxInstanceId).pipe(take(1)).subscribe();
+    }
   }
 
   private init() {
@@ -50,7 +54,9 @@ export class AdaptiveRunDetailComponent extends SentinelBaseDirective implements
     this.startTime = this.trainingRunService.getStartTime();
     this.isTimerDisplayed = true;
     this.isStepperDisplayed = this.trainingRunService.getIsStepperDisplayed();
-    this.sandboxId = this.trainingRunService.sandboxInstanceId;
+    this.sandboxInstanceId = this.trainingRunService.sandboxInstanceId;
+    this.sandboxDefinitionId = this.trainingRunService.sandboxDefinitionId;
+    this.localEnvironment = this.trainingRunService.localEnvironment;
     if (this.isStepperDisplayed) {
       const stepperAdapterPhases = this.phases.map((phase) => new PhaseStepperAdapter(phase));
       this.stepper = new AdaptiveRunStepper(stepperAdapterPhases, this.trainingRunService.getActivePhasePosition());

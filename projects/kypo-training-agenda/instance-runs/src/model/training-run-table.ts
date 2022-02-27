@@ -1,5 +1,5 @@
 import { PaginatedResource, SentinelDateTimeFormatPipe } from '@sentinel/common';
-import { TrainingRun, TrainingRunStateEnum } from '@muni-kypo-crp/training-model';
+import { TrainingInstance, TrainingRun, TrainingRunStateEnum } from '@muni-kypo-crp/training-model';
 import { Column, SentinelTable, Row, RowAction, DeleteAction } from '@sentinel/components/table';
 import { defer, of } from 'rxjs';
 import { TrainingRunService } from '../services/runs/training-run.service';
@@ -11,7 +11,11 @@ import { DateHelper } from '@muni-kypo-crp/training-agenda/internal';
  * @dynamic
  */
 export class TrainingRunTable extends SentinelTable<TrainingRunRowAdapter> {
-  constructor(resource: PaginatedResource<TrainingRun>, service: TrainingRunService, trainingInstanceId: number) {
+  constructor(
+    resource: PaginatedResource<TrainingRun>,
+    service: TrainingRunService,
+    trainingInstance: TrainingInstance
+  ) {
     const columns = [
       new Column('playerName', 'player', false),
       new Column('startTimeFormatted', 'start time', false),
@@ -21,8 +25,8 @@ export class TrainingRunTable extends SentinelTable<TrainingRunRowAdapter> {
       new Column('sandboxInstanceId', 'sandbox id', false),
     ];
     const rows = resource.elements.map((element) => {
-      element.trainingInstanceId = trainingInstanceId;
-      return TrainingRunTable.createRow(element, service);
+      element.trainingInstanceId = trainingInstance.id;
+      return TrainingRunTable.createRow(element, service, trainingInstance);
     });
     super(rows, columns);
     this.selectable = false;
@@ -30,7 +34,11 @@ export class TrainingRunTable extends SentinelTable<TrainingRunRowAdapter> {
     this.filterable = false;
   }
 
-  private static createRow(element: TrainingRun, service: TrainingRunService): Row<TrainingRunRowAdapter> {
+  private static createRow(
+    element: TrainingRun,
+    service: TrainingRunService,
+    instance: TrainingInstance
+  ): Row<TrainingRunRowAdapter> {
     const datePipe = new SentinelDateTimeFormatPipe('en-EN');
     const adapter = element as TrainingRunRowAdapter;
     adapter.playerName = adapter.player.name;
@@ -42,15 +50,19 @@ export class TrainingRunTable extends SentinelTable<TrainingRunRowAdapter> {
       adapter.endTimeFormatted = '-';
       adapter.duration = '-';
     }
-    return new Row(adapter, this.createActions(element, service));
+    return new Row(adapter, this.createActions(element, service, instance));
   }
 
-  private static createActions(element: TrainingRun, service: TrainingRunService): RowAction[] {
+  private static createActions(
+    element: TrainingRun,
+    service: TrainingRunService,
+    instance: TrainingInstance
+  ): RowAction[] {
     return [
       new DeleteAction(
         'Delete sandbox of training run',
         of(false),
-        defer(() => service.delete(element))
+        defer(() => service.delete(element, instance.localEnvironment))
       ),
     ];
   }

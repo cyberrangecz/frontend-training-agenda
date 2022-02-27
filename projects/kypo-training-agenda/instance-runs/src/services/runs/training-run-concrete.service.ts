@@ -52,12 +52,17 @@ export class TrainingRunConcreteService extends TrainingRunService {
     );
   }
 
-  delete(trainingRun: TrainingRun): Observable<any> {
+  delete(trainingRun: TrainingRun, localEnvironment: boolean): Observable<any> {
     return this.displayDeleteSandboxDialog(trainingRun).pipe(
       switchMap((result) => (result === SentinelDialogResultEnum.CONFIRMED ? of(result) : EMPTY)),
       switchMap(() => this.callApiToDeleteRun(trainingRun)),
       switchMap(() => this.getAll(this.lastTrainingInstanceId, this.lastPagination)),
-      switchMap(() => this.callApiToDeleteSandbox(trainingRun))
+      switchMap(() => {
+        if (localEnvironment) {
+          return of();
+        }
+        return this.callApiToDeleteSandbox(trainingRun);
+      })
     );
   }
 

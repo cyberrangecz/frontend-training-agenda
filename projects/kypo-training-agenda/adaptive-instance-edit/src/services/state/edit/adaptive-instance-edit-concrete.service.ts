@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { PoolApi, SandboxInstanceApi } from '@muni-kypo-crp/sandbox-api';
+import { PoolApi, SandboxDefinitionApi, SandboxInstanceApi } from '@muni-kypo-crp/sandbox-api';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { from, Observable } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
@@ -9,7 +9,7 @@ import { AdaptiveInstanceEditService } from './adaptive-instance-edit.service';
 import { AdaptiveInstanceChangeEvent } from '../../../models/events/adaptive-instance-change-event';
 import { AdaptiveInstanceApi } from '@muni-kypo-crp/training-api';
 import { PaginatedResource, OffsetPaginationEvent } from '@sentinel/common';
-import { Pool } from '@muni-kypo-crp/sandbox-model';
+import { Pool, SandboxDefinition } from '@muni-kypo-crp/sandbox-model';
 
 /**
  * Basic implementation of layer between component and API service.
@@ -23,6 +23,7 @@ export class AdaptiveInstanceEditConcreteService extends AdaptiveInstanceEditSer
   constructor(
     private trainingInstanceApi: AdaptiveInstanceApi,
     private poolApi: PoolApi,
+    private sandboxDefinitionApi: SandboxDefinitionApi,
     private sandboxInstanceApi: SandboxInstanceApi,
     private router: Router,
     private navigator: TrainingNavigator,
@@ -57,6 +58,16 @@ export class AdaptiveInstanceEditConcreteService extends AdaptiveInstanceEditSer
     this.assignedPoolSubject$.next(poolId);
   }
 
+  sandboxDefinitionSelectionChange(sandboxDefinitionId: number): void {
+    this.sandboxDefinitionSaveDisabledSubject$.next(false);
+    if (this.instanceValid !== false) {
+      if (this.editedSnapshot) {
+        this.editedSnapshot.sandboxDefinitionId = sandboxDefinitionId;
+      }
+    }
+    this.assignedSandboxDefinitionSubject$.next(sandboxDefinitionId);
+  }
+
   /**
    * Saves/creates training instance based on current edit mode or handles error.
    */
@@ -83,9 +94,9 @@ export class AdaptiveInstanceEditConcreteService extends AdaptiveInstanceEditSer
       ti.startTime = new Date();
       ti.startTime.setMinutes(ti.startTime.getMinutes() + delay);
       this.instanceValidSubject$.next(false);
-    } else {
-      this.assignedPoolSubject$.next(trainingInstance.poolId);
     }
+    this.assignedPoolSubject$.next(ti.poolId);
+    this.assignedSandboxDefinitionSubject$.next(ti.sandboxDefinitionId);
     this.trainingInstanceSubject$.next(ti);
   }
 
@@ -93,10 +104,10 @@ export class AdaptiveInstanceEditConcreteService extends AdaptiveInstanceEditSer
     this.assignedPoolSubject$.next(trainingInstance.poolId);
   }
 
-  getAll(OffsetPaginationEvent: OffsetPaginationEvent): Observable<PaginatedResource<Pool>> {
-    this.lastPagination = OffsetPaginationEvent;
+  getAllPools(offsetPaginationEvent: OffsetPaginationEvent): Observable<PaginatedResource<Pool>> {
+    this.lastPagination = offsetPaginationEvent;
     this.lastPagination.size = Number.MAX_SAFE_INTEGER;
-    return this.poolApi.getPools(OffsetPaginationEvent).pipe(
+    return this.poolApi.getPools(offsetPaginationEvent).pipe(
       tap(
         (pools) => {
           this.poolsSubject$.next(pools);
@@ -106,11 +117,33 @@ export class AdaptiveInstanceEditConcreteService extends AdaptiveInstanceEditSer
     );
   }
 
+  getAllSandboxDefinitions(
+    offsetPaginationEvent: OffsetPaginationEvent
+  ): Observable<PaginatedResource<SandboxDefinition>> {
+    this.lastPagination = offsetPaginationEvent;
+    this.lastPagination.size = Number.MAX_SAFE_INTEGER;
+    return this.sandboxDefinitionApi.getAll(offsetPaginationEvent).pipe(
+      tap(
+        (sandboxDefinitions) => {
+          this.sandboxDefinitionsSubject$.next(sandboxDefinitions);
+        },
+        (err) => this.errorHandler.emit(err, 'Fetching available sandbox definitions')
+      )
+    );
+  }
+
   private setEditMode(trainingInstance: TrainingInstance) {
     this.editModeSubject$.next(trainingInstance !== null);
   }
 
   private create(): Observable<number> {
+    if (this.editedSnapshot.localEnvironment) {
+      this.assignedPoolSubject$.next(null);
+      this.editedSnapshot.poolId = null;
+    } else {
+      this.assignedSandboxDefinitionSubject$.next(null);
+      this.editedSnapshot.sandboxDefinitionId = null;
+    }
     return this.trainingInstanceApi.create(this.editedSnapshot).pipe(
       map((ti) => ti.id),
       tap(
@@ -127,12 +160,20 @@ export class AdaptiveInstanceEditConcreteService extends AdaptiveInstanceEditSer
     if (!this.editedSnapshot) {
       this.editedSnapshot = this.trainingInstanceSubject$.getValue();
     }
+    if (this.editedSnapshot.localEnvironment) {
+      this.assignedPoolSubject$.next(null);
+    } else {
+      this.assignedSandboxDefinitionSubject$.next(null);
+    }
     this.editedSnapshot.poolId = this.assignedPoolSubject$.getValue();
+    this.editedSnapshot.sandboxDefinitionId = this.assignedSandboxDefinitionSubject$.getValue();
     const pagination = new OffsetPaginationEvent(0, 10, '', '');
     this.saveDisabledSubject$.next(true);
     this.poolSaveDisabledSubject$.next(true);
+    this.sandboxDefinitionSaveDisabledSubject$.next(true);
     return this.trainingInstanceApi.update(this.editedSnapshot).pipe(
-      switchMap(() => this.getAll(pagination)),
+      switchMap(() => this.getAllPools(pagination)),
+      switchMap(() => this.getAllSandboxDefinitions(pagination)),
       tap(
         () => {
           this.notificationService.emit('success', 'Adaptive training instance was successfully saved');
@@ -140,6 +181,7 @@ export class AdaptiveInstanceEditConcreteService extends AdaptiveInstanceEditSer
         },
         (err) => {
           this.poolSaveDisabledSubject$.next(false);
+          this.sandboxDefinitionSaveDisabledSubject$.next(false);
           this.saveDisabledSubject$.next(false);
           this.errorHandler.emit(err, 'Editing training instance');
         }
@@ -151,8 +193,10 @@ export class AdaptiveInstanceEditConcreteService extends AdaptiveInstanceEditSer
     this.editModeSubject$.next(true);
     this.saveDisabledSubject$.next(true);
     this.poolSaveDisabledSubject$.next(true);
+    this.sandboxDefinitionSaveDisabledSubject$.next(true);
     this.trainingInstanceSubject$.next(this.editedSnapshot);
     this.assignedPoolSubject$.next(this.editedSnapshot.poolId);
+    this.assignedSandboxDefinitionSubject$.next(this.editedSnapshot.sandboxDefinitionId);
     this.editedSnapshot = null;
   }
 }

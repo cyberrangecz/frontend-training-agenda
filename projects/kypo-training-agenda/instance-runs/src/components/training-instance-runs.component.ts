@@ -71,7 +71,7 @@ export class TrainingInstanceRunsComponent extends SentinelBaseDirective impleme
     this.trainingRuns$ = this.trainingRunService.resource$.pipe(
       takeWhile(() => this.isAlive),
       map((resource) => {
-        return new TrainingRunTable(resource, this.trainingRunService, this.trainingInstance.id);
+        return new TrainingRunTable(resource, this.trainingRunService, this.trainingInstance);
       })
     );
 

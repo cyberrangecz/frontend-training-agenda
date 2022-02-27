@@ -1,6 +1,11 @@
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
-import { SandboxAllocationUnitsApi, SandboxInstanceApi, PoolApi } from '@muni-kypo-crp/sandbox-api';
+import {
+  SandboxAllocationUnitsApi,
+  SandboxInstanceApi,
+  PoolApi,
+  SandboxDefinitionApi,
+} from '@muni-kypo-crp/sandbox-api';
 import {
   TrainingDefinitionApi,
   TrainingRunApi,
@@ -156,6 +161,10 @@ export function createTopologyApiSpy(): jasmine.SpyObj<TopologyApi> {
 
 export function createSandboxInstanceApiSpy(): jasmine.SpyObj<SandboxInstanceApi> {
   return jasmine.createSpyObj('SandboxInstanceApi', ['getSandbox']);
+}
+
+export function createSandboxDefinitionApiSpy(): jasmine.SpyObj<SandboxDefinitionApi> {
+  return jasmine.createSpyObj('SandboxDefinitionApi', ['getAll']);
 }
 
 export function createSauApi(): jasmine.SpyObj<SandboxAllocationUnitsApi> {

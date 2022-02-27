@@ -8,7 +8,8 @@
   <kypo-training-phase *ngSwitchCase="phaseTypes.Training"
                    [phase]="phase"
                    [isLast]=isLast
-                   [sandboxId]="sandboxId"
+                   [sandboxInstanceId]="sandboxInstanceId"
+                   [sandboxDefinitionId]="sandboxDefinitionId"
                    (next)="onNext()">
   </kypo-training-phase>
   <kypo-info-phase *ngSwitchCase="phaseTypes.Info"
@@ -17,6 +18,14 @@
                    [isLoading]="isLoading"
                    (next)="onNext()">
   </kypo-info-phase>
+  <kypo-access-phase *ngSwitchCase="phaseTypes.Access"
+                   [phase]="phase"
+                   [isLast]=isLast
+                   [sandboxInstanceId]="sandboxInstanceId"
+                   [sandboxDefinitionId]="sandboxDefinitionId"
+                   [localEnvironment]="localEnvironment"
+                   (next)="onNext()">
+  </kypo-access-phase>
 </ng-container>
 
 

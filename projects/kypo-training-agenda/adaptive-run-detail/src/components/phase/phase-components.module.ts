@@ -10,6 +10,7 @@ import { AbstractPhaseComponent } from './abstract-phase.component';
 import { InfoPhaseComponent } from './info-phase/info-phase.component';
 import { QuestionnairePhaseComponent } from './questionnaire-phase/questionnaire-phase.component';
 import { TrainingPhaseComponent } from './training-phase/training-phase.component';
+import { AccessPhaseComponent } from './access-phase/access-phase.component';
 
 const markdownParserConfig = {
   loader: HttpClient,
@@ -43,8 +44,15 @@ const markdownParserConfig = {
     AbstractPhaseComponent,
     InfoPhaseComponent,
     TrainingPhaseComponent,
+    AccessPhaseComponent,
     QuestionnairePhaseComponent,
   ],
-  exports: [AbstractPhaseComponent, InfoPhaseComponent, TrainingPhaseComponent, QuestionnairePhaseComponent],
+  exports: [
+    AbstractPhaseComponent,
+    InfoPhaseComponent,
+    TrainingPhaseComponent,
+    AccessPhaseComponent,
+    QuestionnairePhaseComponent,
+  ],
 })
 export class PhaseComponentsModule {}

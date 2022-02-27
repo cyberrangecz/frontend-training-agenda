@@ -33,7 +33,8 @@ export class TrainingLevelComponent extends SentinelBaseDirective implements OnI
   @Input() level: TrainingLevel;
   @Input() isLast: boolean;
   @Input() isPreview: boolean;
-  @Input() sandboxId: number;
+  @Input() sandboxInstanceId: number;
+  @Input() sandboxDefinitionId: number;
   @Output() next: EventEmitter<void> = new EventEmitter();
   @ViewChild('rightPanel', { static: true }) rightPanelDiv: ElementRef;
   @ViewChild('levelContent') private levelContent: ElementRef;
@@ -134,7 +135,9 @@ export class TrainingLevelComponent extends SentinelBaseDirective implements OnI
   }
 
   private initTopology() {
-    this.isTopologyDisplayed = this.sandboxId === null || this.sandboxId === undefined;
+    this.isTopologyDisplayed =
+      (this.sandboxInstanceId === null || this.sandboxInstanceId === undefined) &&
+      (this.sandboxDefinitionId === null || this.sandboxDefinitionId === undefined);
     this.calculateTopologySize();
   }
 

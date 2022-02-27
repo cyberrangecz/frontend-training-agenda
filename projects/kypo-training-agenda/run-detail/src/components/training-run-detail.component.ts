@@ -29,7 +29,9 @@ export class TrainingRunDetailComponent extends SentinelBaseDirective implements
   isTimerDisplayed: boolean;
   startTime: Date;
   isLast: boolean;
-  sandboxId: number;
+  sandboxInstanceId: number;
+  sandboxDefinitionId: number;
+  localEnvironment: boolean;
 
   constructor(private trainingRunService: RunningTrainingRunService, private auth: SentinelAuthService) {
     super();
@@ -40,7 +42,9 @@ export class TrainingRunDetailComponent extends SentinelBaseDirective implements
   }
 
   ngAfterViewInit(): void {
-    this.trainingRunService.loadConsoles(this.sandboxId).pipe(take(1)).subscribe();
+    if (!this.localEnvironment) {
+      this.trainingRunService.loadConsoles(this.sandboxInstanceId).pipe(take(1)).subscribe();
+    }
   }
 
   private init() {
@@ -50,7 +54,9 @@ export class TrainingRunDetailComponent extends SentinelBaseDirective implements
     this.isTimerDisplayed = true;
     this.isStepperDisplayed = this.trainingRunService.getIsStepperDisplayed();
     this.isPreview = this.trainingRunService.getIsPreview();
-    this.sandboxId = this.trainingRunService.sandboxInstanceId;
+    this.sandboxInstanceId = this.trainingRunService.sandboxInstanceId;
+    this.sandboxDefinitionId = this.trainingRunService.sandboxDefinitionId;
+    this.localEnvironment = this.trainingRunService.localEnvironment;
     if (this.isStepperDisplayed || this.isPreview) {
       const stepperAdapterLevels = this.levels.map((level) => new LevelStepperAdapter(level));
       this.stepper = new TrainingRunStepper(stepperAdapterLevels, this.trainingRunService.getActiveLevelPosition());

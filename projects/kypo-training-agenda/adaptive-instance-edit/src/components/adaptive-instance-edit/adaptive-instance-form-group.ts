@@ -16,6 +16,7 @@ export class AdaptiveInstanceFormGroup {
         title: new FormControl(trainingInstance.title, [SentinelValidators.noWhitespace]),
         trainingDefinition: new FormControl(trainingInstance.trainingDefinition, [Validators.required]),
         accessToken: new FormControl(trainingInstance.accessToken, [SentinelValidators.noWhitespace]),
+        localEnvironment: new FormControl(trainingInstance.localEnvironment),
       },
       { validators: this.dateSequenceValidator }
     );
@@ -54,5 +55,6 @@ export class AdaptiveInstanceFormGroup {
     trainingInstance.title = this.formGroup.get('title').value;
     trainingInstance.trainingDefinition = this.formGroup.get('trainingDefinition').value;
     trainingInstance.accessToken = this.formGroup.get('accessToken').value;
+    trainingInstance.localEnvironment = this.formGroup.get('localEnvironment').value;
   }
 }

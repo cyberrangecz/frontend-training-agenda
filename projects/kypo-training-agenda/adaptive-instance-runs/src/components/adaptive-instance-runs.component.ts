@@ -29,7 +29,7 @@ export class AdaptiveInstanceRunsComponent extends SentinelBaseDirective impleme
 
   selectedTrainingRunIds: number[] = [];
 
-  private trainingInstanceId: number;
+  private trainingInstance: TrainingInstance;
 
   constructor(
     private activeRoute: ActivatedRoute,
@@ -43,7 +43,7 @@ export class AdaptiveInstanceRunsComponent extends SentinelBaseDirective impleme
     this.trainingInstance$ = this.activeRoute.data.pipe(
       map((data) => data[ADAPTIVE_INSTANCE_DATA_ATTRIBUTE_NAME]),
       tap((ti) => {
-        this.trainingInstanceId = ti.id;
+        this.trainingInstance = ti;
       })
     );
 
@@ -69,7 +69,7 @@ export class AdaptiveInstanceRunsComponent extends SentinelBaseDirective impleme
     this.trainingRuns$ = this.adaptiveRunService.resource$.pipe(
       takeWhile(() => this.isAlive),
       map((resource) => {
-        return new AdaptiveRunTable(resource, this.adaptiveRunService, this.trainingInstanceId);
+        return new AdaptiveRunTable(resource, this.adaptiveRunService, this.trainingInstance);
       })
     );
 

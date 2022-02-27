@@ -14,6 +14,7 @@ import { TrainingInstanceOverviewConcreteService } from '../services/state/train
 import { TrainingInstanceOverviewService } from '../services/state/training-instance-overview.service';
 import { TrainingInstanceOverviewComponent } from './training-instance-overview.component';
 import { TrainingInstanceOverviewMaterialModule } from './training-instance-overview-material.module';
+import { MatIconModule } from '@angular/material/icon';
 
 /**
  * Main module of training instance agenda. Contains components and providers for displaying table of training instance

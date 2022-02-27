@@ -12,6 +12,8 @@ import {
   RunningAdaptiveRunConcreteService,
   RunningTrainingRunConcreteService,
   RunningTrainingRunService,
+  AdaptiveRunTrainingPhaseService,
+  AdaptiveRunTrainingPhaseConcreteService,
 } from '@muni-kypo-crp/training-agenda/internal';
 import {
   AccessTrainingRunResolver,
@@ -26,8 +28,6 @@ import { TrainingRunOverviewMaterialModule } from './training-run-overview-mater
 import { TrainingRunOverviewComponent } from './training-run-overview.component';
 import { AccessedAdaptiveRunService } from '../services/state/adaptive/accessed-adaptive-run.service';
 import { AccessedAdaptiveRunConcreteService } from '../services/state/adaptive/accessed-adaptive-run-concrete.service';
-import { AdaptiveRunTrainingPhaseService } from '@muni-kypo-crp/training-agenda/internal';
-import { AdaptiveRunTrainingPhaseConcreteService } from '@muni-kypo-crp/training-agenda/internal';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { LoadingDialogModule } from '@muni-kypo-crp/training-agenda/internal';
@@ -60,7 +60,6 @@ import { TopologyApiModule } from '@muni-kypo-crp/topology-graph';
     PaginationService,
     { provide: TrainingNavigator, useClass: TrainingDefaultNavigator },
     { provide: RunningTrainingRunService, useClass: RunningTrainingRunConcreteService },
-    { provide: AdaptiveRunTrainingPhaseService, useClass: AdaptiveRunTrainingPhaseConcreteService },
     { provide: RunningAdaptiveRunService, useClass: RunningAdaptiveRunConcreteService },
     { provide: AccessedTrainingRunService, useClass: AccessedTrainingRunConcreteService },
     { provide: AccessedAdaptiveRunService, useClass: AccessedAdaptiveRunConcreteService },

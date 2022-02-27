@@ -39,6 +39,14 @@ mat-expansion-panel {
   margin-top: 35px;
 }
 
+.sandbox-definitions-header {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  width: 100%;
+  margin-top: 35px;
+}
+
 .header-icon {
   margin-top: -7px;
   color: rgba(0,0,0,.54);

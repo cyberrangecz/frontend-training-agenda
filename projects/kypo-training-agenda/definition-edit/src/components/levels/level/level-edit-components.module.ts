@@ -20,6 +20,7 @@ import { HintDetailEditComponent } from './training/hint/detail/hint-detail-edit
 import { HintsOverviewComponent } from './training/hint/overview/hints-overview.component';
 import { InfoLevelEditComponent } from './info/info-level-edit.component';
 import { LevelEditMaterialModule } from './level-edit-material.module';
+import { AccessLevelEditComponent } from './access/access-level-edit.component';
 
 const markdownConfig = {
   markdownParser: {
@@ -58,6 +59,7 @@ const markdownConfig = {
   ],
   exports: [AbstractLevelEditComponent],
   declarations: [
+    AccessLevelEditComponent,
     TrainingLevelEditComponent,
     InfoLevelEditComponent,
     AssessmentLevelEditComponent,

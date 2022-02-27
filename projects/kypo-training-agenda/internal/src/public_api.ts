@@ -21,8 +21,12 @@ export * from './services/training-run/level/assessment/training-run-assessment-
 export * from './services/training-run/level/assessment/training-run-assessment-level-concrete.service';
 export * from './services/training-run/level/training/training-run-training-level.service';
 export * from './services/training-run/level/training/training-run-training-level-concrete.service';
+export * from './services/training-run/level/access/training-run-access-level.service';
+export * from './services/training-run/level/access/training-run-access-level-concrete.service';
 export * from './services/adaptive-run/training-phase/adaptive-run-training-phase.service';
 export * from './services/adaptive-run/training-phase/adaptive-run-training-phase-concrete.service';
+export * from './services/adaptive-run/access-phase/adaptive-run-access-phase.service';
+export * from './services/adaptive-run/access-phase/adaptive-run-access-phase-concrete.service';
 
 export * from './loading-dialog/loading-dialog.module';
 export * from './loading-dialog/loading-dialog.component';

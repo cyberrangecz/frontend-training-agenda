@@ -2,8 +2,8 @@ import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { BehaviorSubject, Observable, timer } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
 import { TrainingInstanceChangeEvent } from '../../../model/events/training-instance-change-event';
+import { Pool, SandboxDefinition } from '@muni-kypo-crp/sandbox-model';
 import { PaginatedResource, OffsetPaginationEvent, OffsetPagination } from '@sentinel/common';
-import { Pool } from '@muni-kypo-crp/sandbox-model';
 
 /**
  * Layer between component and API service. Implement concrete service by extending this class.
@@ -24,9 +24,20 @@ export abstract class TrainingInstanceEditService {
 
   assignedPool$: Observable<number> = this.assignedPoolSubject$.asObservable();
 
-  protected poolsSubject$: BehaviorSubject<PaginatedResource<Pool>> = new BehaviorSubject(this.initSubject(10));
+  protected assignedSandboxDefinitionSubject$: BehaviorSubject<number> = new BehaviorSubject(undefined);
+
+  assignedSandboxDefinition$: Observable<number> = this.assignedSandboxDefinitionSubject$.asObservable();
+
+  protected poolsSubject$: BehaviorSubject<PaginatedResource<Pool>> = new BehaviorSubject(this.initPools(999));
 
   pools$: Observable<PaginatedResource<Pool>> = this.poolsSubject$.asObservable();
+
+  protected sandboxDefinitionsSubject$: BehaviorSubject<PaginatedResource<SandboxDefinition>> = new BehaviorSubject(
+    this.initSandboxDefinitions(999)
+  );
+
+  sandboxDefinitions$: Observable<PaginatedResource<SandboxDefinition>> =
+    this.sandboxDefinitionsSubject$.asObservable();
 
   /**
    * Current mode (edit - true or create - false)
@@ -58,6 +69,13 @@ export abstract class TrainingInstanceEditService {
    */
   poolSaveDisabled$: Observable<boolean> = this.poolSaveDisabledSubject$.asObservable();
 
+  protected sandboxDefinitionSaveDisabledSubject$: BehaviorSubject<boolean> = new BehaviorSubject(true);
+
+  /**
+   * True if it is possible to save edited sandbox definition in its current state, false otherwise
+   */
+  sandboxDefinitionSaveDisabled$: Observable<boolean> = this.sandboxDefinitionSaveDisabledSubject$.asObservable();
+
   protected constructor() {
     this.hasStarted$ = timer(1).pipe(
       switchMap(() => this.trainingInstance$),
@@ -88,11 +106,23 @@ export abstract class TrainingInstanceEditService {
    */
   abstract poolSelectionChange(poolId: number): void;
 
-  abstract getAll(OffsetPaginationEvent: OffsetPaginationEvent): Observable<PaginatedResource<Pool>>;
+  /**
+   * Handles change of sandbox definition selection
+   * @param sandboxDefinitionId ID of selected sandbox definition
+   */
+  abstract sandboxDefinitionSelectionChange(sandboxDefinitionId: number): void;
 
-  abstract init(trainingInstance: TrainingInstance): void;
+  abstract getAllPools(OffsetPaginationEvent: OffsetPaginationEvent): Observable<PaginatedResource<Pool>>;
 
-  protected initSubject(pageSize: number): PaginatedResource<Pool> {
+  abstract getAllSandboxDefinitions(
+    OffsetPaginationEvent: OffsetPaginationEvent
+  ): Observable<PaginatedResource<SandboxDefinition>>;
+
+  protected initPools(pageSize: number): PaginatedResource<Pool> {
+    return new PaginatedResource([], new OffsetPagination(0, 0, pageSize, 0, 0));
+  }
+
+  protected initSandboxDefinitions(pageSize: number): PaginatedResource<SandboxDefinition> {
     return new PaginatedResource([], new OffsetPagination(0, 0, pageSize, 0, 0));
   }
 }

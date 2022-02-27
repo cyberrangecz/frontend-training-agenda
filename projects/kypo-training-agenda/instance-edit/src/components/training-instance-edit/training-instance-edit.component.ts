@@ -60,6 +60,9 @@ export class TrainingInstanceEditComponent extends SentinelBaseDirective impleme
   get accessToken(): AbstractControl {
     return this.trainingInstanceFormGroup.formGroup.get('accessToken');
   }
+  get localEnvironment(): AbstractControl {
+    return this.trainingInstanceFormGroup.formGroup.get('localEnvironment');
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if ('trainingInstance' in changes) {

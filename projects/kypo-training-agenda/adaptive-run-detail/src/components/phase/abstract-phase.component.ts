@@ -16,7 +16,9 @@ export class AbstractPhaseComponent extends SentinelBaseDirective {
   @Input() phase: Phase;
   @Input() isLast: boolean;
   @Input() isLoading = false;
-  @Input() sandboxId: number;
+  @Input() sandboxInstanceId: number;
+  @Input() sandboxDefinitionId: number;
+  @Input() localEnvironment: boolean;
 
   @Output() next: EventEmitter<void> = new EventEmitter();
   phaseTypes = AbstractPhaseTypeEnum;

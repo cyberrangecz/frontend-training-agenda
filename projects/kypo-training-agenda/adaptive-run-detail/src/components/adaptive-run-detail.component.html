@@ -16,7 +16,9 @@
   <kypo-abstract-phase [phase]="activePhase$ | async"
                        [isLast]="isLast"
                        [isLoading]="isLoading"
-                       [sandboxId]="sandboxId"
+                       [sandboxInstanceId]="sandboxInstanceId"
+                       [sandboxDefinitionId]="sandboxDefinitionId"
+                       [localEnvironment]="localEnvironment"
                        (next)="next()">
   </kypo-abstract-phase>
 
