@@ -54,6 +54,10 @@ button.main {
 	margin-bottom: 15px;
 }
 
+.local-environment-slide-toggle span {
+  margin-right: 15px;
+}
+
 @media screen and (max-width: 800px) {
 	div .panel-wrapper {
 		flex-direction: column;

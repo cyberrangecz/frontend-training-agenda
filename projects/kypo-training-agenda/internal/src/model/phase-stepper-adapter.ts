@@ -27,6 +27,8 @@ export class PhaseStepperAdapter implements StepItem {
         return 'info';
       case AbstractPhaseTypeEnum.Training:
         return 'transform';
+      case AbstractPhaseTypeEnum.Access:
+        return 'settings';
       case AbstractPhaseTypeEnum.Task:
         return 'videogame_asset';
       case AbstractPhaseTypeEnum.Questionnaire: {

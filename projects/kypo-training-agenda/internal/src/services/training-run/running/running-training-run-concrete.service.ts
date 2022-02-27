@@ -43,6 +43,8 @@ export class RunningTrainingRunConcreteService extends RunningTrainingRunService
   init(trainingRunInfo: AccessTrainingRunInfo): void {
     this.trainingRunId = trainingRunInfo.trainingRunId;
     this.sandboxInstanceId = trainingRunInfo.sandboxInstanceId;
+    this.sandboxDefinitionId = trainingRunInfo.sandboxDefinitionId;
+    this.localEnvironment = trainingRunInfo.localEnvironment;
     this.isStepperDisplayed = trainingRunInfo.isStepperDisplayed;
     this.isPreview = trainingRunInfo.isPreview;
     this.startTime = trainingRunInfo.startTime;
@@ -95,6 +97,8 @@ export class RunningTrainingRunConcreteService extends RunningTrainingRunService
   clear(): void {
     this.trainingRunId = undefined;
     this.sandboxInstanceId = undefined;
+    this.sandboxDefinitionId = undefined;
+    this.localEnvironment = undefined;
     this.startTime = undefined;
     this.activeLevelSubject$.next(undefined);
     this.activeLevels = [];

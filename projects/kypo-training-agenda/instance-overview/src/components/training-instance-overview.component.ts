@@ -86,4 +86,15 @@ export class TrainingInstanceOverviewComponent extends SentinelBaseDirective imp
   onCopyToken(): void {
     this.notificationService.emit('success', 'Access token has been copied');
   }
+
+  getAccessTokenTooltip(freeSandboxes: string, localEnvironment: boolean) {
+    if (!localEnvironment) {
+      if (freeSandboxes === '') {
+        return 'Cannot copy access token, because there is no pool assigned.';
+      } else if (freeSandboxes === '0') {
+        return 'Cannot copy access token because there is no free sandbox.';
+      }
+    }
+    return 'Click to copy access token';
+  }
 }

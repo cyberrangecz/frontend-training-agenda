@@ -23,7 +23,9 @@
   <!-- CONTENT OF ACTIVE LEVEL -->
   <kypo-abstract-level [level]="activeLevel$ | async"
                        [isLast]="isLast"
-                       [sandboxId]="sandboxId"
+                       [sandboxInstanceId]="sandboxInstanceId"
+                       [sandboxDefinitionId]="sandboxDefinitionId"
+                       [localEnvironment]="localEnvironment"
                        [isPreview]="isPreview"
                        (next)="next()">
   </kypo-abstract-level>

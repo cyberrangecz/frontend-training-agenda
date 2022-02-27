@@ -10,7 +10,8 @@
                    [level]="level"
                    [isLast]=isLast
                    [isPreview]="isPreview"
-                   [sandboxId]="sandboxId"
+                   [sandboxInstanceId]="sandboxInstanceId"
+                   [sandboxDefinitionId]="sandboxDefinitionId"
                    (next)="onNext()">
   </kypo-training-level>
   <kypo-info-level *ngSwitchCase="levelTypes.Info"
@@ -19,6 +20,15 @@
                    [isLast]="isLast"
                    (next)="onNext()">
   </kypo-info-level>
+  <kypo-access-level *ngSwitchCase="levelTypes.Access"
+                   [level]="level"
+                   [isPreview]="isPreview"
+                   [sandboxInstanceId]="sandboxInstanceId"
+                   [sandboxDefinitionId]="sandboxDefinitionId"
+                   [localEnvironment]="localEnvironment"
+                   [isLast]="isLast"
+                   (next)="onNext()">
+  </kypo-access-level>
 </ng-container>
 
 

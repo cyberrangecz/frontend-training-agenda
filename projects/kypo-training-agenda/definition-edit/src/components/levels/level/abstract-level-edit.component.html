@@ -3,6 +3,10 @@
                         [level]="level"
                         (levelChange)="onLevelChange($event)">
   </kypo-training-level-edit>
+  <kypo-access-level-configuration *ngSwitchCase="levelTypes.Access"
+                                 [level]="level"
+                                 (levelChange)="onLevelChange($event)">
+  </kypo-access-level-configuration>
   <kypo-info-level-configuration *ngSwitchCase="levelTypes.Info"
                                  [level]="level"
                                  (levelChange)="onLevelChange($event)">

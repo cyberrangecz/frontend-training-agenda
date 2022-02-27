@@ -31,6 +31,8 @@ export class RunningAdaptiveRunConcreteService extends RunningAdaptiveRunService
   init(accessAdaptiveRunInfo: AccessTrainingRunInfo): void {
     this.trainingRunId = accessAdaptiveRunInfo.trainingRunId;
     this.sandboxInstanceId = accessAdaptiveRunInfo.sandboxInstanceId;
+    this.sandboxDefinitionId = accessAdaptiveRunInfo.sandboxDefinitionId;
+    this.localEnvironment = accessAdaptiveRunInfo.localEnvironment;
     this.isStepperDisplayed = accessAdaptiveRunInfo.isStepperDisplayed;
     this.startTime = accessAdaptiveRunInfo.startTime;
     this.activePhases = accessAdaptiveRunInfo.levels as Phase[];
@@ -68,6 +70,8 @@ export class RunningAdaptiveRunConcreteService extends RunningAdaptiveRunService
   clear(): void {
     this.trainingRunId = undefined;
     this.sandboxInstanceId = undefined;
+    this.sandboxDefinitionId = undefined;
+    this.localEnvironment = undefined;
     this.startTime = undefined;
     this.activePhaseSubject$.next(undefined);
     this.activePhases = [];

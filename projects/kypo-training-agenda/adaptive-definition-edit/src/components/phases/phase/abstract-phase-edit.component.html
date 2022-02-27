@@ -15,4 +15,8 @@
                                           [presentTrainingPhases]="presentTrainingPhases$ | async"
                                           (phaseChange)="onPhaseChange($event)">
   </kypo-questionnaire-phase-configuration>
+  <kypo-access-phase-configuration *ngSwitchCase="phaseTypes.Access"
+                                   [phase]="phase"
+                                   (phaseChange)="onPhaseChange($event)">
+  </kypo-access-phase-configuration>
 </ng-container>

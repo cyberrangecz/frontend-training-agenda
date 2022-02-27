@@ -1,4 +1,4 @@
-import { SentinelBaseDirective } from '@sentinel/common';
+import { PaginatedResource, OffsetPaginationEvent, SentinelBaseDirective } from '@sentinel/common';
 import { ChangeDetectionStrategy, Component, HostListener } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
@@ -13,6 +13,8 @@ import { AdaptiveInstanceChangeEvent } from '../models/events/adaptive-instance-
 import { AdaptiveInstanceEditConcreteService } from '../services/state/edit/adaptive-instance-edit-concrete.service';
 import { SentinelUserAssignService } from '@sentinel/components/user-assign';
 import { OrganizersAssignService } from '../services/state/organizers-assign/organizers-assign.service';
+import { Pool, SandboxDefinition } from '@muni-kypo-crp/sandbox-model';
+import { SandboxPoolListAdapter } from '../models/adapter/sandbox-pool-list-adapter';
 
 @Component({
   selector: 'kypo-adaptive-instance-edit-overview',
@@ -25,13 +27,20 @@ import { OrganizersAssignService } from '../services/state/organizers-assign/org
   ],
 })
 export class AdaptiveInstanceEditOverviewComponent extends SentinelBaseDirective {
+  readonly PAGE_SIZE: number = 999;
+
   trainingInstance$: Observable<TrainingInstance>;
+  pools$: Observable<SandboxPoolListAdapter[]>;
+  selectedPoolId: Observable<number>;
+  sandboxDefinitions$: Observable<SandboxDefinition[]>;
+  selectedSandboxDefinitionId: Observable<number>;
   hasStarted$: Observable<boolean>;
   editMode$: Observable<boolean>;
   tiTitle$: Observable<string>;
   instanceValid$: Observable<boolean>;
   canDeactivateOrganizers = true;
   canDeactivatePoolAssign = true;
+  canDeactivateSandboxDefinitionAssign = true;
   canDeactivateTIEdit = true;
   defaultPaginationSize: number;
   hasAssignedPool: boolean;
@@ -57,12 +66,20 @@ export class AdaptiveInstanceEditOverviewComponent extends SentinelBaseDirective
       .subscribe();
     const saveDisabled$: Observable<boolean> = combineLatest(
       this.editService.saveDisabled$,
-      this.editService.poolSaveDisabled$
-    ).pipe(map((valid) => valid[0] && valid[1]));
+      this.editService.poolSaveDisabled$,
+      this.editService.poolSaveDisabled$,
+      this.editService.sandboxDefinitionSaveDisabled$
+    ).pipe(map((valid) => valid[0] && valid[1] && valid[2]));
     this.tiTitle$ = this.editService.trainingInstance$.pipe(map((ti) => ti.title));
     this.activeRoute.data
       .pipe(takeWhile(() => this.isAlive))
       .subscribe((data) => this.editService.set(data[ADAPTIVE_INSTANCE_DATA_ATTRIBUTE_NAME]));
+    this.pools$ = this.editService.pools$.pipe(map((pool) => this.mapToAdapter(pool)));
+    this.sandboxDefinitions$ = this.editService.sandboxDefinitions$.pipe(map((definitions) => definitions.elements));
+    this.refreshPools();
+    this.refreshSandboxDefinitions();
+    this.selectedPoolId = this.editService.assignedPool$;
+    this.selectedSandboxDefinitionId = this.editService.assignedSandboxDefinition$;
     this.controls = AdaptiveInstanceEditControls.create(this.editService, saveDisabled$, this.instanceValid$);
   }
 
@@ -77,6 +94,7 @@ export class AdaptiveInstanceEditOverviewComponent extends SentinelBaseDirective
   onControlsAction(control: SentinelControlItem): void {
     this.canDeactivateTIEdit = true;
     this.canDeactivatePoolAssign = true;
+    this.canDeactivateSandboxDefinitionAssign = true;
     control.result$.pipe(take(1)).subscribe();
   }
 
@@ -85,7 +103,12 @@ export class AdaptiveInstanceEditOverviewComponent extends SentinelBaseDirective
    * @returns true if saved all his changes, false otherwise
    */
   canDeactivate(): boolean {
-    return this.canDeactivateTIEdit && this.canDeactivateOrganizers && this.canDeactivatePoolAssign;
+    return (
+      this.canDeactivateTIEdit &&
+      this.canDeactivateOrganizers &&
+      this.canDeactivatePoolAssign &&
+      this.canDeactivateSandboxDefinitionAssign
+    );
   }
 
   /**
@@ -106,11 +129,38 @@ export class AdaptiveInstanceEditOverviewComponent extends SentinelBaseDirective
   }
 
   /**
+   * Changes canDeactivate state of the component
+   * @param sandboxDefinitionId ID of selected sandbox definition
+   */
+  onSandboxDefinitionSelectionChanged(sandboxDefinitionId: number): void {
+    this.canDeactivateSandboxDefinitionAssign = false;
+    this.editService.sandboxDefinitionSelectionChange(sandboxDefinitionId);
+  }
+
+  /**
    * Updates state of the training instance and changes canDeactivate state of the component
    * @param $event training instance change event, containing latest update of training instance and its validity
    */
   onTrainingInstanceChanged($event: AdaptiveInstanceChangeEvent): void {
     this.editService.change($event);
     this.canDeactivateTIEdit = false;
+  }
+
+  private refreshPools() {
+    const pagination = new OffsetPaginationEvent(0, this.PAGE_SIZE, '', '');
+    this.editService.getAllPools(pagination).pipe(take(1)).subscribe();
+  }
+
+  private refreshSandboxDefinitions() {
+    const pagination = new OffsetPaginationEvent(0, this.PAGE_SIZE, '', '');
+    this.editService.getAllSandboxDefinitions(pagination).pipe(take(1)).subscribe();
+  }
+
+  private mapToAdapter(resource: PaginatedResource<Pool>): SandboxPoolListAdapter[] {
+    return resource.elements.map((pool) => {
+      const adapter = pool as SandboxPoolListAdapter;
+      adapter.title = !adapter.isLocked() ? `Pool ${adapter.id}` : `Pool ${adapter.id} (locked)`;
+      return adapter;
+    });
   }
 }

@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { asyncData, PaginatedResource, OffsetPagination } from '@sentinel/common';
-import { PoolApi, SandboxInstanceApi } from '@muni-kypo-crp/sandbox-api';
+import { PoolApi, SandboxDefinitionApi, SandboxInstanceApi } from '@muni-kypo-crp/sandbox-api';
 import { TrainingInstanceApi } from '@muni-kypo-crp/training-api';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { throwError } from 'rxjs';
@@ -14,6 +14,7 @@ import {
   createNotificationSpy,
   createPoolApiSpy,
   createRouterSpy,
+  createSandboxDefinitionApiSpy,
   createSandboxInstanceApiSpy,
   createTrainingInstanceApiSpy,
 } from '../../../../../internal/src/testing/testing-commons.spec';
@@ -22,12 +23,13 @@ import { TrainingNavigator } from '../../../../../src/services/training-navigato
 import { TrainingNotificationService } from '../../../../../src/services/training-notification.service';
 import { TrainingAgendaContext } from '../../../../../internal/src/services/context/training-agenda-context.service';
 import { TrainingInstanceEditConcreteService } from './training-instance-edit-concrete.service';
-import { Pool } from '@muni-kypo-crp/sandbox-model';
+import { Pool, SandboxDefinition } from '@muni-kypo-crp/sandbox-model';
 
 describe('TrainingInstanceEditConcreteService', () => {
   let errorHandlerSpy: jasmine.SpyObj<TrainingErrorHandler>;
   let trainingInstanceApiSpy: jasmine.SpyObj<TrainingInstanceApi>;
   let poolApiSpy: jasmine.SpyObj<PoolApi>;
+  let sandboxDefinitionApiSpy: jasmine.SpyObj<SandboxDefinitionApi>;
   let sandboxInstanceApiSpy: jasmine.SpyObj<SandboxInstanceApi>;
   let service: TrainingInstanceEditConcreteService;
   let navigatorSpy: jasmine.SpyObj<TrainingNavigator>;
@@ -41,6 +43,7 @@ describe('TrainingInstanceEditConcreteService', () => {
     trainingInstanceApiSpy = createTrainingInstanceApiSpy();
     poolApiSpy = createPoolApiSpy();
     sandboxInstanceApiSpy = createSandboxInstanceApiSpy();
+    sandboxDefinitionApiSpy = createSandboxDefinitionApiSpy();
     navigatorSpy = createNavigatorSpy();
     routerSpy = createRouterSpy();
     context = createContext();
@@ -51,6 +54,7 @@ describe('TrainingInstanceEditConcreteService', () => {
         { provide: TrainingInstanceApi, useValue: trainingInstanceApiSpy },
         { provide: SandboxInstanceApi, useValue: sandboxInstanceApiSpy },
         { provide: PoolApi, useValue: poolApiSpy },
+        { provide: SandboxDefinitionApi, useValue: sandboxDefinitionApiSpy },
         { provide: Router, useValue: routerSpy },
         { provide: TrainingErrorHandler, useValue: errorHandlerSpy },
         { provide: TrainingNotificationService, useValue: notificationSpy },
@@ -86,6 +90,7 @@ describe('TrainingInstanceEditConcreteService', () => {
 
   it('should save existing training instance', (done) => {
     trainingInstanceApiSpy.update.and.returnValue(asyncData(''));
+    sandboxDefinitionApiSpy.getAll.and.returnValue(asyncData(createDefinitionsPaginatedMock()));
     poolApiSpy.getPools.and.returnValue(asyncData(createPoolsPaginatedMock()));
     service.set(createMock());
     service.change(new TrainingInstanceChangeEvent(createMock(), true));
@@ -94,7 +99,7 @@ describe('TrainingInstanceEditConcreteService', () => {
         expect(trainingInstanceApiSpy.update).toHaveBeenCalledTimes(1);
         expect(notificationSpy.emit).toHaveBeenCalledTimes(1);
         expect(notificationSpy.emit).toHaveBeenCalledWith('success', jasmine.anything());
-        expect(res).toEqual(createPoolsPaginatedMock());
+        expect(res).toEqual(createDefinitionsPaginatedMock());
         done();
       },
       () => fail
@@ -175,5 +180,14 @@ describe('TrainingInstanceEditConcreteService', () => {
     const pool2 = new Pool();
     pool2.id = 1;
     return new PaginatedResource([pool1, pool2], new OffsetPagination(1, 2, 2, 2, 1));
+  }
+
+  function createDefinitionsPaginatedMock(): PaginatedResource<SandboxDefinition> {
+    const sandboxDefinition = new SandboxDefinition();
+    sandboxDefinition.id = 0;
+    sandboxDefinition.rev = 'master';
+    sandboxDefinition.url = 'http://example.com';
+    sandboxDefinition.title = 'title';
+    return new PaginatedResource([sandboxDefinition, sandboxDefinition], new OffsetPagination(1, 2, 2, 2, 1));
   }
 });

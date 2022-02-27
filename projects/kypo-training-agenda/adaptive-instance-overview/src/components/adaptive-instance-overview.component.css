@@ -5,3 +5,16 @@
 .warn {
     color: #F44336;
 }
+
+.access-token-container {
+  display: flex;
+  align-items: end;
+}
+
+.access-token-container mat-icon {
+  margin-left: 5px;
+}
+
+.access-token-container mat-icon.warning {
+  color: orange;
+}

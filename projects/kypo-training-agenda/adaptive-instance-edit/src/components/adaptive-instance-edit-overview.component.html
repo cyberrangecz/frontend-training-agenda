@@ -25,15 +25,27 @@
     </kypo-adaptive-instance-edit>
 
     <mat-divider></mat-divider>
-    <div>
+    <!-- EDIT POOLS -->
+    <div *ngIf="!(trainingInstance$ | async).localEnvironment && (trainingInstance$ | async) as trainingInstance">
       <div class="pools-header">
         <h3>Pools</h3>
         <mat-icon class="header-icon">view_module</mat-icon>
       </div>
-      <kypo-pool-assign [trainingInstance]="trainingInstance$ | async"
-                        [hasAssignedPool]="hasAssignedPool"
+      <kypo-pool-assign [selectedPoolId]="selectedPoolId | async"
+                        [pools]="pools$ | async"
                         (selectionChanged)="onPoolSelectionChanged($event)">
       </kypo-pool-assign>
+    </div>
+    <!-- EDIT SANDBOX DEFINITIONS -->
+    <div *ngIf="(trainingInstance$ | async).localEnvironment && (trainingInstance$ | async) as trainingInstance">
+      <div class="sandbox-definitions-header">
+        <h3>Sandbox Definitions</h3>
+        <mat-icon class="header-icon">view_module</mat-icon>
+      </div>
+      <kypo-sandbox-definition-assign [selectedSandboxDefinitionId]="selectedSandboxDefinitionId | async"
+                                      [sandboxDefinitions]="sandboxDefinitions$ | async"
+                                      (selectionChanged)="onSandboxDefinitionSelectionChanged($event)">
+      </kypo-sandbox-definition-assign>
     </div>
   </ng-template>
 </mat-expansion-panel>

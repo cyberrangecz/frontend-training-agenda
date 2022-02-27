@@ -33,7 +33,8 @@
         *ngIf="!isTopologyDisplayed; else topologyPlaceholder"
         [width]="topologyWidth"
         [height]="topologyHeight"
-        [sandboxInstanceId]="sandboxId"
+        [sandboxInstanceId]="sandboxInstanceId"
+        [sandboxDefinitionId]="sandboxDefinitionId"
         [style.width.px]="topologyWidth"
         [style.height.px]="topologyHeight"
       >
@@ -45,7 +46,7 @@
       <div #controlsContainer [ngClass]="!isWrapped() ? 'controls-container' : 'controls-container wrapped'">
         <div [ngClass]="!isWrapped() ? 'hint-solution' : 'hint-solution wrapped'">
           <!-- HINT BUTTONS-->
-          <div class="hint-buttons" [ngClass]="{ divider: !isWrapped() }">
+          <div class="hint-buttons" [ngClass]="{ divider: !isWrapped() && level.hints.length !== 0 }">
             <button
               *ngFor="let hintButton of hintsButtons$ | async; index as i"
               mat-raised-button
@@ -77,7 +78,7 @@
         </div>
         <div [ngClass]="!isWrapped() ? 'answer-ssh' : 'answer-ssh wrapped'">
           <!-- ANSWER field-->
-          <div *ngIf="!isPreview" class="answer-input" [ngClass]="{ divider: !isWrapped() }">
+          <div *ngIf="!isPreview" class="answer-input" [ngClass]="{ divider: !isWrapped() && (sandboxInstanceId || sandboxDefinitionId) }">
             <div *ngIf="isCorrectAnswerSubmitted$ | async; else answerInput">
               <kypo-next-level-button [isLast]="isLast" (next)="onNext()"> </kypo-next-level-button>
             </div>
@@ -119,7 +120,7 @@
             </ng-template>
           </div>
           <!-- GET SSH ACCESS BUTTON-->
-          <div class="ssh-button">
+          <div class="ssh-button" *ngIf="sandboxInstanceId || sandboxDefinitionId">
             <button
               mat-raised-button
               color="primary"

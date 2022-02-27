@@ -14,6 +14,7 @@ import { TraineeQuestionComponent } from './assessment-level/question/trainee-qu
 import { TrainingLevelComponent } from './training-level/training-level.component';
 import { InfoLevelComponent } from './info-level/info-level.component';
 import { LevelMaterialModule } from './level-material.module';
+import { AccessLevelComponent } from './access-level/access-level.component';
 
 const markdownParserConfig = {
   loader: HttpClient,
@@ -47,6 +48,7 @@ const markdownParserConfig = {
     AbstractLevelComponent,
     InfoLevelComponent,
     TrainingLevelComponent,
+    AccessLevelComponent,
     AssessmentLevelComponent,
     TraineeQuestionComponent,
     FreeFormQuestionTraineeComponent,
@@ -57,6 +59,7 @@ const markdownParserConfig = {
     AbstractLevelComponent,
     InfoLevelComponent,
     TrainingLevelComponent,
+    AccessLevelComponent,
     AssessmentLevelComponent,
     TraineeQuestionComponent,
     FreeFormQuestionTraineeComponent,

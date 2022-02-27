@@ -22,6 +22,7 @@ export abstract class AdaptiveRunService extends OffsetPaginatedElementsPollingS
   /**
    * Deletes sandbox and run itself
    * @param trainingRun training run whose sandbox instance should be deleted
+   * @param localEnvironment indicates if for the training run a local sandbox has been used
    */
-  abstract delete(trainingRun: TrainingRun): Observable<any>;
+  abstract delete(trainingRun: TrainingRun, localEnvironment: boolean): Observable<any>;
 }

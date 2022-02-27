@@ -1,4 +1,13 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { AdaptiveQuestion, QuestionTypeEnum } from '@muni-kypo-crp/training-model';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { AdaptiveQuestionStepperAdapter } from '@muni-kypo-crp/training-agenda/internal';

@@ -154,5 +154,15 @@
         </div>
       </div>
     </div>
+
+    <div class="local-environment-slide-toggle">
+      <span>Local Environment</span>
+      <mat-slide-toggle
+        [matTooltip]="localEnvironment ? 'Enable Local Environment to disable the pool selection.' :
+                                         'Disable Local Environment to enable the pool selection.'"
+        formControlName="localEnvironment">
+      </mat-slide-toggle>
+    </div>
+
   </form>
 </div>

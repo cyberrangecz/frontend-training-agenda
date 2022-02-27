@@ -17,7 +17,9 @@ export class AbstractLevelComponent extends SentinelBaseDirective {
   @Input() level: Level;
   @Input() isLast: boolean;
   @Input() isPreview: boolean;
-  @Input() sandboxId: number;
+  @Input() sandboxInstanceId: number;
+  @Input() sandboxDefinitionId: number;
+  @Input() localEnvironment: boolean;
 
   @Output() next: EventEmitter<void> = new EventEmitter();
   levelTypes = AbstractLevelTypeEnum;

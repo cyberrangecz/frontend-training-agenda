@@ -6,7 +6,7 @@ import {
   SentinelDialogResultEnum,
 } from '@sentinel/components/dialogs';
 import { TrainingDefinitionApi } from '@muni-kypo-crp/training-api';
-import { Level, TrainingLevel } from '@muni-kypo-crp/training-model';
+import { AccessLevel, Level, TrainingLevel } from '@muni-kypo-crp/training-model';
 import { AssessmentLevel } from '@muni-kypo-crp/training-model';
 import { InfoLevel } from '@muni-kypo-crp/training-model';
 import { AbstractLevelTypeEnum } from '@muni-kypo-crp/training-model';
@@ -98,6 +98,10 @@ export class LevelEditConcreteService extends LevelEditService {
         added$ = this.addTrainingLevel();
         break;
       }
+      case AbstractLevelTypeEnum.Access: {
+        added$ = this.addAccessLevel();
+        break;
+      }
       default:
         console.error('Unsupported type of level in add method od LevelEditService');
     }
@@ -159,6 +163,16 @@ export class LevelEditConcreteService extends LevelEditService {
   private addTrainingLevel(): Observable<TrainingLevel> {
     return this.api.createTrainingLevel(this.trainingDefinitionId).pipe(
       switchMap((basicLevelInfo) => this.api.getLevel(basicLevelInfo.id) as Observable<TrainingLevel>),
+      tap(
+        (level) => this.onLevelAdded(level),
+        (err) => this.errorHandler.emit(err, 'Adding training level')
+      )
+    );
+  }
+
+  private addAccessLevel(): Observable<AccessLevel> {
+    return this.api.createAccessLevel(this.trainingDefinitionId).pipe(
+      switchMap((basicLevelInfo) => this.api.getLevel(basicLevelInfo.id) as Observable<AccessLevel>),
       tap(
         (level) => this.onLevelAdded(level),
         (err) => this.errorHandler.emit(err, 'Adding training level')

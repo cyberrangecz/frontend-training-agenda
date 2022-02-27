@@ -25,6 +25,7 @@ import { QuestionsOverviewComponent } from './questionnaire/question/overview/qu
 import { FreeFormQuestionEditComponent } from './questionnaire/question/free-form-question/free-form-question-edit.component';
 import { MultipleChoiceQuestionEditComponent } from './questionnaire/question/multiple-choice-question/multiple-choice-question-edit.component';
 import { RatingFormQuestionEditComponent } from './questionnaire/question/rating-form-question/rating-form-question-edit.component';
+import { AccessPhaseEditComponent } from './access-phase/access-phase-edit.component';
 
 const markdownConfig = {
   markdownParser: {
@@ -70,6 +71,7 @@ const markdownConfig = {
     AbstractPhaseEditComponent,
     TaskEditComponent,
     TrainingPhaseEditComponent,
+    AccessPhaseEditComponent,
     TasksOverviewComponent,
     TaskStepperComponent,
     RelatedQuestionsComponent,

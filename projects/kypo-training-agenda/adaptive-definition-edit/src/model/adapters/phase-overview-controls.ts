@@ -17,6 +17,7 @@ export class PhaseOverviewControls {
   static readonly ADD_ADAPTIVE_QUESTIONNAIRE_PHASE_ID = 'add_adaptive_questionnaire_phase';
   static readonly ADD_GENERAL_QUESTIONNAIRE_PHASE_ID = 'add_general_questionnaire_phase';
   static readonly ADD_INFO_PHASE_ID = 'add_info_phase';
+  static readonly ADD_ACCESS_PHASE_ID = 'add_access_phase';
 
   static create(service: PhaseEditService, deleteDisabled$: Observable<boolean>): SentinelControlItem[] {
     return [
@@ -70,6 +71,14 @@ export class PhaseOverviewControls {
         of(false),
         defer(() => service.add(AbstractPhaseTypeEnum.Questionnaire, QuestionnaireTypeEnum.General)),
         'help'
+      ),
+      new SentinelControlMenuItem(
+        this.ADD_ACCESS_PHASE_ID,
+        'Access Phase',
+        'primary',
+        of(false),
+        defer(() => service.add(AbstractPhaseTypeEnum.Access)),
+        'settings'
       ),
     ];
   }

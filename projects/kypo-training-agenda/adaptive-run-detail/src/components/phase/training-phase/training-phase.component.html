@@ -22,7 +22,8 @@
         *ngIf="!isTopologyDisplayed; else topologyPlaceholder"
         [width]="topologyWidth"
         [height]="topologyHeight"
-        [sandboxInstanceId]="sandboxId"
+        [sandboxInstanceId]="sandboxInstanceId"
+        [sandboxDefinitionId]="sandboxDefinitionId"
         [style.width.px]="topologyWidth"
         [style.height.px]="topologyHeight"
       >
@@ -47,7 +48,7 @@
       </div>
       <div [ngClass]="!isWrapped() ? 'answer-ssh' : 'answer-ssh wrapped'">
         <!-- ANSWER field-->
-        <div class="answer-input" [ngClass]="{ divider: !isWrapped() }">
+        <div class="answer-input" [ngClass]="{ divider: !isWrapped() && (sandboxInstanceId || sandboxDefinitionId) }">
           <div *ngIf="(isCorrectAnswerSubmitted$ | async) && (isLoading$ | async) !== true; else answerInput">
             <kypo-next-phase-button [isLast]="isLast" (next)="onNext()"> </kypo-next-phase-button>
           </div>
@@ -89,7 +90,7 @@
           </ng-template>
         </div>
         <!-- GET SSH ACCESS BUTTON-->
-        <div class="ssh-button">
+        <div class="ssh-button" *ngIf="sandboxInstanceId || sandboxDefinitionId">
           <button
             mat-raised-button
             color="primary"

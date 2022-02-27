@@ -29,7 +29,8 @@ import { ViewportScroller } from '@angular/common';
 export class TrainingPhaseComponent extends SentinelBaseDirective implements OnInit, OnChanges {
   @Input() phase: TrainingPhase;
   @Input() isLast: boolean;
-  @Input() sandboxId: number;
+  @Input() sandboxInstanceId: number;
+  @Input() sandboxDefinitionId: number;
   @Output() next: EventEmitter<void> = new EventEmitter();
   @ViewChild('rightPanel', { static: true }) rightPanelDiv: ElementRef;
   @ViewChild('controls', { read: ElementRef }) controlsPanel: ElementRef;
@@ -116,7 +117,9 @@ export class TrainingPhaseComponent extends SentinelBaseDirective implements OnI
   }
 
   private initTopology() {
-    this.isTopologyDisplayed = this.sandboxId === null || this.sandboxId === undefined;
+    this.isTopologyDisplayed =
+      (this.sandboxInstanceId === null || this.sandboxInstanceId === undefined) &&
+      (this.sandboxDefinitionId === null || this.sandboxDefinitionId === undefined);
     this.calculateTopologySize();
   }
 

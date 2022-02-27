@@ -5,6 +5,8 @@ import { ConsoleUrl } from '@muni-kypo-crp/topology-graph';
 
 export abstract class RunningAdaptiveRunService {
   sandboxInstanceId: number;
+  sandboxDefinitionId: number;
+  localEnvironment: boolean;
   trainingRunId: number;
 
   protected activePhaseSubject$: BehaviorSubject<Phase> = new BehaviorSubject<Phase>(undefined);

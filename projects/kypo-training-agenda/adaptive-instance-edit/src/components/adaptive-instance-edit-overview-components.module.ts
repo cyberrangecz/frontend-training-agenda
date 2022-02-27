@@ -14,6 +14,7 @@ import { AdaptiveInstanceEditComponent } from './adaptive-instance-edit/adaptive
 import { AdaptiveInstanceEditOverviewMaterialModule } from './adaptive-instance-edit-overview-material.module';
 import { AdaptiveInstanceEditOverviewComponent } from './adaptive-instance-edit-overview.component';
 import { AdaptiveInstanceCanDeactivate } from '../services/can-deactivate/adaptive-instance-can-deactivate.service';
+import { SandboxDefinitionAssignComponent } from './sandbox-definition-assign/sandbox-definition-assign.component';
 
 /**
  * Main module of training instance edit components and providers
@@ -37,6 +38,7 @@ import { AdaptiveInstanceCanDeactivate } from '../services/can-deactivate/adapti
     AdaptiveInstanceEditComponent,
     AdaptiveDefinitionSelectComponent,
     PoolAssignComponent,
+    SandboxDefinitionAssignComponent,
   ],
   providers: [AdaptiveInstanceCanDeactivate],
 })

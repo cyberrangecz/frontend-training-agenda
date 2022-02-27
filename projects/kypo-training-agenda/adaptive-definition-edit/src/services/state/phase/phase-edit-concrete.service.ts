@@ -11,6 +11,7 @@ import { PhaseEditService } from './phase-edit.service';
 import { AdaptiveDefinitionApiService } from '@muni-kypo-crp/training-api';
 import {
   AbstractPhaseTypeEnum,
+  AccessPhase,
   InfoPhase,
   Phase,
   QuestionnairePhase,
@@ -114,6 +115,10 @@ export class PhaseEditConcreteService extends PhaseEditService {
       }
       case AbstractPhaseTypeEnum.Questionnaire: {
         added$ = this.addQuestionnairePhase(questionnaireType);
+        break;
+      }
+      case AbstractPhaseTypeEnum.Access: {
+        added$ = this.addAccessPhase();
         break;
       }
       default:
@@ -245,6 +250,17 @@ export class PhaseEditConcreteService extends PhaseEditService {
           this.presentTrainingPhasesSubject$.next([...this.presentTrainingPhasesSubject$.getValue(), phase]);
         },
         (err) => this.errorHandler.emit(err, 'Adding training phase')
+      )
+    );
+  }
+
+  private addAccessPhase(): Observable<AccessPhase> {
+    return this.api.createAccessPhase(this.trainingDefinitionId).pipe(
+      tap(
+        (phase) => {
+          this.onPhaseAdded(phase);
+        },
+        (err) => this.errorHandler.emit(err, 'Adding access phase')
       )
     );
   }
