@@ -1,3 +1,23 @@
+### 13.0.1 Add routing for visualization tabs.
+* c0efb1f -- [CI/CD] Update packages.json version based on GitLab tag.
+*   72f59bf -- Merge branch '151-add-routing-for-visualization-tabs' into 'master'
+|\  
+| * 92a45ee -- Resolve "Add routing for visualization tabs"
+* |   197797f -- Merge branch '153-pool-size-incorrectly-displays-number-of-free-sandboxes' into 'master'
+|\ \  
+| |/  
+|/|   
+| * 24bc255 -- Resolve "Pool size incorrectly displays number of free sandboxes"
+|/  
+*   020e246 -- Merge branch '152-create-preview-of-adaptive-training-definition' into 'master'
+|\  
+| * 38cf903 -- Resolve "Create preview of adaptive training definition"
+|/  
+*   a3c51b9 -- Merge branch '146-add-trainee-email-to-training-run-overview-table' into 'master'
+|\  
+| * e0742c8 -- Resolve "Add trainee email to training run overview table"
+* 60c121a -- Merge branch '12.1.7-pre-tag-changes' into 'master'
+* 9164261 -- 12.1.7 pre tag changes
 ### 13.0.0 Update to Angular 13, CI/CD optimisation, adaptive definition improvements and bug fixes.
 * 88697b8 -- [CI/CD] Update packages.json version based on GitLab tag.
 *   0bd5c98 -- Merge branch '150-update-to-angular-13' into 'master'
