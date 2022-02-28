@@ -78,7 +78,7 @@
         </div>
         <div [ngClass]="!isWrapped() ? 'answer-ssh' : 'answer-ssh wrapped'">
           <!-- ANSWER field-->
-          <div *ngIf="!isPreview" class="answer-input" [ngClass]="{ divider: !isWrapped() && (sandboxInstanceId || sandboxDefinitionId) }">
+          <div *ngIf="!isPreview" class="answer-input" [ngClass]="{ divider: !isWrapped() && sandboxInstanceId }">
             <div *ngIf="isCorrectAnswerSubmitted$ | async; else answerInput">
               <kypo-next-level-button [isLast]="isLast" (next)="onNext()"> </kypo-next-level-button>
             </div>
@@ -120,7 +120,7 @@
             </ng-template>
           </div>
           <!-- GET SSH ACCESS BUTTON-->
-          <div class="ssh-button" *ngIf="sandboxInstanceId || sandboxDefinitionId">
+          <div class="ssh-button" *ngIf="sandboxInstanceId">
             <button
               mat-raised-button
               color="primary"

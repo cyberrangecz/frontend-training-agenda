@@ -67,6 +67,10 @@ export class AdaptiveDefinitionConcreteService extends AdaptiveDefinitionService
     return from(this.router.navigate([this.navigator.toTrainingDefinitionPreview(trainingDefinition.id)]));
   }
 
+  toAdaptivePreview(trainingDefinition: TrainingDefinition): Observable<boolean> {
+    return from(this.router.navigate([this.navigator.toAdaptiveDefinitionPreview(trainingDefinition.id)]));
+  }
+
   /**
    * Displays dialog to delete training definition and informs about the result and optionally
    * updates list of training definitions or handles an error

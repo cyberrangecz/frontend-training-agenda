@@ -1,7 +1,7 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { Phase } from '@muni-kypo-crp/training-model';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { take, takeWhile, tap } from 'rxjs/operators';
 import { AdaptiveRunStepper } from '../model/adaptive-run-stepper';
 import { SentinelUser } from '@sentinel/layout';
@@ -10,7 +10,7 @@ import { RunningAdaptiveRunService } from '@muni-kypo-crp/training-agenda/intern
 import { PhaseStepperAdapter } from '@muni-kypo-crp/training-agenda/internal';
 
 @Component({
-  selector: 'kypo-training-run-detail',
+  selector: 'kypo-adaptive-training-run-detail',
   templateUrl: './adaptive-run-detail.component.html',
   styleUrls: ['./adaptive-run-detail.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -26,6 +26,7 @@ export class AdaptiveRunDetailComponent extends SentinelBaseDirective implements
   stepper: AdaptiveRunStepper;
 
   isStepperDisplayed: boolean;
+  isPreview: boolean;
   isTimerDisplayed: boolean;
   startTime: Date;
   isLast: boolean;
@@ -54,10 +55,11 @@ export class AdaptiveRunDetailComponent extends SentinelBaseDirective implements
     this.startTime = this.trainingRunService.getStartTime();
     this.isTimerDisplayed = true;
     this.isStepperDisplayed = this.trainingRunService.getIsStepperDisplayed();
+    this.isPreview = this.trainingRunService.getIsPreview();
     this.sandboxInstanceId = this.trainingRunService.sandboxInstanceId;
     this.sandboxDefinitionId = this.trainingRunService.sandboxDefinitionId;
     this.localEnvironment = this.trainingRunService.localEnvironment;
-    if (this.isStepperDisplayed) {
+    if (this.isStepperDisplayed || this.isPreview) {
       const stepperAdapterPhases = this.phases.map((phase) => new PhaseStepperAdapter(phase));
       this.stepper = new AdaptiveRunStepper(stepperAdapterPhases, this.trainingRunService.getActivePhasePosition());
     }
@@ -73,7 +75,24 @@ export class AdaptiveRunDetailComponent extends SentinelBaseDirective implements
     );
   }
 
+  /**
+   * Jump to training run level. This only works for training run in preview mode.
+   * @param index of desired level
+   */
+  activeStepChanged(index: number): void {
+    if (this.isPreview) {
+      this.stepper.activePhaseIndex = index;
+      this.trainingRunService.setActivePhaseIndex(index);
+      this.activePhase$ = of(this.phases[index]);
+    }
+  }
+
   next(): void {
+    if (this.isPreview) {
+      this.stepper.items[this.stepper.activePhaseIndex].isActive = false;
+      this.activeStepChanged(++this.stepper.activePhaseIndex);
+      this.stepper.items[this.stepper.activePhaseIndex].isActive = true;
+    }
     this.isLoading = true;
     this.trainingRunService
       .next()

@@ -10,6 +10,8 @@ import { PreviewTrainingLevelService } from '../services/preview-training-level.
 import { PreviewTrainingRunService } from '../services/preview-training-run.service';
 import {
   RunningTrainingRunService,
+  TrainingRunAccessLevelConcreteService,
+  TrainingRunAccessLevelService,
   TrainingRunAssessmentLevelService,
   TrainingRunTrainingLevelService,
 } from '@muni-kypo-crp/training-agenda/internal';
@@ -28,6 +30,7 @@ import { TrainingPreviewComponent } from './training-preview.component';
     { provide: RunningTrainingRunService, useClass: PreviewTrainingRunService },
     { provide: TrainingRunTrainingLevelService, useClass: PreviewTrainingLevelService },
     { provide: TrainingRunAssessmentLevelService, useClass: PreviewAssessmentLevelService },
+    { provide: TrainingRunAccessLevelService, useClass: TrainingRunAccessLevelConcreteService },
   ],
 })
 export class TrainingPreviewComponentsModule {

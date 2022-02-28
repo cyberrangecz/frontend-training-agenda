@@ -29,6 +29,7 @@ import { ViewportScroller } from '@angular/common';
 export class TrainingPhaseComponent extends SentinelBaseDirective implements OnInit, OnChanges {
   @Input() phase: TrainingPhase;
   @Input() isLast: boolean;
+  @Input() isPreview: boolean;
   @Input() sandboxInstanceId: number;
   @Input() sandboxDefinitionId: number;
   @Output() next: EventEmitter<void> = new EventEmitter();

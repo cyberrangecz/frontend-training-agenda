@@ -28,6 +28,7 @@ import { AdaptiveRunAccessPhaseService } from '@muni-kypo-crp/training-agenda/in
 export class AccessPhaseComponent extends SentinelBaseDirective implements OnInit, OnChanges {
   @Input() phase: AccessPhase;
   @Input() isLast: boolean;
+  @Input() isPreview: boolean;
   @Input() sandboxInstanceId: number;
   @Input() sandboxDefinitionId: number;
   @Input() localEnvironment: boolean;

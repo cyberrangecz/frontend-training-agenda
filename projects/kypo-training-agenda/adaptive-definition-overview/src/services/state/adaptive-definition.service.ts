@@ -16,6 +16,8 @@ export abstract class AdaptiveDefinitionService extends OffsetPaginatedElementsS
 
   abstract preview(trainingDefinition: TrainingDefinition): Observable<any>;
 
+  abstract toAdaptivePreview(trainingDefinition: TrainingDefinition): Observable<boolean>;
+
   /**
    *
    * @param pagination requested pagination
