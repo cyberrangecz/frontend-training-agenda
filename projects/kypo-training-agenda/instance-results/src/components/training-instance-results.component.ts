@@ -4,7 +4,14 @@ import { SentinelBaseDirective } from '@sentinel/common';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
 import { map, takeWhile, tap } from 'rxjs/operators';
-import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
+import {
+  TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME,
+  TRAINING_RUN_RESULTS_ASSESSMENT_PATH,
+  TRAINING_RUN_RESULTS_COMMAND_ANALYSIS_PATH,
+  TRAINING_RUN_RESULTS_COMMAND_TIMELINE_PATH,
+  TRAINING_RUN_RESULTS_DASHBOARD_PATH,
+  TRAINING_RUN_RESULTS_TRAINEE_GRAPH_PATH,
+} from '@muni-kypo-crp/training-agenda';
 import { TrainingDefinitionApi } from '@muni-kypo-crp/training-api';
 
 /**

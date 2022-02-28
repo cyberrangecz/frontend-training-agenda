@@ -1,66 +1,54 @@
-<mat-tab-group mat-stretch-tabs class="mat-elevation-z4" *ngIf="(trainingInstance$ | async) as trainingInstance">
-  <mat-tab>
-    <ng-template mat-tab-label>
-      <mat-icon class="tab-icon">dashboard</mat-icon>
-      Dashboard
-    </ng-template>
-    <ng-template matTabContent>
-      <div class="container">
-        <kypo-dashboard
-          [hasReferenceSolution]="hasReferenceSolution$ | async"
-          [trainingInstanceId]="trainingInstance?.id"
-          [trainingDefinitionId]="trainingInstance?.trainingDefinition?.id">
-        </kypo-dashboard>
-      </div>
-    </ng-template>
-  </mat-tab>
-  <mat-tab>
-    <ng-template mat-tab-label>
-      <mat-icon class="tab-icon">assignment</mat-icon>
-      Assessments
-    </ng-template>
-    <ng-template matTabContent>
-      <kypo2-assessment-results-viz
-        [trainingInstanceId]="trainingInstance?.id"
-        [trainingDefinitionId]="trainingInstance?.trainingDefinition?.id">
-      </kypo2-assessment-results-viz>
-    </ng-template>
-  </mat-tab>
-  <ng-container *ngIf="hasReferenceSolution$ | async">
-    <mat-tab>
-      <ng-template mat-tab-label>
-        <mat-icon class="tab-icon">trending_up</mat-icon>
-        Trainee graph
-      </ng-template>
-      <ng-template matTabContent>
-        <div class="container">
-          <kypo-trainee-graph [trainingInstanceId]="trainingInstance.id"></kypo-trainee-graph>
-        </div>
-      </ng-template>
-    </mat-tab>
-
-    <mat-tab>
-      <ng-template mat-tab-label>
-        <mat-icon class="tab-icon">insights</mat-icon>
-        Command timeline
-      </ng-template>
-      <ng-template matTabContent>
-        <div class="container">
-          <kypo-timeline [trainingInstanceId]="trainingInstance?.id"></kypo-timeline>
-        </div>
-      </ng-template>
-    </mat-tab>
-
-    <mat-tab>
-      <ng-template mat-tab-label>
-        <mat-icon class="tab-icon">analytics</mat-icon>
-        Command analysis
-      </ng-template>
-      <ng-template matTabContent>
-        <div class="container">
-          <kypo-mistake [trainingInstanceId]="trainingInstance?.id"></kypo-mistake>
-        </div>
-      </ng-template>
-    </mat-tab>
-  </ng-container>
-</mat-tab-group>
+<div class="mat-elevation-z4">
+  <nav mat-tab-nav-bar mat-stretch-tabs>
+    <a
+      mat-tab-link
+      [routerLink]="['dashboard']"
+      routerLinkActive
+      #dashboard="routerLinkActive"
+      [active]="dashboard.isActive"
+    >
+      <mat-icon class="tab-icon">dashboard</mat-icon> Dashboard
+    </a>
+    <a
+      mat-tab-link
+      [routerLink]="['assessment']"
+      routerLinkActive
+      #assessments="routerLinkActive"
+      [active]="assessments.isActive"
+    >
+      <mat-icon class="tab-icon">assignment</mat-icon> Assessments
+    </a>
+    <ng-container *ngIf="hasReferenceSolution$ | async">
+      <a
+        mat-tab-link
+        [routerLink]="['trainee-graph']"
+        routerLinkActive
+        #traineeGraph="routerLinkActive"
+        [active]="traineeGraph.isActive"
+      >
+        <mat-icon class="tab-icon">analytics</mat-icon> Trainee graph
+      </a>
+      <a
+        mat-tab-link
+        [routerLink]="['command-timeline']"
+        routerLinkActive
+        #commandTimeline="routerLinkActive"
+        [active]="commandTimeline.isActive"
+      >
+        <mat-icon class="tab-icon">insights</mat-icon> Command timeline
+      </a>
+      <a
+        mat-tab-link
+        [routerLink]="['command-analysis']"
+        routerLinkActive
+        #commandAnalysis="routerLinkActive"
+        [active]="commandAnalysis.isActive"
+      >
+        <mat-icon class="tab-icon">insights</mat-icon> Command analysis
+      </a>
+    </ng-container>
+  </nav>
+  <div>
+    <router-outlet></router-outlet>
+  </div>
+</div>

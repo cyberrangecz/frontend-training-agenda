@@ -13,11 +13,16 @@ import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
 import { TrainingInstanceResultsMaterialModule } from './training-instance-results-material.module';
 import { TrainingInstanceResultsComponent } from './training-instance-results.component';
 import { DashboardModule } from '@muni-kypo-crp/visualization-dashboard/dashboard';
-import { VisualizationDashboardConfig } from '@muni-kypo-crp/visualization-dashboard/internal';
 import { SummaryGraphModule } from '@muni-kypo-crp/command-visualizations/summary-graph';
 import { TimelineModule } from '@muni-kypo-crp/command-visualizations/timeline';
 import { MistakeModule } from '@muni-kypo-crp/command-visualizations/mistake';
 import { TraineeGraphModule } from '@muni-kypo-crp/command-visualizations/trainee-graph';
+import { TrainingInstanceResultsRoutingModule } from './training-instance-results-routing.module';
+import { TraineeGraphWrapperComponent } from './trainee-graph-wrapper/trainee-graph-wrapper.component';
+import { DashboardWrapperComponent } from './dashboard-wrapper/dashboard-wrapper.component';
+import { CommandTimelineWrapperComponent } from './command-timeline-wrapper/command-timeline-wrapper.component';
+import { AssessmentWrapperComponent } from './assessment-wrapper/assessment-wrapper.component';
+import { CommandAnalysisWrapperComponent } from './command-analysis-wrapper/command-analysis-wrapper.component';
 
 /**
  * Module containing components and providers for training instance results page
@@ -34,8 +39,16 @@ import { TraineeGraphModule } from '@muni-kypo-crp/command-visualizations/traine
     TimelineModule,
     MistakeModule,
     TraineeGraphModule,
+    TrainingInstanceResultsRoutingModule,
   ],
-  declarations: [TrainingInstanceResultsComponent],
+  declarations: [
+    TrainingInstanceResultsComponent,
+    AssessmentWrapperComponent,
+    CommandTimelineWrapperComponent,
+    DashboardWrapperComponent,
+    TraineeGraphWrapperComponent,
+    CommandAnalysisWrapperComponent,
+  ],
   providers: [],
 })
 export class TrainingInstanceResultsComponentsModule {

@@ -1,3 +1,4 @@
+13.0.1 Add routing for visualization tabs.
 13.0.0 Update to Angular 13, CI/CD optimisation, adaptive definition improvements and bug fixes.
 12.1.6 Fix loading of spinner
 12.1.5 Fix default pagination for pool selection in training instances.
