@@ -105,7 +105,7 @@ export class AdaptiveInstanceOverviewConcreteService extends AdaptiveInstanceOve
   }
 
   getAvailableSandboxes(poolId: number): Observable<string> {
-    return this.poolApi.getPoolsSandboxes(poolId).pipe(
+    return this.poolApi.getPoolsSandboxes(poolId, new OffsetPaginationEvent(0, Number.MAX_SAFE_INTEGER, '', '')).pipe(
       map(
         (sandboxes) => sandboxes.elements.filter((sandbox) => !sandbox.isLocked()).length.toString(),
         (err) => {
