@@ -89,6 +89,7 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes, {
       initialNavigation: 'enabledNonBlocking',
+      paramsInheritanceStrategy: 'always',
     } as ExtraOptions),
   ],
   exports: [RouterModule],
