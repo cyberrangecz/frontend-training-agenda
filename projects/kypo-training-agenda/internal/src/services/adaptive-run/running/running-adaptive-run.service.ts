@@ -15,11 +15,13 @@ export abstract class RunningAdaptiveRunService {
     .pipe(skipWhile((phase) => phase === undefined || phase === null));
 
   abstract init(adaptiveRunInfo: AccessTrainingRunInfo): void;
+  abstract setActivePhaseIndex(index: number): void;
   abstract getPhases(): Phase[];
   abstract getActivePhase(): Phase;
   abstract getActivePhasePosition(): number;
   abstract getStartTime(): Date;
   abstract getIsStepperDisplayed(): boolean;
+  abstract getIsPreview(): boolean;
   abstract next(): Observable<any>;
   abstract isLast(): boolean;
   abstract clear(): void;

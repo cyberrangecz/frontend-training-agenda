@@ -7,16 +7,23 @@
   justify-content: flex-end;
 }
 
-.training-run-stepper {
+.training-run-stepper, .training-run-preview-stepper {
   width: 100%;
-  pointer-events: none !important;
 }
+
+/*.training-run-stepper {*/
+/*  pointer-events: none !important;*/
+/*}*/
 
 .right-panel {
   display: flex;
   flex-direction: column;
   align-items: center;
   align-self: flex-end;
+}
+
+.message {
+  color: #999999;
 }
 
 @media screen and (max-width: 1400px) {

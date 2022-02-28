@@ -82,6 +82,15 @@ export class TrainingDefinitionTable extends SentinelTable<TrainingDefinition> {
         of(false),
         defer(() => service.download(td))
       ),
+      new RowAction(
+        'preview',
+        'Preview',
+        'remove_red_eye',
+        'primary',
+        'Preview training run',
+        of(false),
+        defer(() => service.toAdaptivePreview(td))
+      ),
     ];
   }
 

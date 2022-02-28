@@ -24,6 +24,7 @@ import { RunningAdaptiveRunService } from '@muni-kypo-crp/training-agenda/intern
 export class QuestionnairePhaseComponent extends SentinelBaseDirective implements OnChanges, OnInit {
   @Input() phase: QuestionnairePhase;
   @Input() isLast: boolean;
+  @Input() isPreview: boolean;
   @Output() next: EventEmitter<void> = new EventEmitter();
   @ViewChild('controls', { read: ElementRef, static: true }) controlsPanel: ElementRef;
 

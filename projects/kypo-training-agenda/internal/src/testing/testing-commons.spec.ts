@@ -29,6 +29,7 @@ import { AdaptiveFileUploadProgressService } from '../../../adaptive-definition-
 import { PaginationService } from '../services/pagination.service';
 import { LevelEditService } from '../../../definition-edit/src/services/state/level/level-edit.service';
 import { TopologyApi } from '@muni-kypo-crp/topology-graph';
+import { RunningAdaptiveRunService } from '../services/adaptive-run/running/running-adaptive-run.service';
 
 export function createErrorHandlerSpy(): jasmine.SpyObj<TrainingErrorHandler> {
   return jasmine.createSpyObj('TrainingErrorHandler', ['emit']);
@@ -203,6 +204,7 @@ export function createNavigatorSpy(): jasmine.SpyObj<TrainingNavigator> {
     'toTrainingInstanceEdit',
     'toNewTrainingDefinition',
     'toNewAdaptiveDefinition',
+    'toAdaptiveDefinitionPreview',
     'toTrainingDefinitionPreview',
     'toTrainingInstanceProgress',
     'toTrainingInstanceResults',
@@ -230,6 +232,10 @@ export function createDialogRefSpy(): jasmine.SpyObj<MatDialogRef<any>> {
 
 export function createRunningTrainingRunServiceSpy(): jasmine.SpyObj<RunningTrainingRunService> {
   return jasmine.createSpyObj('RunningTrainingRunService', ['next', 'init']);
+}
+
+export function createRunningAdaptiveRunServiceSpy(): jasmine.SpyObj<RunningAdaptiveRunService> {
+  return jasmine.createSpyObj('RunningAdaptiveRunService', ['next', 'init']);
 }
 
 export function createContext(): TrainingAgendaContext {

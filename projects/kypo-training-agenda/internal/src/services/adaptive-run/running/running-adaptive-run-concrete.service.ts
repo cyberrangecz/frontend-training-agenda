@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { RunningAdaptiveRunService } from './running-adaptive-run.service';
-import { EMPTY, from, Observable } from 'rxjs';
+import { EMPTY, Observable } from 'rxjs';
 import { AbstractPhaseTypeEnum, AccessTrainingRunInfo, Phase, QuestionAnswer } from '@muni-kypo-crp/training-model';
 import { AdaptiveRunApi } from '@muni-kypo-crp/training-api';
 import { Router } from '@angular/router';
@@ -16,6 +16,8 @@ export class RunningAdaptiveRunConcreteService extends RunningAdaptiveRunService
   private activePhases: Phase[] = [];
   private startTime: Date;
   private isStepperDisplayed: boolean;
+  private isPreview: boolean;
+  private activePhaseIndex: number;
 
   constructor(
     private api: AdaptiveRunApi,
@@ -34,6 +36,7 @@ export class RunningAdaptiveRunConcreteService extends RunningAdaptiveRunService
     this.sandboxDefinitionId = accessAdaptiveRunInfo.sandboxDefinitionId;
     this.localEnvironment = accessAdaptiveRunInfo.localEnvironment;
     this.isStepperDisplayed = accessAdaptiveRunInfo.isStepperDisplayed;
+    this.isPreview = accessAdaptiveRunInfo.isPreview;
     this.startTime = accessAdaptiveRunInfo.startTime;
     this.activePhases = accessAdaptiveRunInfo.levels as Phase[];
     this.setActivePhase(accessAdaptiveRunInfo.currentLevel as Phase);
@@ -55,8 +58,16 @@ export class RunningAdaptiveRunConcreteService extends RunningAdaptiveRunService
     return this.startTime;
   }
 
+  getIsPreview(): boolean {
+    return this.isPreview;
+  }
+
   getIsStepperDisplayed(): boolean {
     return this.isStepperDisplayed;
+  }
+
+  setActivePhaseIndex(index: number): void {
+    this.activePhaseIndex = index;
   }
 
   next(): Observable<any> {

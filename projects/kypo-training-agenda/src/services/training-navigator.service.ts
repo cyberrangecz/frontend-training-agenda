@@ -20,6 +20,12 @@ export abstract class TrainingNavigator {
   abstract toTrainingDefinitionPreview(id: number | string): string;
 
   /**
+   * Returns route to adaptive definition preview page
+   * @param id id of the training definition
+   */
+  abstract toAdaptiveDefinitionPreview(id: number | string): string;
+
+  /**
    * Returns route to adaptive definition detail page
    * @param id id of the adaptive definition
    */

@@ -53,6 +53,14 @@ export class TrainingDefaultNavigator extends TrainingNavigator {
   }
 
   /**
+   * Returns route to adaptive definition preview page
+   * @param id id of the training definition
+   */
+  toAdaptiveDefinitionPreview(id: number | string): string {
+    return `${ADAPTIVE_DEFINITION_PATH}/${id}/${TRAINING_DEFINITION_PREVIEW_PATH}`;
+  }
+
+  /**
    * Returns route to training definition edit page
    * @param id id of the training definition
    */

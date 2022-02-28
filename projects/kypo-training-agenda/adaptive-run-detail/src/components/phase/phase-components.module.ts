@@ -11,6 +11,7 @@ import { InfoPhaseComponent } from './info-phase/info-phase.component';
 import { QuestionnairePhaseComponent } from './questionnaire-phase/questionnaire-phase.component';
 import { TrainingPhaseComponent } from './training-phase/training-phase.component';
 import { AccessPhaseComponent } from './access-phase/access-phase.component';
+import { MatTabsModule } from '@angular/material/tabs';
 
 const markdownParserConfig = {
   loader: HttpClient,
@@ -38,6 +39,7 @@ const markdownParserConfig = {
     Kypo2TopologyLegendModule,
     FormsModule,
     PhaseMaterialModule,
+    MatTabsModule,
   ],
   declarations: [
     NextPhaseButtonComponent,
