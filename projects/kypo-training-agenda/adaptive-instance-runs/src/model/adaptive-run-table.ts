@@ -19,6 +19,7 @@ export class AdaptiveRunTable extends SentinelTable<AdaptiveRunRowAdapter> {
       new Column('state', 'run state', false),
       new Column('duration', 'duration', false),
       new Column('sandboxInstanceId', 'sandbox id', false),
+      new Column('playerEmail', 'email', false),
     ];
     const rows = resource.elements.map((element) => {
       element.trainingInstanceId = trainingInstanceId;
@@ -34,6 +35,7 @@ export class AdaptiveRunTable extends SentinelTable<AdaptiveRunRowAdapter> {
     const datePipe = new SentinelDateTimeFormatPipe('en-EN');
     const adapter = element as AdaptiveRunRowAdapter;
     adapter.playerName = adapter.player.name;
+    adapter.playerEmail = adapter.player.mail ? adapter.player.mail : '-';
     adapter.startTimeFormatted = `${datePipe.transform(adapter.startTime)}`;
     if (adapter.state === TrainingRunStateEnum.FINISHED) {
       adapter.endTimeFormatted = `${datePipe.transform(adapter.endTime)}`;

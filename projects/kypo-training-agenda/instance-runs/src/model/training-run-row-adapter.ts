@@ -5,6 +5,7 @@ import { TrainingRun } from '@muni-kypo-crp/training-model';
  */
 export class TrainingRunRowAdapter extends TrainingRun {
   playerName: string;
+  playerEmail: string;
   startTimeFormatted: string;
   endTimeFormatted: string;
   duration: string;
