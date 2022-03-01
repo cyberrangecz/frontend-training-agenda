@@ -1,3 +1,7 @@
+### 13.0.2 Optimize definition preview imports.
+* 7bc81fc -- [CI/CD] Update packages.json version based on GitLab tag.
+* 6f981db -- Merge branch '154-opitimize-preview-imports' into 'master'
+* b493c77 -- Resolve "Opitimize preview imports"
 ### 13.0.1 Add routing for visualization tabs.
 * c0efb1f -- [CI/CD] Update packages.json version based on GitLab tag.
 *   72f59bf -- Merge branch '151-add-routing-for-visualization-tabs' into 'master'
