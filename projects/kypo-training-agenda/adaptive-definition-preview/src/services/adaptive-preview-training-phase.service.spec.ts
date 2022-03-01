@@ -11,11 +11,11 @@ import {
   createRunningAdaptiveRunServiceSpy,
 } from '../../../internal/src/testing/testing-commons.spec';
 import { TrainingAgendaContext } from '../../../internal/src/services/context/training-agenda-context.service';
-import { AdaptivePreviewTrainingLevelService } from './adaptive-preview-training-level.service';
+import { AdaptivePreviewTrainingPhaseService } from './adaptive-preview-training-phase.service';
 import { RunningAdaptiveRunService } from '../../../internal/src/services/adaptive-run/running/running-adaptive-run.service';
 
 describe('PreviewTrainingLevelService', () => {
-  let service: AdaptivePreviewTrainingLevelService;
+  let service: AdaptivePreviewTrainingPhaseService;
   let context: TrainingAgendaContext;
   let dialogSpy: jasmine.SpyObj<MatDialog>;
   let runningAdaptiveRunServiceSpy: jasmine.SpyObj<RunningAdaptiveRunService>;
@@ -27,14 +27,14 @@ describe('PreviewTrainingLevelService', () => {
 
     TestBed.configureTestingModule({
       providers: [
-        AdaptivePreviewTrainingLevelService,
+        AdaptivePreviewTrainingPhaseService,
         { provide: RunningAdaptiveRunService, useValue: runningAdaptiveRunServiceSpy },
         { provide: TrainingAgendaContext, useValue: context },
         { provide: MatDialog, useValue: dialogSpy },
       ],
       imports: [MatDialogModule, BrowserAnimationsModule],
     });
-    service = TestBed.inject(AdaptivePreviewTrainingLevelService);
+    service = TestBed.inject(AdaptivePreviewTrainingPhaseService);
   });
 
   it('should be created', () => {

@@ -12,8 +12,6 @@ import {
   RunningAdaptiveRunConcreteService,
   RunningTrainingRunConcreteService,
   RunningTrainingRunService,
-  AdaptiveRunTrainingPhaseService,
-  AdaptiveRunTrainingPhaseConcreteService,
 } from '@muni-kypo-crp/training-agenda/internal';
 import {
   AccessTrainingRunResolver,

@@ -11,7 +11,7 @@ import { saveAs } from 'file-saver';
 /**
  * Mocks behavior of training run training level service connected to backend for designers preview purposes
  */
-export class AdaptivePreviewTrainingLevelService extends AdaptiveRunTrainingPhaseService {
+export class AdaptivePreviewTrainingPhaseService extends AdaptiveRunTrainingPhaseService {
   constructor(protected dialog: MatDialog, protected runningAdaptiveRunService: RunningAdaptiveRunService) {
     super(dialog, runningAdaptiveRunService);
   }
