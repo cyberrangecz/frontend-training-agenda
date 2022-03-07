@@ -167,6 +167,10 @@ button {
   gap: 0.5vw;
 }
 
+.message {
+  color: #999999;
+  padding-left: 5px;
+}
 
 @media screen and (max-width: 1500px) {
   .content {

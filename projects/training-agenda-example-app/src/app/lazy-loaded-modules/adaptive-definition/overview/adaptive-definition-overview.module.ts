@@ -5,6 +5,7 @@ import { AdaptiveDefinitionOverviewRoutingModule } from './adaptive-definition-o
 import { KypoTrainingApiModule } from '@muni-kypo-crp/training-api';
 import { environment } from '../../../../environments/environment';
 import { AdaptiveDefinitionOverviewComponentsModule } from '@muni-kypo-crp/training-agenda/adaptive-definition-overview';
+import { KypoSandboxApiModule } from '@muni-kypo-crp/sandbox-api';
 
 @NgModule({
   imports: [
@@ -12,6 +13,7 @@ import { AdaptiveDefinitionOverviewComponentsModule } from '@muni-kypo-crp/train
     SharedProvidersModule,
     AdaptiveDefinitionOverviewRoutingModule,
     KypoTrainingApiModule.forRoot(environment.trainingApiConfig),
+    KypoSandboxApiModule.forRoot(environment.sandboxApiConfig),
     AdaptiveDefinitionOverviewComponentsModule.forRoot(environment.trainingAgendaConfig),
   ],
 })
