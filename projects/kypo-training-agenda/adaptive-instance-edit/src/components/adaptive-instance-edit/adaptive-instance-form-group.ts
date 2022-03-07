@@ -25,6 +25,7 @@ export class AdaptiveInstanceFormGroup {
   disable(): void {
     this.formGroup.disable({ emitEvent: false });
     this.formGroup.get('title').enable({ emitEvent: false });
+    this.formGroup.get('endTime').enable({ emitEvent: false });
   }
 
   private dateSequenceValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {

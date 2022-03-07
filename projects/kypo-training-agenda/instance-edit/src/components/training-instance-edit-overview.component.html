@@ -33,6 +33,7 @@
       </div>
       <kypo-pool-assign [selectedPoolId]="selectedPoolId | async"
                         [pools]="pools$ | async"
+                        [hasStarted]="hasStarted$ | async"
                         (selectionChanged)="onPoolSelectionChanged($event)">
       </kypo-pool-assign>
     </div>

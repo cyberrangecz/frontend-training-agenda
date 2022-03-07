@@ -7,10 +7,8 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { SentinelBaseDirective, PaginatedResource, OffsetPaginationEvent } from '@sentinel/common';
-import { Pool } from '@muni-kypo-crp/sandbox-model';
+import { SentinelBaseDirective } from '@sentinel/common';
 import { Observable } from 'rxjs';
-import { map, take, tap } from 'rxjs/operators';
 import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
 import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
 import { SandboxPoolListAdapter } from '../../models/adapter/sandbox-pool-list-adapter';
@@ -26,6 +24,7 @@ export class PoolAssignComponent extends SentinelBaseDirective implements OnChan
   readonly PAGE_SIZE: number;
 
   @Input() selectedPoolId: number;
+  @Input() hasStarted: boolean;
   @Input() pools: SandboxPoolListAdapter[];
   @Output() selectionChanged: EventEmitter<number> = new EventEmitter();
 

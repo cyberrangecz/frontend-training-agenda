@@ -19,6 +19,7 @@ import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
 })
 export class PoolAssignComponent extends SentinelBaseDirective implements OnChanges {
   @Input() selectedPoolId: number;
+  @Input() hasStarted: boolean;
   @Input() pools: SandboxPoolListAdapter[];
   @Output() selectionChanged: EventEmitter<number> = new EventEmitter();
 
