@@ -5,6 +5,7 @@
     <mat-select
       (selectionChange)="onSelectionChange($event.value)"
       [(value)]="selectedPoolId"
+      [disabled]="hasStarted"
     >
       <mat-option>None</mat-option>
       <mat-option *ngFor="let pool of pools" [value]="pool.id" [disabled]="pool.isLocked()">

@@ -67,7 +67,6 @@ export class AdaptiveInstanceEditOverviewComponent extends SentinelBaseDirective
     const saveDisabled$: Observable<boolean> = combineLatest(
       this.editService.saveDisabled$,
       this.editService.poolSaveDisabled$,
-      this.editService.poolSaveDisabled$,
       this.editService.sandboxDefinitionSaveDisabled$
     ).pipe(map((valid) => valid[0] && valid[1] && valid[2]));
     this.tiTitle$ = this.editService.trainingInstance$.pipe(map((ti) => ti.title));
