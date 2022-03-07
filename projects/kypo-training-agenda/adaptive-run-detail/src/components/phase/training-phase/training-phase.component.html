@@ -122,13 +122,15 @@
 </div>
 
 <ng-template #topologyPlaceholder>
-  <div class="topology-placeholder" [style.width.px]="topologyWidth" [style.height.px]="topologyHeight">
-    <h3>There should be topology component</h3>
-    <img
-      src="../../../../../src/assets/kypo-training-agenda/topology-placeholder.png"
-      alt="Topology placeholder"
-      [width]="topologyWidth"
-      [height]="topologyHeight"
-    />
+  <div class="container">
+    <div class="topology-placeholder" [style.width.px]="topologyWidth" [style.height.px]="topologyHeight">
+      <img
+        src="assets/kypo-training-agenda/topology-placeholder.png"
+        alt="Topology placeholder"
+        [width]="topologyWidth"
+        [height]="topologyHeight"
+      />
+    </div>
+    <h3 class="message">*This is just a template topology</h3>
   </div>
 </ng-template>
