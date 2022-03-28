@@ -1,0 +1,15 @@
+<mat-expansion-panel (expandedChange)="expandChange($event)">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Reference Graph
+    </mat-panel-title>
+    <mat-panel-description>
+      <span class="spacer"></span>
+      <div *ngIf="hasWarning" class="panel-description-error">
+        <mat-icon class="warning">warning</mat-icon>
+        <span>Save training Definition to update the reference graph.</span>
+      </div>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <ng-template referenceGraph></ng-template>
+</mat-expansion-panel>

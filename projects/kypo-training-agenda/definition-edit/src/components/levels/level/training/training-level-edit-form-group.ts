@@ -45,6 +45,11 @@ export class TrainingLevelEditFormGroup {
         Validators.min(1),
         Validators.max(MAX_ESTIMATED_DURATION),
       ]),
+      minimalPossibleSolveTime: new FormControl(level.minimalPossibleSolveTime, [
+        Validators.pattern('^[0-9]*$'),
+        Validators.min(0),
+        Validators.max(MAX_ESTIMATED_DURATION),
+      ]),
       referenceSolution: new FormControl(JSON.stringify(level.referenceSolution, null, 2), [
         this.referenceSolutionValidator,
       ]),
@@ -86,6 +91,7 @@ export class TrainingLevelEditFormGroup {
     level.answerVariableName = this.formGroup.get('answerVariableName').value;
     level.answerVariableName = level.answerVariableName ? level.answerVariableName.trim() : level.answerVariableName;
     level.estimatedDuration = this.formGroup.get('estimatedDuration').value;
+    level.minimalPossibleSolveTime = this.formGroup.get('minimalPossibleSolveTime').value;
     level.referenceSolution = this.setReferenceSolution(this.formGroup.get('referenceSolution').value);
     level.valid = this.formGroup.valid && level.hints.every((hint) => hint.valid);
   }

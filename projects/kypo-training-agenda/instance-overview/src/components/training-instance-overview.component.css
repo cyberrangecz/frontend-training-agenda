@@ -8,7 +8,7 @@
 
 .access-token-container {
   display: flex;
-  align-items: end;
+  align-items: flex-end;
 }
 
 .access-token-container mat-icon {

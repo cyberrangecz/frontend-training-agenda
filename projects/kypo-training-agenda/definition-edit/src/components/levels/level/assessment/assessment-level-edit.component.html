@@ -14,21 +14,43 @@
           <mat-error *ngIf="title.hasError('whitespace')">Title cannot be empty</mat-error>
         </mat-form-field>
 
-        <!-- ESTIMATED DURATION field -->
-        <mat-form-field appearance="outline" hintLabel="Number in minutes. Range
-          from 1 to 60">
-          <mat-label>Estimated Duration in minutes</mat-label>
-          <input
-            matInput
-            placeholder="Estimated Duration in Minutes"
-            max="60"
-            min="1"
-            formControlName="estimatedDuration"
-          />
-          <mat-error *ngIf="estimatedDuration.hasError('min') ||
-            estimatedDuration.hasError('max') || estimatedDuration.hasError('pattern')">Estimated duration must be a
-            number in range from 1 to 60</mat-error>
-        </mat-form-field>
+        <div class="time-configuration-container">
+          <!-- ESTIMATED DURATION field -->
+          <mat-form-field appearance="outline" hintLabel="Number in minutes. Range
+            from 1 to 60">
+            <mat-label>Estimated Duration in Minutes</mat-label>
+            <input
+              matInput
+              placeholder="Estimated Duration in Minutes"
+              max="60"
+              min="1"
+              formControlName="estimatedDuration"
+            />
+            <mat-error *ngIf="estimatedDuration.hasError('min') ||
+              estimatedDuration.hasError('max') || estimatedDuration.hasError('pattern')">Estimated duration must be a
+              number in range from 1 to 60</mat-error>
+          </mat-form-field>
+
+          <!-- MINIMAL POSSIBLE SOLVE TIME field -->
+          <mat-form-field
+            appearance="outline"
+            hintLabel="Number in minutes. Range
+            from 0 to 60"
+          >
+            <mat-label>Minimal Possible Solve Time in Minutes</mat-label>
+            <input
+              matInput
+              placeholder="Minimal Possible Solve Time in Minutes"
+              max="60"
+              min="0"
+              formControlName="minimalPossibleSolveTime"
+            />
+            <mat-error
+            >Minimal Possible Solve Time must be a number in range from 0 to
+              60</mat-error
+            >
+          </mat-form-field>
+        </div>
 
         <!-- INSTRUCTIONS field -->
         <h3>Instructions</h3>

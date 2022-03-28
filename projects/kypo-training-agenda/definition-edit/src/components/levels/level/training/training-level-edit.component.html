@@ -29,25 +29,47 @@
           >
         </mat-form-field>
 
-        <!-- ESTIMATED DURATION field -->
-        <mat-form-field
-          appearance="outline"
-          hintLabel="Number in minutes. Range
+        <div class="time-configuration-container">
+          <!-- ESTIMATED DURATION field -->
+          <mat-form-field
+            appearance="outline"
+            hintLabel="Number in minutes. Range
           from 1 to 60"
-        >
-          <mat-label>Estimated Duration in minutes</mat-label>
-          <input
-            matInput
-            placeholder="Estimated Duration in Minutes"
-            max="60"
-            min="1"
-            formControlName="estimatedDuration"
-          />
-          <mat-error
-            >Estimated duration must be a number in range from 1 to
-            60</mat-error
           >
-        </mat-form-field>
+            <mat-label>Estimated Duration in Minutes</mat-label>
+            <input
+              matInput
+              placeholder="Estimated Duration in Minutes"
+              max="60"
+              min="1"
+              formControlName="estimatedDuration"
+            />
+            <mat-error
+            >Estimated duration must be a number in range from 1 to
+              60</mat-error
+            >
+          </mat-form-field>
+
+          <!-- MINIMAL POSSIBLE SOLVE TIME field -->
+          <mat-form-field
+            appearance="outline"
+            hintLabel="Number in minutes. Range
+          from 0 to 60"
+          >
+            <mat-label>Minimal Possible Solve Time in Minutes</mat-label>
+            <input
+              matInput
+              placeholder="Minimal Possible Solve Time in Minutes"
+              max="60"
+              min="0"
+              formControlName="minimalPossibleSolveTime"
+            />
+            <mat-error
+            >Minimal Possible Solve Time must be a number in range from 0 to
+              60</mat-error
+            >
+          </mat-form-field>
+        </div>
 
         <!--CONTENT field -->
         <h3>Content</h3>
@@ -194,14 +216,17 @@
 
         <!-- REFERENCE SOLUTION -->
         <div class="reference-solution-container">
-          <mat-form-field class="reference-solution-area" appearance="fill">
-            <mat-label>Reference Solution</mat-label>
-            <textarea formControlName="referenceSolution" matInput></textarea>
-            <mat-error class='reference-error'
-                       *ngIf="referenceSolution.hasError('referenceSolution')">
-              *Reference solution is not in a right format
-            </mat-error>
-          </mat-form-field>
+            <mat-form-field class="reference-solution-area" appearance="fill">
+              <mat-label>Reference Solution</mat-label>
+              <textarea formControlName="referenceSolution" cdkTextareaAutosize matInput></textarea>
+              <mat-error class='reference-info'
+                         *ngIf="referenceSolution.hasError('referenceSolution')">
+                *Reference solution is not in a right format
+              </mat-error>
+              <mat-hint class='reference-info'>
+                *Preview of the reference graph can be seen in the panel below level hints
+              </mat-hint>
+            </mat-form-field>
         </div>
       </div>
     </div>

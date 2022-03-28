@@ -11,6 +11,7 @@ export class AssessmentLevelEditFormGroup {
 
   constructor(level: AssessmentLevel) {
     const maxLevelDuration = 60;
+    const maxPossibleSolveTime = 60;
     this.formGroup = new FormGroup({
       title: new FormControl(level.title, SentinelValidators.noWhitespace),
       instructions: new FormControl(level.instructions),
@@ -18,6 +19,11 @@ export class AssessmentLevelEditFormGroup {
       estimatedDuration: new FormControl(level.estimatedDuration, [
         Validators.max(maxLevelDuration),
         Validators.min(1),
+        Validators.pattern('^[0-9]*$'),
+      ]),
+      minimalPossibleSolveTime: new FormControl(level.minimalPossibleSolveTime, [
+        Validators.max(maxLevelDuration),
+        Validators.min(0),
         Validators.pattern('^[0-9]*$'),
       ]),
     });
@@ -33,6 +39,7 @@ export class AssessmentLevelEditFormGroup {
       ? AssessmentTypeEnum.Test
       : AssessmentTypeEnum.Questionnaire;
     level.estimatedDuration = this.formGroup.get('estimatedDuration').value;
+    level.minimalPossibleSolveTime = this.formGroup.get('minimalPossibleSolveTime').value;
     level.valid = this.formGroup.valid && level.questions.every((question) => question.valid);
   }
 }
