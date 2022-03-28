@@ -37,11 +37,16 @@ div .right-panel mat-form-field {
   padding-top: 10px;
 }
 
-.reference-solution-area, textarea {
-  height: 200px;
+.reference-solution-content {
+  width: auto;
 }
 
-.reference-error {
+textarea {
+  max-height: 45vh;
+  resize: vertical;
+}
+
+.reference-info {
   font-size: 13px;
 }
 
@@ -87,4 +92,13 @@ sentinel-markdown-editor.mrkdwn-solution {
 
 .panel-description-error mat-icon {
   margin-right: 5px;
+}
+
+.time-configuration-container {
+  display: flex;
+  column-gap: 50px;
+}
+
+.time-configuration-container mat-form-field {
+  flex-grow: 1;
 }

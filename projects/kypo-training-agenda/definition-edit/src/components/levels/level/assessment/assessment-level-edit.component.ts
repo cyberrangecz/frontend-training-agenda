@@ -40,6 +40,9 @@ export class AssessmentLevelEditComponent extends SentinelBaseDirective implemen
   get estimatedDuration(): AbstractControl {
     return this.assessmentFormGroup.formGroup.get('estimatedDuration');
   }
+  get minimalPossibleSolveTime(): AbstractControl {
+    return this.assessmentFormGroup.formGroup.get('minimalPossibleSolveTime');
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if ('level' in changes) {

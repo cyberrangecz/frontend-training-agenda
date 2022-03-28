@@ -59,6 +59,9 @@ export class TrainingLevelEditComponent extends SentinelBaseDirective implements
   get estimatedDuration(): AbstractControl {
     return this.trainingLevelConfigFormGroup.formGroup.get('estimatedDuration');
   }
+  get minimalPossibleSolveTime(): AbstractControl {
+    return this.trainingLevelConfigFormGroup.formGroup.get('minimalPossibleSolveTime');
+  }
   get referenceSolution(): AbstractControl {
     return this.trainingLevelConfigFormGroup.formGroup.get('referenceSolution');
   }
