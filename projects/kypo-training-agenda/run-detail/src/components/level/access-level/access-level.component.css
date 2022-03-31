@@ -4,7 +4,7 @@ markdown ::ng-deep img {
   margin: 0 auto;
 }
 
-markdown ::ng-deep pre {
+markdown ::ng-deep pre, markdown ::ng-deep code {
   white-space: pre-wrap;
   overflow-wrap: break-word;
 }
