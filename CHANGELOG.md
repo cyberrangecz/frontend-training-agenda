@@ -1,3 +1,23 @@
+### 13.1.0 End time of training instance is now editable for ongoing instance. Preview of a reference graph is available in training definitions with reference solution. Fix topology placeholder for preview of training definition. Add variable bearer token in the local content of the access level/phase.
+* 134f06d -- [CI/CD] Update packages.json version based on GitLab tag.
+*   9544a9e -- Merge branch '162-fix-training-runs-tooltip-and-create-tag' into 'master'
+|\  
+| * 5ddbfaa -- Resolve "Fix training runs tooltip and create tag"
+|/  
+*   be368d0 -- Merge branch '161-add-varaible-bearer-token-in-the-local-content-of-the-access-level-phase' into 'master'
+|\  
+| * cfb37fc -- Resolve "Add varaible bearer token in the local content of the access level/phase"
+|/  
+*   00067f7 -- Merge branch '13.x.x-pre-tag-changes' into 'master'
+|\  
+| * 12c0f70 -- 13.x.x pre tag changes
+|/  
+*   8d2e233 -- Merge branch '156-fix-topology-palceholder-in-td-preview' into 'master'
+|\  
+| * 761110a -- Resolve "Fix topology palceholder in TD preview"
+|/  
+* 428560b -- Merge branch '155-make-end-time-of-started-ti-editable' into 'master'
+* 5318ec0 -- Resolve "Make end time of started TI editable"
 ### 13.0.2 Optimize definition preview imports.
 * 7bc81fc -- [CI/CD] Update packages.json version based on GitLab tag.
 * 6f981db -- Merge branch '154-opitimize-preview-imports' into 'master'
