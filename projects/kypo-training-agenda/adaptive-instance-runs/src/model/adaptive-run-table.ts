@@ -62,7 +62,7 @@ export class AdaptiveRunTable extends SentinelTable<AdaptiveRunRowAdapter> {
   ): RowAction[] {
     return [
       new DeleteAction(
-        'Delete sandbox of adaptive training run',
+        'Delete training run with sandbox',
         of(false),
         defer(() => service.delete(element, instance.localEnvironment))
       ),
