@@ -43,6 +43,7 @@ div .right-panel mat-form-field {
 
 textarea {
   max-height: 45vh;
+  min-height: 15vh;
   resize: vertical;
 }
 
