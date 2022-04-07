@@ -155,13 +155,15 @@
           <input
             matInput
             placeholder="Estimated Duration"
-            type="number"
             min="0"
-            formControlName="estimatedDuration"
+            maxlength="9"
             required
+            formControlName="estimatedDuration"
           />
-          <mat-error *ngIf="allowedCommands.hasError('required')">Estimated Duration cannot be empty</mat-error>
-          <mat-error *ngIf="allowedCommands.hasError('min')">Estimated Duration cannot be negative</mat-error>
+          <mat-error *ngIf="estimatedDuration.hasError('required')">Estimated Duration cannot be empty</mat-error>
+          <mat-error *ngIf="estimatedDuration.hasError('pattern') || estimatedDuration.hasError('min')">
+            Estimated Duration must be a number greater than or equal to 0
+          </mat-error>
         </mat-form-field>
       </div>
     </div>
