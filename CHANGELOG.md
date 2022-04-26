@@ -1,3 +1,11 @@
+### 13.1.1 Bump hurdling and overview visualizations to address issues found in the event.
+* ecc8a3c -- [CI/CD] Update packages.json version based on GitLab tag.
+*   de48c5d -- Merge branch '167-minor-visualizations-fixes' into 'master'
+|\  
+| * f9a3b8a -- Resolve "Minor visualizations fixes"
+|/  
+* 44f32c8 -- Merge branch '163-set-minimal-height-of-reference-solution-text-field' into 'master'
+* c607cf3 -- Resolve "Set minimal height of reference solution text field"
 ### 13.1.0 End time of training instance is now editable for ongoing instance. Preview of a reference graph is available in training definitions with reference solution. Fix topology placeholder for preview of training definition. Add variable bearer token in the local content of the access level/phase.
 * 134f06d -- [CI/CD] Update packages.json version based on GitLab tag.
 *   9544a9e -- Merge branch '162-fix-training-runs-tooltip-and-create-tag' into 'master'
