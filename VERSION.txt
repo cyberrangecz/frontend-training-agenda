@@ -1,3 +1,4 @@
+13.1.1 Bump hurdling and overview visualizations to address issues found in the event.
 13.1.0 End time of training instance is now editable for ongoing instance. Preview of a reference graph is available in training definitions with reference solution. Fix topology placeholder for preview of training definition. Add variable bearer token in the local content of the access level/phase.
 13.0.2 Optimize definition preview imports.
 13.0.1 Add routing for visualization tabs.
