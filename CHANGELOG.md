@@ -1,3 +1,7 @@
+### 13.1.2 Bump dashboard version to latest for the upcoming event.
+* 5de3f7c -- [CI/CD] Update packages.json version based on GitLab tag.
+* bd636da -- Merge branch '168-bump-dashboard' into 'master'
+* f856943 -- Bump versions
 ### 13.1.1 Bump hurdling and overview visualizations to address issues found in the event.
 * ecc8a3c -- [CI/CD] Update packages.json version based on GitLab tag.
 *   de48c5d -- Merge branch '167-minor-visualizations-fixes' into 'master'
