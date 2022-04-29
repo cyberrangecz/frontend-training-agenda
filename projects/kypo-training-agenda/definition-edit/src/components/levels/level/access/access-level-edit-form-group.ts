@@ -24,6 +24,7 @@ export class AccessLevelEditFormGroup {
   setToLevel(level: AccessLevel): void {
     level.title = this.formGroup.get('title').value;
     level.passkey = this.formGroup.get('passkey').value;
+    level.passkey = level.passkey ? level.passkey.trim() : level.passkey;
     level.cloudContent = this.formGroup.get('cloudContent').value;
     level.localContent = this.formGroup.get('localContent').value;
     level.valid = this.formGroup.valid;
