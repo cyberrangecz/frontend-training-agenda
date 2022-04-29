@@ -80,6 +80,19 @@
         >
         <!--SOLUTION field -->
         <h3>Solution</h3>
+        <div class="content-info">
+          <div class="content-info-head">
+            <mat-icon>tips_and_updates</mat-icon>
+            <h4>Use Placeholder Variable</h4>
+          </div>
+          <div class="content-info-content">
+            <p>
+              Display an actual value of the answer in the solution content by using the variable
+              <strong style="background: #d8d8d8">{{ '${ANSWER}' }}</strong>,
+              that will be resolved and replaced in displayed solution during the training run.
+            </p>
+          </div>
+        </div>
         <sentinel-markdown-editor
           class="mrkdwn-solution"
           [sentinel-markdown-file-upload]="false"
