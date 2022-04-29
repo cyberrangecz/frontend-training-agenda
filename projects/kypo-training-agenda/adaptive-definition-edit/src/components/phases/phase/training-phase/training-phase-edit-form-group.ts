@@ -9,7 +9,10 @@ export class TrainingPhaseEditFormGroup {
       title: new FormControl(phase.title, Validators.required),
       allowedWrongAnswers: new FormControl(phase.allowedWrongAnswers, [Validators.required, Validators.min(0)]),
       allowedCommands: new FormControl(phase.allowedCommands, [Validators.required, Validators.min(0)]),
-      estimatedDuration: new FormControl(phase.estimatedDuration, [Validators.required, Validators.min(0)]),
+      estimatedDuration: new FormControl(phase.estimatedDuration, [
+        Validators.pattern('^-*[0-9]*$'),
+        Validators.min(0),
+      ]),
       decisionMatrix: new FormArray(
         phase.decisionMatrix.map((row, index) =>
           TrainingPhaseEditFormGroup.createRows(row, index === phase.decisionMatrix.length - 1)

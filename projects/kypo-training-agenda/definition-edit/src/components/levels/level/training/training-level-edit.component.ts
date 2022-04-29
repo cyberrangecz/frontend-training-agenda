@@ -98,6 +98,7 @@ export class TrainingLevelEditComponent extends SentinelBaseDirective implements
     this.title.markAsTouched();
     this.referenceSolution.markAllAsTouched();
     this.estimatedDuration.markAsTouched();
+    this.minimalPossibleSolveTime.markAsTouched();
     this.maxScore.markAsTouched();
     this.incorrectAnswerLimit.markAsTouched();
     this.answer.markAsTouched();

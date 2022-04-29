@@ -33,41 +33,37 @@
           <!-- ESTIMATED DURATION field -->
           <mat-form-field
             appearance="outline"
-            hintLabel="Number in minutes. Range
-          from 1 to 60"
+            hintLabel="Number in minutes greater than 1."
           >
             <mat-label>Estimated Duration in Minutes</mat-label>
             <input
               matInput
               placeholder="Estimated Duration in Minutes"
-              max="60"
               min="1"
+              maxlength="9"
               formControlName="estimatedDuration"
             />
-            <mat-error
-            >Estimated duration must be a number in range from 1 to
-              60</mat-error
-            >
+            <mat-error *ngIf="estimatedDuration.hasError('pattern') || estimatedDuration.hasError('min')">
+              Estimated Duration must be a number greater than or equal to 1
+            </mat-error>
           </mat-form-field>
 
           <!-- MINIMAL POSSIBLE SOLVE TIME field -->
           <mat-form-field
             appearance="outline"
-            hintLabel="Number in minutes. Range
-          from 0 to 60"
+            hintLabel="Number in minutes greater 0."
           >
             <mat-label>Minimal Possible Solve Time in Minutes</mat-label>
             <input
               matInput
               placeholder="Minimal Possible Solve Time in Minutes"
-              max="60"
               min="0"
+              maxlength="9"
               formControlName="minimalPossibleSolveTime"
             />
-            <mat-error
-            >Minimal Possible Solve Time must be a number in range from 0 to
-              60</mat-error
-            >
+            <mat-error *ngIf="minimalPossibleSolveTime.hasError('pattern') || estimatedDuration.hasError('min')">
+              Minimal Possible Solve Time must be a number greater than or equal to 0
+            </mat-error>
           </mat-form-field>
         </div>
 

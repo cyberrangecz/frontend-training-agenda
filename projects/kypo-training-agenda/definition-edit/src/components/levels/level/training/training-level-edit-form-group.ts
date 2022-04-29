@@ -5,7 +5,6 @@ import { ReferenceSolutionNode, TrainingLevel } from '@muni-kypo-crp/training-mo
 export const MAX_SCORE = 100;
 export const INCORRECT_ANSWER_LIMIT = 100;
 export const MAX_ANSWER = 50;
-export const MAX_ESTIMATED_DURATION = 60;
 
 /**
  * Form control class for training level edit component
@@ -40,15 +39,10 @@ export class TrainingLevelEditFormGroup {
         SentinelValidators.noWhitespace,
         Validators.maxLength(MAX_ANSWER),
       ]),
-      estimatedDuration: new FormControl(level.estimatedDuration, [
-        Validators.pattern('^[0-9]*$'),
-        Validators.min(1),
-        Validators.max(MAX_ESTIMATED_DURATION),
-      ]),
+      estimatedDuration: new FormControl(level.estimatedDuration, [Validators.pattern('^[0-9]*$'), Validators.min(1)]),
       minimalPossibleSolveTime: new FormControl(level.minimalPossibleSolveTime, [
         Validators.pattern('^[0-9]*$'),
         Validators.min(0),
-        Validators.max(MAX_ESTIMATED_DURATION),
       ]),
       referenceSolution: new FormControl(JSON.stringify(level.referenceSolution, null, 2), [
         this.referenceSolutionValidator,
