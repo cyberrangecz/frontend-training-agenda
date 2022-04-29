@@ -24,6 +24,7 @@ export class AccessPhaseEditFormGroup {
   setToPhase(phase: AccessPhase): void {
     phase.title = this.formGroup.get('title').value;
     phase.passkey = this.formGroup.get('passkey').value;
+    phase.passkey = phase.passkey ? phase.passkey.trim() : phase.passkey;
     phase.cloudContent = this.formGroup.get('cloudContent').value;
     phase.localContent = this.formGroup.get('localContent').value;
     phase.valid = this.formGroup.valid;

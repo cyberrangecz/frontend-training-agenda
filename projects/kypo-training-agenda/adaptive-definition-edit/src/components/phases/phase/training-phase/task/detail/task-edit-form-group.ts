@@ -22,6 +22,7 @@ export class TaskEditFormGroup {
   setToTask(task: Task): void {
     task.title = this.formGroup.get('title').value;
     task.answer = this.formGroup.get('answer').value;
+    task.answer = task.answer ? task.answer.trim() : task.answer;
     task.solution = this.formGroup.get('solution').value;
     task.content = this.formGroup.get('content').value;
     task.incorrectAnswerLimit = this.formGroup.get('incorrectAnswerLimit').value;
