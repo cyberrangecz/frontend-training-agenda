@@ -1,3 +1,15 @@
+### 13.1.3 Removed upper bound from estimated time and minimal possible solve time. Add info about variant answers above solution content. Trim answer and passkey.
+* bf17297 -- [CI/CD] Update packages.json version based on GitLab tag.
+*   c51929b -- Merge branch '165-trim-passkey-in-access-level-phase' into 'master'
+|\  
+| * de0fba3 -- Trim passkey in access level/phase and answer in the training phases.
+|/  
+*   d5904f3 -- Merge branch '166-add-info-above-solution-content-on-how-to-display-variant-answer-in-text' into 'master'
+|\  
+| * 673002a -- Description of the ANSWER variable above the solution content.
+|/  
+* 366f642 -- Merge branch '164-remove-upper-bound-from-estimated-time-and-minimal-possible-solve-time' into 'master'
+* 9a0f81a -- Remove upper bound for estimated duration and minimal possible solve time.
 ### 13.1.2 Bump dashboard version to latest for the upcoming event.
 * 5de3f7c -- [CI/CD] Update packages.json version based on GitLab tag.
 * bd636da -- Merge branch '168-bump-dashboard' into 'master'
