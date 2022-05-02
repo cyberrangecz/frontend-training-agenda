@@ -19,61 +19,27 @@ import { TrainingDefinitionApi } from '@muni-kypo-crp/training-api';
  * Component displaying visualization of training run results
  */
 export class TrainingRunResultsComponent extends SentinelBaseDirective implements OnInit {
-  vizSize: { width: number; height: number };
-
   hasReferenceSolution$: Observable<boolean>;
-  visualizationInfo$: Observable<VisualizationInfo>;
-  traineeModeInfo$: Observable<Kypo2TraineeModeInfo>;
 
   constructor(private activatedRoute: ActivatedRoute, private trainingDefinitionApi: TrainingDefinitionApi) {
     super();
   }
 
   ngOnInit(): void {
-    this.setVisualizationSize(window.innerWidth, innerHeight);
     this.loadVisualizationInfo();
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event: any): void {
-    this.setVisualizationSize(event.target.innerWidth, event.target.innerHeight);
   }
 
   /**
    * Gets asynchronous data for visualizations
    */
   loadVisualizationInfo(): void {
-    this.visualizationInfo$ = this.activatedRoute.data.pipe(
-      takeWhile(() => this.isAlive),
-      map((data) => this.createTrainingVisualizationInfo(data[TRAINING_RUN_DATA_ATTRIBUTE_NAME]))
-    );
-    this.traineeModeInfo$ = this.visualizationInfo$.pipe(
-      tap(
-        (vizInfo) =>
-          (this.hasReferenceSolution$ = this.trainingDefinitionApi.hasReferenceSolution(vizInfo.trainingDefinitionId))
-      ),
-      map((vizInfo) => {
-        const traineeModeInfo = new Kypo2TraineeModeInfo();
-        traineeModeInfo.trainingRunId = vizInfo.trainingRunId;
-        traineeModeInfo.activeTraineeId = vizInfo.traineeId;
-        return traineeModeInfo;
-      })
-    );
-  }
-
-  private createTrainingVisualizationInfo(trainingRun: TrainingRun): VisualizationInfo {
-    const visualizationInfo = new VisualizationInfo();
-    visualizationInfo.trainingDefinitionId = trainingRun.trainingDefinitionId;
-    visualizationInfo.trainingInstanceId = trainingRun.trainingInstanceId;
-    visualizationInfo.trainingRunId = trainingRun.id;
-    visualizationInfo.traineeId = trainingRun?.player?.id;
-    return visualizationInfo;
-  }
-
-  private setVisualizationSize(windowWidth: number, windowHeight: number) {
-    const divideBy = 2;
-    const width = windowWidth / divideBy;
-    const height = windowHeight / divideBy;
-    this.vizSize = { width, height };
+    this.activatedRoute.data
+      .pipe(takeWhile(() => this.isAlive))
+      .subscribe(
+        (data) =>
+          (this.hasReferenceSolution$ = this.trainingDefinitionApi.hasReferenceSolution(
+            data[TRAINING_RUN_DATA_ATTRIBUTE_NAME].trainingDefinitionId
+          ))
+      );
   }
 }

@@ -11,6 +11,12 @@ import { ReferenceGraphModule } from '@muni-kypo-crp/command-visualizations/refe
 import { TimelineModule } from '@muni-kypo-crp/command-visualizations/timeline';
 import { MistakeModule } from '@muni-kypo-crp/command-visualizations/mistake';
 import { TraineeGraphModule } from '@muni-kypo-crp/command-visualizations/trainee-graph';
+import { TrainingRunResultsRoutingModule } from './training-run-results-routing.module';
+import { CommandAnalysisWrapperComponent } from './command-analysis-wrapper/command-analysis-wrapper.component';
+import { CommandTimelineWrapperComponent } from './command-timeline-wrapper/command-timeline-wrapper.component';
+import { ReferenceGraphWrapperComponent } from './reference-graph-wrapper/reference-wrapper.component';
+import { ScoreDevelopmentWrapperComponent } from './score-development-wrapper/score-development-wrapper.component';
+import { TraineeGraphWrapperComponent } from './trainee-graph-wrapper/trainee-graph-wrapper.component';
 
 /**
  * Module containing components for trainees results in training
@@ -24,8 +30,16 @@ import { TraineeGraphModule } from '@muni-kypo-crp/command-visualizations/traine
     TimelineModule,
     MistakeModule,
     TraineeGraphModule,
+    TrainingRunResultsRoutingModule,
   ],
-  declarations: [TrainingRunResultsComponent],
+  declarations: [
+    TrainingRunResultsComponent,
+    TraineeGraphWrapperComponent,
+    ScoreDevelopmentWrapperComponent,
+    ReferenceGraphWrapperComponent,
+    CommandTimelineWrapperComponent,
+    CommandAnalysisWrapperComponent,
+  ],
 })
 export class TrainingRunResultsComponentsModule {
   static forRoot(config: TrainingAgendaConfig): ModuleWithProviders<TrainingRunResultsComponentsModule> {
