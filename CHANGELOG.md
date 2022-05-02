@@ -1,3 +1,7 @@
+### 13.1.4 Add routing for training run visualizations tabs
+* 13a116f -- [CI/CD] Update packages.json version based on GitLab tag.
+* 7362bd8 -- Merge branch '170-add-routing-for-training-run-visualizations-tabs' into 'master'
+* 755d8b2 -- Resolve "Add routing for training run visualizations tabs"
 ### 13.1.3 Removed upper bound from estimated time and minimal possible solve time. Add info about variant answers above solution content. Trim answer and passkey.
 * bf17297 -- [CI/CD] Update packages.json version based on GitLab tag.
 *   c51929b -- Merge branch '165-trim-passkey-in-access-level-phase' into 'master'
