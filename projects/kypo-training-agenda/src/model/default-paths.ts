@@ -32,5 +32,7 @@ export const TRAINING_RUN_RESULTS_ASSESSMENT_PATH = 'assessment';
 export const TRAINING_RUN_RESULTS_TRAINEE_GRAPH_PATH = 'trainee-graph';
 export const TRAINING_RUN_RESULTS_COMMAND_TIMELINE_PATH = 'command-timeline';
 export const TRAINING_RUN_RESULTS_COMMAND_ANALYSIS_PATH = 'command-analysis';
+export const TRAINING_RUN_RESULTS_SCORE_DEVELOPMENT_PATH = 'score-development';
+export const TRAINING_RUN_RESULTS_REFERENCE_GRAPH_PATH = 'reference-graph';
 export const ADAPTIVE_RUN_RESULTS_PATH = 'adaptive-results';
 export const SANDBOX_POOL_PATH = 'pool';
