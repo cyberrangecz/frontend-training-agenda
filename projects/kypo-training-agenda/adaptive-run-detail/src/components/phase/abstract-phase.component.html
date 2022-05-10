@@ -2,14 +2,14 @@
 <ng-container [ngSwitch]="phase?.type">
   <kypo-questionnaire-phase *ngSwitchCase="phaseTypes.Questionnaire"
                             [phase]="phase"
-                            [isPreview]="isPreview"
+                            [isBacktracked]="isBacktracked"
                             [isLast]=isLast
                             (next)="onNext()">
   </kypo-questionnaire-phase>
   <kypo-training-phase *ngSwitchCase="phaseTypes.Training"
                        [phase]="phase"
                        [isLast]=isLast
-                       [isPreview]="isPreview"
+                       [isBacktracked]="isBacktracked"
                        [sandboxInstanceId]="sandboxInstanceId"
                        [sandboxDefinitionId]="sandboxDefinitionId"
                        (next)="onNext()">
@@ -17,14 +17,14 @@
   <kypo-info-phase *ngSwitchCase="phaseTypes.Info"
                    [phase]="phase"
                    [isLast]="isLast"
-                   [isPreview]="isPreview"
+                   [isBacktracked]="isBacktracked"
                    [isLoading]="isLoading"
                    (next)="onNext()">
   </kypo-info-phase>
   <kypo-access-phase *ngSwitchCase="phaseTypes.Access"
                      [phase]="phase"
                      [isLast]=isLast
-                     [isPreview]="isPreview"
+                     [isBacktracked]="isBacktracked"
                      [sandboxInstanceId]="sandboxInstanceId"
                      [sandboxDefinitionId]="sandboxDefinitionId"
                      [localEnvironment]="localEnvironment"

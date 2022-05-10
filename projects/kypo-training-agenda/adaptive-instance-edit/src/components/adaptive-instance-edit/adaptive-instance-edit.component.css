@@ -54,7 +54,13 @@ button.main {
 	margin-bottom: 15px;
 }
 
-.local-environment-slide-toggle span {
+.slide-toggle-container {
+  display: flex;
+  justify-content: space-between;
+  width: 170px;
+}
+
+.slide-toggle-container span {
   margin-right: 15px;
 }
 

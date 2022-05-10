@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { Question } from '@muni-kypo-crp/training-model';
 import { MultipleChoiceQuestion } from '@muni-kypo-crp/training-model';
+import { QuestionChoice } from '@muni-kypo-crp/training-model/lib/questions/question-choice';
 
 @Component({
   selector: 'kypo-trainee-multiple-choice-question',
@@ -17,6 +18,7 @@ import { MultipleChoiceQuestion } from '@muni-kypo-crp/training-model';
 export class MultipleChoiceQuestionTraineeComponent extends SentinelBaseDirective {
   @Input() question: MultipleChoiceQuestion;
   @Input() index: number;
+  @Input() isBacktracked: boolean;
 
   @Output() contentChanged: EventEmitter<{ index: number; question: Question }> = new EventEmitter();
 
@@ -51,6 +53,10 @@ export class MultipleChoiceQuestionTraineeComponent extends SentinelBaseDirectiv
       index: this.index,
       question: this.question,
     });
+  }
+
+  checkedAsAnswered(option: QuestionChoice): boolean {
+    return this.question.userAnswers.findIndex((answer: string) => answer === option.text) != -1 ? true : false;
   }
 
   /**

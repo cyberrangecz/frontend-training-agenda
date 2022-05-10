@@ -20,7 +20,7 @@ import { TrainingErrorHandler } from '../../../src/services/training-error.handl
 import { TrainingNavigator } from '../../../src/services/training-navigator.service';
 import { TrainingNotificationService } from '../../../src/services/training-notification.service';
 import { TrainingAgendaContext } from '../services/context/training-agenda-context.service';
-import { RunningTrainingRunService } from '../services/training-run/running/running-training-run.service';
+import { RunningTrainingRunService } from '../../../run-detail/src/services/training-run/running/running-training-run.service';
 import { TrainingDefinitionEditService } from '../../../definition-edit/src/services/state/edit/training-definition-edit.service';
 import { TrainingDefinitionService } from '../../../definition-overview/src/services/state/training-definition.service';
 import { FileUploadProgressService } from '../../../definition-overview/src/services/file-upload/file-upload-progress.service';
@@ -29,7 +29,7 @@ import { AdaptiveFileUploadProgressService } from '../../../adaptive-definition-
 import { PaginationService } from '../services/pagination.service';
 import { LevelEditService } from '../../../definition-edit/src/services/state/level/level-edit.service';
 import { TopologyApi } from '@muni-kypo-crp/topology-graph';
-import { RunningAdaptiveRunService } from '../services/adaptive-run/running/running-adaptive-run.service';
+import { RunningAdaptiveRunService } from '../../../adaptive-run-detail/src/services/adaptive-run/running/running-adaptive-run.service';
 
 export function createErrorHandlerSpy(): jasmine.SpyObj<TrainingErrorHandler> {
   return jasmine.createSpyObj('TrainingErrorHandler', ['emit']);

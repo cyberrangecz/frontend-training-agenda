@@ -23,23 +23,21 @@ describe('TrainingDefinitionOverviewComponent', () => {
   let paginationServiceSpy: jasmine.SpyObj<PaginationService>;
   let trainingDefinitionServiceSpy: jasmine.SpyObj<TrainingDefinitionService>;
 
-  beforeEach(
-    waitForAsync(() => {
-      navigatorSpy = createNavigatorSpy();
-      paginationServiceSpy = createPaginationServiceSpy();
-      trainingDefinitionServiceSpy = createTrainingDefinitionServiceSpy();
-      initValues();
-      TestBed.configureTestingModule({
-        imports: [MaterialTestingModule, SentinelTableModule, BrowserAnimationsModule, SentinelControlsModule],
-        declarations: [TrainingDefinitionOverviewComponent],
-        providers: [
-          { provide: TrainingNavigator, useValue: navigatorSpy },
-          { provide: PaginationService, useValue: paginationServiceSpy },
-          { provide: TrainingDefinitionService, useValue: trainingDefinitionServiceSpy },
-        ],
-      }).compileComponents();
-    })
-  );
+  beforeEach(waitForAsync(() => {
+    navigatorSpy = createNavigatorSpy();
+    paginationServiceSpy = createPaginationServiceSpy();
+    trainingDefinitionServiceSpy = createTrainingDefinitionServiceSpy();
+    initValues();
+    TestBed.configureTestingModule({
+      imports: [MaterialTestingModule, SentinelTableModule, BrowserAnimationsModule, SentinelControlsModule],
+      declarations: [TrainingDefinitionOverviewComponent],
+      providers: [
+        { provide: TrainingNavigator, useValue: navigatorSpy },
+        { provide: PaginationService, useValue: paginationServiceSpy },
+        { provide: TrainingDefinitionService, useValue: trainingDefinitionServiceSpy },
+      ],
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TrainingDefinitionOverviewComponent);

@@ -30,6 +30,7 @@ import { MultipleChoiceQuestionTraineeComponent } from './multiple-choice-questi
 export class TraineeQuestionComponent extends SentinelBaseDirective implements OnChanges {
   @Input() question: Question;
   @Input() index: number;
+  @Input() isBacktracked: boolean;
 
   @Output() contentChanged: EventEmitter<number> = new EventEmitter();
 

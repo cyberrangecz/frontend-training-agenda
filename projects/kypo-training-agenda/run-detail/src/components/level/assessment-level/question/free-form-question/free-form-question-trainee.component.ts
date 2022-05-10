@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { Question } from '@muni-kypo-crp/training-model';
 import { FreeFormQuestion } from '@muni-kypo-crp/training-model';
@@ -13,12 +13,19 @@ import { FreeFormQuestion } from '@muni-kypo-crp/training-model';
  * Component displaying FFQ type of question in the assessment level of a trainees training run.
  * If assessment is type of test or question is required, user needs to answer it, otherwise it is optional.
  */
-export class FreeFormQuestionTraineeComponent extends SentinelBaseDirective {
+export class FreeFormQuestionTraineeComponent extends SentinelBaseDirective implements OnInit {
   @Input() question: FreeFormQuestion;
   @Input() index: number;
+  @Input() isBacktracked: boolean;
 
   @Output() contentChanged: EventEmitter<{ index: number; question: Question }> = new EventEmitter();
   answer: string;
+
+  ngOnInit(): void {
+    if (this.question.userAnswers) {
+      this.answer = this.question.userAnswers.toString();
+    }
+  }
 
   /**
    * Checks whether mandatory questions were answered

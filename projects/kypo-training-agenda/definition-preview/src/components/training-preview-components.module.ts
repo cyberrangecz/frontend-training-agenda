@@ -5,33 +5,18 @@ import {
   TrainingDefinitionBreadcrumbResolver,
   TrainingDefinitionResolver,
 } from '@muni-kypo-crp/training-agenda/resolvers';
-import { PreviewAssessmentLevelService } from '../services/preview-assessment-level.service';
-import { PreviewTrainingLevelService } from '../services/preview-training-level.service';
-import { PreviewTrainingRunService } from '../services/preview-training-run.service';
-import {
-  RunningTrainingRunService,
-  TrainingRunAccessLevelConcreteService,
-  TrainingRunAccessLevelService,
-  TrainingRunAssessmentLevelService,
-  TrainingRunTrainingLevelService,
-} from '@muni-kypo-crp/training-agenda/internal';
 import { TrainingRunDetailComponentsModule } from '@muni-kypo-crp/training-agenda/run-detail';
 import { TrainingPreviewComponent } from './training-preview.component';
+import { SentinelStepperModule } from '@sentinel/components/stepper';
+import { LevelComponentsModule } from './level/level-components.module';
 
 /**
  * Module containing components and providers for previewing training run (without allocating sandbox and backend communication)
  */
 @NgModule({
-  imports: [CommonModule, TrainingRunDetailComponentsModule],
+  imports: [CommonModule, TrainingRunDetailComponentsModule, SentinelStepperModule, LevelComponentsModule],
   declarations: [TrainingPreviewComponent],
-  providers: [
-    TrainingDefinitionResolver,
-    TrainingDefinitionBreadcrumbResolver,
-    { provide: RunningTrainingRunService, useClass: PreviewTrainingRunService },
-    { provide: TrainingRunTrainingLevelService, useClass: PreviewTrainingLevelService },
-    { provide: TrainingRunAssessmentLevelService, useClass: PreviewAssessmentLevelService },
-    { provide: TrainingRunAccessLevelService, useClass: TrainingRunAccessLevelConcreteService },
-  ],
+  providers: [TrainingDefinitionResolver, TrainingDefinitionBreadcrumbResolver],
 })
 export class TrainingPreviewComponentsModule {
   static forRoot(config: TrainingAgendaConfig): ModuleWithProviders<TrainingPreviewComponentsModule> {

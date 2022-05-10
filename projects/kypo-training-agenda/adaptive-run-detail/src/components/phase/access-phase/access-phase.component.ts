@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
@@ -12,30 +13,33 @@ import {
   ViewChild,
 } from '@angular/core';
 import { SentinelBaseDirective } from '@sentinel/common';
-import { AccessPhase, TrainingPhase } from '@muni-kypo-crp/training-model';
+import { AccessPhase } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
 import { Kypo2TopologyErrorService } from '@muni-kypo-crp/topology-graph';
 import { TrainingErrorHandler } from '@muni-kypo-crp/training-agenda';
-import { delay, take, takeWhile } from 'rxjs/operators';
-import { AdaptiveRunAccessPhaseService } from '@muni-kypo-crp/training-agenda/internal';
+import { take, takeWhile } from 'rxjs/operators';
+import { AdaptiveRunAccessPhaseService } from './../../../services/adaptive-run/access-phase/adaptive-run-access-phase.service';
+import { AdaptiveRunAccessPhaseConcreteService } from '../../../services/adaptive-run/access-phase/adaptive-run-access-phase-concrete.service';
 
 @Component({
   selector: 'kypo-access-phase',
   templateUrl: './access-phase.component.html',
   styleUrls: ['./access-phase.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [{ provide: AdaptiveRunAccessPhaseService, useClass: AdaptiveRunAccessPhaseConcreteService }],
 })
-export class AccessPhaseComponent extends SentinelBaseDirective implements OnInit, OnChanges {
+export class AccessPhaseComponent extends SentinelBaseDirective implements OnInit, OnChanges, AfterViewInit {
   @Input() phase: AccessPhase;
   @Input() isLast: boolean;
-  @Input() isPreview: boolean;
+  @Input() isBacktracked: boolean;
   @Input() sandboxInstanceId: number;
   @Input() sandboxDefinitionId: number;
   @Input() localEnvironment: boolean;
   @Output() next: EventEmitter<void> = new EventEmitter();
   @ViewChild('rightPanel', { static: true }) rightPanelDiv: ElementRef;
+  @ViewChild('content', { read: ElementRef, static: false }) content: ElementRef;
   @ViewChild('controls', { read: ElementRef }) controlsPanel: ElementRef;
-  @ViewChild('controlsContainer', { static: true, read: ElementRef }) controlsContainer: ElementRef;
+  @ViewChild('controlsContainer', { static: false, read: ElementRef }) controlsContainer: ElementRef;
 
   topologyWidth: number;
   topologyHeight: number;
@@ -43,6 +47,7 @@ export class AccessPhaseComponent extends SentinelBaseDirective implements OnIni
   passkey: string;
   isCorrectPasskeySubmitted$: Observable<boolean>;
   isLoading$: Observable<boolean>;
+  controlsWrapped: boolean;
 
   constructor(
     private accessPhaseService: AdaptiveRunAccessPhaseService,
@@ -55,6 +60,8 @@ export class AccessPhaseComponent extends SentinelBaseDirective implements OnIni
   @HostListener('window:resize', ['$event'])
   onResize(event: any): void {
     this.calculateTopologySize();
+    this.setContentMargin();
+    this.controlsWrapped = this.isWrapped();
   }
 
   ngOnInit(): void {
@@ -70,6 +77,11 @@ export class AccessPhaseComponent extends SentinelBaseDirective implements OnIni
       this.isCorrectPasskeySubmitted$ = this.accessPhaseService.isCorrectPasskeySubmitted$;
       this.isLoading$ = this.accessPhaseService.isLoading$;
     }
+  }
+
+  ngAfterViewInit(): void {
+    this.setContentMargin();
+    this.controlsWrapped = this.isWrapped();
   }
 
   onNext(): void {
@@ -122,8 +134,12 @@ export class AccessPhaseComponent extends SentinelBaseDirective implements OnIni
   }
 
   // Workaround since position:sticky is not working due to overflow in mat-content
-  getControlsPanelOffset(): string {
+  private getControlsPanelOffset(): string {
     return this.controlsPanel?.nativeElement.offsetHeight + 'px';
+  }
+
+  private setContentMargin(): void {
+    this.content.nativeElement.setAttribute('style', `margin-bottom:${this.getControlsPanelOffset()}`);
   }
 
   // Checks if items in control bar are wrapped based on their top offset

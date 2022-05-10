@@ -4,28 +4,25 @@ import {
   MultipleChoiceQuestion,
   Question,
 } from '@muni-kypo-crp/training-model';
-import { StepperItemState } from '@sentinel/components/stepper';
+import { StepItem, StepStateEnum } from '@sentinel/components/stepper';
 
-export class QuestionStepperAdapter {
+export class QuestionStepperAdapter implements StepItem {
   private _question: Question;
   id: number;
   title: string;
-  isActive: boolean;
   required: boolean;
   valid: boolean;
-  primaryIcon: string;
-  state: StepperItemState;
+  icon: string;
+  state: StepStateEnum;
 
   constructor(question: Question) {
     this._question = question;
     this.id = question.id;
     this.title = question.title;
     this.valid = question.valid;
-    this.state = new StepperItemState();
+    this.state = StepStateEnum.SELECTABLE;
     this.required = question.required;
-    this.state.icon = QuestionStepperAdapter.iconType(question);
-    this.state.hasState = false;
-    this.primaryIcon = QuestionStepperAdapter.iconType(question);
+    this.icon = QuestionStepperAdapter.iconType(question);
   }
 
   get question(): Question {

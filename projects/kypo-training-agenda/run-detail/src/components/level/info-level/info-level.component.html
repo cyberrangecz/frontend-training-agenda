@@ -1,13 +1,11 @@
 <div class="container">
-  <div class="content" [ngStyle]="{ 'margin-bottom': getControlsPanelOffset() }">
+  <div #content class="content">
     <markdown [data]="level.content"></markdown>
   </div>
-  <div [hidden]="isPreview">
+  <div *ngIf="!isBacktracked">
     <mat-card #controls class="controls">
       <div class="controls-container">
-        <kypo-next-level-button [isLast]="isLast"
-                              (next)="onNext()">
-      </kypo-next-level-button>
+        <kypo-next-level-button [isLast]="isLast" (next)="onNext()"> </kypo-next-level-button>
       </div>
     </mat-card>
   </div>

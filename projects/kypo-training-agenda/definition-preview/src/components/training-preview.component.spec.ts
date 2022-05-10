@@ -3,7 +3,7 @@ import { TrainingDefinitionEditOverviewMaterialModule } from '../../../definitio
 import { TrainingPreviewComponent } from './training-preview.component';
 import { TestBed, ComponentFixture, async } from '@angular/core/testing';
 import { Level, AssessmentLevel, InfoLevel, TrainingDefinition, TrainingLevel } from '@muni-kypo-crp/training-model';
-import { RunningTrainingRunService } from '../../../internal/src/services/training-run/running/running-training-run.service';
+import { RunningTrainingRunService } from '../../../run-detail/src/services/training-run/running/running-training-run.service';
 import { ActivatedRoute } from '@angular/router';
 import {
   createActivatedRouteSpy,

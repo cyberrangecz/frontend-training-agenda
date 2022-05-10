@@ -19,6 +19,8 @@ export const userAngGroupURL = baseURL + '/kypo-rest-user-and-group/api/v1/';
 
 export const elasticSearchURL = baseURL + '/kypo-elasticsearch-service/api/v1/';
 
+export const mitreTechniquesURL = baseURL + '/mitre-technique/api/v1/';
+
 export const kypo2TopologyConfig = {
   topologyRestUrl: sandboxesURL,
   decoratorsRestUrl: '', // OBSOLETE
@@ -51,6 +53,7 @@ export const environment = {
   trainingApiConfig: {
     trainingBasePath: trainingURL,
     adaptiveBasePath: adaptiveTrainingURL,
+    mitreTechniqueBasePath: mitreTechniquesURL,
   },
 
   sandboxApiConfig: {
@@ -75,8 +78,8 @@ export const environment = {
         textColor: 'white',
         backgroundColor: '#002776',
         oidcConfig: {
-          issuer: 'https://172.19.0.22:8443/csirtmu-dummy-issuer-server/',
-          clientId: '343d4afd-10ef-4666-afb8-9bcd160d72b7',
+          issuer: 'https://172.19.0.22:443/csirtmu-dummy-issuer-server/',
+          clientId: 'FhpwmVIJtXzcMtXAVzLzOnbTLryQDdMBfLBC',
           redirectUri: homeURL, // redirect after successful login
           scope: 'openid email profile',
           logoutUrl: 'https://172.19.0.22/csirtmu-dummy-issuer-server/endsession',

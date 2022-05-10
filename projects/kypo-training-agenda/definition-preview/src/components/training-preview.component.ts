@@ -1,16 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { SentinelBaseDirective } from '@sentinel/common';
-import { TrainingDefinitionApi } from '@muni-kypo-crp/training-api';
-import { AccessTrainingRunInfo, Level } from '@muni-kypo-crp/training-model';
-import { TrainingDefinition } from '@muni-kypo-crp/training-model';
-import { map, takeWhile } from 'rxjs/operators';
+import { Level } from '@muni-kypo-crp/training-model';
+import { LevelStepperAdapter } from '@muni-kypo-crp/training-agenda/internal';
+import { ActivatedRoute } from '@angular/router';
+import { takeWhile } from 'rxjs';
+import { TrainingPreviewStepper } from '../model/training-preview-stepper';
 import { TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
-import { RunningTrainingRunService } from '@muni-kypo-crp/training-agenda/internal';
 
 /**
- * Main component of training run preview. Initializes mock services with data of training definition to simulate
- * real server behaviour.
+ * Main component of training run preview.
  */
 @Component({
   selector: 'kypo-designer-preview',
@@ -18,34 +16,34 @@ import { RunningTrainingRunService } from '@muni-kypo-crp/training-agenda/intern
   styleUrls: ['./training-preview.component.css'],
 })
 export class TrainingPreviewComponent extends SentinelBaseDirective implements OnInit {
-  constructor(
-    private previewService: RunningTrainingRunService,
-    private api: TrainingDefinitionApi,
-    private activeRoute: ActivatedRoute
-  ) {
+  activeLevel: Level;
+  levels: Level[];
+  stepper: TrainingPreviewStepper;
+
+  constructor(private activeRoute: ActivatedRoute) {
     super();
+    this.activeRoute.data
+      .pipe(takeWhile(() => this.isAlive))
+      .subscribe((data) => (this.levels = data[TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME].levels));
   }
 
   ngOnInit(): void {
-    this.initializeGame();
+    if (this.levels?.length > 0) {
+      this.init();
+    }
   }
 
-  private initializeGame() {
-    this.activeRoute.data
-      .pipe(
-        takeWhile(() => this.isAlive),
-        map((data) => data[TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME])
-      )
-      .subscribe((training) => {
-        this.previewService.init(this.createMockTrainingRun(training));
-      });
+  private init() {
+    const stepperAdapterLevels = this.levels.map((level) => new LevelStepperAdapter(level));
+    this.stepper = new TrainingPreviewStepper(stepperAdapterLevels, 0);
+    this.activeLevel = this.levels[0];
   }
 
-  private createMockTrainingRun(training: TrainingDefinition) {
-    const mockRun = new AccessTrainingRunInfo();
-    mockRun.isPreview = true;
-    mockRun.levels = training.levels as Level[];
-    mockRun.isStepperDisplayed = training.showStepperBar;
-    return mockRun;
+  /**
+   * Jump to training run level.
+   * @param index of desired level
+   */
+  activeStepChanged(index: number): void {
+    this.activeLevel = this.levels[index];
   }
 }

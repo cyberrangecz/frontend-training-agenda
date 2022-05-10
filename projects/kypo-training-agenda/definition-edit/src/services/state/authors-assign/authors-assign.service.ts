@@ -46,7 +46,7 @@ export class AuthorsAssignService extends SentinelUserAssignService {
    */
   assignSelected(resourceId: number): Observable<any> {
     const userIds = this.selectedUsersToAssignSubject$.getValue().map((user) => user.id);
-    return this.callApiToAssign(resourceId, userIds);
+    return this.callApiToAssign(resourceId, userIds as any);
   }
 
   /**
@@ -65,7 +65,7 @@ export class AuthorsAssignService extends SentinelUserAssignService {
    */
   unassignSelected(resourceId: number): Observable<any> {
     const userIds = this.selectedAssignedUsersSubject$.getValue().map((user) => user.id);
-    return this.callApiToUnassign(resourceId, userIds);
+    return this.callApiToUnassign(resourceId, userIds as any);
   }
 
   /**

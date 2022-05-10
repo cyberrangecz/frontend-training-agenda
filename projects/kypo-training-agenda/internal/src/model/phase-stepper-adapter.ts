@@ -1,24 +1,21 @@
-import { StepItem, StepperItemState } from '@sentinel/components/stepper';
+import { StepItem, StepStateEnum } from '@sentinel/components/stepper';
 import { AbstractPhaseTypeEnum, Phase, QuestionnairePhase, QuestionnaireTypeEnum } from '@muni-kypo-crp/training-model';
 
 export class PhaseStepperAdapter implements StepItem {
   id: number;
   title: string;
   phase: Phase;
-  primaryIcon: string;
-  isActive: boolean;
-  state: StepperItemState;
+  icon: string;
+  state: StepStateEnum;
   type: AbstractPhaseTypeEnum;
 
   constructor(phase: Phase) {
     this.id = phase.id;
     this.title = phase.title;
     this.phase = phase;
-    this.isActive = false;
-    this.state = new StepperItemState();
-    this.state.hasState = false;
+    this.state = StepStateEnum.SELECTABLE;
     this.type = phase.type;
-    this.primaryIcon = this.getPhaseIcon(phase);
+    this.icon = this.getPhaseIcon(phase);
   }
 
   private getPhaseIcon(phase: Phase): string {

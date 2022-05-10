@@ -1,37 +1,42 @@
 <div class="container">
-  <div class="content" [ngStyle]="{ 'margin-bottom': getControlsPanelOffset() }">
-    <div class="questions" *ngFor="let question of phase.questions; index as i" >
-      <h2>{{i+1}}. {{ question.text }}</h2>
+  <div #content class="content">
+    <div class="questions" *ngFor="let question of phase.questions; index as i">
+      <h2>{{ i + 1 }}. {{ question.text }}</h2>
 
       <ng-container [ngSwitch]="question.questionType">
         <div class="question" *ngSwitchCase="questionTypes.FFQ">
           <mat-form-field appearance="outline">
-            <mat-label>
-              Answer
-            </mat-label>
-            <input [maxLength]="1023" matInput [(ngModel)]="questionAnswers[i].answers[0]">
+            <mat-label> Answer </mat-label>
+            <input [disabled]="isBacktracked" [maxLength]="1023" matInput [(ngModel)]="questionAnswers[i].answers[0]" />
           </mat-form-field>
 
           <mat-error
             id="max-length-ffq-answer"
             *ngIf="questionAnswers[i].answers[0] && questionAnswers[i].answers[0].length === 1023"
           >
-            * You have reached the maximal size of message. If you wish to write longer message, please contact your administrator.
+            * You have reached the maximal size of message. If you wish to write longer message, please contact your
+            administrator.
           </mat-error>
         </div>
 
         <div class="mcq-question" *ngSwitchCase="questionTypes.MCQ">
           <div *ngFor="let choice of question.choices">
-            <mat-checkbox (change)="onMCQChecked($event, i, choice.text)"></mat-checkbox>
-            <p>{{choice.text}}</p>
+            <mat-checkbox
+              [disabled]="isBacktracked"
+              (change)="onMCQChecked($event, i, choice.text)"
+              [checked]="checkedAsAnswered(question, choice)"
+            ></mat-checkbox>
+            <p>{{ choice.text }}</p>
           </div>
         </div>
 
         <div class="rfq-question" *ngSwitchCase="questionTypes.RFQ">
           <div class="rfq-answer" *ngFor="let choice of question.choices">
             <mat-checkbox
+              [disabled]="isBacktracked"
               (change)="onRFQChecked($event, i, choice.text)"
-              [checked]="choice.text === questionAnswers[i].answers[0]">
+              [checked]="checkedAsAnswered(question, choice)"
+            >
             </mat-checkbox>
             <p>{{ choice.text }}</p>
           </div>
@@ -39,13 +44,14 @@
       </ng-container>
     </div>
   </div>
-  <div [hidden]="isPreview">
+  <div *ngIf="!isBacktracked">
     <mat-card #controls class="controls">
       <div class="controls-container">
-        <button *ngIf="!isSubmitted" [disabled]="isLoading" mat-raised-button color="primary" (click)="submit()">Submit</button>
+        <button *ngIf="!isSubmitted" [disabled]="isLoading" mat-raised-button color="primary" (click)="submit()">
+          Submit
+        </button>
         <kypo-next-phase-button *ngIf="isSubmitted" [isLast]="isLast" (next)="onNext()"></kypo-next-phase-button>
       </div>
     </mat-card>
   </div>
 </div>
-

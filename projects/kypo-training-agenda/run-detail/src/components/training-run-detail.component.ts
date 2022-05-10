@@ -1,12 +1,13 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { Level } from '@muni-kypo-crp/training-model';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { take, takeWhile, tap } from 'rxjs/operators';
-import { LevelStepperAdapter, RunningTrainingRunService } from '@muni-kypo-crp/training-agenda/internal';
+import { LevelStepperAdapter } from '@muni-kypo-crp/training-agenda/internal';
 import { TrainingRunStepper } from '../model/training-run-stepper';
 import { SentinelUser } from '@sentinel/layout';
 import { SentinelAuthService } from '@sentinel/auth';
+import { RunningTrainingRunService } from '../services/training-run/running/running-training-run.service';
 
 @Component({
   selector: 'kypo-training-run-detail',
@@ -21,17 +22,18 @@ import { SentinelAuthService } from '@sentinel/auth';
 export class TrainingRunDetailComponent extends SentinelBaseDirective implements OnInit, AfterViewInit {
   user$: Observable<SentinelUser>;
   activeLevel$: Observable<Level>;
+  backtrackedLevel$: Observable<Level>;
   levels: Level[];
   stepper: TrainingRunStepper;
 
   isStepperDisplayed: boolean;
-  isPreview: boolean;
   isTimerDisplayed: boolean;
   startTime: Date;
   isLast: boolean;
   sandboxInstanceId: number;
   sandboxDefinitionId: number;
   localEnvironment: boolean;
+  backwardMode: boolean;
 
   constructor(private trainingRunService: RunningTrainingRunService, private auth: SentinelAuthService) {
     super();
@@ -53,11 +55,11 @@ export class TrainingRunDetailComponent extends SentinelBaseDirective implements
     this.startTime = this.trainingRunService.getStartTime();
     this.isTimerDisplayed = true;
     this.isStepperDisplayed = this.trainingRunService.getIsStepperDisplayed();
-    this.isPreview = this.trainingRunService.getIsPreview();
     this.sandboxInstanceId = this.trainingRunService.sandboxInstanceId;
     this.sandboxDefinitionId = this.trainingRunService.sandboxDefinitionId;
     this.localEnvironment = this.trainingRunService.localEnvironment;
-    if (this.isStepperDisplayed || this.isPreview) {
+    this.backwardMode = this.trainingRunService.getBackwardMode();
+    if (this.isStepperDisplayed) {
       const stepperAdapterLevels = this.levels.map((level) => new LevelStepperAdapter(level));
       this.stepper = new TrainingRunStepper(stepperAdapterLevels, this.trainingRunService.getActiveLevelPosition());
     }
@@ -65,32 +67,26 @@ export class TrainingRunDetailComponent extends SentinelBaseDirective implements
       takeWhile(() => this.isAlive),
       tap(() => {
         this.isLast = this.trainingRunService.isLast();
-        if (this.isStepperDisplayed || this.isPreview) {
+        if (this.isStepperDisplayed) {
           this.stepper.onActiveLevelUpdated(this.trainingRunService.getActiveLevelPosition());
         }
       })
     );
+    this.backtrackedLevel$ = this.trainingRunService.backtrackedLevel$;
   }
 
   /**
-   * Jump to training run level. This only works for training run in preview mode.
+   * Jump to training run level.
    * @param index of desired level
    */
   activeStepChanged(index: number): void {
-    if (this.isPreview) {
-      this.stepper.activeLevelIndex = index;
-      this.trainingRunService.setActiveLevelIndex(index);
-      this.activeLevel$ = of(this.levels[index]);
+    if (this.stepper.activeLevelIndex !== index) {
+      this.trainingRunService.moveToLevel(this.levels[index].id).pipe(take(1)).subscribe();
+      this.stepper.onActiveLevelUpdated(index);
     }
   }
 
   next(): void {
-    if (this.isPreview) {
-      this.stepper.items[this.stepper.activeLevelIndex].isActive = false;
-      this.activeStepChanged(++this.stepper.activeLevelIndex);
-      this.stepper.items[this.stepper.activeLevelIndex].isActive = true;
-    } else {
-      this.trainingRunService.next().pipe(take(1)).subscribe();
-    }
+    this.trainingRunService.next().pipe(take(1)).subscribe();
   }
 }

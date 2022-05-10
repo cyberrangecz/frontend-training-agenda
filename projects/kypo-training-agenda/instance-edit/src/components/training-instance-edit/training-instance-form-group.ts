@@ -17,6 +17,7 @@ export class TrainingInstanceFormGroup {
         trainingDefinition: new FormControl(trainingInstance.trainingDefinition, [Validators.required]),
         accessToken: new FormControl(trainingInstance.accessToken, [SentinelValidators.noWhitespace]),
         localEnvironment: new FormControl(trainingInstance.localEnvironment),
+        backwardMode: new FormControl(trainingInstance.backwardMode),
       },
       { validators: this.dateSequenceValidator }
     );
@@ -57,5 +58,6 @@ export class TrainingInstanceFormGroup {
     trainingInstance.trainingDefinition = this.formGroup.get('trainingDefinition').value;
     trainingInstance.accessToken = this.formGroup.get('accessToken').value;
     trainingInstance.localEnvironment = this.formGroup.get('localEnvironment').value;
+    trainingInstance.backwardMode = this.formGroup.get('backwardMode').value;
   }
 }

@@ -1,35 +1,40 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
   EventEmitter,
   HostListener,
   Input,
+  OnChanges,
+  OnInit,
   Output,
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { SentinelBaseDirective } from '@sentinel/common';
-import { AccessLevel, InfoLevel, TrainingLevel } from '@muni-kypo-crp/training-model';
+import { AccessLevel } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
-import { delay, take, takeWhile } from 'rxjs/operators';
-import { TrainingRunAccessLevelService } from '@muni-kypo-crp/training-agenda/internal';
+import { take, takeWhile } from 'rxjs/operators';
 import { Kypo2TopologyErrorService } from '@muni-kypo-crp/topology-graph';
 import { TrainingErrorHandler } from '@muni-kypo-crp/training-agenda';
+import { TrainingRunAccessLevelService } from '../../../services/training-run/level/access/training-run-access-level.service';
+import { TrainingRunAccessLevelConcreteService } from '../../../services/training-run/level/access/training-run-access-level-concrete.service';
 
 @Component({
   selector: 'kypo-access-level',
   templateUrl: './access-level.component.html',
   styleUrls: ['./access-level.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [{ provide: TrainingRunAccessLevelService, useClass: TrainingRunAccessLevelConcreteService }],
 })
 /**
  * Component to display training run's level of type ACCESS. Only displays markdown and allows user to continue immediately.
  */
-export class AccessLevelComponent extends SentinelBaseDirective {
+export class AccessLevelComponent extends SentinelBaseDirective implements OnInit, OnChanges, AfterViewInit {
   @Input() level: AccessLevel;
   @Input() isLast: boolean;
-  @Input() isPreview: boolean;
+  @Input() isBacktracked: boolean;
   @Input() sandboxInstanceId: number;
   @Input() sandboxDefinitionId: number;
   @Input() localEnvironment: boolean;
@@ -37,7 +42,8 @@ export class AccessLevelComponent extends SentinelBaseDirective {
   @ViewChild('rightPanel', { static: true }) rightPanelDiv: ElementRef;
   @ViewChild('levelContent') private levelContent: ElementRef;
   @ViewChild('controls', { read: ElementRef }) controlsPanel: ElementRef;
-  @ViewChild('controlsContainer', { static: true, read: ElementRef }) controlsContainer: ElementRef;
+  @ViewChild('controlsContainer', { static: false, read: ElementRef }) controlsContainer: ElementRef;
+  @ViewChild('content', { read: ElementRef, static: false }) content: ElementRef;
 
   topologyWidth: number;
   topologyHeight: number;
@@ -45,6 +51,7 @@ export class AccessLevelComponent extends SentinelBaseDirective {
   passkey: string;
   isCorrectPasskeySubmitted$: Observable<boolean>;
   isLoading$: Observable<boolean>;
+  controlsWrapped: boolean;
 
   constructor(
     private accessLevelService: TrainingRunAccessLevelService,
@@ -57,6 +64,8 @@ export class AccessLevelComponent extends SentinelBaseDirective {
   @HostListener('window:resize', ['$event'])
   onResize(event: any): void {
     this.calculateTopologySize();
+    this.setContentMargin();
+    this.controlsWrapped = this.isWrapped();
   }
 
   ngOnInit(): void {
@@ -72,6 +81,11 @@ export class AccessLevelComponent extends SentinelBaseDirective {
       this.isCorrectPasskeySubmitted$ = this.accessLevelService.isCorrectPasskeySubmitted$;
       this.isLoading$ = this.accessLevelService.isLoading$;
     }
+  }
+
+  ngAfterViewInit(): void {
+    this.setContentMargin();
+    this.controlsWrapped = this.isWrapped();
   }
 
   onNext(): void {
@@ -129,8 +143,12 @@ export class AccessLevelComponent extends SentinelBaseDirective {
     });
   }
 
+  private setContentMargin(): void {
+    this.content.nativeElement.setAttribute('style', `margin-bottom:${this.getControlsPanelOffset()}`);
+  }
+
   // Workaround since position:sticky is not working due to overflow in mat-content
-  getControlsPanelOffset(): string {
+  private getControlsPanelOffset(): string {
     return this.controlsPanel?.nativeElement.offsetHeight + 'px';
   }
 
