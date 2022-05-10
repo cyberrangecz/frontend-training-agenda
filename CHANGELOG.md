@@ -1,3 +1,7 @@
+### 13.2.0 Add support for movement between already accessed levels.
+* 09e13b7 -- [CI/CD] Update packages.json version based on GitLab tag.
+* b60b2c0 -- Merge branch '160-support-movement-between-accessed-levels-phases-during-training-run' into 'master'
+* 3560d9c -- Resolve "Support movement between accessed levels/phases during training run"
 ### 13.1.4 Add routing for training run visualizations tabs
 * 13a116f -- [CI/CD] Update packages.json version based on GitLab tag.
 * 7362bd8 -- Merge branch '170-add-routing-for-training-run-visualizations-tabs' into 'master'
