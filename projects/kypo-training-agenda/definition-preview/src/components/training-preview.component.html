@@ -1,1 +1,21 @@
-<kypo-training-run-detail></kypo-training-run-detail>
+<ng-container *ngIf="levels?.length > 0; else noLevels">
+  <div class="header">
+    <!-- LEVEL STEPPER -->
+    <div class="training-run-stepper">
+      <sentinel-stepper
+        [draggable]="false"
+        [selectable]="true"
+        (indexSelected)="activeStepChanged($event)"
+        [stepperItems]="stepper"
+        [activeIndex]="stepper.activeLevelIndex"
+      >
+      </sentinel-stepper>
+    </div>
+  </div>
+  <!-- CONTENT OF ACTIVE LEVEL -->
+  <kypo-abstract-level [level]="activeLevel"> </kypo-abstract-level>
+</ng-container>
+
+<ng-template #noLevels>
+  <h3 class="message">There are no levels in this training definition</h3>
+</ng-template>

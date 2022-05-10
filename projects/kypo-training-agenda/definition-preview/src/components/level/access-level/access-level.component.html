@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="content">
+    <div class="left-panel">
+      <div>
+        <h3>Local content:</h3>
+        <markdown [data]="level?.localContent"></markdown>
+      </div>
+      <div>
+        <h3>Cloud content:</h3>
+        <markdown [data]="level?.cloudContent"></markdown>
+      </div>
+    </div>
+    <div class="right-panel" #rightPanel>
+      <!-- TOPOLOGY LEGEND -->
+      <kypo2-topology-app-legend [width]="65"
+                                 [height]="topologyHeight"
+                                 [style.float]="'left'"
+                                 [legendAttachment]="'vertical'"
+      ></kypo2-topology-app-legend>
+
+      <div class="container">
+        <div class="topology-placeholder" [style.width.px]="topologyWidth" [style.height.px]="topologyHeight">
+          <img
+            src="assets/kypo-training-agenda/topology-placeholder.png"
+            alt="Topology placeholder"
+            [width]="topologyWidth"
+            [height]="topologyHeight"
+          />
+        </div>
+        <h3 class="message">*This is just a template topology</h3>
+      </div>
+    </div>
+  </div>
+</div>
+
+

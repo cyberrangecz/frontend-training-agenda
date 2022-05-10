@@ -63,6 +63,9 @@ export class AdaptiveInstanceEditComponent extends SentinelBaseDirective impleme
   get localEnvironment(): AbstractControl {
     return this.trainingInstanceFormGroup.formGroup.get('localEnvironment');
   }
+  get backwardMode(): AbstractControl {
+    return this.trainingInstanceFormGroup.formGroup.get('backwardMode');
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if ('trainingInstance' in changes) {

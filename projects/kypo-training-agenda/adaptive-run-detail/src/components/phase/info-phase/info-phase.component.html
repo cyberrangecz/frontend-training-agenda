@@ -1,8 +1,8 @@
 <div class="container">
-  <div class="content" [ngStyle]="{ 'margin-bottom': getControlsPanelOffset() }">
+  <div #content class="content">
     <markdown [data]="phase.content"></markdown>
   </div>
-  <div [hidden]="isPreview">
+  <div *ngIf="!isBacktracked">
     <mat-card #controls class="controls">
       <div class="controls-container">
         <kypo-next-phase-button [isLast]="isLast" (next)="onNext()"> </kypo-next-phase-button>

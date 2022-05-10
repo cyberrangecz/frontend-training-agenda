@@ -16,6 +16,7 @@ import { ExtendedMatchingItems } from '@muni-kypo-crp/training-model';
 export class ExtendedMatchingItemsTraineeComponent extends SentinelBaseDirective {
   @Input() question: ExtendedMatchingItems;
   @Input() index: number;
+  @Input() isBacktracked: boolean;
 
   @Output() contentChanged: EventEmitter<{ index: number; question: Question }> = new EventEmitter();
 

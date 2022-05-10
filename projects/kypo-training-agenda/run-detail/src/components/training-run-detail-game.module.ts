@@ -4,14 +4,13 @@ import { SentinelStepperModule } from '@sentinel/components/stepper';
 import { Kypo2TopologyGraphConfig } from '@muni-kypo-crp/topology-graph';
 import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
 import { TrainingRunLevelsDeactivateGuard } from '../services/can-deactivate/training-run-levels-can-deactivate.service';
-import { LevelModule } from './level/level.module';
 import { TrainingRunDetailComponentsModule } from './training-run-detail-components.module';
 
 /**
  * Module containing imports and providers for training run detail
  */
 @NgModule({
-  imports: [CommonModule, LevelModule, SentinelStepperModule, TrainingRunDetailComponentsModule],
+  imports: [CommonModule, SentinelStepperModule, TrainingRunDetailComponentsModule],
   declarations: [],
   providers: [TrainingRunLevelsDeactivateGuard],
 })

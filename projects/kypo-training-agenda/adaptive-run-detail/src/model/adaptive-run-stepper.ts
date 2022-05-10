@@ -1,4 +1,4 @@
-import { SentinelStepper } from '@sentinel/components/stepper';
+import { SentinelStepper, StepStateEnum } from '@sentinel/components/stepper';
 import { PhaseStepperAdapter } from '@muni-kypo-crp/training-agenda/internal';
 
 /**
@@ -12,21 +12,31 @@ export class AdaptiveRunStepper implements SentinelStepper<PhaseStepperAdapter> 
     this.items = phases;
     this.activePhaseIndex = activePhaseIndex;
     this.markCompletedPhases();
+    this.markPendingPhases(phases);
   }
 
   onActivePhaseUpdated(activePhaseIndex: number): void {
+    this.items[this.activePhaseIndex].state = StepStateEnum.SELECTABLE;
     this.activePhaseIndex = activePhaseIndex;
     this.markCompletedPhases();
     const current = this.items[activePhaseIndex];
     if (current) {
-      current.isActive = true;
+      current.state = StepStateEnum.ACTIVE;
     }
   }
 
   private markCompletedPhases() {
     for (let i = 0; i < this.activePhaseIndex; i++) {
-      this.items[i].primaryIcon = 'done';
-      this.items[i].isActive = true;
+      this.items[i].state = StepStateEnum.SELECTABLE;
+    }
+  }
+
+  /**
+   * Marks pending phases as pending
+   */
+  private markPendingPhases(phases: PhaseStepperAdapter[]) {
+    for (let i = this.activePhaseIndex; i < phases.length; i++) {
+      this.items[i].state = StepStateEnum.DISABLED;
     }
   }
 }

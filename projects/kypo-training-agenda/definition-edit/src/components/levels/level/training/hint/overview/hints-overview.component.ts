@@ -18,7 +18,7 @@ import {
 import { SentinelBaseDirective } from '@sentinel/common';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { Hint } from '@muni-kypo-crp/training-model';
-import { SentinelStepper } from '@sentinel/components/stepper';
+import { SentinelStepper, StepStateEnum } from '@sentinel/components/stepper';
 import { BehaviorSubject, defer, EMPTY, Observable, of } from 'rxjs';
 import { takeWhile } from 'rxjs/operators';
 import { HintStepperAdapter } from '../../../../../../model/adapters/hint-stepper-adapter';
@@ -72,7 +72,7 @@ export class HintsOverviewComponent extends SentinelBaseDirective implements OnI
       this.calculateHasError();
     }
     if (this.stepperHints.items.length > 0) {
-      this.stepperHints.items[this.selectedStep].isActive = true;
+      this.stepperHints.items[this.selectedStep].state = StepStateEnum.ACTIVE;
     }
   }
 
@@ -85,7 +85,7 @@ export class HintsOverviewComponent extends SentinelBaseDirective implements OnI
    */
   addHint(): Observable<void> {
     if (this.stepperHints.items.length >= 1) {
-      this.stepperHints.items[this.selectedStep].isActive = false;
+      this.stepperHints.items[this.selectedStep].state = StepStateEnum.SELECTABLE;
     }
     const hint = new Hint();
     hint.title = 'New hint';
@@ -93,7 +93,7 @@ export class HintsOverviewComponent extends SentinelBaseDirective implements OnI
     hint.content = 'Write hint content here...';
     hint.order = this.stepperHints.items.length;
     const hintStepperAdapter = new HintStepperAdapter(hint);
-    hintStepperAdapter.isActive = true;
+    hintStepperAdapter.state = StepStateEnum.ACTIVE;
     this.stepperHints.items.push(hintStepperAdapter);
     this.selectedStep = this.stepperHints.items.length - 1;
     this.onHintsChanged();
@@ -134,7 +134,7 @@ export class HintsOverviewComponent extends SentinelBaseDirective implements OnI
    */
   onActiveHintChanged(index: number): void {
     if (index !== this.selectedStep && this.stepperHints.items.length > 0) {
-      this.stepperHints.items[this.selectedStep].isActive = false;
+      this.stepperHints.items[this.selectedStep].state = StepStateEnum.SELECTABLE;
       this.selectedStep = index;
     }
   }
@@ -173,7 +173,7 @@ export class HintsOverviewComponent extends SentinelBaseDirective implements OnI
     }
     this.onActiveHintChanged(this.stepperHints.items.length - 1);
     if (this.stepperHints.items.length > 0) {
-      this.stepperHints.items[this.stepperHints.items.length - 1].isActive = true;
+      this.stepperHints.items[this.stepperHints.items.length - 1].state = StepStateEnum.ACTIVE;
     }
   }
 

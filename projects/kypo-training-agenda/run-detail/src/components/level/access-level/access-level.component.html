@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="content" [ngStyle]="{ 'margin-bottom': getControlsPanelOffset() }">
+  <div #content class="content">
     <div class="left-panel">
       <div *ngIf="localEnvironment; else cloudContent">
         <markdown [data]="level?.localContent"></markdown>
@@ -26,12 +26,12 @@
       </kypo2-topology-graph>
     </div>
   </div>
-  <div [hidden]="isPreview">
+  <div *ngIf="!isBacktracked">
     <mat-card #controls class="controls">
-      <div #controlsContainer [ngClass]="!isWrapped() ? 'controls-container' : 'controls-container wrapped'">
-        <div [ngClass]="!isWrapped() ? 'passkey-ssh' : 'passkey-ssh wrapped'">
+      <div #controlsContainer [ngClass]="!controlsWrapped ? 'controls-container' : 'controls-container wrapped'">
+        <div [ngClass]="!controlsWrapped ? 'passkey-ssh' : 'passkey-ssh wrapped'">
           <!-- PASSKEY field-->
-          <div *ngIf="!isPreview" class="passkey-input" [ngClass]="{ divider: !isWrapped() && (sandboxInstanceId || sandboxDefinitionId) }">
+          <div class="passkey-input" [ngClass]="{ divider: !controlsWrapped && (sandboxInstanceId || sandboxDefinitionId) }">
             <div *ngIf="isCorrectPasskeySubmitted$ | async; else passkeyInput">
               <kypo-next-level-button [isLast]="isLast" (next)="onNext()"> </kypo-next-level-button>
             </div>

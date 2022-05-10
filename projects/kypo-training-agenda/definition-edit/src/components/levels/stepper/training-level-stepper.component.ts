@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SentinelBaseDirective } from '@sentinel/common';
-import { SentinelStepper, StepperStateChange } from '@sentinel/components/stepper';
+import { SentinelStepper, StepperStateChange, StepStateEnum } from '@sentinel/components/stepper';
 import { LevelStepperAdapter } from '@muni-kypo-crp/training-agenda/internal';
 import { LevelMoveEvent } from '../../../model/events/level-move-event';
 
@@ -63,9 +63,9 @@ export class TrainingLevelStepperComponent extends SentinelBaseDirective impleme
 
   private changeSelectedStep(index: number) {
     if (this.previousActiveStep >= 0 && this.previousActiveStep < this.levelStepper.items.length) {
-      this.levelStepper.items[this.previousActiveStep].isActive = false;
+      this.levelStepper.items[this.previousActiveStep].state = StepStateEnum.SELECTABLE;
     }
-    this.levelStepper.items[index].isActive = true;
+    this.levelStepper.items[index].state = StepStateEnum.ACTIVE;
     this.previousActiveStep = this.activeStep;
   }
 }

@@ -50,3 +50,12 @@ markdown ::ng-deep pre {
     max-width: 700px;
   }
 }
+
+/* Breakpoint based on sentinel layout (when navbar is hidden) */
+@media(max-width: 748px ) {
+  .controls {
+    left: 0;
+    width: calc(100vw - (100vw - 100%) - 16px);
+
+  }
+}

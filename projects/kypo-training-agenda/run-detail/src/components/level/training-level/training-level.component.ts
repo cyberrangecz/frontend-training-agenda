@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
@@ -15,31 +16,34 @@ import { SentinelBaseDirective } from '@sentinel/common';
 import { Kypo2TopologyErrorService } from '@muni-kypo-crp/topology-graph';
 import { Observable } from 'rxjs';
 import { delay, take, takeWhile } from 'rxjs/operators';
-import { HintButton, TrainingRunTrainingLevelService } from '@muni-kypo-crp/training-agenda/internal';
+import { HintButton } from '@muni-kypo-crp/training-agenda/internal';
 import { TrainingErrorHandler } from '@muni-kypo-crp/training-agenda';
 import { TrainingLevel } from '@muni-kypo-crp/training-model';
+import { TrainingRunTrainingLevelService } from './../../../services/training-run/level/training/training-run-training-level.service';
+import { TrainingRunTrainingLevelConcreteService } from './../../../services/training-run/level/training/training-run-training-level-concrete.service';
 
 @Component({
   selector: 'kypo-training-level',
   templateUrl: './training-level.component.html',
   styleUrls: ['./training-level.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [{ provide: TrainingRunTrainingLevelService, useClass: TrainingRunTrainingLevelConcreteService }],
 })
 /**
  * Component of a training level in a training run. Users needs to find out correct solution (answer) and submit it
  * before he can continue to the next level. User can optionally take hints.
  */
-export class TrainingLevelComponent extends SentinelBaseDirective implements OnInit, OnChanges {
+export class TrainingLevelComponent extends SentinelBaseDirective implements OnInit, OnChanges, AfterViewInit {
   @Input() level: TrainingLevel;
   @Input() isLast: boolean;
-  @Input() isPreview: boolean;
+  @Input() isBacktracked: boolean;
   @Input() sandboxInstanceId: number;
   @Input() sandboxDefinitionId: number;
   @Output() next: EventEmitter<void> = new EventEmitter();
   @ViewChild('rightPanel', { static: true }) rightPanelDiv: ElementRef;
-  @ViewChild('levelContent') private levelContent: ElementRef;
+  @ViewChild('content', { read: ElementRef, static: false }) content: ElementRef;
   @ViewChild('controls', { read: ElementRef }) controlsPanel: ElementRef;
-  @ViewChild('controlsContainer', { static: true, read: ElementRef }) controlsContainer: ElementRef;
+  @ViewChild('controlsContainer', { static: false, read: ElementRef }) controlsContainer: ElementRef;
 
   topologyWidth: number;
   topologyHeight: number;
@@ -51,6 +55,7 @@ export class TrainingLevelComponent extends SentinelBaseDirective implements OnI
   isLoading$: Observable<boolean>;
   hintsButtons$: Observable<HintButton[]>;
   displayedSolutionContent$: Observable<string>;
+  controlsWrapped: boolean;
 
   constructor(
     private trainingLevelService: TrainingRunTrainingLevelService,
@@ -63,6 +68,8 @@ export class TrainingLevelComponent extends SentinelBaseDirective implements OnI
   @HostListener('window:resize', ['$event'])
   onResize(event: any): void {
     this.calculateTopologySize();
+    this.setContentMargin();
+    this.controlsWrapped = this.isWrapped();
   }
 
   ngOnInit(): void {
@@ -82,6 +89,11 @@ export class TrainingLevelComponent extends SentinelBaseDirective implements OnI
       this.hintsButtons$ = this.trainingLevelService.hints$;
       this.displayedSolutionContent$ = this.trainingLevelService.displayedSolutionContent$;
     }
+  }
+
+  ngAfterViewInit(): void {
+    this.setContentMargin();
+    this.controlsWrapped = this.isWrapped();
   }
 
   onNext(): void {
@@ -169,15 +181,22 @@ export class TrainingLevelComponent extends SentinelBaseDirective implements OnI
   }
 
   // Workaround since position:sticky is not working due to overflow in mat-content
-  getControlsPanelOffset(): string {
+  private getControlsPanelOffset(): string {
     return this.controlsPanel?.nativeElement.offsetHeight + 'px';
+  }
+
+  private setContentMargin(): void {
+    this.content.nativeElement.setAttribute('style', `margin-bottom:${this.getControlsPanelOffset()}`);
   }
 
   // Checks if items in control bar are wrapped based on their top offset
   isWrapped(): boolean {
-    const elements = Array.from(this.controlsContainer.nativeElement.childNodes).filter(
-      (elem: HTMLElement) => elem.offsetTop !== undefined
-    );
-    return elements.some((elem: HTMLElement) => elem.offsetTop !== (elements[0] as HTMLElement).offsetTop);
+    if (!this.isBacktracked && this.controlsContainer) {
+      const elements = Array.from(this.controlsContainer.nativeElement.childNodes).filter(
+        (elem: HTMLElement) => elem.offsetTop !== undefined
+      );
+      return elements.some((elem: HTMLElement) => elem.offsetTop !== (elements[0] as HTMLElement).offsetTop);
+    }
+    return false;
   }
 }

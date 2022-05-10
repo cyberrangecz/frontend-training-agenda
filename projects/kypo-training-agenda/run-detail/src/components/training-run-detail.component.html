@@ -1,33 +1,42 @@
-  <div class="header">
-    <!-- LEVEL STEPPER -->
-    <div [ngClass]="isPreview ? 'training-run-preview-stepper' : 'training-run-stepper'"
-         *ngIf="(isStepperDisplayed || isPreview) && stepper?.items">
-      <h3 *ngIf="isPreview && !isStepperDisplayed" class="message">
-        *Stepper is shown only in preview mode to allow navigation between levels. It won't be displayed in training run as requested.
-      </h3>
-      <h3 *ngIf="isPreview && isStepperDisplayed" class="message">
-        *Use stepper to navigate between levels.
-      </h3>
-      <sentinel-stepper [dragDisabled]="true"
-                        [selectable]="isPreview"
-                        (indexSelected)="activeStepChanged($event)"
-                        [stepperItems]="stepper"
-                        [activeIndex]="stepper.activeLevelIndex">
-      </sentinel-stepper>
-    </div>
-    <div class="right-panel">
-      <sentinel-user-card [user]="user$ | async"></sentinel-user-card>
-      <kypo-training-timer *ngIf="isTimerDisplayed && startTime" [startTime]="startTime"></kypo-training-timer>
-    </div>
+<div class="header">
+  <!-- LEVEL STEPPER -->
+  <div class="training-run-stepper" *ngIf="isStepperDisplayed && stepper?.items">
+    <sentinel-stepper
+      [draggable]="false"
+      [selectable]="backwardMode"
+      (indexSelected)="activeStepChanged($event)"
+      [stepperItems]="stepper"
+      [activeIndex]="stepper.activeLevelIndex"
+    >
+    </sentinel-stepper>
   </div>
+  <div class="right-panel">
+    <sentinel-user-card [user]="user$ | async"></sentinel-user-card>
+    <kypo-training-timer *ngIf="isTimerDisplayed && startTime" [startTime]="startTime"></kypo-training-timer>
+  </div>
+</div>
+
+<ng-container *ngIf="activeLevel$ | async as activeLevel">
   <!-- CONTENT OF ACTIVE LEVEL -->
-  <kypo-abstract-level [level]="activeLevel$ | async"
-                       [isLast]="isLast"
-                       [sandboxInstanceId]="sandboxInstanceId"
-                       [sandboxDefinitionId]="sandboxDefinitionId"
-                       [localEnvironment]="localEnvironment"
-                       [isPreview]="isPreview"
-                       (next)="next()">
+  <kypo-abstract-level
+    [hidden]="(backtrackedLevel$ | async) && activeLevel.id !== stepper.items[stepper.activeLevelIndex].id"
+    [level]="activeLevel"
+    [isLast]="isLast"
+    [sandboxInstanceId]="sandboxInstanceId"
+    [sandboxDefinitionId]="sandboxDefinitionId"
+    [localEnvironment]="localEnvironment"
+    [isBacktracked]="false"
+    (next)="next()"
+  >
   </kypo-abstract-level>
-
-
+  <kypo-abstract-level
+    *ngIf="(backtrackedLevel$ | async) && activeLevel.id !== stepper.items[stepper.activeLevelIndex].id"
+    [level]="backtrackedLevel$ | async"
+    [isLast]="isLast"
+    [sandboxInstanceId]="sandboxInstanceId"
+    [sandboxDefinitionId]="sandboxDefinitionId"
+    [localEnvironment]="localEnvironment"
+    [isBacktracked]="true"
+  >
+  </kypo-abstract-level>
+</ng-container>

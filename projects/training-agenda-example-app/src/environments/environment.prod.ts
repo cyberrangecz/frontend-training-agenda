@@ -17,6 +17,8 @@ export const userAngGroupURL = baseURL + '/kypo-rest-user-and-group/api/v1/';
 
 export const elasticSearchURL = baseURL + '/kypo-elasticsearch-service/api/v1/';
 
+export const mitreTechniquesURL = baseURL + '/mitre-technique/api/v1/';
+
 export const kypo2TopologyConfig = {
   topologyRestUrl: sandboxesURL,
   decoratorsRestUrl: '', // OBSOLETE
@@ -48,6 +50,7 @@ export const environment = {
   trainingApiConfig: {
     trainingBasePath: trainingURL,
     adaptiveBasePath: adaptiveTrainingURL,
+    mitreTechniqueBasePath: mitreTechniquesURL,
   },
 
   sandboxApiConfig: {

@@ -1,25 +1,12 @@
 <div class="container">
-  <div class="content" [ngStyle]="{ 'margin-bottom': getControlsPanelOffset() }">
+  <div #content class="content">
     <div class="left-panel">
       <div #levelContent #solution class="level-content">
-        <div *ngIf="isPreview else running">
-          <mat-tab-group>
-            <div *ngFor="let task of phase.tasks; index as i">
-              <mat-tab label="{{i+1}}. {{task.title}}">
-                <markdown [data]="task.content"></markdown>
-                <h2><span> Solution: </span></h2>
-                <markdown [data]="task.solution"> </markdown>
-              </mat-tab>
-            </div>
-          </mat-tab-group>
+        <markdown [data]="phase.currentTask.content"></markdown>
+        <div *ngIf="displayedSolutionContent$ | async as solutionContent" class="solution-content">
+          <h2><span> Solution: </span></h2>
+          <markdown [data]="solutionContent"> </markdown>
         </div>
-        <ng-template #running>
-          <markdown [data]="phase.currentTask.content"></markdown>
-          <div *ngIf="displayedSolutionContent$ | async as solutionContent" class="solution-content">
-            <h2><span> Solution: </span></h2>
-            <markdown [data]="solutionContent"> </markdown>
-          </div>
-        </ng-template>
       </div>
     </div>
     <div class="right-panel" #rightPanel>
@@ -43,12 +30,12 @@
       </kypo2-topology-graph>
     </div>
   </div>
-  <div [hidden]="isPreview">
+  <div *ngIf="!isBacktracked">
     <mat-card #controls class="controls">
-      <div #controlsContainer [ngClass]="!isWrapped() ? 'controls-container' : 'controls-container wrapped'">
-        <div [ngClass]="!isWrapped() ? 'solution' : 'solution wrapped'">
+      <div #controlsContainer [ngClass]="!controlsWrapped ? 'controls-container' : 'controls-container wrapped'">
+        <div [ngClass]="!controlsWrapped ? 'solution' : 'solution wrapped'">
           <!-- SOLUTION BUTTON-->
-          <div class="solution-button" [ngClass]="{ divider: !isWrapped() }">
+          <div class="solution-button" [ngClass]="{ divider: !controlsWrapped }">
             <button
               mat-raised-button
               color="warn"
@@ -60,9 +47,9 @@
             </button>
           </div>
         </div>
-        <div [ngClass]="!isWrapped() ? 'answer-ssh' : 'answer-ssh wrapped'">
+        <div [ngClass]="!controlsWrapped ? 'answer-ssh' : 'answer-ssh wrapped'">
           <!-- ANSWER field-->
-          <div *ngIf="!isPreview" class="answer-input" [ngClass]="{ divider: !isWrapped() && sandboxInstanceId }">
+          <div class="answer-input" [ngClass]="{ divider: !controlsWrapped && sandboxInstanceId }">
             <div *ngIf="(isCorrectAnswerSubmitted$ | async) && (isLoading$ | async) !== true; else answerInput">
               <kypo-next-phase-button [isLast]="isLast" (next)="onNext()"> </kypo-next-phase-button>
             </div>

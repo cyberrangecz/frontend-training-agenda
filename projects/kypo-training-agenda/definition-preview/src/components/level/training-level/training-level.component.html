@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="content">
+    <div class="left-panel">
+      <div class="level-content">
+        <markdown [data]="level?.content"></markdown>
+        <div class="hint-content">
+          <div>
+            <h2>Level hints:</h2>
+            <div *ngFor="let hint of level.hints; index as i">
+              <h3>Hint {{ i + 1 }}</h3>
+              <markdown [data]="hint.content"> </markdown>
+            </div>
+          </div>
+        </div>
+        <div class="solution-content">
+          <h2><span class="solution-color"> Solution: </span></h2>
+          <markdown [data]="level.solution"> </markdown>
+        </div>
+      </div>
+    </div>
+    <div class="right-panel" #rightPanel>
+      <!-- TOPOLOGY LEGEND -->
+      <kypo2-topology-app-legend
+        [width]="65"
+        [height]="topologyHeight"
+        [style.float]="'left'"
+        [legendAttachment]="'vertical'"
+      ></kypo2-topology-app-legend>
+      <div class="container">
+        <div class="topology-placeholder" [style.width.px]="topologyWidth" [style.height.px]="topologyHeight">
+          <img
+            src="assets/kypo-training-agenda/topology-placeholder.png"
+            alt="Topology placeholder"
+            (load)="calculateTopologySize()" 
+            [width]="topologyWidth"
+            [height]="topologyHeight"
+          />
+        </div>
+        <h3 class="message">*This is just a template topology</h3>
+      </div>
+    </div>
+  </div>
+</div>

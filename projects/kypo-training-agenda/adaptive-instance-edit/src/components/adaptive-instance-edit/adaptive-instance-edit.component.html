@@ -155,12 +155,22 @@
       </div>
     </div>
     <!-- LOCAL ENVIRONMENT SLIDE TOGGLE -->
-    <div class="local-environment-slide-toggle">
+    <div class="slide-toggle-container">
       <span>Local Environment</span>
       <mat-slide-toggle
         [matTooltip]="localEnvironment ? 'Enable Local Environment to disable the pool selection.' :
                                          'Disable Local Environment to enable the pool selection.'"
         formControlName="localEnvironment">
+      </mat-slide-toggle>
+    </div>
+
+    <!-- LOCAL ENVIRONMENT SLIDE TOGGLE -->
+    <div class="slide-toggle-container">
+      <span>Backward Mode</span>
+      <mat-slide-toggle
+        [matTooltip]="backwardMode ? 'Enable Backward Mode to allow trainees move to previous accessed levels during training run.' :
+                                         'Disable Backward Mode to disallow trainees move to previous accessed levels during training run.'"
+        formControlName="backwardMode">
       </mat-slide-toggle>
     </div>
   </form>

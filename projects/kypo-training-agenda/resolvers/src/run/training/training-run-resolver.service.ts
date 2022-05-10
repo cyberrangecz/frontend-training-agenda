@@ -10,7 +10,7 @@ import {
   TRAINING_RUN_ACCESS_SELECTOR,
   TRAINING_RUN_SELECTOR,
 } from '@muni-kypo-crp/training-agenda';
-import { RunningTrainingRunService } from '@muni-kypo-crp/training-agenda/internal';
+import { RunningTrainingRunService } from '@muni-kypo-crp/training-agenda/run-detail';
 
 /**
  * Router data provider

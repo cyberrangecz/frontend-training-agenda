@@ -11,7 +11,7 @@ import {
 import { AdaptiveQuestion, QuestionTypeEnum } from '@muni-kypo-crp/training-model';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { AdaptiveQuestionStepperAdapter } from '@muni-kypo-crp/training-agenda/internal';
-import { SentinelStepper } from '@sentinel/components/stepper';
+import { SentinelStepper, StepStateEnum } from '@sentinel/components/stepper';
 import {
   SentinelControlItem,
   SentinelControlMenuItem,
@@ -68,13 +68,13 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
       this.calculateHasError();
     }
     if (this.stepperQuestions.items.length > 0) {
-      this.stepperQuestions.items[this.selectedStep].isActive = true;
+      this.stepperQuestions.items[this.selectedStep].state = StepStateEnum.ACTIVE;
     }
   }
 
   addQuestion(type: QuestionTypeEnum): Observable<void> {
     if (this.stepperQuestions.items.length >= 1) {
-      this.stepperQuestions.items[this.selectedStep].isActive = false;
+      this.stepperQuestions.items[this.selectedStep].state = StepStateEnum.SELECTABLE;
     }
     const newQuestion = new AdaptiveQuestion();
     newQuestion.questionType = type;
@@ -82,7 +82,7 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
     newQuestion.text = 'Question text?';
     newQuestion.order = this.stepperQuestions.items.length + 1;
     const questionStepperAdapter = new AdaptiveQuestionStepperAdapter(newQuestion);
-    questionStepperAdapter.isActive = true;
+    questionStepperAdapter.state = StepStateEnum.ACTIVE;
     this.stepperQuestions.items.push(questionStepperAdapter);
     this.selectedStep = this.stepperQuestions.items.length - 1;
     this.onQuestionChanged();
@@ -133,7 +133,7 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
    */
   onActiveQuestionChanged(index: number): void {
     if (index !== this.selectedStep && this.stepperQuestions.items.length > 0) {
-      this.stepperQuestions.items[this.selectedStep].isActive = false;
+      this.stepperQuestions.items[this.selectedStep].state = StepStateEnum.SELECTABLE;
       this.selectedStep = index;
     }
   }
@@ -180,7 +180,7 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
     }
     this.onActiveQuestionChanged(this.stepperQuestions.items.length - 1);
     if (this.stepperQuestions.items.length > 0) {
-      this.stepperQuestions.items[this.stepperQuestions.items.length - 1].isActive = true;
+      this.stepperQuestions.items[this.stepperQuestions.items.length - 1].state = StepStateEnum.ACTIVE;
     }
   }
 

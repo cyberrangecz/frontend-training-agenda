@@ -11,32 +11,22 @@ import {
   AccessPhase,
 } from '@muni-kypo-crp/training-model';
 import { ActivatedRoute } from '@angular/router';
-import {
-  createActivatedRouteSpy,
-  createRunningAdaptiveRunServiceSpy,
-} from '../../../internal/src/testing/testing-commons.spec';
+import { createActivatedRouteSpy } from '../../../internal/src/testing/testing-commons.spec';
 import { AdaptiveDefinitionApiService } from '@muni-kypo-crp/training-api';
-import { RunningAdaptiveRunService } from '../../../internal/src/services/adaptive-run/running/running-adaptive-run.service';
 
 describe('TrainingPreviewComponent', () => {
   let component: AdaptivePreviewComponent;
   let fixture: ComponentFixture<AdaptivePreviewComponent>;
 
-  let previewServiceSpy: jasmine.SpyObj<RunningAdaptiveRunService>;
   let activeRouteSpy: jasmine.SpyObj<ActivatedRoute>;
 
   beforeEach(async(() => {
-    previewServiceSpy = createRunningAdaptiveRunServiceSpy();
     activeRouteSpy = createActivatedRouteSpy();
     activeRouteSpy.data = asyncData({ adaptiveDefinition: createMock() });
     TestBed.configureTestingModule({
       imports: [TrainingDefinitionEditOverviewMaterialModule],
       declarations: [AdaptivePreviewComponent],
-      providers: [
-        { provide: RunningAdaptiveRunService, useValue: previewServiceSpy },
-        { provide: ActivatedRoute, useValue: activeRouteSpy },
-        AdaptiveDefinitionApiService,
-      ],
+      providers: [{ provide: ActivatedRoute, useValue: activeRouteSpy }, AdaptiveDefinitionApiService],
     }).compileComponents();
   }));
 

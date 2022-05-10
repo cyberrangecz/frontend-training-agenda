@@ -10,7 +10,7 @@ import {
   TRAINING_RUN_ACCESS_SELECTOR,
   TRAINING_RUN_SELECTOR,
 } from '@muni-kypo-crp/training-agenda';
-import { RunningAdaptiveRunService } from '@muni-kypo-crp/training-agenda/internal';
+import { RunningAdaptiveRunService } from '@muni-kypo-crp/training-agenda/adaptive-run-detail';
 
 @Injectable()
 export class AccessAdaptiveRunResolver implements Resolve<AccessTrainingRunInfo> {

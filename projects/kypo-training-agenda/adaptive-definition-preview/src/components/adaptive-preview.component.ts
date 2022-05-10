@@ -1,51 +1,46 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SentinelBaseDirective } from '@sentinel/common';
-import { AccessTrainingRunInfo, Phase } from '@muni-kypo-crp/training-model';
-import { TrainingDefinition } from '@muni-kypo-crp/training-model';
-import { map, takeWhile } from 'rxjs/operators';
+import { Phase } from '@muni-kypo-crp/training-model';
+import { takeWhile } from 'rxjs/operators';
 import { ADAPTIVE_DEFINITION_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
-import { RunningAdaptiveRunService } from '@muni-kypo-crp/training-agenda/internal';
-import { AdaptiveDefinitionApiService } from '@muni-kypo-crp/training-api';
+import { PhaseStepperAdapter } from '@muni-kypo-crp/training-agenda/internal';
+import { AdaptivePreviewStepper } from '../model/adaptive-preview-stepper';
 
-/**
- * Main component of training run preview. Initializes mock services with data of training definition to simulate
- * real server behaviour.
- */
 @Component({
   selector: 'kypo-designer-preview',
   templateUrl: './adaptive-preview.component.html',
   styleUrls: ['./adaptive-preview.component.css'],
 })
 export class AdaptivePreviewComponent extends SentinelBaseDirective implements OnInit {
-  constructor(
-    private previewService: RunningAdaptiveRunService,
-    private api: AdaptiveDefinitionApiService,
-    private activeRoute: ActivatedRoute
-  ) {
+  activePhase: Phase;
+  phases: Phase[];
+  stepper: AdaptivePreviewStepper;
+
+  constructor(private activeRoute: ActivatedRoute) {
     super();
+    this.activeRoute.data
+      .pipe(takeWhile(() => this.isAlive))
+      .subscribe((data) => (this.phases = data[ADAPTIVE_DEFINITION_DATA_ATTRIBUTE_NAME].levels));
   }
 
   ngOnInit(): void {
-    this.initializeGame();
+    if (this.phases?.length > 0) {
+      this.init();
+    }
   }
 
-  private initializeGame() {
-    this.activeRoute.data
-      .pipe(
-        takeWhile(() => this.isAlive),
-        map((data) => data[ADAPTIVE_DEFINITION_DATA_ATTRIBUTE_NAME])
-      )
-      .subscribe((training) => {
-        this.previewService.init(this.createMockTrainingRun(training));
-      });
+  private init() {
+    const stepperAdapterPhases = this.phases.map((phase) => new PhaseStepperAdapter(phase));
+    this.stepper = new AdaptivePreviewStepper(stepperAdapterPhases, 0);
+    this.activePhase = this.phases[0];
   }
 
-  private createMockTrainingRun(training: TrainingDefinition) {
-    const mockRun = new AccessTrainingRunInfo();
-    mockRun.isPreview = true;
-    mockRun.levels = training.levels as Phase[];
-    mockRun.isStepperDisplayed = training.showStepperBar;
-    return mockRun;
+  /**
+   * Jump to adaptive run phase.
+   * @param index of desired phase
+   */
+  activeStepChanged(index: number): void {
+    this.activePhase = this.phases[index];
   }
 }

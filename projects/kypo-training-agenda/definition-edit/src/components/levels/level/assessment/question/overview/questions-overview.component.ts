@@ -27,7 +27,7 @@ import { FreeFormQuestion } from '@muni-kypo-crp/training-model';
 import { defer, EMPTY, Observable, of } from 'rxjs';
 import { takeWhile } from 'rxjs/operators';
 import { QuestionChangeEvent } from '../../../../../../model/events/question-change-event';
-import { SentinelStepper } from '@sentinel/components/stepper';
+import { SentinelStepper, StepStateEnum } from '@sentinel/components/stepper';
 import { QuestionStepperAdapter } from '@muni-kypo-crp/training-agenda/internal';
 
 /**
@@ -81,7 +81,7 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
       }
     }
     if (this.stepperQuestions.items.length > 0) {
-      this.stepperQuestions.items[this.selectedStep].isActive = true;
+      this.stepperQuestions.items[this.selectedStep].state = StepStateEnum.ACTIVE;
     }
   }
 
@@ -105,7 +105,7 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
    */
   onActiveQuestionChanged(index: number): void {
     if (index !== this.selectedStep && this.stepperQuestions.items.length > 0) {
-      this.stepperQuestions.items[this.selectedStep].isActive = false;
+      this.stepperQuestions.items[this.selectedStep].state = StepStateEnum.SELECTABLE;
       this.selectedStep = index;
     }
   }
@@ -115,7 +115,7 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
    */
   addFFQ(): Observable<void> {
     if (this.stepperQuestions.items.length >= 1) {
-      this.stepperQuestions.items[this.selectedStep].isActive = false;
+      this.stepperQuestions.items[this.selectedStep].state = StepStateEnum.SELECTABLE;
     }
     const newFfq = new FreeFormQuestion('New Free Form Question');
     newFfq.required = this.isTest;
@@ -126,7 +126,7 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
       order: 0,
     });
     const questionStepperAdapter = new QuestionStepperAdapter(newFfq);
-    questionStepperAdapter.isActive = true;
+    questionStepperAdapter.state = StepStateEnum.ACTIVE;
     this.stepperQuestions.items.push(questionStepperAdapter);
     this.selectedStep = this.stepperQuestions.items.length - 1;
     this.onQuestionChanged();
@@ -138,7 +138,7 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
    */
   addMCQ(): Observable<void> {
     if (this.stepperQuestions.items.length >= 1) {
-      this.stepperQuestions.items[this.selectedStep].isActive = false;
+      this.stepperQuestions.items[this.selectedStep].state = StepStateEnum.SELECTABLE;
     }
     const newMcq = new MultipleChoiceQuestion('New Multiple Choice Question');
     newMcq.choices.push({
@@ -155,7 +155,7 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
     });
     newMcq.required = this.isTest;
     const questionStepperAdapter = new QuestionStepperAdapter(newMcq);
-    questionStepperAdapter.isActive = true;
+    questionStepperAdapter.state = StepStateEnum.ACTIVE;
     this.stepperQuestions.items.push(questionStepperAdapter);
     this.selectedStep = this.stepperQuestions.items.length - 1;
     this.onQuestionChanged();
@@ -167,7 +167,7 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
    */
   addEMI(): Observable<void> {
     if (this.stepperQuestions.items.length >= 1) {
-      this.stepperQuestions.items[this.selectedStep].isActive = false;
+      this.stepperQuestions.items[this.selectedStep].state = StepStateEnum.SELECTABLE;
     }
     const newEmi = new ExtendedMatchingItems('New Extended Matching Items');
     newEmi.required = this.isTest;
@@ -194,7 +194,7 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
       order: 1,
     });
     const questionStepperAdapter = new QuestionStepperAdapter(newEmi);
-    questionStepperAdapter.isActive = true;
+    questionStepperAdapter.state = StepStateEnum.ACTIVE;
     this.stepperQuestions.items.push(questionStepperAdapter);
     this.selectedStep = this.stepperQuestions.items.length - 1;
     this.onQuestionChanged();
@@ -250,7 +250,7 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
     }
     this.onActiveQuestionChanged(this.stepperQuestions.items.length - 1);
     if (this.stepperQuestions.items.length > 0) {
-      this.stepperQuestions.items[this.stepperQuestions.items.length - 1].isActive = true;
+      this.stepperQuestions.items[this.stepperQuestions.items.length - 1].state = StepStateEnum.ACTIVE;
     }
   }
 

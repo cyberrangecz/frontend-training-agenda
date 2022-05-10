@@ -5,14 +5,11 @@ import { MatCardModule } from '@angular/material/card';
 import { SentinelPipesModule } from '@sentinel/common';
 import { SentinelTableModule } from '@sentinel/components/table';
 import { TrainingAgendaConfig, TrainingDefaultNavigator, TrainingNavigator } from '@muni-kypo-crp/training-agenda';
+import { PaginationService, TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
 import {
-  PaginationService,
-  TrainingAgendaContext,
   RunningAdaptiveRunService,
   RunningAdaptiveRunConcreteService,
-  RunningTrainingRunConcreteService,
-  RunningTrainingRunService,
-} from '@muni-kypo-crp/training-agenda/internal';
+} from '@muni-kypo-crp/training-agenda/adaptive-run-detail';
 import {
   AccessTrainingRunResolver,
   AccessAdaptiveRunResolver,
@@ -30,6 +27,10 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { LoadingDialogModule } from '@muni-kypo-crp/training-agenda/internal';
 import { TopologyApiModule } from '@muni-kypo-crp/topology-graph';
+import {
+  RunningTrainingRunConcreteService,
+  RunningTrainingRunService,
+} from '@muni-kypo-crp/training-agenda/run-detail';
 
 /**
  * Main module for trainee agenda. Contains components and top level routing

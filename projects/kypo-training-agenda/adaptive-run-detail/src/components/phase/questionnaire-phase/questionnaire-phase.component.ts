@@ -1,8 +1,10 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
   EventEmitter,
+  HostListener,
   Input,
   OnChanges,
   OnInit,
@@ -12,21 +14,28 @@ import {
 } from '@angular/core';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { take } from 'rxjs/operators';
-import { QuestionAnswer, QuestionnairePhase, QuestionTypeEnum } from '@muni-kypo-crp/training-model';
-import { RunningAdaptiveRunService } from '@muni-kypo-crp/training-agenda/internal';
-
+import {
+  AdaptiveQuestion,
+  Choice,
+  Question,
+  QuestionAnswer,
+  QuestionnairePhase,
+  QuestionTypeEnum,
+} from '@muni-kypo-crp/training-model';
+import { RunningAdaptiveRunService } from './../../../services/adaptive-run/running/running-adaptive-run.service';
 @Component({
   selector: 'kypo-questionnaire-phase',
   templateUrl: './questionnaire-phase.component.html',
   styleUrls: ['./questionnaire-phase.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class QuestionnairePhaseComponent extends SentinelBaseDirective implements OnChanges, OnInit {
+export class QuestionnairePhaseComponent extends SentinelBaseDirective implements OnChanges, OnInit, AfterViewInit {
   @Input() phase: QuestionnairePhase;
   @Input() isLast: boolean;
-  @Input() isPreview: boolean;
+  @Input() isBacktracked: boolean;
   @Output() next: EventEmitter<void> = new EventEmitter();
-  @ViewChild('controls', { read: ElementRef, static: true }) controlsPanel: ElementRef;
+  @ViewChild('controls', { read: ElementRef, static: false }) controlsPanel: ElementRef;
+  @ViewChild('content', { read: ElementRef, static: false }) content: ElementRef;
 
   isSubmitted = false;
   isLoading = false;
@@ -45,12 +54,21 @@ export class QuestionnairePhaseComponent extends SentinelBaseDirective implement
     this.isSubmitted = false;
   }
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.setContentMargin();
+  }
+
+  ngAfterViewInit(): void {
+    this.setContentMargin();
+  }
+
   private initEmptyAnswers() {
     this.questionAnswers = [];
     this.phase.questions.forEach((question) => {
       const answers = new QuestionAnswer();
       answers.questionId = question.id;
-      answers.answers = [];
+      answers.answers = question.userAnswers ? question.userAnswers : [];
       this.questionAnswers.push(answers);
     });
   }
@@ -61,10 +79,6 @@ export class QuestionnairePhaseComponent extends SentinelBaseDirective implement
 
   onNext(): void {
     this.next.emit();
-  }
-
-  onFFQChanged(event, questionIndex: number): void {
-    console.log(event);
   }
 
   onMCQChecked(event, questionIndex: number, answer: string): void {
@@ -96,8 +110,16 @@ export class QuestionnairePhaseComponent extends SentinelBaseDirective implement
       });
   }
 
+  checkedAsAnswered(question: AdaptiveQuestion, choice: Choice): boolean {
+    return question.userAnswers?.some((answer: string) => answer === choice.text);
+  }
+
+  private setContentMargin(): void {
+    this.content.nativeElement.setAttribute('style', `margin-bottom:${this.getControlsPanelOffset()}`);
+  }
+
   // Workaround since position:sticky is not working due to overflow in mat-content
-  getControlsPanelOffset(): string {
+  private getControlsPanelOffset(): string {
     return this.controlsPanel?.nativeElement.offsetHeight + 'px';
   }
 }
