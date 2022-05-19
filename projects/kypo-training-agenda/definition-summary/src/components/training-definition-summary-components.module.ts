@@ -17,6 +17,7 @@ import { ExtendedMatchingQuestionDetailComponent } from './levels/level/assessme
 import { FreeFormQuestionDetailComponent } from './levels/level/assessment/abstract-question/free-form-question-detail/free-form-question-detail.component';
 import { MultipleChoiceQuestionDetailComponent } from './levels/level/assessment/abstract-question/multiple-choice-question-detail/multiple-choice-question-detail.component';
 import { AbstractQuestionComponent } from './levels/level/assessment/abstract-question/abstract-question.component';
+import { AccessLevelDetailComponent } from './levels/level/access/access-level-detail.component';
 
 const markdownParserConfig = {
   loader: HttpClient,
@@ -53,6 +54,7 @@ const markdownParserConfig = {
     FreeFormQuestionDetailComponent,
     MultipleChoiceQuestionDetailComponent,
     AbstractQuestionComponent,
+    AccessLevelDetailComponent,
   ],
 })
 export class TrainingDefinitionSummaryComponentsModule {

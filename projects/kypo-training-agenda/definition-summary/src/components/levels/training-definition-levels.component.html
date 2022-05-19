@@ -5,6 +5,10 @@
       <mat-icon class="level-icon"> info </mat-icon>
       <div class="level-count"> {{ getInfoLevels()?.length }} </div>
     </div>
+    <div class="level-type" matTooltip="Number of access levels">
+      <mat-icon class="level-icon"> settings </mat-icon>
+      <div class="level-count"> {{ getAccessLevels()?.length }} </div>
+    </div>
     <div class="level-type"  matTooltip="Number of training levels">
       <mat-icon class="level-icon"> videogame_asset </mat-icon>
       <div class="level-count"> {{ getTrainingLevels()?.length }} </div>

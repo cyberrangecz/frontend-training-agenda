@@ -33,6 +33,10 @@ export class TrainingDefinitionLevelsDetailComponent extends SentinelBaseDirecti
     return this.levels.filter((level) => level.type === AbstractLevelTypeEnum.Info);
   }
 
+  getAccessLevels(): Level[] {
+    return this.levels.filter((level) => level.type === AbstractLevelTypeEnum.Access);
+  }
+
   getTrainingLevels(): Level[] {
     return this.levels.filter((level) => level.type === AbstractLevelTypeEnum.Training);
   }

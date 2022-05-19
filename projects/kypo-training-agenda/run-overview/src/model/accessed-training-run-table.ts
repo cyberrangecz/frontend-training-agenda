@@ -24,7 +24,6 @@ export class AccessedTrainingRunTable extends SentinelTable<AccessedTrainingRun>
       (trainingRun) => new Row(trainingRun, AccessedTrainingRunTable.createActions(trainingRun, service))
     );
     super(rows, columns);
-    this.pagination = resource.pagination;
     this.filterable = false;
     this.selectable = false;
   }

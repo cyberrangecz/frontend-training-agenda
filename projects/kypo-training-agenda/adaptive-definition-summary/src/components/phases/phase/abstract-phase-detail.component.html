@@ -1,5 +1,6 @@
 <ng-container [ngSwitch]="phase.type">
   <kypo-info-phase-detail *ngSwitchCase="AbstractPhaseTypeEnum.Info" [phase]="phase"> </kypo-info-phase-detail>
+  <kypo-access-phase-detail *ngSwitchCase="AbstractPhaseTypeEnum.Access" [phase]="phase"> </kypo-access-phase-detail>
   <kypo-training-phase-detail *ngSwitchCase="AbstractPhaseTypeEnum.Training" [phase]="phase">
   </kypo-training-phase-detail>
   <kypo-questionnaire-phase-detail *ngSwitchCase="AbstractPhaseTypeEnum.Questionnaire" [phase]="phase">

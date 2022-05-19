@@ -21,7 +21,8 @@
     <kypo-adaptive-instance-edit
       (edited)="onTrainingInstanceChanged($event)"
       [hasStarted]="hasStarted$ | async"
-      [trainingInstance]="trainingInstance$ | async">
+      [trainingInstance]="trainingInstance$ | async"
+      [editMode]="editMode$ | async">
     </kypo-adaptive-instance-edit>
 
     <mat-divider></mat-divider>

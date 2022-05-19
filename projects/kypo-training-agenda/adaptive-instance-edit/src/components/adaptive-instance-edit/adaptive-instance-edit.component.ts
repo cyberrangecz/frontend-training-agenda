@@ -30,12 +30,13 @@ import { AdaptiveInstanceChangeEvent } from '../../models/events/adaptive-instan
 export class AdaptiveInstanceEditComponent extends SentinelBaseDirective implements OnInit, OnChanges {
   @Input() trainingInstance: TrainingInstance;
   @Input() hasStarted: boolean;
+  @Input() editMode: boolean;
   @Output() edited: EventEmitter<AdaptiveInstanceChangeEvent> = new EventEmitter();
 
   now: Date;
   trainingInstanceFormGroup: AdaptiveInstanceFormGroup;
   userChangedStartTime = false;
-  period = 60000;
+  period = 1000;
 
   constructor(private dialog: MatDialog) {
     super();
@@ -70,7 +71,6 @@ export class AdaptiveInstanceEditComponent extends SentinelBaseDirective impleme
   ngOnChanges(changes: SimpleChanges): void {
     if ('trainingInstance' in changes) {
       this.trainingInstanceFormGroup = new AdaptiveInstanceFormGroup(this.trainingInstance);
-      this.setUpPeriodicTimeStartTimeUpdate();
       this.setupOnFormChangedEvent();
     }
     if ('hasStarted' in changes && this.hasStarted) {
@@ -102,21 +102,15 @@ export class AdaptiveInstanceEditComponent extends SentinelBaseDirective impleme
     this.userChangedStartTime = true;
   }
 
-  private setUpPeriodicTimeStartTimeUpdate() {
-    interval(this.period)
-      .pipe(takeWhile(() => this.isAlive))
-      .subscribe(() => {
-        if (!this.userChangedStartTime) {
-          this.startTime.setValue(new Date(this.startTime.value.setMinutes(this.startTime.value.getMinutes() + 1)));
-        }
-      });
-  }
-
   private initCurrentTimePeriodicalUpdate() {
     this.now = new Date();
     interval(this.period)
       .pipe(takeWhile(() => this.isAlive))
-      .subscribe(() => (this.now = new Date()));
+      .subscribe(() => {
+        if (!this.userChangedStartTime && !this.editMode) {
+          this.startTime.setValue(new Date(this.startTime.value.setSeconds(this.startTime.value.getSeconds() + 1)));
+        }
+      });
   }
 
   private setupOnFormChangedEvent() {
