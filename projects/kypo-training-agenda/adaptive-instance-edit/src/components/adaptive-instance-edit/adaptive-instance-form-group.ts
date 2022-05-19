@@ -15,7 +15,7 @@ export class AdaptiveInstanceFormGroup {
         endTime: new FormControl(trainingInstance.endTime, [Validators.required, this.dateValidator]),
         title: new FormControl(trainingInstance.title, [SentinelValidators.noWhitespace]),
         trainingDefinition: new FormControl(trainingInstance.trainingDefinition, [Validators.required]),
-        accessToken: new FormControl(trainingInstance.accessToken, [SentinelValidators.noWhitespace]),
+        accessToken: new FormControl(this.trimToken(trainingInstance.accessToken), [SentinelValidators.noWhitespace]),
         localEnvironment: new FormControl(trainingInstance.localEnvironment),
         backwardMode: new FormControl(trainingInstance.backwardMode),
       },
@@ -59,5 +59,9 @@ export class AdaptiveInstanceFormGroup {
     trainingInstance.accessToken = this.formGroup.get('accessToken').value;
     trainingInstance.localEnvironment = this.formGroup.get('localEnvironment').value;
     trainingInstance.backwardMode = this.formGroup.get('backwardMode').value;
+  }
+
+  private trimToken(accessToken: string): string {
+    return accessToken?.substring(0, accessToken.lastIndexOf('-'));
   }
 }

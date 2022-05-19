@@ -36,7 +36,11 @@ export class AdaptiveDefinitionPhasesDetailComponent extends SentinelBaseDirecti
   }
 
   getInfoPhases(): Phase[] {
-    return this.phases.filter((phase: InfoPhase) => phase.type === AbstractPhaseTypeEnum.Info);
+    return this.phases.filter((phase: Phase) => phase.type === AbstractPhaseTypeEnum.Info);
+  }
+
+  getAccessPhases(): Phase[] {
+    return this.phases.filter((phase: Phase) => phase.type === AbstractPhaseTypeEnum.Access);
   }
 
   getTrainingPhases(): Phase[] {

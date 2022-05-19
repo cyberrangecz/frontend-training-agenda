@@ -6,6 +6,7 @@
     [data]="instances$ | async"
     [hasError]="hasError$ | async"
     [titlecasedActions]="false"
+    [displayedActionsCount]="8"
     (rowAction)="onInstanceAction($event)"
     (tableLoad)="onInstancesLoadEvent($event)"
   >

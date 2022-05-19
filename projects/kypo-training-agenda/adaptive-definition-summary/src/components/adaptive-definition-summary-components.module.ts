@@ -17,6 +17,7 @@ import { AbstractQuestionComponent } from './phases/phase/questionnaire/abstract
 import { FreeFormQuestionDetailComponent } from './phases/phase/questionnaire/abstract-question/free-form-question-detail/free-form-question-detail.component';
 import { MultipleChoiceQuestionDetailComponent } from './phases/phase/questionnaire/abstract-question/multiple-choice-question-detail/multiple-choice-question-detail.component';
 import { RatingFormQuestionDetailComponent } from './phases/phase/questionnaire/abstract-question/rating-form-question-detail/rating-form-question-detail.component';
+import { AccessPhaseDetailComponent } from './phases/phase/access/access-phase-detail.component';
 
 const markdownParserConfig = {
   loader: HttpClient,
@@ -53,6 +54,7 @@ const markdownParserConfig = {
     FreeFormQuestionDetailComponent,
     MultipleChoiceQuestionDetailComponent,
     RatingFormQuestionDetailComponent,
+    AccessPhaseDetailComponent,
   ],
 })
 export class AdaptiveDefinitionSummaryComponentsModule {

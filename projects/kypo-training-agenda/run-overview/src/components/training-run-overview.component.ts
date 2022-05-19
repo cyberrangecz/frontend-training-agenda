@@ -78,7 +78,7 @@ export class TrainingRunOverviewComponent extends SentinelBaseDirective implemen
 
   private initTable() {
     const initialLoadEvent: TableLoadEvent = {
-      pagination: new OffsetPaginationEvent(0, this.paginationService.getPagination(), '', ''),
+      pagination: new OffsetPaginationEvent(0, Number.MAX_SAFE_INTEGER, '', ''),
     };
 
     this.trainingRuns$ = this.trainingRunOverviewService.resource$.pipe(

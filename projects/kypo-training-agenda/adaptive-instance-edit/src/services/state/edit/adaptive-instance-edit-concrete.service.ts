@@ -90,9 +90,10 @@ export class AdaptiveInstanceEditConcreteService extends AdaptiveInstanceEditSer
     this.setEditMode(trainingInstance);
     if (ti === null) {
       ti = new TrainingInstance();
-      const delay = 5;
+      const delay = 1;
       ti.startTime = new Date();
-      ti.startTime.setMinutes(ti.startTime.getMinutes() + delay);
+      ti.startTime.setSeconds(ti.startTime.getSeconds() + delay);
+      ti.backwardMode = true;
       this.instanceValidSubject$.next(false);
     }
     this.assignedPoolSubject$.next(ti.poolId);
