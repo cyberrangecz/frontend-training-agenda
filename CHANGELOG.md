@@ -1,3 +1,7 @@
+### 13.2.2 Fix training run table pagination.
+* 75c795e -- [CI/CD] Update packages.json version based on GitLab tag.
+* 4d891f6 -- Merge branch '173-fix-pagination-in-training-run-table' into 'master'
+* 4fb22b5 -- Resolve "Fix pagination in training run table"
 ### 13.2.1 Show additional actions in tables.
 * c237fe8 -- [CI/CD] Update packages.json version based on GitLab tag.
 * 7470ad1 -- Merge branch '172-show-additional-actions-in-sentinel-tables' into 'master'
