@@ -31,6 +31,7 @@ export class AccessedTrainingRunConcreteService extends AccessedTrainingRunServi
    */
   getAll(pagination: OffsetPaginationEvent): Observable<PaginatedResource<AccessedTrainingRun>> {
     this.hasErrorSubject$.next(false);
+    pagination.size = Number.MAX_SAFE_INTEGER;
     return this.trainingApi.getAccessed(pagination).pipe(
       concatMap((trainingRuns) => this.getAllAdaptive(pagination, trainingRuns)),
       tap(
