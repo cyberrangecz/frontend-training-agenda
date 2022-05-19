@@ -1,3 +1,7 @@
+### 13.2.1 Show additional actions in tables.
+* c237fe8 -- [CI/CD] Update packages.json version based on GitLab tag.
+* 7470ad1 -- Merge branch '172-show-additional-actions-in-sentinel-tables' into 'master'
+* bc74a04 -- Resolve "Show additional actions in sentinel tables"
 ### 13.2.0 Add support for movement between already accessed levels.
 * 09e13b7 -- [CI/CD] Update packages.json version based on GitLab tag.
 * b60b2c0 -- Merge branch '160-support-movement-between-accessed-levels-phases-during-training-run' into 'master'
