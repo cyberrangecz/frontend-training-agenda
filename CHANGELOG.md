@@ -1,3 +1,10 @@
+### 13.2.3 Fix training definition selector.
+* db3096b -- [CI/CD] Update packages.json version based on GitLab tag.
+*   8bd7dad -- Merge branch '175-cannot-select-desired-training-definition-when-editing-training-instance' into 'master'
+|\  
+| * ebeebcf -- Resolve "Cannot select desired training definition when editing training instance"
+* b9a0802 -- Merge branch '174-add-sandbox_definition_id-among-the-variables-in-local-content-of-access-level' into 'master'
+* 07dd9ba -- Mention variable SANDBOX_DEFINITION_ID in the info panel of access level
 ### 13.2.2 Fix training run table pagination.
 * 75c795e -- [CI/CD] Update packages.json version based on GitLab tag.
 * 4d891f6 -- Merge branch '173-fix-pagination-in-training-run-table' into 'master'
