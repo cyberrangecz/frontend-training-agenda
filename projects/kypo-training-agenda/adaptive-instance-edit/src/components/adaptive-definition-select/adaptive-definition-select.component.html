@@ -10,7 +10,7 @@
                [hasError]="releasedHasError$ | async"
                [selected]="selected"
                [pageSize]="PAGE_SIZE"
-               (fetch)="fetch($event, true)"
+               (pageChange)="fetch($event, true)"
                (selectionChange)="onSelectionChange($event)">
     </sentinel-list>
     <sentinel-list resourceName="Unreleased Adaptive Training Definitions"
@@ -20,7 +20,7 @@
                [hasError]="unreleasedHasError$ | async"
                [selected]="selected"
                [pageSize]="PAGE_SIZE"
-               (fetch)="fetch($event, false)"
+               (pageChange)="fetch($event, false)"
                (selectionChange)="onSelectionChange($event)">
     </sentinel-list>
   </div>
