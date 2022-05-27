@@ -32,6 +32,7 @@ import { AdaptiveRunTrainingPhaseConcreteService } from '../../../services/adapt
 export class TrainingPhaseComponent extends SentinelBaseDirective implements OnInit, OnChanges, AfterViewInit {
   @Input() phase: TrainingPhase;
   @Input() isLast: boolean;
+  @Input() isPhaseAnswered: boolean;
   @Input() isBacktracked: boolean;
   @Input() sandboxInstanceId: number;
   @Input() sandboxDefinitionId: number;
@@ -55,8 +56,7 @@ export class TrainingPhaseComponent extends SentinelBaseDirective implements OnI
   constructor(
     private trainingPhaseService: AdaptiveRunTrainingPhaseService,
     private topologyErrorService: Kypo2TopologyErrorService,
-    private errorHandler: TrainingErrorHandler,
-    private scroller: ViewportScroller
+    private errorHandler: TrainingErrorHandler
   ) {
     super();
   }
@@ -77,7 +77,7 @@ export class TrainingPhaseComponent extends SentinelBaseDirective implements OnI
     if ('phase' in changes) {
       this.answer = '';
       this.initTopology();
-      this.trainingPhaseService.init(this.phase);
+      this.trainingPhaseService.init(this.phase, this.isPhaseAnswered);
       this.isCorrectAnswerSubmitted$ = this.trainingPhaseService.isCorrectAnswerSubmitted$;
       this.isSolutionRevealed$ = this.trainingPhaseService.isSolutionRevealed$;
       this.isLoading$ = this.trainingPhaseService.isLoading$;

@@ -16,8 +16,8 @@ export abstract class AdaptiveRunAccessPhaseService {
 
   abstract getAccessFile(): Observable<boolean>;
 
-  init(): void {
-    this.isCorrectPasskeySubmittedSubject$ = new BehaviorSubject(false);
+  init(isPhaseAnswered: boolean): void {
+    this.isCorrectPasskeySubmittedSubject$ = new BehaviorSubject(isPhaseAnswered);
     this.isCorrectPasskeySubmitted$ = this.isCorrectPasskeySubmittedSubject$.asObservable();
     this.isLoadingSubject$ = new BehaviorSubject(false);
     this.isLoading$ = this.isLoadingSubject$.asObservable();

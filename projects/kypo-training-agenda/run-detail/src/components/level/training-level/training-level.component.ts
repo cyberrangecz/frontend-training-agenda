@@ -36,6 +36,7 @@ import { TrainingRunTrainingLevelConcreteService } from './../../../services/tra
 export class TrainingLevelComponent extends SentinelBaseDirective implements OnInit, OnChanges, AfterViewInit {
   @Input() level: TrainingLevel;
   @Input() isLast: boolean;
+  @Input() isLevelAnswered: boolean;
   @Input() isBacktracked: boolean;
   @Input() sandboxInstanceId: number;
   @Input() sandboxDefinitionId: number;
@@ -81,7 +82,7 @@ export class TrainingLevelComponent extends SentinelBaseDirective implements OnI
     if ('level' in changes) {
       this.initTopology();
       this.answer = '';
-      this.trainingLevelService.init(this.level);
+      this.trainingLevelService.init(this.level, this.isLevelAnswered);
       this.displayedHintsContent$ = this.trainingLevelService.displayedHintsContent$;
       this.isCorrectAnswerSubmitted$ = this.trainingLevelService.isCorrectAnswerSubmitted$;
       this.isSolutionRevealed$ = this.trainingLevelService.isSolutionRevealed$;

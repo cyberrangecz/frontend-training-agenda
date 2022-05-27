@@ -31,6 +31,7 @@ import { AdaptiveRunAccessPhaseConcreteService } from '../../../services/adaptiv
 export class AccessPhaseComponent extends SentinelBaseDirective implements OnInit, OnChanges, AfterViewInit {
   @Input() phase: AccessPhase;
   @Input() isLast: boolean;
+  @Input() isPhaseAnswered: boolean;
   @Input() isBacktracked: boolean;
   @Input() sandboxInstanceId: number;
   @Input() sandboxDefinitionId: number;
@@ -73,7 +74,7 @@ export class AccessPhaseComponent extends SentinelBaseDirective implements OnIni
     if ('phase' in changes) {
       this.passkey = '';
       this.initTopology();
-      this.accessPhaseService.init();
+      this.accessPhaseService.init(this.isPhaseAnswered);
       this.isCorrectPasskeySubmitted$ = this.accessPhaseService.isCorrectPasskeySubmitted$;
       this.isLoading$ = this.accessPhaseService.isLoading$;
     }

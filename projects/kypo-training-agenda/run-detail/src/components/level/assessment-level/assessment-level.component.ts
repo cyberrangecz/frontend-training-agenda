@@ -38,6 +38,7 @@ import { TrainingRunAssessmentLevelConcreteService } from '../../../services/tra
 export class AssessmentLevelComponent extends SentinelBaseDirective implements OnInit, OnChanges, AfterViewInit {
   @Input() level: AssessmentLevel;
   @Input() isLast: boolean;
+  @Input() isLevelAnswered: boolean;
   @Input() isBacktracked: boolean;
   @Output() next: EventEmitter<void> = new EventEmitter();
   @ViewChildren(TraineeQuestionComponent) questionComponents: QueryList<TraineeQuestionComponent>;
@@ -45,20 +46,17 @@ export class AssessmentLevelComponent extends SentinelBaseDirective implements O
   @ViewChild('content', { read: ElementRef, static: false }) content: ElementRef;
 
   canSubmit: boolean;
-  isSubmitted = false;
 
   constructor(private assessmentService: TrainingRunAssessmentLevelService) {
     super();
   }
 
   ngOnInit(): void {
-    this.isSubmitted = false;
     this.initCanSubmit();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if ('level' in changes) {
-      this.isSubmitted = false;
       this.initCanSubmit();
     }
   }
@@ -99,13 +97,7 @@ export class AssessmentLevelComponent extends SentinelBaseDirective implements O
   }
 
   private sendSubmitRequest(answers: Question[]) {
-    this.assessmentService
-      .submit(answers)
-      .pipe(take(1))
-      .subscribe(
-        () => (this.isSubmitted = true),
-        () => (this.isSubmitted = false)
-      );
+    this.assessmentService.submit(answers).pipe(take(1)).subscribe();
   }
 
   private checkCanSubmit() {

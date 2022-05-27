@@ -21,6 +21,7 @@
     [hidden]="(backtrackedPhase$ | async) && activePhase.id !== stepper.items[stepper.activePhaseIndex].id"
     [phase]="activePhase"
     [isLast]="isLast"
+    [isPhaseAnswered]="isCurrentPhaseAnswered$ | async"
     [isLoading]="isLoading"
     [sandboxInstanceId]="sandboxInstanceId"
     [sandboxDefinitionId]="sandboxDefinitionId"

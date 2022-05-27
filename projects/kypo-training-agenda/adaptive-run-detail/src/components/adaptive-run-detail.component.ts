@@ -22,6 +22,7 @@ import { RunningAdaptiveRunService } from '../services/adaptive-run/running/runn
 export class AdaptiveRunDetailComponent extends SentinelBaseDirective implements OnInit, AfterViewInit {
   user$: Observable<SentinelUser>;
   activePhase$: Observable<Phase>;
+  isCurrentPhaseAnswered$: Observable<boolean>;
   backtrackedPhase$: Observable<Phase>;
   phases: Phase[];
   stepper: AdaptiveRunStepper;
@@ -59,6 +60,7 @@ export class AdaptiveRunDetailComponent extends SentinelBaseDirective implements
     this.sandboxInstanceId = this.trainingRunService.sandboxInstanceId;
     this.sandboxDefinitionId = this.trainingRunService.sandboxDefinitionId;
     this.backwardMode = this.trainingRunService.getBackwardMode();
+    this.isCurrentPhaseAnswered$ = this.trainingRunService.isCurrentPhaseAnswered$;
     this.localEnvironment = this.trainingRunService.localEnvironment;
     if (this.isStepperDisplayed) {
       const stepperAdapterPhases = this.phases.map((phase) => new PhaseStepperAdapter(phase));

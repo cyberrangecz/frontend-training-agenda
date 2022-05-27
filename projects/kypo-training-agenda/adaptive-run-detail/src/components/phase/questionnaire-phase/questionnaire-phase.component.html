@@ -47,10 +47,10 @@
   <div *ngIf="!isBacktracked">
     <mat-card #controls class="controls">
       <div class="controls-container">
-        <button *ngIf="!isSubmitted" [disabled]="isLoading" mat-raised-button color="primary" (click)="submit()">
+        <button *ngIf="!isPhaseAnswered" [disabled]="isLoading" mat-raised-button color="primary" (click)="submit()">
           Submit
         </button>
-        <kypo-next-phase-button *ngIf="isSubmitted" [isLast]="isLast" (next)="onNext()"></kypo-next-phase-button>
+        <kypo-next-phase-button *ngIf="isPhaseAnswered" [isLast]="isLast" (next)="onNext()"></kypo-next-phase-button>
       </div>
     </mat-card>
   </div>

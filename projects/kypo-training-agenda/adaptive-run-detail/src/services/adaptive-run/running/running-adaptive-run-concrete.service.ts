@@ -37,7 +37,7 @@ export class RunningAdaptiveRunConcreteService extends RunningAdaptiveRunService
     this.backwardMode = accessAdaptiveRunInfo.backwardMode;
     this.startTime = accessAdaptiveRunInfo.startTime;
     this.activePhases = accessAdaptiveRunInfo.levels as Phase[];
-
+    this.isCurrentPhaseAnsweredSubject$.next(accessAdaptiveRunInfo.isLevelAnswered);
     this.setActivePhase(accessAdaptiveRunInfo.currentLevel as Phase);
   }
 
@@ -156,6 +156,7 @@ export class RunningAdaptiveRunConcreteService extends RunningAdaptiveRunService
         tap(
           (phase) => {
             dialogRef.close();
+            this.isCurrentPhaseAnsweredSubject$.next(false);
             this.setActivePhase(phase);
           },
           (err) => {
