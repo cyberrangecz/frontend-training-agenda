@@ -133,6 +133,15 @@ export class TrainingInstanceTable extends SentinelTable<TrainingInstanceRowAdap
         of(!ti.hasStarted()),
         defer(() => service.results(ti.id))
       ),
+      new RowAction(
+        'results',
+        'Show Aggregated Results',
+        'stacked_bar_chart',
+        'primary',
+        'Shows aggregated results of training runs across same training instances',
+        of(!ti.hasStarted()),
+        defer(() => service.aggregatedResults(ti.id))
+      ),
     ];
   }
 }

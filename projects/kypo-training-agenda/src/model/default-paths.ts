@@ -28,6 +28,7 @@ export const TRAINING_RUN_SELECTOR = 'trainingRunId';
 export const ADAPTIVE_RUN_SELECTOR = 'adaptiveRunId';
 export const TRAINING_RUN_RESULTS_PATH = 'results';
 export const TRAINING_RUN_RESULTS_DASHBOARD_PATH = 'dashboard';
+export const TRAINING_RUN_RESULTS_AGGREGATED_DASHBOARD_PATH = 'aggregated-dashboard';
 export const TRAINING_RUN_RESULTS_ASSESSMENT_PATH = 'assessment';
 export const TRAINING_RUN_RESULTS_TRAINEE_GRAPH_PATH = 'trainee-graph';
 export const TRAINING_RUN_RESULTS_COMMAND_TIMELINE_PATH = 'command-timeline';

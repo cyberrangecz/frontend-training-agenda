@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { SentinelBaseDirective } from '@sentinel/common';
+import { TrainingInstance } from '@muni-kypo-crp/training-model';
+import { ActivatedRoute } from '@angular/router';
 import { takeWhile } from 'rxjs';
 
 @Component({
-  selector: 'kypo-dashboard-wrapper',
-  templateUrl: './dashboard-wrapper.component.html',
-  styleUrls: ['./dashboard-wrapper.component.css'],
+  selector: 'kypo-aggregated-dashboard-wrapper',
+  templateUrl: './aggregated-dashboard-wrapper.component.html',
+  styleUrls: ['./aggregated-dashboard-wrapper.component.css'],
 })
-export class DashboardWrapperComponent extends SentinelBaseDirective implements OnInit {
+export class AggregatedDashboardWrapperComponent extends SentinelBaseDirective implements OnInit {
   trainingInstance: TrainingInstance;
 
   constructor(private activeRoute: ActivatedRoute) {

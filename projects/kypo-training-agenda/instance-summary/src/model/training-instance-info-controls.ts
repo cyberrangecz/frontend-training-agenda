@@ -8,6 +8,7 @@ import { defer, EMPTY, Observable } from 'rxjs';
 export class TrainingInstanceInfoControls {
   static readonly PROGRESS_ACTION_ID = 'progress';
   static readonly RESULTS_ACTION_ID = 'results';
+  static readonly RESULTS_AGGREGATED_ID = 'stacked_bar_chart';
 
   static create(
     showProgressEmitter: EventEmitter<boolean>,
@@ -28,6 +29,16 @@ export class TrainingInstanceInfoControls {
       new SentinelControlItem(
         this.RESULTS_ACTION_ID,
         'Show Results',
+        'primary',
+        disabled$,
+        defer(() => {
+          showResultsEmitter.emit(false);
+          return EMPTY;
+        })
+      ),
+      new SentinelControlItem(
+        this.RESULTS_AGGREGATED_ID,
+        'Show Aggregated Results',
         'primary',
         disabled$,
         defer(() => {

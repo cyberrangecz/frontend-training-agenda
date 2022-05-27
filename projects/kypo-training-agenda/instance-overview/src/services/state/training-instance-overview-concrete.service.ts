@@ -91,6 +91,10 @@ export class TrainingInstanceOverviewConcreteService extends TrainingInstanceOve
     return of(this.router.navigate([this.navigator.toTrainingInstanceResults(id)]));
   }
 
+  aggregatedResults(id: number): Observable<any> {
+    return of(this.router.navigate([this.navigator.toTrainingInstanceAggregatedResults(id)]));
+  }
+
   getPoolSize(poolId: number): Observable<string> {
     return this.poolApi.getPool(poolId).pipe(
       map(

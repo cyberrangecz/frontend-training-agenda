@@ -1,6 +1,7 @@
-import { ActivatedRouteSnapshot, RouterModule, RouterStateSnapshot, Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import {
+  TRAINING_RUN_RESULTS_AGGREGATED_DASHBOARD_PATH,
   TRAINING_RUN_RESULTS_ASSESSMENT_PATH,
   TRAINING_RUN_RESULTS_COMMAND_ANALYSIS_PATH,
   TRAINING_RUN_RESULTS_COMMAND_TIMELINE_PATH,
@@ -13,6 +14,7 @@ import { TrainingInstanceResultsComponent } from './training-instance-results.co
 import { TraineeGraphWrapperComponent } from './trainee-graph-wrapper/trainee-graph-wrapper.component';
 import { CommandTimelineWrapperComponent } from './command-timeline-wrapper/command-timeline-wrapper.component';
 import { CommandAnalysisWrapperComponent } from './command-analysis-wrapper/command-analysis-wrapper.component';
+import { AggregatedDashboardWrapperComponent } from './aggregated-dashboard-wrapper/aggregated-dashboard-wrapper.component';
 
 const routes: Routes = [
   {
@@ -20,6 +22,10 @@ const routes: Routes = [
     component: TrainingInstanceResultsComponent,
     children: [
       { path: '', redirectTo: TRAINING_RUN_RESULTS_DASHBOARD_PATH },
+      {
+        path: TRAINING_RUN_RESULTS_AGGREGATED_DASHBOARD_PATH,
+        component: AggregatedDashboardWrapperComponent,
+      },
       {
         path: TRAINING_RUN_RESULTS_DASHBOARD_PATH,
         component: DashboardWrapperComponent,

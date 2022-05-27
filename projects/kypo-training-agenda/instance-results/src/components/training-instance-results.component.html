@@ -18,6 +18,15 @@
     >
       <mat-icon class="tab-icon">assignment</mat-icon> Assessments
     </a>
+    <a
+      mat-tab-link
+      [routerLink]="['aggregated-dashboard']"
+      routerLinkActive
+      #aggregated="routerLinkActive"
+      [active]="aggregated.isActive"
+    >
+      <mat-icon class="tab-icon">stacked_bar_chart</mat-icon> Aggregated Dashboard
+    </a>
     <ng-container *ngIf="hasReferenceSolution$ | async">
       <a
         mat-tab-link

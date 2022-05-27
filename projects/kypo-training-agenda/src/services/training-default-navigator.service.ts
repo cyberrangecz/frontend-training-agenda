@@ -26,6 +26,7 @@ import {
   ADAPTIVE_DEFINITION_DETAIL_PATH,
   RUNS_PATH,
   ADAPTIVE_RUN_RESULTS_PATH,
+  TRAINING_RUN_RESULTS_AGGREGATED_DASHBOARD_PATH,
 } from '../model/default-paths';
 
 @Injectable()
@@ -195,6 +196,14 @@ export class TrainingDefaultNavigator extends TrainingNavigator {
    */
   toTrainingInstanceResults(id: number | string): string {
     return `${this.toTrainingInstanceDetail(id)}/${RESULTS_PATH}`;
+  }
+
+  /**
+   * Returns route to training instance aggregated results page
+   * @param id id of the training instance
+   */
+  toTrainingInstanceAggregatedResults(id: number | string): string {
+    return `${this.toTrainingInstanceDetail(id)}/${RESULTS_PATH}/${TRAINING_RUN_RESULTS_AGGREGATED_DASHBOARD_PATH}`;
   }
 
   /**

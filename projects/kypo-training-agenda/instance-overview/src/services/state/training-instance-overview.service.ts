@@ -21,6 +21,8 @@ export abstract class TrainingInstanceOverviewService extends OffsetPaginatedEle
 
   abstract results(id: number): Observable<any>;
 
+  abstract aggregatedResults(id: number): Observable<any>;
+
   abstract getPoolSize(poolId: number): Observable<string>;
 
   abstract getAvailableSandboxes(poolId: number): Observable<string>;
