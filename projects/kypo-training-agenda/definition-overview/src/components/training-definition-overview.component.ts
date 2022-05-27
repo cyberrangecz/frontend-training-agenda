@@ -26,7 +26,8 @@ export class TrainingDefinitionOverviewComponent extends SentinelBaseDirective i
   trainingDefinitions$: Observable<SentinelTable<TrainingDefinition>>;
   hasError$: Observable<boolean>;
   isLoading$: Observable<boolean>;
-  controls: SentinelControlItem[] = [];
+  topControls: SentinelControlItem[] = [];
+  bottomControls: SentinelControlItem[] = [];
 
   constructor(
     private trainingDefinitionService: TrainingDefinitionService,
@@ -37,7 +38,8 @@ export class TrainingDefinitionOverviewComponent extends SentinelBaseDirective i
   }
 
   ngOnInit(): void {
-    this.controls = TrainingDefinitionOverviewControls.create(this.trainingDefinitionService);
+    this.topControls = TrainingDefinitionOverviewControls.createTopControls(this.trainingDefinitionService);
+    this.bottomControls = TrainingDefinitionOverviewControls.createBottomControls(this.trainingDefinitionService);
     this.initTable();
   }
 

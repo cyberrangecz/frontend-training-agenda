@@ -71,6 +71,10 @@ export class AdaptiveDefinitionConcreteService extends AdaptiveDefinitionService
     return from(this.router.navigate([this.navigator.toAdaptiveDefinitionPreview(trainingDefinition.id)]));
   }
 
+  showMitreTechniques(): Observable<any> {
+    return from(this.router.navigate([this.navigator.toMitreTechniques()]));
+  }
+
   /**
    * Displays dialog to delete training definition and informs about the result and optionally
    * updates list of training definitions or handles an error

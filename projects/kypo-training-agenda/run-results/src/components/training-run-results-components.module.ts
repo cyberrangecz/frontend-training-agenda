@@ -11,6 +11,9 @@ import { ReferenceGraphModule } from '@muni-kypo-crp/command-visualizations/refe
 import { TimelineModule } from '@muni-kypo-crp/command-visualizations/timeline';
 import { MistakeModule } from '@muni-kypo-crp/command-visualizations/mistake';
 import { TraineeGraphModule } from '@muni-kypo-crp/command-visualizations/trainee-graph';
+import { MitreTechniquesOverviewService } from '../service/mitre-techniques.service';
+import { MitreTechniquesOverviewConcreteService } from '../service/mitre-techniques-concrete.service';
+import { SentinelControlsModule } from '@sentinel/components/controls';
 import { TrainingRunResultsRoutingModule } from './training-run-results-routing.module';
 import { CommandAnalysisWrapperComponent } from './command-analysis-wrapper/command-analysis-wrapper.component';
 import { CommandTimelineWrapperComponent } from './command-timeline-wrapper/command-timeline-wrapper.component';
@@ -40,6 +43,7 @@ import { TraineeGraphWrapperComponent } from './trainee-graph-wrapper/trainee-gr
     CommandTimelineWrapperComponent,
     CommandAnalysisWrapperComponent,
   ],
+  providers: [{ provide: MitreTechniquesOverviewService, useClass: MitreTechniquesOverviewConcreteService }],
 })
 export class TrainingRunResultsComponentsModule {
   static forRoot(config: TrainingAgendaConfig): ModuleWithProviders<TrainingRunResultsComponentsModule> {

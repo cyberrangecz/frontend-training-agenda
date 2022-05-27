@@ -14,6 +14,16 @@ export abstract class TrainingNavigator {
   abstract toAdaptiveDefinitionOverview(): string;
 
   /**
+   * Returns route to mitre techniques
+   */
+  abstract toMitreTechniques(): string;
+
+  /**
+   * Returns route to training run mitre techniques
+   */
+  abstract toTrainingRunMitreTechniques(): string;
+
+  /**
    * Returns route to training definition preview page
    * @param id id of the training definition
    */

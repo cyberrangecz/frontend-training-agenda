@@ -70,6 +70,10 @@ export class AccessedTrainingRunConcreteService extends AccessedTrainingRunServi
     return from(this.router.navigate([this.navigator.toAdaptiveRunResult(id)]));
   }
 
+  showMitreTechniques(): Observable<any> {
+    return from(this.router.navigate([this.navigator.toTrainingRunMitreTechniques()]));
+  }
+
   private getAllAdaptive(
     pagination: OffsetPaginationEvent,
     trainingRuns: PaginatedResource<AccessedTrainingRun>

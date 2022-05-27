@@ -27,6 +27,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { LoadingDialogModule } from '@muni-kypo-crp/training-agenda/internal';
 import { TopologyApiModule } from '@muni-kypo-crp/topology-graph';
+import { SentinelControlsModule } from '@sentinel/components/controls';
 import {
   RunningTrainingRunConcreteService,
   RunningTrainingRunService,
@@ -48,6 +49,7 @@ import {
     MatDialogModule,
     LoadingDialogModule,
     TopologyApiModule,
+    SentinelControlsModule,
   ],
   declarations: [TrainingRunOverviewComponent, AccessTrainingRunComponent],
   providers: [

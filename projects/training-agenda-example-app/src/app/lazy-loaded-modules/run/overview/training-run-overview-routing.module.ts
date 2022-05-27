@@ -14,6 +14,7 @@ import {
   ADAPTIVE_RUN_DATA_ATTRIBUTE_NAME,
   ADAPTIVE_RUN_SELECTOR,
   ADAPTIVE_RUN_RESULTS_PATH,
+  MITRE_TECHNIQUES_PATH,
 } from '@muni-kypo-crp/training-agenda';
 import {
   AccessAdaptiveRunResolver,
@@ -81,6 +82,10 @@ const routes: Routes = [
       title: 'Training Run Results',
     },
     resolve: { [ADAPTIVE_RUN_DATA_ATTRIBUTE_NAME]: AdaptiveRunResultsResolver },
+  },
+  {
+    path: `:${MITRE_TECHNIQUES_PATH}`,
+    loadChildren: () => import('./mitre-techniques/mitre-techniques.module').then((m) => m.MitreTechniquesModule),
   },
 ];
 

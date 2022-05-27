@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, HostListener } from '@angular/core'
 import { ActivatedRoute } from '@angular/router';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { SentinelControlItem } from '@sentinel/components/controls';
-import { TrainingDefinition } from '@muni-kypo-crp/training-model';
+import { MitreTechnique, TrainingDefinition } from '@muni-kypo-crp/training-model';
 import { Level } from '@muni-kypo-crp/training-model';
 import { combineLatest, Observable } from 'rxjs';
 import { map, takeWhile, tap } from 'rxjs/operators';
@@ -16,6 +16,8 @@ import { AuthorsAssignService } from '../services/state/authors-assign/authors-a
 import { TrainingDefinitionEditConcreteService } from '../services/state/edit/training-definition-edit-concrete.service';
 import { LevelEditService } from '../services/state/level/level-edit.service';
 import { LevelEditConcreteService } from '../services/state/level/level-edit-concrete.service';
+import { MitreTechniquesService } from '../services/state/mitre-techniques/mitre-techniques.service';
+import { MitreTechniquesConcreteService } from '../services/state/mitre-techniques/mitre-techniques-concrete.service';
 
 /**
  * Main smart component of training definition edit/new page.
@@ -29,6 +31,7 @@ import { LevelEditConcreteService } from '../services/state/level/level-edit-con
     { provide: SentinelUserAssignService, useClass: AuthorsAssignService },
     { provide: LevelEditService, useClass: LevelEditConcreteService },
     { provide: TrainingDefinitionEditService, useClass: TrainingDefinitionEditConcreteService },
+    { provide: MitreTechniquesService, useClass: MitreTechniquesConcreteService },
   ],
 })
 export class TrainingDefinitionEditOverviewComponent extends SentinelBaseDirective {
@@ -44,18 +47,25 @@ export class TrainingDefinitionEditOverviewComponent extends SentinelBaseDirecti
   canDeactivateTDEdit = true;
   defaultPaginationSize: number;
   controls: SentinelControlItem[];
+  mitreTechniques$: Observable<MitreTechnique[]>;
 
   constructor(
     private activeRoute: ActivatedRoute,
     private paginationService: PaginationService,
     private editService: TrainingDefinitionEditService,
-    private levelEditService: LevelEditService
+    private levelEditService: LevelEditService,
+    private mitreTechniquesService: MitreTechniquesService
   ) {
     super();
     this.defaultPaginationSize = this.paginationService.getPagination();
     this.trainingDefinition$ = this.editService.trainingDefinition$;
     this.tdTitle$ = this.editService.trainingDefinition$.pipe(map((td) => td.title));
     this.saveDisabled$ = this.editService.saveDisabled$;
+    this.mitreTechniques$ = this.mitreTechniquesService.mitreTechniques$;
+    this.mitreTechniquesService
+      .getAll()
+      .pipe(takeWhile(() => this.isAlive))
+      .subscribe();
     const valid$: Observable<boolean> = combineLatest(
       this.editService.definitionValid$,
       this.levelEditService.levelsValid$

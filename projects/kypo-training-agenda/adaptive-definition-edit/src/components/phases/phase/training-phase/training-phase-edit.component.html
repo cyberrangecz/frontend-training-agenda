@@ -2,7 +2,7 @@
   <form [formGroup]="phaseConfigFormGroup.formGroup">
     <div class="panel-wrapper">
       <div class="left-panel">
-        <h2 align="center" >Decision Matrix</h2>
+        <h2 align="center">Decision Matrix</h2>
         <table formArrayName="decisionMatrix">
           <tr class="row-header">
             <td align="center" matTooltip="Questionnaire Answered">
@@ -42,67 +42,60 @@
               </div>
             </td>
           </tr>
-          <tr *ngFor="let rowGroup of decisionMatrixRows.controls; index as i;" [formGroupName]="i">
+          <tr *ngFor="let rowGroup of decisionMatrixRows.controls; index as i" [formGroupName]="i">
             <td align="center">
               <mat-form-field class="matrix-field" appearance="fill">
-                <input matInput type="number" formControlName="questionnaireAnswered" required>
+                <input matInput type="number" formControlName="questionnaireAnswered" required />
                 <mat-error *ngIf="rowGroup.get('questionnaireAnswered').hasError('required')">Empty</mat-error>
                 <mat-error *ngIf="rowGroup.get('questionnaireAnswered').hasError('min')">Negative</mat-error>
               </mat-form-field>
             </td>
             <td align="center">
               <mat-form-field class="matrix-field" appearance="fill">
-                <input matInput type="number" formControlName="completedInTime" required placeholder=0>
+                <input matInput type="number" formControlName="completedInTime" required placeholder="0" />
                 <mat-error *ngIf="rowGroup.get('completedInTime').hasError('required')">Empty</mat-error>
                 <mat-error *ngIf="rowGroup.get('completedInTime').hasError('min')">Negative</mat-error>
               </mat-form-field>
             </td>
             <td align="center">
               <mat-form-field class="matrix-field" appearance="fill">
-                <input matInput type="number" formControlName="keywordUsed" required placeholder=0>
+                <input matInput type="number" formControlName="keywordUsed" required placeholder="0" />
                 <mat-error *ngIf="rowGroup.get('keywordUsed').hasError('required')">Empty</mat-error>
                 <mat-error *ngIf="rowGroup.get('keywordUsed').hasError('min')">Negative</mat-error>
               </mat-form-field>
             </td>
             <td align="center">
               <mat-form-field class="matrix-field" appearance="fill">
-                <input matInput type="number" formControlName="solutionDisplayed" required placeholder=0>
+                <input matInput type="number" formControlName="solutionDisplayed" required placeholder="0" />
                 <mat-error *ngIf="rowGroup.get('solutionDisplayed').hasError('required')">Empty</mat-error>
                 <mat-error *ngIf="rowGroup.get('solutionDisplayed').hasError('min')">Negative</mat-error>
               </mat-form-field>
             </td>
             <td align="center">
               <mat-form-field class="matrix-field" appearance="fill">
-                <input matInput type="number" formControlName="wrongAnswers" required placeholder=0>
+                <input matInput type="number" formControlName="wrongAnswers" required placeholder="0" />
                 <mat-error *ngIf="rowGroup.get('wrongAnswers').hasError('required')">Empty</mat-error>
                 <mat-error *ngIf="rowGroup.get('wrongAnswers').hasError('min')">Negative</mat-error>
               </mat-form-field>
             </td>
             <td align="left">
               <div class="related-phase-text">
-                <span *ngIf="i < decisionMatrixRows.controls.length - 1" >
-                  {{presentTrainingPhases[i].order + 1}}. {{presentTrainingPhases[i].title}}
+                <span *ngIf="i < decisionMatrixRows.controls.length - 1">
+                  {{ presentTrainingPhases[i].order + 1 }}. {{ presentTrainingPhases[i].title }}
                 </span>
-                <span *ngIf="i === decisionMatrixRows.controls.length - 1"> {{phase.order + 1}}. {{ title.value }} </span>
+                <span *ngIf="i === decisionMatrixRows.controls.length - 1">
+                  {{ phase.order + 1 }}. {{ title.value }}
+                </span>
               </div>
             </td>
-
           </tr>
         </table>
       </div>
       <div class="right-panel">
         <!-- TITLE filed -->
-        <mat-form-field
-          appearance="outline"
-          (keydown.enter)="$event.preventDefault()"
-        >
+        <mat-form-field appearance="outline" (keydown.enter)="$event.preventDefault()">
           <mat-label>Title</mat-label>
-          <input
-            matInput
-            placeholder="Title"
-            formControlName="title"
-            required
-          />
+          <input matInput placeholder="Title" formControlName="title" required />
           <button
             mat-button
             *ngIf="title.value"
@@ -115,9 +108,7 @@
           </button>
           <mat-error *ngIf="title.hasError('required')">Title cannot be empty</mat-error>
         </mat-form-field>
-        <mat-form-field
-          appearance="outline"
-        >
+        <mat-form-field appearance="outline">
           <mat-label>Allowed Wrong Answer Limit (Default 10)</mat-label>
           <input
             matInput
@@ -129,12 +120,9 @@
           />
           <mat-error *ngIf="allowedWrongAnswers.hasError('required')">Allowed Wrong Answers cannot be empty</mat-error>
           <mat-error *ngIf="allowedWrongAnswers.hasError('min')">Allowed Wrong Answers cannot be negative</mat-error>
-
         </mat-form-field>
 
-        <mat-form-field
-          appearance="outline"
-        >
+        <mat-form-field appearance="outline">
           <mat-label>Allowed Commands Limit (Default 10)</mat-label>
           <input
             matInput
@@ -148,9 +136,7 @@
           <mat-error *ngIf="allowedCommands.hasError('min')">Allowed Commands cannot be negative</mat-error>
         </mat-form-field>
 
-        <mat-form-field
-          appearance="outline"
-        >
+        <mat-form-field appearance="outline">
           <mat-label>Estimated Duration (Default 10)</mat-label>
           <input
             matInput
@@ -167,10 +153,19 @@
         </mat-form-field>
       </div>
     </div>
-  <kypo-tasks-overview></kypo-tasks-overview>
+    <kypo-tasks-overview></kypo-tasks-overview>
 
-  <kypo-related-questions
-    [relatedQuestions]="relatedQuestions">
-  </kypo-related-questions>
+    <kypo-related-questions [relatedQuestions]="relatedQuestions"> </kypo-related-questions>
+
+    <kypo-mitre-technique-select
+      [mitreTechniques]="phase.mitreTechniques"
+      [mitreTechniquesList]="mitreTechniquesList"
+      (mitreTechniquesChange)="mitreTechniquesChanged($event)"
+    ></kypo-mitre-technique-select>
+
+    <kypo-expected-commands-select
+    [expectedCommands]="phase.expectedCommands"
+    (expectedCommandsChange)="expectedCommandsChanged($event)"
+  ></kypo-expected-commands-select>
   </form>
 </div>

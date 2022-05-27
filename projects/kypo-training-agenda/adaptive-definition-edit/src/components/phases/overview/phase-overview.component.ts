@@ -15,6 +15,7 @@ import { Observable } from 'rxjs';
 import { map, takeWhile, tap } from 'rxjs/operators';
 import {
   AdaptiveQuestion,
+  MitreTechnique,
   Phase,
   QuestionnairePhase,
   QuestionnaireTypeEnum,
@@ -40,6 +41,7 @@ export class PhaseOverviewComponent extends SentinelBaseDirective implements OnI
   @Output() unsavedPhases: EventEmitter<Phase[]> = new EventEmitter();
   @Output() phasesCount: EventEmitter<number> = new EventEmitter();
   @Input() trainingDefinition: TrainingDefinition;
+  @Input() mitreTechniquesList: MitreTechnique[];
 
   activeStep$: Observable<number>;
   stepperPhases$: Observable<PhaseStepperAdapter[]>;

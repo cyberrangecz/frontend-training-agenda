@@ -40,7 +40,6 @@ export class ReferenceGraphPreviewComponent extends SentinelBaseDirective implem
    * @param isExpanded expanded state of expansion panel
    */
   expandChange(isExpanded: boolean): void {
-    console.log(isExpanded, this.isExpanded);
     if (!this.isExpanded && isExpanded) {
       // update graph only if changed data are saved
       if (!this.hasWarning) {

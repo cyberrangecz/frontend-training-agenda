@@ -11,7 +11,7 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { SentinelControlItem } from '@sentinel/components/controls';
-import { Level, TrainingDefinition } from '@muni-kypo-crp/training-model';
+import { Level, MitreTechnique, TrainingDefinition } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
 import { map, takeWhile, tap } from 'rxjs/operators';
 import { LevelOverviewControls } from '../../../model/adapters/level-overview-controls';
@@ -33,6 +33,7 @@ export class LevelOverviewComponent extends SentinelBaseDirective implements OnI
   @Output() levelsCount: EventEmitter<number> = new EventEmitter();
   @Input() trainingDefinition: TrainingDefinition;
   @Input() editMode: boolean;
+  @Input() mitreTechniquesList: MitreTechnique[];
 
   activeStep$: Observable<number>;
   stepperLevels: Observable<LevelStepperAdapter[]>;
