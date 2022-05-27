@@ -46,6 +46,8 @@ export abstract class TrainingDefinitionService extends OffsetPaginatedElementsS
    */
   abstract upload(): Observable<any>;
 
+  abstract showMitreTechniques(): Observable<any>;
+
   /**
    * Changes state of a training definition
    * @param trainingDefinition training definition whose state shall be changed

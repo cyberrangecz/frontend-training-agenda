@@ -12,6 +12,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
+import { MatChipsModule } from '@angular/material/chips';
 
 /**
  * Material components imports for phases detail edit
@@ -31,6 +32,7 @@ import { MatTableModule } from '@angular/material/table';
     MatRadioModule,
     MatSelectModule,
     MatTableModule,
+    MatChipsModule,
   ],
   exports: [
     MatButtonModule,
@@ -44,6 +46,7 @@ import { MatTableModule } from '@angular/material/table';
     MatDividerModule,
     MatCardModule,
     MatRadioModule,
+    MatChipsModule,
   ],
 })
 export class PhaseEditMaterialModule {}

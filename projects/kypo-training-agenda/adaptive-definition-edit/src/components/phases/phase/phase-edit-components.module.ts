@@ -26,6 +26,9 @@ import { FreeFormQuestionEditComponent } from './questionnaire/question/free-for
 import { MultipleChoiceQuestionEditComponent } from './questionnaire/question/multiple-choice-question/multiple-choice-question-edit.component';
 import { RatingFormQuestionEditComponent } from './questionnaire/question/rating-form-question/rating-form-question-edit.component';
 import { AccessPhaseEditComponent } from './access-phase/access-phase-edit.component';
+import { MitreTechniqueSelectComponent } from './training-phase/mitre-technique/mitre-technique-select.component';
+import { ExpectedCommandsSelectComponent } from './training-phase/expected-commands/expected-commands-select.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 const markdownConfig = {
   markdownParser: {
@@ -64,6 +67,7 @@ const markdownConfig = {
     MatSelectModule,
     MatTableModule,
     MatDialogModule,
+    MatAutocompleteModule,
   ],
   exports: [AbstractPhaseEditComponent],
   declarations: [
@@ -81,6 +85,8 @@ const markdownConfig = {
     FreeFormQuestionEditComponent,
     MultipleChoiceQuestionEditComponent,
     RatingFormQuestionEditComponent,
+    MitreTechniqueSelectComponent,
+    ExpectedCommandsSelectComponent,
   ],
 })
 export class PhaseEditComponentsModule {}

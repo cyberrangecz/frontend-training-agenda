@@ -27,4 +27,6 @@ export abstract class AccessedTrainingRunService extends OffsetPaginatedElements
   abstract resultsAdaptive(trainingRunId: number): Observable<any>;
 
   abstract access(token: string): Observable<any>;
+
+  abstract showMitreTechniques(): Observable<any>;
 }

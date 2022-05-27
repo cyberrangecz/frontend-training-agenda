@@ -8,7 +8,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { SentinelBaseDirective } from '@sentinel/common';
-import { Hint, TrainingLevel } from '@muni-kypo-crp/training-model';
+import { Hint, MitreTechnique, TrainingLevel } from '@muni-kypo-crp/training-model';
 import { takeWhile } from 'rxjs/operators';
 import { TrainingLevelEditFormGroup } from './training-level-edit-form-group';
 import { AbstractControl } from '@angular/forms';
@@ -25,6 +25,7 @@ import { SentinelControlItem } from '@sentinel/components/controls';
 })
 export class TrainingLevelEditComponent extends SentinelBaseDirective implements OnChanges {
   @Input() level: TrainingLevel;
+  @Input() mitreTechniquesList: MitreTechnique[];
   @Output() levelChange: EventEmitter<TrainingLevel> = new EventEmitter();
   trainingLevelConfigFormGroup: TrainingLevelEditFormGroup;
   controls: SentinelControlItem[];
@@ -87,6 +88,26 @@ export class TrainingLevelEditComponent extends SentinelBaseDirective implements
    */
   hintsChanged(hints: Hint[]): void {
     this.level.hints = hints;
+    this.trainingLevelConfigFormGroup.setToLevel(this.level);
+    this.levelChange.emit(this.level);
+  }
+
+  /**
+   * Sets changed mitre techniques to the current level and emits level change event
+   * @param mitreTechniques new state of mitre techniques associated with current level
+   */
+  mitreTechniquesChanged(mitreTechniques: MitreTechnique[]): void {
+    this.level.mitreTechniques = mitreTechniques;
+    this.trainingLevelConfigFormGroup.setToLevel(this.level);
+    this.levelChange.emit(this.level);
+  }
+
+  /**
+   * Sets changed expected commands to the current level and emits level change event
+   * @param expectedCommands new state of expected commands associated with current level
+   */
+  expectedCommandsChanged(expectedCommands: string[]): void {
+    this.level.expectedCommands = expectedCommands;
     this.trainingLevelConfigFormGroup.setToLevel(this.level);
     this.levelChange.emit(this.level);
   }

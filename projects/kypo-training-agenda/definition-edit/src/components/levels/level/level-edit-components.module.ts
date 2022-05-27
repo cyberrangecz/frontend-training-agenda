@@ -21,6 +21,8 @@ import { HintsOverviewComponent } from './training/hint/overview/hints-overview.
 import { InfoLevelEditComponent } from './info/info-level-edit.component';
 import { LevelEditMaterialModule } from './level-edit-material.module';
 import { AccessLevelEditComponent } from './access/access-level-edit.component';
+import { MitreTechniqueSelectComponent } from './training/mitre-technique/mitre-technique-select.component';
+import { ExpectedCommandsSelectComponent } from './training/expected-commands/expected-commands-select.component';
 
 const markdownConfig = {
   markdownParser: {
@@ -71,6 +73,8 @@ const markdownConfig = {
     FreeFormQuestionEditComponent,
     MultipleChoiceQuestionEditComponent,
     ExtendedMatchingItemsEditComponent,
+    MitreTechniqueSelectComponent,
+    ExpectedCommandsSelectComponent,
   ],
   providers: [],
 })

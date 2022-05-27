@@ -16,6 +16,7 @@ export const TRAINING_INSTANCE_NEW_PATH = 'create';
 export const TRAINING_INSTANCE_EDIT_PATH = 'edit';
 export const TRAINING_INSTANCE_SELECTOR = 'trainingInstanceId';
 export const ADAPTIVE_INSTANCE_SELECTOR = 'adaptiveInstanceId';
+export const MITRE_TECHNIQUES_PATH = 'mitre-techniques';
 export const RUNS_PATH = 'runs';
 export const ACCESS_TOKEN_PATH = 'access-token';
 export const SUMMARY_PATH = 'summary';

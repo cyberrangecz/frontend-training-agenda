@@ -3,17 +3,9 @@
     <div class="panel-wrapper">
       <div class="left-panel">
         <!-- TITLE filed -->
-        <mat-form-field
-          appearance="outline"
-          (keydown.enter)="$event.preventDefault()"
-        >
+        <mat-form-field appearance="outline" (keydown.enter)="$event.preventDefault()">
           <mat-label>Title</mat-label>
-          <input
-            matInput
-            placeholder="Title"
-            formControlName="title"
-            required
-          />
+          <input matInput placeholder="Title" formControlName="title" required />
           <button
             mat-button
             *ngIf="title.value"
@@ -24,9 +16,7 @@
           >
             <mat-icon>close</mat-icon>
           </button>
-          <mat-error *ngIf="title.hasError('whitespace')"
-            >Title cannot be empty</mat-error
-          >
+          <mat-error *ngIf="title.hasError('whitespace')">Title cannot be empty</mat-error>
         </mat-form-field>
 
         <div class="time-configuration-container">
@@ -75,9 +65,7 @@
           (contentChange)="content.setValue($event)"
           [content]="content.value"
         ></sentinel-markdown-editor>
-        <mat-error *ngIf="content.hasError('whitespace')"
-          >Content cannot be empty</mat-error
-        >
+        <mat-error *ngIf="content.hasError('whitespace')">Content cannot be empty</mat-error>
         <!--SOLUTION field -->
         <h3>Solution</h3>
         <div class="content-info">
@@ -99,9 +87,7 @@
           (contentChange)="solution.setValue($event)"
           [content]="solution.value"
         ></sentinel-markdown-editor>
-        <mat-error *ngIf="solution.hasError('whitespace')"
-          >Solution cannot be empty</mat-error
-        >
+        <mat-error *ngIf="solution.hasError('whitespace')">Solution cannot be empty</mat-error>
       </div>
 
       <div class="right-panel">
@@ -121,9 +107,7 @@
             formControlName="maxScore"
             required
           />
-          <mat-error
-            >Maximal score must be a number in range from 0 to 100</mat-error
-          >
+          <mat-error>Maximal score must be a number in range from 0 to 100</mat-error>
         </mat-form-field>
 
         <!-- INCORRECT ANSWER LIMIT field -->
@@ -142,15 +126,15 @@
             formControlName="incorrectAnswerLimit"
             required
           />
-          <mat-error
-            >Incorrect answer limit must be in range of 1 to 100</mat-error
-          >
+          <mat-error>Incorrect answer limit must be in range of 1 to 100</mat-error>
         </mat-form-field>
 
         <!-- SHOW VARIANT ANSWERS checkbox -->
-        <mat-checkbox matTooltip="Requires a sandbox definition with defined variables which will be generated uniquely for each sandbox."
-                      labelPosition="after"
-                      formControlName="variantAnswers">
+        <mat-checkbox
+          matTooltip="Requires a sandbox definition with defined variables which will be generated uniquely for each sandbox."
+          labelPosition="after"
+          formControlName="variantAnswers"
+        >
           Variant Answers (requires a specific sandbox definition)
         </mat-checkbox>
 
@@ -162,12 +146,7 @@
           (keydown.enter)="$event.preventDefault()"
         >
           <mat-label>Correct Answer - Static</mat-label>
-          <input
-            matInput
-            placeholder="Correct Answer - Static"
-            maxlength="50"
-            formControlName="answer"
-          />
+          <input matInput placeholder="Correct Answer - Static" maxlength="50" formControlName="answer" />
           <button
             mat-button
             *ngIf="answer"
@@ -179,9 +158,7 @@
             <mat-icon>close</mat-icon>
           </button>
           <mat-hint align="end">{{ answer.value?.length || 0 }}/50</mat-hint>
-          <mat-error *ngIf="answer.hasError('whitespace')">
-            'Correct Answer - Static'  cannot be empty
-          </mat-error>
+          <mat-error *ngIf="answer.hasError('whitespace')"> 'Correct Answer - Static' cannot be empty </mat-error>
         </mat-form-field>
 
         <!-- VARIABLE NAME field -->
@@ -219,8 +196,7 @@
           formControlName="solutionPenalized"
           matTooltip="Penalty
           for displaying the solution"
-          >Solution Penalized (trainee will get 0 points for the
-          level)</mat-checkbox
+          >Solution Penalized (trainee will get 0 points for the level)</mat-checkbox
         >
 
         <!-- REFERENCE SOLUTION -->
@@ -248,5 +224,16 @@
       [levelId]="level.id"
     >
     </kypo-hints-overview>
+
+    <kypo-mitre-technique-select
+      [mitreTechniques]="level.mitreTechniques"
+      [mitreTechniquesList]="mitreTechniquesList"
+      (mitreTechniquesChange)="mitreTechniquesChanged($event)"
+    ></kypo-mitre-technique-select>
+
+    <kypo-expected-commands-select
+      [expectedCommands]="level.expectedCommands"
+      (expectedCommandsChange)="expectedCommandsChanged($event)"
+    ></kypo-expected-commands-select>
   </form>
 </div>

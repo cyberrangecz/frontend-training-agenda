@@ -23,4 +23,8 @@ export class TrainingPhaseDetailComponent extends SentinelBaseDirective {
   toggle(): void {
     this.expanded = !this.expanded;
   }
+
+  getMitreTechniques(): string {
+    return this.phase.mitreTechniques.map((technique) => technique.techniqueKey).toString();
+  }
 }

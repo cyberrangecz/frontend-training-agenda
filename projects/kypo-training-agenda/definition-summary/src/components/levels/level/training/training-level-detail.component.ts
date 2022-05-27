@@ -10,4 +10,8 @@ import { SentinelBaseDirective } from '@sentinel/common';
 })
 export class TrainingLevelDetailComponent extends SentinelBaseDirective {
   @Input() level: TrainingLevel;
+
+  getMitreTechniques(): string {
+    return this.level.mitreTechniques.map((technique) => technique.techniqueKey).toString();
+  }
 }

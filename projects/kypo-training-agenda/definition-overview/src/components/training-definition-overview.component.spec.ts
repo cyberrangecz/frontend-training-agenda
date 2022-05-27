@@ -52,7 +52,7 @@ describe('TrainingDefinitionOverviewComponent', () => {
   it('should init values', () => {
     trainingDefinitionServiceSpy.getAll.and.returnValue(asyncData(createPaginatedMock()));
     fixture.detectChanges();
-    expect(component.controls.length).toEqual(2);
+    expect(component.topControls.length).toEqual(2);
     component.hasError$.subscribe((val) => expect(val).toBeFalse());
     component.isLoading$.subscribe((val) => expect(val).toBeFalse());
     component.trainingDefinitions$.subscribe((val) => expect(val).toBeTruthy());

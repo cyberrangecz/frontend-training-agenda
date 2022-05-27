@@ -8,6 +8,8 @@ import { AccessedTrainingRunTable } from '../model/accessed-training-run-table';
 import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
 import { AccessedTrainingRunService } from '../services/state/training/accessed-training-run.service';
 import { AccessedAdaptiveRunService } from '../services/state/adaptive/accessed-adaptive-run.service';
+import { SentinelControlItem } from '@sentinel/components/controls';
+import { AccessedTrainingRunControls } from '../model/accessed-training-run-controls';
 
 /**
  * Main smart component of the trainee overview.
@@ -22,6 +24,7 @@ export class TrainingRunOverviewComponent extends SentinelBaseDirective implemen
   trainingRuns$: Observable<SentinelTable<AccessedTrainingRun>>;
   hasError$: Observable<boolean>;
   isLoading = false;
+  controls: SentinelControlItem[];
 
   constructor(
     private trainingRunOverviewService: AccessedTrainingRunService,
@@ -29,6 +32,7 @@ export class TrainingRunOverviewComponent extends SentinelBaseDirective implemen
     private paginationService: PaginationService
   ) {
     super();
+    this.controls = AccessedTrainingRunControls.create(trainingRunOverviewService);
   }
 
   ngOnInit(): void {
@@ -91,5 +95,9 @@ export class TrainingRunOverviewComponent extends SentinelBaseDirective implemen
   private isAdaptiveToken(accessToken: string): boolean {
     const re = new RegExp(/^[5-9].+$/);
     return re.test(accessToken.split('-')[1]);
+  }
+
+  onControlsAction(control: SentinelControlItem): void {
+    control.result$.pipe(takeWhile(() => this.isAlive)).subscribe();
   }
 }
