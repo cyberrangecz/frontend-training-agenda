@@ -9,7 +9,13 @@ import {
 } from '@angular/core';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { Observable } from 'rxjs';
-import { AbstractPhaseTypeEnum, AdaptiveQuestion, Phase, TrainingPhase } from '@muni-kypo-crp/training-model';
+import {
+  AbstractPhaseTypeEnum,
+  AdaptiveQuestion,
+  MitreTechnique,
+  Phase,
+  TrainingPhase,
+} from '@muni-kypo-crp/training-model';
 import { PhaseRelation } from '@muni-kypo-crp/training-model/lib/phase/questionnaire-phase/phase-relation';
 
 /**
@@ -27,6 +33,7 @@ export class AbstractPhaseEditComponent extends SentinelBaseDirective implements
   @Input() presentTrainingPhases$: Observable<TrainingPhase[]>;
   @Input() phaseRelations: PhaseRelation[];
   @Input() questions: Map<number, AdaptiveQuestion>;
+  @Input() mitreTechniquesList: MitreTechnique[];
   @Output() phaseChange: EventEmitter<Phase> = new EventEmitter();
   phaseTypes = AbstractPhaseTypeEnum;
   relatedQuestions: AdaptiveQuestion[] = [];

@@ -8,6 +8,7 @@ import {
   ADAPTIVE_DEFINITION_DETAIL_PATH,
   ADAPTIVE_DEFINITION_DATA_ATTRIBUTE_NAME,
   TRAINING_DEFINITION_PREVIEW_PATH,
+  MITRE_TECHNIQUES_PATH,
 } from '@muni-kypo-crp/training-agenda';
 import {
   AdaptiveDefinitionBreadcrumbResolver,

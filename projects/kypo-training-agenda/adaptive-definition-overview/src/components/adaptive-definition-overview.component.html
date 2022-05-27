@@ -1,5 +1,5 @@
 <sentinel-controls
-  [controls]="controls"
+  [controls]="topControls"
   (itemClicked)="onControlsAction($event)">
 </sentinel-controls>
 <sentinel-table
@@ -12,3 +12,6 @@
   (tableLoad)="onLoadEvent($event)"
   (rowAction)="onTableAction($event)">
 </sentinel-table>
+<div class="bottom-controls">
+  <sentinel-controls [controls]="bottomControls" [titlecased]="false" (itemClicked)="onControlsAction($event)"> </sentinel-controls>
+</div>

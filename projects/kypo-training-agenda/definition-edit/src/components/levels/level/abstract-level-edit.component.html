@@ -1,6 +1,7 @@
 <ng-container [ngSwitch]="level.type">
   <kypo-training-level-edit *ngSwitchCase="levelTypes.Training"
                         [level]="level"
+                        [mitreTechniquesList]="mitreTechniquesList"
                         (levelChange)="onLevelChange($event)">
   </kypo-training-level-edit>
   <kypo-access-level-configuration *ngSwitchCase="levelTypes.Access"

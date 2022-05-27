@@ -1,9 +1,13 @@
 <div class="content">
   <kypo-access-training-run [isLoading]="isLoading" (accessToken)="access($event)"></kypo-access-training-run>
-  <sentinel-table
-    [data]="trainingRuns$ | async"
-    [hasError]="hasError$ | async"
-    (tableLoad)="loadAccessedTrainingRuns($event)"
-    (rowAction)="onTableAction($event)">
-  </sentinel-table>
+  <div class="table-container">
+    <sentinel-controls [controls]="controls" [titlecased]="false" (itemClicked)="onControlsAction($event)"> </sentinel-controls>
+    <sentinel-table
+      [data]="trainingRuns$ | async"
+      [hasError]="hasError$ | async"
+      (tableLoad)="loadAccessedTrainingRuns($event)"
+      (rowAction)="onTableAction($event)"
+    >
+    </sentinel-table>
+  </div>
 </div>

@@ -3,9 +3,12 @@ import { ActivatedRoute } from '@angular/router';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { TrainingRun } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
-import { map, takeWhile } from 'rxjs/operators';
+import { map, take, takeWhile } from 'rxjs/operators';
 import { VisualizationInfo } from '@muni-kypo-crp/training-agenda/internal';
 import { ADAPTIVE_RUN_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
+import { SentinelControlItem } from '@sentinel/components/controls';
+import { TrainingRunResultsControls } from '../model/training-run-results-controls';
+import { MitreTechniquesOverviewService } from '../service/mitre-techniques.service';
 
 @Component({
   selector: 'kypo-adaptive-run-results',
@@ -20,12 +23,22 @@ export class AdaptiveRunResultsComponent extends SentinelBaseDirective implement
   vizSize: { width: number; height: number };
 
   trainingRun$: Observable<any>;
+  controls: SentinelControlItem[] = [];
 
-  constructor(private activatedRoute: ActivatedRoute) {
+  constructor(private activatedRoute: ActivatedRoute, private service: MitreTechniquesOverviewService) {
     super();
   }
 
+  /**
+   * Resolves controls action and calls appropriate handler
+   * @param control selected control emitted by controls component
+   */
+  onControlsAction(control: SentinelControlItem): void {
+    control.result$.pipe(take(1)).subscribe();
+  }
+
   ngOnInit(): void {
+    this.controls = TrainingRunResultsControls.createControls(this.service);
     this.trainingRun$ = this.activatedRoute.data.pipe(map((data) => data[ADAPTIVE_RUN_DATA_ATTRIBUTE_NAME]));
   }
 }

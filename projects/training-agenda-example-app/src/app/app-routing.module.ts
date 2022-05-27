@@ -83,6 +83,16 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full',
   },
+  {
+    path: 'mitre-techniques',
+    loadChildren: () =>
+      import('./lazy-loaded-modules/mitre-techniques/mitre-techniques.module').then((m) => m.MitreTechniquesModule),
+    data: {
+      title: 'MITRE ATT&CK Techniques',
+      breadcrumb: 'MITRE ATT&CK Techniques',
+      showSwitch: false,
+    },
+  },
 ];
 
 @NgModule({
