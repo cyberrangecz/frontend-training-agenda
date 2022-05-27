@@ -145,6 +145,12 @@ export abstract class TrainingNavigator {
   abstract toTrainingInstanceResults(id: number | string): string;
 
   /**
+   * Returns route to training instance aggregated results page
+   * @param id id of the training instance
+   */
+  abstract toTrainingInstanceAggregatedResults(id: number | string): string;
+
+  /**
    * Returns route to adaptive instance results page
    * @param id id of the adaptive instance
    */

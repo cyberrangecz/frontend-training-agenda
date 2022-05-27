@@ -23,6 +23,8 @@ import { DashboardWrapperComponent } from './dashboard-wrapper/dashboard-wrapper
 import { CommandTimelineWrapperComponent } from './command-timeline-wrapper/command-timeline-wrapper.component';
 import { AssessmentWrapperComponent } from './assessment-wrapper/assessment-wrapper.component';
 import { CommandAnalysisWrapperComponent } from './command-analysis-wrapper/command-analysis-wrapper.component';
+import { AggregatedDashboardWrapperComponent } from './aggregated-dashboard-wrapper/aggregated-dashboard-wrapper.component';
+import { StatisticalVisualizationModule } from '@muni-kypo-crp/statistical-visualizations/statistical-viz';
 
 /**
  * Module containing components and providers for training instance results page
@@ -35,6 +37,7 @@ import { CommandAnalysisWrapperComponent } from './command-analysis-wrapper/comm
     SummaryGraphModule,
     Kypo2AssessmentsResultsVisualizationModule,
     Kypo2TrainingsVisualizationOverviewLibModule,
+    StatisticalVisualizationModule,
     DashboardModule,
     TimelineModule,
     MistakeModule,
@@ -48,6 +51,7 @@ import { CommandAnalysisWrapperComponent } from './command-analysis-wrapper/comm
     DashboardWrapperComponent,
     TraineeGraphWrapperComponent,
     CommandAnalysisWrapperComponent,
+    AggregatedDashboardWrapperComponent,
   ],
   providers: [],
 })
@@ -60,6 +64,7 @@ export class TrainingInstanceResultsComponentsModule {
     return {
       ngModule: TrainingInstanceResultsComponentsModule,
       providers: [
+        StatisticalVisualizationModule.forRoot(visualizationConfig).providers,
         DashboardModule.forRoot(config.visualizationConfig).providers,
         SummaryGraphModule.forRoot(config.visualizationConfig).providers,
         TimelineModule.forRoot(config.visualizationConfig).providers,
