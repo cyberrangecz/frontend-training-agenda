@@ -19,6 +19,9 @@ export abstract class RunningAdaptiveRunService {
     .asObservable()
     .pipe(skipWhile((phase) => phase === undefined || phase === null));
 
+  protected isCurrentPhaseAnsweredSubject$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  isCurrentPhaseAnswered$: Observable<boolean> = this.isCurrentPhaseAnsweredSubject$.asObservable();
+
   abstract init(adaptiveRunInfo: AccessTrainingRunInfo): void;
   abstract getPhases(): Phase[];
   abstract getActivePhase(): Phase;

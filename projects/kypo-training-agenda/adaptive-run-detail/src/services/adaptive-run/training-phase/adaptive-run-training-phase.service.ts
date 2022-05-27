@@ -27,17 +27,17 @@ export abstract class AdaptiveRunTrainingPhaseService {
   abstract revealSolution(): Observable<string>;
   abstract getAccessFile(): Observable<boolean>;
 
-  init(phase: TrainingPhase): void {
-    this.initObservables();
+  init(phase: TrainingPhase, isPhaseAnswered: boolean): void {
+    this.initObservables(isPhaseAnswered);
     this.initSolutionState(phase);
   }
 
-  protected initObservables(): void {
+  protected initObservables(isPhaseAnswered: boolean): void {
     this.displayedSolutionContentSubject$ = new BehaviorSubject(undefined);
     this.displayedSolutionContent$ = this.displayedSolutionContentSubject$.asObservable();
     this.isSolutionRevealedSubject$ = new BehaviorSubject(false);
     this.isSolutionRevealed$ = this.isSolutionRevealedSubject$.asObservable();
-    this.isCorrectAnswerSubmittedSubject$ = new BehaviorSubject(false);
+    this.isCorrectAnswerSubmittedSubject$ = new BehaviorSubject(isPhaseAnswered);
     this.isCorrectAnswerSubmitted$ = this.isCorrectAnswerSubmittedSubject$.asObservable();
     this.isLoadingSubject$ = new BehaviorSubject(false);
     this.isLoading$ = this.isLoadingSubject$.asObservable();

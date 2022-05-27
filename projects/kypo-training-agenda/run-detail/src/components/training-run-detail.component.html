@@ -22,6 +22,7 @@
     [hidden]="(backtrackedLevel$ | async) && activeLevel.id !== stepper.items[stepper.activeLevelIndex].id"
     [level]="activeLevel"
     [isLast]="isLast"
+    [isLevelAnswered]="isCurrentLevelAnswered$ | async"
     [sandboxInstanceId]="sandboxInstanceId"
     [sandboxDefinitionId]="sandboxDefinitionId"
     [localEnvironment]="localEnvironment"

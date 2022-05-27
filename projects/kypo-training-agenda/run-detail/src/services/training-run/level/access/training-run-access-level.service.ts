@@ -16,8 +16,8 @@ export abstract class TrainingRunAccessLevelService {
 
   abstract getAccessFile(): Observable<boolean>;
 
-  init(): void {
-    this.isCorrectPasskeySubmittedSubject$ = new BehaviorSubject(false);
+  init(isLevelAnswered: boolean): void {
+    this.isCorrectPasskeySubmittedSubject$ = new BehaviorSubject(isLevelAnswered);
     this.isCorrectPasskeySubmitted$ = this.isCorrectPasskeySubmittedSubject$.asObservable();
     this.isLoadingSubject$ = new BehaviorSubject(false);
     this.isLoading$ = this.isLoadingSubject$.asObservable();

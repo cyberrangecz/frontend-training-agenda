@@ -39,13 +39,13 @@ export abstract class TrainingRunTrainingLevelService {
 
   abstract getAccessFile(): Observable<boolean>;
 
-  init(level: TrainingLevel): void {
-    this.initObservables();
+  init(level: TrainingLevel, isLevelAnswered: boolean): void {
+    this.initObservables(isLevelAnswered);
     this.initHints(level.hints);
     this.initSolutionState(level);
   }
 
-  protected initObservables(): void {
+  protected initObservables(isLevelAnswered: boolean): void {
     this.hintsSubject$ = new BehaviorSubject([]);
     this.hints$ = this.hintsSubject$.asObservable();
     this.displayedHintsContentSubject$ = new BehaviorSubject(undefined);
@@ -54,7 +54,7 @@ export abstract class TrainingRunTrainingLevelService {
     this.displayedSolutionContent$ = this.displayedSolutionContentSubject$.asObservable();
     this.isSolutionRevealedSubject$ = new BehaviorSubject(false);
     this.isSolutionRevealed$ = this.isSolutionRevealedSubject$.asObservable();
-    this.isCorrectAnswerSubmittedSubject$ = new BehaviorSubject(false);
+    this.isCorrectAnswerSubmittedSubject$ = new BehaviorSubject(isLevelAnswered);
     this.isCorrectAnswerSubmitted$ = this.isCorrectAnswerSubmittedSubject$.asObservable();
     this.isLoadingSubject$ = new BehaviorSubject(false);
     this.isLoading$ = this.isLoadingSubject$.asObservable();

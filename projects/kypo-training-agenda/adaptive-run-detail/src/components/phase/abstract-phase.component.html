@@ -4,6 +4,7 @@
                             [phase]="phase"
                             [isBacktracked]="isBacktracked"
                             [isLast]=isLast
+                            [isPhaseAnswered]="isPhaseAnswered"
                             (next)="onNext()">
   </kypo-questionnaire-phase>
   <kypo-training-phase *ngSwitchCase="phaseTypes.Training"
@@ -12,6 +13,7 @@
                        [isBacktracked]="isBacktracked"
                        [sandboxInstanceId]="sandboxInstanceId"
                        [sandboxDefinitionId]="sandboxDefinitionId"
+                       [isPhaseAnswered]="isPhaseAnswered"
                        (next)="onNext()">
   </kypo-training-phase>
   <kypo-info-phase *ngSwitchCase="phaseTypes.Info"
@@ -28,6 +30,7 @@
                      [sandboxInstanceId]="sandboxInstanceId"
                      [sandboxDefinitionId]="sandboxDefinitionId"
                      [localEnvironment]="localEnvironment"
+                     [isPhaseAnswered]="isPhaseAnswered"
                      (next)="onNext()">
   </kypo-access-phase>
 </ng-container>

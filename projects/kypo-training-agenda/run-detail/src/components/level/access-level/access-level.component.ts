@@ -34,13 +34,13 @@ import { TrainingRunAccessLevelConcreteService } from '../../../services/trainin
 export class AccessLevelComponent extends SentinelBaseDirective implements OnInit, OnChanges, AfterViewInit {
   @Input() level: AccessLevel;
   @Input() isLast: boolean;
+  @Input() isLevelAnswered: boolean;
   @Input() isBacktracked: boolean;
   @Input() sandboxInstanceId: number;
   @Input() sandboxDefinitionId: number;
   @Input() localEnvironment: boolean;
   @Output() next: EventEmitter<void> = new EventEmitter();
   @ViewChild('rightPanel', { static: true }) rightPanelDiv: ElementRef;
-  @ViewChild('levelContent') private levelContent: ElementRef;
   @ViewChild('controls', { read: ElementRef }) controlsPanel: ElementRef;
   @ViewChild('controlsContainer', { static: false, read: ElementRef }) controlsContainer: ElementRef;
   @ViewChild('content', { read: ElementRef, static: false }) content: ElementRef;
@@ -77,7 +77,7 @@ export class AccessLevelComponent extends SentinelBaseDirective implements OnIni
     if ('level' in changes) {
       this.initTopology();
       this.passkey = '';
-      this.accessLevelService.init();
+      this.accessLevelService.init(this.isLevelAnswered);
       this.isCorrectPasskeySubmitted$ = this.accessLevelService.isCorrectPasskeySubmitted$;
       this.isLoading$ = this.accessLevelService.isLoading$;
     }

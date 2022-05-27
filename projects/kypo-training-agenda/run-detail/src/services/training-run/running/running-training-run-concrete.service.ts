@@ -48,6 +48,7 @@ export class RunningTrainingRunConcreteService extends RunningTrainingRunService
     this.activeLevels = trainingRunInfo.levels as Level[];
     this.setActiveLevel(trainingRunInfo.currentLevel as Level);
     this.backwardMode = trainingRunInfo.backwardMode;
+    this.isCurrentLevelAnsweredSubject$.next(trainingRunInfo.isLevelAnswered);
   }
 
   getLevels(): Level[] {
@@ -131,7 +132,10 @@ export class RunningTrainingRunConcreteService extends RunningTrainingRunService
   private callApiToNextLevel(): Observable<Level> {
     return this.api.nextLevel(this.trainingRunId).pipe(
       tap(
-        (level) => this.setActiveLevel(level),
+        (level) => {
+          this.isCurrentLevelAnsweredSubject$.next(false);
+          this.setActiveLevel(level);
+        },
         (err) => this.errorHandler.emit(err, 'Moving to next level')
       )
     );

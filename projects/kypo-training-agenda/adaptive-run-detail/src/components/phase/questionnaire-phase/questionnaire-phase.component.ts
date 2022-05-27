@@ -32,12 +32,12 @@ import { RunningAdaptiveRunService } from './../../../services/adaptive-run/runn
 export class QuestionnairePhaseComponent extends SentinelBaseDirective implements OnChanges, OnInit, AfterViewInit {
   @Input() phase: QuestionnairePhase;
   @Input() isLast: boolean;
+  @Input() isPhaseAnswered: boolean;
   @Input() isBacktracked: boolean;
   @Output() next: EventEmitter<void> = new EventEmitter();
   @ViewChild('controls', { read: ElementRef, static: false }) controlsPanel: ElementRef;
   @ViewChild('content', { read: ElementRef, static: false }) content: ElementRef;
 
-  isSubmitted = false;
   isLoading = false;
   questionAnswers: QuestionAnswer[] = [];
   questionTypes = QuestionTypeEnum;
@@ -45,13 +45,11 @@ export class QuestionnairePhaseComponent extends SentinelBaseDirective implement
   ngOnChanges(changes: SimpleChanges): void {
     if ('phase' in changes) {
       this.initEmptyAnswers();
-      this.isSubmitted = false;
     }
   }
 
   ngOnInit(): void {
     this.initEmptyAnswers();
-    this.isSubmitted = false;
   }
 
   @HostListener('window:resize', ['$event'])
@@ -105,7 +103,6 @@ export class QuestionnairePhaseComponent extends SentinelBaseDirective implement
       .submitQuestionnaire(this.questionAnswers)
       .pipe(take(1))
       .subscribe(() => {
-        this.isSubmitted = true;
         this.isLoading = false;
       });
   }

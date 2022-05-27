@@ -23,6 +23,7 @@ export class TrainingRunDetailComponent extends SentinelBaseDirective implements
   user$: Observable<SentinelUser>;
   activeLevel$: Observable<Level>;
   backtrackedLevel$: Observable<Level>;
+  isCurrentLevelAnswered$: Observable<boolean>;
   levels: Level[];
   stepper: TrainingRunStepper;
 
@@ -59,6 +60,7 @@ export class TrainingRunDetailComponent extends SentinelBaseDirective implements
     this.sandboxDefinitionId = this.trainingRunService.sandboxDefinitionId;
     this.localEnvironment = this.trainingRunService.localEnvironment;
     this.backwardMode = this.trainingRunService.getBackwardMode();
+    this.isCurrentLevelAnswered$ = this.trainingRunService.isCurrentLevelAnswered$;
     if (this.isStepperDisplayed) {
       const stepperAdapterLevels = this.levels.map((level) => new LevelStepperAdapter(level));
       this.stepper = new TrainingRunStepper(stepperAdapterLevels, this.trainingRunService.getActiveLevelPosition());

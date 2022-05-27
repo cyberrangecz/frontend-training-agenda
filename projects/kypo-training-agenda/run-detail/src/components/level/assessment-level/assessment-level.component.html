@@ -13,10 +13,10 @@
   <div *ngIf="!isBacktracked">
     <mat-card #controls class="controls">
       <div class="controls-container">
-        <button *ngIf="!isSubmitted" mat-raised-button color="primary" (click)="submit()" [disabled]="!canSubmit">
+        <button *ngIf="!isLevelAnswered" mat-raised-button color="primary" (click)="submit()" [disabled]="!canSubmit">
           Submit
         </button>
-        <kypo-next-level-button *ngIf="isSubmitted" [isLast]="isLast" (next)="onNext()"> </kypo-next-level-button>
+        <kypo-next-level-button *ngIf="isLevelAnswered" [isLast]="isLast" (next)="onNext()"> </kypo-next-level-button>
       </div>
     </mat-card>
   </div>

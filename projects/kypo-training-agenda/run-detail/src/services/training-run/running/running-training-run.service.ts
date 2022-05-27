@@ -21,6 +21,9 @@ export abstract class RunningTrainingRunService {
     .asObservable()
     .pipe(skipWhile((level) => level === undefined || level === null));
 
+  protected isCurrentLevelAnsweredSubject$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  isCurrentLevelAnswered$: Observable<boolean> = this.isCurrentLevelAnsweredSubject$.asObservable();
+
   abstract init(trainingRunInfo: AccessTrainingRunInfo): void;
 
   abstract getLevels(): Level[];
