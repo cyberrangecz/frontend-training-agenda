@@ -1,25 +1,3 @@
-### 13.3.1 Add new across instance visualizations. Fix transition to next level/phase on second request fail. Add Map of games.
-* b5a0fd7 -- [CI/CD] Update packages.json version based on GitLab tag.
-* e6af24c -- Added latest version
-* ba983dd -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
-* 815b85c -- [CI/CD] Update packages.json version based on GitLab tag.
-*   5cdbe58 -- Merge branch '177-integrate-cross-instance-visualizations' into 'master'
-|\  
-| * 1ab2b4a -- Fix package integrity
-| * c06237a -- Tag message
-| * 7588f1f -- Add statistical visualization version
-| *   69a2a79 -- Merge branch 'master' into 177-integrate-cross-instance-visualizations
-| |\  
-| * | c63a4f9 -- Integrate statistical visualization
-|  /  
-* |   afd5647 -- Merge branch '176-fix-transition-to-the-next-level-phase-when-second-request-fails' into 'master'
-|\ \  
-| |/  
-|/|   
-| * 1b03ff7 -- Resolve "Fix transition to the next level/phase when second request fails"
-|/  
-* 1135161 -- Merge branch '158-add-support-for-map-of-games' into 'master'
-* 9e15730 -- Resolve "Add support for map of games"
 ### 13.2.3 Fix training definition selector.
 * db3096b -- [CI/CD] Update packages.json version based on GitLab tag.
 *   8bd7dad -- Merge branch '175-cannot-select-desired-training-definition-when-editing-training-instance' into 'master'
