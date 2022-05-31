@@ -168,7 +168,10 @@ export class RunningAdaptiveRunConcreteService extends RunningAdaptiveRunService
     } else {
       return this.api.nextPhase(this.trainingRunId).pipe(
         tap(
-          (phase) => this.setActivePhase(phase),
+          (phase) => {
+            this.isCurrentPhaseAnsweredSubject$.next(false);
+            this.setActivePhase(phase);
+          },
           (err) => this.errorHandler.emit(err, 'Moving to next phase')
         )
       );
