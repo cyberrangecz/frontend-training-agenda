@@ -1,3 +1,11 @@
+### 13.3.1 Fix total number of actions in TD overview table. Bump version of topology graph and fix next phase for questionnaire.
+* 269868d -- [CI/CD] Update packages.json version based on GitLab tag.
+*   5117551 -- Merge branch '180-fix-training-definition-table-and-bump-topology' into 'master'
+|\  
+| * ca0aa88 -- Resolve "Fix training definition table and bump topology"
+|/  
+* 029c5f0 -- Merge branch 'fix-transition-to-the-next-phase' into 'master'
+* 9966701 -- Set correctly value of the observable isCurrentPhaseAnswered when requesting the next phase
 ### 13.3.0 Add new across instance visualizations. Fix transition to next level/phase on second request fail. Add Map of games.
 * 88d3982 -- [CI/CD] Update packages.json version based on GitLab tag.
 *   d85a19c -- Merge branch '179-change-project-structure' into 'master'
