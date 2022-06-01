@@ -1,3 +1,4 @@
+13.3.2 Fix correct loading of consoles for topology in training run. Changed polling strategy for progress visualization.
 13.3.1 Fix total number of actions in TD overview table. Bump version of topology graph and fix next phase for questionnaire.
 13.3.0 Add new across instance visualizations. Fix transition to next level/phase on second request fail. Add Map of games.
 13.2.3 Fix training definition selector.
