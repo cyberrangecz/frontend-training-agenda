@@ -1,3 +1,10 @@
+### 13.3.2 Fix correct loading of consoles for topology in training run. Changed polling strategy for progress visualization.
+* 5db3690 -- [CI/CD] Update packages.json version based on GitLab tag.
+*   b719977 -- Merge branch '182-bump-topology-graph-patch-version' into 'master'
+|\  
+| * 485c31b -- Resolve "Bump topology graph patch version"
+* 6ae94c7 -- Merge branch '178-change-polling-strategy-for-hurdling-visualization' into 'master'
+* 3e44fb0 -- Resolve "Change polling strategy for hurdling visualization"
 ### 13.3.1 Fix total number of actions in TD overview table. Bump version of topology graph and fix next phase for questionnaire.
 * 269868d -- [CI/CD] Update packages.json version based on GitLab tag.
 *   5117551 -- Merge branch '180-fix-training-definition-table-and-bump-topology' into 'master'
