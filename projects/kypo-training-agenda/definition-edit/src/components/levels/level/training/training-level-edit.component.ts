@@ -69,6 +69,9 @@ export class TrainingLevelEditComponent extends SentinelBaseDirective implements
   get hints(): AbstractControl {
     return this.trainingLevelConfigFormGroup.formGroup.get('hints');
   }
+  get commandsRequired(): AbstractControl {
+    return this.trainingLevelConfigFormGroup.formGroup.get('commandsRequired');
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if ('level' in changes) {

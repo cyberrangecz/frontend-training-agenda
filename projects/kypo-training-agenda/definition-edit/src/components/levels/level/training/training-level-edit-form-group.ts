@@ -47,6 +47,7 @@ export class TrainingLevelEditFormGroup {
       referenceSolution: new FormControl(JSON.stringify(level.referenceSolution, null, 2), [
         this.referenceSolutionValidator,
       ]),
+      commandsRequired: new FormControl(level.commandsRequired),
     });
   }
 
@@ -87,6 +88,7 @@ export class TrainingLevelEditFormGroup {
     level.estimatedDuration = this.formGroup.get('estimatedDuration').value;
     level.minimalPossibleSolveTime = this.formGroup.get('minimalPossibleSolveTime').value;
     level.referenceSolution = this.setReferenceSolution(this.formGroup.get('referenceSolution').value);
+    level.commandsRequired = this.formGroup.get('commandsRequired').value;
     level.valid = this.formGroup.valid && level.hints.every((hint) => hint.valid);
   }
 
