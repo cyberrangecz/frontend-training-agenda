@@ -1,6 +1,7 @@
 <div class="container">
   <kypo-statistical-visualization
     [trainingInstanceId]="trainingInstance?.id"
-    [trainingDefinitionId]="trainingInstance?.trainingDefinition?.id">
+    [trainingDefinitionId]="trainingInstance?.trainingDefinition?.id"
+    (openDetailView)="redirectToDetailView($event)">
   </kypo-statistical-visualization>
 </div>
