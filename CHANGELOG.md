@@ -1,3 +1,11 @@
+### 13.3.3 Added option to specify in the training level can be completed without commands. Bumped statistical visualization to resolve some issues.
+* a080bbd -- [CI/CD] Update packages.json version based on GitLab tag.
+*   c20fe16 -- Merge branch '183-bump-statistical-visualization-and-fix-icons-in-results' into 'master'
+|\  
+| * e9ae4ea -- Resolve "Bump statistical visualization and fix icons in results"
+|/  
+* ae6dc4c -- Merge branch '181-add-option-to-specifiy-if-the-level-can-be-passed-without-entering-a-commands' into 'master'
+* 9113af6 -- Resolve "Add option to specifiy if the level can be passed without entering a commands"
 ### 13.3.2 Fix correct loading of consoles for topology in training run. Changed polling strategy for progress visualization.
 * 5db3690 -- [CI/CD] Update packages.json version based on GitLab tag.
 *   b719977 -- Merge branch '182-bump-topology-graph-patch-version' into 'master'
