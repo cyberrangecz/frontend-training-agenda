@@ -2,6 +2,13 @@
     <div class="header">
       <!-- PHASE STEPPER -->
       <div class="training-run-stepper">
+        <h3 *ngIf="!isStepperDisplayed" class="message">
+          *Stepper is shown only in preview mode to allow navigation between levels. It won't be displayed in training run as requested.
+        </h3>
+        <h3 *ngIf="isStepperDisplayed" class="message">
+          *Use stepper to navigate between levels.
+        </h3>
+  
         <sentinel-stepper
           [draggable]="false"
           [selectable]="true"

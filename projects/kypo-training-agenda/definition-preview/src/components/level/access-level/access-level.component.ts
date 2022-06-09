@@ -25,7 +25,7 @@ export class AccessLevelComponent extends SentinelBaseDirective {
     this.calculateTopologySize();
   }
 
-  private calculateTopologySize() {
+  calculateTopologySize() {
     this.topologyWidth = this.rightPanelDiv.nativeElement.getBoundingClientRect().width;
     this.topologyHeight = this.topologyWidth;
   }

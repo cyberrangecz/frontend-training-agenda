@@ -72,6 +72,7 @@ export class AdaptiveInstanceEditConcreteService extends AdaptiveInstanceEditSer
    * Saves/creates training instance based on current edit mode or handles error.
    */
   save(): Observable<any> {
+    if (!this.editedSnapshot.startTime) this.editedSnapshot.startTime = new Date();
     if (this.editModeSubject$.getValue()) {
       return this.update();
     } else {
@@ -90,9 +91,6 @@ export class AdaptiveInstanceEditConcreteService extends AdaptiveInstanceEditSer
     this.setEditMode(trainingInstance);
     if (ti === null) {
       ti = new TrainingInstance();
-      const delay = 1;
-      ti.startTime = new Date();
-      ti.startTime.setSeconds(ti.startTime.getSeconds() + delay);
       ti.backwardMode = true;
       this.instanceValidSubject$.next(false);
     }

@@ -1,25 +1,13 @@
 <div class="content">
   <form [formGroup]="trainingInstanceFormGroup.formGroup">
     <!--TITLE field-->
-    <mat-form-field
-      appearance="outline"
-      (keydown.enter)="$event.preventDefault()"
-    >
+    <mat-form-field appearance="outline" (keydown.enter)="$event.preventDefault()">
       <mat-label>Title</mat-label>
       <input matInput placeholder="Title" formControlName="title" required />
-      <button
-        mat-button
-        *ngIf="title.value"
-        matSuffix
-        mat-icon-button
-        aria-label="Clear"
-        (click)="title.setValue('')"
-      >
+      <button mat-button *ngIf="title.value" matSuffix mat-icon-button aria-label="Clear" (click)="title.setValue('')">
         <mat-icon>close</mat-icon>
       </button>
-      <mat-error *ngIf="title.hasError('whitespace')"
-        >This field is required</mat-error
-      >
+      <mat-error *ngIf="title.hasError('whitespace')">This field is required</mat-error>
     </mat-form-field>
 
     <div class="panel-wrapper">
@@ -27,7 +15,7 @@
         <!-- START TIME field -->
         <mat-form-field
           class="multi-line-hint"
-          hintLabel="When trainees can access training runs"
+          hintLabel="When trainees can access training runs (if left empty, the current time will be set as the start time)"
           [owlDateTimeTrigger]="startTimePicker"
           appearance="outline"
         >
@@ -36,32 +24,18 @@
             <input
               matInput
               placeholder="Start Time"
-              required
               [min]="now"
               [max]="endTime.value"
               formControlName="startTime"
-              (dateTimeChange)="onStartTimeChanged()"
               [owlDateTime]="startTimePicker"
             />
-            <owl-date-time
-              #startTimePicker
-              [startAt]="startTime.value"
-            ></owl-date-time>
+            <owl-date-time #startTimePicker [startAt]="startTime.value"></owl-date-time>
           </div>
-          <mat-error
-            *ngIf="
-              trainingInstanceFormGroup.formGroup.hasError(
-                'startTimeAfterEndTime'
-              )
-            "
+          <mat-error *ngIf="trainingInstanceFormGroup.formGroup.hasError('startTimeAfterEndTime')"
             >Start time must be before end time</mat-error
           >
-          <mat-error *ngIf="startTime.hasError('dateInPast')"
-            >Start time cannot be in the past</mat-error
-          >
-          <mat-error *ngIf="startTime.hasError('required')"
-            >This field is required</mat-error
-          >
+          <mat-error *ngIf="startTime.hasError('dateInPast')">Start time cannot be in the past</mat-error>
+          <mat-error *ngIf="startTime.hasError('required')">This field is required</mat-error>
         </mat-form-field>
 
         <!-- END TIME field -->
@@ -82,25 +56,13 @@
               formControlName="endTime"
               [owlDateTime]="endTimePicker"
             />
-            <owl-date-time
-              #endTimePicker
-              [startAt]="endTime.value ? endTime.value : startTime.value"
-            ></owl-date-time>
+            <owl-date-time #endTimePicker [startAt]="endTime.value ? endTime.value : startTime.value"></owl-date-time>
           </div>
-          <mat-error
-            *ngIf="
-              trainingInstanceFormGroup.formGroup.hasError(
-                'startTimeAfterEndTime'
-              )
-            "
+          <mat-error *ngIf="trainingInstanceFormGroup.formGroup.hasError('startTimeAfterEndTime')"
             >Start time must be before end time</mat-error
           >
-          <mat-error *ngIf="endTime.hasError('dateInPast')"
-            >End time cannot be in the past</mat-error
-          >
-          <mat-error *ngIf="endTime.hasError('required')"
-            >This field is required</mat-error
-          >
+          <mat-error *ngIf="endTime.hasError('dateInPast')">End time cannot be in the past</mat-error>
+          <mat-error *ngIf="endTime.hasError('required')">This field is required</mat-error>
         </mat-form-field>
       </div>
 
@@ -108,32 +70,25 @@
         <!-- ACCESS TOKEN filed -->
         <mat-form-field
           appearance="outline"
-          hintLabel="Generated PIN code will
-          be added to your token"
           class="multi-line-hint"
           (keydown.enter)="$event.preventDefault()"
         >
           <mat-label>Access Token Prefix</mat-label>
-          <input
-            matInput
-            placeholder="Access Token"
-            formControlName="accessToken"
-            required
-          />
+          <input matInput placeholder="Access Token" formControlName="accessTokenPrefix" required />
           <button
             mat-button
-            *ngIf="accessToken.value"
+            *ngIf="accessTokenPrefix.value"
             matSuffix
             mat-icon-button
             aria-label="Clear"
             [disabled]="hasStarted"
-            (click)="accessToken.setValue('')"
+            (click)="accessTokenPrefix.setValue('')"
           >
             <mat-icon>close</mat-icon>
           </button>
-          <mat-error *ngIf="accessToken.hasError('whitespace')"
-            >This field is required</mat-error
-          >
+          <mat-hint *ngIf="!editMode">Generated PIN code will be added to your token</mat-hint>
+          <mat-hint *ngIf="editMode">Whenever you change the access token a new PIN will be generated</mat-hint>
+          <mat-error *ngIf="accessTokenPrefix.hasError('whitespace')">This field is required</mat-error>
         </mat-form-field>
 
         <!-- TRAINING DEFINITION field-->
@@ -143,14 +98,7 @@
             {{ trainingDefinition.value.title | sentinelShortString: 30 }}
           </p>
           <p *ngIf="!trainingDefinition.value">Training Definition*</p>
-          <button
-            (click)="selectTrainingDefinition()"
-            [disabled]="hasStarted"
-            mat-button
-            color="accent"
-          >
-            Select
-          </button>
+          <button (click)="selectTrainingDefinition()" [disabled]="hasStarted" mat-button color="accent">Select</button>
         </div>
       </div>
     </div>
@@ -158,18 +106,26 @@
     <div class="slide-toggle-container">
       <span>Local Environment</span>
       <mat-slide-toggle
-        [matTooltip]="localEnvironment ? 'Enable Local Environment to disable the pool selection.' :
-                                         'Disable Local Environment to enable the pool selection.'"
-        formControlName="localEnvironment">
+        [matTooltip]="
+          localEnvironment
+            ? 'Enable Local Environment to disable the pool selection.'
+            : 'Disable Local Environment to enable the pool selection.'
+        "
+        formControlName="localEnvironment"
+      >
       </mat-slide-toggle>
     </div>
 
     <div class="slide-toggle-container">
       <span>Backward Mode</span>
       <mat-slide-toggle
-        [matTooltip]="backwardMode ? 'Enable Backward Mode to allow trainees move to previous accessed levels during training run.' :
-                                         'Disable Backward Mode to disallow trainees move to previous accessed levels during training run.'"
-        formControlName="backwardMode">
+        [matTooltip]="
+          backwardMode
+            ? 'Enable Backward Mode to allow trainees move to previous accessed levels during training run.'
+            : 'Disable Backward Mode to disallow trainees move to previous accessed levels during training run.'
+        "
+        formControlName="backwardMode"
+      >
       </mat-slide-toggle>
     </div>
   </form>

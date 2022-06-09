@@ -90,9 +90,6 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
     this.setEditMode(trainingInstance);
     if (ti === null) {
       ti = new TrainingInstance();
-      const delay = 1;
-      ti.startTime = new Date();
-      ti.startTime.setSeconds(ti.startTime.getSeconds() + delay);
       ti.backwardMode = true;
       this.instanceValidSubject$.next(false);
     }
@@ -135,6 +132,7 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
 
   private create(): Observable<number> {
     if (this.editedSnapshot) {
+      if (!this.editedSnapshot.startTime) this.editedSnapshot.startTime = new Date();
       if (this.editedSnapshot.localEnvironment) {
         this.assignedPoolSubject$.next(null);
         this.editedSnapshot.poolId = null;

@@ -27,7 +27,7 @@ import { AdaptiveInstanceChangeEvent } from '../../models/events/adaptive-instan
   styleUrls: ['./adaptive-instance-edit.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AdaptiveInstanceEditComponent extends SentinelBaseDirective implements OnInit, OnChanges {
+export class AdaptiveInstanceEditComponent extends SentinelBaseDirective implements OnChanges {
   @Input() trainingInstance: TrainingInstance;
   @Input() hasStarted: boolean;
   @Input() editMode: boolean;
@@ -35,15 +35,9 @@ export class AdaptiveInstanceEditComponent extends SentinelBaseDirective impleme
 
   now: Date;
   trainingInstanceFormGroup: AdaptiveInstanceFormGroup;
-  userChangedStartTime = false;
-  period = 1000;
 
   constructor(private dialog: MatDialog) {
     super();
-  }
-
-  ngOnInit(): void {
-    this.initCurrentTimePeriodicalUpdate();
   }
 
   get startTime(): AbstractControl {
@@ -58,8 +52,8 @@ export class AdaptiveInstanceEditComponent extends SentinelBaseDirective impleme
   get trainingDefinition(): AbstractControl {
     return this.trainingInstanceFormGroup.formGroup.get('trainingDefinition');
   }
-  get accessToken(): AbstractControl {
-    return this.trainingInstanceFormGroup.formGroup.get('accessToken');
+  get accessTokenPrefix(): AbstractControl {
+    return this.trainingInstanceFormGroup.formGroup.get('accessTokenPrefix');
   }
   get localEnvironment(): AbstractControl {
     return this.trainingInstanceFormGroup.formGroup.get('localEnvironment');
@@ -91,24 +85,6 @@ export class AdaptiveInstanceEditComponent extends SentinelBaseDirective impleme
         if (result && result.type === 'confirm') {
           this.trainingInstanceFormGroup.formGroup.markAsDirty();
           this.trainingDefinition.setValue(result.trainingDef);
-        }
-      });
-  }
-
-  /**
-   * Changes internal component state to prevent from from recalculating start time if user already set the value
-   */
-  onStartTimeChanged(): void {
-    this.userChangedStartTime = true;
-  }
-
-  private initCurrentTimePeriodicalUpdate() {
-    this.now = new Date();
-    interval(this.period)
-      .pipe(takeWhile(() => this.isAlive))
-      .subscribe(() => {
-        if (!this.userChangedStartTime && !this.editMode) {
-          this.startTime.setValue(new Date(this.startTime.value.setSeconds(this.startTime.value.getSeconds() + 1)));
         }
       });
   }
