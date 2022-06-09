@@ -1,3 +1,7 @@
+### 13.3.4 Allow empty start time in training instance.
+* ce4c5da -- [CI/CD] Update packages.json version based on GitLab tag.
+* c57861b -- Merge branch '184-allow-empty-start-time-in-training-instance' into 'master'
+* f3d40db -- Resolve "Allow empty start time in training instance"
 ### 13.3.3 Added option to specify in the training level can be completed without commands. Bumped statistical visualization to resolve some issues.
 * a080bbd -- [CI/CD] Update packages.json version based on GitLab tag.
 *   c20fe16 -- Merge branch '183-bump-statistical-visualization-and-fix-icons-in-results' into 'master'
