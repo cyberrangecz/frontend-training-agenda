@@ -11,11 +11,13 @@ export class AdaptiveInstanceFormGroup {
   constructor(trainingInstance: TrainingInstance) {
     this.formGroup = new FormGroup(
       {
-        startTime: new FormControl(trainingInstance.startTime, [Validators.required, this.dateValidator]),
+        startTime: new FormControl(trainingInstance.startTime),
         endTime: new FormControl(trainingInstance.endTime, [Validators.required, this.dateValidator]),
         title: new FormControl(trainingInstance.title, [SentinelValidators.noWhitespace]),
         trainingDefinition: new FormControl(trainingInstance.trainingDefinition, [Validators.required]),
-        accessToken: new FormControl(this.trimToken(trainingInstance.accessToken), [SentinelValidators.noWhitespace]),
+        accessTokenPrefix: new FormControl(this.getTokenPrefix(trainingInstance.accessToken), [
+          SentinelValidators.noWhitespace,
+        ]),
         localEnvironment: new FormControl(trainingInstance.localEnvironment),
         backwardMode: new FormControl(trainingInstance.backwardMode),
       },
@@ -31,7 +33,7 @@ export class AdaptiveInstanceFormGroup {
 
   private dateSequenceValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
     let error = null;
-    const startTime = control.get('startTime').value;
+    const startTime = control.get('startTime').value ? control.get('startTime').value : Date.now();
     const endTime = control.get('endTime').value;
     if (startTime && endTime && startTime.valueOf() > endTime.valueOf()) {
       error = { startTimeAfterEndTime: true };
@@ -56,12 +58,12 @@ export class AdaptiveInstanceFormGroup {
     trainingInstance.endTime = this.formGroup.get('endTime').value;
     trainingInstance.title = this.formGroup.get('title').value;
     trainingInstance.trainingDefinition = this.formGroup.get('trainingDefinition').value;
-    trainingInstance.accessToken = this.formGroup.get('accessToken').value;
+    trainingInstance.accessToken = this.formGroup.get('accessTokenPrefix').value;
     trainingInstance.localEnvironment = this.formGroup.get('localEnvironment').value;
     trainingInstance.backwardMode = this.formGroup.get('backwardMode').value;
   }
 
-  private trimToken(accessToken: string): string {
+  private getTokenPrefix(accessToken: string): string {
     return accessToken?.substring(0, accessToken.lastIndexOf('-'));
   }
 }

@@ -16,12 +16,14 @@ export class AdaptivePreviewComponent extends SentinelBaseDirective implements O
   activePhase: Phase;
   phases: Phase[];
   stepper: AdaptivePreviewStepper;
+  isStepperDisplayed: boolean;
 
   constructor(private activeRoute: ActivatedRoute) {
     super();
-    this.activeRoute.data
-      .pipe(takeWhile(() => this.isAlive))
-      .subscribe((data) => (this.phases = data[ADAPTIVE_DEFINITION_DATA_ATTRIBUTE_NAME].levels));
+    this.activeRoute.data.pipe(takeWhile(() => this.isAlive)).subscribe((data) => {
+      this.phases = data[ADAPTIVE_DEFINITION_DATA_ATTRIBUTE_NAME].levels;
+      this.isStepperDisplayed = data[ADAPTIVE_DEFINITION_DATA_ATTRIBUTE_NAME].showStepperBar;
+    });
   }
 
   ngOnInit(): void {

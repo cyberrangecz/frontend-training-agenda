@@ -19,12 +19,14 @@ export class TrainingPreviewComponent extends SentinelBaseDirective implements O
   activeLevel: Level;
   levels: Level[];
   stepper: TrainingPreviewStepper;
+  isStepperDisplayed: boolean;
 
   constructor(private activeRoute: ActivatedRoute) {
     super();
-    this.activeRoute.data
-      .pipe(takeWhile(() => this.isAlive))
-      .subscribe((data) => (this.levels = data[TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME].levels));
+    this.activeRoute.data.pipe(takeWhile(() => this.isAlive)).subscribe((data) => {
+      this.levels = data[TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME].levels;
+      this.isStepperDisplayed = data[TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME].showStepperBar;
+    });
   }
 
   ngOnInit(): void {

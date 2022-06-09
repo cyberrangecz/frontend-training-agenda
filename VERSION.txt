@@ -1,3 +1,4 @@
+13.3.4 Allow empty start time in training instance.
 13.3.3 Added option to specify in the training level can be completed without commands. Bumped statistical visualization to resolve some issues.
 13.3.2 Fix correct loading of consoles for topology in training run. Changed polling strategy for progress visualization.
 13.3.1 Fix total number of actions in TD overview table. Bump version of topology graph and fix next phase for questionnaire.

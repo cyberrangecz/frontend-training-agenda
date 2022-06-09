@@ -46,7 +46,6 @@ export class QuestionnairePhaseComponent extends SentinelBaseDirective implement
     if ('phase' in changes) {
       this.initEmptyAnswers();
     }
-    console.log(this.isPhaseAnswered);
   }
 
   ngOnInit(): void {

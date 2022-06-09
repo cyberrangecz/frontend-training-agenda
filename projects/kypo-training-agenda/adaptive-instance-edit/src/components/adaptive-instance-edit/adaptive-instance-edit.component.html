@@ -27,7 +27,7 @@
         <!-- START TIME field -->
         <mat-form-field
           class="multi-line-hint"
-          hintLabel="When trainees can access training runs"
+          hintLabel="When trainees can access training runs (if left empty, the current time will be set as the start time)"
           [owlDateTimeTrigger]="startTimePicker"
           appearance="outline"
         >
@@ -36,11 +36,9 @@
             <input
               matInput
               placeholder="Start Time"
-              required
               [min]="now"
               [max]="endTime.value"
               formControlName="startTime"
-              (dateTimeChange)="onStartTimeChanged()"
               [owlDateTime]="startTimePicker"
             />
             <owl-date-time
@@ -108,8 +106,6 @@
         <!-- ACCESS TOKEN filed -->
         <mat-form-field
           appearance="outline"
-          hintLabel="Generated PIN code will
-          be added to your token"
           class="multi-line-hint"
           (keydown.enter)="$event.preventDefault()"
         >
@@ -117,21 +113,23 @@
           <input
             matInput
             placeholder="Access Token"
-            formControlName="accessToken"
+            formControlName="accessTokenPrefix"
             required
           />
           <button
             mat-button
-            *ngIf="accessToken.value"
+            *ngIf="accessTokenPrefix.value"
             matSuffix
             mat-icon-button
             aria-label="Clear"
             [disabled]="hasStarted"
-            (click)="accessToken.setValue('')"
+            (click)="accessTokenPrefix.setValue('')"
           >
             <mat-icon>close</mat-icon>
           </button>
-          <mat-error *ngIf="accessToken.hasError('whitespace')"
+          <mat-hint *ngIf="!editMode">Generated PIN code will be added to your token</mat-hint>
+          <mat-hint *ngIf="editMode">Whenever you change the access token a new PIN will be generated</mat-hint>
+          <mat-error *ngIf="accessTokenPrefix.hasError('whitespace')"
             >This field is required</mat-error
           >
         </mat-form-field>
