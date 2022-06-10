@@ -1,3 +1,7 @@
+### 13.3.7 Fix adaptive instance save when editing pool or sandbox definition selection. Fix adaptive access phase text overflow.
+* 65c05d3 -- [CI/CD] Update packages.json version based on GitLab tag.
+* 74217cf -- Merge branch '187-fix-adaptive-instance-save-on-edit-and-adaptive-access-phase-text-overflow' into 'master'
+* 2b8fe73 -- Resolve "Fix adaptive instance save on edit and adaptive access phase text overflow"
 ### 13.3.6 Fix margin in adaptive definition create. Bump statistical visualization. Fix filtering in adaptive instance overview table.
 * 374b580 -- [CI/CD] Update packages.json version based on GitLab tag.
 * db4c90d -- Merge branch '185-adaptive-training-instance-sort-by-start-end-time-not-working' into 'master'
