@@ -1,3 +1,7 @@
+### 13.3.6 Fix margin in adaptive definition create. Bump statistical visualization. Fix filtering in adaptive instance overview table.
+* 374b580 -- [CI/CD] Update packages.json version based on GitLab tag.
+* db4c90d -- Merge branch '185-adaptive-training-instance-sort-by-start-end-time-not-working' into 'master'
+* 1b22d6a -- Resolve "Adaptive training instance sort by start/end time not working"
 ### 13.3.5 Fix mire techniques expansion panel description position. 
 * 3be8c53 -- [CI/CD] Update packages.json version based on GitLab tag.
 * cb5110b -- Merge branch '186-fix-mire-techniques-expansion-panel-description-position' into 'master'
