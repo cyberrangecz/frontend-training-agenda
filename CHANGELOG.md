@@ -1,3 +1,7 @@
+### 13.3.5 Fix mire techniques expansion panel description position. 
+* 3be8c53 -- [CI/CD] Update packages.json version based on GitLab tag.
+* cb5110b -- Merge branch '186-fix-mire-techniques-expansion-panel-description-position' into 'master'
+* b603e49 -- Resolve "Fix mire techniques expansion panel description position"
 ### 13.3.4 Allow empty start time in training instance.
 * ce4c5da -- [CI/CD] Update packages.json version based on GitLab tag.
 * c57861b -- Merge branch '184-allow-empty-start-time-in-training-instance' into 'master'
