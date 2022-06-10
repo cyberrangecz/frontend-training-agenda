@@ -47,7 +47,15 @@ export class AdaptiveInstanceOverviewComponent extends SentinelBaseDirective imp
   onInstancesLoadEvent(loadEvent: TableLoadEvent): void {
     this.paginationService.setPagination(loadEvent.pagination.size);
     this.service
-      .getAll(new OffsetPaginationEvent(0, loadEvent.pagination.size), loadEvent.filter)
+      .getAll(
+        new OffsetPaginationEvent(
+          0,
+          loadEvent.pagination.size,
+          loadEvent.pagination.sort,
+          loadEvent.pagination.sortDir
+        ),
+        loadEvent.filter
+      )
       .pipe(takeWhile(() => this.isAlive))
       .subscribe();
   }
