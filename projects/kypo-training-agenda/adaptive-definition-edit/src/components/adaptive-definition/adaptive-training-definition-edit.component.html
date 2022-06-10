@@ -30,7 +30,7 @@
         </mat-form-field>
 
         <!-- SHOW STEPPER BAR checkbox-->
-        <div class="form-line">
+        <div>
           <div class="form-line-content">
             <mat-checkbox matTooltip="When active, trainee can see which level
               he is playing and how many there are until the end"
@@ -42,7 +42,7 @@
         </div>
 
         <!-- DEFAULT CONTENT checkbox-->
-        <div class="form-line" *ngIf="!trainingDefinition.id">
+        <div *ngIf="!trainingDefinition.id">
           <div class="form-line-content">
             <mat-checkbox matTooltip="When active, predefined phases will be created when definition is saved."
                           labelPosition="after"

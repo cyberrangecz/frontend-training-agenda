@@ -17,10 +17,6 @@
   flex-direction: column;
 }
 
-.form-line {
-  margin-bottom: 30px;
-}
-
 .form-line-content {
   display: flex;
   flex-direction: row;
