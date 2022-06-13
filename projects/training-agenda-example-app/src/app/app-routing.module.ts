@@ -67,6 +67,16 @@ const routes: Routes = [
     },
   },
   {
+    path: 'mitre-techniques',
+    loadChildren: () =>
+      import('./lazy-loaded-modules/mitre-techniques/mitre-techniques.module').then((m) => m.MitreTechniquesModule),
+    data: {
+      breadcrumb: 'MITRE Techniques',
+      title: 'MITRE Techniques',
+      showSwitch: false,
+    },
+  },
+  {
     path: 'login',
     component: SentinelAuthProviderListComponent,
     canActivate: [SentinelNegativeAuthGuard],
@@ -82,16 +92,6 @@ const routes: Routes = [
     path: 'logout-confirmed',
     redirectTo: 'home',
     pathMatch: 'full',
-  },
-  {
-    path: 'mitre-techniques',
-    loadChildren: () =>
-      import('./lazy-loaded-modules/mitre-techniques/mitre-techniques.module').then((m) => m.MitreTechniquesModule),
-    data: {
-      title: 'MITRE ATT&CK Techniques',
-      breadcrumb: 'MITRE ATT&CK Techniques',
-      showSwitch: false,
-    },
   },
 ];
 
