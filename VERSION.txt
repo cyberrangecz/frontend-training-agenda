@@ -1,3 +1,4 @@
+13.3.8 Fix table load event for tables without pagination.
 13.3.7 Fix adaptive instance save when editing pool or sandbox definition selection. Fix adaptive access phase text overflow.
 13.3.6 Fix margin in adaptive definition create. Bump statistical visualization. Fix filtering in adaptive instance overview table.
 13.3.5 Fix mire techniques expansion panel description position.
