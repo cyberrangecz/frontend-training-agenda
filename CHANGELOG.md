@@ -1,3 +1,11 @@
+### 13.3.8 Fix table load event for tables without pagination.
+* 29f3045 -- [CI/CD] Update packages.json version based on GitLab tag.
+*   ecd3008 -- Merge branch 'allow-table-reload-on-fail' into 'master'
+|\  
+| * 572b30f -- Fix table reload for training run overview table and training instance summary...
+|/  
+* cad281a -- Merge branch 'fix-mitre-technique-reload' into 'master'
+* 605065f -- Fix mitre reload
 ### 13.3.7 Fix adaptive instance save when editing pool or sandbox definition selection. Fix adaptive access phase text overflow.
 * 65c05d3 -- [CI/CD] Update packages.json version based on GitLab tag.
 * 74217cf -- Merge branch '187-fix-adaptive-instance-save-on-edit-and-adaptive-access-phase-text-overflow' into 'master'
