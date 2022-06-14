@@ -71,11 +71,8 @@ export class TrainingRunOverviewComponent extends SentinelBaseDirective implemen
    * @param loadEvent load table event
    */
   loadAccessedTrainingRuns(loadEvent: TableLoadEvent): void {
-    this.paginationService.setPagination(loadEvent.pagination.size);
     this.trainingRunOverviewService
-      .getAll(
-        new OffsetPaginationEvent(0, loadEvent.pagination.size, loadEvent.pagination.sort, loadEvent.pagination.sortDir)
-      )
+      .getAll(new OffsetPaginationEvent(0, 0, '', ''))
       .pipe(takeWhile(() => this.isAlive))
       .subscribe();
   }
