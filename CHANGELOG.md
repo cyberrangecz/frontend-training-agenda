@@ -1,3 +1,7 @@
+### 13.3.9 Fix instance summary routing for aggregated dashboard.
+* 871ca17 -- [CI/CD] Update packages.json version based on GitLab tag.
+* 88c7994 -- Merge branch 'fix--aggregated-dashboard-routing' into 'master'
+* a073517 -- Fix  aggregated dashboard routing
 ### 13.3.8 Fix table load event for tables without pagination.
 * 29f3045 -- [CI/CD] Update packages.json version based on GitLab tag.
 *   ecd3008 -- Merge branch 'allow-table-reload-on-fail' into 'master'
