@@ -24,4 +24,8 @@ export class TrainingInstanceSummaryConcreteService extends TrainingInstanceSumm
   showResults(): Observable<any> {
     return from(this.router.navigate([this.navigator.toTrainingInstanceResults(this.trainingInstance.id)]));
   }
+
+  showAggregatedResults(): Observable<any> {
+    return from(this.router.navigate([this.navigator.toTrainingInstanceAggregatedResults(this.trainingInstance.id)]));
+  }
 }
