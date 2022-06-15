@@ -13,6 +13,7 @@ export class TrainingInstanceInfoControls {
   static create(
     showProgressEmitter: EventEmitter<boolean>,
     showResultsEmitter: EventEmitter<boolean>,
+    showAggregatedResults: EventEmitter<boolean>,
     disabled$: Observable<boolean>
   ): SentinelControlItem[] {
     return [
@@ -42,7 +43,7 @@ export class TrainingInstanceInfoControls {
         'primary',
         disabled$,
         defer(() => {
-          showResultsEmitter.emit(false);
+          showAggregatedResults.emit(false);
           return EMPTY;
         })
       ),

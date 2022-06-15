@@ -34,6 +34,7 @@ export class TrainingInstanceInfoComponent extends SentinelBaseDirective impleme
 
   @Output() showProgress: EventEmitter<boolean> = new EventEmitter();
   @Output() showResults: EventEmitter<boolean> = new EventEmitter();
+  @Output() showAggregatedResults: EventEmitter<boolean> = new EventEmitter();
   @Output() showNotification: EventEmitter<string[]> = new EventEmitter();
 
   trainingDefinition: TrainingDefinition;
@@ -60,7 +61,12 @@ export class TrainingInstanceInfoComponent extends SentinelBaseDirective impleme
 
   private initInfoComponent() {
     const disabled$ = this.hasStarted$.pipe(map((hasStated) => !hasStated));
-    this.infoControls = TrainingInstanceInfoControls.create(this.showProgress, this.showResults, disabled$);
+    this.infoControls = TrainingInstanceInfoControls.create(
+      this.showProgress,
+      this.showResults,
+      this.showAggregatedResults,
+      disabled$
+    );
   }
 
   onCopyToken(): void {

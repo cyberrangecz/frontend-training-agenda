@@ -10,4 +10,6 @@ export abstract class TrainingInstanceSummaryService {
   abstract showProgress(): Observable<any>;
 
   abstract showResults(): Observable<any>;
+
+  abstract showAggregatedResults(): Observable<any>;
 }
