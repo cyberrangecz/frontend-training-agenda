@@ -7,7 +7,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { SentinelBaseDirective, SentinelValidators } from '@sentinel/common';
 import { Question } from '@muni-kypo-crp/training-model';
 import { FreeFormQuestion } from '@muni-kypo-crp/training-model';
@@ -33,7 +33,7 @@ export class FreeFormQuestionEditComponent extends SentinelBaseDirective impleme
   freeFormQuestionFormGroup: FreeFormQuestionFormGroup;
   maxQuestionScore = Question.MAX_QUESTION_SCORE;
   maxQuestionPenalty = Question.MAX_QUESTION_PENALTY;
-  freeFormChoices: FormArray;
+  freeFormChoices: UntypedFormArray;
 
   get title(): AbstractControl {
     return this.freeFormQuestionFormGroup.freeFormQuestionFormGroup.get('title');
@@ -44,8 +44,8 @@ export class FreeFormQuestionEditComponent extends SentinelBaseDirective impleme
   get penalty(): AbstractControl {
     return this.freeFormQuestionFormGroup.freeFormQuestionFormGroup.get('penalty');
   }
-  get choices(): FormArray {
-    return this.freeFormQuestionFormGroup.freeFormQuestionFormGroup.get('choices') as FormArray;
+  get choices(): UntypedFormArray {
+    return this.freeFormQuestionFormGroup.freeFormQuestionFormGroup.get('choices') as UntypedFormArray;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -84,11 +84,11 @@ export class FreeFormQuestionEditComponent extends SentinelBaseDirective impleme
    */
   addChoice(): void {
     this.choices.push(
-      new FormGroup({
-        id: new FormControl(null),
-        text: new FormControl('', [SentinelValidators.noWhitespace, Validators.required]),
-        correct: new FormControl(true),
-        order: new FormControl(this.choices.length),
+      new UntypedFormGroup({
+        id: new UntypedFormControl(null),
+        text: new UntypedFormControl('', [SentinelValidators.noWhitespace, Validators.required]),
+        correct: new UntypedFormControl(true),
+        order: new UntypedFormControl(this.choices.length),
       })
     );
     this.questionChanged();

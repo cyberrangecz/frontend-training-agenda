@@ -1,4 +1,4 @@
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormArray, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { SentinelValidators } from '@sentinel/common';
 import { TrainingDefinition } from '@muni-kypo-crp/training-model';
 
@@ -6,16 +6,18 @@ import { TrainingDefinition } from '@muni-kypo-crp/training-model';
  * Form control class of training definition edit form
  */
 export class TrainingDefinitionEditFormGroup {
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
 
   constructor(trainingDefinition: TrainingDefinition) {
-    this.formGroup = new FormGroup({
-      title: new FormControl(trainingDefinition.title, SentinelValidators.noWhitespace),
-      description: new FormControl(trainingDefinition.description),
-      prerequisites: new FormArray(trainingDefinition.prerequisites.map((prereq) => new FormControl(prereq))),
-      outcomes: new FormArray(trainingDefinition.outcomes.map((outcomes) => new FormControl(outcomes))),
-      showProgress: new FormControl(trainingDefinition.showStepperBar),
-      defaultContent: new FormControl(trainingDefinition.defaultContent),
+    this.formGroup = new UntypedFormGroup({
+      title: new UntypedFormControl(trainingDefinition.title, SentinelValidators.noWhitespace),
+      description: new UntypedFormControl(trainingDefinition.description),
+      prerequisites: new UntypedFormArray(
+        trainingDefinition.prerequisites.map((prereq) => new UntypedFormControl(prereq))
+      ),
+      outcomes: new UntypedFormArray(trainingDefinition.outcomes.map((outcomes) => new UntypedFormControl(outcomes))),
+      showProgress: new UntypedFormControl(trainingDefinition.showStepperBar),
+      defaultContent: new UntypedFormControl(trainingDefinition.defaultContent),
     });
   }
 

@@ -1,4 +1,4 @@
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { SentinelValidators } from '@sentinel/common';
 import { Hint } from '@muni-kypo-crp/training-model';
 
@@ -6,13 +6,13 @@ import { Hint } from '@muni-kypo-crp/training-model';
  * Form control for hint edit component
  */
 export class HintEditFormGroup {
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
 
   constructor(hint: Hint) {
-    this.formGroup = new FormGroup({
-      title: new FormControl(hint.title, SentinelValidators.noWhitespace),
-      content: new FormControl(hint.content, SentinelValidators.noWhitespace),
-      hintPenalty: new FormControl(hint.penalty, [Validators.required, Validators.min(0)]),
+    this.formGroup = new UntypedFormGroup({
+      title: new UntypedFormControl(hint.title, SentinelValidators.noWhitespace),
+      content: new UntypedFormControl(hint.content, SentinelValidators.noWhitespace),
+      hintPenalty: new UntypedFormControl(hint.penalty, [Validators.required, Validators.min(0)]),
     });
   }
 

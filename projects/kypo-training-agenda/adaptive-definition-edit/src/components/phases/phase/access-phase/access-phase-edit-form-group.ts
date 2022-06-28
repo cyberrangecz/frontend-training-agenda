@@ -1,4 +1,4 @@
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { AccessPhase } from '@muni-kypo-crp/training-model';
 import { SentinelValidators } from '@sentinel/common';
 
@@ -6,14 +6,14 @@ import { SentinelValidators } from '@sentinel/common';
  * Form control class for access-phase phases edit component
  */
 export class AccessPhaseEditFormGroup {
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
 
   constructor(phase: AccessPhase) {
-    this.formGroup = new FormGroup({
-      title: new FormControl(phase.title, Validators.required),
-      passkey: new FormControl(phase.passkey, SentinelValidators.noWhitespace),
-      cloudContent: new FormControl(phase.cloudContent, SentinelValidators.noWhitespace),
-      localContent: new FormControl(phase.localContent, SentinelValidators.noWhitespace),
+    this.formGroup = new UntypedFormGroup({
+      title: new UntypedFormControl(phase.title, Validators.required),
+      passkey: new UntypedFormControl(phase.passkey, SentinelValidators.noWhitespace),
+      cloudContent: new UntypedFormControl(phase.cloudContent, SentinelValidators.noWhitespace),
+      localContent: new UntypedFormControl(phase.localContent, SentinelValidators.noWhitespace),
     });
   }
 

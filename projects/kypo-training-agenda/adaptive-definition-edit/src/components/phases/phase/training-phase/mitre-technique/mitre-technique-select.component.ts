@@ -12,7 +12,7 @@ import {
 import { MitreTechnique } from '@muni-kypo-crp/training-model';
 import { COMMA, ENTER, SEMICOLON } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { map, Observable, startWith, tap } from 'rxjs';
 
@@ -29,7 +29,7 @@ export class MitreTechniqueSelectComponent implements OnChanges {
 
   @ViewChild('techniqueInput') techniqueInput: ElementRef<HTMLInputElement>;
 
-  chipListCtrl = new FormControl();
+  chipListCtrl = new UntypedFormControl();
   filteredTechniquesList: MitreTechnique[];
 
   readonly separatorKeysCodes = [ENTER, COMMA, SEMICOLON] as const;

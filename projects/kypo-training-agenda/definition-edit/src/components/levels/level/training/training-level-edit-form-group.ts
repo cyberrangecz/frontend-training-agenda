@@ -1,4 +1,4 @@
-import { FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { SentinelValidators } from '@sentinel/common';
 import { ReferenceSolutionNode, TrainingLevel } from '@muni-kypo-crp/training-model';
 
@@ -10,44 +10,47 @@ export const MAX_ANSWER = 50;
  * Form control class for training level edit component
  */
 export class TrainingLevelEditFormGroup {
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
 
   constructor(level: TrainingLevel) {
-    this.formGroup = new FormGroup({
-      title: new FormControl(level.title, SentinelValidators.noWhitespace),
-      content: new FormControl(level.content, SentinelValidators.noWhitespace),
-      solution: new FormControl(level.solution, SentinelValidators.noWhitespace),
-      maxScore: new FormControl(level.maxScore, [
+    this.formGroup = new UntypedFormGroup({
+      title: new UntypedFormControl(level.title, SentinelValidators.noWhitespace),
+      content: new UntypedFormControl(level.content, SentinelValidators.noWhitespace),
+      solution: new UntypedFormControl(level.solution, SentinelValidators.noWhitespace),
+      maxScore: new UntypedFormControl(level.maxScore, [
         Validators.required,
         Validators.pattern('^[0-9]*$'),
         Validators.min(0),
         Validators.max(MAX_SCORE),
       ]),
-      solutionPenalized: new FormControl(level.solutionPenalized),
-      incorrectAnswerLimit: new FormControl(level.incorrectAnswerLimit, [
+      solutionPenalized: new UntypedFormControl(level.solutionPenalized),
+      incorrectAnswerLimit: new UntypedFormControl(level.incorrectAnswerLimit, [
         Validators.required,
         Validators.pattern('^[0-9]*$'),
         Validators.min(1),
         Validators.max(INCORRECT_ANSWER_LIMIT),
       ]),
-      variantAnswers: new FormControl(level.variantAnswers),
-      answer: new FormControl({ value: level.answer, disabled: level.variantAnswers }, [
+      variantAnswers: new UntypedFormControl(level.variantAnswers),
+      answer: new UntypedFormControl({ value: level.answer, disabled: level.variantAnswers }, [
         SentinelValidators.noWhitespace,
         Validators.maxLength(MAX_ANSWER),
       ]),
-      answerVariableName: new FormControl({ value: level.answerVariableName, disabled: !level.variantAnswers }, [
+      answerVariableName: new UntypedFormControl({ value: level.answerVariableName, disabled: !level.variantAnswers }, [
         SentinelValidators.noWhitespace,
         Validators.maxLength(MAX_ANSWER),
       ]),
-      estimatedDuration: new FormControl(level.estimatedDuration, [Validators.pattern('^[0-9]*$'), Validators.min(1)]),
-      minimalPossibleSolveTime: new FormControl(level.minimalPossibleSolveTime, [
+      estimatedDuration: new UntypedFormControl(level.estimatedDuration, [
+        Validators.pattern('^[0-9]*$'),
+        Validators.min(1),
+      ]),
+      minimalPossibleSolveTime: new UntypedFormControl(level.minimalPossibleSolveTime, [
         Validators.pattern('^[0-9]*$'),
         Validators.min(0),
       ]),
-      referenceSolution: new FormControl(JSON.stringify(level.referenceSolution, null, 2), [
+      referenceSolution: new UntypedFormControl(JSON.stringify(level.referenceSolution, null, 2), [
         this.referenceSolutionValidator,
       ]),
-      commandsRequired: new FormControl(level.commandsRequired),
+      commandsRequired: new UntypedFormControl(level.commandsRequired),
     });
   }
 
@@ -92,7 +95,7 @@ export class TrainingLevelEditFormGroup {
     level.valid = this.formGroup.valid && level.hints.every((hint) => hint.valid);
   }
 
-  private referenceSolutionValidator: ValidatorFn = (control: FormControl): ValidationErrors | null => {
+  private referenceSolutionValidator: ValidatorFn = (control: UntypedFormControl): ValidationErrors | null => {
     let error = null;
     if (!this.setReferenceSolution(control.value) && control.value) {
       error = { referenceSolution: true };

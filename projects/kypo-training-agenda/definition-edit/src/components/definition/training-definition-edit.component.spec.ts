@@ -5,7 +5,7 @@ import { SimpleChanges, SimpleChange } from '@angular/core';
 import { TrainingDefinition, Level, AssessmentLevel, InfoLevel, TrainingLevel } from '@muni-kypo-crp/training-model';
 import { TrainingDefinitionChangeEvent } from '../../model/events/training-definition-change-event';
 import { MaterialTestingModule } from '../../../../internal/src/testing/material-testing.module';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormArray, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 
 describe('TrainingDefinitionEditComponent', () => {
   let component: TrainingDefinitionEditComponent;
@@ -87,13 +87,13 @@ describe('TrainingDefinitionEditComponent', () => {
     expect(component.trainingDefinitionEditFormGroup.formGroup.get('outcomes').value).toEqual(['outcome0']);
   });
 
-  function createFormGroupMock(amount: number, name: string): FormGroup {
+  function createFormGroupMock(amount: number, name: string): UntypedFormGroup {
     const formData: string[] = [];
     for (let i = 0; i < amount; i++) {
       formData.push(name + i);
     }
-    return new FormGroup({
-      items: new FormArray(formData.map((prereq) => new FormControl(prereq))),
+    return new UntypedFormGroup({
+      items: new UntypedFormArray(formData.map((prereq) => new UntypedFormControl(prereq))),
     });
   }
 

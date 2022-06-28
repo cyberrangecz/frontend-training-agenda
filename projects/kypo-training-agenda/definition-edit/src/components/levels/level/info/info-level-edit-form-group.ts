@@ -1,4 +1,4 @@
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { SentinelValidators } from '@sentinel/common';
 import { InfoLevel } from '@muni-kypo-crp/training-model';
 
@@ -6,12 +6,12 @@ import { InfoLevel } from '@muni-kypo-crp/training-model';
  * Form control class for info level edit component
  */
 export class InfoLevelEditFormGroup {
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
 
   constructor(level: InfoLevel) {
-    this.formGroup = new FormGroup({
-      title: new FormControl(level.title, SentinelValidators.noWhitespace),
-      content: new FormControl(level.content, SentinelValidators.noWhitespace),
+    this.formGroup = new UntypedFormGroup({
+      title: new UntypedFormControl(level.title, SentinelValidators.noWhitespace),
+      content: new UntypedFormControl(level.content, SentinelValidators.noWhitespace),
     });
   }
 

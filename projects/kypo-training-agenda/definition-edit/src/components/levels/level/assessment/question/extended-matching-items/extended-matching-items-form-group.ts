@@ -1,4 +1,11 @@
-import { FormArray, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import {
+  UntypedFormArray,
+  UntypedFormControl,
+  UntypedFormGroup,
+  ValidationErrors,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import { SentinelValidators } from '@sentinel/common';
 import { Question } from '@muni-kypo-crp/training-model';
 import { ExtendedMatchingItems } from '@muni-kypo-crp/training-model';
@@ -7,40 +14,40 @@ import { ExtendedMatchingItems } from '@muni-kypo-crp/training-model';
  * Form control group for form in EMI edit component
  */
 export class ExtendedMatchingItemsFormGroup {
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
 
   constructor(emi: ExtendedMatchingItems) {
-    this.formGroup = new FormGroup(
+    this.formGroup = new UntypedFormGroup(
       {
-        title: new FormControl(emi.title, SentinelValidators.noWhitespace),
-        statements: new FormArray(
+        title: new UntypedFormControl(emi.title, SentinelValidators.noWhitespace),
+        statements: new UntypedFormArray(
           emi.extendedMatchingStatements.map(
             (statement) =>
-              new FormGroup({
-                id: new FormControl(statement.id),
-                order: new FormControl(statement.order),
-                text: new FormControl(statement.text, SentinelValidators.noWhitespace),
-                correctOptionOrder: new FormControl(statement.correctOptionOrder),
+              new UntypedFormGroup({
+                id: new UntypedFormControl(statement.id),
+                order: new UntypedFormControl(statement.order),
+                text: new UntypedFormControl(statement.text, SentinelValidators.noWhitespace),
+                correctOptionOrder: new UntypedFormControl(statement.correctOptionOrder),
               })
           )
         ),
-        options: new FormArray(
+        options: new UntypedFormArray(
           emi.extendedMatchingOptions.map(
             (option) =>
-              new FormGroup({
-                id: new FormControl(option.id),
-                order: new FormControl(option.order),
-                text: new FormControl(option.text, SentinelValidators.noWhitespace),
+              new UntypedFormGroup({
+                id: new UntypedFormControl(option.id),
+                order: new UntypedFormControl(option.order),
+                text: new UntypedFormControl(option.text, SentinelValidators.noWhitespace),
               })
           )
         ),
-        score: new FormControl(emi.score, [
+        score: new UntypedFormControl(emi.score, [
           Validators.required,
           Validators.pattern('^[0-9]*$'),
           Validators.min(0),
           Validators.max(Question.MAX_QUESTION_SCORE),
         ]),
-        penalty: new FormControl(emi.penalty, [
+        penalty: new UntypedFormControl(emi.penalty, [
           Validators.required,
           Validators.pattern('^[0-9]*$'),
           Validators.min(0),
@@ -65,9 +72,9 @@ export class ExtendedMatchingItemsFormGroup {
     emi.valid = this.formGroup.valid;
   }
 
-  private noSelectedAnswers: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
+  private noSelectedAnswers: ValidatorFn = (control: UntypedFormGroup): ValidationErrors | null => {
     let error = null;
-    (control.get('statements') as FormArray).controls.forEach((statement) => {
+    (control.get('statements') as UntypedFormArray).controls.forEach((statement) => {
       if (statement.get('correctOptionOrder').value === null) {
         error = { noSelectedAnswers: true };
       }

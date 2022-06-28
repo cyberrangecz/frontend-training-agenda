@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { asyncData } from '@sentinel/common';
 import { TrainingDefinitionApi } from '@muni-kypo-crp/training-api';
@@ -31,7 +31,7 @@ describe('TrainingDefinitionEditConcreteService', () => {
   let navigatorSpy: jasmine.SpyObj<TrainingNavigator>;
   let routerSpy: jasmine.SpyObj<Router>;
 
-  beforeEach(() => {
+  beforeEach(waitForAsync(() => {
     errorHandlerSpy = createErrorHandlerSpy();
     notificationSpy = createNotificationSpy();
     apiSpy = createTrainingDefinitionApiSpy();
@@ -53,7 +53,7 @@ describe('TrainingDefinitionEditConcreteService', () => {
       ],
     });
     service = TestBed.inject(TrainingDefinitionEditConcreteService);
-  });
+  }));
 
   it('should be created', () => {
     expect(service).toBeTruthy();
@@ -76,7 +76,7 @@ describe('TrainingDefinitionEditConcreteService', () => {
     });
   });
 
-  it('should save existing training definition', (done) => {
+  it('should save existing training definition', () => {
     apiSpy.update.and.returnValue(asyncData(0));
     levelEditServiceSpy.saveUnsavedLevels.and.returnValue(asyncData(0));
     service.set(createMock());
@@ -87,7 +87,6 @@ describe('TrainingDefinitionEditConcreteService', () => {
         expect(notificationSpy.emit).toHaveBeenCalledTimes(1);
         expect(notificationSpy.emit).toHaveBeenCalledWith('success', jasmine.anything());
         expect(res).toEqual(0);
-        done();
       },
       () => fail
     );

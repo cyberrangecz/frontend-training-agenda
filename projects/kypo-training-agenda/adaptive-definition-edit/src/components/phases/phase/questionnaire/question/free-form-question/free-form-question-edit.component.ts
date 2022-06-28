@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { AdaptiveQuestion, QuestionnaireTypeEnum } from '@muni-kypo-crp/training-model';
 import { QuestionFormGroup } from '../question-form-group';
-import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { takeWhile } from 'rxjs/operators';
 import { SentinelBaseDirective, SentinelValidators } from '@sentinel/common';
 
@@ -35,8 +35,8 @@ export class FreeFormQuestionEditComponent extends SentinelBaseDirective impleme
     return this.freeFormQuestionFormGroup.questionFormGroup.get('title');
   }
 
-  get choices(): FormArray {
-    return this.freeFormQuestionFormGroup.questionFormGroup.get('choices') as FormArray;
+  get choices(): UntypedFormArray {
+    return this.freeFormQuestionFormGroup.questionFormGroup.get('choices') as UntypedFormArray;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -51,11 +51,11 @@ export class FreeFormQuestionEditComponent extends SentinelBaseDirective impleme
 
   addOption(): void {
     this.choices.push(
-      new FormGroup({
-        id: new FormControl(null),
-        text: new FormControl('new Answer', [SentinelValidators.noWhitespace, Validators.required]),
-        correct: new FormControl(true),
-        order: new FormControl(this.choices.length),
+      new UntypedFormGroup({
+        id: new UntypedFormControl(null),
+        text: new UntypedFormControl('new Answer', [SentinelValidators.noWhitespace, Validators.required]),
+        correct: new UntypedFormControl(true),
+        order: new UntypedFormControl(this.choices.length),
       })
     );
     this.questionChanged();

@@ -7,7 +7,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { SentinelBaseDirective, SentinelValidators } from '@sentinel/common';
 import { Question } from '@muni-kypo-crp/training-model';
 import { MultipleChoiceQuestion } from '@muni-kypo-crp/training-model';
@@ -40,8 +40,8 @@ export class MultipleChoiceQuestionEditComponent extends SentinelBaseDirective i
   get title(): AbstractControl {
     return this.multipleChoicesFormGroup.formGroup.get('title');
   }
-  get choices(): FormArray {
-    return this.multipleChoicesFormGroup.formGroup.get('choices') as FormArray;
+  get choices(): UntypedFormArray {
+    return this.multipleChoicesFormGroup.formGroup.get('choices') as UntypedFormArray;
   }
   get score(): AbstractControl {
     return this.multipleChoicesFormGroup.formGroup.get('score');
@@ -112,11 +112,11 @@ export class MultipleChoiceQuestionEditComponent extends SentinelBaseDirective i
    */
   addChoice(): void {
     this.choices.push(
-      new FormGroup({
-        id: new FormControl(null),
-        text: new FormControl('', [SentinelValidators.noWhitespace, Validators.required]),
-        correct: new FormControl(false),
-        order: new FormControl(this.choices.length),
+      new UntypedFormGroup({
+        id: new UntypedFormControl(null),
+        text: new UntypedFormControl('', [SentinelValidators.noWhitespace, Validators.required]),
+        correct: new UntypedFormControl(false),
+        order: new UntypedFormControl(this.choices.length),
       })
     );
     this.questionChanged();

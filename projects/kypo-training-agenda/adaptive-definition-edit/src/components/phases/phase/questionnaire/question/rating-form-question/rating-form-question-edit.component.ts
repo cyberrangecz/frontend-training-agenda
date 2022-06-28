@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { AdaptiveQuestion, QuestionnaireTypeEnum } from '@muni-kypo-crp/training-model';
 import { QuestionFormGroup } from '../question-form-group';
-import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { SentinelBaseDirective, SentinelValidators } from '@sentinel/common';
 import { takeWhile } from 'rxjs/operators';
 
@@ -27,8 +27,8 @@ export class RatingFormQuestionEditComponent extends SentinelBaseDirective imple
   get title(): AbstractControl {
     return this.ratingFormFormGroup.questionFormGroup.get('title');
   }
-  get choices(): FormArray {
-    return this.ratingFormFormGroup.questionFormGroup.get('choices') as FormArray;
+  get choices(): UntypedFormArray {
+    return this.ratingFormFormGroup.questionFormGroup.get('choices') as UntypedFormArray;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -64,11 +64,11 @@ export class RatingFormQuestionEditComponent extends SentinelBaseDirective imple
 
   private createNewChoice(text: string): void {
     this.choices.push(
-      new FormGroup({
-        id: new FormControl(null),
-        text: new FormControl(text, [SentinelValidators.noWhitespace, Validators.required]),
-        correct: new FormControl(true),
-        order: new FormControl(this.choices.length),
+      new UntypedFormGroup({
+        id: new UntypedFormControl(null),
+        text: new UntypedFormControl(text, [SentinelValidators.noWhitespace, Validators.required]),
+        correct: new UntypedFormControl(true),
+        order: new UntypedFormControl(this.choices.length),
       })
     );
   }

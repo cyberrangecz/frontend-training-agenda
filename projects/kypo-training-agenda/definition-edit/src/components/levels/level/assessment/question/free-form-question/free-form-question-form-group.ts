@@ -1,4 +1,11 @@
-import { FormArray, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import {
+  UntypedFormArray,
+  UntypedFormControl,
+  UntypedFormGroup,
+  ValidationErrors,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import { SentinelValidators } from '@sentinel/common';
 import { Question } from '@muni-kypo-crp/training-model';
 import { FreeFormQuestion } from '@muni-kypo-crp/training-model';
@@ -7,32 +14,32 @@ import { FreeFormQuestion } from '@muni-kypo-crp/training-model';
  * Form control for free form question component
  */
 export class FreeFormQuestionFormGroup {
-  freeFormQuestionFormGroup: FormGroup;
+  freeFormQuestionFormGroup: UntypedFormGroup;
 
   constructor(ffq: FreeFormQuestion) {
-    this.freeFormQuestionFormGroup = new FormGroup(
+    this.freeFormQuestionFormGroup = new UntypedFormGroup(
       {
-        title: new FormControl(ffq.title, SentinelValidators.noWhitespace),
-        score: new FormControl(ffq.score, [
+        title: new UntypedFormControl(ffq.title, SentinelValidators.noWhitespace),
+        score: new UntypedFormControl(ffq.score, [
           Validators.required,
           Validators.pattern('^[0-9]*$'),
           Validators.min(0),
           Validators.max(Question.MAX_QUESTION_SCORE),
         ]),
-        penalty: new FormControl(ffq.penalty, [
+        penalty: new UntypedFormControl(ffq.penalty, [
           Validators.required,
           Validators.pattern('^[0-9]*$'),
           Validators.min(0),
           Validators.max(Question.MAX_QUESTION_PENALTY),
         ]),
-        choices: new FormArray(
+        choices: new UntypedFormArray(
           ffq.choices.map(
             (choice) =>
-              new FormGroup({
-                id: new FormControl(choice.id),
-                text: new FormControl(choice.text, [SentinelValidators.noWhitespace, Validators.required]),
-                correct: new FormControl(choice.correct),
-                order: new FormControl(choice.order),
+              new UntypedFormGroup({
+                id: new UntypedFormControl(choice.id),
+                text: new UntypedFormControl(choice.text, [SentinelValidators.noWhitespace, Validators.required]),
+                correct: new UntypedFormControl(choice.correct),
+                order: new UntypedFormControl(choice.order),
               })
           )
         ),
@@ -54,7 +61,7 @@ export class FreeFormQuestionFormGroup {
     ffq.valid = !isTest ? true : this.freeFormQuestionFormGroup.valid;
   }
 
-  private noSelectedChoices: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
+  private noSelectedChoices: ValidatorFn = (control: UntypedFormGroup): ValidationErrors | null => {
     let error = null;
     const choices = control.get('choices');
     if (choices && choices.value.length === 0) {

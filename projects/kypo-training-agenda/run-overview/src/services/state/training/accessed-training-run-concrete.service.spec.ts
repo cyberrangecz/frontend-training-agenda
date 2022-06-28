@@ -1,10 +1,10 @@
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { OffsetPaginationEvent } from '@sentinel/common';
 import { AdaptiveRunApi, TrainingRunApi } from '@muni-kypo-crp/training-api';
 import { throwError } from 'rxjs';
-import { skip } from 'rxjs/operators';
+import { skip, take } from 'rxjs/operators';
 import {
   createAdaptiveRunApiSpy,
   createContext,
@@ -28,7 +28,7 @@ describe('AccessedTrainingRunConcreteService', () => {
   let routerSpy: jasmine.SpyObj<Router>;
   let context: TrainingAgendaContext;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     errorHandlerSpy = createErrorHandlerSpy();
     trainingApiSpy = createTrainingRunApiSpy();
     adaptiveApiSpy = createAdaptiveRunApiSpy();
@@ -50,43 +50,37 @@ describe('AccessedTrainingRunConcreteService', () => {
       ],
     });
     service = TestBed.inject(AccessedTrainingRunConcreteService);
-  }));
+  });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should call error handler on err', (done) => {
+  it('should call error handler on err', () => {
     trainingApiSpy.getAccessed.and.returnValue(throwError(null));
 
     service.getAll(createPagination()).subscribe(
-      () => fail,
+      () => [],
       () => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
-        done();
       }
     );
     expect(trainingApiSpy.getAccessed).toHaveBeenCalledTimes(1);
   });
 
-  it('should emit hasError observable on err', (done) => {
+  it('should emit hasError on err', (done) => {
     trainingApiSpy.getAccessed.and.returnValue(throwError(null));
-
+    const pagination = createPagination();
     service.hasError$
-      .pipe(
-        skip(2) // we ignore initial value and value emitted before the call is made
-      )
-      .subscribe(
-        (hasError) => {
-          expect(hasError).toBeTruthy();
-          done();
-        },
-        () => fail
-      );
-    service.getAll(createPagination()).subscribe(
-      () => fail,
-      () => done()
-    );
+      .pipe(skip(2)) // we ignore initial value and value emitted before the call is made
+      .subscribe((emitted) => {
+        expect(emitted).toBeTruthy();
+        done();
+      }, fail);
+    service
+      .getAll(pagination)
+      .pipe(take(1))
+      .subscribe(fail, (_) => _);
   });
 
   function createPagination() {

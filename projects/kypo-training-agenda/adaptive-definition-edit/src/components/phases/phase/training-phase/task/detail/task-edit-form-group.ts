@@ -1,21 +1,21 @@
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Task } from '@muni-kypo-crp/training-model';
 
 export class TaskEditFormGroup {
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
 
   constructor(task: Task) {
-    this.formGroup = new FormGroup({
-      title: new FormControl(task.title, Validators.required),
-      answer: new FormControl(task.answer, [Validators.required, Validators.maxLength(50)]),
-      solution: new FormControl(task.solution, Validators.required),
-      content: new FormControl(task.content, Validators.required),
-      incorrectAnswerLimit: new FormControl(task.incorrectAnswerLimit, [
+    this.formGroup = new UntypedFormGroup({
+      title: new UntypedFormControl(task.title, Validators.required),
+      answer: new UntypedFormControl(task.answer, [Validators.required, Validators.maxLength(50)]),
+      solution: new UntypedFormControl(task.solution, Validators.required),
+      content: new UntypedFormControl(task.content, Validators.required),
+      incorrectAnswerLimit: new UntypedFormControl(task.incorrectAnswerLimit, [
         Validators.required,
         Validators.min(0),
         Validators.max(100),
       ]),
-      modifySandbox: new FormControl(task.modifySandbox),
+      modifySandbox: new UntypedFormControl(task.modifySandbox),
     });
   }
 

@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { TrainingPhaseEditFormGroup } from './training-phase-edit-form-group';
 import { takeWhile } from 'rxjs/operators';
-import { AbstractControl, FormArray } from '@angular/forms';
+import { AbstractControl, UntypedFormArray } from '@angular/forms';
 import { AdaptiveQuestion, MitreTechnique, TrainingPhase } from '@muni-kypo-crp/training-model';
 
 @Component({
@@ -33,8 +33,8 @@ export class TrainingPhaseEditComponent extends SentinelBaseDirective implements
     return this.phaseConfigFormGroup.formGroup.get('title');
   }
 
-  get decisionMatrixRows(): FormArray {
-    return this.phaseConfigFormGroup.formGroup.get('decisionMatrix') as FormArray;
+  get decisionMatrixRows(): UntypedFormArray {
+    return this.phaseConfigFormGroup.formGroup.get('decisionMatrix') as UntypedFormArray;
   }
 
   get allowedWrongAnswers(): AbstractControl {
