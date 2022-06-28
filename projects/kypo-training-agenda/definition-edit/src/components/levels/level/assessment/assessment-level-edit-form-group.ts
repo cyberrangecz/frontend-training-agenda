@@ -1,4 +1,4 @@
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { SentinelValidators } from '@sentinel/common';
 import { AssessmentTypeEnum } from '@muni-kypo-crp/training-model';
 import { AssessmentLevel } from '@muni-kypo-crp/training-model';
@@ -7,15 +7,18 @@ import { AssessmentLevel } from '@muni-kypo-crp/training-model';
  * Form control class for assessment level edit component
  */
 export class AssessmentLevelEditFormGroup {
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
 
   constructor(level: AssessmentLevel) {
-    this.formGroup = new FormGroup({
-      title: new FormControl(level.title, SentinelValidators.noWhitespace),
-      instructions: new FormControl(level.instructions),
-      isTest: new FormControl(level.assessmentType === AssessmentTypeEnum.Test),
-      estimatedDuration: new FormControl(level.estimatedDuration, [Validators.min(1), Validators.pattern('^[0-9]*$')]),
-      minimalPossibleSolveTime: new FormControl(level.minimalPossibleSolveTime, [
+    this.formGroup = new UntypedFormGroup({
+      title: new UntypedFormControl(level.title, SentinelValidators.noWhitespace),
+      instructions: new UntypedFormControl(level.instructions),
+      isTest: new UntypedFormControl(level.assessmentType === AssessmentTypeEnum.Test),
+      estimatedDuration: new UntypedFormControl(level.estimatedDuration, [
+        Validators.min(1),
+        Validators.pattern('^[0-9]*$'),
+      ]),
+      minimalPossibleSolveTime: new UntypedFormControl(level.minimalPossibleSolveTime, [
         Validators.min(0),
         Validators.pattern('^[0-9]*$'),
       ]),

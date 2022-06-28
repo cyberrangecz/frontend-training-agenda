@@ -1,4 +1,4 @@
-import { FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { SentinelValidators } from '@sentinel/common';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
 
@@ -6,20 +6,20 @@ import { TrainingInstance } from '@muni-kypo-crp/training-model';
  * Training instance edit form group control
  */
 export class AdaptiveInstanceFormGroup {
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
 
   constructor(trainingInstance: TrainingInstance) {
-    this.formGroup = new FormGroup(
+    this.formGroup = new UntypedFormGroup(
       {
-        startTime: new FormControl(trainingInstance.startTime),
-        endTime: new FormControl(trainingInstance.endTime, [Validators.required, this.dateValidator]),
-        title: new FormControl(trainingInstance.title, [SentinelValidators.noWhitespace]),
-        trainingDefinition: new FormControl(trainingInstance.trainingDefinition, [Validators.required]),
-        accessTokenPrefix: new FormControl(this.getTokenPrefix(trainingInstance.accessToken), [
+        startTime: new UntypedFormControl(trainingInstance.startTime),
+        endTime: new UntypedFormControl(trainingInstance.endTime, [Validators.required, this.dateValidator]),
+        title: new UntypedFormControl(trainingInstance.title, [SentinelValidators.noWhitespace]),
+        trainingDefinition: new UntypedFormControl(trainingInstance.trainingDefinition, [Validators.required]),
+        accessTokenPrefix: new UntypedFormControl(this.getTokenPrefix(trainingInstance.accessToken), [
           SentinelValidators.noWhitespace,
         ]),
-        localEnvironment: new FormControl(trainingInstance.localEnvironment),
-        backwardMode: new FormControl(trainingInstance.backwardMode),
+        localEnvironment: new UntypedFormControl(trainingInstance.localEnvironment),
+        backwardMode: new UntypedFormControl(trainingInstance.backwardMode),
       },
       { validators: this.dateSequenceValidator }
     );
@@ -31,7 +31,7 @@ export class AdaptiveInstanceFormGroup {
     this.formGroup.get('endTime').enable({ emitEvent: false });
   }
 
-  private dateSequenceValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
+  private dateSequenceValidator: ValidatorFn = (control: UntypedFormGroup): ValidationErrors | null => {
     let error = null;
     const startTime = control.get('startTime').value ? control.get('startTime').value : Date.now();
     const endTime = control.get('endTime').value;
@@ -41,7 +41,7 @@ export class AdaptiveInstanceFormGroup {
     return error ? error : null;
   };
 
-  private dateValidator: ValidatorFn = (control: FormControl): ValidationErrors | null => {
+  private dateValidator: ValidatorFn = (control: UntypedFormControl): ValidationErrors | null => {
     let error = null;
     if (control.value && control.value.valueOf() < Date.now()) {
       error = { dateInPast: true };

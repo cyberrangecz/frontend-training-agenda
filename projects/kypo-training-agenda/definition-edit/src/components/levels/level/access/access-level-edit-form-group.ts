@@ -1,4 +1,4 @@
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { SentinelValidators } from '@sentinel/common';
 import { AccessLevel } from '@muni-kypo-crp/training-model';
 
@@ -6,14 +6,14 @@ import { AccessLevel } from '@muni-kypo-crp/training-model';
  * Form control class for access level edit component
  */
 export class AccessLevelEditFormGroup {
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
 
   constructor(level: AccessLevel) {
-    this.formGroup = new FormGroup({
-      title: new FormControl(level.title, SentinelValidators.noWhitespace),
-      passkey: new FormControl(level.passkey, SentinelValidators.noWhitespace),
-      cloudContent: new FormControl(level.cloudContent, SentinelValidators.noWhitespace),
-      localContent: new FormControl(level.localContent, SentinelValidators.noWhitespace),
+    this.formGroup = new UntypedFormGroup({
+      title: new UntypedFormControl(level.title, SentinelValidators.noWhitespace),
+      passkey: new UntypedFormControl(level.passkey, SentinelValidators.noWhitespace),
+      cloudContent: new UntypedFormControl(level.cloudContent, SentinelValidators.noWhitespace),
+      localContent: new UntypedFormControl(level.localContent, SentinelValidators.noWhitespace),
     });
   }
 

@@ -7,7 +7,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { SentinelBaseDirective, SentinelValidators } from '@sentinel/common';
 import { Question } from '@muni-kypo-crp/training-model';
 import { ExtendedMatchingItems } from '@muni-kypo-crp/training-model';
@@ -40,11 +40,11 @@ export class ExtendedMatchingItemsEditComponent extends SentinelBaseDirective im
   get title(): AbstractControl {
     return this.extendedMatchingQuestionFormGroup.formGroup.get('title');
   }
-  get options(): FormArray {
-    return this.extendedMatchingQuestionFormGroup.formGroup.get('options') as FormArray;
+  get options(): UntypedFormArray {
+    return this.extendedMatchingQuestionFormGroup.formGroup.get('options') as UntypedFormArray;
   }
-  get statements(): FormArray {
-    return this.extendedMatchingQuestionFormGroup.formGroup.get('statements') as FormArray;
+  get statements(): UntypedFormArray {
+    return this.extendedMatchingQuestionFormGroup.formGroup.get('statements') as UntypedFormArray;
   }
   get score(): AbstractControl {
     return this.extendedMatchingQuestionFormGroup.formGroup.get('score');
@@ -153,11 +153,11 @@ export class ExtendedMatchingItemsEditComponent extends SentinelBaseDirective im
    */
   addStatement(): void {
     this.statements.push(
-      new FormGroup({
-        id: new FormControl(null),
-        order: new FormControl(this.statements.length),
-        text: new FormControl('', SentinelValidators.noWhitespace),
-        correctOptionOrder: new FormControl(),
+      new UntypedFormGroup({
+        id: new UntypedFormControl(null),
+        order: new UntypedFormControl(this.statements.length),
+        text: new UntypedFormControl('', SentinelValidators.noWhitespace),
+        correctOptionOrder: new UntypedFormControl(),
       })
     );
     this.questionChanged();
@@ -168,10 +168,10 @@ export class ExtendedMatchingItemsEditComponent extends SentinelBaseDirective im
    */
   addOption(): void {
     this.options.push(
-      new FormGroup({
-        id: new FormControl(null),
-        order: new FormControl(this.options.length),
-        text: new FormControl('', SentinelValidators.noWhitespace),
+      new UntypedFormGroup({
+        id: new UntypedFormControl(null),
+        order: new UntypedFormControl(this.options.length),
+        text: new UntypedFormControl('', SentinelValidators.noWhitespace),
       })
     );
     this.questionChanged();

@@ -10,7 +10,7 @@ import {
 import { SentinelBaseDirective } from '@sentinel/common';
 import { takeWhile } from 'rxjs/operators';
 import { QuestionnairePhaseEditFormGroup } from './questionnaire-phase-edit-form-group';
-import { AbstractControl, FormArray } from '@angular/forms';
+import { AbstractControl, UntypedFormArray } from '@angular/forms';
 import {
   AdaptiveQuestion,
   Phase,
@@ -40,12 +40,12 @@ export class QuestionnairePhaseEditComponent extends SentinelBaseDirective imple
     return this.questionnaireFormGroup.formGroup.get('title');
   }
 
-  get questions(): FormArray {
-    return this.questionnaireFormGroup.formGroup.get('questions') as FormArray;
+  get questions(): UntypedFormArray {
+    return this.questionnaireFormGroup.formGroup.get('questions') as UntypedFormArray;
   }
 
-  get phaseRelations(): FormArray {
-    return this.questionnaireFormGroup.formGroup.get('phaseRelations') as FormArray;
+  get phaseRelations(): UntypedFormArray {
+    return this.questionnaireFormGroup.formGroup.get('phaseRelations') as UntypedFormArray;
   }
 
   ngOnChanges(changes: SimpleChanges): void {

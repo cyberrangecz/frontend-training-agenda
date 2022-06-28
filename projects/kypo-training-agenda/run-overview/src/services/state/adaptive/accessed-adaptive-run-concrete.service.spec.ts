@@ -4,7 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { OffsetPaginationEvent } from '@sentinel/common';
 import { AdaptiveRunApi, TrainingRunApi } from '@muni-kypo-crp/training-api';
 import { throwError } from 'rxjs';
-import { skip } from 'rxjs/operators';
+import { skip, take } from 'rxjs/operators';
 import {
   createAdaptiveRunApiSpy,
   createContext,
@@ -63,24 +63,19 @@ describe('AccessedTrainingRunConcreteService', () => {
     expect(apiSpy.getAccessed).toHaveBeenCalledTimes(1);
   });
 
-  it('should emit hasError observable on err', (done) => {
+  it('should emit hasError on err', (done) => {
     apiSpy.getAccessed.and.returnValue(throwError(null));
-
+    const pagination = createPagination();
     service.hasError$
-      .pipe(
-        skip(2) // we ignore initial value and value emitted before the call is made
-      )
-      .subscribe(
-        (hasError) => {
-          expect(hasError).toBeTruthy();
-          done();
-        },
-        () => fail
-      );
-    service.getAll(createPagination()).subscribe(
-      () => fail,
-      () => done()
-    );
+      .pipe(skip(2)) // we ignore initial value and value emitted before the call is made
+      .subscribe((emitted) => {
+        expect(emitted).toBeTruthy();
+        done();
+      }, fail);
+    service
+      .getAll(pagination)
+      .pipe(take(1))
+      .subscribe(fail, (_) => _);
   });
 
   function createPagination() {

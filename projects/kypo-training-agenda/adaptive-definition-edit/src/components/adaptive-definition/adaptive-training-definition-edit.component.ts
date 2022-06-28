@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { TrainingDefinition } from '@muni-kypo-crp/training-model';
 import { takeWhile } from 'rxjs/operators';
@@ -34,11 +34,11 @@ export class AdaptiveTrainingDefinitionEditComponent extends SentinelBaseDirecti
   get showProgress(): AbstractControl {
     return this.trainingDefinitionEditFormGroup.formGroup.get('showProgress');
   }
-  get outcomes(): FormArray {
-    return this.trainingDefinitionEditFormGroup.formGroup.get('outcomes') as FormArray;
+  get outcomes(): UntypedFormArray {
+    return this.trainingDefinitionEditFormGroup.formGroup.get('outcomes') as UntypedFormArray;
   }
-  get prerequisites(): FormArray {
-    return this.trainingDefinitionEditFormGroup.formGroup.get('prerequisites') as FormArray;
+  get prerequisites(): UntypedFormArray {
+    return this.trainingDefinitionEditFormGroup.formGroup.get('prerequisites') as UntypedFormArray;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -52,11 +52,11 @@ export class AdaptiveTrainingDefinitionEditComponent extends SentinelBaseDirecti
    * Changes form state if change of prerequisites event is emitted from child component
    * @param event form state change event emitted from child component
    */
-  prerequisitesChange(event: FormGroup): void {
+  prerequisitesChange(event: UntypedFormGroup): void {
     this.freeFormValid = event.valid;
     this.prerequisites.clear();
     event.value['items'].forEach((item) => {
-      (this.prerequisites as FormArray).push(new FormControl(item));
+      (this.prerequisites as UntypedFormArray).push(new UntypedFormControl(item));
     });
   }
 
@@ -64,11 +64,11 @@ export class AdaptiveTrainingDefinitionEditComponent extends SentinelBaseDirecti
    * Changes form state if change of outcomes event is emitted from child component
    * @param event form state change event emitted from child component
    */
-  outcomesChange(event: FormGroup): void {
+  outcomesChange(event: UntypedFormGroup): void {
     this.freeFormValid = event.valid;
     this.outcomes.clear();
     event.value['items'].forEach((item) => {
-      (this.outcomes as FormArray).push(new FormControl(item));
+      (this.outcomes as UntypedFormArray).push(new UntypedFormControl(item));
     });
   }
 

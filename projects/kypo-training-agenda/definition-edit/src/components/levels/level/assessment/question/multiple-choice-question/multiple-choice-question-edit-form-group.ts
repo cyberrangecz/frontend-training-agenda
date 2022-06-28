@@ -1,4 +1,11 @@
-import { FormArray, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import {
+  UntypedFormArray,
+  UntypedFormControl,
+  UntypedFormGroup,
+  ValidationErrors,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import { SentinelValidators } from '@sentinel/common';
 import { Question } from '@muni-kypo-crp/training-model';
 import { MultipleChoiceQuestion } from '@muni-kypo-crp/training-model';
@@ -7,33 +14,33 @@ import { MultipleChoiceQuestion } from '@muni-kypo-crp/training-model';
  * Form control class for form in mcq edit component
  */
 export class MultipleChoiceFormGroup {
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
   private maxQuestionScore = Question.MAX_QUESTION_SCORE;
   private maxQuestionPenalty = Question.MAX_QUESTION_PENALTY;
 
   constructor(mcq: MultipleChoiceQuestion) {
-    this.formGroup = new FormGroup(
+    this.formGroup = new UntypedFormGroup(
       {
-        title: new FormControl(mcq.title, SentinelValidators.noWhitespace),
-        choices: new FormArray(
+        title: new UntypedFormControl(mcq.title, SentinelValidators.noWhitespace),
+        choices: new UntypedFormArray(
           mcq.choices.map(
             (choice) =>
-              new FormGroup({
-                id: new FormControl(choice.id),
-                text: new FormControl(choice.text, [SentinelValidators.noWhitespace, Validators.required]),
-                correct: new FormControl(choice.correct),
-                order: new FormControl(choice.order),
+              new UntypedFormGroup({
+                id: new UntypedFormControl(choice.id),
+                text: new UntypedFormControl(choice.text, [SentinelValidators.noWhitespace, Validators.required]),
+                correct: new UntypedFormControl(choice.correct),
+                order: new UntypedFormControl(choice.order),
               })
           ),
           Validators.required
         ),
-        score: new FormControl(mcq.score, [
+        score: new UntypedFormControl(mcq.score, [
           Validators.required,
           Validators.pattern('^[0-9]*$'),
           Validators.min(0),
           Validators.max(this.maxQuestionScore),
         ]),
-        penalty: new FormControl(mcq.penalty, [
+        penalty: new UntypedFormControl(mcq.penalty, [
           Validators.required,
           Validators.pattern('^[0-9]*$'),
           Validators.min(0),
@@ -44,9 +51,11 @@ export class MultipleChoiceFormGroup {
     );
   }
 
-  private noSelectedAnswers: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
+  private noSelectedAnswers: ValidatorFn = (control: UntypedFormGroup): ValidationErrors | null => {
     let error = null;
-    if ((control.get('choices') as FormArray).controls.filter((choice) => choice.get('correct').value).length === 0) {
+    if (
+      (control.get('choices') as UntypedFormArray).controls.filter((choice) => choice.get('correct').value).length === 0
+    ) {
       error = { noSelectedAnswers: true };
     }
     return error ? error : null;

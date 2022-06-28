@@ -1,40 +1,44 @@
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { AdaptiveQuestion, PhaseRelation, QuestionnairePhase } from '@muni-kypo-crp/training-model';
 
 /**
  * @dynamic
  */
 export class QuestionnairePhaseEditFormGroup {
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
 
   constructor(phase: QuestionnairePhase) {
-    this.formGroup = new FormGroup({
-      title: new FormControl(phase.title, Validators.required),
-      questions: new FormArray(
+    this.formGroup = new UntypedFormGroup({
+      title: new UntypedFormControl(phase.title, Validators.required),
+      questions: new UntypedFormArray(
         phase.questions.map((question) => QuestionnairePhaseEditFormGroup.createQuestions(question))
       ),
-      phaseRelations: new FormArray(
+      phaseRelations: new UntypedFormArray(
         phase.phaseRelations.map((relation) => QuestionnairePhaseEditFormGroup.createRelations(relation))
       ),
     });
   }
 
-  private static createRelations(relation: PhaseRelation): FormGroup {
-    return new FormGroup({
-      id: new FormControl(relation.id),
-      order: new FormControl(relation.order),
-      phaseId: new FormControl(relation.phaseId),
-      questionIds: new FormControl(relation.questionIds),
-      successRate: new FormControl(relation.successRate, [Validators.required, Validators.min(0), Validators.max(100)]),
+  private static createRelations(relation: PhaseRelation): UntypedFormGroup {
+    return new UntypedFormGroup({
+      id: new UntypedFormControl(relation.id),
+      order: new UntypedFormControl(relation.order),
+      phaseId: new UntypedFormControl(relation.phaseId),
+      questionIds: new UntypedFormControl(relation.questionIds),
+      successRate: new UntypedFormControl(relation.successRate, [
+        Validators.required,
+        Validators.min(0),
+        Validators.max(100),
+      ]),
     });
   }
 
-  private static createQuestions(question: AdaptiveQuestion): FormGroup {
-    return new FormGroup({
-      text: new FormControl(question.text, Validators.required),
-      id: new FormControl(question.id),
-      order: new FormControl(question.order),
-      questionType: new FormControl(question.questionType),
+  private static createQuestions(question: AdaptiveQuestion): UntypedFormGroup {
+    return new UntypedFormGroup({
+      text: new UntypedFormControl(question.text, Validators.required),
+      id: new UntypedFormControl(question.id),
+      order: new UntypedFormControl(question.order),
+      questionType: new UntypedFormControl(question.questionType),
     });
   }
 

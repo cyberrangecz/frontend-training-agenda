@@ -1,16 +1,16 @@
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { InfoPhase } from '@muni-kypo-crp/training-model';
 
 /**
  * Form control class for info-phase-training-phase phases edit component
  */
 export class InfoPhaseEditFormGroup {
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
 
   constructor(phase: InfoPhase) {
-    this.formGroup = new FormGroup({
-      title: new FormControl(phase.title, Validators.required),
-      content: new FormControl(phase.content, Validators.required),
+    this.formGroup = new UntypedFormGroup({
+      title: new UntypedFormControl(phase.title, Validators.required),
+      content: new UntypedFormControl(phase.content, Validators.required),
     });
   }
 

@@ -1,24 +1,31 @@
-import { FormArray, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import {
+  UntypedFormArray,
+  UntypedFormControl,
+  UntypedFormGroup,
+  ValidationErrors,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import { AdaptiveQuestion, QuestionnaireTypeEnum } from '@muni-kypo-crp/training-model';
 import { SentinelValidators } from '@sentinel/common';
 
 export class QuestionFormGroup {
-  questionFormGroup: FormGroup;
+  questionFormGroup: UntypedFormGroup;
   questionnaireType: QuestionnaireTypeEnum;
 
   constructor(ffq: AdaptiveQuestion, questionnaireType: QuestionnaireTypeEnum) {
     this.questionnaireType = questionnaireType;
-    this.questionFormGroup = new FormGroup(
+    this.questionFormGroup = new UntypedFormGroup(
       {
-        title: new FormControl(ffq.text, SentinelValidators.noWhitespace),
-        choices: new FormArray(
+        title: new UntypedFormControl(ffq.text, SentinelValidators.noWhitespace),
+        choices: new UntypedFormArray(
           ffq.choices.map(
             (choice) =>
-              new FormGroup({
-                id: new FormControl(choice.id),
-                text: new FormControl(choice.text, [SentinelValidators.noWhitespace, Validators.required]),
-                correct: new FormControl(choice.correct),
-                order: new FormControl(choice.order),
+              new UntypedFormGroup({
+                id: new UntypedFormControl(choice.id),
+                text: new UntypedFormControl(choice.text, [SentinelValidators.noWhitespace, Validators.required]),
+                correct: new UntypedFormControl(choice.correct),
+                order: new UntypedFormControl(choice.order),
               })
           )
         ),
@@ -37,7 +44,7 @@ export class QuestionFormGroup {
     ffq.valid = this.questionFormGroup.valid;
   }
 
-  private noSelectedChoices: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
+  private noSelectedChoices: ValidatorFn = (control: UntypedFormGroup): ValidationErrors | null => {
     let error = null;
     const choices = control.get('choices');
     if (choices && choices.value.length === 0 && this.questionnaireType === QuestionnaireTypeEnum.Adaptive) {
