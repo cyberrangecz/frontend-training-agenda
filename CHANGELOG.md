@@ -1,3 +1,7 @@
+### 14.0.0 Update to Angular 14.
+* e7a2799 -- [CI/CD] Update packages.json version based on GitLab tag.
+* 6a6076f -- Merge branch '189-update-to-angular-14' into 'master'
+* 0e1011d -- Resolve "Update to Angular 14"
 ### 13.3.9 Fix instance summary routing for aggregated dashboard.
 * 871ca17 -- [CI/CD] Update packages.json version based on GitLab tag.
 * 88c7994 -- Merge branch 'fix--aggregated-dashboard-routing' into 'master'
