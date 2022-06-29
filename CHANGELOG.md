@@ -1,3 +1,7 @@
+### 14.0.1 Fix markdown errors after Sentinel update.
+* ee8121a -- [CI/CD] Update packages.json version based on GitLab tag.
+* 02d01ee -- Merge branch '190-fix-markdown-errors-after-sentinel-update' into 'master'
+* 7b43795 -- Resolve "Fix markdown errors after Sentinel update"
 ### 14.0.0 Update to Angular 14.
 * e7a2799 -- [CI/CD] Update packages.json version based on GitLab tag.
 * 6a6076f -- Merge branch '189-update-to-angular-14' into 'master'
