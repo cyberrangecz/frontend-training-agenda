@@ -1,6 +1,6 @@
 <div class="container">
   <div #content class="content">
-    <markdown [data]="phase.content"></markdown>
+    <sentinel-markdown-view [markdown]="phase.content"></sentinel-markdown-view>
   </div>
   <div *ngIf="!isBacktracked">
     <mat-card #controls class="controls">

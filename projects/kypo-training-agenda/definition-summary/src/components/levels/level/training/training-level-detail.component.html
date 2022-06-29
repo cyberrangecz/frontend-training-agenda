@@ -29,12 +29,12 @@
   <div class="data-field">
     <div class="key-field">Content:</div>
     <div>
-      <markdown [data]="level?.content"></markdown>
+      <sentinel-markdown-view [markdown]="level?.content"></sentinel-markdown-view>
     </div>
   </div>
   <div class="data-field">
     <div class="key-field">Solution:</div>
-    <div><markdown [data]="level?.solution"></markdown></div>
+    <div><sentinel-markdown-view [markdown]="level?.solution"></sentinel-markdown-view></div>
   </div>
 
   <div class="data-field">
@@ -47,7 +47,7 @@
         <div>
           <div class="data-field">
             <div class="key-field">Content:</div>
-            <div><markdown [data]="hint?.content"></markdown></div>
+            <div><sentinel-markdown-view [markdown]="hint?.content"></sentinel-markdown-view></div>
           </div>
           <div class="data-field">
             <div class="key-field">Penalty:</div>

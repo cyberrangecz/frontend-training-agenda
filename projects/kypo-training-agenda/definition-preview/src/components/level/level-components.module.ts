@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Kypo2TopologyGraphModule, Kypo2TopologyLegendModule } from '@muni-kypo-crp/topology-graph';
-import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
 import { AbstractLevelComponent } from './abstract-level.component';
 import { AssessmentLevelComponent } from './assessment-level/assessment-level.component';
 import { ExtendedMatchingItemsTraineeComponent } from './assessment-level/question/extended-matching-items/extended-matching-items-trainee.component';
@@ -14,6 +13,7 @@ import { TrainingLevelComponent } from './training-level/training-level.componen
 import { InfoLevelComponent } from './info-level/info-level.component';
 import { LevelMaterialModule } from './level-material.module';
 import { AccessLevelComponent } from './access-level/access-level.component';
+import { MarkedOptions, SentinelMarkdownViewModule } from '@sentinel/components/markdown-view';
 
 const markdownParserConfig = {
   loader: HttpClient,
@@ -36,7 +36,7 @@ const markdownParserConfig = {
 @NgModule({
   imports: [
     CommonModule,
-    MarkdownModule.forRoot(markdownParserConfig),
+    SentinelMarkdownViewModule.forRoot(markdownParserConfig),
     Kypo2TopologyGraphModule,
     Kypo2TopologyLegendModule,
     FormsModule,

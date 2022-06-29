@@ -7,7 +7,6 @@ import { SentinelControlsModule } from '@sentinel/components/controls';
 import { SentinelFreeFormModule } from '@sentinel/components/free-form';
 import { SentinelMarkdownEditorModule } from '@sentinel/components/markdown-editor';
 import { SentinelStepperModule } from '@sentinel/components/stepper';
-import { MarkedOptions } from 'ngx-markdown';
 import { AbstractLevelEditComponent } from './abstract-level-edit.component';
 import { AssessmentLevelEditComponent } from './assessment/assessment-level-edit.component';
 import { QuestionEditComponent } from './assessment/question/detail/question-edit.component';
@@ -23,6 +22,7 @@ import { LevelEditMaterialModule } from './level-edit-material.module';
 import { AccessLevelEditComponent } from './access/access-level-edit.component';
 import { MitreTechniqueSelectComponent } from './training/mitre-technique/mitre-technique-select.component';
 import { ExpectedCommandsSelectComponent } from './training/expected-commands/expected-commands-select.component';
+import { MarkedOptions } from '@sentinel/components/markdown-view';
 
 const markdownConfig = {
   markdownParser: {
