@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
 import { AdaptiveDefintionSummaryMaterialModule } from './adaptive-definition-summary-material.module';
 import { RouterModule } from '@angular/router';
-import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
 import { HttpClient } from '@angular/common/http';
 import { AdaptiveDefinitionInfoComponent } from './info/adaptive-definition-info.component';
 import { AdaptiveDefinitionSummaryComponent } from './adaptive-definition-summary.component';
@@ -18,6 +17,7 @@ import { FreeFormQuestionDetailComponent } from './phases/phase/questionnaire/ab
 import { MultipleChoiceQuestionDetailComponent } from './phases/phase/questionnaire/abstract-question/multiple-choice-question-detail/multiple-choice-question-detail.component';
 import { RatingFormQuestionDetailComponent } from './phases/phase/questionnaire/abstract-question/rating-form-question-detail/rating-form-question-detail.component';
 import { AccessPhaseDetailComponent } from './phases/phase/access/access-phase-detail.component';
+import { MarkedOptions, SentinelMarkdownViewModule } from '@sentinel/components/markdown-view';
 
 const markdownParserConfig = {
   loader: HttpClient,
@@ -39,7 +39,7 @@ const markdownParserConfig = {
     CommonModule,
     RouterModule,
     AdaptiveDefintionSummaryMaterialModule,
-    MarkdownModule.forRoot(markdownParserConfig),
+    SentinelMarkdownViewModule.forRoot(markdownParserConfig),
     SentinelControlsModule,
   ],
   declarations: [

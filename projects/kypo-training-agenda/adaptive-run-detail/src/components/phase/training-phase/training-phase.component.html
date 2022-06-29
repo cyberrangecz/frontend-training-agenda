@@ -2,10 +2,10 @@
   <div #content class="content">
     <div class="left-panel">
       <div #levelContent #solution class="level-content">
-        <markdown [data]="phase.currentTask.content"></markdown>
+        <sentinel-markdown-view [markdown]="phase.currentTask.content"></sentinel-markdown-view>
         <div *ngIf="displayedSolutionContent$ | async as solutionContent" class="solution-content">
           <h2><span> Solution: </span></h2>
-          <markdown [data]="solutionContent"> </markdown>
+          <sentinel-markdown-view [markdown]="solutionContent"> </sentinel-markdown-view>
         </div>
       </div>
     </div>

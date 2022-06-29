@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Kypo2TopologyGraphModule, Kypo2TopologyLegendModule } from '@muni-kypo-crp/topology-graph';
-import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
 import { PhaseMaterialModule } from './phase-material.module';
 import { NextPhaseButtonComponent } from '../next-phase-button/next-phase-button.component';
 import { AbstractPhaseComponent } from './abstract-phase.component';
@@ -12,6 +11,7 @@ import { QuestionnairePhaseComponent } from './questionnaire-phase/questionnaire
 import { TrainingPhaseComponent } from './training-phase/training-phase.component';
 import { AccessPhaseComponent } from './access-phase/access-phase.component';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MarkedOptions, SentinelMarkdownViewModule } from '@sentinel/components/markdown-view';
 
 const markdownParserConfig = {
   loader: HttpClient,
@@ -34,7 +34,7 @@ const markdownParserConfig = {
 @NgModule({
   imports: [
     CommonModule,
-    MarkdownModule.forRoot(markdownParserConfig),
+    SentinelMarkdownViewModule.forRoot(markdownParserConfig),
     Kypo2TopologyGraphModule,
     Kypo2TopologyLegendModule,
     FormsModule,

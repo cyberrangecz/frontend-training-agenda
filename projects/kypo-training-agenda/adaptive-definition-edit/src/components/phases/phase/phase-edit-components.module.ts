@@ -7,7 +7,6 @@ import { SentinelControlsModule } from '@sentinel/components/controls';
 import { SentinelFreeFormModule } from '@sentinel/components/free-form';
 import { SentinelMarkdownEditorModule } from '@sentinel/components/markdown-editor';
 import { SentinelStepperModule } from '@sentinel/components/stepper';
-import { MarkedOptions } from 'ngx-markdown';
 import { AbstractPhaseEditComponent } from './abstract-phase-edit.component';
 import { InfoPhaseEditComponent } from './info-phase/info-phase-edit.component';
 import { PhaseEditMaterialModule } from './phase-edit-material.module';
@@ -29,6 +28,7 @@ import { AccessPhaseEditComponent } from './access-phase/access-phase-edit.compo
 import { MitreTechniqueSelectComponent } from './training-phase/mitre-technique/mitre-technique-select.component';
 import { ExpectedCommandsSelectComponent } from './training-phase/expected-commands/expected-commands-select.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MarkedOptions } from '@sentinel/components/markdown-view';
 
 const markdownConfig = {
   markdownParser: {

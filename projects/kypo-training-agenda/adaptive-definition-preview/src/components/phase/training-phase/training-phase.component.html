@@ -6,9 +6,9 @@
           <mat-tab-group [(selectedIndex)]="selectedTab">
             <div *ngFor="let task of phase.tasks; index as i">
               <mat-tab label="{{ i + 1 }}. {{ task.title }}">
-                <markdown [data]="task.content"></markdown>
+                <sentinel-markdown-view [markdown]="task.content"></sentinel-markdown-view>
                 <h2><span> Solution: </span></h2>
-                <markdown [data]="task.solution"> </markdown>
+                <sentinel-markdown-view [markdown]="task.solution"> </sentinel-markdown-view>
               </mat-tab>
             </div>
           </mat-tab-group>

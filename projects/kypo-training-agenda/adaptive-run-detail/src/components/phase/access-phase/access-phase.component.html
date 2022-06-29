@@ -2,7 +2,7 @@
   <div #content class="content">
     <div class="left-panel">
       <div *ngIf="localEnvironment; else cloudContent">
-        <markdown [data]="phase.localContent"></markdown>
+        <sentinel-markdown-view [markdown]="phase.localContent"></sentinel-markdown-view>
       </div>
     </div>
     <div class="right-panel" #rightPanel>
@@ -106,6 +106,6 @@
 
 <ng-template #cloudContent>
   <div>
-    <markdown [data]="phase.cloudContent"></markdown>
+    <sentinel-markdown-view [markdown]="phase.cloudContent"></sentinel-markdown-view>
   </div>
 </ng-template>

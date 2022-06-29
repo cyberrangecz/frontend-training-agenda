@@ -2,22 +2,24 @@
   <div #content class="content">
     <div class="left-panel">
       <div class="level-content">
-        <markdown [data]="level?.content"></markdown>
+        <sentinel-markdown-view [markdown]="level?.content"></sentinel-markdown-view>
         <div class="hint-content">
-          <markdown *ngIf="displayedHintsContent$ | async as hintsContent" [data]="hintsContent"> </markdown>
+          <sentinel-markdown-view *ngIf="displayedHintsContent$ | async as hintsContent" [markdown]="hintsContent">
+          </sentinel-markdown-view>
         </div>
         <div *ngIf="displayedSolutionContent$ | async as solutionContent" class="solution-content">
           <h2><span class="solution-color"> Solution: </span></h2>
-          <markdown [data]="solutionContent"> </markdown>
+          <sentinel-markdown-view [markdown]="solutionContent"> </sentinel-markdown-view>
         </div>
       </div>
     </div>
     <div class="right-panel" #rightPanel>
       <!-- TOPOLOGY LEGEND -->
-      <kypo2-topology-app-legend [width]="65"
-                                 [height]="topologyHeight"
-                                 [style.float]="'left'"
-                                 [legendAttachment]="'vertical'"
+      <kypo2-topology-app-legend
+        [width]="65"
+        [height]="topologyHeight"
+        [style.float]="'left'"
+        [legendAttachment]="'vertical'"
       ></kypo2-topology-app-legend>
 
       <!-- TOPOLOGY COMPONENT-->
