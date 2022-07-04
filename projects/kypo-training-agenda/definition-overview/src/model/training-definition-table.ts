@@ -103,7 +103,7 @@ export class TrainingDefinitionTable extends SentinelTable<TrainingDefinition> {
             'unrelease',
             'Unrelease',
             'lock_open',
-            'warn',
+            'primary',
             'Unrelease training definition',
             of(false),
             defer(() => service.changeState(td, TrainingDefinitionStateEnum.Unreleased))
@@ -124,7 +124,7 @@ export class TrainingDefinitionTable extends SentinelTable<TrainingDefinition> {
             'release',
             'Release',
             'lock',
-            'warn',
+            'primary',
             'Release training definition',
             of(false),
             defer(() => service.changeState(td, TrainingDefinitionStateEnum.Released))
