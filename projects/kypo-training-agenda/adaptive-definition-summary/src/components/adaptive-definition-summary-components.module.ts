@@ -20,7 +20,6 @@ import { AccessPhaseDetailComponent } from './phases/phase/access/access-phase-d
 import { MarkedOptions, SentinelMarkdownViewModule } from '@sentinel/components/markdown-view';
 
 const markdownParserConfig = {
-  loader: HttpClient,
   markedOptions: {
     provide: MarkedOptions,
     useValue: {

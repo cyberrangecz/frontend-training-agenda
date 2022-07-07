@@ -16,7 +16,7 @@ import { SentinelBaseDirective } from '@sentinel/common';
 import { AccessLevel } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
 import { take, takeWhile } from 'rxjs/operators';
-import { Kypo2TopologyErrorService } from '@muni-kypo-crp/topology-graph';
+import { KypoTopologyErrorService } from '@muni-kypo-crp/topology-graph';
 import { TrainingErrorHandler } from '@muni-kypo-crp/training-agenda';
 import { TrainingRunAccessLevelService } from '../../../services/training-run/level/access/training-run-access-level.service';
 import { TrainingRunAccessLevelConcreteService } from '../../../services/training-run/level/access/training-run-access-level-concrete.service';
@@ -55,7 +55,7 @@ export class AccessLevelComponent extends SentinelBaseDirective implements OnIni
 
   constructor(
     private accessLevelService: TrainingRunAccessLevelService,
-    private topologyErrorService: Kypo2TopologyErrorService,
+    private topologyErrorService: KypoTopologyErrorService,
     private errorHandler: TrainingErrorHandler
   ) {
     super();

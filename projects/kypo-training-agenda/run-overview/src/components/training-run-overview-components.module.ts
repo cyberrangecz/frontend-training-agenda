@@ -72,7 +72,7 @@ export class TrainingRunOverviewComponentsModule {
       ngModule: TrainingRunOverviewComponentsModule,
       providers: [
         { provide: TrainingAgendaConfig, useValue: config },
-        TopologyApiModule.forRoot(config.kypo2TopologyConfig).providers,
+        TopologyApiModule.forRoot(config.kypoTopologyConfig).providers,
       ],
     };
   }

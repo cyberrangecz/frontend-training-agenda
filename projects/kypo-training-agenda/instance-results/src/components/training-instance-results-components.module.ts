@@ -2,11 +2,11 @@ import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import {
   AssessmentVisualizationConfig,
-  Kypo2AssessmentsResultsVisualizationModule,
+  KypoAssessmentsResultsVisualizationModule,
 } from '@muni-kypo-crp/assessment-visualization';
-import { HurdlingVisualizationConfig, Kypo2TrainingsHurdlingVizLibModule } from '@muni-kypo-crp/hurdling-visualization';
+import { HurdlingVisualizationConfig, KypoTrainingsHurdlingVizLibModule } from '@muni-kypo-crp/hurdling-visualization';
 import {
-  Kypo2TrainingsVisualizationOverviewLibModule,
+  KypoTrainingsVisualizationOverviewLibModule,
   VisualizationOverviewConfig,
 } from '@muni-kypo-crp/overview-visualization';
 import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
@@ -33,10 +33,10 @@ import { StatisticalVisualizationModule } from '@muni-kypo-crp/statistical-visua
   imports: [
     CommonModule,
     TrainingInstanceResultsMaterialModule,
-    Kypo2TrainingsHurdlingVizLibModule,
+    KypoTrainingsHurdlingVizLibModule,
     SummaryGraphModule,
-    Kypo2AssessmentsResultsVisualizationModule,
-    Kypo2TrainingsVisualizationOverviewLibModule,
+    KypoAssessmentsResultsVisualizationModule,
+    KypoTrainingsVisualizationOverviewLibModule,
     StatisticalVisualizationModule,
     DashboardModule,
     TimelineModule,

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Kypo2TopologyGraphModule, Kypo2TopologyLegendModule } from '@muni-kypo-crp/topology-graph';
+import { KypoTopologyGraphModule, KypoTopologyLegendModule } from '@muni-kypo-crp/topology-graph';
 import { NextLevelButtonComponent } from '../next-level-button/next-level-button.component';
 import { AbstractLevelComponent } from './abstract-level.component';
 import { AssessmentLevelComponent } from './assessment-level/assessment-level.component';
@@ -17,7 +17,6 @@ import { AccessLevelComponent } from './access-level/access-level.component';
 import { MarkedOptions, SentinelMarkdownViewModule } from '@sentinel/components/markdown-view';
 
 const markdownParserConfig = {
-  loader: HttpClient,
   markedOptions: {
     provide: MarkedOptions,
     useValue: {
@@ -38,8 +37,8 @@ const markdownParserConfig = {
   imports: [
     CommonModule,
     SentinelMarkdownViewModule.forRoot(markdownParserConfig),
-    Kypo2TopologyGraphModule,
-    Kypo2TopologyLegendModule,
+    KypoTopologyGraphModule,
+    KypoTopologyLegendModule,
     FormsModule,
     LevelMaterialModule,
   ],

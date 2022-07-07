@@ -4,7 +4,7 @@ import { TrainingInstance, TrainingRun } from '@muni-kypo-crp/training-model';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { map, Observable, takeWhile, tap } from 'rxjs';
 import { VisualizationInfo } from '@muni-kypo-crp/training-agenda/internal';
-import { Kypo2TraineeModeInfo } from '@muni-kypo-crp/overview-visualization';
+import { KypoTraineeModeInfo } from '@muni-kypo-crp/overview-visualization';
 import { TRAINING_RUN_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
 import { TrainingDefinitionApi } from '@muni-kypo-crp/training-api';
 
@@ -15,7 +15,7 @@ import { TrainingDefinitionApi } from '@muni-kypo-crp/training-api';
 })
 export class ScoreDevelopmentWrapperComponent extends SentinelBaseDirective implements OnInit {
   visualizationInfo$: Observable<VisualizationInfo>;
-  traineeModeInfo$: Observable<Kypo2TraineeModeInfo>;
+  traineeModeInfo$: Observable<KypoTraineeModeInfo>;
   vizSize: { width: number; height: number };
 
   @HostListener('window:resize', ['$event'])
@@ -42,7 +42,7 @@ export class ScoreDevelopmentWrapperComponent extends SentinelBaseDirective impl
     );
     this.traineeModeInfo$ = this.visualizationInfo$.pipe(
       map((vizInfo) => {
-        const traineeModeInfo = new Kypo2TraineeModeInfo();
+        const traineeModeInfo = new KypoTraineeModeInfo();
         traineeModeInfo.trainingRunId = vizInfo.trainingRunId;
         traineeModeInfo.activeTraineeId = vizInfo.traineeId;
         return traineeModeInfo;

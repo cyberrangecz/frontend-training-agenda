@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { SentinelStepperModule } from '@sentinel/components/stepper';
-import { Kypo2TopologyGraphConfig } from '@muni-kypo-crp/topology-graph';
+import { KypoTopologyGraphConfig } from '@muni-kypo-crp/topology-graph';
 import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
 import { AdaptiveRunPhasesDeactivateGuard } from '../services/can-deactivate/adaptive-run-phases-can-deactivate.service';
 import { AdaptiveRunDetailComponentsModule } from './adaptive-run-detail-components.module';
@@ -19,7 +19,7 @@ export class AdaptiveRunDetailGameModule {
     return {
       ngModule: AdaptiveRunDetailGameModule,
       providers: [
-        { provide: Kypo2TopologyGraphConfig, useValue: config.kypo2TopologyConfig },
+        { provide: KypoTopologyGraphConfig, useValue: config.kypoTopologyConfig },
         { provide: TrainingAgendaConfig, useValue: config },
       ],
     };

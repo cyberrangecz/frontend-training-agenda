@@ -13,7 +13,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { SentinelBaseDirective } from '@sentinel/common';
-import { Kypo2TopologyErrorService } from '@muni-kypo-crp/topology-graph';
+import { KypoTopologyErrorService } from '@muni-kypo-crp/topology-graph';
 import { Observable } from 'rxjs';
 import { delay, take, takeWhile } from 'rxjs/operators';
 import { HintButton } from '@muni-kypo-crp/training-agenda/internal';
@@ -60,7 +60,7 @@ export class TrainingLevelComponent extends SentinelBaseDirective implements OnI
 
   constructor(
     private trainingLevelService: TrainingRunTrainingLevelService,
-    private topologyErrorService: Kypo2TopologyErrorService,
+    private topologyErrorService: KypoTopologyErrorService,
     private errorHandler: TrainingErrorHandler
   ) {
     super();
