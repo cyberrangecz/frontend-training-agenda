@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import {
-  Kypo2TrainingsVisualizationOverviewLibModule,
+  KypoTrainingsVisualizationOverviewLibModule,
   VisualizationOverviewConfig,
 } from '@muni-kypo-crp/overview-visualization';
 import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
@@ -28,7 +28,7 @@ import { TraineeGraphWrapperComponent } from './trainee-graph-wrapper/trainee-gr
   imports: [
     CommonModule,
     TrainingRunResultsMaterialModule,
-    Kypo2TrainingsVisualizationOverviewLibModule,
+    KypoTrainingsVisualizationOverviewLibModule,
     ReferenceGraphModule,
     TimelineModule,
     MistakeModule,

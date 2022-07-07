@@ -19,7 +19,7 @@ export const elasticSearchURL = baseURL + '/kypo-elasticsearch-service/api/v1/';
 
 export const mitreTechniquesURL = baseURL + '/kypo-mitre-technique-service/api/v1/';
 
-export const kypo2TopologyConfig = {
+export const kypoTopologyConfig = {
   topologyRestUrl: sandboxesURL,
   decoratorsRestUrl: '', // OBSOLETE
   defaultDecoratorRefreshPeriodInSeconds: 3, // OBSOLETE
@@ -44,7 +44,7 @@ export const environment = {
     pollingPeriod: 5000,
     defaultPaginationSize: 10,
     visualizationConfig,
-    kypo2TopologyConfig,
+    kypoTopologyConfig,
   },
 
   trainingApiConfig: {

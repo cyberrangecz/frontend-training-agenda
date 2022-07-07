@@ -20,7 +20,6 @@ import { AccessLevelDetailComponent } from './levels/level/access/access-level-d
 import { MarkedOptions, SentinelMarkdownViewModule } from '@sentinel/components/markdown-view';
 
 const markdownParserConfig = {
-  loader: HttpClient,
   markedOptions: {
     provide: MarkedOptions,
     useValue: {

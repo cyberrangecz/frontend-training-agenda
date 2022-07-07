@@ -15,7 +15,7 @@ import {
 import { SentinelBaseDirective } from '@sentinel/common';
 import { AccessPhase } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
-import { Kypo2TopologyErrorService } from '@muni-kypo-crp/topology-graph';
+import { KypoTopologyErrorService } from '@muni-kypo-crp/topology-graph';
 import { TrainingErrorHandler } from '@muni-kypo-crp/training-agenda';
 import { take, takeWhile } from 'rxjs/operators';
 import { AdaptiveRunAccessPhaseService } from './../../../services/adaptive-run/access-phase/adaptive-run-access-phase.service';
@@ -52,7 +52,7 @@ export class AccessPhaseComponent extends SentinelBaseDirective implements OnIni
 
   constructor(
     private accessPhaseService: AdaptiveRunAccessPhaseService,
-    private topologyErrorService: Kypo2TopologyErrorService,
+    private topologyErrorService: KypoTopologyErrorService,
     private errorHandler: TrainingErrorHandler
   ) {
     super();

@@ -15,7 +15,7 @@ import {
 import { SentinelBaseDirective } from '@sentinel/common';
 import { TrainingPhase } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
-import { Kypo2TopologyErrorService } from '@muni-kypo-crp/topology-graph';
+import { KypoTopologyErrorService } from '@muni-kypo-crp/topology-graph';
 import { TrainingErrorHandler } from '@muni-kypo-crp/training-agenda';
 import { delay, take, takeWhile } from 'rxjs/operators';
 import { ViewportScroller } from '@angular/common';
@@ -55,7 +55,7 @@ export class TrainingPhaseComponent extends SentinelBaseDirective implements OnI
 
   constructor(
     private trainingPhaseService: AdaptiveRunTrainingPhaseService,
-    private topologyErrorService: Kypo2TopologyErrorService,
+    private topologyErrorService: KypoTopologyErrorService,
     private errorHandler: TrainingErrorHandler
   ) {
     super();

@@ -21,7 +21,7 @@ export const elasticSearchURL = baseURL + '/kypo-elasticsearch-service/api/v1/';
 
 export const mitreTechniquesURL = baseURL + '/kypo-mitre-technique-service/api/v1/';
 
-export const kypo2TopologyConfig = {
+export const kypoTopologyConfig = {
   topologyRestUrl: sandboxesURL,
   decoratorsRestUrl: '', // OBSOLETE
   defaultDecoratorRefreshPeriodInSeconds: 3, // OBSOLETE
@@ -47,7 +47,7 @@ export const environment = {
     pollingPeriod: 5000,
     defaultPaginationSize: 10,
     visualizationConfig,
-    kypo2TopologyConfig,
+    kypoTopologyConfig,
   },
 
   trainingApiConfig: {
@@ -79,7 +79,7 @@ export const environment = {
         backgroundColor: '#002776',
         oidcConfig: {
           issuer: 'https://172.19.0.22:443/csirtmu-dummy-issuer-server/',
-          clientId: 'bxPXhdWNeqhWssxbSGiRjQbnQqmqxDdiTTDJ',
+          clientId: 'DguYZtkGdnDoxjHPZtlztpbHntqDlUIlUUbk',
           redirectUri: homeURL, // redirect after successful login
           scope: 'openid email profile',
           logoutUrl: 'https://172.19.0.22/csirtmu-dummy-issuer-server/endsession',

@@ -26,7 +26,6 @@ import { MarkedOptions } from '@sentinel/components/markdown-view';
 
 const markdownConfig = {
   markdownParser: {
-    loader: HttpClient,
     markedOptions: {
       provide: MarkedOptions,
       useValue: {

@@ -11,14 +11,14 @@
     </div>
     <div class="right-panel" #rightPanel>
       <!-- TOPOLOGY LEGEND -->
-      <kypo2-topology-app-legend [width]="65"
+      <kypo-topology-app-legend [width]="65"
                                  [height]="topologyHeight"
                                  [style.float]="'left'"
                                  [legendAttachment]="'vertical'"
-      ></kypo2-topology-app-legend>
+      ></kypo-topology-app-legend>
 
       <!-- TOPOLOGY COMPONENT-->
-      <kypo2-topology-graph
+      <kypo-topology-graph
         *ngIf="!isTopologyDisplayed; else topologyPlaceholder"
         [width]="topologyWidth"
         [height]="topologyHeight"
@@ -27,7 +27,7 @@
         [style.width.px]="topologyWidth"
         [style.height.px]="topologyHeight"
       >
-      </kypo2-topology-graph>
+      </kypo-topology-graph>
     </div>
   </div>
   <div *ngIf="!isBacktracked">

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, HostListener, OnInit } from '@angul
 import { ActivatedRoute } from '@angular/router';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { TrainingRun } from '@muni-kypo-crp/training-model';
-import { Kypo2TraineeModeInfo } from '@muni-kypo-crp/overview-visualization';
+import { KypoTraineeModeInfo } from '@muni-kypo-crp/overview-visualization';
 import { Observable } from 'rxjs';
 import { map, take, takeWhile, tap } from 'rxjs/operators';
 import { VisualizationInfo } from '@muni-kypo-crp/training-agenda/internal';

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { HurdlingVisualizationConfig, Kypo2TrainingsHurdlingVizLibModule } from '@muni-kypo-crp/hurdling-visualization';
+import { HurdlingVisualizationConfig, KypoTrainingsHurdlingVizLibModule } from '@muni-kypo-crp/hurdling-visualization';
 import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
 import { TrainingInstanceProgressMaterialModule } from './training-instance-progress-material.module';
 import { TrainingInstanceProgressComponent } from './training-instance-progress.component';
@@ -9,7 +9,7 @@ import { TrainingInstanceProgressComponent } from './training-instance-progress.
  * Component imports, declarations and providers for training instance progress page
  */
 @NgModule({
-  imports: [CommonModule, TrainingInstanceProgressMaterialModule, Kypo2TrainingsHurdlingVizLibModule],
+  imports: [CommonModule, TrainingInstanceProgressMaterialModule, KypoTrainingsHurdlingVizLibModule],
   declarations: [TrainingInstanceProgressComponent],
   providers: [],
 })
