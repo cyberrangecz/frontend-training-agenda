@@ -7,6 +7,7 @@ import { AdaptiveDefinitionService } from '../services/state/adaptive-definition
  */
 export class TrainingDefinitionOverviewControls {
   static readonly MITRE_ACTION_ID = 'mitre';
+  static readonly SIMULATOR_ACTION_ID = 'simulator';
   static readonly CREATE_ACTION_ID = 'create';
   static readonly UPLOAD_ACTION_ID = 'upload';
 
@@ -31,6 +32,13 @@ export class TrainingDefinitionOverviewControls {
 
   static createBottomControls(service: AdaptiveDefinitionService): SentinelControlItem[] {
     return [
+      new SentinelControlItem(
+        this.SIMULATOR_ACTION_ID,
+        'Simulating Tool',
+        'primary',
+        of(false),
+        defer(() => service.toSimulator())
+      ),
       new SentinelControlItem(
         this.MITRE_ACTION_ID,
         'MITRE ATT&CK Techniques',

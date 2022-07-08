@@ -21,7 +21,11 @@ const routes: Routes = [
     path: '',
     component: TrainingInstanceResultsComponent,
     children: [
-      { path: '', redirectTo: TRAINING_RUN_RESULTS_DASHBOARD_PATH },
+      {
+        path: '',
+        pathMatch: 'prefix',
+        redirectTo: TRAINING_RUN_RESULTS_DASHBOARD_PATH,
+      },
       {
         path: TRAINING_RUN_RESULTS_AGGREGATED_DASHBOARD_PATH,
         component: AggregatedDashboardWrapperComponent,

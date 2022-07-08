@@ -43,6 +43,7 @@
       "@muni-kypo-crp/training-agenda/adaptive-definition-overview": ["./adaptive-definition-overview/src/public_api.ts"],
       "@muni-kypo-crp/training-agenda/adaptive-definition-preview": ["./adaptive-definition-preview/src/public_api.ts"],
       "@muni-kypo-crp/training-agenda/adaptive-definition-detail": ["./adaptive-definition-detail/src/public_api.ts"],
+      "@muni-kypo-crp/training-agenda/adaptive-definition-simulator": ["./adaptive-definition-simulator/src/public_api.ts"],
       "@muni-kypo-crp/training-agenda/adaptive-definition-summary": ["./adaptive-definition-summary/src/public_api.ts"],
       "@muni-kypo-crp/training-agenda/adaptive-instance-summary": ["./adaptive-instance-summary/src/public_api.ts"],
       "@muni-kypo-crp/training-agenda/adaptive-instance-detail": ["./adaptive-instance-detail/src/public_api.ts"],

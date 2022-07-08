@@ -8,7 +8,8 @@ import {
   ADAPTIVE_DEFINITION_DETAIL_PATH,
   ADAPTIVE_DEFINITION_DATA_ATTRIBUTE_NAME,
   TRAINING_DEFINITION_PREVIEW_PATH,
-  MITRE_TECHNIQUES_PATH,
+  SIMULATOR_PATH,
+  ADAPTIVE_DEFINITION_PATH,
 } from '@muni-kypo-crp/training-agenda';
 import {
   AdaptiveDefinitionBreadcrumbResolver,
@@ -20,6 +21,11 @@ const routes: Routes = [
   {
     path: '',
     component: AdaptiveDefinitionOverviewComponent,
+  },
+  {
+    path: SIMULATOR_PATH,
+    loadChildren: () =>
+      import('./simulator/adaptive-definition-simulator.module').then((m) => m.AdaptiveDefinitionSimulatorModule),
   },
   {
     path: TRAINING_DEFINITION_NEW_PATH,

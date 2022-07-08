@@ -16,6 +16,8 @@ import {
   AdaptiveDefinitionBreadcrumbResolver,
   AdaptiveDefinitionTitleResolver,
 } from '@muni-kypo-crp/training-agenda/resolvers';
+import { ModelSimulatorComponent } from './model-simulator/model-simulator.component';
+import { ModelSimulatorModule } from '@muni-kypo-crp/adaptive-model-simulator/model-simulator';
 /**
  * Module containing components and providers of training definition detail/edt/new actions.
  */
@@ -30,8 +32,13 @@ import {
     SentinelControlsModule,
     SentinelFreeFormModule,
     PhaseOverviewComponentsModule,
+    ModelSimulatorModule,
   ],
-  declarations: [AdaptiveDefinitionEditOverviewComponent, AdaptiveTrainingDefinitionEditComponent],
+  declarations: [
+    AdaptiveDefinitionEditOverviewComponent,
+    AdaptiveTrainingDefinitionEditComponent,
+    ModelSimulatorComponent,
+  ],
   providers: [
     AdaptiveDefinitionCanDeactivate,
     AdaptiveDefinitionResolver,

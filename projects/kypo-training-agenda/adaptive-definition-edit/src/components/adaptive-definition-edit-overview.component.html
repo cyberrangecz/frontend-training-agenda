@@ -41,6 +41,19 @@
       >
       </kypo-phase-overview>
     </div>
+
+    <mat-divider></mat-divider>
+    <!-- MODEL SIMULATOR -->
+    <div *ngIf="(trainingPhasesCount$ | async) as trainingPhasesCount">
+      <div class="phases-header">
+        <h3>Single trainee performance simulation</h3>
+        <span class="phases-info" *ngIf="trainingPhasesCount >= 0"
+        >Training definition contains {{ trainingPhasesCount }} training phase(s)</span
+        >
+        <mat-icon>timeline</mat-icon>
+      </div>
+      <kypo-model-simulator [phases]="phases$ | async"></kypo-model-simulator>
+    </div>
   </ng-template>
 </mat-expansion-panel>
 
