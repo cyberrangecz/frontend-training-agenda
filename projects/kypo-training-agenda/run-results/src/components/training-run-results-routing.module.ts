@@ -20,7 +20,7 @@ const routes: Routes = [
     path: '',
     component: TrainingRunResultsComponent,
     children: [
-      { path: '', redirectTo: TRAINING_RUN_RESULTS_SCORE_DEVELOPMENT_PATH },
+      { path: '', pathMatch: 'prefix', redirectTo: TRAINING_RUN_RESULTS_SCORE_DEVELOPMENT_PATH },
       {
         path: TRAINING_RUN_RESULTS_SCORE_DEVELOPMENT_PATH,
         component: ScoreDevelopmentWrapperComponent,
