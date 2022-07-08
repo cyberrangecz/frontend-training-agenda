@@ -1,3 +1,7 @@
+### 14.1.1 Fix training run results routing.
+* 94f5d5a -- [CI/CD] Update packages.json version based on GitLab tag.
+* 5147af0 -- Merge branch '194-fix-training-run-results-routing' into 'master'
+* 53c3853 -- Resolve "Fix training run results routing"
 ### 14.1.0 Optimize lazy loaded modules for instance and definition detail. Integrate adaptive model simulating tool.
 * fde6ea4 -- [CI/CD] Update packages.json version based on GitLab tag.
 *   2a9d566 -- Merge branch '188-integrate-adaptive-model-simulator' into 'master'
