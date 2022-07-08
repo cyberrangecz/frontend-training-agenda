@@ -20,6 +20,8 @@ export abstract class AdaptiveDefinitionService extends OffsetPaginatedElementsS
 
   abstract showMitreTechniques(): Observable<any>;
 
+  abstract toSimulator(): Observable<boolean>;
+
   /**
    *
    * @param pagination requested pagination

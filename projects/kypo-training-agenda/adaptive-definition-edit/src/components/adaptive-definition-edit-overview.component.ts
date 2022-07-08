@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, HostListener } from '@angular/core'
 import { ActivatedRoute } from '@angular/router';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { SentinelControlItem } from '@sentinel/components/controls';
-import { MitreTechnique, Phase, TrainingDefinition } from '@muni-kypo-crp/training-model';
+import { MitreTechnique, Phase, TrainingDefinition, TrainingPhase } from '@muni-kypo-crp/training-model';
 import { combineLatest, Observable } from 'rxjs';
 import { map, takeWhile, tap } from 'rxjs/operators';
 import { TrainingDefinitionEditControls } from '../model/adapters/training-definition-edit-controls';
@@ -40,6 +40,8 @@ export class AdaptiveDefinitionEditOverviewComponent extends SentinelBaseDirecti
   phasesCount = -1;
   definitionSaveDisabled$: Observable<boolean>;
   phasesSaveDisabled$: Observable<boolean>;
+  phases$: Observable<Phase[]>;
+  trainingPhasesCount$: Observable<number>;
   unsavedPhases: Phase[] = [];
   canDeactivateAuthors = true;
   canDeactivateTDEdit = true;
@@ -61,6 +63,8 @@ export class AdaptiveDefinitionEditOverviewComponent extends SentinelBaseDirecti
     this.definitionSaveDisabled$ = this.editService.saveDisabled$;
     this.phasesSaveDisabled$ = this.phaseEditService.saveDisabled$;
     this.mitreTechniques$ = this.mitreTechniquesService.mitreTechniques$;
+    this.phases$ = this.phaseEditService.phases$;
+    this.trainingPhasesCount$ = this.phaseEditService.presentTrainingPhases$.pipe(map((phases) => phases.length));
     this.mitreTechniquesService
       .getAll()
       .pipe(takeWhile(() => this.isAlive))

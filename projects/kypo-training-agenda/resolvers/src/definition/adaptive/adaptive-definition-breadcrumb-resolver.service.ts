@@ -7,6 +7,7 @@ import {
   TRAINING_DEFINITION_EDIT_PATH,
   TRAINING_DEFINITION_NEW_PATH,
   ADAPTIVE_DEFINITION_SELECTOR,
+  SIMULATOR_PATH,
 } from '@muni-kypo-crp/training-agenda';
 import { AdaptiveDefinitionResolver } from './adaptive-definition-resolver.service';
 
@@ -25,6 +26,8 @@ export class AdaptiveDefinitionBreadcrumbResolver implements Resolve<string> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<string> | Promise<string> | string {
     if (state.url.endsWith(TRAINING_DEFINITION_NEW_PATH)) {
       return 'Create';
+    } else if (state.url.endsWith(SIMULATOR_PATH)) {
+      return 'Model Simulating Tool';
     } else if (route.paramMap.has(ADAPTIVE_DEFINITION_SELECTOR)) {
       const resolved = this.adaptiveDefinitionResolver.resolve(route, state) as Observable<TrainingDefinition>;
       return resolved.pipe(map((td) => (td ? this.getBreadcrumbFromDefinition(td, state) : '')));

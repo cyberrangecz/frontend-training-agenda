@@ -3,10 +3,10 @@
     <mat-panel-title> MITRE ATT&CK Techniques </mat-panel-title>
     <mat-panel-description>
       <span *ngIf="mitreTechniques.length > 0; else noTechniquesLabel">
-        This level contains {{ mitreTechniques.length }} techniques(s)</span
+        This phase contains {{ mitreTechniques.length }} techniques(s)</span
       >
       <ng-template #noTechniquesLabel>
-        <span>This level has no techniques</span>
+        <span>This phase has no techniques</span>
       </ng-template>
     </mat-panel-description>
   </mat-expansion-panel-header>

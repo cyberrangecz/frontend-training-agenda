@@ -1,3 +1,4 @@
+14.1.0 Optimize lazy loaded modules for instance and definition detail. Integrate adaptive model simulating tool.
 14.0.1 Fix markdown errors after Sentinel update.
 14.0.0 Update to Angular 14.
 13.3.9 Fix instance summary routing for aggregated dashboard.

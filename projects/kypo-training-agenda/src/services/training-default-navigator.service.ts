@@ -28,6 +28,7 @@ import {
   ADAPTIVE_RUN_RESULTS_PATH,
   TRAINING_RUN_RESULTS_AGGREGATED_DASHBOARD_PATH,
   MITRE_TECHNIQUES_PATH,
+  SIMULATOR_PATH,
 } from '../model/default-paths';
 
 @Injectable()
@@ -51,6 +52,13 @@ export class TrainingDefaultNavigator extends TrainingNavigator {
    */
   toMitreTechniques(): string {
     return `${MITRE_TECHNIQUES_PATH}`;
+  }
+
+  /**
+   * Return route to adaptive simulator
+   */
+  toSimulator(): string {
+    return `${ADAPTIVE_DEFINITION_PATH}/${SIMULATOR_PATH}`;
   }
 
   /**

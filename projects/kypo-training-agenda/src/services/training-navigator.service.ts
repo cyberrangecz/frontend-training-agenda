@@ -19,6 +19,11 @@ export abstract class TrainingNavigator {
   abstract toMitreTechniques(): string;
 
   /**
+   * Return route to adaptive simulator
+   */
+  abstract toSimulator(): string;
+
+  /**
    * Returns route to training run mitre techniques
    */
   abstract toTrainingRunMitreTechniques(): string;
