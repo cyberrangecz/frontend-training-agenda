@@ -1,3 +1,15 @@
+### 14.1.0 Optimize lazy loaded modules for instance and definition detail. Integrate adaptive model simulating tool.
+* fde6ea4 -- [CI/CD] Update packages.json version based on GitLab tag.
+*   2a9d566 -- Merge branch '188-integrate-adaptive-model-simulator' into 'master'
+|\  
+| * 20d2e67 -- "Integrate adaptive model simulator"
+|/  
+*   ca7c061 -- Merge branch '192-rename-kypo2-to-kypo' into 'master'
+|\  
+| * 3eaa35e -- Resolve "Rename kypo2 to kypo"
+|/  
+* b7ff323 -- Merge branch '191-change-lock-color-and-optimize-lazy-loaded-modules' into 'master'
+* 90e2694 -- Resolve "Change lock color and optimize lazy loaded modules"
 ### 14.0.1 Fix markdown errors after Sentinel update.
 * ee8121a -- [CI/CD] Update packages.json version based on GitLab tag.
 * 02d01ee -- Merge branch '190-fix-markdown-errors-after-sentinel-update' into 'master'
