@@ -1,3 +1,7 @@
+### 14.2.0 Update of refactored assessment visualization. Removed elastic search dependency.
+* 9b22b06 -- [CI/CD] Update packages.json version based on GitLab tag.
+* 04829dd -- Merge branch '193-bump-assessment-visualization-version' into 'master'
+* 624e10c -- Resolve "Bump assessment visualization version"
 ### 14.1.1 Fix training run results routing.
 * 94f5d5a -- [CI/CD] Update packages.json version based on GitLab tag.
 * 5147af0 -- Merge branch '194-fix-training-run-results-routing' into 'master'
