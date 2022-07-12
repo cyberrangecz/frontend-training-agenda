@@ -6,7 +6,6 @@ export class TrainingAgendaConfig {
   visualizationConfig: {
     trainingBasePath: string;
     adaptiveBasePath: string;
-    elasticSearchBasePath: string;
   };
   kypoTopologyConfig: KypoTopologyGraphConfig;
 }

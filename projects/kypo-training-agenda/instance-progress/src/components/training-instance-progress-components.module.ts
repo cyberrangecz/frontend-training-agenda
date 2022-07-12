@@ -17,7 +17,6 @@ export class TrainingInstanceProgressComponentsModule {
   static forRoot(config: TrainingAgendaConfig): ModuleWithProviders<TrainingInstanceProgressComponentsModule> {
     const visualizationConfig: HurdlingVisualizationConfig = {
       trainingServiceUrl: config.visualizationConfig.trainingBasePath,
-      elasticSearchServiceUrl: config.visualizationConfig.elasticSearchBasePath,
     };
     return {
       ngModule: TrainingInstanceProgressComponentsModule,

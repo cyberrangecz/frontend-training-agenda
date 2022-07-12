@@ -13,7 +13,6 @@ import { MistakeModule } from '@muni-kypo-crp/command-visualizations/mistake';
 import { TraineeGraphModule } from '@muni-kypo-crp/command-visualizations/trainee-graph';
 import { MitreTechniquesOverviewService } from '../service/mitre-techniques.service';
 import { MitreTechniquesOverviewConcreteService } from '../service/mitre-techniques-concrete.service';
-import { SentinelControlsModule } from '@sentinel/components/controls';
 import { TrainingRunResultsRoutingModule } from './training-run-results-routing.module';
 import { CommandAnalysisWrapperComponent } from './command-analysis-wrapper/command-analysis-wrapper.component';
 import { CommandTimelineWrapperComponent } from './command-timeline-wrapper/command-timeline-wrapper.component';
@@ -49,7 +48,6 @@ export class TrainingRunResultsComponentsModule {
   static forRoot(config: TrainingAgendaConfig): ModuleWithProviders<TrainingRunResultsComponentsModule> {
     const visualizationConfig: VisualizationOverviewConfig = {
       trainingServiceUrl: config.visualizationConfig.trainingBasePath,
-      elasticSearchServiceUrl: config.visualizationConfig.elasticSearchBasePath,
     };
     return {
       ngModule: TrainingRunResultsComponentsModule,

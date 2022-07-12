@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, HostListener } from '@angular/core'
 import { ActivatedRoute } from '@angular/router';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { SentinelControlItem } from '@sentinel/components/controls';
-import { MitreTechnique, Phase, TrainingDefinition, TrainingPhase } from '@muni-kypo-crp/training-model';
+import { MitreTechnique, Phase, TrainingDefinition } from '@muni-kypo-crp/training-model';
 import { combineLatest, Observable } from 'rxjs';
 import { map, takeWhile, tap } from 'rxjs/operators';
 import { TrainingDefinitionEditControls } from '../model/adapters/training-definition-edit-controls';

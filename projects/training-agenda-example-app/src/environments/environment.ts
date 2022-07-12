@@ -7,7 +7,7 @@ export const baseURL = 'https://172.19.0.22';
 // Frontend url
 export const homeURL = 'https://localhost:4200';
 // trainings service url
-export const trainingURL = baseURL + '/kypo-rest-training/api/v1/';
+export const trainingURL = 'http://localhost:8083' + '/kypo-rest-training/api/v1/';
 // adaptive trainings service url
 export const adaptiveTrainingURL = baseURL + '/kypo-adaptive-training/api/v1/';
 
@@ -16,8 +16,6 @@ export const feedbackURL = baseURL + '/kypo-training-feedback/api/v1/';
 export const sandboxesURL = baseURL + '/kypo-sandbox-service/api/v1/';
 
 export const userAngGroupURL = baseURL + '/kypo-rest-user-and-group/api/v1/';
-
-export const elasticSearchURL = baseURL + '/kypo-elasticsearch-service/api/v1/';
 
 export const mitreTechniquesURL = baseURL + '/kypo-mitre-technique-service/api/v1/';
 
@@ -37,7 +35,6 @@ export const kypoTopologyConfig = {
 export const visualizationConfig = {
   trainingBasePath: trainingURL,
   adaptiveBasePath: adaptiveTrainingURL,
-  elasticSearchBasePath: elasticSearchURL,
   feedbackBasePath: feedbackURL,
 };
 
