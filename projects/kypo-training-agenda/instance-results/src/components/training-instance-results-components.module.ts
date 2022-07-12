@@ -59,7 +59,6 @@ export class TrainingInstanceResultsComponentsModule {
   static forRoot(config: TrainingAgendaConfig): ModuleWithProviders<TrainingInstanceResultsComponentsModule> {
     const visualizationConfig = {
       trainingServiceUrl: config.visualizationConfig.trainingBasePath,
-      elasticSearchServiceUrl: config.visualizationConfig.elasticSearchBasePath,
     };
     return {
       ngModule: TrainingInstanceResultsComponentsModule,

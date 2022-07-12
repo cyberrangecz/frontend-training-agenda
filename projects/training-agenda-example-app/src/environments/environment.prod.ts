@@ -15,8 +15,6 @@ export const sandboxesURL = baseURL + '/kypo-sandbox-service/api/v1/';
 
 export const userAngGroupURL = baseURL + '/kypo-rest-user-and-group/api/v1/';
 
-export const elasticSearchURL = baseURL + '/kypo-elasticsearch-service/api/v1/';
-
 export const mitreTechniquesURL = baseURL + '/kypo-mitre-technique-service/api/v1/';
 
 export const kypoTopologyConfig = {
@@ -35,7 +33,6 @@ export const kypoTopologyConfig = {
 export const visualizationConfig = {
   trainingBasePath: trainingURL,
   adaptiveBasePath: adaptiveTrainingURL,
-  elasticSearchBasePath: elasticSearchURL,
 };
 
 export const environment = {
