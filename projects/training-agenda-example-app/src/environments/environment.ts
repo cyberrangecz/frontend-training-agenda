@@ -7,7 +7,7 @@ export const baseURL = 'https://172.19.0.22';
 // Frontend url
 export const homeURL = 'https://localhost:4200';
 // trainings service url
-export const trainingURL = 'http://localhost:8083' + '/kypo-rest-training/api/v1/';
+export const trainingURL = baseURL + '/kypo-rest-training/api/v1/';
 // adaptive trainings service url
 export const adaptiveTrainingURL = baseURL + '/kypo-adaptive-training/api/v1/';
 

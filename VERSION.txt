@@ -1,3 +1,4 @@
+14.2.1 Bump adaptive model simulator version.
 14.2.0 Update of refactored assessment visualization. Removed elastic search dependency.
 14.1.1 Fix training run results routing.
 14.1.0 Optimize lazy loaded modules for instance and definition detail. Integrate adaptive model simulating tool.
