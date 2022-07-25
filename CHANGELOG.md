@@ -1,3 +1,7 @@
+### 14.2.1 Bump adaptive model simulator version.
+* 2931082 -- [CI/CD] Update packages.json version based on GitLab tag.
+* 15f6f23 -- Merge branch '196-bump-version-of-adaptive-model-simulator' into 'master'
+* ae4f5ce -- Resolve "Bump version of adaptive model simulator"
 ### 14.2.0 Update of refactored assessment visualization. Removed elastic search dependency.
 * 9b22b06 -- [CI/CD] Update packages.json version based on GitLab tag.
 * 04829dd -- Merge branch '193-bump-assessment-visualization-version' into 'master'
