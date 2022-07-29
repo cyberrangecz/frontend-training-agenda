@@ -58,17 +58,7 @@ export class AdaptiveInstanceEditOverviewComponent extends SentinelBaseDirective
     this.hasStarted$ = this.editService.hasStarted$;
     this.instanceValid$ = this.editService.instanceValid$;
     this.editMode$ = this.editService.editMode$;
-    this.editService.assignedPool$
-      .pipe(
-        takeWhile(() => this.isAlive),
-        tap((assignedPool) => (this.hasAssignedPool = assignedPool ? true : false))
-      )
-      .subscribe();
-    const saveDisabled$: Observable<boolean> = combineLatest(
-      this.editService.saveDisabled$,
-      this.editService.poolSaveDisabled$,
-      this.editService.sandboxDefinitionSaveDisabled$
-    ).pipe(map((valid) => valid[0] && valid[1] && valid[2]));
+    const saveDisabled$: Observable<boolean> = this.editService.saveDisabled$;
     this.tiTitle$ = this.editService.trainingInstance$.pipe(map((ti) => ti.title));
     this.activeRoute.data
       .pipe(takeWhile(() => this.isAlive))
@@ -77,8 +67,6 @@ export class AdaptiveInstanceEditOverviewComponent extends SentinelBaseDirective
     this.sandboxDefinitions$ = this.editService.sandboxDefinitions$.pipe(map((definitions) => definitions.elements));
     this.refreshPools();
     this.refreshSandboxDefinitions();
-    this.selectedPoolId = this.editService.assignedPool$;
-    this.selectedSandboxDefinitionId = this.editService.assignedSandboxDefinition$;
     this.controls = AdaptiveInstanceEditControls.create(this.editService, saveDisabled$, this.instanceValid$);
   }
 

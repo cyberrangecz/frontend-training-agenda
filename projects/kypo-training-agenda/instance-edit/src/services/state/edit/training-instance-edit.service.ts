@@ -20,14 +20,6 @@ export abstract class TrainingInstanceEditService {
     .asObservable()
     .pipe(filter((ti) => ti !== undefined && ti !== null));
 
-  protected assignedPoolSubject$: BehaviorSubject<number> = new BehaviorSubject(undefined);
-
-  assignedPool$: Observable<number> = this.assignedPoolSubject$.asObservable();
-
-  protected assignedSandboxDefinitionSubject$: BehaviorSubject<number> = new BehaviorSubject(undefined);
-
-  assignedSandboxDefinition$: Observable<number> = this.assignedSandboxDefinitionSubject$.asObservable();
-
   protected poolsSubject$: BehaviorSubject<PaginatedResource<Pool>> = new BehaviorSubject(this.initPools(999));
 
   pools$: Observable<PaginatedResource<Pool>> = this.poolsSubject$.asObservable();
@@ -61,20 +53,6 @@ export abstract class TrainingInstanceEditService {
    * True if it is possible to save edited training instance in its current state, false otherwise
    */
   saveDisabled$: Observable<boolean> = this.saveDisabledSubject$.asObservable();
-
-  protected poolSaveDisabledSubject$: BehaviorSubject<boolean> = new BehaviorSubject(true);
-
-  /**
-   * True if it is possible to save edited pool in its current state, false otherwise
-   */
-  poolSaveDisabled$: Observable<boolean> = this.poolSaveDisabledSubject$.asObservable();
-
-  protected sandboxDefinitionSaveDisabledSubject$: BehaviorSubject<boolean> = new BehaviorSubject(true);
-
-  /**
-   * True if it is possible to save edited sandbox definition in its current state, false otherwise
-   */
-  sandboxDefinitionSaveDisabled$: Observable<boolean> = this.sandboxDefinitionSaveDisabledSubject$.asObservable();
 
   protected constructor() {
     this.hasStarted$ = timer(1).pipe(

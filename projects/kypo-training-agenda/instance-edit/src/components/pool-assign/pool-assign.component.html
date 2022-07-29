@@ -1,13 +1,13 @@
 <div>
-  <mat-form-field appearance="fill" >
+  <mat-form-field appearance="fill">
     <mat-label *ngIf="selectedPoolId">Pool</mat-label>
     <mat-label *ngIf="!selectedPoolId">No Selected Pool</mat-label>
     <mat-select
       (selectionChange)="onSelectionChange($event.value)"
       [(value)]="selectedPoolId"
       [disabled]="hasStarted"
+      required
     >
-      <mat-option>None</mat-option>
       <mat-option *ngFor="let pool of pools" [value]="pool.id" [disabled]="pool.isLocked()">
         {{pool.title}}
       </mat-option>

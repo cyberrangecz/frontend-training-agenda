@@ -17,7 +17,6 @@ import { Pool, SandboxDefinition } from '@muni-kypo-crp/sandbox-model';
 @Injectable()
 export class TrainingInstanceEditConcreteService extends TrainingInstanceEditService {
   private editedSnapshot: TrainingInstance;
-  private instanceValid: boolean;
   private lastPagination: OffsetPaginationEvent;
 
   constructor(
@@ -38,10 +37,10 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
    * @param changeEvent training instance object and its validity
    */
   change(changeEvent: TrainingInstanceChangeEvent): void {
-    this.saveDisabledSubject$.next(!changeEvent.isValid);
     this.instanceValidSubject$.next(changeEvent.isValid);
+    if (changeEvent.trainingInstance.localEnvironment) changeEvent.trainingInstance.poolId = null;
     this.editedSnapshot = changeEvent.trainingInstance;
-    this.editedSnapshot.poolId = this.assignedPoolSubject$.getValue();
+    this.checkInstanceValidity();
   }
 
   /**
@@ -49,23 +48,22 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
    * @param poolId pool ID of selected pool
    */
   poolSelectionChange(poolId: number): void {
-    this.poolSaveDisabledSubject$.next(false);
-    if (this.instanceValid !== false) {
-      if (this.editedSnapshot) {
-        this.editedSnapshot.poolId = poolId;
-      }
-    }
-    this.assignedPoolSubject$.next(poolId);
+    this.editedSnapshot.poolId = poolId;
+    this.editedSnapshot.sandboxDefinitionId = null;
+    this.checkInstanceValidity();
   }
 
   sandboxDefinitionSelectionChange(sandboxDefinitionId: number): void {
-    this.sandboxDefinitionSaveDisabledSubject$.next(false);
-    if (this.instanceValid !== false) {
-      if (this.editedSnapshot) {
-        this.editedSnapshot.sandboxDefinitionId = sandboxDefinitionId;
-      }
+    if (!this.editedSnapshot) {
+      this.editedSnapshot = this.trainingInstanceSubject$.getValue();
+      this.editedSnapshot.accessToken =
+        this.editedSnapshot.accessToken.indexOf('-') !== -1
+          ? this.editedSnapshot.accessToken.substring(0, this.editedSnapshot.accessToken.lastIndexOf('-'))
+          : this.editedSnapshot.accessToken;
     }
-    this.assignedSandboxDefinitionSubject$.next(sandboxDefinitionId);
+    this.editedSnapshot.sandboxDefinitionId = sandboxDefinitionId;
+    this.editedSnapshot.poolId = null;
+    this.checkInstanceValidity();
   }
 
   /**
@@ -93,8 +91,6 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
       ti.backwardMode = true;
       this.instanceValidSubject$.next(false);
     }
-    this.assignedPoolSubject$.next(ti.poolId);
-    this.assignedSandboxDefinitionSubject$.next(ti.sandboxDefinitionId);
     this.trainingInstanceSubject$.next(ti);
   }
 
@@ -126,6 +122,12 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
     );
   }
 
+  private checkInstanceValidity(): void {
+    this.saveDisabledSubject$.next(
+      !this.instanceValidSubject$.value || (!this.editedSnapshot.localEnvironment && !this.editedSnapshot.poolId)
+    );
+  }
+
   private setEditMode(trainingInstance: TrainingInstance) {
     this.editModeSubject$.next(trainingInstance !== null);
   }
@@ -133,13 +135,6 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
   private create(): Observable<number> {
     if (this.editedSnapshot) {
       if (!this.editedSnapshot.startTime) this.editedSnapshot.startTime = new Date();
-      if (this.editedSnapshot.localEnvironment) {
-        this.assignedPoolSubject$.next(null);
-        this.editedSnapshot.poolId = null;
-      } else {
-        this.editedSnapshot.sandboxDefinitionId = null;
-        this.assignedSandboxDefinitionSubject$.next(null);
-      }
     }
     return this.trainingInstanceApi.create(this.editedSnapshot).pipe(
       map((ti) => ti.id),
@@ -157,17 +152,8 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
     if (!this.editedSnapshot) {
       this.editedSnapshot = this.trainingInstanceSubject$.getValue();
     }
-    if (this.editedSnapshot.localEnvironment) {
-      this.assignedPoolSubject$.next(null);
-    } else {
-      this.assignedSandboxDefinitionSubject$.next(null);
-    }
-    this.editedSnapshot.poolId = this.assignedPoolSubject$.getValue();
-    this.editedSnapshot.sandboxDefinitionId = this.assignedSandboxDefinitionSubject$.getValue();
     const pagination = new OffsetPaginationEvent(0, 10, '', '');
     this.saveDisabledSubject$.next(true);
-    this.poolSaveDisabledSubject$.next(true);
-    this.sandboxDefinitionSaveDisabledSubject$.next(true);
     return this.trainingInstanceApi.update(this.editedSnapshot).pipe(
       switchMap(() => this.getAllPools(pagination)),
       switchMap(() => this.getAllSandboxDefinitions(pagination)),
@@ -177,8 +163,6 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
           this.onSaved();
         },
         (err) => {
-          this.poolSaveDisabledSubject$.next(false);
-          this.sandboxDefinitionSaveDisabledSubject$.next(false);
           this.saveDisabledSubject$.next(false);
           this.errorHandler.emit(err, 'Editing training instance');
         }
@@ -189,11 +173,7 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
   private onSaved() {
     this.editModeSubject$.next(true);
     this.saveDisabledSubject$.next(true);
-    this.poolSaveDisabledSubject$.next(true);
-    this.sandboxDefinitionSaveDisabledSubject$.next(true);
     this.trainingInstanceSubject$.next(this.editedSnapshot);
-    this.assignedPoolSubject$.next(this.editedSnapshot.poolId);
-    this.assignedSandboxDefinitionSubject$.next(this.editedSnapshot.sandboxDefinitionId);
     this.editedSnapshot = null;
   }
 }
