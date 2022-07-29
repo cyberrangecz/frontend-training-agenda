@@ -32,7 +32,7 @@
         <h3>Pools</h3>
         <mat-icon class="header-icon">view_module</mat-icon>
       </div>
-      <kypo-pool-assign [selectedPoolId]="selectedPoolId | async"
+      <kypo-pool-assign [selectedPoolId]="(trainingInstance$ | async).poolId"
                         [pools]="pools$ | async"
                         [hasStarted]="hasStarted$ | async"
                         (selectionChanged)="onPoolSelectionChanged($event)">
@@ -44,7 +44,7 @@
         <h3>Sandbox Definitions</h3>
         <mat-icon class="header-icon">view_module</mat-icon>
       </div>
-      <kypo-sandbox-definition-assign [selectedSandboxDefinitionId]="selectedSandboxDefinitionId | async"
+      <kypo-sandbox-definition-assign [selectedSandboxDefinitionId]="(trainingInstance$ | async).sandboxDefinitionId"
                                       [sandboxDefinitions]="sandboxDefinitions$ | async"
                                       (selectionChanged)="onSandboxDefinitionSelectionChanged($event)">
       </kypo-sandbox-definition-assign>
