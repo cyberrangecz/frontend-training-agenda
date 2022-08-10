@@ -1,3 +1,11 @@
+### 14.2.2 Add an option to export score of all trainees from a training instance. Change save strategy for a training instance with non-local environment.
+* 23ed10b -- [CI/CD] Update packages.json version based on GitLab tag.
+*   2a88820 -- Merge branch '197-export-score-of-all-trainees-from-training-instance' into 'master'
+|\  
+| * 7fa8960 -- Resolve "Export score of all trainees from training instance"
+|/  
+* bc4a699 -- Merge branch '195-rework-save-strategy-for-instance-with-non-local-environment' into 'master'
+* aaa2f66 -- Resolve "Rework save strategy for instance with non-local environment"
 ### 14.2.1 Bump adaptive model simulator version.
 * 2931082 -- [CI/CD] Update packages.json version based on GitLab tag.
 * 15f6f23 -- Merge branch '196-bump-version-of-adaptive-model-simulator' into 'master'
