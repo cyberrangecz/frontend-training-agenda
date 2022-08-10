@@ -20,4 +20,10 @@ export abstract class TrainingRunService extends OffsetPaginatedElementsService<
   ): Observable<PaginatedResource<TrainingRun>>;
 
   abstract getInfo(trainingRunId: number): Observable<TrainingRunInfo[]>;
+
+  /**
+   * Get all scores from a specific training instance
+   * @param trainingInstanceId id of training instance
+   */
+  abstract exportScore(trainingInstanceId: number): Observable<any>;
 }

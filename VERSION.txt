@@ -1,3 +1,4 @@
+14.2.2 Add an option to export score of all trainees from a training instance. Change save strategy for a training instance with non-local environment.
 14.2.1 Bump adaptive model simulator version.
 14.2.0 Update of refactored assessment visualization. Removed elastic search dependency.
 14.1.1 Fix training run results routing.

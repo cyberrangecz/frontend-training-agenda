@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
 import { TrainingRunService } from './training-run.service';
+import { TrainingErrorHandler } from '@muni-kypo-crp/training-agenda';
 
 /**
  * Basic implementation of layer between component and API service.
@@ -18,13 +19,14 @@ export class TrainingRunConcreteService extends TrainingRunService {
   constructor(
     private trainingInstanceApi: TrainingInstanceApi,
     private context: TrainingAgendaContext,
-    private trainingRunApi: TrainingRunApi
+    private trainingRunApi: TrainingRunApi,
+    private errorHandler: TrainingErrorHandler
   ) {
     super(context.config.defaultPaginationSize);
   }
 
   /**
-   * Gel all training runs for passed id and pagination and updates related observables or handles error
+   * Get all training runs for passed id and pagination and updates related observables or handles error
    * @param trainingInstanceId which training runs should be requested
    * @param pagination requested pagination
    */
@@ -46,6 +48,16 @@ export class TrainingRunConcreteService extends TrainingRunService {
         () => this.hasErrorSubject$.next(true)
       )
     );
+  }
+
+  /**
+   * Get all scores from a specific training instance
+   * @param trainingInstanceId id of training instance
+   */
+  exportScore(trainingInstanceId: number): Observable<any> {
+    return this.trainingInstanceApi
+      .exportScore(trainingInstanceId)
+      .pipe(tap({ error: (err) => this.errorHandler.emit(err, 'Downloading training instance scores') }));
   }
 
   private onGetAllError() {

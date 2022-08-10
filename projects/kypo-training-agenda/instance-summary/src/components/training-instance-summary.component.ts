@@ -126,4 +126,13 @@ export class TrainingInstanceSummaryComponent extends SentinelBaseDirective impl
   onShowNotification(data: string[]): void {
     this.notificationService.emit(data[0] as any, data[1]);
   }
+
+  onExportScore(): void {
+    this.trainingInstance$
+      .pipe(
+        switchMap((ti) => this.trainingRunService.exportScore(ti.id)),
+        take(1)
+      )
+      .subscribe();
+  }
 }
