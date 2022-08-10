@@ -35,6 +35,7 @@ export class TrainingInstanceInfoComponent extends SentinelBaseDirective impleme
   @Output() showProgress: EventEmitter<boolean> = new EventEmitter();
   @Output() showResults: EventEmitter<boolean> = new EventEmitter();
   @Output() showAggregatedResults: EventEmitter<boolean> = new EventEmitter();
+  @Output() exportScore: EventEmitter<boolean> = new EventEmitter();
   @Output() showNotification: EventEmitter<string[]> = new EventEmitter();
 
   trainingDefinition: TrainingDefinition;
@@ -65,6 +66,7 @@ export class TrainingInstanceInfoComponent extends SentinelBaseDirective impleme
       this.showProgress,
       this.showResults,
       this.showAggregatedResults,
+      this.exportScore,
       disabled$
     );
   }
