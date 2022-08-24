@@ -58,7 +58,7 @@ export class TrainingInstanceFormGroup {
     trainingInstance.endTime = this.formGroup.get('endTime').value;
     trainingInstance.title = this.formGroup.get('title').value;
     trainingInstance.trainingDefinition = this.formGroup.get('trainingDefinition').value;
-    trainingInstance.accessToken = this.formGroup.get('accessTokenPrefix').value;
+    trainingInstance.accessToken = this.formGroup.get('accessTokenPrefix').value.trim();
     trainingInstance.localEnvironment = this.formGroup.get('localEnvironment').value;
     trainingInstance.backwardMode = this.formGroup.get('backwardMode').value;
   }
