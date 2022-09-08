@@ -3,6 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 // Server url
+
 export const baseURL = 'https://172.19.0.22';
 // Frontend url
 export const homeURL = 'https://localhost:4200';
@@ -12,6 +13,8 @@ export const trainingURL = baseURL + '/kypo-rest-training/api/v1/';
 export const adaptiveTrainingURL = baseURL + '/kypo-adaptive-training/api/v1/';
 // sandboxes service url
 export const sandboxesURL = baseURL + '/kypo-sandbox-service/api/v1/';
+
+export const feedbackURL = baseURL + '/kypo-training-feedback/api/v1/';
 
 export const userAngGroupURL = baseURL + '/kypo-rest-user-and-group/api/v1/';
 
@@ -23,6 +26,8 @@ export const kypoTopologyConfig = {
   defaultDecoratorRefreshPeriodInSeconds: 3, // OBSOLETE
   useRealTime: false, // OBSOLETE
   useDecorators: false, // OBSOLETE
+  pollingPeriod: 5000,
+  retryAttempts: 3,
   guacamoleConfig: {
     url: baseURL + '/guacamole/',
     username: 'guacuser',
@@ -33,6 +38,7 @@ export const kypoTopologyConfig = {
 export const visualizationConfig = {
   trainingBasePath: trainingURL,
   adaptiveBasePath: adaptiveTrainingURL,
+  feedbackBasePath: feedbackURL,
 };
 
 export const environment = {

@@ -25,6 +25,8 @@ export const kypoTopologyConfig = {
   defaultDecoratorRefreshPeriodInSeconds: 3, // OBSOLETE
   useRealTime: false, // OBSOLETE
   useDecorators: false, // OBSOLETE
+  pollingPeriod: 5000,
+  retryAttempts: 3,
   guacamoleConfig: {
     url: baseURL + '/guacamole/',
     username: 'guacuser',

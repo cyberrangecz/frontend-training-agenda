@@ -104,16 +104,14 @@ export class RunningTrainingRunConcreteService extends RunningTrainingRunService
   }
 
   /**
-   * Preloads VM console for user and stores it into browser storage for further use in topology.
+   * Sends request to preload VM consoles on backend for user for further use in topology.
    * @param sandboxId id of sandbox in which the vm exists
    */
   loadConsoles(sandboxId: number): Observable<ConsoleUrl[]> {
-    const storage = window.localStorage;
     return this.topologyService.getVMConsolesUrl(sandboxId).pipe(
-      tap(
-        (consoles) => storage.setItem('vm-consoles', JSON.stringify(consoles)),
-        (err) => this.errorHandler.emit(err, 'Obtaining console URL')
-      )
+      tap({
+        error: (err) => this.errorHandler.emit(err, 'Obtaining console URL'),
+      })
     );
   }
 
