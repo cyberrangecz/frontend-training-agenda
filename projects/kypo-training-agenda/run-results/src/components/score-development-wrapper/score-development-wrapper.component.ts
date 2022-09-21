@@ -1,8 +1,8 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { TrainingInstance, TrainingRun } from '@muni-kypo-crp/training-model';
+import { TrainingRun } from '@muni-kypo-crp/training-model';
 import { SentinelBaseDirective } from '@sentinel/common';
-import { map, Observable, takeWhile, tap } from 'rxjs';
+import { map, Observable, takeWhile } from 'rxjs';
 import { VisualizationInfo } from '@muni-kypo-crp/training-agenda/internal';
 import { KypoTraineeModeInfo } from '@muni-kypo-crp/overview-visualization';
 import { TRAINING_RUN_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';

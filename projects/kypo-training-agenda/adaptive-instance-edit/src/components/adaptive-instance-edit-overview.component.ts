@@ -1,10 +1,10 @@
 import { PaginatedResource, OffsetPaginationEvent, SentinelBaseDirective } from '@sentinel/common';
 import { ChangeDetectionStrategy, Component, HostListener } from '@angular/core';
-import { combineLatest, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, take, takeWhile, tap } from 'rxjs/operators';
+import { map, take, takeWhile } from 'rxjs/operators';
 import { AdaptiveInstanceEditService } from '../services/state/edit/adaptive-instance-edit.service';
 import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
 import { AdaptiveInstanceEditControls } from '../models/adapter/adaptive-instance-edit-controls';

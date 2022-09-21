@@ -11,7 +11,7 @@ import { SentinelBaseDirective } from '@sentinel/common';
 import { takeWhile } from 'rxjs/operators';
 import { AccessPhaseEditFormGroup } from './access-phase-edit-form-group';
 import { AbstractControl } from '@angular/forms';
-import { AccessPhase, InfoPhase } from '@muni-kypo-crp/training-model';
+import { AccessPhase } from '@muni-kypo-crp/training-model';
 
 /**
  * Component for editing of new or existing info-phase-training-phase phases

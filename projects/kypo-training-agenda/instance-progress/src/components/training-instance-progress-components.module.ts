@@ -4,12 +4,22 @@ import { HurdlingVisualizationConfig, KypoTrainingsHurdlingVizLibModule } from '
 import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
 import { TrainingInstanceProgressMaterialModule } from './training-instance-progress-material.module';
 import { TrainingInstanceProgressComponent } from './training-instance-progress.component';
+import { MatIconModule } from '@angular/material/icon';
+import { TimelineModule } from '@muni-kypo-crp/command-visualizations/timeline';
+import { MatTabsModule } from '@angular/material/tabs';
 
 /**
  * Component imports, declarations and providers for training instance progress page
  */
 @NgModule({
-  imports: [CommonModule, TrainingInstanceProgressMaterialModule, KypoTrainingsHurdlingVizLibModule],
+  imports: [
+    CommonModule,
+    TrainingInstanceProgressMaterialModule,
+    KypoTrainingsHurdlingVizLibModule,
+    MatIconModule,
+    TimelineModule,
+    MatTabsModule,
+  ],
   declarations: [TrainingInstanceProgressComponent],
   providers: [],
 })
@@ -21,6 +31,7 @@ export class TrainingInstanceProgressComponentsModule {
     return {
       ngModule: TrainingInstanceProgressComponentsModule,
       providers: [
+        TimelineModule.forRoot(config.visualizationConfig).providers,
         {
           provide: HurdlingVisualizationConfig,
           useValue: visualizationConfig,

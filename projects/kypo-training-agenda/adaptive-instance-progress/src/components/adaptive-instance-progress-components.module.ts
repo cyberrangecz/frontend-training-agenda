@@ -4,12 +4,13 @@ import { AdaptiveVisualizationConfig, KypoAdaptiveVisualizationLibModule } from 
 import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
 import { AdaptiveInstanceProgressMaterialModule } from './adaptive-instance-progress-material.module';
 import { AdaptiveInstanceProgressComponent } from './adaptive-instance-progress.component';
+import { TimelineModule } from '@muni-kypo-crp/command-visualizations/timeline';
 
 /**
  * Module containing components and providers for training instance progress page
  */
 @NgModule({
-  imports: [CommonModule, AdaptiveInstanceProgressMaterialModule, KypoAdaptiveVisualizationLibModule],
+  imports: [CommonModule, AdaptiveInstanceProgressMaterialModule, KypoAdaptiveVisualizationLibModule, TimelineModule],
   declarations: [AdaptiveInstanceProgressComponent],
   providers: [],
 })
@@ -25,6 +26,7 @@ export class AdaptiveInstanceProgressComponentsModule {
           provide: AdaptiveVisualizationConfig,
           useValue: visualizationConfig,
         },
+        TimelineModule.forRoot(config.visualizationConfig).providers,
         { provide: TrainingAgendaConfig, useValue: config },
       ],
     };

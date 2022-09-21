@@ -1,10 +1,8 @@
-import { ChangeDetectionStrategy, Component, HostListener, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SentinelBaseDirective } from '@sentinel/common';
-import { TrainingRun } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
-import { map, take, takeWhile } from 'rxjs/operators';
-import { VisualizationInfo } from '@muni-kypo-crp/training-agenda/internal';
+import { map, take } from 'rxjs/operators';
 import { ADAPTIVE_RUN_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { TrainingRunResultsControls } from '../model/training-run-results-controls';

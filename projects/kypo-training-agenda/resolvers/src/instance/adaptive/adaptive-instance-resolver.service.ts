@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
-import { EMPTY, Observable, of, pipe } from 'rxjs';
-import { catchError, mergeMap, take, tap } from 'rxjs/operators';
+import { EMPTY, Observable, of } from 'rxjs';
+import { catchError, mergeMap, take } from 'rxjs/operators';
 import {
   TrainingErrorHandler,
   TrainingNavigator,
