@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { InfoPhase } from '@muni-kypo-crp/training-model';
 

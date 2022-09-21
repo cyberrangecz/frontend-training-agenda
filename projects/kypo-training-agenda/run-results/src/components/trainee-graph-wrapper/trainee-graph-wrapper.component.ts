@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { TrainingInstance, TrainingRun } from '@muni-kypo-crp/training-model';
+import { TrainingRun } from '@muni-kypo-crp/training-model';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { takeWhile } from 'rxjs';
 

@@ -17,7 +17,6 @@ import { take } from 'rxjs/operators';
 import {
   AdaptiveQuestion,
   Choice,
-  Question,
   QuestionAnswer,
   QuestionnairePhase,
   QuestionTypeEnum,

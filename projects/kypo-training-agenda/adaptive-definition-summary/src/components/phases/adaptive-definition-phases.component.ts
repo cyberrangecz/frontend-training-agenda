@@ -1,11 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit, ViewChild } from '@angular/core';
-import {
-  AbstractPhaseTypeEnum,
-  InfoPhase,
-  Phase,
-  QuestionnairePhase,
-  QuestionnaireTypeEnum,
-} from '@muni-kypo-crp/training-model';
+import { AbstractPhaseTypeEnum, Phase, QuestionnairePhase, QuestionnaireTypeEnum } from '@muni-kypo-crp/training-model';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { PhaseDetailExpandControls } from '../../model/phase-detail-expand-controls';

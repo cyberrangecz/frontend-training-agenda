@@ -10,4 +10,14 @@
     </lib-kypo-sankey-visualization-lib>
     </ng-template>
   </mat-tab>
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon class="tab-icon">timeline</mat-icon>
+      Command timeline
+    </ng-template>
+    <ng-template matTabContent>
+      <kypo-timeline [trainingInstanceId]="trainingInstance?.id" [isStandalone]="true" [isAdaptive]="true"></kypo-timeline>
+    </ng-template>
+  </mat-tab>
 </mat-tab-group>

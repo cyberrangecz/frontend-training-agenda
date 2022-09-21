@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { SentinelBaseDirective } from '@sentinel/common';
-import { Observable, takeWhile } from 'rxjs';
+import { takeWhile } from 'rxjs';
 
 @Component({
   selector: 'kypo-assessment-wrapper',

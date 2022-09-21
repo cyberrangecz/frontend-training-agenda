@@ -7,7 +7,7 @@ import {
   SentinelDialogResultEnum,
 } from '@sentinel/components/dialogs';
 import { SentinelFilter, PaginatedResource, OffsetPaginationEvent } from '@sentinel/common';
-import { AdaptiveDefinitionApiService, TrainingDefinitionApi } from '@muni-kypo-crp/training-api';
+import { AdaptiveDefinitionApiService } from '@muni-kypo-crp/training-api';
 import { TrainingDefinition } from '@muni-kypo-crp/training-model';
 import { TrainingDefinitionStateEnum } from '@muni-kypo-crp/training-model';
 import { EMPTY, from, Observable } from 'rxjs';

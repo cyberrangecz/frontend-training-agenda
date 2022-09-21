@@ -4,14 +4,12 @@ import {
   EventEmitter,
   Input,
   OnChanges,
-  OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
-import { interval } from 'rxjs';
 import { takeWhile } from 'rxjs/operators';
 import { AdaptiveDefinitionSelectComponent } from '../adaptive-definition-select/adaptive-definition-select.component';
 import { AdaptiveInstanceFormGroup } from './adaptive-instance-form-group';
