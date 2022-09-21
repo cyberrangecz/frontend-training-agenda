@@ -1,3 +1,15 @@
+### 14.2.3 Add command timeline for ongoing trainings in training progress for Instructor. Add access token trimming.
+* bccad03 -- [CI/CD] Update packages.json version based on GitLab tag.
+*   01ac906 -- Merge branch '200-display-command-timeline-for-ongoing-training-run' into 'master'
+|\  
+| * f706a3c -- Resolve "Display command timeline for ongoing training run"
+|/  
+*   a38f118 -- Merge branch 'fix-load-consoles-on-training-access' into 'master'
+|\  
+| * bf81170 -- Remove local storage save of VMs
+|/  
+* f7d5508 -- Merge branch '198-trim-access-token-on-instance-save' into 'master'
+* 047ebc0 -- Resolve "Trim access token on instance save"
 ### 14.2.2 Add an option to export score of all trainees from a training instance. Change save strategy for a training instance with non-local environment.
 * 23ed10b -- [CI/CD] Update packages.json version based on GitLab tag.
 *   2a88820 -- Merge branch '197-export-score-of-all-trainees-from-training-instance' into 'master'
