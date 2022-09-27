@@ -42,6 +42,16 @@ export class TrainingDefinitionConcreteService extends TrainingDefinitionService
   private lastFilters: string;
 
   /**
+   * Gets training definition by @definitionId. Updates related observables or handles an error
+   * @param definitionId ID of requested training definition
+   */
+  get(definitionId: number): Observable<TrainingDefinition> {
+    this.hasErrorSubject$.next(false);
+    this.isLoadingSubject$.next(true);
+    return this.api.get(definitionId);
+  }
+
+  /**
    * Gets all training definitions with passed pagination and filter and updates related observables or handles an error
    * @param pagination requested pagination
    * @param filter filter to be applied on training definitions (attribute title)

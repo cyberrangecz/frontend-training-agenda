@@ -25,6 +25,9 @@ import { AssessmentWrapperComponent } from './assessment-wrapper/assessment-wrap
 import { CommandAnalysisWrapperComponent } from './command-analysis-wrapper/command-analysis-wrapper.component';
 import { AggregatedDashboardWrapperComponent } from './aggregated-dashboard-wrapper/aggregated-dashboard-wrapper.component';
 import { StatisticalVisualizationModule } from '@muni-kypo-crp/statistical-visualizations/statistical-viz';
+import { WalkthroughWrapperComponent } from './walkthrough-wrapper/walkthrough-wrapper.component';
+import { KypoWalkthroughVisualizationModule } from '@muni-kypo-crp/walkthrough-visualization';
+import { WalkthroughService } from './walkthrough-wrapper/services/walkthrough.service';
 
 /**
  * Module containing components and providers for training instance results page
@@ -42,6 +45,7 @@ import { StatisticalVisualizationModule } from '@muni-kypo-crp/statistical-visua
     TimelineModule,
     MistakeModule,
     TraineeGraphModule,
+    KypoWalkthroughVisualizationModule,
     TrainingInstanceResultsRoutingModule,
   ],
   declarations: [
@@ -52,8 +56,9 @@ import { StatisticalVisualizationModule } from '@muni-kypo-crp/statistical-visua
     TraineeGraphWrapperComponent,
     CommandAnalysisWrapperComponent,
     AggregatedDashboardWrapperComponent,
+    WalkthroughWrapperComponent,
   ],
-  providers: [],
+  providers: [WalkthroughService],
 })
 export class TrainingInstanceResultsComponentsModule {
   static forRoot(config: TrainingAgendaConfig): ModuleWithProviders<TrainingInstanceResultsComponentsModule> {
@@ -65,6 +70,7 @@ export class TrainingInstanceResultsComponentsModule {
       providers: [
         StatisticalVisualizationModule.forRoot(visualizationConfig).providers,
         DashboardModule.forRoot(config.visualizationConfig).providers,
+        KypoWalkthroughVisualizationModule.forRoot(visualizationConfig).providers,
         SummaryGraphModule.forRoot(config.visualizationConfig).providers,
         TimelineModule.forRoot(config.visualizationConfig).providers,
         MistakeModule.forRoot(config.visualizationConfig).providers,
