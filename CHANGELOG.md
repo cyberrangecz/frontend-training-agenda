@@ -1,3 +1,7 @@
+### 14.2.4 Add walkthrough visualization to visualizations for post training analysis.
+* 1e099dd -- [CI/CD] Update packages.json version based on GitLab tag.
+* d297c8e -- Merge branch '199-integrate-walkthrough-visualization' into 'master'
+* 1af0ec4 -- Resolve "Integrate walkthrough visualization"
 ### 14.2.3 Add command timeline for ongoing trainings in training progress for Instructor. Add access token trimming.
 * bccad03 -- [CI/CD] Update packages.json version based on GitLab tag.
 *   01ac906 -- Merge branch '200-display-command-timeline-for-ongoing-training-run' into 'master'
