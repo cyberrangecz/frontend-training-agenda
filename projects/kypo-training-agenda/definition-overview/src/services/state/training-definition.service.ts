@@ -17,6 +17,12 @@ export abstract class TrainingDefinitionService extends OffsetPaginatedElementsS
   abstract preview(trainingDefinition: TrainingDefinition): Observable<any>;
 
   /**
+   * Gets training definition by @definitionId. Updates related observables or handles an error
+   * @param definitionId ID of requested training definition
+   */
+  abstract get(definitionId: number): Observable<TrainingDefinition>;
+
+  /**
    *
    * @param pagination requested pagination
    * @param filter filter to be applied on training definition

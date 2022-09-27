@@ -27,6 +27,15 @@
     >
       <mat-icon class="tab-icon">stacked_bar_chart</mat-icon> Aggregated Dashboard
     </a>
+    <a
+      mat-tab-link
+      [routerLink]="['walkthrough']"
+      routerLinkActive
+      #walkthrough="routerLinkActive"
+      [active]="walkthrough.isActive"
+    >
+      <mat-icon class="tab-icon">query_stats</mat-icon> Walkthrough
+    </a>
     <ng-container *ngIf="hasReferenceSolution$ | async">
       <a
         mat-tab-link
