@@ -1,3 +1,4 @@
+14.2.5 Fix infinite loading of pool size in instance overview table for records with deleted pools.
 14.2.4 Add walkthrough visualization to visualizations for post training analysis.
 14.2.3 Add command timeline for ongoing trainings in training progress for Instructor. Add access token trimming.
 14.2.2 Add an option to export score of all trainees from a training instance. Change save strategy for a training instance with non-local environment.
