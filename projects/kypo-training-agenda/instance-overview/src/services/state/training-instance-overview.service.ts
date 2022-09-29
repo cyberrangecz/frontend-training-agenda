@@ -23,8 +23,17 @@ export abstract class TrainingInstanceOverviewService extends OffsetPaginatedEle
 
   abstract aggregatedResults(id: number): Observable<any>;
 
+  /**
+   * Returns size of a pool specified by @poolId and '-' if the pool does not exist.
+   * @param poolId ID of a pool
+   */
   abstract getPoolSize(poolId: number): Observable<string>;
 
+  /**
+   * Gets available sandboxes of pool specified by @poolId and returns an empty
+   * string if pool does not exist.
+   * @param poolId ID of a pool
+   */
   abstract getAvailableSandboxes(poolId: number): Observable<string>;
 
   abstract getSshAccess(poolId: number): Observable<boolean>;

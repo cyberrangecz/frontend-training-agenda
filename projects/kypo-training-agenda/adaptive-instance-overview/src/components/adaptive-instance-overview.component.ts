@@ -84,9 +84,12 @@ export class AdaptiveInstanceOverviewComponent extends SentinelBaseDirective imp
     this.notificationService.emit('success', 'Access token has been copied');
   }
 
-  getAccessTokenTooltip(freeSandboxes: string, localEnvironment: boolean) {
+  getAccessTokenTooltip(freeSandboxes: string, localEnvironment: boolean, poolSize: string) {
     if (!localEnvironment) {
       if (freeSandboxes === '') {
+        if (poolSize === '-') {
+          return 'Cannot copy access token, because assigned pool does not exist.';
+        }
         return 'Cannot copy access token, because there is no pool assigned.';
       } else if (freeSandboxes === '0') {
         return 'Cannot copy access token because there is no free sandbox.';

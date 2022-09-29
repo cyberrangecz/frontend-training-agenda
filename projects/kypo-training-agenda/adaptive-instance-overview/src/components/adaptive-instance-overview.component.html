@@ -18,7 +18,7 @@
 <ng-template #accessToken let-row>
   <div *ngIf="row.element.poolSize | async as poolSize; else loading"
        class="access-token-container"
-       matTooltip="{{ getAccessTokenTooltip(poolSize[1], row.element.localEnvironment) }}"
+       matTooltip="{{ getAccessTokenTooltip(poolSize[1], row.element.localEnvironment, poolSize[0]) }}"
   >
     <button
       mat-button
@@ -46,10 +46,18 @@
 
 <ng-template #poolSize let-row>
   <div *ngIf="row.element.poolSize | async as poolSize; else loading">
-    <span>{{ poolSize[0] }}</span>
-    <span *ngIf="poolSize[1]"
+    <div *ngIf="poolSize[0] !== '-' else errorState">
+      <span>{{ poolSize[0] }}</span>
+      <span *ngIf="poolSize[1]"
       > (<span [ngClass]="{ 'warn': poolSize[1] === 0 }">{{ poolSize[1] }}  free</span>)</span
-    >
+      >
+    </div>
+    <div *ngIf="row.element.poolTitle === 'Local'">
+      <span>{{poolSize[0]}}</span>
+    </div>
+    <ng-template #errorState>
+      <mat-icon *ngIf="row.element.poolTitle !== 'Local'" class="warn" [matTooltip]="'Given pool does not exists'">warning</mat-icon>
+    </ng-template>
   </div>
   <ng-template #loading>
     <mat-progress-spinner color="accent" mode="indeterminate" [diameter]="20"> </mat-progress-spinner>

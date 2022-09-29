@@ -91,6 +91,10 @@ export class AdaptiveInstanceOverviewConcreteService extends AdaptiveInstanceOve
     return of(this.router.navigate([this.navigator.toAdaptiveInstanceResults(id)]));
   }
 
+  /**
+   * Returns size of a pool specified by @poolId and '-' if the pool does not exist.
+   * @param poolId ID of a pool
+   */
   getPoolSize(poolId: number): Observable<string> {
     return this.poolApi.getPool(poolId).pipe(
       map(
@@ -100,10 +104,16 @@ export class AdaptiveInstanceOverviewConcreteService extends AdaptiveInstanceOve
           this.errorHandler.emit(err, 'Fetching pool size');
           return EMPTY;
         }
-      )
+      ),
+      catchError((err) => (err.status === 404 ? of('-') : EMPTY))
     );
   }
 
+  /**
+   * Gets available sandboxes of pool specified by @poolId and returns an empty
+   * string if pool does not exist.
+   * @param poolId ID of a pool
+   */
   getAvailableSandboxes(poolId: number): Observable<string> {
     return this.poolApi.getPoolsSandboxes(poolId, new OffsetPaginationEvent(0, Number.MAX_SAFE_INTEGER, '', '')).pipe(
       map(
@@ -113,7 +123,10 @@ export class AdaptiveInstanceOverviewConcreteService extends AdaptiveInstanceOve
           this.errorHandler.emit(err, 'Fetching available sandboxes');
           return EMPTY;
         }
-      )
+      ),
+      catchError((err) => {
+        return err.status === 404 ? of('') : EMPTY;
+      })
     );
   }
 
