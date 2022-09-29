@@ -1,3 +1,7 @@
+### 14.2.5 Fix infinite loading of pool size in instance overview table for records with deleted pools.
+* 86785de -- [CI/CD] Update packages.json version based on GitLab tag.
+* 6224707 -- Merge branch '201-fix-infinite-loading-of-pool-size-for-deleted-pools' into 'master'
+* acffd1a -- Resolve "Fix infinite loading of pool size for deleted pools"
 ### 14.2.4 Add walkthrough visualization to visualizations for post training analysis.
 * 1e099dd -- [CI/CD] Update packages.json version based on GitLab tag.
 * d297c8e -- Merge branch '199-integrate-walkthrough-visualization' into 'master'
