@@ -1,3 +1,7 @@
+### 14.2.6 Add an automatic and systematic check of whether logging of events and commands works.
+* d4dc31f -- [CI/CD] Update packages.json version based on GitLab tag.
+* ac1c938 -- Merge branch '202-add-an-automatic-and-systematic-check-of-whether-logging-works' into 'master'
+* 3015fa2 -- Resolve "Add an automatic and systematic check of whether logging works"
 ### 14.2.5 Fix infinite loading of pool size in instance overview table for records with deleted pools.
 * 86785de -- [CI/CD] Update packages.json version based on GitLab tag.
 * 6224707 -- Merge branch '201-fix-infinite-loading-of-pool-size-for-deleted-pools' into 'master'
