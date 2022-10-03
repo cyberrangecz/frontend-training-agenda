@@ -1,3 +1,4 @@
+14.2.6 Add an automatic and systematic check of whether logging of events and commands works.
 14.2.5 Fix infinite loading of pool size in instance overview table for records with deleted pools.
 14.2.4 Add walkthrough visualization to visualizations for post training analysis.
 14.2.3 Add command timeline for ongoing trainings in training progress for Instructor. Add access token trimming.

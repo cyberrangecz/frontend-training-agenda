@@ -24,6 +24,8 @@ export class TrainingRunTable extends SentinelTable<TrainingRunRowAdapter> {
       new Column('duration', 'duration', false),
       new Column('sandboxInstanceId', 'sandbox id', false),
       new Column('playerEmail', 'email', false),
+      new Column('eventLogging', 'event logging', false),
+      new Column('commandLogging', 'command logging', false),
     ];
     const rows = resource.elements.map((element) => {
       element.trainingInstanceId = trainingInstance.id;
