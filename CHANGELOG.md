@@ -1,3 +1,7 @@
+### 14.2.7 Bump hurdling visualization to integrate refactored version of progress visualization.
+* fe8a914 -- [CI/CD] Update packages.json version based on GitLab tag.
+* 09c9ba7 -- Merge branch '203-adress-changes-in-hurdling-visualization' into 'master'
+* 83452a6 -- Resolve "Adress changes in hurdling visualization"
 ### 14.2.6 Add an automatic and systematic check of whether logging of events and commands works.
 * d4dc31f -- [CI/CD] Update packages.json version based on GitLab tag.
 * ac1c938 -- Merge branch '202-add-an-automatic-and-systematic-check-of-whether-logging-works' into 'master'
