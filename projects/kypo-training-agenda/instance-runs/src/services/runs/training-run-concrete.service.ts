@@ -94,7 +94,7 @@ export class TrainingRunConcreteService extends TrainingRunService {
     let sandboxToDelete: SandboxInstance;
     return this.sandboxApi.getSandbox(trainingRun.sandboxInstanceId).pipe(
       tap((sandbox) => (sandboxToDelete = sandbox)),
-      switchMap(() => this.sandboxApi.unlockSandbox(sandboxToDelete.id, sandboxToDelete.lockId)),
+      switchMap(() => this.sandboxApi.unlockSandbox(sandboxToDelete.allocationUnitId)),
       switchMap(() => this.sauApi.createCleanupRequest(sandboxToDelete.allocationUnitId)),
       tap(
         () => this.notificationService.emit('success', 'Deleting of sandbox instance started'),
