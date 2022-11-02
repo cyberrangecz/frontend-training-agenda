@@ -1,3 +1,7 @@
+### 14.2.8 Fix unlock of sandboxes when deleting training run.
+* 72cbec8 -- [CI/CD] Update packages.json version based on GitLab tag.
+* 64e9b2b -- Merge branch '204-fix-training-run-delete-changes-regarding-sandbox-uuid' into 'master'
+* 329c7a6 -- Resolve "Fix training run delete changes regarding sandbox uuid"
 ### 14.2.7 Bump hurdling visualization to integrate refactored version of progress visualization.
 * fe8a914 -- [CI/CD] Update packages.json version based on GitLab tag.
 * 09c9ba7 -- Merge branch '203-adress-changes-in-hurdling-visualization' into 'master'
