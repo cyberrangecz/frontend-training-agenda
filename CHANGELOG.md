@@ -1,3 +1,11 @@
+### 14.3.0 Integrate experimental version of cheating detection.
+* 2611ebb -- [CI/CD] Update packages.json version based on GitLab tag.
+* 14c0ddb -- Revert deleted tag
+* 8282bbd -- Fix package.json deploy script
+* e55a841 -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* be76752 -- [CI/CD] Update packages.json version based on GitLab tag.
+* 4831a57 -- Merge branch 'cheating-detection' into 'master'
+* ff00da5 -- Cheating detection
 ### 14.2.8 Fix unlock of sandboxes when deleting training run.
 * 72cbec8 -- [CI/CD] Update packages.json version based on GitLab tag.
 * 64e9b2b -- Merge branch '204-fix-training-run-delete-changes-regarding-sandbox-uuid' into 'master'
