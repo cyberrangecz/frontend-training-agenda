@@ -9,12 +9,14 @@ export class TrainingInstanceInfoControls {
   static readonly PROGRESS_ACTION_ID = 'progress';
   static readonly RESULTS_ACTION_ID = 'results';
   static readonly RESULTS_AGGREGATED_ID = 'stacked_bar_chart';
+  static readonly CHEATING_DETECTION_ID = 'cheating_detection';
   static readonly EXPORT_SCORE_ID = 'export_score';
 
   static create(
     showProgressEmitter: EventEmitter<boolean>,
     showResultsEmitter: EventEmitter<boolean>,
     showAggregatedResults: EventEmitter<boolean>,
+    showCheatingDetection: EventEmitter<boolean>,
     exportScore: EventEmitter<boolean>,
     disabled$: Observable<boolean>
   ): SentinelControlItem[] {
@@ -46,6 +48,16 @@ export class TrainingInstanceInfoControls {
         disabled$,
         defer(() => {
           showAggregatedResults.emit(false);
+          return EMPTY;
+        })
+      ),
+      new SentinelControlItem(
+        this.CHEATING_DETECTION_ID,
+        'Cheating Detection',
+        'primary',
+        disabled$,
+        defer(() => {
+          showCheatingDetection.emit(false);
           return EMPTY;
         })
       ),

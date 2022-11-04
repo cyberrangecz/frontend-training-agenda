@@ -1,3 +1,4 @@
+14.3.0 Integrate experimental version of cheating detection.
 14.2.8 Fix unlock of sandboxes when deleting training run.
 14.2.7 Bump hurdling visualization to integrate refactored version of progress visualization.
 14.2.6 Add an automatic and systematic check of whether logging of events and commands works.

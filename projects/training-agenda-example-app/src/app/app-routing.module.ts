@@ -3,6 +3,7 @@ import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { SentinelAuthGuardWithLogin, SentinelNegativeAuthGuard } from '@sentinel/auth/guards';
 import { SentinelAuthProviderListComponent } from '@sentinel/auth/components';
+import { TrainingInstanceDetectionEventModule } from './lazy-loaded-modules/instance/overview/detail/cheating-detection/detection-event/training-instance-detection-event.module';
 
 const routes: Routes = [
   {
@@ -42,6 +43,28 @@ const routes: Routes = [
     data: {
       breadcrumb: 'Instance',
       title: 'Linear Training Instance Overview',
+    },
+  },
+  {
+    path: 'training-instance-cheating-detection',
+    loadChildren: () =>
+      import(
+        './lazy-loaded-modules/instance/overview/detail/cheating-detection/training-instance-cheating-detection.module'
+      ).then((m) => m.CheatingDetectionOverviewModule),
+    data: {
+      breadcrumb: 'Cheating Detection',
+      title: 'Linear Training Instance Cheating Detection',
+    },
+  },
+  {
+    path: 'cheating-detection-detection-event',
+    loadChildren: () =>
+      import(
+        './lazy-loaded-modules/instance/overview/detail/cheating-detection/detection-event/training-instance-detection-event.module'
+      ).then((m) => m.TrainingInstanceDetectionEventModule),
+    data: {
+      breadcrumb: 'Detection Event',
+      title: 'Cheating Detection Events',
     },
   },
   {

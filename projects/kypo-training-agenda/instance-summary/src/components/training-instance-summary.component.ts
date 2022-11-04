@@ -127,6 +127,10 @@ export class TrainingInstanceSummaryComponent extends SentinelBaseDirective impl
     this.notificationService.emit(data[0] as any, data[1]);
   }
 
+  onShowCheatingDetection(): void {
+    this.trainingInstanceSummaryService.showCheatingDetection();
+  }
+
   onExportScore(): void {
     this.trainingInstance$
       .pipe(

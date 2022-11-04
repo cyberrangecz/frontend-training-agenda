@@ -4,6 +4,7 @@ import {
   TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME,
   ACCESS_TOKEN_PATH,
   PROGRESS_PATH,
+  CHEATING_DETECTION_PATH,
   RESULTS_PATH,
   SUMMARY_PATH,
   RUNS_PATH,
@@ -39,6 +40,18 @@ const routes: Routes = [
     },
     loadChildren: () =>
       import('./progress/training-instance-progress.module').then((m) => m.TrainingInstanceProgressModule),
+  },
+  {
+    path: CHEATING_DETECTION_PATH,
+    resolve: {
+      trainingInstance: TrainingInstanceResolver,
+      breadcrumb: TrainingInstanceDetailBreadcrumbResolver,
+      title: TrainingInstanceDetailTitleResolver,
+    },
+    loadChildren: () =>
+      import('./cheating-detection/training-instance-cheating-detection.module').then(
+        (m) => m.CheatingDetectionOverviewModule
+      ),
   },
   {
     path: RESULTS_PATH,

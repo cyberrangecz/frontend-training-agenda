@@ -156,6 +156,36 @@ export abstract class TrainingNavigator {
   abstract toTrainingInstanceAggregatedResults(id: number | string): string;
 
   /**
+   * Returns route to training instance cheating detection page
+   * @param id of the training instance
+   */
+  abstract toTrainingInstanceCheatingDetection(id: number | string): string;
+
+  /**
+   * Returns route to training instance cheating detection create page
+   * @param id of the training instance
+   */
+  abstract toTrainingInstanceCheatingDetectionCreate(id: number | string): string;
+
+  /**
+   * Returns route to training instance cheating detection events page
+   * @param tid of the training instance
+   * @param cid the cheating detection id
+   */
+  abstract toTrainingInstanceCheatingDetectionEvents(tid: number | string, cid: number | string): string;
+
+  /**
+   * Returns route to training instance cheating detection event detail page
+   * @param tid of the training instance
+   * @param cid the cheating detection id
+   * @param event_id of the detection event
+   */
+  abstract toTrainingInstanceCheatingDetectionEventDetail(
+    tid: number | string,
+    cid: number | string,
+    event_id: number
+  ): string;
+  /**
    * Returns route to adaptive instance results page
    * @param id id of the adaptive instance
    */

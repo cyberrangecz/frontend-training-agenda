@@ -8,6 +8,10 @@ import {
   ADAPTIVE_RUN_PATH,
   PROGRESS_PATH,
   RESULTS_PATH,
+  CHEATING_DETECTION_PATH,
+  CHEATING_DETECTION_CREATE_PATH,
+  CHEATING_DETECTION_EVENTS_PATH,
+  CHEATING_DETECTION_EVENT_DETAIL_PATH,
   SANDBOX_POOL_PATH,
   SUMMARY_PATH,
   TRAINING_DEFINITION_EDIT_PATH,
@@ -227,6 +231,24 @@ export class TrainingDefaultNavigator extends TrainingNavigator {
    */
   toTrainingInstanceAggregatedResults(id: number | string): string {
     return `${this.toTrainingInstanceDetail(id)}/${RESULTS_PATH}/${TRAINING_RUN_RESULTS_AGGREGATED_DASHBOARD_PATH}`;
+  }
+
+  toTrainingInstanceCheatingDetection(id: number | string): string {
+    return `${this.toTrainingInstanceDetail(id)}/${CHEATING_DETECTION_PATH}`;
+  }
+
+  toTrainingInstanceCheatingDetectionCreate(id: number | string): string {
+    return `${this.toTrainingInstanceDetail(id)}/${CHEATING_DETECTION_PATH}/${CHEATING_DETECTION_CREATE_PATH}`;
+  }
+
+  toTrainingInstanceCheatingDetectionEvents(tid: number | string, cid: number | string): string {
+    return `${this.toTrainingInstanceDetail(tid)}/${CHEATING_DETECTION_PATH}/${cid}/${CHEATING_DETECTION_EVENTS_PATH}`;
+  }
+
+  toTrainingInstanceCheatingDetectionEventDetail(tid: number | string, cid: number | string, event_id: number): string {
+    return `${this.toTrainingInstanceDetail(
+      tid
+    )}/${CHEATING_DETECTION_PATH}/${cid}${CHEATING_DETECTION_EVENT_DETAIL_PATH}/${event_id}`;
   }
 
   /**

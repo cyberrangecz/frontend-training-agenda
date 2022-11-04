@@ -1,0 +1,40 @@
+import { Injectable, Input } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { CheatingDetectionApi } from '@muni-kypo-crp/training-api';
+import { CheatingDetection } from '@muni-kypo-crp/training-model';
+import { from, Observable, of } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
+import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } from '@muni-kypo-crp/training-agenda';
+import { CheatingDetectionEditService } from './cheating-detection-edit.service';
+
+@Injectable()
+export class CheatingDetectionEditConcreteService extends CheatingDetectionEditService {
+  constructor(
+    private router: Router,
+    private dialog: MatDialog,
+    private navigator: TrainingNavigator,
+    private notificationService: TrainingNotificationService,
+    private errorHandler: TrainingErrorHandler,
+    private api: CheatingDetectionApi
+  ) {
+    super();
+  }
+
+  /**
+   * Makes an API call to create a cheating detection object in the database.
+   * @param cheatingDetection the cheating detection object
+   * @param trainingInstanceId training instance id
+   */
+  create(cheatingDetection: CheatingDetection, trainingInstanceId: number): Observable<any> {
+    return this.api.createAndExecute(cheatingDetection).pipe(
+      tap(
+        () => this.notificationService.emit('success', 'Cheating Detection was created and started executing'),
+        (err) => this.errorHandler.emit(err, 'Creating and Executing Cheating Detection')
+      ),
+      switchMap(() =>
+        from(this.router.navigate([this.navigator.toTrainingInstanceCheatingDetection(trainingInstanceId)]))
+      )
+    );
+  }
+}

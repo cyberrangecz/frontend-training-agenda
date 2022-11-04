@@ -215,6 +215,7 @@ export function createNavigatorSpy(): jasmine.SpyObj<TrainingNavigator> {
     'toAccessAdaptiveRun',
     'toTrainingDefinitionDetail',
     'toAdaptiveDefinitionDetail',
+    'toTrainingInstanceCheatingDetection',
   ]);
 }
 
