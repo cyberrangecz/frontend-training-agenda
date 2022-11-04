@@ -1,0 +1,23 @@
+.checkbox-container {
+  float: left;
+  display: grid;
+  width: 100%;
+}
+
+mat-divider {
+  margin: 10px 0;
+}
+
+.slide-toggle-container {
+  display: flex;
+  justify-content: space-between;
+  width: 170px;
+}
+
+.mat-form-field {
+  display: grid;
+}
+
+.proximity-container {
+  width: 20%;
+}

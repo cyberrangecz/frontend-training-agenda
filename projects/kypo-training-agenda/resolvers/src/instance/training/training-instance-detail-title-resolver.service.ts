@@ -9,6 +9,7 @@ import {
   RESULTS_PATH,
   RUNS_PATH,
   SUMMARY_PATH,
+  CHEATING_DETECTION_PATH,
 } from '@muni-kypo-crp/training-agenda';
 import { TrainingInstanceResolver } from './training-instance-resolver.service';
 
@@ -45,6 +46,9 @@ export class TrainingInstanceDetailTitleResolver implements Resolve<string> {
     }
     if (state.url.includes(RUNS_PATH)) {
       return `Training Runs of ${ti.title}`;
+    }
+    if (state.url.includes(CHEATING_DETECTION_PATH)) {
+      return `Cheating Detections of ${ti.title}`;
     }
     return ti.title;
   }

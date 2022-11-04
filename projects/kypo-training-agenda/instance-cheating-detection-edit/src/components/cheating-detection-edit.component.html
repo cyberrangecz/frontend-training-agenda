@@ -1,0 +1,103 @@
+<div class="content">
+  <ng-template>Choose cheating detection methods to execute</ng-template>
+  <sentinel-controls [controls]="controls" (itemClicked)="onControlsAction($event)"></sentinel-controls>
+  <form [formGroup]="cheatingDetectionEditFormGroup.formGroup">
+    <div class="form-container">
+      <div class="checkbox-container">
+
+        <div class="slide-toggle-container">
+          <span>Answer Similarity</span>
+          <mat-slide-toggle
+            [matTooltipPosition]="'right'"
+            [matTooltip]="
+          answerSimilarityMethod
+            ? 'Enable Execution of cheating detection to check for users that submitted a flag that belongs to someone else.'
+            : 'Disable Execution of cheating detection to check for users that submitted a flag that belongs to someone else.'
+        "
+            formControlName="answerSimilarityDetection"
+          >
+          </mat-slide-toggle>
+        </div>
+
+        <div class="slide-toggle-container">
+          <span>Location similarity</span>
+          <mat-slide-toggle
+            [matTooltipPosition]="'right'"
+            [matTooltip]="
+          locationSimilarityMethod
+            ? 'Enables execution of cheating detection to check for users who had similar ip addresses in training.'
+            : 'Disables execution of cheating detection to check for users who had similar ip addresses in training.'
+        "
+            formControlName="locationSimilarityDetection"
+          >
+          </mat-slide-toggle>
+        </div>
+
+        <div class="slide-toggle-container">
+          <span>Time proximity</span>
+          <mat-slide-toggle
+            [matTooltipPosition]="'right'"
+            [matTooltip]="
+          timeProximityMethod
+            ? 'Enable execution of cheating detection to check for users who submitted answers ' +
+             'in a similar time frame. Specify the proximity frame below.'
+            : 'Disable execution of cheating detection to check for users who submitted answers ' +
+             'in a similar time frame. Specify the proximity frame below.'
+        "
+            formControlName="timeProximityDetection"
+          >
+          </mat-slide-toggle>
+        </div>
+
+        <div class="slide-toggle-container">
+          <span>Minimal solve time</span>
+          <mat-slide-toggle
+            [matTooltipPosition]="'right'"
+            [matTooltip]="
+          minimalSolveTimeMethod
+            ? 'Enable Execution of cheating detection to check for users who solved a task in less than ' +
+             'set minimal possible solve time.'
+            : 'Disable Execution of cheating detection to check for users who solved a task in less than ' +
+             'set minimal possible solve time.'
+        "
+            formControlName="minimalSolveTimeDetection"
+          >
+          </mat-slide-toggle>
+        </div>
+
+        <div class="slide-toggle-container">
+          <span>No commands</span>
+          <mat-slide-toggle
+            [matTooltipPosition]="'right'"
+            [matTooltip]="
+          noCommandsMethod
+            ? 'Enable Execution of cheating detection to check for users who used no commands to ' +
+             'solve a level that required commands for completion'
+            : 'Disable Execution of cheating detection to check for users who used no commands to ' +
+             'solve a level that required commands for completion'
+        "
+            formControlName="noCommandsDetection"
+
+          >
+          </mat-slide-toggle>
+        </div>
+        <mat-divider></mat-divider>
+      </div>
+
+
+      <div class="proximity-container" *ngIf=timeProximityMethod.value (keydown.enter)="$event.preventDefault()">
+        <span>Proximity (in seconds) for time proximity detection:</span>
+        <mat-form-field appearance="outline"
+                        [matTooltipPosition]="'right'"
+                        [matTooltip]=" ' Represents the time window in which two participants that submit an answer ' +
+                         'on the same level should be marked in a detection event.' ">
+          <mat-label>Time Threshold</mat-label>
+          <input matInput placeholder="proximity threshold" type="number"
+                 min="1" formControlName="timeThreshold" required>
+
+        </mat-form-field>
+      </div>
+
+    </div>
+   </form>
+ </div>

@@ -16,6 +16,8 @@ export * from './instance/training/training-instance-title-resolver.service';
 export * from './instance/training/training-instance-breadcrumb-resolver.service';
 export * from './instance/training/training-instance-detail-title-resolver.service';
 export * from './instance/training/training-instance-detail-breadcrumb-resolver.service';
+export * from './instance/training/training-instance-detail-cheating-breadcrumb-resolver.service';
+export * from './instance/training/training-instance-detail-cheating-title-resolver.service';
 export * from './instance/training/training-instance-resolver.service';
 export * from './instance/adaptive/adaptive-instance-breadcrumb-resolver.service';
 export * from './instance/adaptive/adaptive-instance-resolver.service';

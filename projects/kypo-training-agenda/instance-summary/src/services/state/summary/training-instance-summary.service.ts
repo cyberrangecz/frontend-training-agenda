@@ -12,4 +12,6 @@ export abstract class TrainingInstanceSummaryService {
   abstract showResults(): Observable<any>;
 
   abstract showAggregatedResults(): Observable<any>;
+
+  abstract showCheatingDetection(): Observable<any>;
 }

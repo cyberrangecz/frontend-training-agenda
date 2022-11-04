@@ -1,0 +1,13 @@
+<div>
+  <h1>Cheating detection</h1>
+    <sentinel-controls [controls]="topControls" (itemClicked)="onControlsAction($event)"></sentinel-controls>
+    <sentinel-table [defaultSortDirection]="INIT_SORT_DIR"
+                    [defaultSortName]="INIT_SORT_NAME"
+                    [data]="cheatingDetections$ | async"
+                    [hasError]="hasError$ | async"
+                    [isLoading]="isLoading$ | async"
+                    [displayedActionsCount]="4"
+                    (tableLoad)="onLoadEvent($event)"
+                    (rowAction)="onTableAction($event)">
+    </sentinel-table>
+</div>

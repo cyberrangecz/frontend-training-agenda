@@ -5,6 +5,7 @@ import {
   ACCESS_TOKEN_PATH,
   PROGRESS_PATH,
   RESULTS_PATH,
+  CHEATING_DETECTION_PATH,
   RUNS_PATH,
   SUMMARY_PATH,
 } from '@muni-kypo-crp/training-agenda';
@@ -34,6 +35,9 @@ export class TrainingInstanceDetailBreadcrumbResolver implements Resolve<string>
     }
     if (state.url.includes(RUNS_PATH)) {
       return 'Training Runs';
+    }
+    if (state.url.includes(CHEATING_DETECTION_PATH)) {
+      return 'Cheating Detections';
     }
     return '';
   }

@@ -28,4 +28,8 @@ export class TrainingInstanceSummaryConcreteService extends TrainingInstanceSumm
   showAggregatedResults(): Observable<any> {
     return from(this.router.navigate([this.navigator.toTrainingInstanceAggregatedResults(this.trainingInstance.id)]));
   }
+
+  showCheatingDetection(): Observable<any> {
+    return from(this.router.navigate([this.navigator.toTrainingInstanceCheatingDetection(this.trainingInstance.id)]));
+  }
 }
