@@ -21,9 +21,7 @@ export class DetectionEventConcreteService extends DetectionEventService {
     private dialog: MatDialog,
     private router: Router,
     private context: TrainingAgendaContext,
-    private navigator: TrainingNavigator,
-    private notificationService: TrainingNotificationService,
-    private errorHandler: TrainingErrorHandler
+    private navigator: TrainingNavigator
   ) {
     super(context.config.defaultPaginationSize);
   }

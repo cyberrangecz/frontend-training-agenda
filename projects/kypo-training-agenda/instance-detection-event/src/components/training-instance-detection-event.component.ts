@@ -1,14 +1,15 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { OffsetPaginationEvent, SentinelBaseDirective } from '@sentinel/common';
 import { Observable } from 'rxjs';
 import { SentinelTable, TableActionEvent, TableLoadEvent } from '@sentinel/components/table';
-import { AbstractDetectionEvent } from '@muni-kypo-crp/training-model';
+import { AbstractDetectionEvent, CheatingDetection } from '@muni-kypo-crp/training-model';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
-import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
+import { CHEATING_DETECTION_DATA_ATTRIBUTE_NAME, TrainingNavigator } from '@muni-kypo-crp/training-agenda';
 import { map, take, takeWhile } from 'rxjs/operators';
 import { DetectionEventTable } from '../model/detection-event-table';
 import { DetectionEventService } from '../services/detection-event.service';
+import { ActivatedRoute } from '@angular/router';
 
 /**
  * Main component of training instance detection event.
@@ -18,8 +19,9 @@ import { DetectionEventService } from '../services/detection-event.service';
   templateUrl: './training-instance-detection-event.component.html',
   styleUrls: ['./training-instance-detection-event.component.css'],
 })
-export class TrainingInstanceDetectionEventComponent extends SentinelBaseDirective {
-  @Input() cheatingDetectionId: number;
+export class TrainingInstanceDetectionEventComponent extends SentinelBaseDirective implements OnInit {
+
+  cheatingDetection$: Observable<CheatingDetection>;
 
   readonly INIT_SORT_NAME = 'lastEdited';
   readonly INIT_SORT_DIR = 'asc';
@@ -27,8 +29,10 @@ export class TrainingInstanceDetectionEventComponent extends SentinelBaseDirecti
   detectionEvents$: Observable<SentinelTable<AbstractDetectionEvent>>;
   hasError$: Observable<boolean>;
   isLoading$: Observable<boolean>;
+  cheatingDetectionId: number;
 
   constructor(
+    private activeRoute: ActivatedRoute,
     private detectionEventService: DetectionEventService,
     private paginationService: PaginationService,
     private navigator: TrainingNavigator
@@ -37,6 +41,13 @@ export class TrainingInstanceDetectionEventComponent extends SentinelBaseDirecti
   }
 
   ngOnInit(): void {
+    this.cheatingDetection$ = this.activeRoute.data.pipe(
+      takeWhile(() => this.isAlive),
+      map((data) => data[CHEATING_DETECTION_DATA_ATTRIBUTE_NAME])
+    );
+    this.cheatingDetection$.subscribe((detection) => {
+      this.cheatingDetectionId = detection.id;
+    });
     this.initTable();
   }
 

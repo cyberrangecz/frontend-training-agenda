@@ -17,6 +17,7 @@ export class CheatingDetectionTable extends SentinelTable<CheatingDetectionRowAd
   ) {
     const columns = [
       new Column('id', 'id', false),
+      new Column('trainingInstanceId', 'instance id', false),
       new Column('executeTimeFormatted', 'executed at', false),
       new Column('executedBy', 'executed by', false),
       new Column('currentState', 'state', false),
@@ -63,11 +64,6 @@ export class CheatingDetectionTable extends SentinelTable<CheatingDetectionRowAd
             'Delete cheating detection',
             of(false),
             defer(() => service.delete(cd.id, cd.trainingInstanceId))
-          ),
-          new DownloadAction(
-            'Export into CSV',
-            of(false),
-            defer(() => service.export(cd.id))
           ),
           new RowAction(
             'results',
