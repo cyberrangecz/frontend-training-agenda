@@ -6,4 +6,5 @@ import { CheatingDetection } from '@muni-kypo-crp/training-model';
 export class CheatingDetectionRowAdapter extends CheatingDetection {
   resultsFormatted: string;
   executeTimeFormatted: string;
+  methodsFormatted: string;
 }

@@ -64,12 +64,12 @@ export class CheatingDetectionOverviewComponent extends SentinelBaseDirective im
   onLoadEvent(loadEvent: TableLoadEvent): void {
     this.paginationService.setPagination(loadEvent.pagination.size);
     this.cheatingDetectionService
-     .getAll(
-       this.trainingInstanceId,
-       new OffsetPaginationEvent(0, loadEvent.pagination.size, loadEvent.pagination.sort, loadEvent.pagination.sortDir)
-     )
-     .pipe(takeWhile(() => this.isAlive))
-     .subscribe();
+      .getAll(
+        this.trainingInstanceId,
+        new OffsetPaginationEvent(0, loadEvent.pagination.size, loadEvent.pagination.sort, loadEvent.pagination.sortDir)
+      )
+      .pipe(takeWhile(() => this.isAlive))
+      .subscribe();
   }
 
   /**

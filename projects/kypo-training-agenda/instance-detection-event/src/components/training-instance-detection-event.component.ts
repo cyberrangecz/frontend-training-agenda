@@ -40,7 +40,7 @@ export class TrainingInstanceDetectionEventComponent extends SentinelBaseDirecti
   }
 
   ngOnInit(): void {
-    console.log(this.activeRoute)
+    console.log(this.activeRoute);
     this.cheatingDetection$ = this.activeRoute.data.pipe(
       takeWhile(() => this.isAlive),
       map((data) => data[CHEATING_DETECTION_DATA_ATTRIBUTE_NAME]),
@@ -60,12 +60,12 @@ export class TrainingInstanceDetectionEventComponent extends SentinelBaseDirecti
   onLoadEvent(loadEvent: TableLoadEvent): void {
     this.paginationService.setPagination(loadEvent.pagination.size);
     this.detectionEventService
-     .getAll(
-       this.cheatingDetectionId,
-       new OffsetPaginationEvent(0, loadEvent.pagination.size, loadEvent.pagination.sort, loadEvent.pagination.sortDir)
-     )
-     .pipe(takeWhile(() => this.isAlive))
-     .subscribe();
+      .getAll(
+        this.cheatingDetectionId,
+        new OffsetPaginationEvent(0, loadEvent.pagination.size, loadEvent.pagination.sort, loadEvent.pagination.sortDir)
+      )
+      .pipe(takeWhile(() => this.isAlive))
+      .subscribe();
   }
 
   /**

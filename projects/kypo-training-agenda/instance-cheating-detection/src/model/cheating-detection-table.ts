@@ -22,6 +22,7 @@ export class CheatingDetectionTable extends SentinelTable<CheatingDetectionRowAd
       new Column('executedBy', 'executed by', false),
       new Column('currentState', 'state', false),
       new Column('resultsFormatted', 'results', false),
+      new Column('methodsFormatted', 'methods', false),
     ];
     const rows = resource.elements.map((element) => CheatingDetectionTable.createRow(element, service, navigator));
     super(rows, columns);
@@ -37,6 +38,22 @@ export class CheatingDetectionTable extends SentinelTable<CheatingDetectionRowAd
     const datePipe = new SentinelDateTimeFormatPipe('en-EN');
     const adapter = element as CheatingDetectionRowAdapter;
 
+    adapter.methodsFormatted =
+      'as: ' +
+      element.answerSimilarityState.toString() +
+      ', ' +
+      'ls: ' +
+      element.locationSimilarityState.toString() +
+      ', ' +
+      'tp: ' +
+      element.timeProximityState.toString() +
+      ', ' +
+      'mst: ' +
+      element.minimalSolveTimeState.toString() +
+      ', ' +
+      'nc: ' +
+      element.noCommandsState.toString() +
+      ', ';
     adapter.resultsFormatted =
       adapter.currentState === CheatingDetectionStateEnum.Finished ? adapter.results.toString() : null;
     adapter.executeTimeFormatted = `${datePipe.transform(adapter.executeTime)}`;
