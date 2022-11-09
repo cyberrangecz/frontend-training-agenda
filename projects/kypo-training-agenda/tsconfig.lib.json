@@ -24,6 +24,7 @@
       "@muni-kypo-crp/training-agenda/instance-cheating-detection-edit": ["./instance-cheating-detection-edit/src/public_api.ts"],
       "@muni-kypo-crp/training-agenda/instance-detail": ["./instance-detail/src/public_api.ts"],
       "@muni-kypo-crp/training-agenda/instance-detection-event": ["./instance-detection-event/src/public_api.ts"],
+      "@muni-kypo-crp/training-agenda/instance-detection-event-detail": ["./instance-detection-event-detail/src/public_api.ts"],
       "@muni-kypo-crp/training-agenda/instance-edit": ["./instance-instance-edit/src/public_api.ts"],
       "@muni-kypo-crp/training-agenda/instance-overview": ["./instance-overview/src/public_api.ts"],
       "@muni-kypo-crp/training-agenda/instance-progress": ["./instance-progress/src/public_api.ts"],

@@ -6,10 +6,10 @@ import { AbstractDetectionEvent, CheatingDetection } from '@muni-kypo-crp/traini
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
 import { CHEATING_DETECTION_DATA_ATTRIBUTE_NAME, TrainingNavigator } from '@muni-kypo-crp/training-agenda';
-import { map, take, takeWhile } from 'rxjs/operators';
+import { map, take, takeWhile, tap } from 'rxjs/operators';
 import { DetectionEventTable } from '../model/detection-event-table';
-import { DetectionEventService } from '../services/detection-event.service';
 import { ActivatedRoute } from '@angular/router';
+import { DetectionEventService } from '../services/detection-event.service';
 
 /**
  * Main component of training instance detection event.
@@ -20,7 +20,6 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./training-instance-detection-event.component.css'],
 })
 export class TrainingInstanceDetectionEventComponent extends SentinelBaseDirective implements OnInit {
-
   cheatingDetection$: Observable<CheatingDetection>;
 
   readonly INIT_SORT_NAME = 'lastEdited';
@@ -41,14 +40,17 @@ export class TrainingInstanceDetectionEventComponent extends SentinelBaseDirecti
   }
 
   ngOnInit(): void {
+    console.log(this.activeRoute)
     this.cheatingDetection$ = this.activeRoute.data.pipe(
       takeWhile(() => this.isAlive),
-      map((data) => data[CHEATING_DETECTION_DATA_ATTRIBUTE_NAME])
+      map((data) => data[CHEATING_DETECTION_DATA_ATTRIBUTE_NAME]),
+      tap((detection) => (this.cheatingDetectionId = detection.id))
     );
-    this.cheatingDetection$.subscribe((detection) => {
-      this.cheatingDetectionId = detection.id;
-    });
+    console.log(this.cheatingDetectionId);
+    this.cheatingDetection$.subscribe();
     this.initTable();
+    console.log(this.navigator, this.detectionEventService);
+    this.detectionEventService.getAll(5, null).subscribe();
   }
 
   /**
@@ -58,12 +60,12 @@ export class TrainingInstanceDetectionEventComponent extends SentinelBaseDirecti
   onLoadEvent(loadEvent: TableLoadEvent): void {
     this.paginationService.setPagination(loadEvent.pagination.size);
     this.detectionEventService
-      .getAll(
-        this.cheatingDetectionId,
-        new OffsetPaginationEvent(0, loadEvent.pagination.size, loadEvent.pagination.sort, loadEvent.pagination.sortDir)
-      )
-      .pipe(takeWhile(() => this.isAlive))
-      .subscribe();
+     .getAll(
+       this.cheatingDetectionId,
+       new OffsetPaginationEvent(0, loadEvent.pagination.size, loadEvent.pagination.sort, loadEvent.pagination.sortDir)
+     )
+     .pipe(takeWhile(() => this.isAlive))
+     .subscribe();
   }
 
   /**
@@ -83,11 +85,6 @@ export class TrainingInstanceDetectionEventComponent extends SentinelBaseDirecti
   }
 
   private initTable() {
-    this.hasError$ = this.detectionEventService.hasError$;
-    this.isLoading$ = this.detectionEventService.isLoading$;
-    this.detectionEvents$ = this.detectionEventService.resource$.pipe(
-      map((resource) => new DetectionEventTable(resource, this.detectionEventService, this.navigator))
-    );
     const initialPagination = new OffsetPaginationEvent(
       0,
       this.paginationService.getPagination(),
@@ -95,5 +92,11 @@ export class TrainingInstanceDetectionEventComponent extends SentinelBaseDirecti
       this.INIT_SORT_DIR
     );
     this.onLoadEvent({ pagination: initialPagination });
+
+    this.hasError$ = this.detectionEventService.hasError$;
+    this.isLoading$ = this.detectionEventService.isLoading$;
+    this.detectionEvents$ = this.detectionEventService.resource$.pipe(
+      map((resource) => new DetectionEventTable(resource, this.detectionEventService, this.navigator))
+    );
   }
 }

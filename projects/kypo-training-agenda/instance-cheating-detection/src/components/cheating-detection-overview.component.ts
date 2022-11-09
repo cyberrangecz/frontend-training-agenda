@@ -21,7 +21,6 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./cheating-detection-overview.component.css'],
 })
 export class CheatingDetectionOverviewComponent extends SentinelBaseDirective implements OnInit {
-
   @Output() showCheatingDetectionCreate: EventEmitter<boolean> = new EventEmitter();
   readonly INIT_SORT_NAME = 'lastEdited';
   readonly INIT_SORT_DIR = 'asc';
@@ -65,12 +64,12 @@ export class CheatingDetectionOverviewComponent extends SentinelBaseDirective im
   onLoadEvent(loadEvent: TableLoadEvent): void {
     this.paginationService.setPagination(loadEvent.pagination.size);
     this.cheatingDetectionService
-      .getAll(
-        this.trainingInstanceId,
-        new OffsetPaginationEvent(0, loadEvent.pagination.size, loadEvent.pagination.sort, loadEvent.pagination.sortDir)
-      )
-      .pipe(takeWhile(() => this.isAlive))
-      .subscribe();
+     .getAll(
+       this.trainingInstanceId,
+       new OffsetPaginationEvent(0, loadEvent.pagination.size, loadEvent.pagination.sort, loadEvent.pagination.sortDir)
+     )
+     .pipe(takeWhile(() => this.isAlive))
+     .subscribe();
   }
 
   /**

@@ -5,16 +5,17 @@ import { SentinelTableModule } from '@sentinel/components/table';
 import { TrainingAgendaConfig, TrainingDefaultNavigator, TrainingNavigator } from '@muni-kypo-crp/training-agenda';
 import { PaginationService, TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
 import { DetectionEventService } from '../services/detection-event.service';
+import { TrainingInstanceDetectionEventMaterialModule } from './training-instance-detection-event-material.module';
 import { DetectionEventConcreteService } from '../services/detection-event-concrete.service';
 
 @NgModule({
-  imports: [CommonModule, SentinelTableModule],
+  imports: [CommonModule, SentinelTableModule, TrainingInstanceDetectionEventMaterialModule],
   declarations: [TrainingInstanceDetectionEventComponent],
   providers: [
     PaginationService,
     TrainingAgendaContext,
     { provide: TrainingNavigator, useClass: TrainingDefaultNavigator },
-    { provide: DetectionEventService, useValue: DetectionEventConcreteService },
+    { provide: DetectionEventService, useClass: DetectionEventConcreteService },
   ],
 })
 export class TrainingInstanceDetectionEventComponentsModule {
