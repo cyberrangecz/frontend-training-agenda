@@ -1,3 +1,18 @@
+### 14.4.0 Replace sandbox id with sandbox uuid in a training run. Bump visualizations.
+* 047971c -- [CI/CD] Update packages.json version based on GitLab tag.
+*   6b5326e -- Merge branch 'add-missing-tag-message' into 'master'
+|\  
+| * 1f1b45f -- Tag message
+|/  
+*   2ebbfc5 -- Merge branch 'fix-sandbox-uuid' into 'master'
+|\  
+| * 2f11a25 -- Replace sandbox id with uuid
+|/  
+*   2a8e796 -- Merge branch '205-fix-disabling-of-pool-selection-during-training-instance-creation' into 'master'
+|\  
+| * 4fdc343 -- Resolve "Fix disabling of pool selection during training instance creation"
+* c4f1de9 -- Merge branch 'integrate-latest-changes-in-statistical-dashboard' into 'master'
+* 04bdf5c -- Refactor obtaining of an instance for the statistical dashboard. Bump overview viz.
 ### 14.3.0 Integrate experimental version of cheating detection.
 * 2611ebb -- [CI/CD] Update packages.json version based on GitLab tag.
 * 14c0ddb -- Revert deleted tag
