@@ -120,7 +120,7 @@ export class AdaptiveInstanceTable extends SentinelTable<AdaptiveInstanceRowAdap
         'Show Progress',
         'insights',
         'primary',
-        'Shows progress of training runs',
+        'Show progress of training runs',
         of(!ti.hasStarted()),
         defer(() => service.progress(ti.id))
       ),
@@ -129,7 +129,7 @@ export class AdaptiveInstanceTable extends SentinelTable<AdaptiveInstanceRowAdap
         'Show Results',
         'assessment',
         'primary',
-        'Shows results of training runs',
+        'Show results of training runs',
         of(true), //of(!ti.hasStarted()),
         defer(() => service.results(ti.id))
       ),
