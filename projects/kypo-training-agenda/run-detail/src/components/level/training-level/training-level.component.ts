@@ -38,7 +38,7 @@ export class TrainingLevelComponent extends SentinelBaseDirective implements OnI
   @Input() isLast: boolean;
   @Input() isLevelAnswered: boolean;
   @Input() isBacktracked: boolean;
-  @Input() sandboxInstanceId: number;
+  @Input() sandboxInstanceId: string;
   @Input() sandboxDefinitionId: number;
   @Output() next: EventEmitter<void> = new EventEmitter();
   @ViewChild('rightPanel', { static: true }) rightPanelDiv: ElementRef;

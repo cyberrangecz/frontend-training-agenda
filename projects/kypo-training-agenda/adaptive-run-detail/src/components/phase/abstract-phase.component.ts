@@ -18,7 +18,7 @@ export class AbstractPhaseComponent extends SentinelBaseDirective {
   @Input() isPhaseAnswered: boolean;
   @Input() isBacktracked: boolean;
   @Input() isLoading = false;
-  @Input() sandboxInstanceId: number;
+  @Input() sandboxInstanceId: string;
   @Input() sandboxDefinitionId: number;
   @Input() localEnvironment: boolean;
 

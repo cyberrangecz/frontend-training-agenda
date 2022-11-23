@@ -181,27 +181,27 @@ describe('TrainingInstanceOverviewConcreteService', () => {
 
   function createPaginatedSandboxesMock(): PaginatedResource<SandboxInstance> {
     const sandbox1 = new SandboxInstance();
-    sandbox1.id = 1;
+    sandbox1.id = 'iuidusfghiudsfhg65fd5g498f5h9f8gh5fg';
     sandbox1.lockId = 1;
     sandbox1.allocationUnitId = 1;
 
     const sandbox2 = new SandboxInstance();
-    sandbox2.id = 2;
+    sandbox2.id = 'iuidusfghiudsfhg65fd5g498f5h9f8gh5fg';
     sandbox2.lockId = undefined;
     sandbox2.allocationUnitId = 2;
 
     const sandbox3 = new SandboxInstance();
-    sandbox3.id = 3;
+    sandbox3.id = 'iuidusfghiudsfhg65fd5g498f5h9f8gh5fg';
     sandbox3.lockId = 2;
     sandbox3.allocationUnitId = 3;
 
     const sandbox4 = new SandboxInstance();
-    sandbox4.id = 4;
+    sandbox4.id = 'iuidusfghiudsfhg65fd5g498f5h9f8gh5fg';
     sandbox4.lockId = undefined;
     sandbox4.allocationUnitId = 4;
 
     const sandbox5 = new SandboxInstance();
-    sandbox5.id = 5;
+    sandbox5.id = 'iuidusfghiudsfhg65fd5g498f5h9f8gh5fg';
     sandbox5.lockId = undefined;
     sandbox5.allocationUnitId = 5;
 

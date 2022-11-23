@@ -6,7 +6,7 @@ import { skipWhile } from 'rxjs/operators';
 import { ConsoleUrl } from '@muni-kypo-crp/topology-graph';
 
 export abstract class RunningTrainingRunService {
-  sandboxInstanceId: number;
+  sandboxInstanceId: string;
   sandboxDefinitionId: number;
   localEnvironment: boolean;
   trainingRunId: number;
@@ -42,7 +42,7 @@ export abstract class RunningTrainingRunService {
 
   abstract clear(): void;
 
-  abstract loadConsoles(sandboxId: number): Observable<ConsoleUrl[]>;
+  abstract loadConsoles(sandboxId: string): Observable<ConsoleUrl[]>;
 
   abstract moveToLevel(levelId: number): Observable<Level>;
 

@@ -36,7 +36,7 @@ export class AccessLevelComponent extends SentinelBaseDirective implements OnIni
   @Input() isLast: boolean;
   @Input() isLevelAnswered: boolean;
   @Input() isBacktracked: boolean;
-  @Input() sandboxInstanceId: number;
+  @Input() sandboxInstanceId: string;
   @Input() sandboxDefinitionId: number;
   @Input() localEnvironment: boolean;
   @Output() next: EventEmitter<void> = new EventEmitter();
