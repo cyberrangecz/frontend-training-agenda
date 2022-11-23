@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { takeWhile } from 'rxjs';
+import { Observable, takeWhile } from 'rxjs';
 import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'kypo-aggregated-dashboard-wrapper',
@@ -11,16 +12,17 @@ import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
   styleUrls: ['./aggregated-dashboard-wrapper.component.css'],
 })
 export class AggregatedDashboardWrapperComponent extends SentinelBaseDirective implements OnInit {
-  trainingInstance: TrainingInstance;
+  trainingInstance$: Observable<TrainingInstance>;
 
   constructor(private activeRoute: ActivatedRoute, private router: Router, private navigator: TrainingNavigator) {
     super();
   }
 
   ngOnInit(): void {
-    this.activeRoute.parent.data
-      .pipe(takeWhile(() => this.isAlive))
-      .subscribe((data) => (this.trainingInstance = data.trainingInstance));
+    this.trainingInstance$ = this.activeRoute.parent.data.pipe(
+      takeWhile(() => this.isAlive),
+      map((data) => data.trainingInstance as TrainingInstance)
+    );
   }
 
   redirectToDetailView(instanceId: number): void {
