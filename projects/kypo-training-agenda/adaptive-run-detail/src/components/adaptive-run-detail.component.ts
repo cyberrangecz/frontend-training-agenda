@@ -32,7 +32,7 @@ export class AdaptiveRunDetailComponent extends SentinelBaseDirective implements
   startTime: Date;
   isLast: boolean;
   isLoading = false;
-  sandboxInstanceId: number;
+  sandboxInstanceId: string;
   sandboxDefinitionId: number;
   localEnvironment: boolean;
   backwardMode: boolean;

@@ -34,7 +34,7 @@ export class TrainingPhaseComponent extends SentinelBaseDirective implements OnI
   @Input() isLast: boolean;
   @Input() isPhaseAnswered: boolean;
   @Input() isBacktracked: boolean;
-  @Input() sandboxInstanceId: number;
+  @Input() sandboxInstanceId: string;
   @Input() sandboxDefinitionId: number;
   @Output() next: EventEmitter<void> = new EventEmitter();
   @ViewChild('rightPanel', { static: true }) rightPanelDiv: ElementRef;

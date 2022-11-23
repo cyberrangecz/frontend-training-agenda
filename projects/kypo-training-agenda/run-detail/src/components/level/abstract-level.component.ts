@@ -18,7 +18,7 @@ export class AbstractLevelComponent extends SentinelBaseDirective {
   @Input() isLast: boolean;
   @Input() isLevelAnswered: boolean;
   @Input() isBacktracked: boolean;
-  @Input() sandboxInstanceId: number;
+  @Input() sandboxInstanceId: string;
   @Input() sandboxDefinitionId: number;
   @Input() localEnvironment: boolean;
 

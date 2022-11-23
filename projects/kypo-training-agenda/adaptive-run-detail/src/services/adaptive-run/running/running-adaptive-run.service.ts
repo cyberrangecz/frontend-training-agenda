@@ -4,7 +4,7 @@ import { AccessTrainingRunInfo, Phase, QuestionAnswer } from '@muni-kypo-crp/tra
 import { ConsoleUrl } from '@muni-kypo-crp/topology-graph';
 
 export abstract class RunningAdaptiveRunService {
-  sandboxInstanceId: number;
+  sandboxInstanceId: string;
   sandboxDefinitionId: number;
   localEnvironment: boolean;
   trainingRunId: number;
@@ -36,5 +36,5 @@ export abstract class RunningAdaptiveRunService {
   abstract isLast(): boolean;
   abstract clear(): void;
   abstract submitQuestionnaire(answers: QuestionAnswer[]): Observable<any>;
-  abstract loadConsoles(sandboxId: number): Observable<ConsoleUrl[]>;
+  abstract loadConsoles(sandboxId: string): Observable<ConsoleUrl[]>;
 }
