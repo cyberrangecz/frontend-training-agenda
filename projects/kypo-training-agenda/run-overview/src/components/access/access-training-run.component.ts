@@ -59,8 +59,8 @@ export class AccessTrainingRunComponent extends SentinelBaseDirective implements
     const pastedText = event.clipboardData.getData('text');
     if (pastedText.includes('-')) {
       event.preventDefault();
-      this.accessTokenPrefix.setValue(pastedText.slice(0, pastedText.indexOf('-')).trim());
-      this.accessTokenPin.setValue(pastedText.slice(pastedText.indexOf('-') + 1, pastedText.length).trim());
+      this.accessTokenPrefix.setValue(pastedText.substring(0, pastedText.lastIndexOf('-')).trim());
+      this.accessTokenPin.setValue(pastedText.substring(pastedText.lastIndexOf('-') + 1).trim());
       this.traineeAccessTrainingFormGroup.formGroup.updateValueAndValidity();
       this.accessTokenPin.markAsTouched();
       this.accessTokenPrefix.markAsTouched();
