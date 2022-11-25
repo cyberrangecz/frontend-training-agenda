@@ -1,3 +1,11 @@
+### 14.4.1 Disable cheating detection for the 22.12 release.
+* decfc7d -- [CI/CD] Update packages.json version based on GitLab tag.
+*   6fbe07f -- Merge branch '206-disable-cheating-detection' into 'master'
+|\  
+| * e9d3780 -- Resolve "Disable cheating detection"
+|/  
+* 0849761 -- Merge branch 'fix-access-token-dash-split' into 'master'
+* 8ff48db -- Fix access token split with multiple dashes
 ### 14.4.0 Replace sandbox id with sandbox uuid in a training run. Bump visualizations.
 * 047971c -- [CI/CD] Update packages.json version based on GitLab tag.
 *   6b5326e -- Merge branch 'add-missing-tag-message' into 'master'
