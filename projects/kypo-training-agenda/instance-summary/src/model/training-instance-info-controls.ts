@@ -51,16 +51,19 @@ export class TrainingInstanceInfoControls {
           return EMPTY;
         })
       ),
-      new SentinelControlItem(
-        this.CHEATING_DETECTION_ID,
-        'Cheating Detection',
-        'primary',
-        disabled$,
-        defer(() => {
-          showCheatingDetection.emit(false);
-          return EMPTY;
-        })
-      ),
+      /**
+       * DISABLED FOR THE 22.12 release
+       */
+      // new SentinelControlItem(
+      //   this.CHEATING_DETECTION_ID,
+      //   'Cheating Detection',
+      //   'primary',
+      //   disabled$,
+      //   defer(() => {
+      //     showCheatingDetection.emit(false);
+      //     return EMPTY;
+      //   })
+      // ),
       new SentinelControlItem(
         this.EXPORT_SCORE_ID,
         'Export Score',

@@ -17,12 +17,14 @@ export class TrainingRunTable extends SentinelTable<TrainingRunRowAdapter> {
       new Column('state', 'run state', false),
       new Column('duration', 'duration', false),
       new Column('sandboxInstanceId', 'sandbox id', false),
-      new Column('hasDetectionEvents', 'has detection events', false),
+      /**
+       * DISABLED FOR THE 22.12 release
+       */
+      // new Column('hasDetectionEvents', 'has detection events', false),
     ];
     const rows = resource.elements.map((element) => TrainingRunTable.createRow(element));
     super(rows, columns);
     this.expand = new RowExpand(TrainingRunInfoComponent);
-    // this.expand.component...componentInstance.visibility.subscribe()
     this.pagination = resource.pagination;
     this.filterable = false;
   }
@@ -31,7 +33,6 @@ export class TrainingRunTable extends SentinelTable<TrainingRunRowAdapter> {
     const datePipe = new SentinelDateTimeFormatPipe('en-EN');
     const adapter = element as TrainingRunRowAdapter;
     adapter.playerName = adapter.player.name;
-    // adapter.trainingDefinition = trainingDefinition;
     adapter.startTimeFormatted = `${datePipe.transform(adapter.startTime)}`;
     if (adapter.state === TrainingRunStateEnum.FINISHED) {
       adapter.endTimeFormatted = `${datePipe.transform(adapter.endTime)}`;
