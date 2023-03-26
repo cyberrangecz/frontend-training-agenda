@@ -11,6 +11,9 @@ import { CheatingDetectionConcreteService } from '../services/cheating-detection
 import { CheatingDetectionService } from '../services/cheating-detection.service';
 import { CheatingDetectionOverviewMaterialModule } from './cheating-detection-overview-material.module';
 import { CheatingDetectionOverviewComponent } from './cheating-detection-overview.component';
+import { StageOverviewComponent } from './stage-overview/stage-overview.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatRippleModule } from '@angular/material/core';
 
 @NgModule({
   imports: [
@@ -22,8 +25,10 @@ import { CheatingDetectionOverviewComponent } from './cheating-detection-overvie
     ReactiveFormsModule,
     SentinelTableModule,
     SentinelControlsModule,
+    MatTooltipModule,
+    MatRippleModule,
   ],
-  declarations: [CheatingDetectionOverviewComponent],
+  declarations: [CheatingDetectionOverviewComponent, StageOverviewComponent],
   providers: [
     PaginationService,
     TrainingAgendaContext,

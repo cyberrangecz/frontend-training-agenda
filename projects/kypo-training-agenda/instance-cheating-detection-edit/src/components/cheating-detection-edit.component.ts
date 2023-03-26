@@ -84,7 +84,6 @@ export class CheatingDetectionEditComponent extends SentinelBaseDirective implem
   }
 
   initControls(editService: CheatingDetectionEditService): void {
-    console.log(editService);
     this.controls = [
       new SentinelControlItem(
         'create',

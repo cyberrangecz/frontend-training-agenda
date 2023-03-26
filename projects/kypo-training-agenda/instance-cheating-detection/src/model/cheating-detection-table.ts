@@ -7,6 +7,7 @@ import { CheatingDetectionService } from '../services/cheating-detection.service
 import { defer, of } from 'rxjs';
 
 /**
+ * Helper class transforming paginated resource to class for common table component
  * @dynamic
  */
 export class CheatingDetectionTable extends SentinelTable<CheatingDetectionRowAdapter> {
@@ -17,12 +18,11 @@ export class CheatingDetectionTable extends SentinelTable<CheatingDetectionRowAd
   ) {
     const columns = [
       new Column('id', 'id', false),
-      new Column('trainingInstanceId', 'instance id', false),
       new Column('executeTimeFormatted', 'executed at', false),
       new Column('executedBy', 'executed by', false),
       new Column('currentState', 'state', false),
       new Column('resultsFormatted', 'results', false),
-      new Column('methodsFormatted', 'methods', false),
+      new Column('stages', 'stages', false),
     ];
     const rows = resource.elements.map((element) => CheatingDetectionTable.createRow(element, service, navigator));
     super(rows, columns);
@@ -38,25 +38,10 @@ export class CheatingDetectionTable extends SentinelTable<CheatingDetectionRowAd
     const datePipe = new SentinelDateTimeFormatPipe('en-EN');
     const adapter = element as CheatingDetectionRowAdapter;
 
-    adapter.methodsFormatted =
-      'as: ' +
-      element.answerSimilarityState.toString() +
-      ', ' +
-      'ls: ' +
-      element.locationSimilarityState.toString() +
-      ', ' +
-      'tp: ' +
-      element.timeProximityState.toString() +
-      ', ' +
-      'mst: ' +
-      element.minimalSolveTimeState.toString() +
-      ', ' +
-      'nc: ' +
-      element.noCommandsState.toString() +
-      ', ';
     adapter.resultsFormatted =
       adapter.currentState === CheatingDetectionStateEnum.Finished ? adapter.results.toString() : null;
     adapter.executeTimeFormatted = `${datePipe.transform(adapter.executeTime)}`;
+    adapter.stages = this.requestStageResolver(element);
     return new Row(adapter, this.createActions(element, service));
   }
 
@@ -95,5 +80,15 @@ export class CheatingDetectionTable extends SentinelTable<CheatingDetectionRowAd
       default:
         return [];
     }
+  }
+
+  private static requestStageResolver(data: CheatingDetection) {
+    return [
+      'Answer Similarity Detection : ' + data.answerSimilarityState,
+      'Location Proximity Detection : ' + data.locationSimilarityState,
+      'Time Proximity Detection : ' + data.timeProximityState,
+      'Minimal Solve Time Detection : ' + data.minimalSolveTimeState,
+      'No Commands Detection : ' + data.noCommandsState,
+    ];
   }
 }

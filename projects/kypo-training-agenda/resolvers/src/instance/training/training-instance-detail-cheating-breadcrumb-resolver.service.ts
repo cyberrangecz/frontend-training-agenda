@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import { CHEATING_DETECTION_CREATE_PATH, CHEATING_DETECTION_EVENTS_PATH } from '@muni-kypo-crp/training-agenda';
+import {
+  CHEATING_DETECTION_CREATE_PATH,
+  CHEATING_DETECTION_EVENT_DETAIL_PATH,
+  CHEATING_DETECTION_EVENTS_PATH,
+} from '@muni-kypo-crp/training-agenda';
 
 /**
  * Router breadcrumb title resolver
@@ -19,6 +23,9 @@ export class TrainingInstanceDetailCheatingBreadcrumbResolver implements Resolve
     }
     if (state.url.includes(CHEATING_DETECTION_EVENTS_PATH)) {
       return 'Detection-events';
+    }
+    if (state.url.includes(CHEATING_DETECTION_EVENT_DETAIL_PATH)) {
+      return 'Detection-event-detail';
     }
     return '';
   }

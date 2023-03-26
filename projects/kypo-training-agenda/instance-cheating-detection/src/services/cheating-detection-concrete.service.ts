@@ -6,7 +6,7 @@ import {
   SentinelConfirmationDialogConfig,
   SentinelDialogResultEnum,
 } from '@sentinel/components/dialogs';
-import { PaginatedResource, OffsetPaginationEvent } from '@sentinel/common';
+import { SentinelFilter, PaginatedResource, OffsetPaginationEvent } from '@sentinel/common';
 import { CheatingDetectionApi } from '@muni-kypo-crp/training-api';
 import { CheatingDetection } from '@muni-kypo-crp/training-model';
 import { EMPTY, from, Observable } from 'rxjs';
@@ -34,13 +34,14 @@ export class CheatingDetectionConcreteService extends CheatingDetectionService {
   }
 
   private lastPagination: OffsetPaginationEvent;
+  private lastFilters: string;
 
   /**
    * Gets all cheating detections with passed pagination and filter and updates related observables or handles an error
    * @param trainingInstanceId training instance id
    * @param pagination requested pagination
    */
-  public getAll(
+  getAll(
     trainingInstanceId: number,
     pagination: OffsetPaginationEvent
   ): Observable<PaginatedResource<CheatingDetection>> {
@@ -79,7 +80,6 @@ export class CheatingDetectionConcreteService extends CheatingDetectionService {
    * Displays dialog to delete cheating detections and informs about the result and optionally
    * updates list of cheating detections or handles an error
    * @param cheatingDetectionId cheating detection to be deleted
-   * @param trainingInstanceId the training instance id
    */
   delete(cheatingDetectionId: number, trainingInstanceId: number): Observable<any> {
     return this.displayDialogToDelete(cheatingDetectionId).pipe(

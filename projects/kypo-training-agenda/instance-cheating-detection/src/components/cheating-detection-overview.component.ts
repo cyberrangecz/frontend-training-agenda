@@ -18,7 +18,7 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'kypo-cheating-detection-overview',
   templateUrl: './cheating-detection-overview.component.html',
-  styleUrls: ['./cheating-detection-overview.component.css'],
+  styleUrls: ['./cheating-detection-overview.component.scss'],
 })
 export class CheatingDetectionOverviewComponent extends SentinelBaseDirective implements OnInit {
   @Output() showCheatingDetectionCreate: EventEmitter<boolean> = new EventEmitter();
@@ -53,7 +53,6 @@ export class CheatingDetectionOverviewComponent extends SentinelBaseDirective im
       this.cheatingDetectionService,
       this.trainingInstanceId
     );
-    console.log(this.trainingInstanceId);
     this.initTable();
   }
 
@@ -101,5 +100,9 @@ export class CheatingDetectionOverviewComponent extends SentinelBaseDirective im
       this.INIT_SORT_DIR
     );
     this.onLoadEvent({ pagination: initialPagination });
+  }
+
+  toCheatingDetectionCreate(): void {
+    this.cheatingDetectionService.toCreatePage(this.trainingInstanceId);
   }
 }

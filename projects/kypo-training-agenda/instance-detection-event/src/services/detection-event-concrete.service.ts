@@ -3,12 +3,12 @@ import { DetectionEventApi } from '@muni-kypo-crp/training-api';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
-import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
+import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } from '@muni-kypo-crp/training-agenda';
+import { DetectionEventService } from './detection-event.service';
 import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common';
 import { from, Observable } from 'rxjs';
 import { AbstractDetectionEvent } from '@muni-kypo-crp/training-model';
 import { tap } from 'rxjs/operators';
-import { DetectionEventService } from './detection-event.service';
 
 /**
  * Basic implementation of a layer between a component and an API services.
@@ -21,24 +21,30 @@ export class DetectionEventConcreteService extends DetectionEventService {
     private dialog: MatDialog,
     private router: Router,
     private context: TrainingAgendaContext,
-    private navigator: TrainingNavigator
+    private navigator: TrainingNavigator,
+    private notificationService: TrainingNotificationService,
+    private errorHandler: TrainingErrorHandler
   ) {
     super(context.config.defaultPaginationSize);
   }
 
+  private lastPagination: OffsetPaginationEvent;
+
   /**
    * Gets all detection events with passed pagination and filter and updates related observables or handles an error
    * @param cheatingDetectionId the cheating detection id
+   * @param trainingInstanceId the training instance id
    * @param pagination requested pagination
    */
   public getAll(
     cheatingDetectionId: number,
+    trainingInstanceId: number,
     pagination: OffsetPaginationEvent
   ): Observable<PaginatedResource<AbstractDetectionEvent>> {
-    return this.api.getAll(pagination, cheatingDetectionId).pipe(
+    return this.api.getAll(pagination, cheatingDetectionId, trainingInstanceId).pipe(
       tap(
-        (detections) => {
-          this.resourceSubject$.next(detections);
+        (events) => {
+          this.resourceSubject$.next(events);
         },
         () => this.onGetAllError()
       )

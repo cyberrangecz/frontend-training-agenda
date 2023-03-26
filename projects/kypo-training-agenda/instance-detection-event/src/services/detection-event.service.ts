@@ -12,10 +12,12 @@ export abstract class DetectionEventService extends OffsetPaginatedElementsServi
   /**
    * Gets all detection events with passed pagination and filter and updates related observables or handles an error
    * @param cheatingDetectionId the cheating detection id
+   * @param trainingInstanceId the training instance id
    * @param pagination requested pagination
    */
   abstract getAll(
     cheatingDetectionId: number,
+    trainingInstanceId: number,
     pagination: OffsetPaginationEvent
   ): Observable<PaginatedResource<AbstractDetectionEvent>>;
 

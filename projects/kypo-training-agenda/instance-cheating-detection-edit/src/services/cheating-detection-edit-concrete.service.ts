@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { CheatingDetectionApi } from '@muni-kypo-crp/training-api';
 import { CheatingDetection } from '@muni-kypo-crp/training-model';
-import { Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } from '@muni-kypo-crp/training-agenda';
 import { CheatingDetectionEditService } from './cheating-detection-edit.service';

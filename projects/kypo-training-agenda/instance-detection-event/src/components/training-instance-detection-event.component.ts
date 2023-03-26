@@ -2,14 +2,18 @@ import { Component, Input, OnInit } from '@angular/core';
 import { OffsetPaginationEvent, SentinelBaseDirective } from '@sentinel/common';
 import { Observable } from 'rxjs';
 import { SentinelTable, TableActionEvent, TableLoadEvent } from '@sentinel/components/table';
-import { AbstractDetectionEvent, CheatingDetection } from '@muni-kypo-crp/training-model';
+import { AbstractDetectionEvent } from '@muni-kypo-crp/training-model';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
-import { CHEATING_DETECTION_DATA_ATTRIBUTE_NAME, TrainingNavigator } from '@muni-kypo-crp/training-agenda';
-import { map, take, takeWhile, tap } from 'rxjs/operators';
+import {
+  TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME,
+  TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME,
+  TrainingNavigator,
+} from '@muni-kypo-crp/training-agenda';
+import { map, take, takeWhile } from 'rxjs/operators';
 import { DetectionEventTable } from '../model/detection-event-table';
-import { ActivatedRoute } from '@angular/router';
 import { DetectionEventService } from '../services/detection-event.service';
+import { ActivatedRoute } from '@angular/router';
 
 /**
  * Main component of training instance detection event.
@@ -20,37 +24,30 @@ import { DetectionEventService } from '../services/detection-event.service';
   styleUrls: ['./training-instance-detection-event.component.css'],
 })
 export class TrainingInstanceDetectionEventComponent extends SentinelBaseDirective implements OnInit {
-  cheatingDetection$: Observable<CheatingDetection>;
-
   readonly INIT_SORT_NAME = 'lastEdited';
   readonly INIT_SORT_DIR = 'asc';
 
+  cheatingDetectionId: number;
   detectionEvents$: Observable<SentinelTable<AbstractDetectionEvent>>;
   hasError$: Observable<boolean>;
   isLoading$: Observable<boolean>;
-  cheatingDetectionId: number;
+  trainingInstanceId: number;
 
   constructor(
-    private activeRoute: ActivatedRoute,
     private detectionEventService: DetectionEventService,
     private paginationService: PaginationService,
+    private activeRoute: ActivatedRoute,
     private navigator: TrainingNavigator
   ) {
     super();
   }
 
   ngOnInit(): void {
-    console.log(this.activeRoute);
-    this.cheatingDetection$ = this.activeRoute.data.pipe(
-      takeWhile(() => this.isAlive),
-      map((data) => data[CHEATING_DETECTION_DATA_ATTRIBUTE_NAME]),
-      tap((detection) => (this.cheatingDetectionId = detection.id))
-    );
-    console.log(this.cheatingDetectionId);
-    this.cheatingDetection$.subscribe();
+    this.activeRoute.data.pipe(takeWhile(() => this.isAlive)).subscribe((data) => {
+      this.trainingInstanceId = data[TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME].id;
+    });
+    this.cheatingDetectionId = this.activeRoute.snapshot.params['trainingInstanceId'];
     this.initTable();
-    console.log(this.navigator, this.detectionEventService);
-    this.detectionEventService.getAll(5, null).subscribe();
   }
 
   /**
@@ -62,6 +59,7 @@ export class TrainingInstanceDetectionEventComponent extends SentinelBaseDirecti
     this.detectionEventService
       .getAll(
         this.cheatingDetectionId,
+        this.trainingInstanceId,
         new OffsetPaginationEvent(0, loadEvent.pagination.size, loadEvent.pagination.sort, loadEvent.pagination.sortDir)
       )
       .pipe(takeWhile(() => this.isAlive))
@@ -85,6 +83,11 @@ export class TrainingInstanceDetectionEventComponent extends SentinelBaseDirecti
   }
 
   private initTable() {
+    this.hasError$ = this.detectionEventService.hasError$;
+    this.isLoading$ = this.detectionEventService.isLoading$;
+    this.detectionEvents$ = this.detectionEventService.resource$.pipe(
+      map((resource) => new DetectionEventTable(resource, this.detectionEventService, this.navigator))
+    );
     const initialPagination = new OffsetPaginationEvent(
       0,
       this.paginationService.getPagination(),
@@ -92,11 +95,5 @@ export class TrainingInstanceDetectionEventComponent extends SentinelBaseDirecti
       this.INIT_SORT_DIR
     );
     this.onLoadEvent({ pagination: initialPagination });
-
-    this.hasError$ = this.detectionEventService.hasError$;
-    this.isLoading$ = this.detectionEventService.isLoading$;
-    this.detectionEvents$ = this.detectionEventService.resource$.pipe(
-      map((resource) => new DetectionEventTable(resource, this.detectionEventService, this.navigator))
-    );
   }
 }

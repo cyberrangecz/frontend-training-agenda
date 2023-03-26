@@ -5,4 +5,5 @@ import { AbstractDetectionEvent } from '@muni-kypo-crp/training-model';
  */
 export class DetectionEventRowAdapter extends AbstractDetectionEvent {
   detectedAtFormatted: string;
+  detectionEventTypeFormatted: string;
 }
