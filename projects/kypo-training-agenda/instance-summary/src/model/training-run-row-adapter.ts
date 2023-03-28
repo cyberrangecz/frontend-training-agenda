@@ -9,5 +9,4 @@ export class TrainingRunRowAdapter extends TrainingRun {
   endTimeFormatted: string;
   duration: string;
   trainingDefinition: TrainingDefinition;
-  hasDetectionEventFormatted: string;
 }
