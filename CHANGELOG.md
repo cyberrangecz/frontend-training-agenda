@@ -1,3 +1,18 @@
+### 14.4.2 Enable cheating detection. Update and enhance cheating detection model with new functionality and fixes.
+* 28a850c -- [CI/CD] Update packages.json version based on GitLab tag.
+* a21f42c -- Merge branch 'cheating-detection' into 'master'
+* 9fb0dae -- Removed documented code. Moved upper bounds of proximity threshold to a variable.
+* 55bdaa0 -- Removed unfinished test.
+* 3705a94 -- Update version and packages.
+* 4aad59a -- Removed console logs.
+* ce83927 -- Updated version and merged latest changes from master.
+* 2bd8688 -- Removed information about detection events from training runs.
+* 2777bb9 -- Merge changes from cheating detection fork.
+* 57719c2 -- Merge changes from cheating detection fork.
+* af268bd -- Added package-json for detection event detail
+* 687df63 -- Added experimental column for detection types to cheating detection table.
+* 4092dec -- Fixed routing of components in example app. Changed provider of detection events service to useClass.
+* 6205460 -- Moved Detection-event-detail files to a separate module. Fixed routing after creating cheating detection.
 ### 14.4.1 Disable cheating detection for the 22.12 release.
 * decfc7d -- [CI/CD] Update packages.json version based on GitLab tag.
 *   6fbe07f -- Merge branch '206-disable-cheating-detection' into 'master'
