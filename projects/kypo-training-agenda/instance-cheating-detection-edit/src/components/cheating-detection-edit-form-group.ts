@@ -43,9 +43,7 @@ export class CheatingDetectionEditFormGroup {
     cheatingDetection.noCommandsState = this.formGroup.get('noCommandsDetection').value
       ? CheatingDetectionStateEnum.Queued
       : CheatingDetectionStateEnum.Disabled;
-    console.log(this.formGroup.get('timeThreshold').value);
     cheatingDetection.proximityThreshold = this.formGroup.get('timeThreshold').value;
-    console.log(cheatingDetection.proximityThreshold);
     cheatingDetection.results = 0;
     cheatingDetection.currentState = CheatingDetectionStateEnum.Running;
     cheatingDetection.forbiddenCommandsState = CheatingDetectionStateEnum.Disabled;

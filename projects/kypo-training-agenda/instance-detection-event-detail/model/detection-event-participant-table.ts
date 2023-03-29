@@ -26,7 +26,6 @@ export class DetectionEventParticipantTable extends SentinelTable<DetectionEvent
     const datePipe = new SentinelDateTimeFormatPipe('en-EN');
     const adapter = element as DetectionEventParticipantRowAdapter;
     adapter.occurredAtFormatted = `${datePipe.transform(adapter.occurredAt)}`;
-    console.log(adapter.solvedInTime);
     adapter.solvedInTimeFormatted = adapter.solvedInTime == null ? 'unspecified' : adapter.solvedInTime.toString();
 
     return new Row(adapter);

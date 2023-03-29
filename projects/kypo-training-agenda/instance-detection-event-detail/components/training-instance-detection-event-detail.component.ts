@@ -68,8 +68,6 @@ export class TrainingInstanceDetectionEventDetailComponent extends SentinelBaseD
       this.eventType = event.detectionEventType;
       this.populateEventData();
     });
-    console.log('wtf');
-    console.log(this.detectionRunAt);
     this.initTable();
   }
 
@@ -78,27 +76,22 @@ export class TrainingInstanceDetectionEventDetailComponent extends SentinelBaseD
       case AbstractDetectionEventTypeEnum.Answer_similarity:
         this.eventTypeFormatted = 'Answer similarity';
         this.answerSimilarityEvent$ = this.detectionEventService.getAnswerSimilarityEventById(this.eventId);
-        console.log('1');
         break;
       case AbstractDetectionEventTypeEnum.Location_similarity:
         this.eventTypeFormatted = 'Location similarity';
         this.locationSimilarityEvent$ = this.detectionEventService.getLocationSimilarityEventById(this.eventId);
-        console.log('1');
         break;
       case AbstractDetectionEventTypeEnum.Time_proximity:
         this.eventTypeFormatted = 'Time proximity';
         this.timeProximityEvent$ = this.detectionEventService.getTimeProximityEventById(this.eventId);
-        console.log('1');
         break;
       case AbstractDetectionEventTypeEnum.Minimal_solve_time:
         this.eventTypeFormatted = 'Minimal solve time';
         this.minimalSolveTimeEvent$ = this.detectionEventService.getMinimalSolveTimeEventById(this.eventId);
-        console.log('1');
         break;
       case AbstractDetectionEventTypeEnum.No_commands:
         this.eventTypeFormatted = 'No commands';
         this.noCommandsEvent$ = this.detectionEventService.getNoCommandsEventById(this.eventId);
-        console.log('1');
         break;
       case AbstractDetectionEventTypeEnum.Forbidden_commands:
         this.eventTypeFormatted = 'Forbidden commands';
