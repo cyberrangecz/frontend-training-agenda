@@ -120,7 +120,7 @@ export class TrainingInstanceTable extends SentinelTable<TrainingInstanceRowAdap
         'Show Progress',
         'insights',
         'primary',
-        'Shows progress of training runs',
+        'Show progress of training runs',
         of(!ti.hasStarted()),
         defer(() => service.progress(ti.id))
       ),
@@ -129,7 +129,7 @@ export class TrainingInstanceTable extends SentinelTable<TrainingInstanceRowAdap
         'Show Results',
         'assessment',
         'primary',
-        'Shows results of training runs',
+        'Show results of training runs',
         of(!ti.hasStarted()),
         defer(() => service.results(ti.id))
       ),
@@ -138,7 +138,7 @@ export class TrainingInstanceTable extends SentinelTable<TrainingInstanceRowAdap
         'Show Aggregated Results',
         'stacked_bar_chart',
         'primary',
-        'Shows aggregated results of training runs across same training instances',
+        'Show aggregated results of training runs across same training instances',
         of(!ti.hasStarted()),
         defer(() => service.aggregatedResults(ti.id))
       ),

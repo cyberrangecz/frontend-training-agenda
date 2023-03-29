@@ -130,7 +130,7 @@ describe('RunningTrainingRunConcreteService', () => {
   function createAccessTrainingRunInfoMock() {
     const accessInfo = new AccessTrainingRunInfo();
     accessInfo.trainingRunId = 2;
-    accessInfo.sandboxInstanceId = 4;
+    accessInfo.sandboxInstanceId = 'iuidusfghiudsfhg65fd5g498f5h9f8gh5fg';
     accessInfo.levels = createLevelsMock();
     accessInfo.startTime = new Date();
     accessInfo.currentLevel = createLevelsMock()[1];

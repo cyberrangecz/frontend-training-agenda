@@ -31,7 +31,7 @@ export class TrainingRunDetailComponent extends SentinelBaseDirective implements
   isTimerDisplayed: boolean;
   startTime: Date;
   isLast: boolean;
-  sandboxInstanceId: number;
+  sandboxInstanceId: string;
   sandboxDefinitionId: number;
   localEnvironment: boolean;
   backwardMode: boolean;
