@@ -93,7 +93,7 @@
                          'on the same level should be marked in a detection event.' ">
           <mat-label>Time Threshold</mat-label>
           <input matInput placeholder="proximity threshold" type="number"
-                 min="1" max="86400" formControlName="timeThreshold">
+                 min="1" max="{{maximumProximityThreshold}}" formControlName="timeThreshold">
 
         </mat-form-field>
       </div>

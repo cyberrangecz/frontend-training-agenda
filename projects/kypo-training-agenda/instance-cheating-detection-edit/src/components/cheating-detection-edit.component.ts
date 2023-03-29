@@ -26,6 +26,7 @@ export class CheatingDetectionEditComponent extends SentinelBaseDirective implem
   cheatingDetection: CheatingDetection;
   controls: SentinelControlItem[];
   trainingInstanceId: number;
+  maximumProximityThreshold = 86400;
 
   constructor(
     private router: Router,
