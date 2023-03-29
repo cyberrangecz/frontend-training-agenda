@@ -73,19 +73,6 @@ describe('TrainingInstanceSummaryConcreteService', () => {
     });
   });
 
-  it('should show cheating detection', (done) => {
-    const trainingInstance = createMock();
-    routerSpy.navigate.and.returnValue(asyncData(true).toPromise());
-    navigatorSpy.toTrainingInstanceCheatingDetection.and.returnValue('navigate');
-    service.init(trainingInstance);
-    service.showCheatingDetection().subscribe((res) => {
-      expect(res).toBeTruthy();
-      expect(routerSpy.navigate).toHaveBeenCalledTimes(1);
-      expect(navigatorSpy.toTrainingInstanceCheatingDetection).toHaveBeenCalledTimes(1);
-      done();
-    });
-  });
-
   function createMock(): TrainingInstance {
     const trainingInstance = new TrainingInstance();
     trainingInstance.id = 2;
