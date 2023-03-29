@@ -1,19 +1,17 @@
 import { Component, Input } from '@angular/core';
-import { OffsetPaginationEvent, SentinelBaseDirective } from '@sentinel/common';
+import { SentinelBaseDirective } from '@sentinel/common';
 import {
   AbstractDetectionEvent,
-  AbstractDetectionEventTypeEnum,
   AnswerSimilarityDetectionEvent,
   DetectionEventParticipant,
-  ForbiddenCommand,
   LocationSimilarityDetectionEvent,
   MinimalSolveTimeDetectionEvent,
   NoCommandsDetectionEvent,
   TimeProximityDetectionEvent,
 } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
-import { SentinelTable, TableActionEvent, TableLoadEvent } from '@sentinel/components/table';
-import { take, takeWhile } from 'rxjs/operators';
+import { SentinelTable, TableActionEvent } from '@sentinel/components/table';
+import { take } from 'rxjs/operators';
 
 /**
  * Main component of training instance detection event detail.

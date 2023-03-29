@@ -245,10 +245,10 @@ export class TrainingDefaultNavigator extends TrainingNavigator {
     return `${this.toTrainingInstanceDetail(tid)}/${CHEATING_DETECTION_PATH}/${cid}/${CHEATING_DETECTION_EVENTS_PATH}`;
   }
 
-  toTrainingInstanceCheatingDetectionEventDetail(tid: number | string, cid: number | string, event_id: number): string {
+  toTrainingInstanceCheatingDetectionEventDetail(tid: number | string, cid: number | string, eventId: number): string {
     return `${this.toTrainingInstanceDetail(
       tid
-    )}/${CHEATING_DETECTION_PATH}/${cid}${CHEATING_DETECTION_EVENT_DETAIL_PATH}/${event_id}`;
+    )}/${CHEATING_DETECTION_PATH}/${cid}/${CHEATING_DETECTION_EVENTS_PATH}/${eventId}/${CHEATING_DETECTION_EVENT_DETAIL_PATH}`;
   }
 
   /**

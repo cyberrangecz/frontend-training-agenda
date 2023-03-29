@@ -7,6 +7,7 @@ import { CheatingDetectionService } from '../services/cheating-detection.service
 import { defer, of } from 'rxjs';
 
 /**
+ * Helper class transforming paginated resource to class for common table component
  * @dynamic
  */
 export class CheatingDetectionTable extends SentinelTable<CheatingDetectionRowAdapter> {
@@ -21,6 +22,7 @@ export class CheatingDetectionTable extends SentinelTable<CheatingDetectionRowAd
       new Column('executedBy', 'executed by', false),
       new Column('currentState', 'state', false),
       new Column('resultsFormatted', 'results', false),
+      new Column('stages', 'stages', false),
     ];
     const rows = resource.elements.map((element) => CheatingDetectionTable.createRow(element, service, navigator));
     super(rows, columns);
@@ -39,6 +41,7 @@ export class CheatingDetectionTable extends SentinelTable<CheatingDetectionRowAd
     adapter.resultsFormatted =
       adapter.currentState === CheatingDetectionStateEnum.Finished ? adapter.results.toString() : null;
     adapter.executeTimeFormatted = `${datePipe.transform(adapter.executeTime)}`;
+    adapter.stages = this.requestStageResolver(element);
     return new Row(adapter, this.createActions(element, service));
   }
 
@@ -64,11 +67,6 @@ export class CheatingDetectionTable extends SentinelTable<CheatingDetectionRowAd
             of(false),
             defer(() => service.delete(cd.id, cd.trainingInstanceId))
           ),
-          new DownloadAction(
-            'Export into CSV',
-            of(false),
-            defer(() => service.export(cd.id))
-          ),
           new RowAction(
             'results',
             'Results',
@@ -82,5 +80,15 @@ export class CheatingDetectionTable extends SentinelTable<CheatingDetectionRowAd
       default:
         return [];
     }
+  }
+
+  private static requestStageResolver(data: CheatingDetection) {
+    return [
+      'Answer Similarity Detection : ' + data.answerSimilarityState,
+      'Location Proximity Detection : ' + data.locationSimilarityState,
+      'Time Proximity Detection : ' + data.timeProximityState,
+      'Minimal Solve Time Detection : ' + data.minimalSolveTimeState,
+      'No Commands Detection : ' + data.noCommandsState,
+    ];
   }
 }

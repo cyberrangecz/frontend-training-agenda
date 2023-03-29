@@ -14,7 +14,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
@@ -36,7 +35,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatTooltipModule,
     MatCheckboxModule,
     MatSidenavModule,
-    MatSlideToggleModule,
     MatRadioModule,
     MatCardModule,
     MatProgressSpinnerModule,
@@ -56,11 +54,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatTooltipModule,
     MatCheckboxModule,
     MatSidenavModule,
-    MatSlideToggleModule,
     MatRadioModule,
     MatCardModule,
     MatProgressSpinnerModule,
     MatExpansionModule,
   ],
 })
-export class CheatingDetectionEditMaterialModule {}
+export class TrainingInstanceDetectionEventDetailMaterialModule {}

@@ -28,19 +28,23 @@ export class DetectionEventConcreteService extends DetectionEventService {
     super(context.config.defaultPaginationSize);
   }
 
+  private lastPagination: OffsetPaginationEvent;
+
   /**
    * Gets all detection events with passed pagination and filter and updates related observables or handles an error
    * @param cheatingDetectionId the cheating detection id
+   * @param trainingInstanceId the training instance id
    * @param pagination requested pagination
    */
   public getAll(
     cheatingDetectionId: number,
+    trainingInstanceId: number,
     pagination: OffsetPaginationEvent
   ): Observable<PaginatedResource<AbstractDetectionEvent>> {
-    return this.api.getAll(pagination, cheatingDetectionId).pipe(
+    return this.api.getAll(pagination, cheatingDetectionId, trainingInstanceId).pipe(
       tap(
-        (detections) => {
-          this.resourceSubject$.next(detections);
+        (events) => {
+          this.resourceSubject$.next(events);
         },
         () => this.onGetAllError()
       )

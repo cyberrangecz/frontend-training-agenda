@@ -86,14 +86,14 @@
 
 
       <div class="proximity-container" *ngIf=timeProximityMethod.value (keydown.enter)="$event.preventDefault()">
-        <span>Proximity (in seconds) for time proximity detection:</span>
+        <span>Proximity (in seconds) for time proximity detection. Default value is 120:</span>
         <mat-form-field appearance="outline"
                         [matTooltipPosition]="'right'"
                         [matTooltip]=" ' Represents the time window in which two participants that submit an answer ' +
                          'on the same level should be marked in a detection event.' ">
           <mat-label>Time Threshold</mat-label>
           <input matInput placeholder="proximity threshold" type="number"
-                 min="1" formControlName="timeThreshold" required>
+                 min="1" max="{{maximumProximityThreshold}}" formControlName="timeThreshold">
 
         </mat-form-field>
       </div>

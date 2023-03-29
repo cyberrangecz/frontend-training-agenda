@@ -19,10 +19,6 @@ import { CheatingDetectionService } from './cheating-detection.service';
  * Basic implementation of a layer between a component and an API services.
  * Can get cheating detections and perform various operations to modify them
  */
-
-/*{
-  providedIn: "root"
-})*/
 @Injectable()
 export class CheatingDetectionConcreteService extends CheatingDetectionService {
   constructor(

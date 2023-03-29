@@ -1,14 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { environment } from '../../../../../../../../environments/environment';
-import { TrainingInstanceDetectionEventComponentsModule } from '../../../../../../../../../../kypo-training-agenda/instance-detection-event/src/components/training-instance-detection-event-component.module';
-import { TrainingInstanceDetectionEventRoutingModule } from '../training-instance-detection-event-routing.module';
+import { TrainingInstanceDetectionEventDetailRoutingModule } from './training-instance-detection-event-detail-routing.module';
+import { TrainingInstanceDetectionEventDetailComponentsModule } from '../../../../../../../../../../kypo-training-agenda/instance-detection-event-detail/components/training-instance-detection-event-detail-component.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    TrainingInstanceDetectionEventComponentsModule.forRoot(environment.trainingAgendaConfig),
-    TrainingInstanceDetectionEventRoutingModule,
+    TrainingInstanceDetectionEventDetailComponentsModule.forRoot(environment.trainingAgendaConfig),
+    TrainingInstanceDetectionEventDetailRoutingModule,
   ],
 })
 export class TrainingInstanceDetectionEventDetailModule {}

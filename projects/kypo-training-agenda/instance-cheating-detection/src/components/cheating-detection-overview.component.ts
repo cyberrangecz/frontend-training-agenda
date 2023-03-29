@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { SentinelTable, TableActionEvent, TableLoadEvent } from '@sentinel/components/table';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
-import { map, switchMap, take, takeWhile } from 'rxjs/operators';
+import { map, take, takeWhile } from 'rxjs/operators';
 import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME, TrainingNavigator } from '@muni-kypo-crp/training-agenda';
 import { CheatingDetectionOverviewControls } from '../model/cheating-detection-overview-controls';
 import { CheatingDetectionService } from '../services/cheating-detection.service';
@@ -18,15 +18,14 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'kypo-cheating-detection-overview',
   templateUrl: './cheating-detection-overview.component.html',
-  styleUrls: ['./cheating-detection-overview.component.css'],
+  styleUrls: ['./cheating-detection-overview.component.scss'],
 })
 export class CheatingDetectionOverviewComponent extends SentinelBaseDirective implements OnInit {
-  @Input() trainingInstance$: Observable<TrainingInstance>;
-
   @Output() showCheatingDetectionCreate: EventEmitter<boolean> = new EventEmitter();
   readonly INIT_SORT_NAME = 'lastEdited';
   readonly INIT_SORT_DIR = 'asc';
 
+  trainingInstance$: Observable<TrainingInstance>;
   cheatingDetections$: Observable<SentinelTable<CheatingDetection>>;
   hasError$: Observable<boolean>;
   isLoading$: Observable<boolean>;
