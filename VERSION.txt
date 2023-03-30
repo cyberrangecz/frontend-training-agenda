@@ -1,4 +1,4 @@
-14.4.3 Remove unused file and added module provider to cheating detection event detail.
+14.4.3 Reworked file structure for instance-cheating-detection-detail folder and added module provider to cheating detection event detail.
 14.4.2 Enable cheating detection. Update and enhance cheating detection model with new functionality and fixes.
 14.4.1 Disable cheating detection for the 22.12 release.
 14.4.0 Replace sandbox id with sandbox uuid in a training run. Bump visualizations.

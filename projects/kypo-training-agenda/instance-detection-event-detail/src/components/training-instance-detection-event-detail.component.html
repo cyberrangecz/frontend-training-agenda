@@ -1,100 +1,78 @@
 <div>
-  <h1>Detection event detail</h1>
   <ng-container *ngIf="detectionEvent$ | async as detectionEvent">
-  <mat-card>
-    <p><b>Detection run at: </b> {{ detectionEvent.detectedAt }}</p>
-    <p><b>Level title: </b> {{ detectionEvent.levelTitle }}</p>
-    <p><b>Level id: </b> {{ detectionEvent.levelId }}</p>
-    <p><b>Number of participants: </b> {{ detectionEvent.participantCount }}</p>
-  </mat-card>
 
-    <div class="answer-similarity" *ngIf="ifAnswerSimilarity()">
+    <mat-card>
+    <div class="icon-panel-container">
+      <div class="data-field">
+        <mat-icon class="material-icons-round"> schedule </mat-icon>
+        <div class="icon-label">Detection Run At</div>
+        <div class="value-field">{{ this.detectionRunTime() | sentinelDateTimeFormat }}</div>
+      </div>
+      <div class="data-field">
+        <mat-icon class="material-icons-round"> view_comfy </mat-icon>
+        <div class="icon-label">Type of Event</div>
+        <div class="value-field">{{ this.eventTypeFormatted }}</div>
+      </div>
+      <div class="data-field">
+        <mat-icon class="material-icons-round"> edit_calendar </mat-icon>
+        <div class="icon-label">Level Title</div>
+        <div class="value-field">{{ detectionEvent.levelTitle }}</div>
+      </div>
+      <div class="data-field">
+        <mat-icon class="material-icons-round"> pin </mat-icon>
+        <div class="icon-label">Level Id</div>
+        <div class="value-field">{{ detectionEvent.levelId }}</div>
+      </div>
+      <div class="data-field">
+        <mat-icon class="material-icons-round"> people </mat-icon>
+        <div class="icon-label">Number of Participants</div>
+        <div class="value-field">{{ detectionEvent.participantCount }}</div>
+      </div>
+      <div class="data-field" *ngIf="locationSimilarityEvent$ | async as locationSimilarityEvent">
+          <mat-icon class="material-icons-round"> web </mat-icon>
+          <div class="icon-label">Domain Name</div>
+          <div class="value-field">{{ locationSimilarityEvent.dns }}</div>
+          </div>
+      <div class="data-field" *ngIf="locationSimilarityEvent$ | async as locationSimilarityEvent">
+          <mat-icon class="material-icons-round"> domain </mat-icon>
+          <div class="icon-label">Is Address of Deployment</div>
+          <div class="value-field">{{ locationSimilarityEvent.isAddressDeploy ? "Yes" : "No" }}</div>
+        </div>
+      <div class="data-field" *ngIf="timeProximityEvent$ | async as timeProximityEvent">
+          <mat-icon class="material-icons-round"> history </mat-icon>
+          <div class="icon-label">Proximity Threshold</div>
+          <div class="value-field">{{ timeProximityEvent.threshold + " seconds" }}</div>
+        </div>
+      <div class="data-field" *ngIf="answerSimilarityEvent$ | async as answerSimilarityEvent">
+        <mat-icon class="material-icons-round"> done </mat-icon>
+        <div class="icon-label">Answer</div>
+        <div class="value-field">{{ answerSimilarityEvent.answer }}</div>
+      </div>
+      <div class="data-field" *ngIf="answerSimilarityEvent$ | async as answerSimilarityEvent">
+        <mat-icon class="material-icons-round"> assignment_ind </mat-icon>
+        <div class="icon-label">Answer Owner</div>
+        <div class="value-field">{{ answerSimilarityEvent.answerOwner }}</div>
+      </div>
+      <div class="data-field" *ngIf="minimalSolveTimeEvent$ | async as minimalSolveTimeEvent">
+        <mat-icon class="material-icons-round"> pending_actions </mat-icon>
+        <div class="icon-label">Minimal Solve Time</div>
+        <div class="value-field">{{ minimalSolveTimeEvent.minimalSolveTime + " seconds" }}</div>
+      </div>
+      </div>
+    </mat-card>
 
-      <p>Answer Similarity</p>>
-      <p><b>Answer: </b> {{ answerSimilarity.answer}}</p>
-      <p><b>Answer owner: </b> {{ answerSimilarity.answerOwner}}</p>
-
-      <sentinel-table
-        [defaultSortDirection]="INIT_SORT_DIR"
-        [defaultSortName]="INIT_SORT_NAME"
-        [data]="participants$ | async"
-        [hasError]="hasError$ | async"
-        [isLoading]="isLoading$ | async"
-        [displayedActionsCount]="4"
-        (rowAction)="onTableAction($event)"
-      >
-      </sentinel-table>
-
-    </div>>
-    <div class="location-similarity" *ngIf="ifLocationProximity()">
-
-      <p>Location Similarity</p>>
-      <p><b>IP address: </b> {{ locationSimilarity.ipAddress}}</p>
-      <p><b>Domain name service: </b> {{ locationSimilarity.dns}}</p>
-      <p><b>Is Address of deployment: </b> {{ locationSimilarity.isAddressDeploy}}</p>
-
-      <sentinel-table
-        [defaultSortDirection]="INIT_SORT_DIR"
-        [defaultSortName]="INIT_SORT_NAME"
-        [data]="participants$ | async"
-        [hasError]="hasError$ | async"
-        [isLoading]="isLoading$ | async"
-        [displayedActionsCount]="4"
-        (rowAction)="onTableAction($event)"
-      >
-      </sentinel-table>
-
-    </div>>
-    <div class="time-proximity" *ngIf="ifTimeProximity()">
-
-      <p>Time Proximity</p>>
-      <p><b>Proximity threshold: </b> {{ timeProximity.threshold}}</p>
-
-      <sentinel-table
-        [defaultSortDirection]="INIT_SORT_DIR"
-        [defaultSortName]="INIT_SORT_NAME"
-        [data]="participants$ | async"
-        [hasError]="hasError$ | async"
-        [isLoading]="isLoading$ | async"
-        [displayedActionsCount]="4"
-        (rowAction)="onTableAction($event)"
-      >
-      </sentinel-table>
-
-    </div>>
-    <div class="minimal-solve-time" *ngIf="ifMinimalSolveTime()">
-
-      <p>Minimal Solve Time</p>>
-      <p><b>Minimal solve time: </b> {{ minimalSolve.minimalSolveTime}}</p>
-
-      <sentinel-table
-        [defaultSortDirection]="INIT_SORT_DIR"
-        [defaultSortName]="INIT_SORT_NAME"
-        [data]="participants$ | async"
-        [hasError]="hasError$ | async"
-        [isLoading]="isLoading$ | async"
-        [displayedActionsCount]="4"
-        (rowAction)="onTableAction($event)"
-      >
-      </sentinel-table>
-
-    </div>>
-    <div class="no-commands" *ngIf="ifNoCommands()">
-
-      <p>No Commands</p>>
-
-      <sentinel-table
-        [defaultSortDirection]="INIT_SORT_DIR"
-        [defaultSortName]="INIT_SORT_NAME"
-        [data]="participants$ | async"
-        [hasError]="hasError$ | async"
-        [isLoading]="isLoading$ | async"
-        [displayedActionsCount]="4"
-        (rowAction)="onTableAction($event)"
-      >
-      </sentinel-table>
-
-    </div>>
-
-  </ng-container>>
+    <div class="content">
+      <h1>Participants</h1>
+    <sentinel-table
+      [defaultSortDirection]="INIT_SORT_DIR"
+      [defaultSortName]="INIT_SORT_NAME"
+      [data]="participants$ | async"
+      [hasError]="hasError$ | async"
+      [isLoading]="isLoading$ | async"
+      [displayedActionsCount]="4"
+      (rowAction)="onTableAction($event)"
+    >
+    </sentinel-table>
+    </div>
+  </ng-container>
 </div>
