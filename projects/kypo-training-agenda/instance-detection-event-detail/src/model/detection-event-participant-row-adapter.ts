@@ -5,4 +5,5 @@ import { DetectionEventParticipant } from '@muni-kypo-crp/training-model';
  */
 export class DetectionEventParticipantRowAdapter extends DetectionEventParticipant {
   occurredAtFormatted: string;
+  solvedInTimeFormatted: string;
 }
