@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { TrainingInstanceDetectionEventDetailComponent } from './training-instance-detection-event-detail.component';
 import { MatCardModule } from '@angular/material/card';
 import { SentinelTableModule } from '@sentinel/components/table';
@@ -24,7 +24,9 @@ import { SentinelPipesModule } from '@sentinel/common';
   ],
 })
 export class TrainingInstanceDetectionEventDetailComponentsModule {
-  static forRoot(config: TrainingAgendaConfig) {
+  static forRoot(
+    config: TrainingAgendaConfig
+  ): ModuleWithProviders<TrainingInstanceDetectionEventDetailComponentsModule> {
     return {
       ngModule: TrainingInstanceDetectionEventDetailComponentsModule,
       providers: [{ provide: TrainingAgendaConfig, useValue: config }],
