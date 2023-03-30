@@ -1,3 +1,8 @@
+### 14.4.3 Remove unused file and added module provider to cheating detection event detail.
+* 01e1ba1 -- [CI/CD] Update packages.json version based on GitLab tag.
+* 6e4548f -- Merge branch 'develop' into 'master'
+* 330714f -- Updated version.
+* 575dd6d -- Added missing import and deleted unused file.
 ### 14.4.2 Enable cheating detection. Update and enhance cheating detection model with new functionality and fixes.
 * 28a850c -- [CI/CD] Update packages.json version based on GitLab tag.
 * a21f42c -- Merge branch 'cheating-detection' into 'master'
