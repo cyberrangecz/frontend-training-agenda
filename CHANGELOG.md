@@ -1,3 +1,18 @@
+### 14.4.4 Reworked file structure for instance-cheating-detection-detail folder and added module provider to cheating detection event detail.
+* 89b2839 -- [CI/CD] Update packages.json version based on GitLab tag.
+*   e1b3164 -- Merge branch 'develop' into 'master'
+|\  
+| * 9391f52 -- Fix version.
+* | 108945c -- Merge branch 'develop' into 'master'
+|\| 
+| * a527099 -- Revert changes to version.
+| * f84ccd7 -- Reworked file structure for instance-cheating-detection-detail folder.
+|/  
+* f00f756 -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* 01e1ba1 -- [CI/CD] Update packages.json version based on GitLab tag.
+* 6e4548f -- Merge branch 'develop' into 'master'
+* 330714f -- Updated version.
+* 575dd6d -- Added missing import and deleted unused file.
 ### 14.4.3 Remove unused file and added module provider to cheating detection event detail.
 * 01e1ba1 -- [CI/CD] Update packages.json version based on GitLab tag.
 * 6e4548f -- Merge branch 'develop' into 'master'
