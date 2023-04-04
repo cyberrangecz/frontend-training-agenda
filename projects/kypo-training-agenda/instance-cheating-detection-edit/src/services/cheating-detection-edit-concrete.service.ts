@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { CheatingDetectionApi } from '@muni-kypo-crp/training-api';
 import { CheatingDetection } from '@muni-kypo-crp/training-model';
-import { from, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } from '@muni-kypo-crp/training-agenda';
 import { CheatingDetectionEditService } from './cheating-detection-edit.service';
@@ -29,7 +29,7 @@ export class CheatingDetectionEditConcreteService extends CheatingDetectionEditS
   create(cheatingDetection: CheatingDetection, trainingInstanceId: number): Observable<any> {
     return this.api.createAndExecute(cheatingDetection).pipe(
       tap(
-        () => this.notificationService.emit('success', 'Cheating Detection was created and started executing'),
+        () => this.notificationService.emit('success', 'Cheating Detection started executing'),
         (err) => this.errorHandler.emit(err, 'Creating and Executing Cheating Detection')
       ),
       switchMap(() => this.router.navigate([this.navigator.toTrainingInstanceCheatingDetection(trainingInstanceId)]))

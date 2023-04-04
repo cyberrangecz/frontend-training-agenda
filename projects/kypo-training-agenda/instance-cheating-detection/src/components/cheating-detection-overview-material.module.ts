@@ -1,25 +1,13 @@
 import { NgModule } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatRippleModule } from '@angular/material/core';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 /**
  * Material components imports for cheating detection overview
  */
 @NgModule({
-  imports: [
-    MatDividerModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatIconModule,
-    MatDialogModule,
-    MatProgressBarModule,
-  ],
-  exports: [MatDividerModule, MatButtonModule, MatInputModule, MatIconModule, MatDialogModule, MatProgressBarModule],
+  imports: [MatRippleModule, MatTooltipModule, MatIconModule],
+  exports: [MatRippleModule, MatTooltipModule, MatIconModule],
 })
 export class CheatingDetectionOverviewMaterialModule {}
