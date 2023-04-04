@@ -1,3 +1,7 @@
+### 14.4.5 Enabled cheating detection routing.
+* 749ad28 -- [CI/CD] Update packages.json version based on GitLab tag.
+* b5d123d -- Merge branch 'develop' into 'master'
+* 69356c8 -- Enable cheating detection routing
 ### 14.4.4 Reworked file structure for instance-cheating-detection-detail folder and added module provider to cheating detection event detail.
 * 89b2839 -- [CI/CD] Update packages.json version based on GitLab tag.
 *   e1b3164 -- Merge branch 'develop' into 'master'
