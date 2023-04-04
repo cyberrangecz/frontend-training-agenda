@@ -99,7 +99,7 @@ export class CheatingDetectionConcreteService extends CheatingDetectionService {
   rerun(cheatingDetectionId: number, trainingInstanceId: number): Observable<any> {
     return this.api.rerun(cheatingDetectionId, trainingInstanceId).pipe(
       tap(
-        () => this.notificationService.emit('success', 'The Rerun of Cheating Detection has started.'),
+        () => this.notificationService.emit('success', 'Cheating Detection was re-executed.'),
         (err) => this.errorHandler.emit(err, 'executing cheating detection rerun')
       )
     );
@@ -137,7 +137,7 @@ export class CheatingDetectionConcreteService extends CheatingDetectionService {
   public createAndExecute(cheatingDetection: CheatingDetection): Observable<any> {
     return this.api.createAndExecute(cheatingDetection).pipe(
       tap(
-        () => this.notificationService.emit('success', 'Cheating Detection was created and executed'),
+        () => this.notificationService.emit('success', 'Cheating Detection was executed'),
         (err) => this.errorHandler.emit(err, 'Creating and executing cheating detection')
       )
     );

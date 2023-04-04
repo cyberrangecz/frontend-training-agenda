@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { TrainingInstanceDetectionEventDetailComponent } from './training-instance-detection-event-detail.component';
-import { MatCardModule } from '@angular/material/card';
 import { SentinelTableModule } from '@sentinel/components/table';
 import { PaginationService, TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
 import { TrainingAgendaConfig, TrainingDefaultNavigator, TrainingNavigator } from '@muni-kypo-crp/training-agenda';
@@ -9,11 +8,18 @@ import { DetectionEventService } from '../services/detection-event/detection-eve
 import { DetectionEventConcreteService } from '../services/detection-event/detection-event-concrete.service';
 import { DetectionEventParticipantService } from '../services/participant/detection-event-participant.service';
 import { DetectionEventParticipantConcreteService } from '../services/participant/detection-event-participant-concrete.service';
-import { MatIconModule } from '@angular/material/icon';
 import { SentinelPipesModule } from '@sentinel/common';
+import { MatCardModule } from '@angular/material/card';
+import { TrainingInstanceDetectionEventDetailMaterialModule } from './training-instance-detection-event-detail-material.module';
 
 @NgModule({
-  imports: [CommonModule, MatCardModule, SentinelTableModule, MatIconModule, SentinelPipesModule],
+  imports: [
+    CommonModule,
+    SentinelTableModule,
+    SentinelPipesModule,
+    TrainingInstanceDetectionEventDetailMaterialModule,
+    MatCardModule,
+  ],
   declarations: [TrainingInstanceDetectionEventDetailComponent],
   providers: [
     PaginationService,

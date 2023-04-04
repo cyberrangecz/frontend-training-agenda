@@ -24,7 +24,6 @@ export class CheatingDetectionEditFormGroup {
   }
   /**
    * Sets values from form to training definition object
-   * @param cheatingDetectionCreate cheating detection create object to be filled with inputs from form
    */
   createCheatingDetection(): CheatingDetection {
     const cheatingDetection = new CheatingDetection();

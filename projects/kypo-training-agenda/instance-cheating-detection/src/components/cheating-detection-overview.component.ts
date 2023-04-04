@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { OffsetPaginationEvent, SentinelBaseDirective } from '@sentinel/common';
 import { Observable } from 'rxjs';
 import { SentinelTable, TableActionEvent, TableLoadEvent } from '@sentinel/components/table';
@@ -100,9 +100,5 @@ export class CheatingDetectionOverviewComponent extends SentinelBaseDirective im
       this.INIT_SORT_DIR
     );
     this.onLoadEvent({ pagination: initialPagination });
-  }
-
-  toCheatingDetectionCreate(): void {
-    this.cheatingDetectionService.toCreatePage(this.trainingInstanceId);
   }
 }

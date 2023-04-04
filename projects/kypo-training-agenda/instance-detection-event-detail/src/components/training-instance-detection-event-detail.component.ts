@@ -5,7 +5,6 @@ import {
   AbstractDetectionEventTypeEnum,
   AnswerSimilarityDetectionEvent,
   DetectionEventParticipant,
-  ForbiddenCommand,
   LocationSimilarityDetectionEvent,
   MinimalSolveTimeDetectionEvent,
   NoCommandsDetectionEvent,
@@ -15,7 +14,7 @@ import { Observable } from 'rxjs';
 import { SentinelTable, TableActionEvent, TableLoadEvent } from '@sentinel/components/table';
 import { map, take, takeWhile } from 'rxjs/operators';
 import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
-import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME, TrainingNavigator } from '@muni-kypo-crp/training-agenda';
+import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
 import { DetectionEventParticipantTable } from '../model/detection-event-participant-table';
 import { DetectionEventParticipantService } from '../services/participant/detection-event-participant.service';
 import { DetectionEventService } from '../services/detection-event/detection-event.service';
@@ -112,26 +111,6 @@ export class TrainingInstanceDetectionEventDetailComponent extends SentinelBaseD
   onTableAction(event: TableActionEvent<DetectionEventParticipant>): void {
     event.action.result$.pipe(take(1)).subscribe();
   }
-
-  // ifAnswerSimilarity(): boolean {
-  //   return this.answerSimilarityEvent$ != null;
-  // }
-  //
-  // ifLocationProximity(): boolean {
-  //   return this.locationSimilarityEvent$ != null;
-  // }
-  //
-  // ifTimeProximity(): boolean {
-  //   return this.timeProximityEvent$ != null;
-  // }
-  //
-  // ifMinimalSolveTime(): boolean {
-  //   return this.minimalSolveTimeEvent$ != null;
-  // }
-  //
-  // ifNoCommands(): boolean {
-  //   return this.noCommandsEvent$ != null;
-  // }
 
   private initTable() {
     this.hasError$ = this.detectionEventParticipantService.hasError$;

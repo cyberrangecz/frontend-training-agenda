@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ngfModule } from 'angular-file';
 import { SentinelPipesModule } from '@sentinel/common';
 import { SentinelControlsModule } from '@sentinel/components/controls';
 import { SentinelTableModule } from '@sentinel/components/table';
@@ -12,21 +11,16 @@ import { CheatingDetectionService } from '../services/cheating-detection.service
 import { CheatingDetectionOverviewMaterialModule } from './cheating-detection-overview-material.module';
 import { CheatingDetectionOverviewComponent } from './cheating-detection-overview.component';
 import { StageOverviewComponent } from './stage-overview/stage-overview.component';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatRippleModule } from '@angular/material/core';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    ngfModule,
     SentinelPipesModule,
     CheatingDetectionOverviewMaterialModule,
     ReactiveFormsModule,
     SentinelTableModule,
     SentinelControlsModule,
-    MatTooltipModule,
-    MatRippleModule,
   ],
   declarations: [CheatingDetectionOverviewComponent, StageOverviewComponent],
   providers: [
