@@ -1,3 +1,7 @@
+### 14.4.6 Added cheating detection export.
+* 666e618 -- [CI/CD] Update packages.json version based on GitLab tag.
+* f85a4ef -- Merge branch 'develop' into 'master'
+* 0695871 -- Merge develop into master
 ### 14.4.5 Enabled cheating detection routing.
 * 749ad28 -- [CI/CD] Update packages.json version based on GitLab tag.
 * b5d123d -- Merge branch 'develop' into 'master'
