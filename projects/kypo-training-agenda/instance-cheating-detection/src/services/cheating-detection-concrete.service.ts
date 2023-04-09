@@ -146,7 +146,9 @@ export class CheatingDetectionConcreteService extends CheatingDetectionService {
     this.hasErrorSubject$.next(true);
   }
 
-  public export(cheatingDetectionId: number): Observable<any> {
-    return;
+  public download(cheatingDetectionId: number): Observable<any> {
+    return this.api
+      .archive(cheatingDetectionId)
+      .pipe(tap({ error: (err) => this.errorHandler.emit(err, 'Downloading cheating detection') }));
   }
 }
