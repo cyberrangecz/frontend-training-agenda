@@ -50,10 +50,10 @@ export abstract class CheatingDetectionService extends OffsetPaginatedElementsSe
   abstract rerun(cheatingDetectionId: number, trainingInstanceId: number): Observable<any>;
 
   /**
-   * Exports the cheating Detection
+   * Downloads the cheating Detection
    * @param cheatingDetectionId cheating detection id
    */
-  abstract export(cheatingDetectionId: number): Observable<any>;
+  abstract download(cheatingDetectionId: number): Observable<any>;
 
   /**
    * Creates and executed a new cheating detection

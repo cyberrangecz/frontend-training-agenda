@@ -76,6 +76,15 @@ export class CheatingDetectionTable extends SentinelTable<CheatingDetectionRowAd
             of(false),
             defer(() => service.toDetectionEventsOfCheatingDetection(cd.trainingInstanceId, cd.id))
           ),
+          new RowAction(
+            'archive',
+            'Get Archive',
+            'cloud_download',
+            'primary',
+            'Download ZIP file containing all cheating detection data',
+            of(false),
+            defer(() => service.download(cd.id))
+          ),
         ];
       default:
         return [];
