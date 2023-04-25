@@ -1,3 +1,4 @@
+14.4.8 Update topology legend and command timeline display
 14.4.7 Restructured cheating detection table actions. Updated detection detail date format. Added specified time proximity to time proximity stage detail.
 14.4.6 Added cheating detection export.
 14.4.5 Enabled cheating detection routing.

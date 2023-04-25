@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { KypoTopologyGraphModule, KypoTopologyLegendModule } from '@muni-kypo-crp/topology-graph';
+import { KypoTopologyGraphModule } from '@muni-kypo-crp/topology-graph';
 import { PhaseMaterialModule } from './phase-material.module';
 import { NextPhaseButtonComponent } from '../next-phase-button/next-phase-button.component';
 import { AbstractPhaseComponent } from './abstract-phase.component';
@@ -35,7 +35,6 @@ const markdownParserConfig = {
     CommonModule,
     SentinelMarkdownViewModule.forRoot(markdownParserConfig),
     KypoTopologyGraphModule,
-    KypoTopologyLegendModule,
     FormsModule,
     PhaseMaterialModule,
     MatTabsModule,
