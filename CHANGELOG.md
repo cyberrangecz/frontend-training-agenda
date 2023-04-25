@@ -1,3 +1,7 @@
+### 14.4.7 Restructured cheating detection table actions. Updated detection detail date format. Added specified time proximity to time proximity stage detail.
+* 850c7b6 -- [CI/CD] Update packages.json version based on GitLab tag.
+* 17f7167 -- Merge branch 'develop' into 'master'
+* 55e6755 -- Merge Develop into master
 ### 14.4.6 Added cheating detection export.
 * 666e618 -- [CI/CD] Update packages.json version based on GitLab tag.
 * f85a4ef -- Merge branch 'develop' into 'master'
