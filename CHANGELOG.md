@@ -1,3 +1,7 @@
+### 14.4.8 Update topology legend and command timeline display
+* e852761 -- [CI/CD] Update packages.json version based on GitLab tag.
+* 3131ee8 -- Merge branch '207-update-topology-and-timeline-component-display' into 'master'
+* f4813da -- Resolve "Update topology and timeline component display"
 ### 14.4.7 Restructured cheating detection table actions. Updated detection detail date format. Added specified time proximity to time proximity stage detail.
 * 850c7b6 -- [CI/CD] Update packages.json version based on GitLab tag.
 * 17f7167 -- Merge branch 'develop' into 'master'
