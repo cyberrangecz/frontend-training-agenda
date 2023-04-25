@@ -21,8 +21,8 @@ export class StageOverviewComponent implements OnChanges {
   }
 
   stageIconResolver(stage: string): string {
-    const splitted = stage.split(':', 2);
-    switch (splitted[1].trim()) {
+    const splitted = stage.split(':', 2)[1].trim().split(' ')[0];
+    switch (splitted) {
       case CheatingDetectionStateEnum.Queued:
         return 'pause';
       case CheatingDetectionStateEnum.Finished:
