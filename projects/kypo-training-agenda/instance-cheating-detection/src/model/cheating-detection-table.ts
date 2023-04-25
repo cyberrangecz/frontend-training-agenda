@@ -54,20 +54,6 @@ export class CheatingDetectionTable extends SentinelTable<CheatingDetectionRowAd
       case CheatingDetectionStateEnum.Finished:
         return [
           new RowAction(
-            'runAgain',
-            'Run Again',
-            'run_circle',
-            'primary',
-            'Rerun Cheating Detection',
-            of(false),
-            defer(() => service.rerun(cd.id, cd.trainingInstanceId))
-          ),
-          new DeleteAction(
-            'Delete cheating detection',
-            of(false),
-            defer(() => service.delete(cd.id, cd.trainingInstanceId))
-          ),
-          new RowAction(
             'results',
             'Results',
             'assessment',
@@ -85,6 +71,20 @@ export class CheatingDetectionTable extends SentinelTable<CheatingDetectionRowAd
             of(false),
             defer(() => service.download(cd.id))
           ),
+          new RowAction(
+            'runAgain',
+            'Run Again',
+            'run_circle',
+            'primary',
+            'Rerun Cheating Detection',
+            of(false),
+            defer(() => service.rerun(cd.id, cd.trainingInstanceId))
+          ),
+          new DeleteAction(
+            'Delete cheating detection',
+            of(false),
+            defer(() => service.delete(cd.id, cd.trainingInstanceId))
+          ),
         ];
       default:
         return [];
@@ -92,12 +92,13 @@ export class CheatingDetectionTable extends SentinelTable<CheatingDetectionRowAd
   }
 
   private static requestStageResolver(data: CheatingDetection) {
+    const proximityThreshold = data.proximityThreshold != null ? ' proximity: ' + data.proximityThreshold + ' sec' : '';
     return [
-      'Answer Similarity Detection : ' + data.answerSimilarityState,
-      'Location Proximity Detection : ' + data.locationSimilarityState,
-      'Time Proximity Detection : ' + data.timeProximityState,
-      'Minimal Solve Time Detection : ' + data.minimalSolveTimeState,
-      'No Commands Detection : ' + data.noCommandsState,
+      'Answer similarity detection: ' + data.answerSimilarityState,
+      'Location proximity detection: ' + data.locationSimilarityState,
+      'Time proximity detection: ' + data.timeProximityState + proximityThreshold,
+      'Minimal solve time detection: ' + data.minimalSolveTimeState,
+      'No commands detection: ' + data.noCommandsState,
     ];
   }
 }

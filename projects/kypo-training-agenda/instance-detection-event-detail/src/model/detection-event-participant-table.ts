@@ -4,6 +4,7 @@ import { DetectionEventParticipant } from '@muni-kypo-crp/training-model';
 import { DetectionEventParticipantRowAdapter } from './detection-event-participant-row-adapter';
 import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
 import { DetectionEventService } from '../services/detection-event/detection-event.service';
+import { DatePipe } from '@angular/common';
 
 /**
  * @dynamic
@@ -23,9 +24,9 @@ export class DetectionEventParticipantTable extends SentinelTable<DetectionEvent
   }
 
   private static createRow(element: DetectionEventParticipant): Row<DetectionEventParticipantRowAdapter> {
-    const datePipe = new SentinelDateTimeFormatPipe('en-EN');
+    const datePipe = new DatePipe('en-EN');
     const adapter = element as DetectionEventParticipantRowAdapter;
-    adapter.occurredAtFormatted = `${datePipe.transform(adapter.occurredAt)}`;
+    adapter.occurredAtFormatted = `${datePipe.transform(adapter.occurredAt, 'medium')}`;
     adapter.solvedInTimeFormatted = adapter.solvedInTime == null ? 'unspecified' : adapter.solvedInTime.toString();
 
     return new Row(adapter);
