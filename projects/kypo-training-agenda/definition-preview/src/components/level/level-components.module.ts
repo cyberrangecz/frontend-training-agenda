@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { KypoTopologyGraphModule, KypoTopologyLegendModule } from '@muni-kypo-crp/topology-graph';
+import { KypoTopologyGraphModule } from '@muni-kypo-crp/topology-graph';
 import { AbstractLevelComponent } from './abstract-level.component';
 import { AssessmentLevelComponent } from './assessment-level/assessment-level.component';
 import { ExtendedMatchingItemsTraineeComponent } from './assessment-level/question/extended-matching-items/extended-matching-items-trainee.component';
@@ -37,7 +37,6 @@ const markdownParserConfig = {
     CommonModule,
     SentinelMarkdownViewModule.forRoot(markdownParserConfig),
     KypoTopologyGraphModule,
-    KypoTopologyLegendModule,
     FormsModule,
     LevelMaterialModule,
   ],

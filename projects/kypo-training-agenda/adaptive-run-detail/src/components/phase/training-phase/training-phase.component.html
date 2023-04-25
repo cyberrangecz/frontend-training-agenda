@@ -10,13 +10,6 @@
       </div>
     </div>
     <div class="right-panel" #rightPanel>
-      <!-- TOPOLOGY LEGEND -->
-      <kypo-topology-app-legend [width]="65"
-                                 [height]="topologyHeight"
-                                 [style.float]="'left'"
-                                 [legendAttachment]="'vertical'"
-      ></kypo-topology-app-legend>
-
       <!-- TOPOLOGY COMPONENT-->
       <kypo-topology-graph
         *ngIf="!isTopologyDisplayed; else topologyPlaceholder"
