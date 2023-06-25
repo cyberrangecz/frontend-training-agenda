@@ -71,6 +71,10 @@ export class CheatingDetectionEditComponent extends SentinelBaseDirective {
   get noCommandsMethod(): AbstractControl {
     return this.cheatingDetectionEditFormGroup.formGroup.get('noCommandsDetection');
   }
+  get forbiddenCommandsMethod(): AbstractControl {
+    return this.cheatingDetectionEditFormGroup.formGroup.get('forbiddenCommandsDetection');
+  }
+
   get timeThreshold(): AbstractControl {
     return this.cheatingDetectionEditFormGroup.formGroup.get('proximityThreshold');
   }

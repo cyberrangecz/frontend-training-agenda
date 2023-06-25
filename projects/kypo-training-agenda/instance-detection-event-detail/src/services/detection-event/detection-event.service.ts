@@ -2,6 +2,7 @@ import { OffsetPaginatedElementsService, OffsetPaginationEvent, PaginatedResourc
 import {
   AbstractDetectionEvent,
   AnswerSimilarityDetectionEvent,
+  ForbiddenCommandsDetectionEvent,
   LocationSimilarityDetectionEvent,
   MinimalSolveTimeDetectionEvent,
   NoCommandsDetectionEvent,
@@ -47,4 +48,9 @@ export abstract class DetectionEventService {
    * @param eventId the event id
    */
   abstract getNoCommandsEventById(eventId: number): Observable<NoCommandsDetectionEvent>;
+  /**
+   * Sends http request to find detection event of type forbidden commands by its id
+   * @param eventId the event id
+   */
+  abstract getForbiddenCommandsEventById(eventId: number): Observable<ForbiddenCommandsDetectionEvent>;
 }

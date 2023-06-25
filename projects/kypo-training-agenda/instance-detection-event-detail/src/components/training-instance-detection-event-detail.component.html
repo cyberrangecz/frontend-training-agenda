@@ -58,6 +58,11 @@
         <div class="icon-label">Minimal Solve Time</div>
         <div class="value-field">{{ minimalSolveTimeEvent.minimalSolveTime + " seconds" }}</div>
       </div>
+      <div class="data-field" *ngIf="forbiddenCommandsEvent$ | async as forbiddenCommandsEvent">
+        <mat-icon class="material-icons-round"> pending_actions </mat-icon>
+        <div class="icon-label">Forbidden commands</div>
+        <div class="value-field">{{ forbiddenCommandsEvent.forbiddenCommands.toString()}}</div>
+      </div>
       </div>
     </mat-card>
 

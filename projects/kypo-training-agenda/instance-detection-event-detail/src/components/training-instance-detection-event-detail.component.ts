@@ -5,6 +5,7 @@ import {
   AbstractDetectionEventTypeEnum,
   AnswerSimilarityDetectionEvent,
   DetectionEventParticipant,
+  ForbiddenCommandsDetectionEvent,
   LocationSimilarityDetectionEvent,
   MinimalSolveTimeDetectionEvent,
   NoCommandsDetectionEvent,
@@ -43,6 +44,7 @@ export class TrainingInstanceDetectionEventDetailComponent extends SentinelBaseD
   timeProximityEvent$: Observable<TimeProximityDetectionEvent>;
   minimalSolveTimeEvent$: Observable<MinimalSolveTimeDetectionEvent>;
   noCommandsEvent$: Observable<NoCommandsDetectionEvent>;
+  forbiddenCommandsEvent$: Observable<ForbiddenCommandsDetectionEvent>;
   eventId: number;
   detectionRunAt: Date;
   detectionRunAtFormatted: string;
@@ -94,7 +96,7 @@ export class TrainingInstanceDetectionEventDetailComponent extends SentinelBaseD
         break;
       case AbstractDetectionEventTypeEnum.Forbidden_commands:
         this.eventTypeFormatted = 'Forbidden commands';
-        //this.forbiddenCommandsEvent = this.detectionEventService.getForbiddenCommandsEventById(this.eventId)
+        this.forbiddenCommandsEvent$ = this.detectionEventService.getForbiddenCommandsEventById(this.eventId);
         break;
       default:
         this.eventTypeFormatted = 'Undefined';

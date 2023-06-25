@@ -16,6 +16,7 @@ export class CheatingDetectionEditFormGroup {
       timeProximityDetection: new UntypedFormControl(cheatingDetection.timeProximityState),
       minimalSolveTimeDetection: new UntypedFormControl(cheatingDetection.minimalSolveTimeState),
       noCommandsDetection: new UntypedFormControl(cheatingDetection.noCommandsState),
+      forbiddenCommandsDetection: new UntypedFormControl(cheatingDetection.forbiddenCommandsState),
       timeThreshold: new UntypedFormControl(cheatingDetection.proximityThreshold, [
         SentinelValidators.pattern('^[0-9]*$'),
       ]),
@@ -42,10 +43,12 @@ export class CheatingDetectionEditFormGroup {
     cheatingDetection.noCommandsState = this.formGroup.get('noCommandsDetection').value
       ? CheatingDetectionStateEnum.Queued
       : CheatingDetectionStateEnum.Disabled;
+    cheatingDetection.forbiddenCommandsState = this.formGroup.get('forbiddenCommandsDetection').value
+      ? CheatingDetectionStateEnum.Queued
+      : CheatingDetectionStateEnum.Disabled;
     cheatingDetection.proximityThreshold = this.formGroup.get('timeThreshold').value;
     cheatingDetection.results = 0;
     cheatingDetection.currentState = CheatingDetectionStateEnum.Running;
-    cheatingDetection.forbiddenCommandsState = CheatingDetectionStateEnum.Disabled;
     cheatingDetection.executedBy = '';
     cheatingDetection.trainingInstanceId = this.trainingInstanceId;
     return cheatingDetection;

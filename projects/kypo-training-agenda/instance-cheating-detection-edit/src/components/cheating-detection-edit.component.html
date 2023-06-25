@@ -42,7 +42,7 @@
             ? 'Enable execution of cheating detection to check for users who submitted answers ' +
              'in a similar time frame. Specify the proximity frame below.'
             : 'Disable execution of cheating detection to check for users who submitted answers ' +
-             'in a similar time frame. Specify the proximity frame below.'
+             'in a similar time frame.'
         "
             formControlName="timeProximityDetection"
           >
@@ -81,6 +81,23 @@
           >
           </mat-slide-toggle>
         </div>
+
+        <div class="slide-toggle-container">
+          <span>Forbidden Commands</span>
+          <mat-slide-toggle
+            [matTooltipPosition]="'right'"
+            [matTooltip]="
+          forbiddenCommandsMethod
+            ? 'Enable execution of cheating detection to check for users who submitted forbidden commands ' +
+             'in their terminal. Specify the commands in a window below.'
+            : 'Disable execution of cheating detection to check for users who submitted forbidden commands ' +
+             'in their terminal.'
+        "
+            formControlName="forbiddenCommandsDetection"
+          >
+          </mat-slide-toggle>
+        </div>
+
         <mat-divider></mat-divider>
       </div>
 
@@ -97,7 +114,6 @@
 
         </mat-form-field>
       </div>
-
     </div>
    </form>
  </div>

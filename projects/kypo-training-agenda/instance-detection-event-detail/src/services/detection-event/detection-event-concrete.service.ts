@@ -5,6 +5,7 @@ import { from, Observable } from 'rxjs';
 import {
   AbstractDetectionEvent,
   AnswerSimilarityDetectionEvent,
+  ForbiddenCommandsDetectionEvent,
   LocationSimilarityDetectionEvent,
   MinimalSolveTimeDetectionEvent,
   NoCommandsDetectionEvent,
@@ -63,5 +64,9 @@ export class DetectionEventConcreteService extends DetectionEventService {
    */
   public getNoCommandsEventById(eventId: number): Observable<NoCommandsDetectionEvent> {
     return this.api.getNoCommandsEventById(eventId);
+  }
+
+  public getForbiddenCommandsEventById(eventId: number): Observable<ForbiddenCommandsDetectionEvent> {
+    return this.api.getForbiddenCommandsEventById(eventId);
   }
 }
