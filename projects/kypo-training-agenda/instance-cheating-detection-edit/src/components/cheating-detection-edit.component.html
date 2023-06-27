@@ -1,119 +1,177 @@
-<div class="content">
-  <ng-template>Choose cheating detection methods to execute</ng-template>
-  <sentinel-controls [controls]="controls" (itemClicked)="onControlsAction($event)"></sentinel-controls>
-  <form [formGroup]="cheatingDetectionEditFormGroup.formGroup">
-    <div class="form-container">
-      <div class="checkbox-container">
-
-        <div class="slide-toggle-container">
-          <span>Answer Similarity</span>
-          <mat-slide-toggle
-            [matTooltipPosition]="'right'"
-            [matTooltip]="
+<sentinel-controls [controls]="controls" (itemClicked)="onControlsAction($event)"></sentinel-controls>
+<form [formGroup]="cheatingDetectionEditFormGroup.formGroup">
+  <div class="form-container">
+<mat-expansion-panel [expanded]="true">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <span>Cheating Detection Methods</span>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <div class="checkbox-container">
+      <div class="slide-toggle-container">
+        <span>Answer Similarity</span>
+        <mat-slide-toggle
+          [matTooltipPosition]="'right'"
+          [matTooltip]="
           answerSimilarityMethod
             ? 'Enable Execution of cheating detection to check for users that submitted a flag that belongs to someone else.'
             : 'Disable Execution of cheating detection to check for users that submitted a flag that belongs to someone else.'
         "
-            formControlName="answerSimilarityDetection"
-          >
-          </mat-slide-toggle>
-        </div>
+          formControlName="answerSimilarityDetection"
+        >
+        </mat-slide-toggle>
+      </div>
 
-        <div class="slide-toggle-container">
-          <span>Location similarity</span>
-          <mat-slide-toggle
-            [matTooltipPosition]="'right'"
-            [matTooltip]="
+      <div class="slide-toggle-container">
+        <span>Location similarity</span>
+        <mat-slide-toggle
+          [matTooltipPosition]="'right'"
+          [matTooltip]="
           locationSimilarityMethod
             ? 'Enables execution of cheating detection to check for users who had similar ip addresses in training.'
             : 'Disables execution of cheating detection to check for users who had similar ip addresses in training.'
         "
-            formControlName="locationSimilarityDetection"
-          >
-          </mat-slide-toggle>
-        </div>
+          formControlName="locationSimilarityDetection"
+        >
+        </mat-slide-toggle>
+      </div>
 
-        <div class="slide-toggle-container">
-          <span>Time proximity</span>
-          <mat-slide-toggle
-            [matTooltipPosition]="'right'"
-            [matTooltip]="
+      <div class="slide-toggle-container">
+        <span>Time proximity</span>
+        <mat-slide-toggle
+          [matTooltipPosition]="'right'"
+          [matTooltip]="
           timeProximityMethod
             ? 'Enable execution of cheating detection to check for users who submitted answers ' +
              'in a similar time frame. Specify the proximity frame below.'
             : 'Disable execution of cheating detection to check for users who submitted answers ' +
              'in a similar time frame.'
         "
-            formControlName="timeProximityDetection"
-          >
-          </mat-slide-toggle>
-        </div>
+          formControlName="timeProximityDetection"
+        >
+        </mat-slide-toggle>
+      </div>
 
-        <div class="slide-toggle-container">
-          <span>Minimal solve time</span>
-          <mat-slide-toggle
-            [matTooltipPosition]="'right'"
-            [matTooltip]="
+      <div class="slide-toggle-container">
+        <span>Minimal solve time</span>
+        <mat-slide-toggle
+          [matTooltipPosition]="'right'"
+          [matTooltip]="
           minimalSolveTimeMethod
             ? 'Enable Execution of cheating detection to check for users who solved a task in less than ' +
              'set minimal possible solve time.'
             : 'Disable Execution of cheating detection to check for users who solved a task in less than ' +
              'set minimal possible solve time.'
         "
-            formControlName="minimalSolveTimeDetection"
-          >
-          </mat-slide-toggle>
-        </div>
+          formControlName="minimalSolveTimeDetection"
+        >
+        </mat-slide-toggle>
+      </div>
 
-        <div class="slide-toggle-container">
-          <span>No commands</span>
-          <mat-slide-toggle
-            [matTooltipPosition]="'right'"
-            [matTooltip]="
+      <div class="slide-toggle-container">
+        <span>No commands</span>
+        <mat-slide-toggle
+          [matTooltipPosition]="'right'"
+          [matTooltip]="
           noCommandsMethod
             ? 'Enable Execution of cheating detection to check for users who used no commands to ' +
              'solve a level that required commands for completion'
             : 'Disable Execution of cheating detection to check for users who used no commands to ' +
              'solve a level that required commands for completion'
         "
-            formControlName="noCommandsDetection"
+          formControlName="noCommandsDetection"
 
-          >
-          </mat-slide-toggle>
-        </div>
+        >
+        </mat-slide-toggle>
+      </div>
 
-        <div class="slide-toggle-container">
-          <span>Forbidden Commands</span>
-          <mat-slide-toggle
-            [matTooltipPosition]="'right'"
-            [matTooltip]="
+      <div class="slide-toggle-container">
+        <span>Forbidden Commands</span>
+        <mat-slide-toggle
+          [matTooltipPosition]="'right'"
+          [checked]="false"
+          [matTooltip]="
           forbiddenCommandsMethod
             ? 'Enable execution of cheating detection to check for users who submitted forbidden commands ' +
              'in their terminal. Specify the commands in a window below.'
             : 'Disable execution of cheating detection to check for users who submitted forbidden commands ' +
              'in their terminal.'
         "
-            formControlName="forbiddenCommandsDetection"
-          >
-          </mat-slide-toggle>
-        </div>
-
-        <mat-divider></mat-divider>
+          formControlName="forbiddenCommandsDetection"
+        >
+        </mat-slide-toggle>
       </div>
+  </div>
+</mat-expansion-panel>
 
+    <mat-divider></mat-divider>
 
-      <div class="proximity-container" *ngIf=timeProximityMethod.value (keydown.enter)="$event.preventDefault()">
-        <span>Proximity (in seconds) for time proximity detection. Default value is 120:</span>
-        <mat-form-field appearance="outline"
-                        [matTooltipPosition]="'right'"
-                        [matTooltip]=" ' Represents the time window in which two participants that submit an answer ' +
-                         'in the same level should be marked in a detection event.' ">
-          <mat-label>Time Threshold</mat-label>
-          <input matInput placeholder="proximity threshold" type="number"
-                 min="1" max="{{maximumProximityThreshold}}" formControlName="timeThreshold">
+      <mat-expansion-panel class="time-proximity-panel"
+                           (keydown.enter)="$event.preventDefault()"
+                           [disabled]=!timeProximityMethod.value
+                           [expanded]=timeProximityMethod.value>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <span>Time Proximity Setup</span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
 
-        </mat-form-field>
-      </div>
+          <span>Proximity (in seconds) for time proximity detection. Default value is 120:</span>
+          <mat-form-field appearance="outline"
+                          [matTooltipPosition]="'right'"
+                          [matTooltip]=" ' Represents the time window in which two participants that submit an answer ' +
+                               'in the same level should be marked in a detection event.' ">
+            <mat-label>Time Threshold</mat-label>
+            <input matInput placeholder="proximity threshold" type="number"
+                   min="1" max="{{maximumProximityThreshold}}" formControlName="timeThreshold">
+
+          </mat-form-field>
+
+      </mat-expansion-panel>
+
+  <mat-divider></mat-divider>
+
+  <mat-expansion-panel class="forbidden-commands-panel"
+                       (keydown.enter)="$event.preventDefault()"
+                       [disabled]=!forbiddenCommandsMethod.value
+                       [expanded]=forbiddenCommandsMethod.value>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <span>Forbidden Commands Setup</span>
+      </mat-panel-title>
+      </mat-expansion-panel-header>
+    <div class="forbidden-commands-controls">
+      <button (click)="addForbiddenCommand()" mat-button color="primary">Add forbidden command</button>
     </div>
+
+    <div formArrayName="forbiddenCommands">
+      <div *ngFor="let forbiddenCommandsGroup of forbiddenCommands.controls; index as i" [formGroupName]="i">
+        <!-- FORBIDDEN COMMANDS field -->
+        <mat-radio-group class="type-options">
+          <mat-error *ngIf="forbiddenCommandsGroup.get('type').hasError('required')">You need to select command type</mat-error>
+          <mat-radio-button labelPosition="after" value="bash" (change)="changeType(i, 'bash')" formControlName="type">BASH</mat-radio-button>
+          <mat-radio-button labelPosition="after" value="msf" (change)="changeType(i, 'msf')" formControlName="type">Metasploit</mat-radio-button>
+          </mat-radio-group>
+        <mat-form-field appearance="outline">
+          <mat-label class="command-input">Option {{ i + 1 }}</mat-label>
+          <input matInput placeholder="Forbidden Command" formControlName="command" required />
+          <mat-error *ngIf="forbiddenCommandsGroup.get('command').hasError('required')">Command text cannot be empty</mat-error>
+        </mat-form-field>
+        <button class="delete-button"
+          mat-button
+          matSuffix
+          mat-icon-button
+          aria-label="Delete option"
+          color="warn"
+          matTooltip="Delete option"
+          (click)="deleteForbiddenCommand(i)"
+        >
+          <mat-icon>remove_circle</mat-icon>
+        </button>
+      </div>
+      <mat-error *ngIf="forbiddenCommands.hasError('required')">Choices cannot be empty</mat-error>
+    </div>
+  </mat-expansion-panel>
+  </div>
    </form>
- </div>
+

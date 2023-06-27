@@ -1,11 +1,16 @@
 import { Component } from '@angular/core';
-import { SentinelBaseDirective } from '@sentinel/common';
-import { AbstractControl } from '@angular/forms';
+import {SentinelBaseDirective, SentinelValidators} from '@sentinel/common';
+import {AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import { CheatingDetectionEditFormGroup } from './cheating-detection-edit-form-group';
 import { CheatingDetectionEditService } from '../services/cheating-detection-edit.service';
 import { ActivatedRoute } from '@angular/router';
 import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
-import { CheatingDetection, CheatingDetectionStateEnum, TrainingInstance } from '@muni-kypo-crp/training-model';
+import {
+  CheatingDetection,
+  CheatingDetectionStateEnum,
+  ForbiddenCommand,
+  TrainingInstance
+} from '@muni-kypo-crp/training-model';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { map, take, takeWhile } from 'rxjs/operators';
 import { defer, Observable, of } from 'rxjs';
@@ -78,6 +83,39 @@ export class CheatingDetectionEditComponent extends SentinelBaseDirective {
   get timeThreshold(): AbstractControl {
     return this.cheatingDetectionEditFormGroup.formGroup.get('proximityThreshold');
   }
+
+  get forbiddenCommands(): UntypedFormArray {
+    return this.cheatingDetectionEditFormGroup.formGroup.get('forbiddenCommands') as UntypedFormArray;
+  }
+
+  /**
+   * Deletes an choice (one of the answers)
+   * @param index index of the choice which should be deleted
+   */
+  deleteForbiddenCommand(index: number): void {
+    this.forbiddenCommands.removeAt(index);
+    this.forbiddenCommands.controls.slice(index).forEach((choice) => choice.get('order').setValue(choice.get('order').value - 1));
+    this.forbiddenCommandsChanged();
+  }
+
+  addForbiddenCommand(): void {
+    this.forbiddenCommands.push(
+      new UntypedFormGroup({
+        command: new UntypedFormControl('', [SentinelValidators.noWhitespace, Validators.required]),
+        type: new UntypedFormControl('', [Validators.required]),
+      })
+    );
+    this.forbiddenCommandsChanged();
+  }
+
+  changeType(i: number, value: string ): void {
+    this.forbiddenCommands.controls[i].get('type').setValue(value);
+    this.forbiddenCommandsChanged();
+  }
+  forbiddenCommandsChanged(): void {
+    this.cheatingDetectionEditFormGroup.formGroup.markAsDirty();
+  }
+
 
   initControls(editService: CheatingDetectionEditService): void {
     this.controls = [

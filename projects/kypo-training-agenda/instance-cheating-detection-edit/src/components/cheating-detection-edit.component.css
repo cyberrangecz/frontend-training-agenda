@@ -8,6 +8,11 @@ mat-divider {
   margin: 10px 0;
 }
 
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
 .slide-toggle-container {
   display: flex;
   justify-content: space-between;
@@ -19,5 +24,42 @@ mat-divider {
 }
 
 .proximity-container {
+  width: 100%;
+}
+.forbidden-commands-container {
   width: 20%;
+}
+.mat-expansion-panel-header-title,
+.mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.panel-description-error mat-icon {
+  margin-right: 5px;
+}
+
+command-input {
+  width: 60%;
+}
+
+.type-options {
+  width: 20%;
+}
+
+.delete-button {
+  width: 20%;
+}
+
+
+/deep/ .mat-tooltip {
+  font-size: 14px;
+}
+
+.mat-radio-button {
+  margin: 0 10px;
 }
