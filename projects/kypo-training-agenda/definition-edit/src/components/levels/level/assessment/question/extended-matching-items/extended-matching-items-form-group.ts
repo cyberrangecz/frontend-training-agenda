@@ -26,7 +26,10 @@ export class ExtendedMatchingItemsFormGroup {
               new UntypedFormGroup({
                 id: new UntypedFormControl(statement.id),
                 order: new UntypedFormControl(statement.order),
-                text: new UntypedFormControl(statement.text, SentinelValidators.noWhitespace),
+                text: new UntypedFormControl(statement.text, [
+                  SentinelValidators.noWhitespace,
+                  Validators.maxLength(255),
+                ]),
                 correctOptionOrder: new UntypedFormControl(statement.correctOptionOrder),
               })
           )
@@ -37,7 +40,7 @@ export class ExtendedMatchingItemsFormGroup {
               new UntypedFormGroup({
                 id: new UntypedFormControl(option.id),
                 order: new UntypedFormControl(option.order),
-                text: new UntypedFormControl(option.text, SentinelValidators.noWhitespace),
+                text: new UntypedFormControl(option.text, [SentinelValidators.noWhitespace, Validators.maxLength(255)]),
               })
           )
         ),

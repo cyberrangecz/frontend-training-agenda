@@ -34,7 +34,7 @@ export class TrainingDefinitionOverviewControls {
     return [
       new SentinelControlItem(
         this.SIMULATOR_ACTION_ID,
-        'Simulating Tool',
+        'Instance Simulating Tool',
         'primary',
         of(false),
         defer(() => service.toSimulator())

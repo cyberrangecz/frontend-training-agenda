@@ -86,7 +86,7 @@
 
           <!-- ADD OPTION BUTTON -->
           <td class="last-option">
-            <button mat-button matSuffix mat-icon-button aria-label="Add option"
+            <button *ngIf="!columnLimitReached" mat-button matSuffix mat-icon-button aria-label="Add option"
               color="primary" matTooltip="Add option"
               (click)="addOption()">
               <mat-icon>add_circle</mat-icon>

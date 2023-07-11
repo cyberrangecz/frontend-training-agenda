@@ -10,8 +10,13 @@ p.required-note {
 .checkboxes {
   display: flex;
   flex-direction: column;
+  word-break: break-word;
 }
 
 mat-checkbox {
   margin: 5px 0;
+}
+
+/deep/ .mat-checkbox-layout {
+  white-space: normal !important;
 }

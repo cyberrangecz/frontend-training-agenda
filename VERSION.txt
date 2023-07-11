@@ -1,3 +1,6 @@
+14.4.11 Fixed deletion of ATD questions and question saving without correct answers. Bump model and api versions.
+14.4.10 Added text wrap to Assessment level mcq and markdown support to LTD and ATD question titles. Fixed issues with assessment level overflow, notes, outcomes and test mode.
+14.4.9 Changes naming of Authors to Designers in linear and adaptive training definitions.
 14.4.8 Update topology legend and command timeline display
 14.4.7 Restructured cheating detection table actions. Updated detection detail date format. Added specified time proximity to time proximity stage detail.
 14.4.6 Added cheating detection export.
