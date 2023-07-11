@@ -1,3 +1,13 @@
+### 14.4.12 Bump topology graph version.
+* 8e0f6f3 -- [CI/CD] Update packages.json version based on GitLab tag.
+*   52b0a45 -- Merge branch 'develop' into 'master'
+|\  
+| * 001df8d -- Bump topology graph version.
+|/  
+* 4fd7001 -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* 87cd5c5 -- [CI/CD] Update packages.json version based on GitLab tag.
+* 5ea5b41 -- Merge branch 'develop' into 'master'
+* c492406 -- merge develop into master
 ### 14.4.11 Fixed deletion of ATD questions and question saving without correct answers. Bump model and api versions.
 * 87cd5c5 -- [CI/CD] Update packages.json version based on GitLab tag.
 * 5ea5b41 -- Merge branch 'develop' into 'master'
