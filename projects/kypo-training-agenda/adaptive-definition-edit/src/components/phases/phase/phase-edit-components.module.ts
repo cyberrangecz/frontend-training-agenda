@@ -28,7 +28,7 @@ import { AccessPhaseEditComponent } from './access-phase/access-phase-edit.compo
 import { MitreTechniqueSelectComponent } from './training-phase/mitre-technique/mitre-technique-select.component';
 import { ExpectedCommandsSelectComponent } from './training-phase/expected-commands/expected-commands-select.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MarkedOptions } from '@sentinel/components/markdown-view';
+import { MarkedOptions, SentinelMarkdownViewModule } from '@sentinel/components/markdown-view';
 
 const markdownConfig = {
   markdownParser: {
@@ -67,6 +67,7 @@ const markdownConfig = {
     MatTableModule,
     MatDialogModule,
     MatAutocompleteModule,
+    SentinelMarkdownViewModule,
   ],
   exports: [AbstractPhaseEditComponent],
   declarations: [

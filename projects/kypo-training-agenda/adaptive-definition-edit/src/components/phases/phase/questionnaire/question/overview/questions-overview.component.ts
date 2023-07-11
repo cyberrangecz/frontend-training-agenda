@@ -101,9 +101,7 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
           'Delete'
         ),
       });
-      return EMPTY;
     }
-
     dialogRef
       .afterClosed()
       .pipe(takeWhile(() => this.isAlive))
@@ -116,6 +114,7 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
           this.onQuestionChanged();
         }
       });
+    return EMPTY;
   }
 
   /**
