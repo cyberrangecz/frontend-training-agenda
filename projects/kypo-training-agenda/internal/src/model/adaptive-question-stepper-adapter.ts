@@ -1,5 +1,6 @@
 import { AdaptiveQuestion, QuestionTypeEnum } from '@muni-kypo-crp/training-model';
 import { StepItem, StepStateEnum } from '@sentinel/components/stepper';
+import { Choice } from '@muni-kypo-crp/training-model/lib/phase/questionnaire-phase/choice';
 
 export class AdaptiveQuestionStepperAdapter implements StepItem {
   private _question: AdaptiveQuestion;
@@ -10,6 +11,7 @@ export class AdaptiveQuestionStepperAdapter implements StepItem {
   relations: number;
   state: StepStateEnum;
   icon: string;
+  choices: Choice[];
 
   constructor(question: AdaptiveQuestion) {
     this._question = question;
@@ -20,6 +22,7 @@ export class AdaptiveQuestionStepperAdapter implements StepItem {
     this.state = StepStateEnum.SELECTABLE;
     this.icon = AdaptiveQuestionStepperAdapter.iconType(question.questionType);
     this.relations = question.relations;
+    this.choices = question.choices;
   }
 
   get question(): AdaptiveQuestion {
