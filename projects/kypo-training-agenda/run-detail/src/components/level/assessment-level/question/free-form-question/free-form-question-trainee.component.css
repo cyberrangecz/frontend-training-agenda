@@ -10,3 +10,7 @@ p.required-note {
 mat-form-field {
   width: 100%;
 }
+
+sentinel-markdown-view {
+  color: #3f51b5;
+}

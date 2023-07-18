@@ -1,7 +1,11 @@
 <div class="container">
   <div class="content">
     <div class="questions" *ngFor="let question of phase.questions; index as i" >
-      <h2>{{i+1}}. {{ question.text }}</h2>
+      <h2>
+        <sentinel-markdown-view [markdown]="'Question ' + (i+1).toString() + ':'"></sentinel-markdown-view>
+        <sentinel-markdown-view [markdown]="question.text"></sentinel-markdown-view>
+      </h2>
+
 
       <ng-container [ngSwitch]="question.questionType">
         <div class="question" *ngSwitchCase="questionTypes.FFQ">
