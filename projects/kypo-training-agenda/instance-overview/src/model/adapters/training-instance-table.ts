@@ -20,12 +20,12 @@ export class TrainingInstanceTable extends SentinelTable<TrainingInstanceRowAdap
       new Column('title', 'Title', true),
       new Column('startTimeFormatted', 'Start Time', true, 'startTime'),
       new Column('endTimeFormatted', 'End Time', true, 'endTime'),
-      new Column('expiresIn', 'Expires In', false),
-      new Column('tdTitle', 'Training Definition', false),
+      new Column('expiresIn', 'Expires In', true, 'endTime'),
+      new Column('tdTitle', 'Training Definition', true, 'title'),
       new Column('lastEditBy', 'Last Edit By', false),
-      new Column('poolTitle', 'Pool', false),
+      new Column('poolTitle', 'Pool', true, 'poolId'),
       new Column('poolSize', 'Pool Size', false),
-      new Column('accessToken', 'Access Token', false),
+      new Column('accessToken', 'Access Token', true, 'accessToken'),
     ];
     const rows = resource.elements.map((element) => TrainingInstanceTable.createRow(element, service, navigator));
     super(rows, columns);
