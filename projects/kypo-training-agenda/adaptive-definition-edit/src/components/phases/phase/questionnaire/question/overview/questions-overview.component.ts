@@ -155,6 +155,9 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
   }
 
   private calculateHasError() {
+    this.stepperQuestions.items.forEach((question) => {
+      question.valid = question.choices.length != 0;
+    });
     this.questionsHasError = this.stepperQuestions.items.some((question) => !question.valid);
   }
 
