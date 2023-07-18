@@ -1,4 +1,5 @@
-14.5.16 Add word splitting and breaking to Definition overview.
+14.5.17 Add word splitting and breaking to Definition overview.
+14.5.16 Fix error in questions after every refresh.
 14.5.15 Rename Authors title to Designers in ATD and LTD edit page.
 14.5.14 Fix ATD notes and outcomes of length 1 not saving.
 14.5.13 Add sorting options to instance overview and summary tables.
