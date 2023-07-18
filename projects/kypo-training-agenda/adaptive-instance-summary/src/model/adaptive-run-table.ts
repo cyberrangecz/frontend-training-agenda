@@ -11,9 +11,9 @@ export class AdaptiveRunTable extends SentinelTable<AdaptiveRunRowAdapter> {
   constructor(resource: PaginatedResource<TrainingRun>) {
     const columns = [
       new Column('playerName', 'player', false),
-      new Column('startTimeFormatted', 'start time', false),
-      new Column('endTimeFormatted', 'end time', false),
-      new Column('state', 'run state', false),
+      new Column('startTimeFormatted', 'start time', true, 'startTime'),
+      new Column('endTimeFormatted', 'end time', true, 'endTime'),
+      new Column('state', 'run state', true, 'state'),
       new Column('duration', 'duration', false),
       new Column('sandboxInstanceId', 'sandbox id', false),
     ];
