@@ -37,6 +37,7 @@ td, th {
   text-align: center;
   align-items: center;
   align-content: center;
+  word-break: break-word;
 }
 
 sentinel-markdown-view {
