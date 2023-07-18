@@ -56,7 +56,10 @@ export class AdaptiveTrainingDefinitionEditComponent extends SentinelBaseDirecti
     this.freeFormValid = event.valid;
     this.prerequisites.clear();
     event.value['items'].forEach((item) => {
-      (this.prerequisites as UntypedFormArray).push(new UntypedFormControl(item));
+      item = item.trim();
+      (this.prerequisites as UntypedFormArray).push(
+        new UntypedFormControl(item.toString().length == 1 ? item + ' ' : item)
+      );
     });
   }
 
@@ -68,7 +71,8 @@ export class AdaptiveTrainingDefinitionEditComponent extends SentinelBaseDirecti
     this.freeFormValid = event.valid;
     this.outcomes.clear();
     event.value['items'].forEach((item) => {
-      (this.outcomes as UntypedFormArray).push(new UntypedFormControl(item));
+      item = item.trim();
+      (this.outcomes as UntypedFormArray).push(new UntypedFormControl(item.toString().length == 1 ? item + ' ' : item));
     });
   }
 

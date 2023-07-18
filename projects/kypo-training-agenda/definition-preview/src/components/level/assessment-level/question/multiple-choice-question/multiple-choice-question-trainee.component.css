@@ -10,6 +10,7 @@ p.required-note {
 .checkboxes {
   display: flex;
   flex-direction: column;
+  word-break: break-word;
 }
 
 mat-checkbox {
@@ -18,4 +19,7 @@ mat-checkbox {
 
 sentinel-markdown-view {
   color: #3f51b5;
+
+/deep/ .mat-checkbox-layout {
+  white-space: normal !important;
 }
