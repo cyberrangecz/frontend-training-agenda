@@ -71,6 +71,9 @@ export class QuestionnairePhaseEditComponent extends SentinelBaseDirective imple
    * @param questions new state of changed questions
    */
   onQuestionsChanged(questions: AdaptiveQuestion[]): void {
+    questions.forEach((question) => {
+      question.valid = question.choices.length != 0;
+    });
     this.phase.questions = questions;
     this.questionnaireFormGroup.setToPhase(this.phase);
     this.phaseChange.emit(this.phase);
