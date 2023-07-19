@@ -1,3 +1,4 @@
+14.6.0 Fix ATD disabled saving when adding questions.
 14.5.18 Fix Markdown text rendering for definition preview and training run.
 14.5.17 Add word splitting and breaking to Definition overview.
 14.5.16 Fix error in questions after every refresh.
