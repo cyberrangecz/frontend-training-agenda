@@ -1,3 +1,19 @@
+### 14.5.18 Fix Markdown text rendering for definition preview and training run.
+* ce08fa2 -- [CI/CD] Update packages.json version based on GitLab tag.
+*   1585d20 -- Merge branch 'develop' into 'master'
+|\  
+| * 3581a12 -- Develop
+|/  
+* 8b61b99 -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* 8e0f6f3 -- [CI/CD] Update packages.json version based on GitLab tag.
+*   52b0a45 -- Merge branch 'develop' into 'master'
+|\  
+| * 001df8d -- Bump topology graph version.
+|/  
+* 4fd7001 -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* 87cd5c5 -- [CI/CD] Update packages.json version based on GitLab tag.
+* 5ea5b41 -- Merge branch 'develop' into 'master'
+* c492406 -- merge develop into master
 ### 14.4.12 Bump topology graph version.
 * 8e0f6f3 -- [CI/CD] Update packages.json version based on GitLab tag.
 *   52b0a45 -- Merge branch 'develop' into 'master'
