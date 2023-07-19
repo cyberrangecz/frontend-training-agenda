@@ -1,3 +1,78 @@
+### 14.6.0 Fix ATD disabled saving when adding questions.
+* 28eecdc -- [CI/CD] Update packages.json version based on GitLab tag.
+* e915222 -- Merge branch 'develop' into 'master'
+* add94f1 -- Merge branch 'master' into 'develop'
+*   ba4a04f -- Merge branch '226-unable-to-save-atd-when-adding-multiple-new-questions' into 'develop'
+|\  
+| * 26f3772 -- Fix ATD saving when adding questions.
+|/  
+*   7047f8a -- Merge branch '223-fix-markdown-rendering-for-atd-and-ltd-training-run' into 'develop'
+|\  
+| *   c587ca1 -- Merge branch 'develop' into '223-fix-markdown-rendering-for-atd-and-ltd-training-run'
+| |\  
+| |/  
+|/|   
+* |   5c12c10 -- Merge branch '225-fix-word-splitting-in-training-preview' into 'develop'
+|\ \  
+| * \   494d7ae -- Merge branch 'develop' into '225-fix-word-splitting-in-training-preview'
+| |\ \  
+| * | | bb53269 -- Update version
+| * | | b974996 -- Update version.
+| * | | fb5c423 -- Fix word splitting in training preview
+* | | |   986235b -- Merge branch '222-fix-training-definition-preview-does-not-support-markdown' into 'develop'
+|\ \ \ \  
+| |_|/ /  
+|/| | |   
+| * | | 7761eaf -- Update multiple-choice-question-trainee.component.css
+| * | |   afb8685 -- Merge branch 'develop' into '222-fix-training-definition-preview-does-not-support-markdown'
+| |\ \ \  
+| |/ / /  
+|/| | |   
+* | | |   7485349 -- Merge branch '224-add-text-wrapping-to-definition-preview' into 'develop'
+|\ \ \ \  
+| * | | | ac4f291 -- Add text wrapping to definition preview.
+| | |/ /  
+| |/| |   
+* | | |   13f895f -- Merge branch '221-fix-atd-questionnaires-questions-error-after-every-refresh' into 'develop'
+|\ \ \ \  
+| |/ / /  
+|/| | |   
+| * | |   78283f6 -- Merge branch 'develop' into '221-fix-atd-questionnaires-questions-error-after-every-refresh'
+| |\ \ \  
+| |/ / /  
+|/| | |   
+* | | |   85fb53c -- Merge branch '220-change-authors-title-do-designers-in-atd-and-ltd' into 'develop'
+|\ \ \ \  
+| * \ \ \   9417cf1 -- Merge branch 'develop' into '220-change-authors-title-do-designers-in-atd-and-ltd'
+| |\ \ \ \  
+| |/ / / /  
+|/| | | |   
+* | | | |   69a3edc -- Merge branch '219-fix-unable-to-save-atd-notes-and-outcomes-of-length-1' into 'develop'
+|\ \ \ \ \  
+| * | | | | 23d3f6f -- Revert client id
+| * | | | |   4bd9901 -- Merge branch 'develop' into '219-fix-unable-to-save-atd-notes-and-outcomes-of-length-1'
+| |\ \ \ \ \  
+| |/ / / / /  
+|/| | | | |   
+| * | | | | e58122c -- Fix unable to save LTD notes and outcomes of length 1
+|  / / / /  
+| * | | | eded065 -- Update version.
+| * | | | e2145a2 -- Update Designers Title.
+|  / / /  
+| * | | 7b78457 -- Update version
+| * | | 6121a19 -- Fix error in some questions when refreshing.
+|  / /  
+| * / 910b82d -- Updated training definition preview questions with markup support.
+|  /  
+| * 7bc9d1a -- Bump version
+| * ea65857 -- Update version
+| * b9d11ce -- Added markdown support to ATD preview and updated markdown css style color
+| * 57e5652 -- Added markdown rendering support to linear training run
+|/  
+* c26cb0b -- Merge branch '218-add-relevant-sorting-options-to-tables' into 'develop'
+* 4cafbde -- Updated version.
+* f0f5c08 -- Added sorting options to adaptive instance summary.
+* be6155d -- Added sorting to instance overview and summary tables.
 ### 14.5.18 Fix Markdown text rendering for definition preview and training run.
 * ce08fa2 -- [CI/CD] Update packages.json version based on GitLab tag.
 *   1585d20 -- Merge branch 'develop' into 'master'
