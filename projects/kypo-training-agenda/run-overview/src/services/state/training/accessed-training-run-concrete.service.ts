@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common';
+import { OffsetPaginationEvent, PaginatedResource, SentinelFilter } from '@sentinel/common';
 import { AdaptiveRunApi, TrainingRunApi } from '@muni-kypo-crp/training-api';
 import { AccessedTrainingRun } from '@muni-kypo-crp/training-model';
 import { from, Observable } from 'rxjs';
@@ -25,14 +25,19 @@ export class AccessedTrainingRunConcreteService extends AccessedTrainingRunServi
     super(context.config.defaultPaginationSize);
   }
 
+  private lastFilters: string;
+
   /**
    * Gets paginated accessed training runs and updates related observables or handles error.
    * @param pagination requested pagination info
+   * @param filter filters to be applied on resources
    */
-  getAll(pagination: OffsetPaginationEvent): Observable<PaginatedResource<AccessedTrainingRun>> {
+  getAll(pagination: OffsetPaginationEvent, filter: string): Observable<PaginatedResource<AccessedTrainingRun>> {
     this.hasErrorSubject$.next(false);
+    this.lastFilters = filter;
+    const filters = filter ? [new SentinelFilter('title', filter)] : [];
     pagination.size = Number.MAX_SAFE_INTEGER;
-    return this.trainingApi.getAccessed(pagination).pipe(
+    return this.trainingApi.getAccessed(pagination, filters).pipe(
       concatMap((trainingRuns) => this.getAllAdaptive(pagination, trainingRuns)),
       tap(
         (runs) => {
