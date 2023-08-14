@@ -48,9 +48,6 @@ export class TrainingInstanceOverviewComponent extends SentinelBaseDirective imp
   }
 
   onInstancesLoadEvent(loadEvent: TableLoadEvent): void {
-    console.log('NOW:');
-    console.log(loadEvent);
-
     this.paginationService.setPagination(loadEvent.pagination.size);
     this.service
       .getAll(
