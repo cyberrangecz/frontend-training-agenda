@@ -1,11 +1,18 @@
 .checkbox-container {
   float: left;
-  display: grid;
   width: 100%;
 }
 
 mat-divider {
   margin: 10px 0;
+}
+
+.detection-name {
+  width: 15%;
+}
+
+mat-slide-toggle {
+  width: 10%;
 }
 
 .content {
@@ -15,20 +22,43 @@ mat-divider {
 
 .slide-toggle-container {
   display: flex;
-  justify-content: space-between;
-  width: 170px;
+}
+
+.detection-tooltip {
+  width: 75%;
 }
 
 .mat-form-field {
   display: grid;
 }
 
-.proximity-container {
-  width: 100%;
+.proximity-wrapper {
+  width: 40%;
 }
-.forbidden-commands-container {
-  width: 20%;
+
+.forbidden-command-label {
+  width: 60%;
+  background-color: #3f51b5;
 }
+
+.forbidden-command-button {
+  width: 10%;
+  background-color: #6df000;
+}
+
+.forbidden-command-type {
+  width: 10%;
+  background-color: #c58108;
+}
+
+.forbidden-commands-expansion {
+  justify-content: flex-start;
+}
+
+.forbidden-commands-panel {
+  background-color: #F44336;
+}
+
 .mat-expansion-panel-header-title,
 .mat-expansion-panel-header-description {
   flex-basis: 0;
@@ -44,7 +74,7 @@ mat-divider {
 }
 
 command-input {
-  width: 60%;
+  width: 40%;
 }
 
 .type-options {
