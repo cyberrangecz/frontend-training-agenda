@@ -13,6 +13,7 @@ import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
 import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
 import { SandboxPoolListAdapter } from '../../models/adapter/sandbox-pool-list-adapter';
 import { AdaptiveInstanceEditService } from '../../services/state/edit/adaptive-instance-edit.service';
+import { TrainingInstance } from '@muni-kypo-crp/training-model';
 
 @Component({
   selector: 'kypo-pool-assign',
@@ -25,6 +26,7 @@ export class PoolAssignComponent extends SentinelBaseDirective implements OnChan
 
   @Input() selectedPoolId: number;
   @Input() hasStarted: boolean;
+  @Input() trainingInstance: TrainingInstance;
   @Input() pools: SandboxPoolListAdapter[];
   @Output() selectionChanged: EventEmitter<number> = new EventEmitter();
 
@@ -55,6 +57,10 @@ export class PoolAssignComponent extends SentinelBaseDirective implements OnChan
     } else {
       this.selectionChanged.emit(null);
     }
+  }
+
+  isCreated(): boolean {
+    return this.hasStarted && this.trainingInstance.id != null;
   }
 
   private createPoolDetailRoute(poolId: number) {

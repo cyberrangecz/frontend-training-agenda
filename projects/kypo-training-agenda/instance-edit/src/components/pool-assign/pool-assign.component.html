@@ -4,8 +4,8 @@
     <mat-label *ngIf="!selectedPoolId">No Selected Pool</mat-label>
     <mat-select
       (selectionChange)="onSelectionChange($event.value)"
+      [disabled]="isCreated()"
       [(value)]="selectedPoolId"
-      [disabled]="hasStarted"
       required
     >
       <mat-option *ngFor="let pool of pools" [value]="pool.id" [disabled]="pool.isLocked()">
