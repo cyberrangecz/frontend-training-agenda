@@ -16,7 +16,7 @@ export class TrainingRunTable extends SentinelTable<TrainingRunRowAdapter> {
       new Column('endTimeFormatted', 'end time', true, 'endTime'),
       new Column('state', 'run state', true, 'state'),
       new Column('duration', 'duration', false),
-      new Column('sandboxInstanceId', 'sandbox id', false),
+      new Column('sandboxInstanceAllocationId', 'sandbox id', false),
       /**
        * DISABLED FOR THE 23.03 release
        */
