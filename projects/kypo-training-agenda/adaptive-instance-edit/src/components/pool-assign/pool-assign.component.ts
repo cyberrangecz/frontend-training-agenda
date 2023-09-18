@@ -59,7 +59,7 @@ export class PoolAssignComponent extends SentinelBaseDirective implements OnChan
     }
   }
 
-  isCreated(): boolean {
+  isCreatedAndStarted(): boolean {
     return this.hasStarted && this.trainingInstanceId != null;
   }
 
