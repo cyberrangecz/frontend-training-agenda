@@ -9,13 +9,14 @@
   </mat-expansion-panel-header>
   <div class="checkbox-container">
       <div class="slide-toggle-container">
-        <div class="detection-name"><span>Answer Similarity</span></div>
-        <mat-slide-toggle
+        <div  class="detection-name"><span>Answer Similarity</span></div>
+        <mat-slide-toggle [disabled]="ifNotAPG()"
           formControlName="answerSimilarityDetection"
         >
         </mat-slide-toggle>
         <div class="detection-tooltip">
-          <span>detection method to check for users that submitted a flag that belongs to someone else.</span>
+          <span>detection method to check for users that submitted a flag that belongs to someone else. <b>Disabled if training
+          is not an APG.</b></span>
         </div>
       </div>
 
@@ -89,7 +90,7 @@
                            [expanded]=timeProximityMethod.value>
         <mat-expansion-panel-header>
           <mat-panel-title>
-            <span>Time Proximity Setup</span>
+            <span>Time Proximity Configuration</span>
           </mat-panel-title>
         </mat-expansion-panel-header>
 
@@ -114,21 +115,22 @@
                          [expanded]=forbiddenCommandsMethod.value>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          <span>Forbidden Commands Setup</span>
+          <span>Forbidden Commands Configuration</span>
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <button (click)="addForbiddenCommand()" mat-button color="primary">Add forbidden command</button>
+      <button class="add-forbidden-command" (click)="addForbiddenCommand()" mat-button color="primary">Add forbidden command</button>
 
 
 
     <div class="forbidden-commands-panel">
+
       <div formArrayName="forbiddenCommands">
-        <div *ngFor="let forbiddenCommandsGroup of forbiddenCommands.controls; index as i" [formGroupName]="i">
-          <div class="forbidden-command-type">
+      <div class="divideWrapper" *ngFor="let forbiddenCommandsGroup of forbiddenCommands.controls; index as i" [formGroupName]="i">
+        <div class="forbidden-commands-wrapper">
+
+          <div class="forbidden-command-type-element1">
 
             <mat-radio-group class="type-options">
-              <mat-error *ngIf="forbiddenCommandsGroup.get('type').hasError('required')">You need to select command type</mat-error>
-
               <mat-radio-button labelPosition="after"
                                 value="bash"
                                 (change)="changeType(i, 'bash')"
@@ -139,18 +141,20 @@
                                 (change)="changeType(i, 'msf')"
                                 formControlName="type">Metasploit
               </mat-radio-button>
-
+              <mat-error *ngIf="forbiddenCommandsGroup.get('type').hasError('required')">You need to select command type</mat-error>
             </mat-radio-group>
 
           </div>
-          <div class="forbidden-command-label">
+
+          <div class="forbidden-command-label-element2">
             <mat-form-field appearance="outline">
               <mat-label class="command-input">Option {{ i + 1 }}</mat-label>
               <input matInput placeholder="Forbidden Command" formControlName="command" required />
-              <mat-error *ngIf="forbiddenCommandsGroup.get('command').hasError('required')">Command text cannot be empty</mat-error>
+              <mat-error *ngIf="forbiddenCommandsGroup.get('command').hasError('whitespace')">Command text cannot be empty</mat-error>
             </mat-form-field>
           </div>
-          <div class="forbidden-command-button">
+
+          <div class="forbidden-command-button-element3">
             <button class="delete-button"
                     mat-button
                     matSuffix
@@ -163,8 +167,11 @@
               <mat-icon>remove_circle</mat-icon>
             </button>
           </div>
+          <mat-divider></mat-divider>
         </div>
+        <mat-divider></mat-divider>
         <mat-error *ngIf="forbiddenCommands.hasError('required')">Choices cannot be empty</mat-error>
+      </div>
       </div>
     </div>
   </mat-expansion-panel>

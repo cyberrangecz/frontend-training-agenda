@@ -31,6 +31,7 @@ export class CheatingDetectionEditComponent extends SentinelBaseDirective {
   controls: SentinelControlItem[];
   trainingInstanceId: number;
   maximumProximityThreshold = 86400;
+  isAPG  = false;
 
   constructor(
     private activeRoute: ActivatedRoute,
@@ -61,6 +62,9 @@ export class CheatingDetectionEditComponent extends SentinelBaseDirective {
     control.result$.pipe(take(1)).subscribe();
   }
 
+  ifNotAPG() {
+    return !this.isAPG;
+  }
   get answerSimilarityMethod(): AbstractControl {
     return this.cheatingDetectionEditFormGroup.formGroup.get('answerSimilarityDetection');
   }

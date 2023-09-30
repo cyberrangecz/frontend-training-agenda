@@ -36,27 +36,54 @@ mat-slide-toggle {
   width: 40%;
 }
 
-.forbidden-command-label {
-  width: 60%;
-  background-color: #3f51b5;
+.add-forbidden-command {
+  margin-bottom: 10px;
 }
 
-.forbidden-command-button {
-  width: 10%;
-  background-color: #6df000;
+.forbidden-command-type-element1 {
+  display: inline-grid;
+  flex-direction: column;
+  align-items: start;
+  width: 25%;
+  height: 90%;
 }
 
-.forbidden-command-type {
-  width: 10%;
-  background-color: #c58108;
+.forbidden-command-type-element1 mat-error {
+  align-items: end;
 }
 
-.forbidden-commands-expansion {
-  justify-content: flex-start;
+.forbidden-command-label-element2 {
+  width: 40%;
 }
 
+.forbidden-command-button-element3 {
+  width: 20%;
+  padding-top: 7px;
+  align-content: start;
+}
+
+.mat-radio-button {
+  padding: 3px;
+}
+
+mat-divider {
+  margin: 10px 0;
+}
+
+.forbidden-commands-wrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 80px;
+}
+
+.type-options {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
 .forbidden-commands-panel {
-  background-color: #F44336;
+  width: 90%;
 }
 
 .mat-expansion-panel-header-title,
@@ -71,18 +98,6 @@ mat-slide-toggle {
 
 .panel-description-error mat-icon {
   margin-right: 5px;
-}
-
-command-input {
-  width: 40%;
-}
-
-.type-options {
-  width: 20%;
-}
-
-.delete-button {
-  width: 20%;
 }
 
 
