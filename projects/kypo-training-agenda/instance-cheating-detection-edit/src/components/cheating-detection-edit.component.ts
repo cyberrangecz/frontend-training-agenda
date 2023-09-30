@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import {SentinelBaseDirective, SentinelValidators} from '@sentinel/common';
-import {AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
+import { SentinelBaseDirective, SentinelValidators } from '@sentinel/common';
+import { AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { CheatingDetectionEditFormGroup } from './cheating-detection-edit-form-group';
 import { CheatingDetectionEditService } from '../services/cheating-detection-edit.service';
 import { ActivatedRoute } from '@angular/router';
@@ -9,7 +9,7 @@ import {
   CheatingDetection,
   CheatingDetectionStateEnum,
   ForbiddenCommand,
-  TrainingInstance
+  TrainingInstance,
 } from '@muni-kypo-crp/training-model';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { map, take, takeWhile } from 'rxjs/operators';
@@ -31,7 +31,7 @@ export class CheatingDetectionEditComponent extends SentinelBaseDirective {
   controls: SentinelControlItem[];
   trainingInstanceId: number;
   maximumProximityThreshold = 86400;
-  isAPG  = false;
+  isAPG = false;
 
   constructor(
     private activeRoute: ActivatedRoute,
@@ -98,7 +98,9 @@ export class CheatingDetectionEditComponent extends SentinelBaseDirective {
    */
   deleteForbiddenCommand(index: number): void {
     this.forbiddenCommands.removeAt(index);
-    this.forbiddenCommands.controls.slice(index).forEach((choice) => choice.get('order').setValue(choice.get('order').value - 1));
+    this.forbiddenCommands.controls
+      .slice(index)
+      .forEach((choice) => choice.get('order').setValue(choice.get('order').value - 1));
     this.forbiddenCommandsChanged();
   }
 
@@ -112,14 +114,13 @@ export class CheatingDetectionEditComponent extends SentinelBaseDirective {
     this.forbiddenCommandsChanged();
   }
 
-  changeType(i: number, value: string ): void {
+  changeType(i: number, value: string): void {
     this.forbiddenCommands.controls[i].get('type').setValue(value);
     this.forbiddenCommandsChanged();
   }
   forbiddenCommandsChanged(): void {
     this.cheatingDetectionEditFormGroup.formGroup.markAsDirty();
   }
-
 
   initControls(editService: CheatingDetectionEditService): void {
     this.controls = [

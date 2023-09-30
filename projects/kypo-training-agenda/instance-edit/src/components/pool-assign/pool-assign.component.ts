@@ -10,7 +10,7 @@ import {
 import { SentinelBaseDirective } from '@sentinel/common';
 import { SandboxPoolListAdapter } from '../../model/adapter/sandbox-pool-list-adapter';
 import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
-import {TrainingInstance} from "@muni-kypo-crp/training-model";
+import { TrainingInstance } from '@muni-kypo-crp/training-model';
 
 @Component({
   selector: 'kypo-pool-assign',
@@ -31,7 +31,6 @@ export class PoolAssignComponent extends SentinelBaseDirective implements OnChan
     super();
   }
 
-
   ngOnChanges(changes: SimpleChanges): void {
     if ('selectedPoolId' in changes) {
       this.createPoolDetailRoute(this.selectedPoolId);
@@ -46,7 +45,7 @@ export class PoolAssignComponent extends SentinelBaseDirective implements OnChan
     }
   }
 
-  isCreated() : boolean{
+  isCreated(): boolean {
     return this.hasStarted && this.trainingInstance.id != null;
   }
 

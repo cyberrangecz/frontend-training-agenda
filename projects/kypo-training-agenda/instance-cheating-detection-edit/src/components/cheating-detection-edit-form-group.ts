@@ -1,4 +1,4 @@
-import {UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
+import { UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { CheatingDetection, CheatingDetectionStateEnum } from '@muni-kypo-crp/training-model';
 import { SentinelValidators } from '@sentinel/common';
 
@@ -24,10 +24,13 @@ export class CheatingDetectionEditFormGroup {
       forbiddenCommands: new UntypedFormArray(
         cheatingDetection.forbiddenCommands.map(
           (forbiddenCommand) =>
-            new UntypedFormGroup({
-              command: new UntypedFormControl(forbiddenCommand.command, [Validators.required]),
-              type: new UntypedFormControl(forbiddenCommand.type, [Validators.required]),
-            }, [Validators.required])
+            new UntypedFormGroup(
+              {
+                command: new UntypedFormControl(forbiddenCommand.command, [Validators.required]),
+                type: new UntypedFormControl(forbiddenCommand.type, [Validators.required]),
+              },
+              [Validators.required]
+            )
         )
       ),
     });
