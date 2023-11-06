@@ -13,7 +13,6 @@ import {
 import { defer, of } from 'rxjs';
 import { TrainingDefinitionService } from '../services/state/training-definition.service';
 import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
-import { TrainingInstanceRowAdapter } from '../../../instance-overview/src/model/adapters/training-instance-row-adapter';
 import { TrainingDefinitionRowAdapter } from './training-definition-row-adapter';
 
 /**
