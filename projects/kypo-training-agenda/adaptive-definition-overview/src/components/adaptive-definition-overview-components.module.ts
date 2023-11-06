@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ngfModule } from 'angular-file';
-import { SentinelPipesModule } from '@sentinel/common';
-import { SentinelControlsModule } from '@sentinel/components/controls';
+import { SentinelPipesModule } from '@sentinel/common/pipes';
+import { SentinelControlsComponent } from '@sentinel/components/controls';
 import { SentinelTableModule } from '@sentinel/components/table';
 import { TrainingAgendaConfig, TrainingDefaultNavigator, TrainingNavigator } from '@muni-kypo-crp/training-agenda';
 import { TrainingAgendaContext, PaginationService } from '@muni-kypo-crp/training-agenda/internal';
@@ -32,7 +32,7 @@ import {
     AdaptiveDefinitionOverviewMaterialModule,
     ReactiveFormsModule,
     SentinelTableModule,
-    SentinelControlsModule,
+    SentinelControlsComponent,
   ],
   declarations: [AdaptiveDefinitionOverviewComponent, TrainingDefinitionUploadDialogComponent, CloneDialogComponent],
   providers: [

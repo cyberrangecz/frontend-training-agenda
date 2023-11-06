@@ -1,10 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { SentinelControlsModule } from '@sentinel/components/controls';
-import { SentinelFreeFormModule } from '@sentinel/components/free-form';
+import { SentinelControlsComponent } from '@sentinel/components/controls';
+import { SentinelFreeFormComponent } from '@sentinel/components/free-form';
 import { SentinelMarkdownEditorModule } from '@sentinel/components/markdown-editor';
 import { SentinelStepperModule } from '@sentinel/components/stepper';
 import { AbstractLevelEditComponent } from './abstract-level-edit.component';
@@ -50,13 +49,13 @@ const markdownConfig = {
   imports: [
     CommonModule,
     FormsModule,
-    SentinelFreeFormModule,
+    SentinelFreeFormComponent,
     SentinelMarkdownEditorModule.forRoot(markdownConfig),
     SentinelStepperModule,
     LevelEditMaterialModule,
     MatSlideToggleModule,
     ReactiveFormsModule,
-    SentinelControlsModule,
+    SentinelControlsComponent,
     SentinelMarkdownViewModule,
   ],
   exports: [AbstractLevelEditComponent],

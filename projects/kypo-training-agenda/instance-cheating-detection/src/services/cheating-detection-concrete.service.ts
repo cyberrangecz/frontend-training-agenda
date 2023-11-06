@@ -6,7 +6,7 @@ import {
   SentinelConfirmationDialogConfig,
   SentinelDialogResultEnum,
 } from '@sentinel/components/dialogs';
-import { SentinelFilter, PaginatedResource, OffsetPaginationEvent } from '@sentinel/common';
+import { PaginatedResource, OffsetPaginationEvent } from '@sentinel/common/pagination';
 import { CheatingDetectionApi } from '@muni-kypo-crp/training-api';
 import { CheatingDetection } from '@muni-kypo-crp/training-model';
 import { EMPTY, from, Observable } from 'rxjs';

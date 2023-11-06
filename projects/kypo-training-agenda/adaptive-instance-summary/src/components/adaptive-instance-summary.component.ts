@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { OffsetPaginationEvent, SentinelBaseDirective } from '@sentinel/common';
+import { SentinelBaseDirective } from '@sentinel/common';
+import { OffsetPaginationEvent } from '@sentinel/common/pagination';
 import { TrainingInstance, TrainingRun } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
 import { map, switchMap, take, takeWhile, tap } from 'rxjs/operators';
@@ -75,7 +76,7 @@ export class AdaptiveInstanceSummaryComponent extends SentinelBaseDirective impl
         switchMap((ti) =>
           this.adaptiveRunService.getAll(
             ti.id,
-            new OffsetPaginationEvent(0, event.pagination.size, event.pagination.sort, event.pagination.sort)
+            new OffsetPaginationEvent(0, event.pagination.size, event.pagination.sort, event.pagination.sortDir)
           )
         ),
         takeWhile(() => this.isAlive)
@@ -95,7 +96,7 @@ export class AdaptiveInstanceSummaryComponent extends SentinelBaseDirective impl
   }
 
   private initAdaptiveRunsComponent() {
-    const initialPagination = new OffsetPaginationEvent(0, this.paginationService.getPagination(), '', '');
+    const initialPagination = new OffsetPaginationEvent(0, this.paginationService.getPagination(), '', 'asc');
     this.trainingInstance$
       .pipe(
         take(1),

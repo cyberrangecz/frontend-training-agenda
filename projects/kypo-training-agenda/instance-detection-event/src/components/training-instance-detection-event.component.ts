@@ -1,15 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { OffsetPaginationEvent, SentinelBaseDirective } from '@sentinel/common';
+import { Component, OnInit } from '@angular/core';
+import { SentinelBaseDirective } from '@sentinel/common';
+import { OffsetPaginationEvent } from '@sentinel/common/pagination';
 import { Observable } from 'rxjs';
 import { SentinelTable, TableActionEvent, TableLoadEvent } from '@sentinel/components/table';
 import { AbstractDetectionEvent } from '@muni-kypo-crp/training-model';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
-import {
-  TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME,
-  TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME,
-  TrainingNavigator,
-} from '@muni-kypo-crp/training-agenda';
+import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME, TrainingNavigator } from '@muni-kypo-crp/training-agenda';
 import { map, take, takeWhile } from 'rxjs/operators';
 import { DetectionEventTable } from '../model/detection-event-table';
 import { DetectionEventService } from '../services/detection-event.service';

@@ -6,7 +6,7 @@
     "kypo-training-agenda": {
       "projectType": "library",
       "root": "projects/kypo-training-agenda",
-      "sourceRoot": "projects/kypo-training-agenda/src",
+      "sourceRoot": "projects/kypo-training-agenda",
       "prefix": "kypo",
       "architect": {
         "build": {
@@ -169,5 +169,13 @@
   },
   "cli": {
     "analytics": false
+  },
+  "schematics": {
+    "@angular-eslint/schematics:application": {
+      "setParserOptionsProject": true
+    },
+    "@angular-eslint/schematics:library": {
+      "setParserOptionsProject": true
+    }
   }
 }

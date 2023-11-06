@@ -21,7 +21,7 @@
           <input matInput placeholder="Answer text" formControlName="text" required/>
           <mat-error *ngIf="choicesGroup.get('text').hasError('required')">Answer text cannot be empty</mat-error>
         </mat-form-field>
-        <button mat-button matSuffix mat-icon-button aria-label="Delete option"
+        <button matSuffix mat-icon-button aria-label="Delete option"
                 color="warn" matTooltip="Delete option"
                 (click)="deleteOption(i)">
           <mat-icon>remove_circle</mat-icon>

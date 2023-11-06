@@ -8,7 +8,7 @@ import { DetectionEventService } from '../services/detection-event/detection-eve
 import { DetectionEventConcreteService } from '../services/detection-event/detection-event-concrete.service';
 import { DetectionEventParticipantService } from '../services/participant/detection-event-participant.service';
 import { DetectionEventParticipantConcreteService } from '../services/participant/detection-event-participant-concrete.service';
-import { SentinelPipesModule } from '@sentinel/common';
+import { SentinelPipesModule } from '@sentinel/common/pipes';
 import { MatCardModule } from '@angular/material/card';
 import { TrainingInstanceDetectionEventDetailMaterialModule } from './training-instance-detection-event-detail-material.module';
 

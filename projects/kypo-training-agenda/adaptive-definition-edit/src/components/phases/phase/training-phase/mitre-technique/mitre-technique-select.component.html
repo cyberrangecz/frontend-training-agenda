@@ -12,8 +12,8 @@
   </mat-expansion-panel-header>
   <mat-form-field class="chip-list" appearance="outline">
     <mat-label>Techniques</mat-label>
-    <mat-chip-list #chipList [formControl]="chipListCtrl">
-      <mat-chip
+    <mat-chip-grid #chipList [formControl]="chipListCtrl">
+      <mat-chip-row
         *ngFor="let mitreTechnique of mitreTechniques"
         (removed)="remove(mitreTechnique)"
         class="mat-chip-selected"
@@ -22,7 +22,7 @@
         <button matChipRemove>
           <mat-icon>cancel</mat-icon>
         </button>
-      </mat-chip>
+      </mat-chip-row>
       <input
         mat-input
         #techniqueInput
@@ -35,7 +35,7 @@
         (paste)="paste($event)"
         (input)="onInput($event)"
       />
-    </mat-chip-list>
+    </mat-chip-grid>
     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
       <mat-option *ngFor="let mitreTechnique of filteredTechniquesList" [value]="mitreTechnique">
         {{ mitreTechnique.techniqueKey }} - {{ mitreTechnique.techniqueName }}

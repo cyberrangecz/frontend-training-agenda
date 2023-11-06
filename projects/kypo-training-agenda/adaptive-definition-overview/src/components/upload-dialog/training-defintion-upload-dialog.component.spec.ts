@@ -3,7 +3,8 @@ import { TrainingDefinitionUploadDialogComponent } from './training-definition-u
 import { MatDialogRef } from '@angular/material/dialog';
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { asyncData, SentinelPipesModule } from '@sentinel/common';
+import { asyncData } from '@sentinel/common/testing';
+import { SentinelPipesModule } from '@sentinel/common/pipes';
 import {
   createAdaptiveFileUploadProgressServiceSpy,
   createDialogRefSpy,

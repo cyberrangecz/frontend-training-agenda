@@ -1,4 +1,4 @@
-import { asyncData } from '@sentinel/common';
+import { asyncData } from '@sentinel/common/testing';
 import { TrainingDefinitionEditOverviewMaterialModule } from '../../../definition-edit/src/components/training-definition-edit-overview-material.module';
 import { AdaptivePreviewComponent } from './adaptive-preview.component';
 import { TestBed, ComponentFixture, async } from '@angular/core/testing';
