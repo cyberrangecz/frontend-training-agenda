@@ -1,4 +1,4 @@
-import { PaginatedResource } from '@sentinel/common';
+import { PaginatedResource, SentinelDateTimeFormatPipe } from '@sentinel/common';
 import { TrainingDefinitionStateEnum } from '@muni-kypo-crp/training-model';
 import { TrainingDefinition } from '@muni-kypo-crp/training-model';
 import {
@@ -13,6 +13,7 @@ import {
 import { defer, of } from 'rxjs';
 import { TrainingDefinitionService } from '../services/state/training-definition.service';
 import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
+import { TrainingDefinitionRowAdapter } from './training-definition-row-adapter';
 
 /**
  * Helper class transforming paginated resource to class for common table component
@@ -28,6 +29,7 @@ export class TrainingDefinitionTable extends SentinelTable<TrainingDefinition> {
       new Column('title', 'title', true),
       new Column('state', 'state', true),
       new Column('estimatedDuration', 'estimated duration', true, 'estimatedDuration'),
+      new Column('createdAtFormatted', 'created at', true, 'createdAt'),
       new Column('lastEditTimeFormatted', 'last edit', true, 'lastEdited'),
       new Column('lastEditBy', 'last edit by', false),
     ];
@@ -48,7 +50,10 @@ export class TrainingDefinitionTable extends SentinelTable<TrainingDefinition> {
     service: TrainingDefinitionService,
     navigator: TrainingNavigator
   ): Row<TrainingDefinition> {
-    const row = new Row(td, TrainingDefinitionTable.createActions(td, service));
+    const adapter = td as TrainingDefinitionRowAdapter;
+    const datePipe = new SentinelDateTimeFormatPipe('en-EN');
+    adapter.createdAtFormatted = `${datePipe.transform(adapter.createdAt)}`;
+    const row = new Row(adapter, TrainingDefinitionTable.createActions(adapter, service));
     row.addLink('title', navigator.toTrainingDefinitionDetail(td.id));
     return row;
   }
