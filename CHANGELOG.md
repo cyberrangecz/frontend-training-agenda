@@ -1,3 +1,17 @@
+### 14.6.2 Add created at column to training definition.
+* 70d45dc -- [CI/CD] Update packages.json version based on GitLab tag.
+* 9743b60 -- Merge branch 'develop' into 'master'
+*   e509fad -- Merge branch '231-add-createdat-column-to-training-definition-table' into 'develop'
+|\  
+| * b5e73eb -- extend logic to adaptive training definition
+| * 53359b9 -- Bump model and api package
+| * 315e5d8 -- Add created at column to training definition
+|/  
+* 5a034b2 -- Merge branch '229-fix-disabling-of-pool-button-while-creating-training-instance' into 'develop'
+* f783244 -- Rename method isCreated to isCreatedAndStarted
+* dc33729 -- Simplify input of training instance to training instance id
+* f9d43d2 -- Bump version
+* b2383b1 -- Fix disabling of pool button
 ### 14.6.0 Fix ATD disabled saving when adding questions.
 * 28eecdc -- [CI/CD] Update packages.json version based on GitLab tag.
 * e915222 -- Merge branch 'develop' into 'master'
