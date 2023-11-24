@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
-import { SentinelPipesModule } from '@sentinel/common';
+import { SentinelPipesModule } from '@sentinel/common/pipes';
 import { SentinelTableModule } from '@sentinel/components/table';
 import { TrainingAgendaConfig, TrainingDefaultNavigator, TrainingNavigator } from '@muni-kypo-crp/training-agenda';
 import { PaginationService, TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
@@ -27,7 +27,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { LoadingDialogModule } from '@muni-kypo-crp/training-agenda/internal';
 import { TopologyApiModule } from '@muni-kypo-crp/topology-graph';
-import { SentinelControlsModule } from '@sentinel/components/controls';
+import { SentinelControlsComponent } from '@sentinel/components/controls';
 import {
   RunningTrainingRunConcreteService,
   RunningTrainingRunService,
@@ -49,7 +49,7 @@ import {
     MatDialogModule,
     LoadingDialogModule,
     TopologyApiModule,
-    SentinelControlsModule,
+    SentinelControlsComponent,
   ],
   declarations: [TrainingRunOverviewComponent, AccessTrainingRunComponent],
   providers: [

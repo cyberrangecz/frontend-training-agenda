@@ -28,7 +28,7 @@
     </div>
   </div>
   <div *ngIf="!isBacktracked">
-    <mat-card #controls class="controls">
+    <mat-card appearance="outlined" #controls class="controls">
       <div #controlsContainer [ngClass]="!controlsWrapped ? 'controls-container' : 'controls-container wrapped'">
         <div [ngClass]="!controlsWrapped ? 'hint-solution' : 'hint-solution wrapped'">
           <!-- HINT BUTTONS-->

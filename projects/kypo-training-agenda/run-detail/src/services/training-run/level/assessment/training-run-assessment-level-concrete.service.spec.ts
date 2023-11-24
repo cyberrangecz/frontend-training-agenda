@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { asyncData } from '@sentinel/common';
+import { asyncData } from '@sentinel/common/testing';
 import { TrainingRunApi } from '@muni-kypo-crp/training-api';
 import { Question } from '@muni-kypo-crp/training-model';
 import { throwError } from 'rxjs';

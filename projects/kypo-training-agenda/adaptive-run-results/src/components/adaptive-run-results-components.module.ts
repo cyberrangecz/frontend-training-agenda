@@ -5,7 +5,7 @@ import {
   KypoAdaptiveTransitionVisualizationModule,
 } from '@muni-kypo-crp/adaptive-transition-visualization';
 import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
-import { SentinelControlsModule } from '@sentinel/components/controls';
+import { SentinelControlsComponent } from '@sentinel/components/controls';
 import { MitreTechniquesOverviewConcreteService } from '../service/mitre-techniques-concrete.service';
 import { MitreTechniquesOverviewService } from '../service/mitre-techniques.service';
 import { AdaptiveRunResultsMaterialModule } from './adaptive-run-results-material.module';
@@ -19,7 +19,7 @@ import { AdaptiveRunResultsComponent } from './adaptive-run-results.component';
     CommonModule,
     AdaptiveRunResultsMaterialModule,
     KypoAdaptiveTransitionVisualizationModule,
-    SentinelControlsModule,
+    SentinelControlsComponent,
   ],
   declarations: [AdaptiveRunResultsComponent],
   providers: [{ provide: MitreTechniquesOverviewService, useClass: MitreTechniquesOverviewConcreteService }],

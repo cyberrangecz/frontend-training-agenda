@@ -1,7 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { asyncData, PaginatedResource, OffsetPagination, OffsetPaginationEvent } from '@sentinel/common';
+import { asyncData } from '@sentinel/common/testing';
+import { PaginatedResource, OffsetPagination, OffsetPaginationEvent } from '@sentinel/common/pagination';
 import { PoolApi } from '@muni-kypo-crp/sandbox-api';
 import { Pool, SandboxInstance } from '@muni-kypo-crp/sandbox-model';
 import { TrainingInstanceApi } from '@muni-kypo-crp/training-api';
@@ -168,7 +169,7 @@ describe('TrainingInstanceOverviewConcreteService', () => {
   });
 
   function createPagination() {
-    return new OffsetPaginationEvent(1, 5, '', '');
+    return new OffsetPaginationEvent(1, 5, '', 'asc');
   }
 
   function createPoolMock(): Pool {

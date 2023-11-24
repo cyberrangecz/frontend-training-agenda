@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDividerModule } from '@angular/material/divider';
-import { SentinelPipesModule } from '@sentinel/common';
-import { SentinelControlsModule } from '@sentinel/components/controls';
+import { SentinelPipesModule } from '@sentinel/common/pipes';
+import { SentinelControlsComponent } from '@sentinel/components/controls';
 import { SentinelStepperModule } from '@sentinel/components/stepper';
 import { LevelEditComponentsModule } from './level/level-edit-components.module';
 import { LevelOverviewComponent } from './overview/level-overview.component';
@@ -23,7 +23,7 @@ import { TrainingDefinitionEditOverviewMaterialModule } from '../training-defini
     ReactiveFormsModule,
     SentinelStepperModule,
     MatDividerModule,
-    SentinelControlsModule,
+    SentinelControlsComponent,
     TrainingDefinitionEditOverviewMaterialModule,
     ngfModule,
   ],

@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { TrainingDefinition, Level, AssessmentLevel, InfoLevel, TrainingLevel } from '@muni-kypo-crp/training-model';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SentinelPipesModule } from '@sentinel/common';
+import { SentinelPipesModule } from '@sentinel/common/pipes';
 import { createDialogRefSpy } from '../../../../internal/src/testing/testing-commons.spec';
 import { AdaptiveDefinitionEditOverviewMaterialModule } from '../../../../adaptive-definition-edit/src/components/adaptive-definition-edit-overview-material.module';
 

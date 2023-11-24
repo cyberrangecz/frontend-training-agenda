@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { asyncData } from '@sentinel/common';
+import { asyncData } from '@sentinel/common/testing';
 import { TrainingRunApi } from '@muni-kypo-crp/training-api';
 import { AccessTrainingRunInfo, Level } from '@muni-kypo-crp/training-model';
 import { throwError } from 'rxjs';

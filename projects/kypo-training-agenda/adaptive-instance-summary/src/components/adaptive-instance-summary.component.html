@@ -1,5 +1,5 @@
 <div *ngIf="trainingInstance$ | async as trainingInstance">
-  <mat-card>
+  <mat-card appearance="outlined">
     <kypo-training-instance-info
       [accessTokenLink]="trainingInstanceAccessTokenLink"
       [poolIdLink]="trainingInstancePoolIdLink"
@@ -12,7 +12,7 @@
     </kypo-training-instance-info>
   </mat-card>
 
-  <mat-card>
+  <mat-card appearance="outlined">
     <kypo-adaptive-instance-runs
       [trainingRuns]="adaptiveRuns$ | async"
       [hasError]="adaptiveRunsHasError$ | async"

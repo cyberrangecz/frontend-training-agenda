@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common';
+import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
 import { PoolApi } from '@muni-kypo-crp/sandbox-api';
 import { TrainingInstanceApi } from '@muni-kypo-crp/training-api';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
@@ -119,19 +119,21 @@ export class TrainingInstanceOverviewConcreteService extends TrainingInstanceOve
    * @param poolId ID of a pool
    */
   getAvailableSandboxes(poolId: number): Observable<string> {
-    return this.poolApi.getPoolsSandboxes(poolId, new OffsetPaginationEvent(0, Number.MAX_SAFE_INTEGER, '', '')).pipe(
-      map(
-        (sandboxes) => sandboxes.elements.filter((sandbox) => !sandbox.isLocked()).length.toString(),
-        (err) => {
-          this.hasErrorSubject$.next(true);
-          this.errorHandler.emit(err, 'Fetching available sandboxes');
-          return EMPTY;
-        }
-      ),
-      catchError((err) => {
-        return err.status === 404 ? of('') : EMPTY;
-      })
-    );
+    return this.poolApi
+      .getPoolsSandboxes(poolId, new OffsetPaginationEvent(0, Number.MAX_SAFE_INTEGER, '', 'asc'))
+      .pipe(
+        map(
+          (sandboxes) => sandboxes.elements.filter((sandbox) => !sandbox.isLocked()).length.toString(),
+          (err) => {
+            this.hasErrorSubject$.next(true);
+            this.errorHandler.emit(err, 'Fetching available sandboxes');
+            return EMPTY;
+          }
+        ),
+        catchError((err) => {
+          return err.status === 404 ? of('') : EMPTY;
+        })
+      );
   }
 
   getSshAccess(poolId: number): Observable<boolean> {

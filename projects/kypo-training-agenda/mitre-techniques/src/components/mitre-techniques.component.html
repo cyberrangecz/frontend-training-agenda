@@ -5,7 +5,7 @@
   are adversary techniques, which describe the actual activity carried out by the adversary. The full ATT&CK
   Matrix for Enterprise from the MITRE ATT&CK navigator is represented below
 </div>
-<mat-card *ngIf="mitreTableHtml$ | async">
+<mat-card appearance="outlined" *ngIf="mitreTableHtml$ | async">
   <div *ngIf="showSwitch" class="played-switch">
     <div>Played</div>
     <mat-slide-toggle color="accent" [checked]="!played" (change)="switchToggled()"> </mat-slide-toggle>

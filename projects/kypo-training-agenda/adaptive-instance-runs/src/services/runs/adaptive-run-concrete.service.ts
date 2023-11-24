@@ -5,7 +5,7 @@ import {
   SentinelConfirmationDialogConfig,
   SentinelDialogResultEnum,
 } from '@sentinel/components/dialogs';
-import { PaginatedResource, OffsetPaginationEvent } from '@sentinel/common';
+import { PaginatedResource, OffsetPaginationEvent } from '@sentinel/common/pagination';
 import { SandboxAllocationUnitsApi, SandboxInstanceApi } from '@muni-kypo-crp/sandbox-api';
 import { SandboxInstance } from '@muni-kypo-crp/sandbox-model';
 import { AdaptiveInstanceApi, AdaptiveRunApi } from '@muni-kypo-crp/training-api';

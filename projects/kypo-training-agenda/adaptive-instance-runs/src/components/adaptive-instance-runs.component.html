@@ -1,5 +1,5 @@
 <div *ngIf="trainingInstance$ | async as trainingInstance">
-  <mat-card>
+  <mat-card appearance="outlined">
     <kypo-adaptive-run-overview
       [adaptiveRuns]="trainingRuns$ | async"
       [hasError]="trainingRunsHasError$ | async"

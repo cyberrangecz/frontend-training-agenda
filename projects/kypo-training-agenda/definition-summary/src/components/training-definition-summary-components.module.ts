@@ -4,14 +4,13 @@ import { TrainingDefinitionSummaryComponent } from './training-definition-summar
 import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
 import { TrainingDefintionSummaryMaterialModule } from './training-definition-summary-material.module';
 import { RouterModule } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 import { AssessmentLevelDetailComponent } from './levels/level/assessment/assessment-level-detail.component';
 import { InfoLevelDetailComponent } from './levels/level/info/info-level-detail.component';
 import { TrainingLevelDetailComponent } from './levels/level/training/training-level-detail.component';
 import { TrainingDefinitionLevelsDetailComponent } from './levels/training-definition-levels.component';
 import { TrainingDefinitionInfoComponent } from './info/training-definition-info.component';
 import { AbstractLevelDetailComponent } from './levels/level/abstract-level-detail.component';
-import { SentinelControlsModule } from '@sentinel/components/controls';
+import { SentinelControlsComponent } from '@sentinel/components/controls';
 import { ExtendedMatchingQuestionDetailComponent } from './levels/level/assessment/abstract-question/extended-matching-question-detail/extended-matching-question-detail.component';
 import { FreeFormQuestionDetailComponent } from './levels/level/assessment/abstract-question/free-form-question-detail/free-form-question-detail.component';
 import { MultipleChoiceQuestionDetailComponent } from './levels/level/assessment/abstract-question/multiple-choice-question-detail/multiple-choice-question-detail.component';
@@ -39,7 +38,7 @@ const markdownParserConfig = {
     RouterModule,
     TrainingDefintionSummaryMaterialModule,
     SentinelMarkdownViewModule.forRoot(markdownParserConfig),
-    SentinelControlsModule,
+    SentinelControlsComponent,
   ],
   declarations: [
     TrainingDefinitionSummaryComponent,

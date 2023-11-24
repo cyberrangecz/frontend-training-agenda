@@ -1,4 +1,5 @@
-import { PaginatedResource, SentinelDateTimeFormatPipe } from '@sentinel/common';
+import { PaginatedResource } from '@sentinel/common/pagination';
+import { SentinelDateTimeFormatPipe } from '@sentinel/common/pipes';
 import { TrainingDefinitionStateEnum } from '@muni-kypo-crp/training-model';
 import { TrainingDefinition } from '@muni-kypo-crp/training-model';
 import {

@@ -8,7 +8,7 @@ import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } 
 import { AdaptiveInstanceEditService } from './adaptive-instance-edit.service';
 import { AdaptiveInstanceChangeEvent } from '../../../models/events/adaptive-instance-change-event';
 import { AdaptiveInstanceApi } from '@muni-kypo-crp/training-api';
-import { PaginatedResource, OffsetPaginationEvent } from '@sentinel/common';
+import { PaginatedResource, OffsetPaginationEvent } from '@sentinel/common/pagination';
 import { Pool, SandboxDefinition } from '@muni-kypo-crp/sandbox-model';
 
 /**
@@ -152,7 +152,7 @@ export class AdaptiveInstanceEditConcreteService extends AdaptiveInstanceEditSer
     if (!this.editedSnapshot) {
       this.editedSnapshot = this.trainingInstanceSubject$.getValue();
     }
-    const pagination = new OffsetPaginationEvent(0, 10, '', '');
+    const pagination = new OffsetPaginationEvent(0, 10, '', 'asc');
     this.saveDisabledSubject$.next(true);
     return this.trainingInstanceApi.update(this.editedSnapshot).pipe(
       switchMap(() => this.getAllPools(pagination)),
