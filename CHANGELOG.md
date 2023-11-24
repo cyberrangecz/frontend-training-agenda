@@ -1,3 +1,7 @@
+### 15.0.0 Update to Angular 15.
+* 9d66e66 -- [CI/CD] Update packages.json version based on GitLab tag.
+* d834a38 -- Merge branch '232-update-to-angular-15' into 'master'
+* a55a926 -- Update to Angular 15
 ### 14.6.2 Add created at column to training definition.
 * 70d45dc -- [CI/CD] Update packages.json version based on GitLab tag.
 * 9743b60 -- Merge branch 'develop' into 'master'
