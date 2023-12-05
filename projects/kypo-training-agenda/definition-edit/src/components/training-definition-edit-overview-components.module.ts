@@ -16,7 +16,6 @@ import { LevelOverviewComponentsModule } from './levels/level-overview-component
 import { TrainingDefinitionEditOverviewMaterialModule } from './training-definition-edit-overview-material.module';
 import { TrainingDefinitionEditOverviewComponent } from './training-definition-edit-overview.component';
 import { SentinelFreeFormComponent } from '@sentinel/components/free-form';
-import { ReferenceGraphPreviewComponentsModule } from './reference-graph/reference-graph-preview-components.module';
 
 /**
  * Module containing components and providers of training definition detail/edt/new actions.
@@ -32,7 +31,6 @@ import { ReferenceGraphPreviewComponentsModule } from './reference-graph/referen
     ReactiveFormsModule,
     SentinelControlsComponent,
     SentinelFreeFormComponent,
-    ReferenceGraphPreviewComponentsModule,
   ],
   declarations: [TrainingDefinitionEditOverviewComponent, TrainingDefinitionEditComponent],
   providers: [
@@ -46,10 +44,7 @@ export class TrainingDefinitionEditOverviewComponentsModule {
   static forRoot(config: TrainingAgendaConfig): ModuleWithProviders<TrainingDefinitionEditOverviewComponentsModule> {
     return {
       ngModule: TrainingDefinitionEditOverviewComponentsModule,
-      providers: [
-        ReferenceGraphPreviewComponentsModule.forRoot(config.visualizationConfig).providers,
-        { provide: TrainingAgendaConfig, useValue: config },
-      ],
+      providers: [{ provide: TrainingAgendaConfig, useValue: config }],
     };
   }
 }

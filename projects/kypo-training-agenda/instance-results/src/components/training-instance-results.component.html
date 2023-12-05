@@ -36,17 +36,6 @@
     >
       <mat-icon class="tab-icon">query_stats</mat-icon> Walkthrough
     </a>
-    <ng-container *ngIf="hasReferenceSolution$ | async">
-      <a
-        mat-tab-link
-        [routerLink]="['trainee-graph']"
-        routerLinkActive
-        #traineeGraph="routerLinkActive"
-        [active]="traineeGraph.isActive"
-      >
-        <mat-icon class="tab-icon">trending_up</mat-icon> Trainee graph
-      </a>
-    </ng-container>
       <a
         mat-tab-link
         [routerLink]="['command-timeline']"
