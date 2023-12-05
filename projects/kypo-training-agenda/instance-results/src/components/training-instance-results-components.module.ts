@@ -13,12 +13,9 @@ import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
 import { TrainingInstanceResultsMaterialModule } from './training-instance-results-material.module';
 import { TrainingInstanceResultsComponent } from './training-instance-results.component';
 import { DashboardModule } from '@muni-kypo-crp/visualization-dashboard/dashboard';
-import { SummaryGraphModule } from '@muni-kypo-crp/command-visualizations/summary-graph';
 import { TimelineModule } from '@muni-kypo-crp/command-visualizations/timeline';
 import { MistakeModule } from '@muni-kypo-crp/command-visualizations/mistake';
-import { TraineeGraphModule } from '@muni-kypo-crp/command-visualizations/trainee-graph';
 import { TrainingInstanceResultsRoutingModule } from './training-instance-results-routing.module';
-import { TraineeGraphWrapperComponent } from './trainee-graph-wrapper/trainee-graph-wrapper.component';
 import { DashboardWrapperComponent } from './dashboard-wrapper/dashboard-wrapper.component';
 import { CommandTimelineWrapperComponent } from './command-timeline-wrapper/command-timeline-wrapper.component';
 import { AssessmentWrapperComponent } from './assessment-wrapper/assessment-wrapper.component';
@@ -37,14 +34,12 @@ import { WalkthroughService } from './walkthrough-wrapper/services/walkthrough.s
     CommonModule,
     TrainingInstanceResultsMaterialModule,
     KypoTrainingsHurdlingVizLibModule,
-    SummaryGraphModule,
     KypoAssessmentsResultsVisualizationModule,
     KypoTrainingsVisualizationOverviewLibModule,
     StatisticalVisualizationModule,
     DashboardModule,
     TimelineModule,
     MistakeModule,
-    TraineeGraphModule,
     KypoWalkthroughVisualizationModule,
     TrainingInstanceResultsRoutingModule,
   ],
@@ -53,7 +48,6 @@ import { WalkthroughService } from './walkthrough-wrapper/services/walkthrough.s
     AssessmentWrapperComponent,
     CommandTimelineWrapperComponent,
     DashboardWrapperComponent,
-    TraineeGraphWrapperComponent,
     CommandAnalysisWrapperComponent,
     AggregatedDashboardWrapperComponent,
     WalkthroughWrapperComponent,
@@ -71,10 +65,8 @@ export class TrainingInstanceResultsComponentsModule {
         StatisticalVisualizationModule.forRoot(visualizationConfig).providers,
         DashboardModule.forRoot(config.visualizationConfig).providers,
         KypoWalkthroughVisualizationModule.forRoot(visualizationConfig).providers,
-        SummaryGraphModule.forRoot(config.visualizationConfig).providers,
         TimelineModule.forRoot(config.visualizationConfig).providers,
         MistakeModule.forRoot(config.visualizationConfig).providers,
-        TraineeGraphModule.forRoot(config.visualizationConfig).providers,
         {
           provide: VisualizationOverviewConfig,
           useValue: visualizationConfig,

@@ -1,6 +1,0 @@
-<div *ngIf="(hasReferenceSolution | async) else noReferenceSolutions">
-  <kypo-reference-graph [trainingDefinitionId]="trainingDefinitionId"></kypo-reference-graph>
-</div>
-<ng-template #noReferenceSolutions>
-  <h3 class="info-content">This Training Definition does not contain any reference solutions.</h3>
-</ng-template>
