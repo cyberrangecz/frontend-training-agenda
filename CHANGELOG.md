@@ -1,3 +1,8 @@
+### 15.0.1 Prune all broken reference and trainee graphs.
+* 557c226 -- [CI/CD] Update packages.json version based on GitLab tag.
+* 55a997e -- Merge branch 'develop' into 'master'
+* 05d92bb -- Merge branch '233-substract-broken-reference-graph-views' into 'develop'
+* 5aa57e2 -- Prune all broken reference and trainee graphs
 ### 15.0.0 Update to Angular 15.
 * 9d66e66 -- [CI/CD] Update packages.json version based on GitLab tag.
 * d834a38 -- Merge branch '232-update-to-angular-15' into 'master'
