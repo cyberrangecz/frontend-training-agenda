@@ -1,3 +1,4 @@
+15.0.3 Add sorting to training run table.
 15.0.2 Add allocation id to training run table.
 15.0.1 Prune all broken reference and trainee graphs.
 15.0.0 Update to Angular 15.
