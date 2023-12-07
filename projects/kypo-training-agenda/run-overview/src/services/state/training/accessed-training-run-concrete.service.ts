@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { OffsetPaginationEvent, PaginatedResource, SentinelFilter } from '@sentinel/common';
 import { AdaptiveRunApi, TrainingRunApi } from '@muni-kypo-crp/training-api';
 import { AccessedTrainingRun } from '@muni-kypo-crp/training-model';
 import { from, Observable } from 'rxjs';
@@ -8,6 +7,8 @@ import { concatMap, map, tap } from 'rxjs/operators';
 import { TrainingErrorHandler, TrainingNavigator } from '@muni-kypo-crp/training-agenda';
 import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
 import { AccessedTrainingRunService } from './accessed-training-run.service';
+import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
+import { SentinelFilter } from '@sentinel/common/filter';
 
 /**
  * Basic implementation of layer between component and API service.
