@@ -1,4 +1,4 @@
-import { PaginatedResource, SentinelDateTimeFormatPipe } from '@sentinel/common';
+import { PaginatedResource } from '@sentinel/common/pagination';
 import {
   AccessedTrainingRun,
   TraineeAccessTrainingRunActionEnum,

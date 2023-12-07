@@ -5,10 +5,10 @@
       (keydown.enter)="$event.preventDefault()">
       <mat-label>Title</mat-label>
       <input matInput placeholder="Title" formControlName="title" required>
-      <button mat-button *ngIf="title" matSuffix mat-icon-button
+      <mat-button *ngIf="title" matSuffix mat-icon-button
         aria-label="Clear" (click)="title.setValue('');">
         <mat-icon>close</mat-icon>
-      </button>
+      </mat-button>
       <mat-error *ngIf="title.hasError('whitespace')">Title cannot be empty</mat-error>
     </mat-form-field>
 

@@ -1,4 +1,5 @@
-import { PaginatedResource, OffsetPaginationEvent, SentinelBaseDirective } from '@sentinel/common';
+import { SentinelBaseDirective } from '@sentinel/common';
+import { PaginatedResource, OffsetPaginationEvent } from '@sentinel/common/pagination';
 import { ChangeDetectionStrategy, Component, HostListener } from '@angular/core';
 import { Observable } from 'rxjs';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
@@ -134,12 +135,12 @@ export class AdaptiveInstanceEditOverviewComponent extends SentinelBaseDirective
   }
 
   private refreshPools() {
-    const pagination = new OffsetPaginationEvent(0, this.PAGE_SIZE, '', '');
+    const pagination = new OffsetPaginationEvent(0, this.PAGE_SIZE, '', 'asc');
     this.editService.getAllPools(pagination).pipe(take(1)).subscribe();
   }
 
   private refreshSandboxDefinitions() {
-    const pagination = new OffsetPaginationEvent(0, this.PAGE_SIZE, '', '');
+    const pagination = new OffsetPaginationEvent(0, this.PAGE_SIZE, '', 'asc');
     this.editService.getAllSandboxDefinitions(pagination).pipe(take(1)).subscribe();
   }
 

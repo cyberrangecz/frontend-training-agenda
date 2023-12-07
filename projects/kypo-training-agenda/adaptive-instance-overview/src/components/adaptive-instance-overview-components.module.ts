@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SentinelControlsModule } from '@sentinel/components/controls';
+import { SentinelControlsComponent } from '@sentinel/components/controls';
 import { SentinelTableModule } from '@sentinel/components/table';
 import { TrainingAgendaConfig, TrainingDefaultNavigator, TrainingNavigator } from '@muni-kypo-crp/training-agenda';
 import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
@@ -26,7 +26,7 @@ import { AdaptiveInstanceOverviewMaterialModule } from './adaptive-instance-over
     FormsModule,
     ReactiveFormsModule,
     SentinelTableModule,
-    SentinelControlsModule,
+    SentinelControlsComponent,
     AdaptiveInstanceOverviewMaterialModule,
   ],
   declarations: [AdaptiveInstanceOverviewComponent],

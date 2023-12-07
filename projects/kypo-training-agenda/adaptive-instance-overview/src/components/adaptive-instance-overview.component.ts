@@ -1,4 +1,5 @@
-import { OffsetPaginationEvent, SentinelBaseDirective } from '@sentinel/common';
+import { SentinelBaseDirective } from '@sentinel/common';
+import { OffsetPaginationEvent } from '@sentinel/common/pagination';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { TableLoadEvent, SentinelTable, TableActionEvent } from '@sentinel/components/table';

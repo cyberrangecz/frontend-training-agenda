@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { PaginatedResource, OffsetPaginationEvent, SentinelFilter } from '@sentinel/common';
+import { SentinelFilter } from '@sentinel/common/filter';
+import { PaginatedResource, OffsetPaginationEvent } from '@sentinel/common/pagination';
 import { AdaptiveDefinitionApiService } from '@muni-kypo-crp/training-api';
 import { TrainingDefinitionInfo } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';

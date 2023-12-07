@@ -1,9 +1,7 @@
-import { PaginatedResource, SentinelDateTimeFormatPipe } from '@sentinel/common';
+import { PaginatedResource } from '@sentinel/common/pagination';
 import { Column, SentinelTable, Row } from '@sentinel/components/table';
 import { DetectionEventParticipant } from '@muni-kypo-crp/training-model';
 import { DetectionEventParticipantRowAdapter } from './detection-event-participant-row-adapter';
-import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
-import { DetectionEventService } from '../services/detection-event/detection-event.service';
 import { DatePipe } from '@angular/common';
 
 /**

@@ -20,5 +20,6 @@
 }
 
 mat-card {
+  padding: 16px;
   margin-bottom: 1%;
 }

@@ -55,7 +55,7 @@ mat-divider {
   margin-top: -3px;
 }
 
-::ng-deep div.mat-menu-panel {
+::ng-deep div.mat-mdc-menu-panel {
   min-width: 112px;
   max-width: 700px;
   overflow: auto;

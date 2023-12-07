@@ -1,4 +1,5 @@
-import { PaginatedResource, SentinelDateTimeFormatPipe } from '@sentinel/common';
+import { PaginatedResource } from '@sentinel/common/pagination';
+import { SentinelDateTimeFormatPipe } from '@sentinel/common/pipes';
 import { TrainingRun, TrainingRunStateEnum } from '@muni-kypo-crp/training-model';
 import { Column, SentinelTable, Row } from '@sentinel/components/table';
 import { AdaptiveRunRowAdapter } from './adaptive-run-row-adapter';

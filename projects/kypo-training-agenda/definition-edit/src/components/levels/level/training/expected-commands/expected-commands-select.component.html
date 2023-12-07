@@ -12,13 +12,13 @@
   </mat-expansion-panel-header>
   <mat-form-field class="chip-list" appearance="outline">
     <mat-label>Expected Commands</mat-label>
-    <mat-chip-list #chipList>
-      <mat-chip *ngFor="let expectedCommand of expectedCommands" (removed)="remove(expectedCommand)" selected>
+    <mat-chip-grid #chipList>
+      <mat-chip-row *ngFor="let expectedCommand of expectedCommands" (removed)="remove(expectedCommand)" selected>
         {{ expectedCommand }}
         <button matChipRemove>
           <mat-icon>cancel</mat-icon>
         </button>
-      </mat-chip>
+      </mat-chip-row>
       <input
         placeholder="New Expected Command..."
         [matChipInputFor]="chipList"
@@ -27,6 +27,6 @@
         (matChipInputTokenEnd)="add($event)"
         (paste)="paste($event)"
       />
-    </mat-chip-list>
+    </mat-chip-grid>
   </mat-form-field>
 </mat-expansion-panel>

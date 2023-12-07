@@ -14,6 +14,7 @@ markdown ::ng-deep {
 }
 
 /* removes padding and margin from the bottom of the form field to reduce bottom bar height */
+/* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
 ::ng-deep .mat-form-field-wrapper {
   padding: 0;
   margin: 0;

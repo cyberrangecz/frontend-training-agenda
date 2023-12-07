@@ -1,4 +1,5 @@
-import { PaginatedResource, SentinelDateTimeFormatPipe } from '@sentinel/common';
+import { SentinelDateTimeFormatPipe } from '@sentinel/common/pipes';
+import { PaginatedResource } from '@sentinel/common/pagination';
 import { Column, SentinelTable, Row, RowAction } from '@sentinel/components/table';
 import { AbstractDetectionEvent, AbstractDetectionEventTypeEnum } from '@muni-kypo-crp/training-model';
 import { DetectionEventRowAdapter } from './detection-event-row-adapter';

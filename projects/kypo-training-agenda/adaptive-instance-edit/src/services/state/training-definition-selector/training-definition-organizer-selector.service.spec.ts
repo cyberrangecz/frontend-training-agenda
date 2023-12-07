@@ -1,5 +1,6 @@
 import { async, TestBed } from '@angular/core/testing';
-import { PaginatedResource, OffsetPagination, OffsetPaginationEvent, asyncData } from '@sentinel/common';
+import { asyncData } from '@sentinel/common/testing';
+import { PaginatedResource, OffsetPagination, OffsetPaginationEvent } from '@sentinel/common/pagination';
 import { AdaptiveDefinitionApiService } from '@muni-kypo-crp/training-api';
 import { TrainingDefinitionInfo } from '@muni-kypo-crp/training-model';
 import { throwError } from 'rxjs';
@@ -89,7 +90,7 @@ describe('TrainingDefinitionOrganizerSelectorService', () => {
   });
 
   function createPagination() {
-    return new OffsetPaginationEvent(1, 5, '', '');
+    return new OffsetPaginationEvent(1, 5, '', 'asc');
   }
 
   function createMock() {

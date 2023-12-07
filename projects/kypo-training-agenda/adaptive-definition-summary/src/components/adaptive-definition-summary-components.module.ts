@@ -3,10 +3,9 @@ import { CommonModule } from '@angular/common';
 import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
 import { AdaptiveDefintionSummaryMaterialModule } from './adaptive-definition-summary-material.module';
 import { RouterModule } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 import { AdaptiveDefinitionInfoComponent } from './info/adaptive-definition-info.component';
 import { AdaptiveDefinitionSummaryComponent } from './adaptive-definition-summary.component';
-import { SentinelControlsModule } from '@sentinel/components/controls';
+import { SentinelControlsComponent } from '@sentinel/components/controls';
 import { AdaptiveDefinitionPhasesDetailComponent } from './phases/adaptive-definition-phases.component';
 import { InfoPhaseDetailComponent } from './phases/phase/info/info-phase-detail.component';
 import { AbstractPhaseDetailComponent } from './phases/phase/abstract-phase-detail.component';
@@ -39,7 +38,7 @@ const markdownParserConfig = {
     RouterModule,
     AdaptiveDefintionSummaryMaterialModule,
     SentinelMarkdownViewModule.forRoot(markdownParserConfig),
-    SentinelControlsModule,
+    SentinelControlsComponent,
   ],
   declarations: [
     AdaptiveDefinitionSummaryComponent,

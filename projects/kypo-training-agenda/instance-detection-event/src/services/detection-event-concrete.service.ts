@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
 import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } from '@muni-kypo-crp/training-agenda';
 import { DetectionEventService } from './detection-event.service';
-import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common';
+import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
 import { from, Observable } from 'rxjs';
 import { AbstractDetectionEvent } from '@muni-kypo-crp/training-model';
 import { tap } from 'rxjs/operators';
