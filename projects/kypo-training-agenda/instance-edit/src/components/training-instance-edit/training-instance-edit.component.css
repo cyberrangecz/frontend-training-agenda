@@ -60,6 +60,10 @@ button.main {
   width: 170px;
 }
 
+.mat-mdc-slide-toggle {
+  height: 24px;
+}
+
 @media screen and (max-width: 800px) {
 	div .panel-wrapper {
 		flex-direction: column;

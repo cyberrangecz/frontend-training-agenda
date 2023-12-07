@@ -1,10 +1,10 @@
 <div *ngIf="adaptiveDefinition$ | async as adaptiveDefinition">
-  <mat-card class="overview-container">
+  <mat-card appearance="outlined" class="overview-container">
     <mat-card-content>
       <kypo-adaptive-definition-info [trainingDefinition]="adaptiveDefinition"></kypo-adaptive-definition-info>
     </mat-card-content>
   </mat-card>
-  <mat-card>
+  <mat-card appearance="outlined">
     <mat-card-content class="levels-container">
       <kypo-adaptive-definition-phases [phases]="adaptiveDefinition.levels"></kypo-adaptive-definition-phases>
     </mat-card-content>

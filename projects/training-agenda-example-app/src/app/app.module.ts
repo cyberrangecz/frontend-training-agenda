@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SentinelConfirmationDialogModule } from '@sentinel/components/dialogs';
+import { SentinelConfirmationDialogComponent } from '@sentinel/components/dialogs';
 import { SentinelLayout1Module } from '@sentinel/layout/layout1';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
@@ -20,7 +20,7 @@ import { LoadingInterceptor } from './services/loading-interceptor';
     BrowserAnimationsModule,
     AppRoutingModule,
     SentinelLayout1Module,
-    SentinelConfirmationDialogModule,
+    SentinelConfirmationDialogComponent,
     HttpClientModule,
     SentinelAuthModule.forRoot(environment.authConfig),
   ],

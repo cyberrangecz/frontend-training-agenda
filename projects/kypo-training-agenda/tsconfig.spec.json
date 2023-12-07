@@ -6,13 +6,13 @@
       "jasmine",
       "node"
     ],
-    "baseUrl": "src",
+    "baseUrl": "./",
     "paths": {
       "@muni-kypo-crp/training-agenda": [
-        "./public_api.ts"
+        "./src/public_api.ts"
       ],
       "@muni-kypo-crp/training-agenda/*": [
-        "../*/src/public_api.ts"
+        "./*/src/public_api.ts"
       ]
     }
   },

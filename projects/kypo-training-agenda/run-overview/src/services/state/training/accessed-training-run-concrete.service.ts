@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common';
+import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
 import { AdaptiveRunApi, TrainingRunApi } from '@muni-kypo-crp/training-api';
 import { AccessedTrainingRun } from '@muni-kypo-crp/training-model';
 import { from, Observable } from 'rxjs';

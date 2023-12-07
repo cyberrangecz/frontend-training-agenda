@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SentinelBaseDirective, OffsetPaginationEvent } from '@sentinel/common';
+import { SentinelBaseDirective } from '@sentinel/common';
+import { OffsetPaginationEvent } from '@sentinel/common/pagination';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { TrainingInstance, TrainingRun } from '@muni-kypo-crp/training-model';
 import { SentinelTable, TableActionEvent } from '@sentinel/components/table';
@@ -59,7 +60,7 @@ export class AdaptiveInstanceRunsComponent extends SentinelBaseDirective impleme
   }
 
   private initRunsOverviewComponent() {
-    const initialPagination = new OffsetPaginationEvent(0, this.paginationService.getPagination(), '', '');
+    const initialPagination = new OffsetPaginationEvent(0, this.paginationService.getPagination(), '', 'asc');
     this.trainingInstance$
       .pipe(
         take(1),

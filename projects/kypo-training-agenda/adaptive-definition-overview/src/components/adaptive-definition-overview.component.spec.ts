@@ -9,9 +9,10 @@ import {
 } from '../../../internal/src/testing/testing-commons.spec';
 import { Level, AssessmentLevel, InfoLevel, TrainingDefinition, TrainingLevel } from '@muni-kypo-crp/training-model';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { asyncData, PaginatedResource, OffsetPagination, OffsetPaginationEvent } from '@sentinel/common';
+import { asyncData } from '@sentinel/common/testing';
+import { PaginatedResource, OffsetPagination, OffsetPaginationEvent } from '@sentinel/common/pagination';
 import { TableLoadEvent, SentinelTableModule } from '@sentinel/components/table';
-import { SentinelControlsModule } from '@sentinel/components/controls';
+import { SentinelControlsComponent } from '@sentinel/components/controls';
 import { MaterialTestingModule } from '../../../internal/src/testing/material-testing.module';
 import { AdaptiveDefinitionService } from '../services/state/adaptive-definition.service';
 import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
@@ -30,7 +31,7 @@ describe('AdaptiveDefinitionOverviewComponent', () => {
     adaptiveDefinitionServiceSpy = createTrainingDefinitionServiceSpy();
     initValues();
     TestBed.configureTestingModule({
-      imports: [MaterialTestingModule, SentinelTableModule, BrowserAnimationsModule, SentinelControlsModule],
+      imports: [MaterialTestingModule, SentinelTableModule, BrowserAnimationsModule, SentinelControlsComponent],
       declarations: [AdaptiveDefinitionOverviewComponent],
       providers: [
         { provide: TrainingNavigator, useValue: navigatorSpy },
@@ -61,7 +62,7 @@ describe('AdaptiveDefinitionOverviewComponent', () => {
 
   it('should get data for table', () => {
     const tableEvent: TableLoadEvent = {
-      pagination: new OffsetPaginationEvent(0, 1, '', ''),
+      pagination: new OffsetPaginationEvent(0, 1, '', 'asc'),
       filter: '',
     };
 
@@ -69,7 +70,7 @@ describe('AdaptiveDefinitionOverviewComponent', () => {
     paginationServiceSpy.getPagination.and.returnValue(1);
     component.onLoadEvent(tableEvent);
     expect(adaptiveDefinitionServiceSpy.getAll).toHaveBeenCalledTimes(1);
-    expect(adaptiveDefinitionServiceSpy.getAll).toHaveBeenCalledWith(new OffsetPaginationEvent(0, 1, '', ''), '');
+    expect(adaptiveDefinitionServiceSpy.getAll).toHaveBeenCalledWith(new OffsetPaginationEvent(0, 1, '', 'asc'), '');
   });
 
   function createMock(): TrainingDefinition {

@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { SentinelBaseDirective, OffsetPaginationEvent } from '@sentinel/common';
+import { SentinelBaseDirective } from '@sentinel/common';
+import { OffsetPaginationEvent } from '@sentinel/common/pagination';
 import { AccessedTrainingRun } from '@muni-kypo-crp/training-model';
 import { SentinelTable, TableLoadEvent, TableActionEvent } from '@sentinel/components/table';
 import { Observable } from 'rxjs';
@@ -68,18 +69,17 @@ export class TrainingRunOverviewComponent extends SentinelBaseDirective implemen
 
   /**
    * Loads training run data for the table component
-   * @param loadEvent load table event
    */
   loadAccessedTrainingRuns(loadEvent: TableLoadEvent): void {
     this.trainingRunOverviewService
-      .getAll(new OffsetPaginationEvent(0, 0, '', ''))
+      .getAll(new OffsetPaginationEvent(0, 0, '', 'asc'))
       .pipe(takeWhile(() => this.isAlive))
       .subscribe();
   }
 
   private initTable() {
     const initialLoadEvent: TableLoadEvent = {
-      pagination: new OffsetPaginationEvent(0, this.paginationService.getPagination(), '', ''),
+      pagination: new OffsetPaginationEvent(0, this.paginationService.getPagination(), '', 'asc'),
     };
 
     this.trainingRuns$ = this.trainingRunOverviewService.resource$.pipe(

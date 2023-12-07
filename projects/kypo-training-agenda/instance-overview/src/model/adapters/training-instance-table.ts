@@ -1,7 +1,8 @@
-import { SentinelDateTimeFormatPipe, PaginatedResource } from '@sentinel/common';
+import { SentinelDateTimeFormatPipe } from '@sentinel/common/pipes';
+import { PaginatedResource } from '@sentinel/common/pagination';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { Column, SentinelTable, Row, RowAction, EditAction, DeleteAction } from '@sentinel/components/table';
-import { combineLatest, defer, of, tap } from 'rxjs';
+import { combineLatest, defer, of } from 'rxjs';
 import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
 import { TrainingInstanceOverviewService } from '../../services/state/training-instance-overview.service';
 import { TrainingInstanceRowAdapter } from './training-instance-row-adapter';
@@ -19,7 +20,7 @@ export class TrainingInstanceTable extends SentinelTable<TrainingInstanceRowAdap
     const columns = [
       new Column('title', 'Title', true),
       new Column('startTimeFormatted', 'Start Time', true, 'startTime'),
-      new Column('endTimeFormatted', 'End Time', true, 'endTime'),
+      new Column('endTimeFormatted', 'End Time', true, 'endTimeForm'),
       new Column('expiresIn', 'Expires In', true, 'endTime'),
       new Column('tdTitle', 'Training Definition', true, 'title'),
       new Column('lastEditBy', 'Last Edit By', false),

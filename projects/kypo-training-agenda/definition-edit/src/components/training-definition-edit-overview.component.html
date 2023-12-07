@@ -42,21 +42,6 @@
                            (unsavedLevels)="onUnsavedLevelsChanged($event)">
       </kypo-level-overview>
     </div>
-
-    <!-- REFERENCE GRAPH preview -->
-    <div *ngIf="(editMode$ | async)">
-      <mat-divider *ngIf="(trainingDefinition$ | async).levels.length > 0"></mat-divider>
-      <div class="levels-header">
-        <h3>Reference solutions preview</h3>
-        <mat-icon class="header-icon">poll</mat-icon>
-      </div>
-      <div class="reference-graph-preview-container">
-        <kypo-reference-graph-preview
-          [trainingDefinition]="trainingDefinition$ | async"
-          [hasWarning]="!canDeactivateTDEdit || (unsavedLevels$ | async).length !== 0">
-        </kypo-reference-graph-preview>
-      </div>
-    </div>
   </ng-template>
 </mat-expansion-panel>
 
