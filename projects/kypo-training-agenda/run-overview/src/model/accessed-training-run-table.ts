@@ -17,9 +17,9 @@ import { AccessedTrainingRunRowAdapter } from './accessed-training-run-row-adapt
 export class AccessedTrainingRunTable extends SentinelTable<AccessedTrainingRun> {
   constructor(resource: PaginatedResource<AccessedTrainingRun>, service: AccessedTrainingRunService) {
     const columns = [
-      new Column('trainingInstanceTitle', 'title', true),
-      new Column('trainingInstanceFormattedDuration', 'Date', true),
-      new Column('completedLevels', 'Completed Levels', true),
+      new Column('trainingInstanceTitle', 'title', false),
+      new Column('trainingInstanceFormattedDuration', 'Date', false),
+      new Column('completedLevels', 'Completed Levels', false),
     ];
 
     const rows = resource.elements.map((element) => AccessedTrainingRunTable.createRow(element, service));
