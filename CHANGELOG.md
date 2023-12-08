@@ -1,3 +1,21 @@
+### 15.0.4 Bump version of api to fix allocation id attributes.
+* fde9aef -- [CI/CD] Update packages.json version based on GitLab tag.
+* 93664ec -- Merge branch 'develop' into 'master'
+*   e797819 -- Merge branch 'bump-api-version' into 'develop'
+|\  
+| * 471b9bd -- Update version of api
+|/  
+* 3784df0 -- Merge branch '227-add-sorting-options-to-training-run-table' into 'develop'
+* d32f546 -- Fix test
+* a1fb4f4 -- Bump version
+* 0829611 -- Revert package
+* 0f2ea9b -- Update versions
+* 692cb08 -- Merge branch 'develop' into 227-add-sorting-options-to-training-run-table
+* de1a2cf -- Remove sorting options for accessed training runs
+* 8c0b784 -- Merge develop
+* 2e39371 -- refactor
+* 2780fef -- Added sorting support for accessed training run table
+* e121568 -- Added sorting of player in training instance summary table
 ### 15.0.2 Add allocation id to training run table.
 * bd55e12 -- [CI/CD] Update packages.json version based on GitLab tag.
 * d3a5899 -- Merge branch 'develop' into 'master'
