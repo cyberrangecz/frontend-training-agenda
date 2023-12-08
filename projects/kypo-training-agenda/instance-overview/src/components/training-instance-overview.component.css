@@ -18,3 +18,7 @@
 .access-token-container mat-icon.warning {
   color: orange;
 }
+
+::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
+  padding: 8px;
+}

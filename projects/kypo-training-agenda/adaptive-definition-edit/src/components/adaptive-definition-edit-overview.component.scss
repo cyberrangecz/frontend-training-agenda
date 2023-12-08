@@ -42,3 +42,7 @@ mat-divider {
 mat-expansion-panel {
   margin: 10px 0;
 }
+
+::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
+  padding: 8px;
+}

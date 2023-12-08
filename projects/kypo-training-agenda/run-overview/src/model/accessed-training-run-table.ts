@@ -2,11 +2,13 @@ import { PaginatedResource } from '@sentinel/common/pagination';
 import {
   AccessedTrainingRun,
   TraineeAccessTrainingRunActionEnum,
+  TrainingInstance,
   TrainingRunTypeEnum,
 } from '@muni-kypo-crp/training-model';
 import { Column, Row, RowAction, SentinelTable } from '@sentinel/components/table';
 import { defer, EMPTY, of } from 'rxjs';
 import { AccessedTrainingRunService } from '../services/state/training/accessed-training-run.service';
+import { AccessedTrainingRunRowAdapter } from './accessed-training-run-row-adapter';
 
 /**
  * Helper class transforming paginated resource to class for common table component
@@ -20,12 +22,20 @@ export class AccessedTrainingRunTable extends SentinelTable<AccessedTrainingRun>
       new Column('completedLevels', 'Completed Levels', false),
     ];
 
-    const rows = resource.elements.map(
-      (trainingRun) => new Row(trainingRun, AccessedTrainingRunTable.createActions(trainingRun, service))
-    );
+    const rows = resource.elements.map((element) => AccessedTrainingRunTable.createRow(element, service));
     super(rows, columns);
+    this.pagination = resource.pagination;
     this.filterable = false;
     this.selectable = false;
+  }
+
+  private static createRow(
+    accessedTrainingRun: AccessedTrainingRun,
+    service: AccessedTrainingRunService
+  ): Row<AccessedTrainingRunRowAdapter> {
+    const adapter = accessedTrainingRun as AccessedTrainingRunRowAdapter;
+    const row = new Row(adapter);
+    return row;
   }
 
   private static createActions(trainingRun: AccessedTrainingRun, service: AccessedTrainingRunService): RowAction[] {

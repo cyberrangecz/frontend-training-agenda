@@ -59,7 +59,7 @@ describe('AccessedTrainingRunConcreteService', () => {
   it('should call error handler on err', () => {
     trainingApiSpy.getAccessed.and.returnValue(throwError(null));
 
-    service.getAll(createPagination()).subscribe(
+    service.getAll(createPagination(), null).subscribe(
       () => [],
       () => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
@@ -78,7 +78,7 @@ describe('AccessedTrainingRunConcreteService', () => {
         done();
       }, fail);
     service
-      .getAll(pagination)
+      .getAll(pagination, null)
       .pipe(take(1))
       .subscribe(fail, (_) => _);
   });
