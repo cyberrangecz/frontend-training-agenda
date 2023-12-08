@@ -11,10 +11,6 @@
   width: 100%;
 }
 
-/*.training-run-stepper {*/
-/*  pointer-events: none !important;*/
-/*}*/
-
 .right-panel {
   display: flex;
   flex-direction: column;
@@ -31,3 +27,7 @@
     flex-wrap: wrap;
   }
  }
+
+::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
+  padding: 8px;
+}

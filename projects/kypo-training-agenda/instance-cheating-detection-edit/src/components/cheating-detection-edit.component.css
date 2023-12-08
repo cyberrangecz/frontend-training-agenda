@@ -21,3 +21,7 @@ mat-divider {
 .proximity-container {
   width: 20%;
 }
+
+::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
+  padding: 8px;
+}

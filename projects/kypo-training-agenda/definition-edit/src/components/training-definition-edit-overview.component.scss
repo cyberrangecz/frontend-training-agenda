@@ -46,3 +46,7 @@ mat-expansion-panel {
 .levels-info, .header-icon {
   color: rgba(0,0,0,.54);
 }
+
+::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
+  padding: 8px;
+}
