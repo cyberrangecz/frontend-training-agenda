@@ -1,3 +1,7 @@
+### 15.0.5 Fix faulty buttons in agendas.
+* b8a65c7 -- [CI/CD] Update packages.json version based on GitLab tag.
+* 2fd89c7 -- Merge branch 'fix-buttons' into 'master'
+* 94b1d4e -- Fix faulty buttons
 ### 15.0.4 Bump version of api to fix allocation id attributes.
 * fde9aef -- [CI/CD] Update packages.json version based on GitLab tag.
 * 93664ec -- Merge branch 'develop' into 'master'
