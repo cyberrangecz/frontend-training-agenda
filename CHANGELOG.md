@@ -1,3 +1,17 @@
+### 15.0.2 Add allocation id to training run table.
+* bd55e12 -- [CI/CD] Update packages.json version based on GitLab tag.
+* d3a5899 -- Merge branch 'develop' into 'master'
+* a110cb4 -- Merge branch '230-change-training-run-table-sandbox-uuid-to-allocation-id' into 'develop'
+* 3fbdd09 -- update package.json
+* b778547 -- Update version
+* 4498dd4 -- Update package.json
+* b0d90cb -- Merge branch 'develop' into 230-change-training-run-table-sandbox-uuid-to-allocation-id
+* db422c7 -- Add sandbox id to training run table
+### 15.0.1 Prune all broken reference and trainee graphs.
+* 557c226 -- [CI/CD] Update packages.json version based on GitLab tag.
+* 55a997e -- Merge branch 'develop' into 'master'
+* 05d92bb -- Merge branch '233-substract-broken-reference-graph-views' into 'develop'
+* 5aa57e2 -- Prune all broken reference and trainee graphs
 ### 15.0.0 Update to Angular 15.
 * 9d66e66 -- [CI/CD] Update packages.json version based on GitLab tag.
 * d834a38 -- Merge branch '232-update-to-angular-15' into 'master'
