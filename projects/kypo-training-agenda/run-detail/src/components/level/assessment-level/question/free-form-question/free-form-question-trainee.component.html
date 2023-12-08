@@ -12,7 +12,7 @@
     <mat-label>Answer</mat-label>
     <input matInput [disabled]="isBacktracked" placeholder="Answer" [(ngModel)]="answer"
       [required]="question.required" (keyup)="onChange()">
-    <button mat-button *ngIf="answer && !isBacktracked" matSuffix mat-icon-button
+    <button *ngIf="answer && !isBacktracked" matSuffix mat-icon-button
       aria-label="Clear" (click)="answer=''; onChange()">
       <mat-icon>close</mat-icon>
     </button>
