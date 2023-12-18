@@ -11,7 +11,7 @@
         <input matInput (paste)="onPaste($event)" (keyup)="onKeyup($event)"
           placeholder="Access Token Prefix" formControlName="accessTokenPrefix"
           required>
-        <button mat-button *ngIf="accessTokenPrefix.value" matSuffix
+        <button *ngIf="accessTokenPrefix.value" matSuffix
           mat-icon-button aria-label="Clear"
           (click)="accessTokenPrefix.setValue('')">
           <mat-icon>close</mat-icon>
