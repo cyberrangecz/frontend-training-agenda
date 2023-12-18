@@ -1,3 +1,5 @@
+15.0.6 Resolve adaptive simulator Angular Material migration.
+15.0.5 Fix faulty buttons in agendas.
 15.0.4 Bump version of api to fix allocation id attributes.
 15.0.3 Add sorting to training run table.
 15.0.2 Add allocation id to training run table.

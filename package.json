@@ -35,7 +35,7 @@
     "@angular/router": "^15.2.10",
     "@danielmoncada/angular-datetime-picker": "^15.0.2",
     "@hpcc-js/wasm": "^1.15.3",
-    "@muni-kypo-crp/adaptive-model-simulator": "~15.0.0",
+    "@muni-kypo-crp/adaptive-model-simulator": "~15.0.1",
     "@muni-kypo-crp/adaptive-transition-visualization": "~15.0.0",
     "@muni-kypo-crp/adaptive-visualization": "~15.0.0",
     "@muni-kypo-crp/assessment-visualization": "~15.0.0",
