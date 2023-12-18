@@ -1,3 +1,9 @@
+### 15.0.6 Resolve adaptive simulator Angular Material migration.
+* 095d3bf -- [CI/CD] Update packages.json version based on GitLab tag.
+* fded626 -- Merge branch 'develop' into 'master'
+* a5abd84 -- Merge branch 'master' into 'develop'
+* 559e3c9 -- Update angular material stylling in ATD simulator
+* 3950985 -- Merge branch 'master' into develop
 ### 15.0.5 Fix faulty buttons in agendas.
 * b8a65c7 -- [CI/CD] Update packages.json version based on GitLab tag.
 * 2fd89c7 -- Merge branch 'fix-buttons' into 'master'
