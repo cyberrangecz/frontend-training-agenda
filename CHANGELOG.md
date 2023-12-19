@@ -1,3 +1,6 @@
+### 15.0.7 Fix faulty training run button.
+* ddb4f04 -- [CI/CD] Update packages.json version based on GitLab tag.
+* 72ed33f -- Fix training run faulty button
 ### 15.0.6 Resolve adaptive simulator Angular Material migration.
 * 095d3bf -- [CI/CD] Update packages.json version based on GitLab tag.
 * fded626 -- Merge branch 'develop' into 'master'
