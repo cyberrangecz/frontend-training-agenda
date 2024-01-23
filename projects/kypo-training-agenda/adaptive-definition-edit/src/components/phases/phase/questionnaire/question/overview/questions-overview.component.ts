@@ -1,17 +1,17 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { AdaptiveQuestion, QuestionTypeEnum } from '@muni-kypo-crp/training-model';
-import { SentinelBaseDirective } from '@sentinel/common';
-import { AdaptiveQuestionStepperAdapter } from '@muni-kypo-crp/training-agenda/internal';
-import { SentinelStepper, StepStateEnum } from '@sentinel/components/stepper';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {AdaptiveQuestion, QuestionTypeEnum} from '@muni-kypo-crp/training-model';
+import {SentinelBaseDirective} from '@sentinel/common';
+import {AdaptiveQuestionStepperAdapter} from '@muni-kypo-crp/training-agenda/internal';
+import {SentinelStepper, StepStateEnum} from '@sentinel/components/stepper';
 import {
   SentinelControlItem,
   SentinelControlMenuItem,
   SentinelExpandableControlItem,
 } from '@sentinel/components/controls';
-import { defer, EMPTY, Observable, of } from 'rxjs';
-import { takeWhile } from 'rxjs/operators';
-import { QuestionChangeEvent } from '../../../../../../model/events/question-change-event';
-import { MatDialog } from '@angular/material/dialog';
+import {defer, EMPTY, Observable, of} from 'rxjs';
+import {takeWhile} from 'rxjs/operators';
+import {QuestionChangeEvent} from '../../../../../../model/events/question-change-event';
+import {MatDialog} from '@angular/material/dialog';
 import {
   SentinelConfirmationDialogComponent,
   SentinelConfirmationDialogConfig,
@@ -72,6 +72,9 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
     newQuestion.choices = [];
     newQuestion.text = 'Question text?';
     newQuestion.order = this.stepperQuestions.items.length + 1;
+    if (newQuestion.questionType == QuestionTypeEnum.FFQ) {
+      newQuestion.valid = true;
+    }
     const questionStepperAdapter = new AdaptiveQuestionStepperAdapter(newQuestion);
     questionStepperAdapter.state = StepStateEnum.ACTIVE;
     this.stepperQuestions.items.push(questionStepperAdapter);
