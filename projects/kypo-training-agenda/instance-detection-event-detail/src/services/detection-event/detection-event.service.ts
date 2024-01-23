@@ -1,4 +1,3 @@
-import { OffsetPaginatedElementsService, OffsetPaginationEvent, PaginatedResource } from '@sentinel/common';
 import {
   AbstractDetectionEvent,
   AnswerSimilarityDetectionEvent,

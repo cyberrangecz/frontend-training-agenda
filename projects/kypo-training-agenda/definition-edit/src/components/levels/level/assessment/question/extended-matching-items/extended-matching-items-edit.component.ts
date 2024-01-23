@@ -28,7 +28,9 @@ export class ExtendedMatchingItemsEditComponent extends SentinelBaseDirective im
   @Input() isTest: boolean;
   @Input() required: boolean;
   @Output() questionChange: EventEmitter<ExtendedMatchingItems> = new EventEmitter();
+  columnLimitReached = false;
 
+  OPTIONS_BOUNDS_MAXIMUM = 8;
   extendedMatchingQuestionFormGroup: ExtendedMatchingItemsFormGroup;
   maxQuestionScore = Question.MAX_QUESTION_SCORE;
   maxQuestionPenalty = Question.MAX_QUESTION_PENALTY;
@@ -174,6 +176,7 @@ export class ExtendedMatchingItemsEditComponent extends SentinelBaseDirective im
         text: new UntypedFormControl('', SentinelValidators.noWhitespace),
       })
     );
+    this.columnLimitReached = this.options.length == this.OPTIONS_BOUNDS_MAXIMUM;
     this.questionChanged();
   }
 

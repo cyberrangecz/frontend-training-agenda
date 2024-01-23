@@ -1,3 +1,162 @@
+### 15.0.5 Fix faulty buttons in agendas.
+* b8a65c7 -- [CI/CD] Update packages.json version based on GitLab tag.
+* 2fd89c7 -- Merge branch 'fix-buttons' into 'master'
+* 94b1d4e -- Fix faulty buttons
+### 15.0.4 Bump version of api to fix allocation id attributes.
+* fde9aef -- [CI/CD] Update packages.json version based on GitLab tag.
+* 93664ec -- Merge branch 'develop' into 'master'
+*   e797819 -- Merge branch 'bump-api-version' into 'develop'
+|\  
+| * 471b9bd -- Update version of api
+|/  
+* 3784df0 -- Merge branch '227-add-sorting-options-to-training-run-table' into 'develop'
+* d32f546 -- Fix test
+* a1fb4f4 -- Bump version
+* 0829611 -- Revert package
+* 0f2ea9b -- Update versions
+* 692cb08 -- Merge branch 'develop' into 227-add-sorting-options-to-training-run-table
+* de1a2cf -- Remove sorting options for accessed training runs
+* 8c0b784 -- Merge develop
+* 2e39371 -- refactor
+* 2780fef -- Added sorting support for accessed training run table
+* e121568 -- Added sorting of player in training instance summary table
+### 15.0.2 Add allocation id to training run table.
+* bd55e12 -- [CI/CD] Update packages.json version based on GitLab tag.
+* d3a5899 -- Merge branch 'develop' into 'master'
+* a110cb4 -- Merge branch '230-change-training-run-table-sandbox-uuid-to-allocation-id' into 'develop'
+* 3fbdd09 -- update package.json
+* b778547 -- Update version
+* 4498dd4 -- Update package.json
+* b0d90cb -- Merge branch 'develop' into 230-change-training-run-table-sandbox-uuid-to-allocation-id
+* db422c7 -- Add sandbox id to training run table
+### 15.0.1 Prune all broken reference and trainee graphs.
+* 557c226 -- [CI/CD] Update packages.json version based on GitLab tag.
+* 55a997e -- Merge branch 'develop' into 'master'
+* 05d92bb -- Merge branch '233-substract-broken-reference-graph-views' into 'develop'
+* 5aa57e2 -- Prune all broken reference and trainee graphs
+### 15.0.0 Update to Angular 15.
+* 9d66e66 -- [CI/CD] Update packages.json version based on GitLab tag.
+* d834a38 -- Merge branch '232-update-to-angular-15' into 'master'
+* a55a926 -- Update to Angular 15
+### 14.6.2 Add created at column to training definition.
+* 70d45dc -- [CI/CD] Update packages.json version based on GitLab tag.
+* 9743b60 -- Merge branch 'develop' into 'master'
+*   e509fad -- Merge branch '231-add-createdat-column-to-training-definition-table' into 'develop'
+|\  
+| * b5e73eb -- extend logic to adaptive training definition
+| * 53359b9 -- Bump model and api package
+| * 315e5d8 -- Add created at column to training definition
+|/  
+* 5a034b2 -- Merge branch '229-fix-disabling-of-pool-button-while-creating-training-instance' into 'develop'
+* f783244 -- Rename method isCreated to isCreatedAndStarted
+* dc33729 -- Simplify input of training instance to training instance id
+* f9d43d2 -- Bump version
+* b2383b1 -- Fix disabling of pool button
+### 14.6.0 Fix ATD disabled saving when adding questions.
+* 28eecdc -- [CI/CD] Update packages.json version based on GitLab tag.
+* e915222 -- Merge branch 'develop' into 'master'
+* add94f1 -- Merge branch 'master' into 'develop'
+*   ba4a04f -- Merge branch '226-unable-to-save-atd-when-adding-multiple-new-questions' into 'develop'
+|\  
+| * 26f3772 -- Fix ATD saving when adding questions.
+|/  
+*   7047f8a -- Merge branch '223-fix-markdown-rendering-for-atd-and-ltd-training-run' into 'develop'
+|\  
+| *   c587ca1 -- Merge branch 'develop' into '223-fix-markdown-rendering-for-atd-and-ltd-training-run'
+| |\  
+| |/  
+|/|   
+* |   5c12c10 -- Merge branch '225-fix-word-splitting-in-training-preview' into 'develop'
+|\ \  
+| * \   494d7ae -- Merge branch 'develop' into '225-fix-word-splitting-in-training-preview'
+| |\ \  
+| * | | bb53269 -- Update version
+| * | | b974996 -- Update version.
+| * | | fb5c423 -- Fix word splitting in training preview
+* | | |   986235b -- Merge branch '222-fix-training-definition-preview-does-not-support-markdown' into 'develop'
+|\ \ \ \  
+| |_|/ /  
+|/| | |   
+| * | | 7761eaf -- Update multiple-choice-question-trainee.component.css
+| * | |   afb8685 -- Merge branch 'develop' into '222-fix-training-definition-preview-does-not-support-markdown'
+| |\ \ \  
+| |/ / /  
+|/| | |   
+* | | |   7485349 -- Merge branch '224-add-text-wrapping-to-definition-preview' into 'develop'
+|\ \ \ \  
+| * | | | ac4f291 -- Add text wrapping to definition preview.
+| | |/ /  
+| |/| |   
+* | | |   13f895f -- Merge branch '221-fix-atd-questionnaires-questions-error-after-every-refresh' into 'develop'
+|\ \ \ \  
+| |/ / /  
+|/| | |   
+| * | |   78283f6 -- Merge branch 'develop' into '221-fix-atd-questionnaires-questions-error-after-every-refresh'
+| |\ \ \  
+| |/ / /  
+|/| | |   
+* | | |   85fb53c -- Merge branch '220-change-authors-title-do-designers-in-atd-and-ltd' into 'develop'
+|\ \ \ \  
+| * \ \ \   9417cf1 -- Merge branch 'develop' into '220-change-authors-title-do-designers-in-atd-and-ltd'
+| |\ \ \ \  
+| |/ / / /  
+|/| | | |   
+* | | | |   69a3edc -- Merge branch '219-fix-unable-to-save-atd-notes-and-outcomes-of-length-1' into 'develop'
+|\ \ \ \ \  
+| * | | | | 23d3f6f -- Revert client id
+| * | | | |   4bd9901 -- Merge branch 'develop' into '219-fix-unable-to-save-atd-notes-and-outcomes-of-length-1'
+| |\ \ \ \ \  
+| |/ / / / /  
+|/| | | | |   
+| * | | | | e58122c -- Fix unable to save LTD notes and outcomes of length 1
+|  / / / /  
+| * | | | eded065 -- Update version.
+| * | | | e2145a2 -- Update Designers Title.
+|  / / /  
+| * | | 7b78457 -- Update version
+| * | | 6121a19 -- Fix error in some questions when refreshing.
+|  / /  
+| * / 910b82d -- Updated training definition preview questions with markup support.
+|  /  
+| * 7bc9d1a -- Bump version
+| * ea65857 -- Update version
+| * b9d11ce -- Added markdown support to ATD preview and updated markdown css style color
+| * 57e5652 -- Added markdown rendering support to linear training run
+|/  
+* c26cb0b -- Merge branch '218-add-relevant-sorting-options-to-tables' into 'develop'
+* 4cafbde -- Updated version.
+* f0f5c08 -- Added sorting options to adaptive instance summary.
+* be6155d -- Added sorting to instance overview and summary tables.
+### 14.5.18 Fix Markdown text rendering for definition preview and training run.
+* ce08fa2 -- [CI/CD] Update packages.json version based on GitLab tag.
+*   1585d20 -- Merge branch 'develop' into 'master'
+|\  
+| * 3581a12 -- Develop
+|/  
+* 8b61b99 -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* 8e0f6f3 -- [CI/CD] Update packages.json version based on GitLab tag.
+*   52b0a45 -- Merge branch 'develop' into 'master'
+|\  
+| * 001df8d -- Bump topology graph version.
+|/  
+* 4fd7001 -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* 87cd5c5 -- [CI/CD] Update packages.json version based on GitLab tag.
+* 5ea5b41 -- Merge branch 'develop' into 'master'
+* c492406 -- merge develop into master
+### 14.4.12 Bump topology graph version.
+* 8e0f6f3 -- [CI/CD] Update packages.json version based on GitLab tag.
+*   52b0a45 -- Merge branch 'develop' into 'master'
+|\  
+| * 001df8d -- Bump topology graph version.
+|/  
+* 4fd7001 -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* 87cd5c5 -- [CI/CD] Update packages.json version based on GitLab tag.
+* 5ea5b41 -- Merge branch 'develop' into 'master'
+* c492406 -- merge develop into master
+### 14.4.11 Fixed deletion of ATD questions and question saving without correct answers. Bump model and api versions.
+* 87cd5c5 -- [CI/CD] Update packages.json version based on GitLab tag.
+* 5ea5b41 -- Merge branch 'develop' into 'master'
+* c492406 -- merge develop into master
 ### 14.4.8 Update topology legend and command timeline display
 * e852761 -- [CI/CD] Update packages.json version based on GitLab tag.
 * 3131ee8 -- Merge branch '207-update-topology-and-timeline-component-display' into 'master'

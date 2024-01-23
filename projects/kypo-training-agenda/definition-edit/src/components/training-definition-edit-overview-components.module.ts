@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SentinelPipesModule } from '@sentinel/common';
-import { SentinelControlsModule } from '@sentinel/components/controls';
-import { SentinelUserAssignModule } from '@sentinel/components/user-assign';
+import { SentinelPipesModule } from '@sentinel/common/pipes';
+import { SentinelControlsComponent } from '@sentinel/components/controls';
+import { SentinelUserAssignComponent } from '@sentinel/components/user-assign';
 import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
 import { TrainingDefinitionCanDeactivate } from '../services/can-deactivate/training-definition-can-deactivate.service';
 import {
@@ -15,8 +15,7 @@ import { TrainingDefinitionEditComponent } from './definition/training-definitio
 import { LevelOverviewComponentsModule } from './levels/level-overview-components.module';
 import { TrainingDefinitionEditOverviewMaterialModule } from './training-definition-edit-overview-material.module';
 import { TrainingDefinitionEditOverviewComponent } from './training-definition-edit-overview.component';
-import { SentinelFreeFormModule } from '@sentinel/components/free-form';
-import { ReferenceGraphPreviewComponentsModule } from './reference-graph/reference-graph-preview-components.module';
+import { SentinelFreeFormComponent } from '@sentinel/components/free-form';
 
 /**
  * Module containing components and providers of training definition detail/edt/new actions.
@@ -25,14 +24,13 @@ import { ReferenceGraphPreviewComponentsModule } from './reference-graph/referen
   imports: [
     CommonModule,
     FormsModule,
-    SentinelUserAssignModule,
+    SentinelUserAssignComponent,
     TrainingDefinitionEditOverviewMaterialModule,
     LevelOverviewComponentsModule,
     SentinelPipesModule,
     ReactiveFormsModule,
-    SentinelControlsModule,
-    SentinelFreeFormModule,
-    ReferenceGraphPreviewComponentsModule,
+    SentinelControlsComponent,
+    SentinelFreeFormComponent,
   ],
   declarations: [TrainingDefinitionEditOverviewComponent, TrainingDefinitionEditComponent],
   providers: [
@@ -46,10 +44,7 @@ export class TrainingDefinitionEditOverviewComponentsModule {
   static forRoot(config: TrainingAgendaConfig): ModuleWithProviders<TrainingDefinitionEditOverviewComponentsModule> {
     return {
       ngModule: TrainingDefinitionEditOverviewComponentsModule,
-      providers: [
-        ReferenceGraphPreviewComponentsModule.forRoot(config.visualizationConfig).providers,
-        { provide: TrainingAgendaConfig, useValue: config },
-      ],
+      providers: [{ provide: TrainingAgendaConfig, useValue: config }],
     };
   }
 }

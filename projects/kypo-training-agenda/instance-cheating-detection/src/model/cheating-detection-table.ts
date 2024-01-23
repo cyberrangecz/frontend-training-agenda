@@ -1,5 +1,6 @@
-import { PaginatedResource, SentinelDateTimeFormatPipe } from '@sentinel/common';
-import { Column, SentinelTable, Row, RowAction, DeleteAction, DownloadAction } from '@sentinel/components/table';
+import { SentinelDateTimeFormatPipe } from '@sentinel/common/pipes';
+import { PaginatedResource } from '@sentinel/common/pagination';
+import { Column, SentinelTable, Row, RowAction, DeleteAction } from '@sentinel/components/table';
 import { CheatingDetection, CheatingDetectionStateEnum } from '@muni-kypo-crp/training-model';
 import { CheatingDetectionRowAdapter } from './cheating-detection-row-adapter';
 import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';

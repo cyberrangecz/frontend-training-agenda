@@ -1,3 +1,23 @@
+15.0.6 Resolve adaptive simulator Angular Material migration.
+15.0.5 Fix faulty buttons in agendas.
+15.0.4 Bump version of api to fix allocation id attributes.
+15.0.3 Add sorting to training run table.
+15.0.2 Add allocation id to training run table.
+15.0.1 Prune all broken reference and trainee graphs.
+15.0.0 Update to Angular 15.
+14.6.2 Add created at column to training definition.
+14.6.1 Fix disabling of pool button when start time is set to current.
+14.6.0 Fix ATD disabled saving when adding questions.
+14.5.18 Fix Markdown text rendering for definition preview and training run.
+14.5.17 Add word splitting and breaking to Definition overview.
+14.5.16 Fix error in questions after every refresh.
+14.5.15 Rename Authors title to Designers in ATD and LTD edit page.
+14.5.14 Fix ATD notes and outcomes of length 1 not saving.
+14.5.13 Add sorting options to instance overview and summary tables.
+14.4.12 Bump topology graph version.
+14.4.11 Fixed deletion of ATD questions and question saving without correct answers. Bump model and api versions.
+14.4.10 Added text wrap to Assessment level mcq and markdown support to LTD and ATD question titles. Fixed issues with assessment level overflow, notes, outcomes and test mode.
+14.4.9 Changes naming of Authors to Designers in linear and adaptive training definitions.
 14.4.8 Update topology legend and command timeline display
 14.4.7 Restructured cheating detection table actions. Updated detection detail date format. Added specified time proximity to time proximity stage detail.
 14.4.6 Added cheating detection export.

@@ -1,4 +1,4 @@
-import { SentinelFreeFormModule } from '@sentinel/components/free-form';
+import { SentinelFreeFormComponent } from '@sentinel/components/free-form';
 import { TrainingDefinitionEditComponent } from './training-definition-edit.component';
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { SimpleChanges, SimpleChange } from '@angular/core';
@@ -13,7 +13,7 @@ describe('TrainingDefinitionEditComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MaterialTestingModule, SentinelFreeFormModule],
+      imports: [MaterialTestingModule, SentinelFreeFormComponent],
       declarations: [TrainingDefinitionEditComponent],
     }).compileComponents();
   }));

@@ -7,7 +7,6 @@
           <mat-label>Title</mat-label>
           <input matInput placeholder="Title" formControlName="title" required />
           <button
-            mat-button
             *ngIf="title.value"
             matSuffix
             mat-icon-button
@@ -148,7 +147,6 @@
           <mat-label>Correct Answer - Static</mat-label>
           <input matInput placeholder="Correct Answer - Static" maxlength="50" formControlName="answer" />
           <button
-            mat-button
             *ngIf="answer"
             matSuffix
             mat-icon-button
@@ -176,7 +174,6 @@
             formControlName="answerVariableName"
           />
           <button
-            mat-button
             *ngIf="answerVariableName"
             matSuffix
             mat-icon-button
@@ -205,21 +202,6 @@
           matTooltip="Indicates if level can be completed without using commands or not"
         >Is any command required to complete the level?</mat-checkbox
         >
-
-        <!-- REFERENCE SOLUTION -->
-        <div class="reference-solution-container">
-            <mat-form-field class="reference-solution-area" appearance="fill">
-              <mat-label>Reference Solution</mat-label>
-              <textarea formControlName="referenceSolution" cdkTextareaAutosize matInput></textarea>
-              <mat-error class='reference-info'
-                         *ngIf="referenceSolution.hasError('referenceSolution')">
-                *Reference solution is not in a right format
-              </mat-error>
-              <mat-hint class='reference-info'>
-                *Preview of the reference graph can be seen in the panel below level hints
-              </mat-hint>
-            </mat-form-field>
-        </div>
       </div>
     </div>
 

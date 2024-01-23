@@ -2,13 +2,9 @@ import { TestBed } from '@angular/core/testing';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SentinelDialogResultEnum } from '@sentinel/components/dialogs';
-import {
-  asyncData,
-  SentinelFilter,
-  PaginatedResource,
-  OffsetPagination,
-  OffsetPaginationEvent,
-} from '@sentinel/common';
+import { asyncData } from '@sentinel/common/testing';
+import { SentinelFilter } from '@sentinel/common/filter';
+import { PaginatedResource, OffsetPagination, OffsetPaginationEvent } from '@sentinel/common/pagination';
 import { TrainingDefinitionApi } from '@muni-kypo-crp/training-api';
 import { TrainingDefinition, TrainingDefinitionStateEnum } from '@muni-kypo-crp/training-model';
 import { of, throwError } from 'rxjs';
@@ -260,6 +256,6 @@ describe('TrainingDefinitionConcreteService', () => {
   }
 
   function createPagination() {
-    return new OffsetPaginationEvent(1, 3, '', '');
+    return new OffsetPaginationEvent(1, 3, '', 'asc');
   }
 });

@@ -1,4 +1,5 @@
-import { SentinelDateTimeFormatPipe, PaginatedResource } from '@sentinel/common';
+import { SentinelDateTimeFormatPipe } from '@sentinel/common/pipes';
+import { PaginatedResource } from '@sentinel/common/pagination';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { Column, SentinelTable, Row, RowAction, EditAction, DeleteAction } from '@sentinel/components/table';
 import { combineLatest, defer, of } from 'rxjs';
@@ -19,13 +20,13 @@ export class AdaptiveInstanceTable extends SentinelTable<AdaptiveInstanceRowAdap
     const columns = [
       new Column('title', 'Title', true),
       new Column('startTimeFormatted', 'Start Time', true, 'startTime'),
-      new Column('endTimeFormatted', 'End Time', true, 'endTime'),
-      new Column('expiresIn', 'Expires In', false),
-      new Column('tdTitle', 'Adaptive Definition', false),
+      new Column('endTimeFormatted', 'End Time', true, 'endTimeFormat'),
+      new Column('expiresIn', 'Expires In', true, 'endTime'),
+      new Column('tdTitle', 'Adaptive Definition', true, 'title'),
       new Column('lastEditBy', 'Last Edit By', false),
-      new Column('poolTitle', 'Pool', false),
+      new Column('poolTitle', 'Pool', true, 'poolId'),
       new Column('poolSize', 'Pool Size', false),
-      new Column('accessToken', 'Access Token', false),
+      new Column('accessToken', 'Access Token', true, 'accessToken'),
     ];
     const rows = resource.elements.map((element) => AdaptiveInstanceTable.createRow(element, service, navigator));
     super(rows, columns);

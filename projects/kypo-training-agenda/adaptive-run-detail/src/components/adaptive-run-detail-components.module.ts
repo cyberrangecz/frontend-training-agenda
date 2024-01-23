@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { SentinelPipesModule } from '@sentinel/common';
+import { SentinelPipesModule } from '@sentinel/common/pipes';
 import { SentinelStepperModule } from '@sentinel/components/stepper';
 import { AdaptiveRunDetailMaterialModule } from './adaptive-run-detail-material.module';
 import { AdaptiveRunDetailComponent } from './adaptive-run-detail.component';

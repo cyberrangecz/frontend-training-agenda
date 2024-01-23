@@ -1,4 +1,5 @@
-import { OffsetPaginationEvent, PaginatedResource, OffsetPaginatedElementsService } from '@sentinel/common';
+import { OffsetPaginatedElementsService } from '@sentinel/common';
+import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
 import { AccessedTrainingRun } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
 
@@ -11,8 +12,12 @@ export abstract class AccessedTrainingRunService extends OffsetPaginatedElements
   /**
    * Requests paginated data
    * @param pagination requested pagination info
+   * @param filter filters to be applied on resources
    */
-  abstract getAll(pagination: OffsetPaginationEvent): Observable<PaginatedResource<AccessedTrainingRun>>;
+  abstract getAll(
+    pagination: OffsetPaginationEvent,
+    filter: string
+  ): Observable<PaginatedResource<AccessedTrainingRun>>;
 
   /**
    * Resume in already started training run

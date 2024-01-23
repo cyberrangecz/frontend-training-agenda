@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { OffsetPaginationEvent, SentinelBaseDirective } from '@sentinel/common';
+import { OffsetPaginationEvent } from '@sentinel/common/pagination';
+import { SentinelBaseDirective } from '@sentinel/common';
 import { TrainingInstance, TrainingRun } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
 import { map, switchMap, take, takeWhile, tap } from 'rxjs/operators';
@@ -97,7 +98,7 @@ export class TrainingInstanceSummaryComponent extends SentinelBaseDirective impl
   }
 
   private initTrainingRunsComponent() {
-    const initialPagination = new OffsetPaginationEvent(0, this.paginationService.getPagination(), '', '');
+    const initialPagination = new OffsetPaginationEvent(0, this.paginationService.getPagination(), '', 'asc');
     this.trainingInstance$
       .pipe(
         take(1),

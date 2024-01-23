@@ -2,6 +2,11 @@ mat-card-content {
 	display: flex;
 	flex-direction: row;
 	align-items: baseline;
+  padding: 16px;
+}
+
+mat-card {
+  padding: 16px;
 }
 
 .pin-form  {

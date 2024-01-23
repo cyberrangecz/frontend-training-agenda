@@ -3,10 +3,10 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angular-datetime-picker';
-import { SentinelPipesModule } from '@sentinel/common';
-import { SentinelControlsModule } from '@sentinel/components/controls';
-import { SentinelListModule } from '@sentinel/components/list';
-import { SentinelUserAssignModule } from '@sentinel/components/user-assign';
+import { SentinelPipesModule } from '@sentinel/common/pipes';
+import { SentinelControlsComponent } from '@sentinel/components/controls';
+import { SentinelListComponent } from '@sentinel/components/list';
+import { SentinelUserAssignComponent } from '@sentinel/components/user-assign';
 import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
 import { PoolAssignComponent } from './pool-assign/pool-assign.component';
 import { AdaptiveDefinitionSelectComponent } from './adaptive-definition-select/adaptive-definition-select.component';
@@ -24,14 +24,14 @@ import { SandboxDefinitionAssignComponent } from './sandbox-definition-assign/sa
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    SentinelUserAssignModule,
+    SentinelUserAssignComponent,
     RouterModule,
-    SentinelListModule,
+    SentinelListComponent,
     SentinelPipesModule,
     AdaptiveInstanceEditOverviewMaterialModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
-    SentinelControlsModule,
+    SentinelControlsComponent,
   ],
   declarations: [
     AdaptiveInstanceEditOverviewComponent,

@@ -40,7 +40,7 @@ import { HintStepperAdapter } from '../../../../../../model/adapters/hint-steppe
 })
 export class HintsOverviewComponent extends SentinelBaseDirective implements OnInit, OnChanges {
   @Input() hints: Hint[];
-  @Input() levelId: Hint[];
+  @Input() levelId: any;
   @Input() levelMaxScore: number;
   @Output() hintsChange: EventEmitter<Hint[]> = new EventEmitter();
 

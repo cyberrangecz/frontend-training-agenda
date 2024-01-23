@@ -1,6 +1,6 @@
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { asyncData } from '@sentinel/common';
+import { asyncData } from '@sentinel/common/testing';
 import { TrainingDefinitionApi } from '@muni-kypo-crp/training-api';
 import { TrainingDefinition, TrainingDefinitionStateEnum } from '@muni-kypo-crp/training-model';
 import { throwError } from 'rxjs';

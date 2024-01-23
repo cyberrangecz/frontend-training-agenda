@@ -28,7 +28,7 @@ mat-slide-toggle {
   width: 75%;
 }
 
-.mat-form-field {
+.mat-mdc-form-field {
   display: grid;
 }
 
@@ -107,4 +107,8 @@ mat-divider {
 
 .mat-radio-button {
   margin: 0 10px;
+}
+
+::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
+  padding: 8px;
 }

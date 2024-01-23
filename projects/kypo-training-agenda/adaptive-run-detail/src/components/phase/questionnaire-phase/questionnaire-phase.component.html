@@ -45,7 +45,7 @@
     </div>
   </div>
   <div *ngIf="!isBacktracked">
-    <mat-card #controls class="controls">
+    <mat-card appearance="outlined" #controls class="controls">
       <div class="controls-container">
         <button *ngIf="!isPhaseAnswered" [disabled]="isLoading" mat-raised-button color="primary" (click)="submit()">
           Submit

@@ -8,7 +8,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { SentinelBaseDirective } from '@sentinel/common';
-import { AccessLevel, InfoLevel } from '@muni-kypo-crp/training-model';
+import { AccessLevel } from '@muni-kypo-crp/training-model';
 import { takeWhile } from 'rxjs/operators';
 import { AccessLevelEditFormGroup } from './access-level-edit-form-group';
 import { AbstractControl } from '@angular/forms';

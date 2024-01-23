@@ -1,6 +1,9 @@
 <div class="content">
   <!--TITLE-->
-  <h2>{{ index }}. {{ question.title }}</h2>
+  <h2>
+    <sentinel-markdown-view [markdown]="'Question ' + index.toString() + ':'"></sentinel-markdown-view>
+    <sentinel-markdown-view [markdown]="question.title"></sentinel-markdown-view>
+  </h2>
   <p class="required-note" *ngIf="question.required && !isBacktracked">Answer required</p>
 
   <!-- ANSWER field-->
@@ -9,7 +12,7 @@
     <mat-label>Answer</mat-label>
     <input matInput [disabled]="isBacktracked" placeholder="Answer" [(ngModel)]="answer"
       [required]="question.required" (keyup)="onChange()">
-    <button mat-button *ngIf="answer && !isBacktracked" matSuffix mat-icon-button
+    <button *ngIf="answer && !isBacktracked" matSuffix mat-icon-button
       aria-label="Clear" (click)="answer=''; onChange()">
       <mat-icon>close</mat-icon>
     </button>

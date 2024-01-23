@@ -1,4 +1,5 @@
-import { PaginatedResource, SentinelDateTimeFormatPipe } from '@sentinel/common';
+import { PaginatedResource } from '@sentinel/common/pagination';
+import { SentinelDateTimeFormatPipe } from '@sentinel/common/pipes';
 import { TrainingRun, TrainingRunStateEnum } from '@muni-kypo-crp/training-model';
 import { Column, SentinelTable, Row } from '@sentinel/components/table';
 import { AdaptiveRunRowAdapter } from './adaptive-run-row-adapter';
@@ -11,9 +12,9 @@ export class AdaptiveRunTable extends SentinelTable<AdaptiveRunRowAdapter> {
   constructor(resource: PaginatedResource<TrainingRun>) {
     const columns = [
       new Column('playerName', 'player', false),
-      new Column('startTimeFormatted', 'start time', false),
-      new Column('endTimeFormatted', 'end time', false),
-      new Column('state', 'run state', false),
+      new Column('startTimeFormatted', 'start time', true, 'startTime'),
+      new Column('endTimeFormatted', 'end time', true, 'endTime'),
+      new Column('state', 'run state', true, 'state'),
       new Column('duration', 'duration', false),
       new Column('sandboxInstanceId', 'sandbox id', false),
     ];

@@ -8,7 +8,6 @@
       <mat-label>Title</mat-label>
       <input matInput placeholder="Title" formControlName="title" required />
       <button
-        mat-button
         *ngIf="title.value"
         matSuffix
         mat-icon-button
@@ -117,7 +116,6 @@
             required
           />
           <button
-            mat-button
             *ngIf="accessTokenPrefix.value"
             matSuffix
             mat-icon-button

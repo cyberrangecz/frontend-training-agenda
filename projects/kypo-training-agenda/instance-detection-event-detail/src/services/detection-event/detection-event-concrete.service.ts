@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { DetectionEventApi } from '@muni-kypo-crp/training-api';
 import { DetectionEventService } from './detection-event.service';
-import { from, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import {
   AbstractDetectionEvent,
   AnswerSimilarityDetectionEvent,

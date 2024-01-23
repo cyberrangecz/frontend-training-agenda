@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { PaginatedResource, OffsetPaginationEvent, OffsetPaginatedElementsPollingService } from '@sentinel/common';
+import { OffsetPaginatedElementsPollingService } from '@sentinel/common';
+import { PaginatedResource, OffsetPaginationEvent } from '@sentinel/common/pagination';
 import { TrainingRun } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
 
@@ -10,6 +11,9 @@ import { Observable } from 'rxjs';
  */
 @Injectable()
 export abstract class AdaptiveRunService extends OffsetPaginatedElementsPollingService<TrainingRun> {
+  protected constructor(defaultPaginationSize: number, pollPeriod: number) {
+    super(defaultPaginationSize, pollPeriod);
+  }
   /**
    * @param trainingInstanceId id of associated adaptive instance
    * @param pagination requested pagination

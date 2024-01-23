@@ -28,24 +28,6 @@
     >
       <mat-icon class="tab-icon">timeline</mat-icon> Command Timeline
     </a>
-    <a
-      mat-tab-link
-      [routerLink]="['reference-graph']"
-      routerLinkActive
-      #referenceGraph="routerLinkActive"
-      [active]="referenceGraph.isActive"
-    >
-      <mat-icon class="tab-icon">poll</mat-icon> Reference Graph
-    </a>
-      <a
-        mat-tab-link
-        [routerLink]="['trainee-graph']"
-        routerLinkActive
-        #traineeGraph="routerLinkActive"
-        [active]="traineeGraph.isActive"
-      >
-        <mat-icon class="tab-icon">trending_up</mat-icon> Trainee Graph
-      </a>
     </ng-container>
   </nav>
   <div>

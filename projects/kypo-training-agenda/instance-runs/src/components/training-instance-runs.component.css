@@ -21,4 +21,9 @@
 
 mat-card {
   margin-bottom: 1%;
+  padding: 16px;
+}
+
+::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
+  padding: 8px;
 }

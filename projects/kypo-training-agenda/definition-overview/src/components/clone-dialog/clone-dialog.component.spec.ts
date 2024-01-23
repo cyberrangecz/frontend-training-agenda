@@ -4,7 +4,7 @@ import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { TrainingDefinitionEditOverviewMaterialModule } from '../../../../definition-edit/src/components/training-definition-edit-overview-material.module';
 import { TrainingDefinition, Level, AssessmentLevel, InfoLevel, TrainingLevel } from '@muni-kypo-crp/training-model';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SentinelPipesModule } from '@sentinel/common';
+import { SentinelPipesModule } from '@sentinel/common/pipes';
 import { createDialogRefSpy } from '../../../../internal/src/testing/testing-commons.spec';
 
 describe('CloneDialogComponent', () => {

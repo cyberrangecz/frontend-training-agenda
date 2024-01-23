@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card appearance="outlined">
   <mat-card-title>Access Training</mat-card-title>
   <mat-card-subtitle>Fill in access token provided by the organizer to start the
     training</mat-card-subtitle>
@@ -11,7 +11,7 @@
         <input matInput (paste)="onPaste($event)" (keyup)="onKeyup($event)"
           placeholder="Access Token Prefix" formControlName="accessTokenPrefix"
           required>
-        <button mat-button *ngIf="accessTokenPrefix.value" matSuffix
+        <button *ngIf="accessTokenPrefix.value" matSuffix
           mat-icon-button aria-label="Clear"
           (click)="accessTokenPrefix.setValue('')">
           <mat-icon>close</mat-icon>

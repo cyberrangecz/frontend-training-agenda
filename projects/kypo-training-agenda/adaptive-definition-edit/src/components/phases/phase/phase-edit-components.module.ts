@@ -1,10 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { SentinelControlsModule } from '@sentinel/components/controls';
-import { SentinelFreeFormModule } from '@sentinel/components/free-form';
+import { SentinelControlsComponent } from '@sentinel/components/controls';
+import { SentinelFreeFormComponent } from '@sentinel/components/free-form';
 import { SentinelMarkdownEditorModule } from '@sentinel/components/markdown-editor';
 import { SentinelStepperModule } from '@sentinel/components/stepper';
 import { AbstractPhaseEditComponent } from './abstract-phase-edit.component';
@@ -28,7 +27,7 @@ import { AccessPhaseEditComponent } from './access-phase/access-phase-edit.compo
 import { MitreTechniqueSelectComponent } from './training-phase/mitre-technique/mitre-technique-select.component';
 import { ExpectedCommandsSelectComponent } from './training-phase/expected-commands/expected-commands-select.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MarkedOptions } from '@sentinel/components/markdown-view';
+import { MarkedOptions, SentinelMarkdownViewModule } from '@sentinel/components/markdown-view';
 
 const markdownConfig = {
   markdownParser: {
@@ -56,17 +55,18 @@ const markdownConfig = {
   imports: [
     CommonModule,
     FormsModule,
-    SentinelFreeFormModule,
+    SentinelFreeFormComponent,
     SentinelMarkdownEditorModule.forRoot(markdownConfig),
     SentinelStepperModule,
     PhaseEditMaterialModule,
     MatSlideToggleModule,
     ReactiveFormsModule,
-    SentinelControlsModule,
+    SentinelControlsComponent,
     MatSelectModule,
     MatTableModule,
     MatDialogModule,
     MatAutocompleteModule,
+    SentinelMarkdownViewModule,
   ],
   exports: [AbstractPhaseEditComponent],
   declarations: [

@@ -47,6 +47,6 @@ mat-expansion-panel {
   color: rgba(0,0,0,.54);
 }
 
-.reference-graph-preview-container {
-  margin-top: 20px;
+::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
+  padding: 8px;
 }

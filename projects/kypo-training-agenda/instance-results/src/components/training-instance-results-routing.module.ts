@@ -6,13 +6,11 @@ import {
   TRAINING_RUN_RESULTS_COMMAND_ANALYSIS_PATH,
   TRAINING_RUN_RESULTS_COMMAND_TIMELINE_PATH,
   TRAINING_RUN_RESULTS_DASHBOARD_PATH,
-  TRAINING_RUN_RESULTS_TRAINEE_GRAPH_PATH,
   TRAINING_RUN_RESULTS_WALKTHROUGH_PATH,
 } from '@muni-kypo-crp/training-agenda';
 import { AssessmentWrapperComponent } from './assessment-wrapper/assessment-wrapper.component';
 import { DashboardWrapperComponent } from './dashboard-wrapper/dashboard-wrapper.component';
 import { TrainingInstanceResultsComponent } from './training-instance-results.component';
-import { TraineeGraphWrapperComponent } from './trainee-graph-wrapper/trainee-graph-wrapper.component';
 import { CommandTimelineWrapperComponent } from './command-timeline-wrapper/command-timeline-wrapper.component';
 import { CommandAnalysisWrapperComponent } from './command-analysis-wrapper/command-analysis-wrapper.component';
 import { AggregatedDashboardWrapperComponent } from './aggregated-dashboard-wrapper/aggregated-dashboard-wrapper.component';
@@ -43,10 +41,6 @@ const routes: Routes = [
       {
         path: TRAINING_RUN_RESULTS_WALKTHROUGH_PATH,
         component: WalkthroughWrapperComponent,
-      },
-      {
-        path: TRAINING_RUN_RESULTS_TRAINEE_GRAPH_PATH,
-        component: TraineeGraphWrapperComponent,
       },
       {
         path: TRAINING_RUN_RESULTS_COMMAND_TIMELINE_PATH,

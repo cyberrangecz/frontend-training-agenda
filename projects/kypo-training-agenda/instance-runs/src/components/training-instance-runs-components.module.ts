@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { SentinelPipesModule } from '@sentinel/common';
-import { SentinelControlsModule } from '@sentinel/components/controls';
+import { SentinelPipesModule } from '@sentinel/common/pipes';
+import { SentinelControlsComponent } from '@sentinel/components/controls';
 import { SentinelTableModule } from '@sentinel/components/table';
 import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
 import { TrainingRunConcreteService } from '../services/runs/training-run-concrete.service';
@@ -23,7 +23,7 @@ import { TrainingInstanceRunsComponent } from './training-instance-runs.componen
     RouterModule,
     TrainingInstanceSummaryMaterialModule,
     SentinelTableModule,
-    SentinelControlsModule,
+    SentinelControlsComponent,
   ],
   declarations: [TrainingInstanceRunsComponent, TrainingRunOverviewComponent],
   providers: [{ provide: TrainingRunService, useClass: TrainingRunConcreteService }],

@@ -21,7 +21,7 @@ import { TrainingInstance } from '@muni-kypo-crp/training-model';
 export class PoolAssignComponent extends SentinelBaseDirective implements OnChanges {
   @Input() selectedPoolId: number;
   @Input() hasStarted: boolean;
-  @Input() trainingInstance: TrainingInstance;
+  @Input() trainingInstanceId: number;
   @Input() pools: SandboxPoolListAdapter[];
   @Output() selectionChanged: EventEmitter<number> = new EventEmitter();
 
@@ -45,8 +45,8 @@ export class PoolAssignComponent extends SentinelBaseDirective implements OnChan
     }
   }
 
-  isCreated(): boolean {
-    return this.hasStarted && this.trainingInstance.id != null;
+  isCreatedAndStarted(): boolean {
+    return this.hasStarted && this.trainingInstanceId != null;
   }
 
   private createPoolDetailRoute(poolId: number) {

@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SentinelDialogResultEnum } from '@sentinel/components/dialogs';
-import { asyncData } from '@sentinel/common';
+import { asyncData } from '@sentinel/common/testing';
 import { TrainingDefinitionApi } from '@muni-kypo-crp/training-api';
 import { AbstractLevelTypeEnum, AssessmentLevel, InfoLevel, TrainingLevel } from '@muni-kypo-crp/training-model';
 import { of, throwError } from 'rxjs';

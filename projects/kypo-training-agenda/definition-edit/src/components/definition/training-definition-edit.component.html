@@ -7,7 +7,7 @@
           (keydown.enter)="$event.preventDefault()">
           <mat-label>Title</mat-label>
           <input matInput placeholder="Title" formControlName="title" required>
-          <button mat-button *ngIf="title.value" matSuffix mat-icon-button
+          <button *ngIf="title.value" matSuffix mat-icon-button
             aria-label="Clear" (click)="title.setValue('');
             title.markAsDirty();">
             <mat-icon>close</mat-icon>
@@ -22,7 +22,7 @@
           <mat-label>Description</mat-label>
           <textarea matInput placeholder="Description"
             formControlName="description"></textarea>
-          <button mat-button *ngIf="description.value" matSuffix mat-icon-button
+          <button *ngIf="description.value" matSuffix mat-icon-button
             aria-label="Clear" (click)="description.setValue('');
             description.markAsDirty();">
             <mat-icon>close</mat-icon>

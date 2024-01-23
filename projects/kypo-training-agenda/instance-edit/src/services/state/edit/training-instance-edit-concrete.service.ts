@@ -8,7 +8,7 @@ import { map, switchMap, tap } from 'rxjs/operators';
 import { TrainingInstanceChangeEvent } from '../../../model/events/training-instance-change-event';
 import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } from '@muni-kypo-crp/training-agenda';
 import { TrainingInstanceEditService } from './training-instance-edit.service';
-import { PaginatedResource, OffsetPaginationEvent } from '@sentinel/common';
+import { PaginatedResource, OffsetPaginationEvent } from '@sentinel/common/pagination';
 import { Pool, SandboxDefinition } from '@muni-kypo-crp/sandbox-model';
 
 /**
@@ -152,7 +152,7 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
     if (!this.editedSnapshot) {
       this.editedSnapshot = this.trainingInstanceSubject$.getValue();
     }
-    const pagination = new OffsetPaginationEvent(0, 10, '', '');
+    const pagination = new OffsetPaginationEvent(0, 10, '', 'asc');
     this.saveDisabledSubject$.next(true);
     return this.trainingInstanceApi.update(this.editedSnapshot).pipe(
       switchMap(() => this.getAllPools(pagination)),

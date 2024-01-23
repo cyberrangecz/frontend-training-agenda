@@ -50,6 +50,7 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
   stepperQuestions: SentinelStepper<QuestionStepperAdapter> = { items: [] };
   selectedStep: number;
   controls: SentinelControlItem[];
+  questionChanged: boolean;
 
   constructor(public dialog: MatDialog) {
     super();
@@ -76,8 +77,16 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
     }
     if ('isTest' in changes) {
       if (this.isTest && this.questions) {
-        this.stepperQuestions.items.forEach((question) => (question.requiredState = true));
-        this.onQuestionChanged();
+        this.questionChanged = false;
+        for (const question of this.stepperQuestions.items) {
+          if (!question.required) {
+            question.requiredState = true;
+            this.questionChanged = true;
+          }
+        }
+        if (this.questionChanged) {
+          this.onQuestionChanged();
+        }
       }
     }
     if (this.stepperQuestions.items.length > 0) {

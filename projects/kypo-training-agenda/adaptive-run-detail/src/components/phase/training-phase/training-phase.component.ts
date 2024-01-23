@@ -18,7 +18,6 @@ import { Observable } from 'rxjs';
 import { KypoTopologyErrorService } from '@muni-kypo-crp/topology-graph';
 import { TrainingErrorHandler } from '@muni-kypo-crp/training-agenda';
 import { delay, take, takeWhile } from 'rxjs/operators';
-import { ViewportScroller } from '@angular/common';
 import { AdaptiveRunTrainingPhaseService } from './../../../services/adaptive-run/training-phase/adaptive-run-training-phase.service';
 import { AdaptiveRunTrainingPhaseConcreteService } from '../../../services/adaptive-run/training-phase/adaptive-run-training-phase-concrete.service';
 

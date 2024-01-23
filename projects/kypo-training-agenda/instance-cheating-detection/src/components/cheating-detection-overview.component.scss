@@ -2,6 +2,7 @@ sentinel-table {
   width: 100%;
 }
 
+/* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
 mat-card:first-child {
   margin-bottom: 30px;
 }
@@ -22,4 +23,8 @@ mat-card:first-child {
 
 .request:first-child {
   margin-right: 10px;
+}
+
+::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
+  padding: 8px;
 }

@@ -8,7 +8,7 @@
       <mat-label>Title</mat-label>
       <input matInput placeholder="Title"
         formControlName="clonedDefinitionTitle" required>
-      <button mat-button *ngIf="clonedDefinitionTitle.value" matSuffix
+      <button *ngIf="clonedDefinitionTitle.value" matSuffix
         mat-icon-button aria-label="Clear"
         (click)="clonedDefinitionTitle.setValue('')">
         <mat-icon>close</mat-icon>

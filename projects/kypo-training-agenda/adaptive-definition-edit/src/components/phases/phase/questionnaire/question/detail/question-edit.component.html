@@ -1,7 +1,8 @@
-<mat-card>
+<mat-card appearance="outlined">
   <mat-card-header>
     <mat-card-title>
-      <h3>Question {{ index + 1 }}: {{ question.text }}</h3>
+      <h3>Question {{ index + 1 }}:</h3>
+      <h3><sentinel-markdown-view [markdown]="question.text"></sentinel-markdown-view></h3>
     </mat-card-title>
   </mat-card-header>
   <mat-card-content>

@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { OffsetPaginationEvent, SentinelBaseDirective, SentinelDateTimeFormatPipe } from '@sentinel/common';
+import { SentinelBaseDirective } from '@sentinel/common';
+import { OffsetPaginationEvent } from '@sentinel/common/pagination';
+import { SentinelDateTimeFormatPipe } from '@sentinel/common/pipes';
 import {
   AbstractDetectionEvent,
   AbstractDetectionEventTypeEnum,

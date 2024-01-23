@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PaginatedResource, OffsetPaginationEvent, SentinelBaseDirective } from '@sentinel/common';
+import { SentinelBaseDirective } from '@sentinel/common';
+import { PaginatedResource, OffsetPaginationEvent } from '@sentinel/common/pagination';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
@@ -137,12 +138,12 @@ export class TrainingInstanceEditOverviewComponent extends SentinelBaseDirective
   }
 
   private refreshPools() {
-    const pagination = new OffsetPaginationEvent(0, this.PAGE_SIZE, '', '');
+    const pagination = new OffsetPaginationEvent(0, this.PAGE_SIZE, '', 'asc');
     this.editService.getAllPools(pagination).pipe(take(1)).subscribe();
   }
 
   private refreshSandboxDefinitions() {
-    const pagination = new OffsetPaginationEvent(0, this.PAGE_SIZE, '', '');
+    const pagination = new OffsetPaginationEvent(0, this.PAGE_SIZE, '', 'asc');
     this.editService.getAllSandboxDefinitions(pagination).pipe(take(1)).subscribe();
   }
 
