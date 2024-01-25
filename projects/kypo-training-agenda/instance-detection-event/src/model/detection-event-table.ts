@@ -21,7 +21,7 @@ export class DetectionEventTable extends SentinelTable<DetectionEventRowAdapter>
       new Column('levelTitle', 'level title', false),
       new Column('levelId', 'level id', false),
       new Column('participantCount', 'number of participants', false),
-      new Column('detectedAtFormatted', 'detected at', false),
+      new Column('participants', 'participants', false),
       new Column('detectionEventTypeFormatted', 'detection type', false),
     ];
     const rows = resource.elements.map((element) => DetectionEventTable.createRow(element, service));
