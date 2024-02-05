@@ -20,7 +20,7 @@ export class AdaptiveInstanceTable extends SentinelTable<AdaptiveInstanceRowAdap
     const columns = [
       new Column('title', 'Title', true),
       new Column('startTimeFormatted', 'Start Time', true, 'startTime'),
-      new Column('endTimeFormatted', 'End Time', true, 'endTimeFormat'),
+      new Column('endTimeFormatted', 'End Time', true, 'endTime'),
       new Column('expiresIn', 'Expires In', true, 'endTime'),
       new Column('tdTitle', 'Adaptive Definition', true, 'title'),
       new Column('lastEditBy', 'Last Edit By', false),
