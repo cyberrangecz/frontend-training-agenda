@@ -88,6 +88,12 @@ export class QuestionnairePhaseComponent extends SentinelBaseDirective implement
     }
   }
 
+  canBeSubmitted(): boolean {
+    return this.phase.questions.every((question) => {
+      return !question.required || (question.userAnswers && question.userAnswers.length > 0);
+    });
+  }
+
   onRFQChecked(event, questionIndex: number, answer: string): void {
     if (event.checked) {
       this.questionAnswers[questionIndex].answers[0] = answer;

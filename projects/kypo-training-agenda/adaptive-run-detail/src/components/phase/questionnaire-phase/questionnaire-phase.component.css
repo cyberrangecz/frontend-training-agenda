@@ -42,6 +42,10 @@
   flex-direction: row;
 }
 
+p.required-note {
+  color: #949494;
+}
+
 .mcq-question mat-checkbox {
   margin-right: 20px;
 }
@@ -52,7 +56,7 @@
 
 /* (100vw - 100%) is used to account for scrollbar */
 .controls {
-  position: fixed; 
+  position: fixed;
   bottom: 0;
   left: 140px;
   z-index: 10;
