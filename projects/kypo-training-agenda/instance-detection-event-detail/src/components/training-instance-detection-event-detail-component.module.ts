@@ -11,6 +11,8 @@ import { DetectionEventParticipantConcreteService } from '../services/participan
 import { SentinelPipesModule } from '@sentinel/common/pipes';
 import { MatCardModule } from '@angular/material/card';
 import { TrainingInstanceDetectionEventDetailMaterialModule } from './training-instance-detection-event-detail-material.module';
+import { MatTabsModule } from '@angular/material/tabs';
+import { TimelineModule } from '@muni-kypo-crp/command-visualizations/timeline';
 
 @NgModule({
   imports: [
@@ -19,6 +21,8 @@ import { TrainingInstanceDetectionEventDetailMaterialModule } from './training-i
     SentinelPipesModule,
     TrainingInstanceDetectionEventDetailMaterialModule,
     MatCardModule,
+    MatTabsModule,
+    TimelineModule
   ],
   declarations: [TrainingInstanceDetectionEventDetailComponent],
   providers: [

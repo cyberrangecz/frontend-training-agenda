@@ -5,13 +5,13 @@ import { SentinelDateTimeFormatPipe } from '@sentinel/common/pipes';
 import {
   AbstractDetectionEvent,
   AbstractDetectionEventTypeEnum,
-  AnswerSimilarityDetectionEvent,
+  AnswerSimilarityDetectionEvent, DetectedForbiddenCommand,
   DetectionEventParticipant,
   ForbiddenCommandsDetectionEvent,
   LocationSimilarityDetectionEvent,
   MinimalSolveTimeDetectionEvent,
   NoCommandsDetectionEvent,
-  TimeProximityDetectionEvent,
+  TimeProximityDetectionEvent
 } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
 import { SentinelTable, TableActionEvent, TableLoadEvent } from '@sentinel/components/table';
@@ -22,6 +22,10 @@ import { DetectionEventParticipantTable } from '../model/detection-event-partici
 import { DetectionEventParticipantService } from '../services/participant/detection-event-participant.service';
 import { DetectionEventService } from '../services/detection-event/detection-event.service';
 import { ActivatedRoute } from '@angular/router';
+import {
+  DetectionEventForbiddenCommandsService
+} from '../services/forbidden-commands/detection-event-forbidden-commands.service';
+import { DetectionEventForbiddenCommandsTable } from '../model/detection-event-forbidden-commands-table';
 
 /**
  * Main component of training instance detection event detail.
@@ -40,13 +44,14 @@ export class TrainingInstanceDetectionEventDetailComponent extends SentinelBaseD
   isLoading$: Observable<boolean>;
   detectionEvent$: Observable<AbstractDetectionEvent>;
   participants$: Observable<SentinelTable<DetectionEventParticipant>>;
-
+  forbiddenCommands$: Observable<SentinelTable<DetectedForbiddenCommand>>;
   answerSimilarityEvent$: Observable<AnswerSimilarityDetectionEvent>;
   locationSimilarityEvent$: Observable<LocationSimilarityDetectionEvent>;
   timeProximityEvent$: Observable<TimeProximityDetectionEvent>;
   minimalSolveTimeEvent$: Observable<MinimalSolveTimeDetectionEvent>;
   noCommandsEvent$: Observable<NoCommandsDetectionEvent>;
   forbiddenCommandsEvent$: Observable<ForbiddenCommandsDetectionEvent>;
+
   eventId: number;
   detectionRunAt: Date;
   detectionRunAtFormatted: string;
@@ -56,6 +61,7 @@ export class TrainingInstanceDetectionEventDetailComponent extends SentinelBaseD
   constructor(
     private detectionEventService: DetectionEventService,
     private detectionEventParticipantService: DetectionEventParticipantService,
+    private detectionEventForbiddenCommandsService: DetectionEventForbiddenCommandsService,
     private paginationService: PaginationService,
     private navigator: TrainingNavigator,
     private activeRoute: ActivatedRoute
@@ -71,7 +77,8 @@ export class TrainingInstanceDetectionEventDetailComponent extends SentinelBaseD
       this.eventType = event.detectionEventType;
       this.populateEventData();
     });
-    this.initTable();
+    this.initParticipantsTable();
+    this.initForbiddenCommandsTable();
   }
 
   populateEventData(): void {
@@ -112,11 +119,15 @@ export class TrainingInstanceDetectionEventDetailComponent extends SentinelBaseD
    * Resolves type of emitted event and calls appropriate handler
    * @param event action event emitted from table component
    */
-  onTableAction(event: TableActionEvent<DetectionEventParticipant>): void {
+  onParticipantTableAction(event: TableActionEvent<DetectionEventParticipant>): void {
     event.action.result$.pipe(take(1)).subscribe();
   }
 
-  private initTable() {
+  onForbiddenCommandTableAction(event: TableActionEvent<DetectedForbiddenCommand>): void {
+    event.action.result$.pipe(take(1)).subscribe();
+  }
+
+  private initParticipantsTable() {
     this.hasError$ = this.detectionEventParticipantService.hasError$;
     this.isLoading$ = this.detectionEventParticipantService.isLoading$;
     this.participants$ = this.detectionEventParticipantService.resource$.pipe(
@@ -128,14 +139,29 @@ export class TrainingInstanceDetectionEventDetailComponent extends SentinelBaseD
       this.INIT_SORT_NAME,
       this.INIT_SORT_DIR
     );
-    this.onLoadEvent({ pagination: initialPagination });
+    this.onLoadEventParticipants({ pagination: initialPagination });
+  }
+
+  private initForbiddenCommandsTable() {
+    this.hasError$ = this.detectionEventForbiddenCommandsService.hasError$;
+    this.isLoading$ = this.detectionEventForbiddenCommandsService.isLoading$;
+    this.forbiddenCommands$ = this.detectionEventForbiddenCommandsService.resource$.pipe(
+      map((resource) => new DetectionEventForbiddenCommandsTable(resource))
+    );
+    const initialPagination = new OffsetPaginationEvent(
+      0,
+      this.paginationService.getPagination(),
+      this.INIT_SORT_NAME,
+      this.INIT_SORT_DIR
+    );
+    this.onLoadEventForbiddenCommands({ pagination: initialPagination });
   }
 
   /**
    * Gets new data for table
    * @param loadEvent event emitted by table component to get new data
    */
-  onLoadEvent(loadEvent: TableLoadEvent): void {
+  onLoadEventParticipants(loadEvent: TableLoadEvent): void {
     this.paginationService.setPagination(loadEvent.pagination.size);
     this.detectionEventParticipantService
       .getAll(
@@ -145,4 +171,16 @@ export class TrainingInstanceDetectionEventDetailComponent extends SentinelBaseD
       .pipe(takeWhile(() => this.isAlive))
       .subscribe();
   }
+
+  onLoadEventForbiddenCommands(loadEvent: TableLoadEvent): void {
+    this.paginationService.setPagination(loadEvent.pagination.size);
+    this.detectionEventForbiddenCommandsService
+      .getAll(
+        this.eventId,
+        new OffsetPaginationEvent(0, loadEvent.pagination.size, loadEvent.pagination.sort, loadEvent.pagination.sortDir)
+      )
+      .pipe(takeWhile(() => this.isAlive))
+      .subscribe();
+  }
+
 }

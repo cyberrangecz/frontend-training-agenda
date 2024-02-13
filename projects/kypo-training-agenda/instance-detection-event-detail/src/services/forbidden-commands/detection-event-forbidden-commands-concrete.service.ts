@@ -5,16 +5,16 @@ import { Router } from '@angular/router';
 import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
 import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
 import { Observable } from 'rxjs';
-import { DetectionEventParticipant } from '@muni-kypo-crp/training-model';
+import { DetectedForbiddenCommand, DetectionEventParticipant } from '@muni-kypo-crp/training-model';
 import { tap } from 'rxjs/operators';
-import { DetectionEventParticipantService } from './detection-event-participant.service';
+import { DetectionEventForbiddenCommandsService } from './detection-event-forbidden-commands.service';
 
 /**
  * Basic implementation of a layer between a component and an API services.
  * Can get cheating detections and perform various operations to modify them
  */
 @Injectable()
-export class DetectionEventParticipantConcreteService extends DetectionEventParticipantService {
+export class DetectionEventForbiddenCommandsConcreteService extends DetectionEventForbiddenCommandsService {
   constructor(
     private api: DetectionEventApi,
     private dialog: MatDialog,
@@ -25,18 +25,19 @@ export class DetectionEventParticipantConcreteService extends DetectionEventPart
   }
 
   /**
-   * Gets all detection event participants with passed pagination and filter and updates related observables or handles an error
+   * Gets all detection event forbidden commands with passed pagination
+   * and updates related observables or handles an error
    * @param detectionEventId the cheating detection id
    * @param pagination requested pagination
    */
   public getAll(
     detectionEventId: number,
     pagination: OffsetPaginationEvent
-  ): Observable<PaginatedResource<DetectionEventParticipant>> {
-    return this.api.getAllParticipants(pagination, detectionEventId).pipe(
+  ): Observable<PaginatedResource<DetectedForbiddenCommand>> {
+    return this.api.getAllForbiddenCommandsOfEvent(pagination, detectionEventId).pipe(
       tap(
-        (detections) => {
-          this.resourceSubject$.next(detections);
+        (commands) => {
+          this.resourceSubject$.next(commands);
         },
         () => this.onGetAllError()
       )

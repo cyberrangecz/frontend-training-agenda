@@ -61,7 +61,7 @@
       <div class="data-field" *ngIf="forbiddenCommandsEvent$ | async as forbiddenCommandsEvent">
         <mat-icon class="material-icons-round"> pending_actions </mat-icon>
         <div class="icon-label">Forbidden commands</div>
-        <div class="value-field">{{ forbiddenCommandsEvent.forbiddenCommands.toString()}}</div>
+        <div class="value-field">{{ forbiddenCommandsString }}</div>
       </div>
       </div>
     </mat-card>
@@ -75,9 +75,21 @@
       [hasError]="hasError$ | async"
       [isLoading]="isLoading$ | async"
       [displayedActionsCount]="4"
-      (rowAction)="onTableAction($event)"
+      (rowAction)="onParticipantTableAction($event)"
     >
     </sentinel-table>
+      <div *ngIf="forbiddenCommandsEvent$ | async as forbiddenCommandsEvent">
+        <sentinel-table
+          [defaultSortDirection]="INIT_SORT_DIR"
+          [defaultSortName]="INIT_SORT_NAME"
+          [data]="forbiddenCommands$ | async"
+          [hasError]="hasError$ | async"
+          [isLoading]="isLoading$ | async"
+          [displayedActionsCount]="4"
+          (rowAction)="onForbiddenCommandTableAction($event)"
+          >
+        </sentinel-table>
+      </div>
     </div>
   </ng-container>
 </div>
