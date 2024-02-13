@@ -10,10 +10,7 @@ import { DetectionEventForbiddenCommandsRowAdapter } from './detection-event-for
  */
 export class DetectionEventForbiddenCommandsTable extends SentinelTable<DetectedForbiddenCommand> {
   constructor(resource: PaginatedResource<DetectedForbiddenCommand>) {
-    const columns = [
-      new Column('command', 'command', false),
-      new Column('type', 'type', false),
-    ];
+    const columns = [new Column('command', 'command', false), new Column('type', 'type', false)];
     const rows = resource.elements.map((element) => DetectionEventForbiddenCommandsTable.createRow(element));
     super(rows, columns);
     this.pagination = resource.pagination;

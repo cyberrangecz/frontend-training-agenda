@@ -22,7 +22,7 @@ import { TimelineModule } from '@muni-kypo-crp/command-visualizations/timeline';
     TrainingInstanceDetectionEventDetailMaterialModule,
     MatCardModule,
     MatTabsModule,
-    TimelineModule
+    TimelineModule,
   ],
   declarations: [TrainingInstanceDetectionEventDetailComponent],
   providers: [

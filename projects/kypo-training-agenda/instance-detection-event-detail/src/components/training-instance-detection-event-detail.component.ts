@@ -5,13 +5,14 @@ import { SentinelDateTimeFormatPipe } from '@sentinel/common/pipes';
 import {
   AbstractDetectionEvent,
   AbstractDetectionEventTypeEnum,
-  AnswerSimilarityDetectionEvent, DetectedForbiddenCommand,
+  AnswerSimilarityDetectionEvent,
+  DetectedForbiddenCommand,
   DetectionEventParticipant,
   ForbiddenCommandsDetectionEvent,
   LocationSimilarityDetectionEvent,
   MinimalSolveTimeDetectionEvent,
   NoCommandsDetectionEvent,
-  TimeProximityDetectionEvent
+  TimeProximityDetectionEvent,
 } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
 import { SentinelTable, TableActionEvent, TableLoadEvent } from '@sentinel/components/table';
@@ -22,9 +23,7 @@ import { DetectionEventParticipantTable } from '../model/detection-event-partici
 import { DetectionEventParticipantService } from '../services/participant/detection-event-participant.service';
 import { DetectionEventService } from '../services/detection-event/detection-event.service';
 import { ActivatedRoute } from '@angular/router';
-import {
-  DetectionEventForbiddenCommandsService
-} from '../services/forbidden-commands/detection-event-forbidden-commands.service';
+import { DetectionEventForbiddenCommandsService } from '../services/forbidden-commands/detection-event-forbidden-commands.service';
 import { DetectionEventForbiddenCommandsTable } from '../model/detection-event-forbidden-commands-table';
 
 /**
@@ -182,5 +181,4 @@ export class TrainingInstanceDetectionEventDetailComponent extends SentinelBaseD
       .pipe(takeWhile(() => this.isAlive))
       .subscribe();
   }
-
 }
