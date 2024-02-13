@@ -61,23 +61,24 @@
       <div class="data-field" *ngIf="forbiddenCommandsEvent$ | async as forbiddenCommandsEvent">
         <mat-icon class="material-icons-round"> pending_actions </mat-icon>
         <div class="icon-label">Forbidden commands</div>
-        <div class="value-field">{{ forbiddenCommandsString }}</div>
+        <div class="value-field">{{ forbiddenCommandsEvent.commandCount }}</div>
       </div>
       </div>
     </mat-card>
 
     <div class="content">
       <h1>Participants</h1>
-    <sentinel-table
-      [defaultSortDirection]="INIT_SORT_DIR"
-      [defaultSortName]="INIT_SORT_NAME"
-      [data]="participants$ | async"
-      [hasError]="hasError$ | async"
-      [isLoading]="isLoading$ | async"
-      [displayedActionsCount]="4"
-      (rowAction)="onParticipantTableAction($event)"
-    >
-    </sentinel-table>
+      <sentinel-table
+        [defaultSortDirection]="INIT_SORT_DIR"
+        [defaultSortName]="INIT_SORT_NAME"
+        [data]="participants$ | async"
+        [hasError]="hasError$ | async"
+        [isLoading]="isLoading$ | async"
+        [displayedActionsCount]="4"
+        (rowAction)="onParticipantTableAction($event)"
+      >
+      </sentinel-table>
+
       <div *ngIf="forbiddenCommandsEvent$ | async as forbiddenCommandsEvent">
         <sentinel-table
           [defaultSortDirection]="INIT_SORT_DIR"
@@ -89,7 +90,10 @@
           (rowAction)="onForbiddenCommandTableAction($event)"
           >
         </sentinel-table>
+        <kypo-timeline [trainingInstanceId]="detectionEvent.trainingInstanceId" [trainingRunId]="forbiddenCommandsEvent.trainingRunId" [showForbidden]="true" [isStandalone]="true"></kypo-timeline>
+
       </div>
+
     </div>
   </ng-container>
 </div>
