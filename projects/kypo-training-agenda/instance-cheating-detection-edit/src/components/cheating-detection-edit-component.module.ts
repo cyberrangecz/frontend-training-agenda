@@ -21,6 +21,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     ReactiveFormsModule,
     CheatingDetectionEditMaterialModule,
     SentinelControlsComponent,
+    MatExpansionModule,
+    MatRadioModule,
     //SentinelControlsModule,
     //     MatButtonModule,
     //     MatRadioModule,

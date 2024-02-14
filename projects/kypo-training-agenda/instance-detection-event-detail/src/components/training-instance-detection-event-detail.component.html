@@ -90,7 +90,13 @@
           (rowAction)="onForbiddenCommandTableAction($event)"
           >
         </sentinel-table>
-        <kypo-timeline [trainingInstanceId]="detectionEvent.trainingInstanceId" [trainingRunId]="forbiddenCommandsEvent.trainingRunId" [showForbidden]="true" [isStandalone]="true"></kypo-timeline>
+        <kypo-timeline
+          [trainingInstanceId]="detectionEvent.trainingInstanceId"
+          [trainingRunId]="forbiddenCommandsEvent.trainingRunId"
+          [showForbidden]="true"
+          [isStandalone]="true"
+          >
+        </kypo-timeline>
 
       </div>
 
