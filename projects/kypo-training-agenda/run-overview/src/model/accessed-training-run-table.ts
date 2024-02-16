@@ -34,8 +34,7 @@ export class AccessedTrainingRunTable extends SentinelTable<AccessedTrainingRun>
     service: AccessedTrainingRunService
   ): Row<AccessedTrainingRunRowAdapter> {
     const adapter = accessedTrainingRun as AccessedTrainingRunRowAdapter;
-    const row = new Row(adapter);
-    return row;
+    return new Row(adapter, this.createActions(adapter, service));
   }
 
   private static createActions(trainingRun: AccessedTrainingRun, service: AccessedTrainingRunService): RowAction[] {
