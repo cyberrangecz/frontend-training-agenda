@@ -1,3 +1,20 @@
+### 15.0.8 Fix end time sorting for training instance and training run resume action display.
+* 7485298 -- [CI/CD] Update packages.json version based on GitLab tag.
+* d52b575 -- Merge branch 'develop' into 'master'
+* f562dc2 -- Update VERSION.txt
+* 148760e -- Merge branch 'master' into 'develop'
+*   cba114d -- Merge branch 'fix-resume-table-type' into 'develop'
+|\  
+| * ebe7a81 -- Fix adapter table type
+|/  
+*   12076b7 -- Merge branch '238-fix-training-run-actions-not-displayed' into 'develop'
+|\  
+| * 0c0848c -- Update version
+| * 10d5552 -- Enable buttons in training runs
+|/  
+* 554425a -- Merge branch '236-fix-training-instance-sorting-by-end-time' into 'develop'
+* a25810a -- Update version
+* 9a77bc4 -- Fix trianing instance end time sorting
 ### 15.0.7 Fix faulty training run button.
 * ddb4f04 -- [CI/CD] Update packages.json version based on GitLab tag.
 * 72ed33f -- Fix training run faulty button
