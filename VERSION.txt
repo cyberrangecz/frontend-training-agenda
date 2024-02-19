@@ -1,3 +1,4 @@
+15.0.8 Fix end time sorting for training instance and training run resume action display.
 15.0.7 Fix faulty training run button.
 15.0.6 Resolve adaptive simulator Angular Material migration.
 15.0.5 Fix faulty buttons in agendas.
