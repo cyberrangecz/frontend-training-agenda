@@ -90,7 +90,7 @@ export class QuestionnairePhaseComponent extends SentinelBaseDirective implement
 
   canBeSubmitted(): boolean {
     return this.phase.questions.every((question) => {
-      return !question.required || (question.userAnswers && question.userAnswers.length > 0);
+      return !question.isRequired || (question.userAnswers && question.userAnswers.length > 0);
     });
   }
 
