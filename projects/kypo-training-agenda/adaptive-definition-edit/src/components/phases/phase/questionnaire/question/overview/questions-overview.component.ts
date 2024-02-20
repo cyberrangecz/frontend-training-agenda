@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { AdaptiveQuestion, QuestionTypeEnum } from '@muni-kypo-crp/training-model';
-import { SentinelBaseDirective } from '@sentinel/common';
+import { SentinelBaseDirective, SentinelValidators } from '@sentinel/common';
 import { AdaptiveQuestionStepperAdapter } from '@muni-kypo-crp/training-agenda/internal';
 import { SentinelStepper, StepStateEnum } from '@sentinel/components/stepper';
 import {
@@ -17,6 +17,7 @@ import {
   SentinelConfirmationDialogConfig,
   SentinelDialogResultEnum,
 } from '@sentinel/components/dialogs';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'kypo-adaptive-questions-overview',
@@ -69,10 +70,16 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
     }
     const newQuestion = new AdaptiveQuestion();
     newQuestion.questionType = type;
-    newQuestion.choices = [];
     newQuestion.text = 'Question text?';
     newQuestion.order = this.stepperQuestions.items.length + 1;
+    newQuestion.choices = [];
     if (newQuestion.questionType == QuestionTypeEnum.FFQ) {
+      newQuestion.choices.push({
+        id: 0,
+        text: '',
+        correct: true,
+        order: 0,
+      });
       newQuestion.valid = true;
     }
     const questionStepperAdapter = new AdaptiveQuestionStepperAdapter(newQuestion);
@@ -159,7 +166,7 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
 
   private calculateHasError() {
     this.stepperQuestions.items.forEach((question) => {
-      question.valid = question.choices.length != 0;
+      question.valid = question.icon == 'edit' ? true : question.choices.length != 0;
     });
     this.questionsHasError = this.stepperQuestions.items.some((question) => !question.valid);
   }
