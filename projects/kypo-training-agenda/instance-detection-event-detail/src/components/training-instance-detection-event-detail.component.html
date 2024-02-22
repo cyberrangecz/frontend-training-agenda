@@ -93,7 +93,8 @@
         <kypo-timeline
           [trainingInstanceId]="detectionEvent.trainingInstanceId"
           [trainingRunId]="forbiddenCommandsEvent.trainingRunId"
-          [showForbidden]="true"
+          [detectionEventId]="forbiddenCommandsEvent.id"
+          [isForbidden]="true"
           [isStandalone]="true"
           >
         </kypo-timeline>
