@@ -5,11 +5,7 @@ import { CheatingDetectionEditFormGroup } from './cheating-detection-edit-form-g
 import { CheatingDetectionEditService } from '../services/cheating-detection-edit.service';
 import { ActivatedRoute } from '@angular/router';
 import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
-import {
-  CheatingDetection,
-  CheatingDetectionStateEnum,
-  TrainingInstance,
-} from '@muni-kypo-crp/training-model';
+import { CheatingDetection, CheatingDetectionStateEnum, TrainingInstance } from '@muni-kypo-crp/training-model';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { map, take, takeWhile } from 'rxjs/operators';
 import { defer, Observable, of } from 'rxjs';
@@ -108,7 +104,7 @@ export class CheatingDetectionEditComponent extends SentinelBaseDirective {
       new UntypedFormGroup({
         command: new UntypedFormControl('', [SentinelValidators.noWhitespace, Validators.required]),
         type: new UntypedFormControl('', [Validators.required]),
-        cheatingDetectionId: new UntypedFormControl(this.cheatingDetection.id)
+        cheatingDetectionId: new UntypedFormControl(this.cheatingDetection.id),
       })
     );
     this.forbiddenCommandsChanged();
