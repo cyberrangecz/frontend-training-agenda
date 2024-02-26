@@ -8,7 +8,6 @@ import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
 import {
   CheatingDetection,
   CheatingDetectionStateEnum,
-  ForbiddenCommand,
   TrainingInstance,
 } from '@muni-kypo-crp/training-model';
 import { SentinelControlItem } from '@sentinel/components/controls';
@@ -109,6 +108,7 @@ export class CheatingDetectionEditComponent extends SentinelBaseDirective {
       new UntypedFormGroup({
         command: new UntypedFormControl('', [SentinelValidators.noWhitespace, Validators.required]),
         type: new UntypedFormControl('', [Validators.required]),
+        cheatingDetectionId: new UntypedFormControl(this.cheatingDetection.id)
       })
     );
     this.forbiddenCommandsChanged();
@@ -122,13 +122,17 @@ export class CheatingDetectionEditComponent extends SentinelBaseDirective {
     this.cheatingDetectionEditFormGroup.formGroup.markAsDirty();
   }
 
+  isFormValid(): boolean {
+    return !this.cheatingDetectionEditFormGroup.formGroup.valid;
+  }
+
   initControls(editService: CheatingDetectionEditService): void {
     this.controls = [
       new SentinelControlItem(
         'create',
         'Create',
         'primary',
-        of(!this.cheatingDetectionEditFormGroup.formGroup.valid),
+        of(this.isFormValid()),
         defer(() =>
           editService.create(this.cheatingDetectionEditFormGroup.createCheatingDetection(), this.trainingInstanceId)
         )

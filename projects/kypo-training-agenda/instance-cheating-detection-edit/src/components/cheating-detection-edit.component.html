@@ -133,12 +133,12 @@
             <mat-radio-group class="type-options">
               <mat-radio-button labelPosition="after"
                                 value="bash"
-                                (change)="changeType(i, 'bash')"
+                                (change)="changeType(i, 'BASH')"
                                 formControlName="type">BASH
               </mat-radio-button>
               <mat-radio-button labelPosition="after"
                                 value="msf"
-                                (change)="changeType(i, 'msf')"
+                                (change)="changeType(i, 'MSF')"
                                 formControlName="type">Metasploit
               </mat-radio-button>
               <mat-error *ngIf="forbiddenCommandsGroup.get('type').hasError('required')">You need to select command type</mat-error>
