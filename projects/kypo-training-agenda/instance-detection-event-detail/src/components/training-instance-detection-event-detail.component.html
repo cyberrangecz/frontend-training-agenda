@@ -80,6 +80,7 @@
       </sentinel-table>
 
       <div *ngIf="forbiddenCommandsEvent$ | async as forbiddenCommandsEvent">
+        <h1>Forbidden Commands</h1>
         <sentinel-table
           [defaultSortDirection]="INIT_SORT_DIR"
           [defaultSortName]="INIT_SORT_NAME"

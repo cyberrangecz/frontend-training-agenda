@@ -100,6 +100,7 @@ export class CheatingDetectionTable extends SentinelTable<CheatingDetectionRowAd
       'Time proximity detection: ' + data.timeProximityState + proximityThreshold,
       'Minimal solve time detection: ' + data.minimalSolveTimeState,
       'No commands detection: ' + data.noCommandsState,
+      'Forbidden commands detection: ' + data.forbiddenCommandsState,
     ];
   }
 }
