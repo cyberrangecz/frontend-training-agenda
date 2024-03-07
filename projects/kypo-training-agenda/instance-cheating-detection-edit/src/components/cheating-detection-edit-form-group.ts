@@ -1,4 +1,4 @@
-import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { CheatingDetection, CheatingDetectionStateEnum } from '@muni-kypo-crp/training-model';
 import { SentinelValidators } from '@sentinel/common';
 
@@ -10,15 +10,30 @@ export class CheatingDetectionEditFormGroup {
   trainingInstanceId: number;
 
   constructor(cheatingDetection: CheatingDetection, trainingInstanceId: number) {
+    cheatingDetection.forbiddenCommands = [];
     this.formGroup = new UntypedFormGroup({
       answerSimilarityDetection: new UntypedFormControl(cheatingDetection.answerSimilarityState),
       locationSimilarityDetection: new UntypedFormControl(cheatingDetection.locationSimilarityState),
       timeProximityDetection: new UntypedFormControl(cheatingDetection.timeProximityState),
       minimalSolveTimeDetection: new UntypedFormControl(cheatingDetection.minimalSolveTimeState),
       noCommandsDetection: new UntypedFormControl(cheatingDetection.noCommandsState),
+      forbiddenCommandsDetection: new UntypedFormControl(cheatingDetection.forbiddenCommandsState),
       timeThreshold: new UntypedFormControl(cheatingDetection.proximityThreshold, [
         SentinelValidators.pattern('^[0-9]*$'),
       ]),
+      forbiddenCommands: new UntypedFormArray(
+        cheatingDetection.forbiddenCommands.map(
+          (forbiddenCommand) =>
+            new UntypedFormGroup(
+              {
+                command: new UntypedFormControl(forbiddenCommand.command, [Validators.required]),
+                type: new UntypedFormControl(forbiddenCommand.type, [Validators.required]),
+                id: new UntypedFormControl(cheatingDetection.id),
+              },
+              [Validators.required]
+            )
+        )
+      ),
     });
     this.trainingInstanceId = trainingInstanceId;
   }
@@ -42,12 +57,16 @@ export class CheatingDetectionEditFormGroup {
     cheatingDetection.noCommandsState = this.formGroup.get('noCommandsDetection').value
       ? CheatingDetectionStateEnum.Queued
       : CheatingDetectionStateEnum.Disabled;
+    cheatingDetection.forbiddenCommandsState = this.formGroup.get('forbiddenCommandsDetection').value
+      ? CheatingDetectionStateEnum.Queued
+      : CheatingDetectionStateEnum.Disabled;
     cheatingDetection.proximityThreshold = this.formGroup.get('timeThreshold').value;
     cheatingDetection.results = 0;
     cheatingDetection.currentState = CheatingDetectionStateEnum.Running;
-    cheatingDetection.forbiddenCommandsState = CheatingDetectionStateEnum.Disabled;
     cheatingDetection.executedBy = '';
     cheatingDetection.trainingInstanceId = this.trainingInstanceId;
+    cheatingDetection.forbiddenCommands = this.formGroup.get('forbiddenCommands').value;
+    console.log(cheatingDetection);
     return cheatingDetection;
   }
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { SentinelBaseDirective } from '@sentinel/common';
-import { AbstractControl } from '@angular/forms';
+import { SentinelBaseDirective, SentinelValidators } from '@sentinel/common';
+import { AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { CheatingDetectionEditFormGroup } from './cheating-detection-edit-form-group';
 import { CheatingDetectionEditService } from '../services/cheating-detection-edit.service';
 import { ActivatedRoute } from '@angular/router';
@@ -26,6 +26,7 @@ export class CheatingDetectionEditComponent extends SentinelBaseDirective {
   controls: SentinelControlItem[];
   trainingInstanceId: number;
   maximumProximityThreshold = 86400;
+  isAPG = false;
 
   constructor(
     private activeRoute: ActivatedRoute,
@@ -56,6 +57,9 @@ export class CheatingDetectionEditComponent extends SentinelBaseDirective {
     control.result$.pipe(take(1)).subscribe();
   }
 
+  ifNotAPG() {
+    return !this.isAPG;
+  }
   get answerSimilarityMethod(): AbstractControl {
     return this.cheatingDetectionEditFormGroup.formGroup.get('answerSimilarityDetection');
   }
@@ -71,8 +75,51 @@ export class CheatingDetectionEditComponent extends SentinelBaseDirective {
   get noCommandsMethod(): AbstractControl {
     return this.cheatingDetectionEditFormGroup.formGroup.get('noCommandsDetection');
   }
+  get forbiddenCommandsMethod(): AbstractControl {
+    return this.cheatingDetectionEditFormGroup.formGroup.get('forbiddenCommandsDetection');
+  }
+
   get timeThreshold(): AbstractControl {
     return this.cheatingDetectionEditFormGroup.formGroup.get('proximityThreshold');
+  }
+
+  get forbiddenCommands(): UntypedFormArray {
+    return this.cheatingDetectionEditFormGroup.formGroup.get('forbiddenCommands') as UntypedFormArray;
+  }
+
+  /**
+   * Deletes an choice (one of the answers)
+   * @param index index of the choice which should be deleted
+   */
+  deleteForbiddenCommand(index: number): void {
+    this.forbiddenCommands.removeAt(index);
+    this.forbiddenCommands.controls
+      .slice(index)
+      .forEach((choice) => choice.get('order').setValue(choice.get('order').value - 1));
+    this.forbiddenCommandsChanged();
+  }
+
+  addForbiddenCommand(): void {
+    this.forbiddenCommands.push(
+      new UntypedFormGroup({
+        command: new UntypedFormControl('', [SentinelValidators.noWhitespace, Validators.required]),
+        type: new UntypedFormControl('', [Validators.required]),
+        cheatingDetectionId: new UntypedFormControl(this.cheatingDetection.id),
+      })
+    );
+    this.forbiddenCommandsChanged();
+  }
+
+  changeType(i: number, value: string): void {
+    this.forbiddenCommands.controls[i].get('type').setValue(value);
+    this.forbiddenCommandsChanged();
+  }
+  forbiddenCommandsChanged(): void {
+    this.cheatingDetectionEditFormGroup.formGroup.markAsDirty();
+  }
+
+  isFormValid(): boolean {
+    return !this.cheatingDetectionEditFormGroup.formGroup.valid;
   }
 
   initControls(editService: CheatingDetectionEditService): void {
@@ -81,7 +128,7 @@ export class CheatingDetectionEditComponent extends SentinelBaseDirective {
         'create',
         'Create',
         'primary',
-        of(!this.cheatingDetectionEditFormGroup.formGroup.valid),
+        of(this.isFormValid()),
         defer(() =>
           editService.create(this.cheatingDetectionEditFormGroup.createCheatingDetection(), this.trainingInstanceId)
         )

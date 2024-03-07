@@ -11,6 +11,10 @@ import { DetectionEventParticipantConcreteService } from '../services/participan
 import { SentinelPipesModule } from '@sentinel/common/pipes';
 import { MatCardModule } from '@angular/material/card';
 import { TrainingInstanceDetectionEventDetailMaterialModule } from './training-instance-detection-event-detail-material.module';
+import { MatTabsModule } from '@angular/material/tabs';
+import { TimelineModule } from '@muni-kypo-crp/command-visualizations/timeline';
+import { DetectionEventForbiddenCommandsService } from '../services/forbidden-commands/detection-event-forbidden-commands.service';
+import { DetectionEventForbiddenCommandsConcreteService } from '../services/forbidden-commands/detection-event-forbidden-commands-concrete.service';
 
 @NgModule({
   imports: [
@@ -19,6 +23,8 @@ import { TrainingInstanceDetectionEventDetailMaterialModule } from './training-i
     SentinelPipesModule,
     TrainingInstanceDetectionEventDetailMaterialModule,
     MatCardModule,
+    MatTabsModule,
+    TimelineModule,
   ],
   declarations: [TrainingInstanceDetectionEventDetailComponent],
   providers: [
@@ -27,6 +33,7 @@ import { TrainingInstanceDetectionEventDetailMaterialModule } from './training-i
     { provide: TrainingNavigator, useClass: TrainingDefaultNavigator },
     { provide: DetectionEventService, useClass: DetectionEventConcreteService },
     { provide: DetectionEventParticipantService, useClass: DetectionEventParticipantConcreteService },
+    { provide: DetectionEventForbiddenCommandsService, useClass: DetectionEventForbiddenCommandsConcreteService },
   ],
 })
 export class TrainingInstanceDetectionEventDetailComponentsModule {
