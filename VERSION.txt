@@ -1,3 +1,4 @@
+15.1.0 Integrate new version of cheating detection models and api.
 15.0.8 Fix training run resume action not displayed.
 15.0.7 Fix end time sorting for training instance.
 15.0.6 Resolve adaptive simulator Angular Material migration.
