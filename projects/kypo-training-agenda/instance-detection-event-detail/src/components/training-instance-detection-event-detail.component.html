@@ -72,8 +72,8 @@
         [defaultSortDirection]="INIT_SORT_DIR"
         [defaultSortName]="INIT_SORT_NAME"
         [data]="participants$ | async"
-        [hasError]="hasError$ | async"
-        [isLoading]="isLoading$ | async"
+        [hasError]="participantTableHasError$ | async"
+        [isLoading]="participantTableIsLoading$ | async"
         [displayedActionsCount]="4"
         (rowAction)="onParticipantTableAction($event)"
       >
@@ -85,8 +85,8 @@
           [defaultSortDirection]="INIT_SORT_DIR"
           [defaultSortName]="INIT_SORT_NAME"
           [data]="forbiddenCommands$ | async"
-          [hasError]="hasError$ | async"
-          [isLoading]="isLoading$ | async"
+          [hasError]="forbiddenCommandsTableHasError$ | async"
+          [isLoading]="forbiddenCommandsTableIsLoading$ | async"
           [displayedActionsCount]="4"
           (rowAction)="onForbiddenCommandTableAction($event)"
           >
