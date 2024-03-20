@@ -13,25 +13,21 @@ import { MatCardModule } from '@angular/material/card';
 import { TrainingInstanceDetectionEventDetailMaterialModule } from './training-instance-detection-event-detail-material.module';
 import { MatTabsModule } from '@angular/material/tabs';
 import { TimelineModule } from '@muni-kypo-crp/command-visualizations/timeline';
-import {
-  DetectionEventForbiddenCommandsService
-} from '../services/forbidden-commands/detection-event-forbidden-commands.service';
-import {
-  DetectionEventForbiddenCommandsConcreteService
-} from '../services/forbidden-commands/detection-event-forbidden-commands-concrete.service';
-import {MatExpansionModule} from "@angular/material/expansion";
+import { DetectionEventForbiddenCommandsService } from '../services/forbidden-commands/detection-event-forbidden-commands.service';
+import { DetectionEventForbiddenCommandsConcreteService } from '../services/forbidden-commands/detection-event-forbidden-commands-concrete.service';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        SentinelTableModule,
-        SentinelPipesModule,
-        TrainingInstanceDetectionEventDetailMaterialModule,
-        MatCardModule,
-        MatTabsModule,
-        TimelineModule,
-        MatExpansionModule,
-    ],
+  imports: [
+    CommonModule,
+    SentinelTableModule,
+    SentinelPipesModule,
+    TrainingInstanceDetectionEventDetailMaterialModule,
+    MatCardModule,
+    MatTabsModule,
+    TimelineModule,
+    MatExpansionModule,
+  ],
   declarations: [TrainingInstanceDetectionEventDetailComponent],
   providers: [
     PaginationService,
@@ -39,7 +35,7 @@ import {MatExpansionModule} from "@angular/material/expansion";
     { provide: TrainingNavigator, useClass: TrainingDefaultNavigator },
     { provide: DetectionEventService, useClass: DetectionEventConcreteService },
     { provide: DetectionEventParticipantService, useClass: DetectionEventParticipantConcreteService },
-    { provide: DetectionEventForbiddenCommandsService, useClass: DetectionEventForbiddenCommandsConcreteService }
+    { provide: DetectionEventForbiddenCommandsService, useClass: DetectionEventForbiddenCommandsConcreteService },
   ],
 })
 export class TrainingInstanceDetectionEventDetailComponentsModule {
