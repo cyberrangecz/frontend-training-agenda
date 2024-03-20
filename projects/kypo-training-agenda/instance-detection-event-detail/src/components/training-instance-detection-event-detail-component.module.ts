@@ -15,6 +15,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { TimelineModule } from '@muni-kypo-crp/command-visualizations/timeline';
 import { DetectionEventForbiddenCommandsService } from '../services/forbidden-commands/detection-event-forbidden-commands.service';
 import { DetectionEventForbiddenCommandsConcreteService } from '../services/forbidden-commands/detection-event-forbidden-commands-concrete.service';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import { DetectionEventForbiddenCommandsConcreteService } from '../services/forb
     MatCardModule,
     MatTabsModule,
     TimelineModule,
+    MatExpansionModule,
   ],
   declarations: [TrainingInstanceDetectionEventDetailComponent],
   providers: [

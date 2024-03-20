@@ -1,3 +1,4 @@
+15.1.1 Update cheating detection create page, modules and tables.
 15.1.0 Integrate new version of cheating detection models and api.
 15.0.8 Fix end time sorting for training instance and training run resume action display.
 15.0.7 Fix faulty training run button.
