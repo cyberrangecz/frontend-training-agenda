@@ -22,6 +22,7 @@ mat-slide-toggle {
 
 .slide-toggle-container {
   display: flex;
+  margin-bottom: 10px;
 }
 
 .detection-tooltip {
