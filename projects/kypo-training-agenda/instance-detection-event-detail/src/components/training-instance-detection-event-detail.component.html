@@ -91,17 +91,20 @@
           (rowAction)="onForbiddenCommandTableAction($event)"
           >
         </sentinel-table>
-        <kypo-timeline
-          [trainingInstanceId]="detectionEvent.trainingInstanceId"
-          [trainingRunId]="forbiddenCommandsEvent.trainingRunId"
-          [detectionEventId]="forbiddenCommandsEvent.id"
-          [isForbidden]="true"
-          [isStandalone]="true"
-          >
-        </kypo-timeline>
-
+        <mat-expansion-panel [expanded]="true">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <span>Timeline</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <kypo-timeline
+            [trainingRunId]="forbiddenCommandsEvent.trainingRunId"
+            [detectionEventId]="forbiddenCommandsEvent.id"
+            [isForbidden]="true"
+            >
+          </kypo-timeline>
+        </mat-expansion-panel>
       </div>
-
     </div>
   </ng-container>
 </div>

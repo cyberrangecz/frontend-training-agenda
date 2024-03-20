@@ -15,20 +15,21 @@ import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SentinelFreeFormComponent,
-    ReactiveFormsModule,
-    CheatingDetectionEditMaterialModule,
-    SentinelControlsComponent,
-    MatExpansionModule,
-    MatRadioModule,
-    //SentinelControlsModule,
-    //     MatButtonModule,
-    //     MatRadioModule,
-    //     MatCardModule,
-    //     MatExpansionModule,
-  ],
+    imports: [
+        CommonModule,
+        SentinelFreeFormComponent,
+        ReactiveFormsModule,
+        CheatingDetectionEditMaterialModule,
+        SentinelControlsComponent,
+        MatExpansionModule,
+        MatRadioModule,
+        MatButtonModule,
+        //SentinelControlsModule,
+        //     MatButtonModule,
+        //     MatRadioModule,
+        //     MatCardModule,
+        //     MatExpansionModule,
+    ],
   declarations: [CheatingDetectionEditComponent],
   providers: [{ provide: CheatingDetectionEditService, useClass: CheatingDetectionEditConcreteService }],
 })

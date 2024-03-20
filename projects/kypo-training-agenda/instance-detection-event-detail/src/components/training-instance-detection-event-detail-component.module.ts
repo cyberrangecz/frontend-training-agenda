@@ -19,17 +19,19 @@ import {
 import {
   DetectionEventForbiddenCommandsConcreteService
 } from '../services/forbidden-commands/detection-event-forbidden-commands-concrete.service';
+import {MatExpansionModule} from "@angular/material/expansion";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SentinelTableModule,
-    SentinelPipesModule,
-    TrainingInstanceDetectionEventDetailMaterialModule,
-    MatCardModule,
-    MatTabsModule,
-    TimelineModule,
-  ],
+    imports: [
+        CommonModule,
+        SentinelTableModule,
+        SentinelPipesModule,
+        TrainingInstanceDetectionEventDetailMaterialModule,
+        MatCardModule,
+        MatTabsModule,
+        TimelineModule,
+        MatExpansionModule,
+    ],
   declarations: [TrainingInstanceDetectionEventDetailComponent],
   providers: [
     PaginationService,

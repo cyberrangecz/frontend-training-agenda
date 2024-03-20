@@ -23,6 +23,7 @@
       <div class="slide-toggle-container">
         <div class="detection-name"><span>Location similarity</span></div>
         <mat-slide-toggle
+          [checked]=true
           formControlName="locationSimilarityDetection"
         >
         </mat-slide-toggle>
@@ -148,7 +149,7 @@
 
           <div class="forbidden-command-label-element2">
             <mat-form-field appearance="outline">
-              <mat-label class="command-input">Option {{ i + 1 }}</mat-label>
+              <mat-label class="command-input">Command {{ i + 1 }}</mat-label>
               <input matInput placeholder="Forbidden Command" formControlName="command" required />
               <mat-error *ngIf="forbiddenCommandsGroup.get('command').hasError('whitespace')">Command text cannot be empty</mat-error>
             </mat-form-field>
@@ -156,12 +157,11 @@
 
           <div class="forbidden-command-button-element3">
             <button class="delete-button"
-                    mat-button
                     matSuffix
                     mat-icon-button
-                    aria-label="Delete option"
+                    aria-label="Delete command"
                     color="warn"
-                    matTooltip="Delete option"
+                    matTooltip="Delete command"
                     (click)="deleteForbiddenCommand(i)"
             >
               <mat-icon>remove_circle</mat-icon>

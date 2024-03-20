@@ -42,7 +42,6 @@ export class CheatingDetectionEditComponent extends SentinelBaseDirective {
       this.trainingInstanceId = instance.id;
     });
     this.cheatingDetection = new CheatingDetection();
-    this.cheatingDetection.forbiddenCommandsState = CheatingDetectionStateEnum.Disabled;
     this.cheatingDetectionEditFormGroup = new CheatingDetectionEditFormGroup(
       this.cheatingDetection,
       this.trainingInstanceId

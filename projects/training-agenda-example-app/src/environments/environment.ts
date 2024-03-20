@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 // Server url
-export const baseURL = 'http://localhost:3000';
+export const baseURL = 'https://172.19.0.22';
 // Frontend url
 export const homeURL = 'https://localhost:4200';
 // trainings service url
@@ -73,20 +73,21 @@ export const environment = {
     providers: [
       // OIDC providers
       {
-        label: 'Login with MUNI',
-        textColor: 'white',
-        backgroundColor: '#002776',
+        label: "Login with local issuer",
+        textColor: "white",
+        backgroundColor: "#002776",
         oidcConfig: {
-          issuer: 'https://172.19.0.22:443/csirtmu-dummy-issuer-server/',
-          clientId: 'bxPXhdWNeqhWssxbSGiRjQbnQqmqxDdiTTDJ',
-          redirectUri: homeURL, // redirect after successful login
-          scope: 'openid email profile',
-          logoutUrl: 'https://172.19.0.22/csirtmu-dummy-issuer-server/endsession',
-          postLogoutRedirectUri: homeURL + '/logout-confirmed/',
-          silentRefreshRedirectUri: homeURL + '/silent-refresh.html',
-          clearHashAfterLogin: true, // remove token and other info from url after login
-        },
-      },
+          requireHttps: true,
+          issuer: "https://172.19.0.22/keycloak/realms/KYPO",
+          clientId: "KYPO-client",
+          redirectUri: "https://localhost:4200",
+          scope: "openid email profile offline_access",
+          logoutUrl: "https://172.19.0.22/keycloak/realms/KYPO/protocol/openid-connect/logout",
+          postLogoutRedirectUri: "https://localhost:4200/logout-confirmed",
+          silentRefreshRedirectUri: "https://172.19.0.22/silent-refresh.html",
+          clearHashAfterLogin: true
+        }
+      }
     ],
   },
 };
