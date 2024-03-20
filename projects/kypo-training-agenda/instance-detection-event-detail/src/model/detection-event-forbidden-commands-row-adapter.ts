@@ -3,4 +3,6 @@ import { DetectedForbiddenCommand, DetectionEventParticipant } from '@muni-kypo-
 /**
  * Class representing row of cheating detection table
  */
-export class DetectionEventForbiddenCommandsRowAdapter extends DetectedForbiddenCommand {}
+export class DetectionEventForbiddenCommandsRowAdapter extends DetectedForbiddenCommand {
+  occurredAtFormatted: string;
+}

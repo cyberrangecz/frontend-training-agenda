@@ -8,9 +8,14 @@ import { DetectionEventForbiddenCommandsRowAdapter } from './detection-event-for
 /**
  * @dynamic
  */
-export class DetectionEventForbiddenCommandsTable extends SentinelTable<DetectedForbiddenCommand> {
+export class DetectionEventForbiddenCommandsTable extends SentinelTable<DetectionEventForbiddenCommandsRowAdapter> {
   constructor(resource: PaginatedResource<DetectedForbiddenCommand>) {
-    const columns = [new Column('command', 'command', false), new Column('type', 'type', false)];
+    const columns = [
+      new Column('command', 'command', false),
+      new Column('type', 'type', false),
+      new Column('hostname', 'hostname', false),
+      new Column('occurredAtFormatted', 'occurredAt', false),
+    ];
     const rows = resource.elements.map((element) => DetectionEventForbiddenCommandsTable.createRow(element));
     super(rows, columns);
     this.pagination = resource.pagination;
@@ -18,7 +23,10 @@ export class DetectionEventForbiddenCommandsTable extends SentinelTable<Detected
   }
 
   private static createRow(element: DetectedForbiddenCommand): Row<DetectionEventForbiddenCommandsRowAdapter> {
+    const datePipe = new DatePipe('en-EN');
     const adapter = element as DetectionEventForbiddenCommandsRowAdapter;
+    adapter.occurredAtFormatted = `${datePipe.transform(adapter.occurredAt, 'medium')}`;
+
     return new Row(adapter);
   }
 }

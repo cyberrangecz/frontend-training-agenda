@@ -17,6 +17,7 @@ import { DetectionEventForbiddenCommandsService } from '../services/forbidden-co
 import { DetectionEventForbiddenCommandsConcreteService } from '../services/forbidden-commands/detection-event-forbidden-commands-concrete.service';
 import { MatExpansionModule } from '@angular/material/expansion';
 
+
 @NgModule({
   imports: [
     CommonModule,

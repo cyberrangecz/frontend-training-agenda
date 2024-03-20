@@ -39,8 +39,10 @@ export class TrainingInstanceDetectionEventDetailComponent extends SentinelBaseD
   readonly INIT_SORT_NAME = 'lastEdited';
   readonly INIT_SORT_DIR = 'asc';
 
-  hasError$: Observable<boolean>;
-  isLoading$: Observable<boolean>;
+  participantTableHasError$: Observable<boolean>;
+  participantTableIsLoading$: Observable<boolean>;
+  forbiddenCommandsTableHasError$: Observable<boolean>;
+  forbiddenCommandsTableIsLoading$: Observable<boolean>;
   detectionEvent$: Observable<AbstractDetectionEvent>;
   participants$: Observable<SentinelTable<DetectionEventParticipant>>;
   forbiddenCommands$: Observable<SentinelTable<DetectedForbiddenCommand>>;
@@ -127,8 +129,8 @@ export class TrainingInstanceDetectionEventDetailComponent extends SentinelBaseD
   }
 
   private initParticipantsTable() {
-    this.hasError$ = this.detectionEventParticipantService.hasError$;
-    this.isLoading$ = this.detectionEventParticipantService.isLoading$;
+    this.participantTableHasError$ = this.detectionEventParticipantService.hasError$;
+    this.participantTableIsLoading$ = this.detectionEventParticipantService.isLoading$;
     this.participants$ = this.detectionEventParticipantService.resource$.pipe(
       map((resource) => new DetectionEventParticipantTable(resource))
     );
@@ -142,8 +144,8 @@ export class TrainingInstanceDetectionEventDetailComponent extends SentinelBaseD
   }
 
   private initForbiddenCommandsTable() {
-    this.hasError$ = this.detectionEventForbiddenCommandsService.hasError$;
-    this.isLoading$ = this.detectionEventForbiddenCommandsService.isLoading$;
+    this.forbiddenCommandsTableHasError$ = this.detectionEventForbiddenCommandsService.hasError$;
+    this.forbiddenCommandsTableIsLoading$ = this.detectionEventForbiddenCommandsService.isLoading$;
     this.forbiddenCommands$ = this.detectionEventForbiddenCommandsService.resource$.pipe(
       map((resource) => new DetectionEventForbiddenCommandsTable(resource))
     );
