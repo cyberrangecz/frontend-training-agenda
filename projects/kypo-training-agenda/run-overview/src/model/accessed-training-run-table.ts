@@ -14,7 +14,7 @@ import { AccessedTrainingRunRowAdapter } from './accessed-training-run-row-adapt
  * Helper class transforming paginated resource to class for common table component
  * @dynamic
  */
-export class AccessedTrainingRunTable extends SentinelTable<AccessedTrainingRun> {
+export class AccessedTrainingRunTable extends SentinelTable<AccessedTrainingRunRowAdapter> {
   constructor(resource: PaginatedResource<AccessedTrainingRun>, service: AccessedTrainingRunService) {
     const columns = [
       new Column('trainingInstanceTitle', 'title', false),
