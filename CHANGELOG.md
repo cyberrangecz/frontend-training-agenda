@@ -1,3 +1,8 @@
+### 15.1.1 Update cheating detection create page, modules and tables.
+* 44857b9 -- [CI/CD] Update packages.json version based on GitLab tag.
+* ffeff1f -- Merge branch 'develop' into 'master'
+* 391b424 -- Merge branch 'forbidden-commands-detection-method-integration' into 'develop'
+* dab4397 -- Forbidden commands detection method integration
 ### 15.1.0 Integrate new version of cheating detection models and api.
 * a996b67 -- [CI/CD] Update packages.json version based on GitLab tag.
 * 333eb95 -- Merge branch 'forbidden-commands-detection-method-integration' into 'master'
