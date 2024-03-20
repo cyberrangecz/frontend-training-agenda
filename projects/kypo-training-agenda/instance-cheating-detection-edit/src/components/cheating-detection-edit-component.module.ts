@@ -11,7 +11,6 @@ import { SentinelControlsComponent } from '@sentinel/components/controls';
 import { CheatingDetectionEditMaterialModule } from './cheating-detection-edit-material.module';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
-import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
@@ -24,11 +23,6 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatExpansionModule,
     MatRadioModule,
     MatButtonModule,
-    //SentinelControlsModule,
-    //     MatButtonModule,
-    //     MatRadioModule,
-    //     MatCardModule,
-    //     MatExpansionModule,
   ],
   declarations: [CheatingDetectionEditComponent],
   providers: [{ provide: CheatingDetectionEditService, useClass: CheatingDetectionEditConcreteService }],
