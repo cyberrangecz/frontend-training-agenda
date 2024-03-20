@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 // Server url
-export const baseURL = 'https://172.19.0.22';
+export const baseURL = 'http://localhost:3000';
 // Frontend url
 export const homeURL = 'https://localhost:4200';
 // trainings service url
@@ -73,9 +73,9 @@ export const environment = {
     providers: [
       // OIDC providers
       {
-        label: "Login with local issuer",
-        textColor: "white",
-        backgroundColor: "#002776",
+        label: 'Login with MUNI',
+        textColor: 'white',
+        backgroundColor: '#002776',
         oidcConfig: {
           issuer: 'https://172.19.0.22:443/csirtmu-dummy-issuer-server/',
           clientId: 'gtozHJjxkqMxMaKmvtAWzafYkRMSLcSWbAQF',
