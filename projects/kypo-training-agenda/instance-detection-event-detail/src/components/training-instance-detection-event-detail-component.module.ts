@@ -28,7 +28,7 @@ import { MatDividerModule } from '@angular/material/divider';
     MatTabsModule,
     TimelineModule,
     MatExpansionModule,
-    MatDividerModule
+    MatDividerModule,
   ],
   declarations: [TrainingInstanceDetectionEventDetailComponent],
   providers: [
@@ -48,7 +48,7 @@ export class TrainingInstanceDetectionEventDetailComponentsModule {
       ngModule: TrainingInstanceDetectionEventDetailComponentsModule,
       providers: [
         TimelineModule.forRoot(config.visualizationConfig).providers,
-        { provide: TrainingAgendaConfig, useValue: config }
+        { provide: TrainingAgendaConfig, useValue: config },
       ],
     };
   }

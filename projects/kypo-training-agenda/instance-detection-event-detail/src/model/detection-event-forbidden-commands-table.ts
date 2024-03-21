@@ -1,11 +1,6 @@
 import { PaginatedResource } from '@sentinel/common/pagination';
 import { Column, SentinelTable, Row } from '@sentinel/components/table';
-import {
-  AbstractDetectionEventTypeEnum,
-  DetectedForbiddenCommand, DetectedForbiddenCommandTypeEnum,
-  DetectionEventParticipant
-} from '@muni-kypo-crp/training-model';
-import { DetectionEventParticipantRowAdapter } from './detection-event-participant-row-adapter';
+import { DetectedForbiddenCommand, DetectedForbiddenCommandTypeEnum } from '@muni-kypo-crp/training-model';
 import { DatePipe } from '@angular/common';
 import { DetectionEventForbiddenCommandsRowAdapter } from './detection-event-forbidden-commands-row-adapter';
 
