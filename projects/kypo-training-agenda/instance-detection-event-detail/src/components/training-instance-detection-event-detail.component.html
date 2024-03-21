@@ -81,29 +81,33 @@
 
       <div *ngIf="forbiddenCommandsEvent$ | async as forbiddenCommandsEvent">
         <h1>Forbidden Commands</h1>
-        <sentinel-table
-          [defaultSortDirection]="INIT_SORT_DIR"
-          [defaultSortName]="INIT_SORT_NAME"
-          [data]="forbiddenCommands$ | async"
-          [hasError]="forbiddenCommandsTableHasError$ | async"
-          [isLoading]="forbiddenCommandsTableIsLoading$ | async"
-          [displayedActionsCount]="4"
-          (rowAction)="onForbiddenCommandTableAction($event)"
-          >
-        </sentinel-table>
-        <mat-expansion-panel [expanded]="true">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <span>Timeline</span>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <kypo-timeline
-            [trainingRunId]="forbiddenCommandsEvent.trainingRunId"
-            [detectionEventId]="forbiddenCommandsEvent.id"
-            [isForbidden]="true"
+        <div class="forbidden-commands-table">
+          <sentinel-table
+            [defaultSortDirection]="INIT_SORT_DIR"
+            [defaultSortName]="INIT_SORT_NAME"
+            [data]="forbiddenCommands$ | async"
+            [hasError]="forbiddenCommandsTableHasError$ | async"
+            [isLoading]="forbiddenCommandsTableIsLoading$ | async"
+            [displayedActionsCount]="4"
+            (rowAction)="onForbiddenCommandTableAction($event)"
             >
-          </kypo-timeline>
-        </mat-expansion-panel>
+          </sentinel-table>
+        </div>
+        <div class="timeline-component">
+          <mat-expansion-panel [expanded]="true">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <span>Timeline</span>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <kypo-timeline
+              [trainingRunId]="forbiddenCommandsEvent.trainingRunId"
+              [detectionEventId]="forbiddenCommandsEvent.id"
+              [isForbidden]="true"
+              >
+            </kypo-timeline>
+          </mat-expansion-panel>
+        </div>
       </div>
     </div>
   </ng-container>
