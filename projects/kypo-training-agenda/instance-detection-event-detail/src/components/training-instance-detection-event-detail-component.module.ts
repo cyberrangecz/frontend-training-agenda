@@ -16,6 +16,7 @@ import { TimelineModule } from '@muni-kypo-crp/command-visualizations/timeline';
 import { DetectionEventForbiddenCommandsService } from '../services/forbidden-commands/detection-event-forbidden-commands.service';
 import { DetectionEventForbiddenCommandsConcreteService } from '../services/forbidden-commands/detection-event-forbidden-commands-concrete.service';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatTabsModule,
     TimelineModule,
     MatExpansionModule,
+    MatDividerModule,
   ],
   declarations: [TrainingInstanceDetectionEventDetailComponent],
   providers: [
@@ -44,7 +46,10 @@ export class TrainingInstanceDetectionEventDetailComponentsModule {
   ): ModuleWithProviders<TrainingInstanceDetectionEventDetailComponentsModule> {
     return {
       ngModule: TrainingInstanceDetectionEventDetailComponentsModule,
-      providers: [{ provide: TrainingAgendaConfig, useValue: config }],
+      providers: [
+        TimelineModule.forRoot(config.visualizationConfig).providers,
+        { provide: TrainingAgendaConfig, useValue: config },
+      ],
     };
   }
 }
