@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
 import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
 import { Observable } from 'rxjs';
-import { DetectedForbiddenCommand, DetectionEventParticipant } from '@muni-kypo-crp/training-model';
+import { DetectedForbiddenCommand } from '@muni-kypo-crp/training-model';
 import { tap } from 'rxjs/operators';
 import { DetectionEventForbiddenCommandsService } from './detection-event-forbidden-commands.service';
 
