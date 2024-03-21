@@ -1,3 +1,8 @@
+### 15.1.2 Fix forbidden command table and timeline.
+* 168bad5 -- [CI/CD] Update packages.json version based on GitLab tag.
+* 6885508 -- Merge branch 'develop' into 'master'
+* cc3c9c3 -- Merge branch 'forbidden-commands-detection-method-integration' into 'develop'
+* 591c832 -- Forbidden commands detection method integration
 ### 15.1.1 Update cheating detection create page, modules and tables.
 * 44857b9 -- [CI/CD] Update packages.json version based on GitLab tag.
 * ffeff1f -- Merge branch 'develop' into 'master'
