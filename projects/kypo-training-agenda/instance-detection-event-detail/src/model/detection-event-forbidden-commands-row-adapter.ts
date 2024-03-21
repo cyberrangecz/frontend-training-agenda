@@ -5,4 +5,5 @@ import { DetectedForbiddenCommand, DetectionEventParticipant } from '@muni-kypo-
  */
 export class DetectionEventForbiddenCommandsRowAdapter extends DetectedForbiddenCommand {
   occurredAtFormatted: string;
+  typeFormatted: string;
 }

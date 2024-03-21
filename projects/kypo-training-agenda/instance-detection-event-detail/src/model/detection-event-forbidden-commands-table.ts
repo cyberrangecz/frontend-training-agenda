@@ -1,6 +1,10 @@
 import { PaginatedResource } from '@sentinel/common/pagination';
 import { Column, SentinelTable, Row } from '@sentinel/components/table';
-import { DetectedForbiddenCommand, DetectionEventParticipant } from '@muni-kypo-crp/training-model';
+import {
+  AbstractDetectionEventTypeEnum,
+  DetectedForbiddenCommand, DetectedForbiddenCommandTypeEnum,
+  DetectionEventParticipant
+} from '@muni-kypo-crp/training-model';
 import { DetectionEventParticipantRowAdapter } from './detection-event-participant-row-adapter';
 import { DatePipe } from '@angular/common';
 import { DetectionEventForbiddenCommandsRowAdapter } from './detection-event-forbidden-commands-row-adapter';
@@ -12,9 +16,9 @@ export class DetectionEventForbiddenCommandsTable extends SentinelTable<Detectio
   constructor(resource: PaginatedResource<DetectedForbiddenCommand>) {
     const columns = [
       new Column('command', 'command', false),
-      new Column('type', 'type', false),
+      new Column('typeFormatted', 'type', false),
       new Column('hostname', 'hostname', false),
-      new Column('occurredAtFormatted', 'occurredAt', false),
+      new Column('occurredAtFormatted', 'occurred At', false),
     ];
     const rows = resource.elements.map((element) => DetectionEventForbiddenCommandsTable.createRow(element));
     super(rows, columns);
@@ -26,7 +30,18 @@ export class DetectionEventForbiddenCommandsTable extends SentinelTable<Detectio
     const datePipe = new DatePipe('en-EN');
     const adapter = element as DetectionEventForbiddenCommandsRowAdapter;
     adapter.occurredAtFormatted = `${datePipe.transform(adapter.occurredAt, 'medium')}`;
+    adapter.typeFormatted = this.evaluateCommandTypeString(adapter.type);
 
     return new Row(adapter);
+  }
+  private static evaluateCommandTypeString(type: DetectedForbiddenCommandTypeEnum): string {
+    switch (type) {
+      case DetectedForbiddenCommandTypeEnum.Bash:
+        return 'BASH';
+      case DetectedForbiddenCommandTypeEnum.Msf:
+        return 'Msf';
+      default:
+        return 'Undefined';
+    }
   }
 }
