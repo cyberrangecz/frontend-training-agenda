@@ -128,6 +128,9 @@ export class TrainingInstanceDetectionEventDetailComponent extends SentinelBaseD
     event.action.result$.pipe(take(1)).subscribe();
   }
 
+  isNotForbidden(event: AbstractDetectionEvent): boolean {
+    return event.detectionEventType !== AbstractDetectionEventTypeEnum.Forbidden_commands;
+  }
   private initParticipantsTable() {
     this.participantTableHasError$ = this.detectionEventParticipantService.hasError$;
     this.participantTableIsLoading$ = this.detectionEventParticipantService.isLoading$;

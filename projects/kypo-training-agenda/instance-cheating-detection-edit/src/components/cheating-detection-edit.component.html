@@ -15,56 +15,53 @@
         >
         </mat-slide-toggle>
         <div class="detection-tooltip">
-          <span>detection method to check for users that submitted a flag that belongs to someone else. <b>Disabled if training
-          is not an APG.</b></span>
+          <span>Flags users that submitted a flag that belongs to someone else.
+            <b>Don't use for trainings without variant answers</b></span>
         </div>
       </div>
 
       <div class="slide-toggle-container">
-        <div class="detection-name"><span>Location similarity</span></div>
+        <div class="detection-name"><span>Location Similarity</span></div>
         <mat-slide-toggle
           formControlName="locationSimilarityDetection"
         >
         </mat-slide-toggle>
         <div class="detection-tooltip">
-          <span>detection method to check for users who had similar ip addresses in training.</span>
+          <span>Flags users that had similar IP in training.</span>
         </div>
       </div>
 
       <div class="slide-toggle-container">
-        <div class="detection-name"><span>Time proximity</span></div>
+        <div class="detection-name"><span>Time Proximity</span></div>
         <mat-slide-toggle
           formControlName="timeProximityDetection"
         >
         </mat-slide-toggle>
         <div class="detection-tooltip">
-          <span>detection method to check for users who submitted answers ' +
-             'in a similar time frame. Specify the proximity in the frame below.</span>
+          <span>Flags users submitting answers in a similar time frame. Specify the proximity in the frame below.</span>
         </div>
       </div>
 
       <div class="slide-toggle-container">
-        <div class="detection-name"><span>Minimal solve time</span></div>
+        <div class="detection-name"><span>Minimal Solve Time</span></div>
         <mat-slide-toggle
           formControlName="minimalSolveTimeDetection"
         >
         </mat-slide-toggle>
         <div class="detection-tooltip">
-          <span>detection method to check for users who solved a task in less than ' +
-             'set minimal possible solve time.</span>
+          <span>Flags users that solved a task in less than minimal possible solve time.</span>
         </div>
       </div>
 
       <div class="slide-toggle-container">
-        <div class="detection-name"><span>No commands</span></div>
+        <div class="detection-name"><span>No Commands</span></div>
         <mat-slide-toggle
           formControlName="noCommandsDetection"
 
         >
         </mat-slide-toggle>
         <div class="detection-tooltip">
-          <span>detection method to check for users who used no commands to ' +
-             'solve a level that required commands for completion</span>
+          <span>Flags users that used no commands to solve a level requiring commands.</span>
         </div>
       </div>
 
@@ -75,8 +72,7 @@
         >
         </mat-slide-toggle>
         <div class="detection-tooltip">
-          <span>detection method to check for users who submitted forbidden commands ' +
-             'in their terminal. Specify the commands in a window below.</span>
+          <span>Flags users that submitted forbidden commands. Specify the commands in a window below.</span>
         </div>
       </div>
   </div>
@@ -118,7 +114,7 @@
           <span>Forbidden Commands Configuration</span>
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <button class="add-forbidden-command" (click)="addForbiddenCommand()" mat-button color="primary">Add forbidden command</button>
+      <button class="add-forbidden-command" (click)="addForbiddenCommand()" mat-button color="primary">Add Forbidden Command</button>
 
 
 

@@ -23,11 +23,13 @@
         <div class="icon-label">Level Id</div>
         <div class="value-field">{{ detectionEvent.levelId }}</div>
       </div>
-      <div class="data-field">
-        <mat-icon class="material-icons-round"> people </mat-icon>
-        <div class="icon-label">Number of Participants</div>
-        <div class="value-field">{{ detectionEvent.participantCount }}</div>
-      </div>
+      <ng-container *ngIf="isNotForbidden(detectionEvent)">
+        <div class="data-field">
+          <mat-icon class="material-icons-round"> people </mat-icon>
+          <div class="icon-label">Number of Participants</div>
+          <div class="value-field">{{ detectionEvent.participantCount }}</div>
+        </div>
+      </ng-container>
       <div class="data-field" *ngIf="locationSimilarityEvent$ | async as locationSimilarityEvent">
           <mat-icon class="material-icons-round"> web </mat-icon>
           <div class="icon-label">Domain Name</div>
