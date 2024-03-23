@@ -25,7 +25,7 @@ export class DetectionEventParticipantTable extends SentinelTable<DetectionEvent
     const datePipe = new DatePipe('en-EN');
     const adapter = element as DetectionEventParticipantRowAdapter;
     adapter.occurredAtFormatted = `${datePipe.transform(adapter.occurredAt, 'medium')}`;
-    adapter.solvedInTimeFormatted = adapter.solvedInTime == null ? 'unspecified' : adapter.solvedInTime.toString();
+    adapter.solvedInTimeFormatted = adapter.solvedInTime == null ? '' : adapter.solvedInTime.toString();
 
     return new Row(adapter);
   }
