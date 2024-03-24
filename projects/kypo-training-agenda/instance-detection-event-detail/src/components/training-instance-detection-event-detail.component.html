@@ -97,21 +97,24 @@
             </sentinel-table>
           </div>
         </div>
-        <div class="content">
-          <mat-expansion-panel [expanded]="true">
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                <span>Timeline</span>
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-            <kypo-timeline
-              [trainingRunId]="forbiddenCommandsEvent.trainingRunId"
-              [detectionEventId]="forbiddenCommandsEvent.id"
-              [isForbidden]="true"
+        <ng-container *ngIf="detectionEvent$ | async as detectionEvent">
+          <div class="content">
+            <mat-expansion-panel [expanded]="true">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <span>Timeline</span>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <kypo-timeline
+                [trainingRunId]="detectionEvent.trainingRunId"
+                [detectionEventId]="forbiddenCommandsEvent.id"
+                [isForbidden]="true"
+                [isStandalone]="true"
               >
-            </kypo-timeline>
-          </mat-expansion-panel>
-        </div>
+              </kypo-timeline>
+            </mat-expansion-panel>
+          </div>
+        </ng-container>
       </div>
   </ng-container>
 </div>
