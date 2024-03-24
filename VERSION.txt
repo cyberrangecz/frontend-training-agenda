@@ -1,3 +1,4 @@
+15.1.4 BUmp version of api, model and command visualization.
 15.1.3 Add enhancements to cheating detection edit and detail pages.
 15.1.2 Fix forbidden command table and timeline.
 15.1.1 Update cheating detection create page, modules and tables.
