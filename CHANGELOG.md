@@ -1,3 +1,31 @@
+### 15.1.4 BUmp version of api, model and command visualization.
+* cc90d47 -- [CI/CD] Update packages.json version based on GitLab tag.
+* 787cafa -- Merge branch 'develop' into 'master'
+* 7dcf0c4 -- Merge branch 'forbidden-commands-detection-method-integration' into 'develop'
+* 70d9812 -- Add version
+* d98d4c3 -- update packages
+* fc018e0 -- use detectionEvent training run id in timeline
+* 5724194 -- Merge branch 'develop' into forbidden-commands-detection-method-integration
+* c89d24f -- Merge branch 'develop' into forbidden-commands-detection-method-integration
+* a37672c -- Update packages
+* 2e842d1 -- Change level id to level order in event detail
+* 6ba0ed2 -- Merge branch 'develop' into forbidden-commands-detection-method-integration
+* a9032c1 -- Swap answer owner and answer blocks
+* 0218f34 -- Cheating detection edit and text enhancements
+* cfb3fb5 -- Update packages
+* 595eaaa -- Merge changes from develop
+* 57eae9f -- detection event detail page rework
+* bf0dcc3 -- Adjust detection event detail page
+* 736fe12 -- remove checked field
+* 556f263 -- Revert environment.ts
+* 89afb32 -- Update cheating detection create page, modules and tables.
+* 027b7d9 -- Merge develop
+*   fd9a182 -- Update table of detection forbidden command
+|\  
+| * b05091a -- Prettier-fix
+| * b32b81f -- Integrate new detected command model. Fix forbidden command service handling
+* e5b2600 -- prettier
+* 2908581 -- Update cheating detection commands table. Update cheating detection edit page
 ### 15.1.3 Add enhancements to cheating detection edit and detail pages.
 * b52e51d -- [CI/CD] Update packages.json version based on GitLab tag.
 * 640867b -- Merge branch 'develop' into 'master'
