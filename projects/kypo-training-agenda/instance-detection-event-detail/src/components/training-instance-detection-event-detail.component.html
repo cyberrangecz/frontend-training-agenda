@@ -21,13 +21,15 @@
       <div class="data-field">
         <mat-icon class="material-icons-round"> pin </mat-icon>
         <div class="icon-label">Level Id</div>
-        <div class="value-field">{{ detectionEvent.levelId }}</div>
+        <div class="value-field">{{ detectionEvent.levelOrder }}</div>
       </div>
-      <div class="data-field">
-        <mat-icon class="material-icons-round"> people </mat-icon>
-        <div class="icon-label">Number of Participants</div>
-        <div class="value-field">{{ detectionEvent.participantCount }}</div>
-      </div>
+      <ng-container *ngIf="isNotForbidden(detectionEvent)">
+        <div class="data-field">
+          <mat-icon class="material-icons-round"> people </mat-icon>
+          <div class="icon-label">Number of Participants</div>
+          <div class="value-field">{{ detectionEvent.participantCount }}</div>
+        </div>
+      </ng-container>
       <div class="data-field" *ngIf="locationSimilarityEvent$ | async as locationSimilarityEvent">
           <mat-icon class="material-icons-round"> web </mat-icon>
           <div class="icon-label">Domain Name</div>
@@ -44,14 +46,14 @@
           <div class="value-field">{{ timeProximityEvent.threshold + " seconds" }}</div>
         </div>
       <div class="data-field" *ngIf="answerSimilarityEvent$ | async as answerSimilarityEvent">
-        <mat-icon class="material-icons-round"> done </mat-icon>
-        <div class="icon-label">Answer</div>
-        <div class="value-field">{{ answerSimilarityEvent.answer }}</div>
-      </div>
-      <div class="data-field" *ngIf="answerSimilarityEvent$ | async as answerSimilarityEvent">
         <mat-icon class="material-icons-round"> assignment_ind </mat-icon>
         <div class="icon-label">Answer Owner</div>
         <div class="value-field">{{ answerSimilarityEvent.answerOwner }}</div>
+      </div>
+      <div class="data-field" *ngIf="answerSimilarityEvent$ | async as answerSimilarityEvent">
+        <mat-icon class="material-icons-round"> done </mat-icon>
+        <div class="icon-label">Answer</div>
+        <div class="value-field">{{ answerSimilarityEvent.answer }}</div>
       </div>
       <div class="data-field" *ngIf="minimalSolveTimeEvent$ | async as minimalSolveTimeEvent">
         <mat-icon class="material-icons-round"> pending_actions </mat-icon>
@@ -103,7 +105,6 @@
               </mat-panel-title>
             </mat-expansion-panel-header>
             <kypo-timeline
-              [trainingInstanceId]="detectionEvent.trainingInstanceId"
               [trainingRunId]="forbiddenCommandsEvent.trainingRunId"
               [detectionEventId]="forbiddenCommandsEvent.id"
               [isForbidden]="true"
