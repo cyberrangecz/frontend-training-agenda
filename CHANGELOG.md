@@ -1,3 +1,12 @@
+### 15.1.3 Add enhancements to cheating detection edit and detail pages.
+* b52e51d -- [CI/CD] Update packages.json version based on GitLab tag.
+* 640867b -- Merge branch 'develop' into 'master'
+*   e48cb98 -- Merge branch 'forbidden-commands-detection-method-integration' into 'develop'
+|\  
+| * b7d09fe -- Forbidden commands detection method integration
+|/  
+* 61b7d30 -- Merge changes
+* edf6990 -- Update detection event table
 ### 15.1.2 Fix forbidden command table and timeline.
 * 168bad5 -- [CI/CD] Update packages.json version based on GitLab tag.
 * 6885508 -- Merge branch 'develop' into 'master'
