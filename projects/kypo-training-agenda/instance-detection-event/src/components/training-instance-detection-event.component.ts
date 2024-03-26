@@ -21,7 +21,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./training-instance-detection-event.component.css'],
 })
 export class TrainingInstanceDetectionEventComponent extends SentinelBaseDirective implements OnInit {
-  readonly INIT_SORT_NAME = 'lastEdited';
+  readonly INIT_SORT_NAME = 'levelId';
   readonly INIT_SORT_DIR = 'asc';
 
   cheatingDetectionId: number;

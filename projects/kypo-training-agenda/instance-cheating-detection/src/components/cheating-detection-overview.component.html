@@ -7,8 +7,7 @@
                     [isLoading]="isLoading$ | async"
                     [displayedActionsCount]="4"
                     (tableLoad)="onLoadEvent($event)"
-                    (rowAction)="onTableAction($event)"
-                    (refresh)="onLoadEvent($event)">
+                    (rowAction)="onTableAction($event)">
                     <ng-container *sentinelRow="'stages'; template: stagesTemplate"></ng-container>
     </sentinel-table>
 

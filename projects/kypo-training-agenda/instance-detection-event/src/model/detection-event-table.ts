@@ -18,8 +18,8 @@ export class DetectionEventTable extends SentinelTable<DetectionEventRowAdapter>
     navigator: TrainingNavigator
   ) {
     const columns = [
-      new Column('levelTitle', 'level title', true),
-      new Column('levelId', 'level id', true),
+      new Column('levelTitle', 'level title', true, 'levelTitle'),
+      new Column('levelId', 'level id', true, 'levelId'),
       new Column('participantCount', 'number of participants', false),
       new Column('participants', 'participants', false),
       new Column('detectionEventTypeFormatted', 'detection type', false),
