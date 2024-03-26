@@ -9,6 +9,7 @@ import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagin
 import { from, Observable } from 'rxjs';
 import { AbstractDetectionEvent } from '@muni-kypo-crp/training-model';
 import { tap } from 'rxjs/operators';
+import { TrainingInstanceFilter } from '../../../instance-overview/src/model/adapters/training-instance-filter';
 
 /**
  * Basic implementation of a layer between a component and an API services.
@@ -35,13 +36,16 @@ export class DetectionEventConcreteService extends DetectionEventService {
    * @param cheatingDetectionId the cheating detection id
    * @param trainingInstanceId the training instance id
    * @param pagination requested pagination
+   * @param filter to be applied
    */
   public getAll(
     cheatingDetectionId: number,
     trainingInstanceId: number,
-    pagination: OffsetPaginationEvent
+    pagination: OffsetPaginationEvent,
+    filter: string = null
   ): Observable<PaginatedResource<AbstractDetectionEvent>> {
-    return this.api.getAll(pagination, cheatingDetectionId, trainingInstanceId).pipe(
+    const filters = filter ? [new TrainingInstanceFilter(filter)] : [];
+    return this.api.getAll(pagination, cheatingDetectionId, trainingInstanceId, filters).pipe(
       tap(
         (events) => {
           this.resourceSubject$.next(events);
