@@ -21,7 +21,7 @@ export abstract class DetectionEventService extends OffsetPaginatedElementsServi
     cheatingDetectionId: number,
     trainingInstanceId: number,
     pagination: OffsetPaginationEvent,
-    filter: string,
+    filter: string
   ): Observable<PaginatedResource<AbstractDetectionEvent>>;
 
   /**
