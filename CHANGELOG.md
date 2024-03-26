@@ -1,3 +1,8 @@
+### 15.1.6 Fix initial sorting and sorting columns of detection event table.
+* 519274f -- [CI/CD] Update packages.json version based on GitLab tag.
+* 6556479 -- Merge branch 'develop' into 'master'
+* 24a3ec2 -- Merge branch 'forbidden-commands-detection-method-integration' into 'develop'
+* 1d84cc2 -- Forbidden commands detection method integration
 ### 15.1.5 Add partial sorting support to detection event table.
 * cd11793 -- [CI/CD] Update packages.json version based on GitLab tag.
 * 2864be1 -- Merge branch 'develop' into 'master'
