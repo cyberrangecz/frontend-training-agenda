@@ -1,3 +1,8 @@
+### 15.1.5 Add partial sorting support to detection event table.
+* cd11793 -- [CI/CD] Update packages.json version based on GitLab tag.
+* 2864be1 -- Merge branch 'develop' into 'master'
+* 04c04a9 -- Merge branch 'forbidden-commands-detection-method-integration' into 'develop'
+* f794703 -- Forbidden commands detection method integration
 ### 15.1.4 BUmp version of api, model and command visualization.
 * cc90d47 -- [CI/CD] Update packages.json version based on GitLab tag.
 * 787cafa -- Merge branch 'develop' into 'master'
