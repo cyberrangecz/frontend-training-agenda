@@ -57,7 +57,13 @@ export class TrainingInstanceDetectionEventComponent extends SentinelBaseDirecti
       .getAll(
         this.cheatingDetectionId,
         this.trainingInstanceId,
-        new OffsetPaginationEvent(0, loadEvent.pagination.size, loadEvent.pagination.sort, loadEvent.pagination.sortDir)
+        new OffsetPaginationEvent(
+          0,
+          loadEvent.pagination.size,
+          loadEvent.pagination.sort,
+          loadEvent.pagination.sortDir
+        ),
+        loadEvent.filter
       )
       .pipe(takeWhile(() => this.isAlive))
       .subscribe();
