@@ -1,3 +1,8 @@
+### 15.1.7 Bump version of command timeline.
+* d70c924 -- [CI/CD] Update packages.json version based on GitLab tag.
+* 8c81a6a -- Merge branch 'develop' into 'master'
+* 3e55785 -- Merge branch 'forbidden-commands-detection-method-integration' into 'develop'
+* 21337b0 -- Forbidden commands detection method integration
 ### 15.1.6 Fix initial sorting and sorting columns of detection event table.
 * 519274f -- [CI/CD] Update packages.json version based on GitLab tag.
 * 6556479 -- Merge branch 'develop' into 'master'
