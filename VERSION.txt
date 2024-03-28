@@ -1,3 +1,4 @@
+15.1.8 Update detection descriptions.
 15.1.7 Bump version of command timeline.
 15.1.6 Fix initial sorting and sorting columns of detection event table.
 15.1.5 Add partial sorting support to detection event table.
