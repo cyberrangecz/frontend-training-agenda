@@ -1,3 +1,8 @@
+### 15.1.8 Update detection descriptions.
+* 6fed87a -- [CI/CD] Update packages.json version based on GitLab tag.
+* 1feb4fd -- Merge branch 'develop' into 'master'
+* a1deedf -- Merge branch 'forbidden-commands-detection-method-integration' into 'develop'
+* 8b0cf34 -- Forbidden commands detection method integration
 ### 15.1.7 Bump version of command timeline.
 * d70c924 -- [CI/CD] Update packages.json version based on GitLab tag.
 * 8c81a6a -- Merge branch 'develop' into 'master'
