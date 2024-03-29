@@ -1,3 +1,8 @@
+### 15.1.9 Update version of command visualizations.
+* c604fe5 -- [CI/CD] Update packages.json version based on GitLab tag.
+* c9bc0a8 -- Merge branch 'develop' into 'master'
+* 4300c7f -- Merge branch 'forbidden-commands-detection-method-integration' into 'develop'
+* 094764e -- Forbidden commands detection method integration
 ### 15.1.8 Update detection descriptions.
 * 6fed87a -- [CI/CD] Update packages.json version based on GitLab tag.
 * 1feb4fd -- Merge branch 'develop' into 'master'
