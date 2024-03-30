@@ -1,3 +1,8 @@
+### 15.1.10 Fix commands not displaying.
+* bc07f50 -- [CI/CD] Update packages.json version based on GitLab tag.
+* aeca144 -- Merge branch 'develop' into 'master'
+* 79a936a -- Merge branch 'forbidden-commands-detection-method-integration' into 'develop'
+* 26e21e9 -- Forbidden commands detection method integration
 ### 15.1.9 Update version of command visualizations.
 * c604fe5 -- [CI/CD] Update packages.json version based on GitLab tag.
 * c9bc0a8 -- Merge branch 'develop' into 'master'
