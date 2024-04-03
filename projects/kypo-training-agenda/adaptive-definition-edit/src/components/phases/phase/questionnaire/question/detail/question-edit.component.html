@@ -9,7 +9,7 @@
       <mat-checkbox class="mat-typography"
                     [checked]="false"
                     (change)="questionChanged(question)"
-                    [(ngModel)]="question.isRequired">
+                    [(ngModel)]="question.answerRequired">
         Required
       </mat-checkbox>
     </div>
@@ -20,19 +20,19 @@
                                           (questionChange)="questionChanged($event)"
                                           [questionnaireType]="questionnaireType"
                                           [question]="question"
-                                          [required]="question.isRequired">
+                                          [required]="question.answerRequired">
       </kypo-adaptive-multiple-choice-question-edit>
       <kypo-adaptive-free-form-question-edit *ngSwitchCase="question.questionType === questionTypes.FFQ"
                                     (questionChange)="questionChanged($event)"
                                     [questionnaireType]="questionnaireType"
                                     [question]="question"
-                                    [required]="question.isRequired">
+                                    [required]="question.answerRequired">
       </kypo-adaptive-free-form-question-edit>
       <kypo-rating-form-question-edit *ngSwitchCase="question.questionType === questionTypes.RFQ"
                                     (questionChange)="questionChanged($event)"
                                     [questionnaireType]="questionnaireType"
                                     [question]="question"
-                                    [required]="question.isRequired">
+                                    [required]="question.answerRequired">
       </kypo-rating-form-question-edit>
     </ng-container>
   </mat-card-content>

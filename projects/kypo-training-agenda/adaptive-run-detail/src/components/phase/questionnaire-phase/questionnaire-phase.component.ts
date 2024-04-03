@@ -40,6 +40,7 @@ export class QuestionnairePhaseComponent extends SentinelBaseDirective implement
   isLoading = false;
   questionAnswers: QuestionAnswer[] = [];
   questionTypes = QuestionTypeEnum;
+  canSubmit = false;
 
   ngOnChanges(changes: SimpleChanges): void {
     if ('phase' in changes) {
@@ -88,9 +89,14 @@ export class QuestionnairePhaseComponent extends SentinelBaseDirective implement
     }
   }
 
-  canBeSubmitted(): boolean {
-    return this.phase.questions.every((question) => {
-      return !question.isRequired || (question.userAnswers && question.userAnswers.length > 0);
+  checkIfCanBeSubmitted(): void {
+    this.canSubmit = this.phase.questions.every(question => {
+      if (!question.answerRequired) {
+        return true;
+      } else {
+        const answers = this.questionAnswers.find(answer => answer.questionId === question.id)?.answers;
+        return answers && answers.length > 0;
+      }
     });
   }
 
@@ -113,6 +119,7 @@ export class QuestionnairePhaseComponent extends SentinelBaseDirective implement
   }
 
   checkedAsAnswered(question: AdaptiveQuestion, choice: Choice): boolean {
+    this.checkIfCanBeSubmitted();
     return question.userAnswers?.some((answer: string) => answer === choice.text);
   }
 

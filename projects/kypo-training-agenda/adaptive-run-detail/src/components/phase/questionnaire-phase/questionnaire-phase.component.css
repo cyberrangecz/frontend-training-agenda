@@ -40,6 +40,7 @@
 .mcq-question div {
   display: flex;
   flex-direction: row;
+  margin-top: 20px;
 }
 
 p.required-note {
@@ -52,6 +53,10 @@ p.required-note {
 
 #max-length-ffq-answer {
   color: #999999;
+}
+
+.mcq-answer {
+  margin-top: 10px;
 }
 
 /* (100vw - 100%) is used to account for scrollbar */

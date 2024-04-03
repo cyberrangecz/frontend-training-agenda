@@ -4,11 +4,11 @@
       <h2>{{ i + 1 }}. {{ question.text }}</h2>
 
       <ng-container [ngSwitch]="question.questionType">
-        <p class="required-note" *ngIf="question.required && !isBacktracked">Answer required</p>
+        <p class="required-note" *ngIf="question.answerRequired && !isBacktracked">Answer required</p>
         <div class="question" *ngSwitchCase="questionTypes.FFQ">
           <mat-form-field appearance="outline">
             <mat-label> Answer </mat-label>
-            <input [disabled]="isBacktracked" [maxLength]="1023" [required]="question.required" matInput [(ngModel)]="questionAnswers[i].answers[0]" />
+            <input [disabled]="isBacktracked" [maxLength]="1023" [required]="question.answerRequired" matInput [(ngModel)]="questionAnswers[i].answers[0]" />
           </mat-form-field>
 
           <mat-error
@@ -25,10 +25,10 @@
             <mat-checkbox
               [disabled]="isBacktracked"
               (change)="onMCQChecked($event, i, choice.text)"
-              [required]="question.required"
+              [required]="question.answerRequired"
               [checked]="checkedAsAnswered(question, choice)"
             ></mat-checkbox>
-            <p>{{ choice.text }}</p>
+              <p class="mcq-answer">{{ choice.text }}</p>
           </div>
         </div>
 
@@ -37,7 +37,7 @@
             <mat-checkbox
               [disabled]="isBacktracked"
               (change)="onRFQChecked($event, i, choice.text)"
-              [required]="question.required"
+              [required]="question.answerRequired"
               [checked]="checkedAsAnswered(question, choice)"
             >
             </mat-checkbox>
@@ -50,7 +50,7 @@
   <div *ngIf="!isBacktracked">
     <mat-card appearance="outlined" #controls class="controls">
       <div class="controls-container">
-        <button *ngIf="!isPhaseAnswered && canBeSubmitted()" [disabled]="isLoading" mat-raised-button color="primary" (click)="submit()">
+        <button *ngIf="!isPhaseAnswered" [disabled]="!canSubmit || isLoading" mat-raised-button color="primary" (click)="submit()">
           Submit
         </button>
         <kypo-next-phase-button *ngIf="isPhaseAnswered" [isLast]="isLast" (next)="onNext()"></kypo-next-phase-button>
