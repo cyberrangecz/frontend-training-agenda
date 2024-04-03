@@ -8,7 +8,12 @@
         <div class="question" *ngSwitchCase="questionTypes.FFQ">
           <mat-form-field appearance="outline">
             <mat-label> Answer </mat-label>
-            <input [disabled]="isBacktracked" [maxLength]="1023" [required]="question.answerRequired" matInput [(ngModel)]="questionAnswers[i].answers[0]" />
+            <input matInput
+                   [disabled]="isBacktracked"
+                   [maxLength]="1023"
+                   [required]="question.answerRequired"
+                   [(ngModel)]="questionAnswers[i].answers[0]"
+            />
           </mat-form-field>
 
           <mat-error
