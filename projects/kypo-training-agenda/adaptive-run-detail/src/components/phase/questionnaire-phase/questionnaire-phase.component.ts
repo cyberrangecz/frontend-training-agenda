@@ -90,11 +90,11 @@ export class QuestionnairePhaseComponent extends SentinelBaseDirective implement
   }
 
   checkIfCanBeSubmitted(): void {
-    this.canSubmit = this.phase.questions.every(question => {
+    this.canSubmit = this.phase.questions.every((question) => {
       if (!question.answerRequired) {
         return true;
       } else {
-        const answers = this.questionAnswers.find(answer => answer.questionId === question.id)?.answers;
+        const answers = this.questionAnswers.find((answer) => answer.questionId === question.id)?.answers;
         return answers && answers.length > 0;
       }
     });
