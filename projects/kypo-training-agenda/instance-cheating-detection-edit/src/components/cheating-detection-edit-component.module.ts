@@ -9,6 +9,9 @@ import { CheatingDetectionEditService } from '../services/cheating-detection-edi
 import { CheatingDetectionEditConcreteService } from '../services/cheating-detection-edit-concrete.service';
 import { SentinelControlsComponent } from '@sentinel/components/controls';
 import { CheatingDetectionEditMaterialModule } from './cheating-detection-edit-material.module';
+import { MatButtonModule } from '@angular/material/button';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   imports: [
@@ -17,6 +20,9 @@ import { CheatingDetectionEditMaterialModule } from './cheating-detection-edit-m
     ReactiveFormsModule,
     CheatingDetectionEditMaterialModule,
     SentinelControlsComponent,
+    MatExpansionModule,
+    MatRadioModule,
+    MatButtonModule,
   ],
   declarations: [CheatingDetectionEditComponent],
   providers: [{ provide: CheatingDetectionEditService, useClass: CheatingDetectionEditConcreteService }],

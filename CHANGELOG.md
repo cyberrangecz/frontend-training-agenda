@@ -1,3 +1,26 @@
+### 15.1.0 Integrate new version of cheating detection models and api.
+* a996b67 -- [CI/CD] Update packages.json version based on GitLab tag.
+* 333eb95 -- Merge branch 'forbidden-commands-detection-method-integration' into 'master'
+* 7476700 -- Merge branch 'master' into 'forbidden-commands-detection-method-integration'
+* 2a4ba63 -- prettier-fix
+* ba10ca0 -- Remove additional character
+* f080601 -- bump visualization version
+* d5a86dd -- Update version
+* 4368ceb -- Merge branch 'develop' into forbidden-commands-detection-method-integration
+* 02451a9 -- Modified columns detection event table
+* 5c33ac4 -- added cheating detection id to form
+* fe44e94 -- added cheating detection id to form
+* db7ebf6 -- Implement visualization link
+* 349e74d -- formatting
+* 5fb57d0 -- prettier
+* 58fa54a -- Added command timeline to detection event detail
+* d1f21fe -- Integrate forbidden commands table
+* 1c98b1e -- merge changes from develop
+* 2db1b25 -- Prettier
+* a3913b9 -- Adjusted structure of the forbidden commands table
+* 41c452c -- Update cheating detection edit page with fixes and enhancements
+* 7ba8f52 -- Updated cheating detection create page with forbidden commands.
+* e2871d6 -- Integration of forbidden commands method into cheating detection.
 ### 15.0.8 Fix end time sorting for training instance and training run resume action display.
 * 7485298 -- [CI/CD] Update packages.json version based on GitLab tag.
 * d52b575 -- Merge branch 'develop' into 'master'

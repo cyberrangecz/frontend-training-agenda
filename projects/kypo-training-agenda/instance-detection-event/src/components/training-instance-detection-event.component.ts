@@ -21,7 +21,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./training-instance-detection-event.component.css'],
 })
 export class TrainingInstanceDetectionEventComponent extends SentinelBaseDirective implements OnInit {
-  readonly INIT_SORT_NAME = 'lastEdited';
+  readonly INIT_SORT_NAME = 'levelId';
   readonly INIT_SORT_DIR = 'asc';
 
   cheatingDetectionId: number;
@@ -57,7 +57,13 @@ export class TrainingInstanceDetectionEventComponent extends SentinelBaseDirecti
       .getAll(
         this.cheatingDetectionId,
         this.trainingInstanceId,
-        new OffsetPaginationEvent(0, loadEvent.pagination.size, loadEvent.pagination.sort, loadEvent.pagination.sortDir)
+        new OffsetPaginationEvent(
+          0,
+          loadEvent.pagination.size,
+          loadEvent.pagination.sort,
+          loadEvent.pagination.sortDir
+        ),
+        loadEvent.filter
       )
       .pipe(takeWhile(() => this.isAlive))
       .subscribe();

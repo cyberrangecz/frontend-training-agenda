@@ -1,5 +1,5 @@
 .content {
-  display: flex;
+  display: block;
   flex-direction: column;
   align-items: center;
   margin-bottom: 100px;
@@ -12,6 +12,7 @@
 
 h1 {
   text-align: center;
+  margin-top: 5vw;
 }
 
 .icon-panel-container {
@@ -28,6 +29,7 @@ h1 {
   flex-grow: 1;
   flex-basis: 0;
   text-align: center;
+  margin-top: 30px;
 }
 
 mat-icon {
@@ -62,6 +64,14 @@ mat-icon {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.forbidden-commands-table {
+  margin-top: 50px;
+}
+
+.timeline-component {
+  margin-top: 50px;
 }
 
 .definition-title {
