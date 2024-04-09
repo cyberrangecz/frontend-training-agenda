@@ -1,3 +1,69 @@
+### 15.2.2 Cheating Detection text enhancements.
+* f7978fb -- [CI/CD] Update packages.json version based on GitLab tag.
+*   a7daead -- Merge branch 'develop' into 'master'
+|\  
+| *   9efb0a2 -- Merge branch 'forbidden-commands-detection-method-integration' into 'develop'
+| |\  
+| | *   2583fbf -- Merge branch 'develop' into 'forbidden-commands-detection-method-integration'
+| | |\  
+| | |/  
+| |/|   
+| * |   2c822a9 -- Merge branch '235-fix-free-form-question-saving-disabled' into 'develop'
+| |\ \  
+| | * | e4dc9e9 -- Resolve "Fix-free-form-question-saving-disabled"
+| |/ /  
+| | * 6a20a51 -- Change id to order in level description
+| | * cb3d2d7 -- Cheating detection text adjustements
+| | *   46d1367 -- Merge branch '235-fix-free-form-question-saving-disabled' into forbidden-commands-detection-method-integration
+| | |\  
+| | | * 8e66c53 -- Add version
+| | | *   e656760 -- Merge branch 'develop' into 235-fix-free-form-question-saving-disabled
+| | | |\  
+| | |_|/  
+| |/| |   
+| | | * 15bf3ef -- Fixed unable to save free form question
+| | | * cf62e43 -- prettier
+| | | * 8d1a2f7 -- set valid to true for free form questions
+| | *   df491a8 -- Merge develop
+| | |\  
+| | |/  
+| |/|   
+| * |   3284aab -- Merge branch '237-add-required-field-to-general-questionnaire' into 'develop'
+| |\ \  
+| | * | 52311ae -- Lint
+| | * | 6f6f9e3 -- prettier
+| | * | 07d2f89 -- Add version
+| | * | 71e80a0 -- Update packages
+| | * |   0bf6d32 -- Merge branch 'develop' into 237-add-required-field-to-general-questionnaire
+| | |\ \  
+| | |/ /  
+| |/| |   
+| | * | ed347ee -- Implement answerRequired logic for adaptive questionaire
+| | * | dd7aced -- Merge branch 'master' into 237-add-required-field-to-general-questionnaire
+| | * | df5e490 -- Adjust the required button. Change values based on api and model.
+| | * | 3289e91 -- Added required field to adaptive questionaire.
+| |  /  
+| | * 80149dd -- Merge conflicts
+| | * f73e358 -- Fix commands not displaying
+| | * 3a4f16d -- Fix merge errors
+| | * 038be8b -- Update visualization version
+| | * 49db9f5 -- Update version
+| | * c9129e3 -- Update detection descriptions
+| | * adaad0d -- Merge branch 'develop' into forbidden-commands-detection-method-integration
+| | * 9b14be8 -- Bump version of command timeline
+| | * 70a2c2a -- Merge branch 'develop' into forbidden-commands-detection-method-integration
+| | * 33e95e5 -- Merge branch 'develop' into 'forbidden-commands-detection-method-integration'
+| | * 3cd4b44 -- Fix initial sorting
+| | * d063b83 -- Fix wrong filter type
+| | * de6faa0 -- prettier
+| | * 9760db8 -- Update packages
+| | * 2fc3d5f -- Add partial sorting support to detection event table
+* | e45c49c -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* | bc07f50 -- [CI/CD] Update packages.json version based on GitLab tag.
+* | aeca144 -- Merge branch 'develop' into 'master'
+|/  
+* 79a936a -- Merge branch 'forbidden-commands-detection-method-integration' into 'develop'
+* 26e21e9 -- Forbidden commands detection method integration
 ### 15.1.10 Fix commands not displaying.
 * bc07f50 -- [CI/CD] Update packages.json version based on GitLab tag.
 * aeca144 -- Merge branch 'develop' into 'master'
