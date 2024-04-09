@@ -1,3 +1,52 @@
+### 15.1.0 Integrate new version of cheating detection models and api.
+* a996b67 -- [CI/CD] Update packages.json version based on GitLab tag.
+* 333eb95 -- Merge branch 'forbidden-commands-detection-method-integration' into 'master'
+* 7476700 -- Merge branch 'master' into 'forbidden-commands-detection-method-integration'
+* 2a4ba63 -- prettier-fix
+* ba10ca0 -- Remove additional character
+* f080601 -- bump visualization version
+* d5a86dd -- Update version
+* 4368ceb -- Merge branch 'develop' into forbidden-commands-detection-method-integration
+* 02451a9 -- Modified columns detection event table
+* 5c33ac4 -- added cheating detection id to form
+* fe44e94 -- added cheating detection id to form
+* db7ebf6 -- Implement visualization link
+* 349e74d -- formatting
+* 5fb57d0 -- prettier
+* 58fa54a -- Added command timeline to detection event detail
+* d1f21fe -- Integrate forbidden commands table
+* 1c98b1e -- merge changes from develop
+* 2db1b25 -- Prettier
+* a3913b9 -- Adjusted structure of the forbidden commands table
+* 41c452c -- Update cheating detection edit page with fixes and enhancements
+* 7ba8f52 -- Updated cheating detection create page with forbidden commands.
+* e2871d6 -- Integration of forbidden commands method into cheating detection.
+### 15.0.8 Fix end time sorting for training instance and training run resume action display.
+* 7485298 -- [CI/CD] Update packages.json version based on GitLab tag.
+* d52b575 -- Merge branch 'develop' into 'master'
+* f562dc2 -- Update VERSION.txt
+* 148760e -- Merge branch 'master' into 'develop'
+*   cba114d -- Merge branch 'fix-resume-table-type' into 'develop'
+|\  
+| * ebe7a81 -- Fix adapter table type
+|/  
+*   12076b7 -- Merge branch '238-fix-training-run-actions-not-displayed' into 'develop'
+|\  
+| * 0c0848c -- Update version
+| * 10d5552 -- Enable buttons in training runs
+|/  
+* 554425a -- Merge branch '236-fix-training-instance-sorting-by-end-time' into 'develop'
+* a25810a -- Update version
+* 9a77bc4 -- Fix trianing instance end time sorting
+### 15.0.7 Fix faulty training run button.
+* ddb4f04 -- [CI/CD] Update packages.json version based on GitLab tag.
+* 72ed33f -- Fix training run faulty button
+### 15.0.6 Resolve adaptive simulator Angular Material migration.
+* 095d3bf -- [CI/CD] Update packages.json version based on GitLab tag.
+* fded626 -- Merge branch 'develop' into 'master'
+* a5abd84 -- Merge branch 'master' into 'develop'
+* 559e3c9 -- Update angular material stylling in ATD simulator
+* 3950985 -- Merge branch 'master' into develop
 ### 15.0.5 Fix faulty buttons in agendas.
 * b8a65c7 -- [CI/CD] Update packages.json version based on GitLab tag.
 * 2fd89c7 -- Merge branch 'fix-buttons' into 'master'

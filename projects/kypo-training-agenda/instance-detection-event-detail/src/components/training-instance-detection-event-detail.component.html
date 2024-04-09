@@ -21,13 +21,15 @@
       <div class="data-field">
         <mat-icon class="material-icons-round"> pin </mat-icon>
         <div class="icon-label">Level Id</div>
-        <div class="value-field">{{ detectionEvent.levelId }}</div>
+        <div class="value-field">{{ detectionEvent.levelOrder }}</div>
       </div>
-      <div class="data-field">
-        <mat-icon class="material-icons-round"> people </mat-icon>
-        <div class="icon-label">Number of Participants</div>
-        <div class="value-field">{{ detectionEvent.participantCount }}</div>
-      </div>
+      <ng-container *ngIf="isNotForbidden(detectionEvent)">
+        <div class="data-field">
+          <mat-icon class="material-icons-round"> people </mat-icon>
+          <div class="icon-label">Number of Participants</div>
+          <div class="value-field">{{ detectionEvent.participantCount }}</div>
+        </div>
+      </ng-container>
       <div class="data-field" *ngIf="locationSimilarityEvent$ | async as locationSimilarityEvent">
           <mat-icon class="material-icons-round"> web </mat-icon>
           <div class="icon-label">Domain Name</div>
@@ -44,35 +46,75 @@
           <div class="value-field">{{ timeProximityEvent.threshold + " seconds" }}</div>
         </div>
       <div class="data-field" *ngIf="answerSimilarityEvent$ | async as answerSimilarityEvent">
-        <mat-icon class="material-icons-round"> done </mat-icon>
-        <div class="icon-label">Answer</div>
-        <div class="value-field">{{ answerSimilarityEvent.answer }}</div>
-      </div>
-      <div class="data-field" *ngIf="answerSimilarityEvent$ | async as answerSimilarityEvent">
         <mat-icon class="material-icons-round"> assignment_ind </mat-icon>
         <div class="icon-label">Answer Owner</div>
         <div class="value-field">{{ answerSimilarityEvent.answerOwner }}</div>
+      </div>
+      <div class="data-field" *ngIf="answerSimilarityEvent$ | async as answerSimilarityEvent">
+        <mat-icon class="material-icons-round"> done </mat-icon>
+        <div class="icon-label">Answer</div>
+        <div class="value-field">{{ answerSimilarityEvent.answer }}</div>
       </div>
       <div class="data-field" *ngIf="minimalSolveTimeEvent$ | async as minimalSolveTimeEvent">
         <mat-icon class="material-icons-round"> pending_actions </mat-icon>
         <div class="icon-label">Minimal Solve Time</div>
         <div class="value-field">{{ minimalSolveTimeEvent.minimalSolveTime + " seconds" }}</div>
       </div>
+      <div class="data-field" *ngIf="forbiddenCommandsEvent$ | async as forbiddenCommandsEvent">
+        <mat-icon class="material-icons-round"> pending_actions </mat-icon>
+        <div class="icon-label">Forbidden commands</div>
+        <div class="value-field">{{ detectionEvent.participants }}</div>
+      </div>
       </div>
     </mat-card>
-
+    <mat-divider></mat-divider>
     <div class="content">
       <h1>Participants</h1>
-    <sentinel-table
-      [defaultSortDirection]="INIT_SORT_DIR"
-      [defaultSortName]="INIT_SORT_NAME"
-      [data]="participants$ | async"
-      [hasError]="hasError$ | async"
-      [isLoading]="isLoading$ | async"
-      [displayedActionsCount]="4"
-      (rowAction)="onTableAction($event)"
-    >
-    </sentinel-table>
+      <sentinel-table
+        [defaultSortDirection]="INIT_SORT_DIR"
+        [defaultSortName]="INIT_SORT_NAME"
+        [data]="participants$ | async"
+        [hasError]="participantTableHasError$ | async"
+        [isLoading]="participantTableIsLoading$ | async"
+        [displayedActionsCount]="4"
+        (rowAction)="onParticipantTableAction($event)"
+      >
+      </sentinel-table>
     </div>
+      <div *ngIf="forbiddenCommandsEvent$ | async as forbiddenCommandsEvent">
+        <div class="content">
+          <h1>Forbidden Commands</h1>
+          <div class="forbidden-commands-table">
+            <sentinel-table
+              [defaultSortDirection]="INIT_SORT_DIR"
+              [defaultSortName]="INIT_SORT_NAME"
+              [data]="forbiddenCommands$ | async"
+              [hasError]="forbiddenCommandsTableHasError$ | async"
+              [isLoading]="forbiddenCommandsTableIsLoading$ | async"
+              [displayedActionsCount]="4"
+              (rowAction)="onForbiddenCommandTableAction($event)"
+              >
+            </sentinel-table>
+          </div>
+        </div>
+        <ng-container *ngIf="detectionEvent$ | async as detectionEvent">
+          <div class="content">
+            <mat-expansion-panel [expanded]="true">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <span>Timeline</span>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <kypo-timeline
+                [trainingRunId]="detectionEvent.trainingRunId"
+                [detectionEventId]="forbiddenCommandsEvent.id"
+                [isForbidden]="true"
+                [isStandalone]="true"
+              >
+              </kypo-timeline>
+            </mat-expansion-panel>
+          </div>
+        </ng-container>
+      </div>
   </ng-container>
 </div>

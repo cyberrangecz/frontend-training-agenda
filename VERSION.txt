@@ -1,3 +1,17 @@
+15.2.0 Implement functionality for question marking as required in adaptive training definition.
+15.1.10 Fix commands not displaying.
+15.1.9 Update version of command visualizations.
+15.1.8 Update detection descriptions.
+15.1.7 Bump version of command timeline.
+15.1.6 Fix initial sorting and sorting columns of detection event table.
+15.1.5 Add partial sorting support to detection event table.
+15.1.4 BUmp version of api, model and command visualization.
+15.1.3 Add enhancements to cheating detection edit and detail pages.
+15.1.2 Fix forbidden command table and timeline.
+15.1.1 Update cheating detection create page, modules and tables.
+15.1.0 Integrate new version of cheating detection models and api.
+15.0.8 Fix end time sorting for training instance and training run resume action display.
+15.0.7 Fix faulty training run button.
 15.0.6 Resolve adaptive simulator Angular Material migration.
 15.0.5 Fix faulty buttons in agendas.
 15.0.4 Bump version of api to fix allocation id attributes.
