@@ -16,6 +16,7 @@ import { takeWhile } from 'rxjs/operators';
 export class RatingFormQuestionEditComponent extends SentinelBaseDirective implements OnChanges {
   @Input() index: number;
   @Input() question: AdaptiveQuestion;
+  @Input() required: boolean;
   @Input() questionnaireType: QuestionnaireTypeEnum;
   @Output() questionChange: EventEmitter<AdaptiveQuestion> = new EventEmitter();
 

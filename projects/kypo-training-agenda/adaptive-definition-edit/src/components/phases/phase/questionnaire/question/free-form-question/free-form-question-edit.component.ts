@@ -25,6 +25,7 @@ import { SentinelBaseDirective, SentinelValidators } from '@sentinel/common';
 export class FreeFormQuestionEditComponent extends SentinelBaseDirective implements OnChanges {
   @Input() index: number;
   @Input() question: AdaptiveQuestion;
+  @Input() required: boolean;
   @Input() questionnaireType: QuestionnaireTypeEnum;
   @Output() questionChange: EventEmitter<AdaptiveQuestion> = new EventEmitter();
 

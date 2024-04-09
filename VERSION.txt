@@ -1,3 +1,6 @@
+15.2.2 Cheating Detection text enhancements.
+15.2.1 Fix saving of free form questions in adaptive questionnaire.
+15.2.0 Implement functionality for question marking as required in adaptive training definition.
 15.1.10 Fix commands not displaying.
 15.1.9 Update version of command visualizations.
 15.1.8 Update detection descriptions.
