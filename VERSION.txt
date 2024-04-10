@@ -1,3 +1,4 @@
+15.2.3 Fix aggregated command timeline not displaying commands.
 15.2.2 Cheating Detection text enhancements.
 15.2.1 Fix saving of free form questions in adaptive questionnaire.
 15.2.0 Implement functionality for question marking as required in adaptive training definition.
