@@ -1,3 +1,11 @@
+### 15.2.3 Fix aggregated command timeline not displaying commands.
+* a4ef0fd -- [CI/CD] Update packages.json version based on GitLab tag.
+* 6279450 -- Merge branch 'forbidden-commands-detection-method-integration' into 'master'
+*   9ccaa50 -- Fix aggregated dashboard command timeline
+|\  
+| * af303cf -- Fix aggregated command timeline not displaying commands.
+* 2b504c4 -- Merge branch 'forbidden-commands-detection-method-integration' of https://gitlab.ics.muni.cz/muni-kypo-crp/frontend-angular/agendas/kypo-training-agenda into forbidden-commands-detection-method-integration
+* 662458f -- Add whitespace
 ### 15.2.2 Cheating Detection text enhancements.
 * f7978fb -- [CI/CD] Update packages.json version based on GitLab tag.
 *   a7daead -- Merge branch 'develop' into 'master'
