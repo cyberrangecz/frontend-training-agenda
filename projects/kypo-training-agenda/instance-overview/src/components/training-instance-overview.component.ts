@@ -45,12 +45,10 @@ export class TrainingInstanceOverviewComponent extends SentinelBaseDirective imp
   }
 
   onControlAction(control: SentinelControlItem): void {
-    console.log('controls action');
     control.result$.pipe(takeWhile(() => this.isAlive)).subscribe();
   }
 
   onInstancesLoadEvent(loadEvent: TableLoadEvent): void {
-    console.log('on instance load event');
     this.paginationService.setPagination(loadEvent.pagination.size);
     this.service
       .getAll(
@@ -67,12 +65,10 @@ export class TrainingInstanceOverviewComponent extends SentinelBaseDirective imp
   }
 
   onInstanceAction(event: TableActionEvent<any>): void {
-    console.log('instance action');
     event.action.result$.pipe(take(1)).subscribe();
   }
 
   private initTable() {
-    console.log('init table');
     const initLoadEvent: TableLoadEvent = {
       pagination: new OffsetPaginationEvent(
         0,
