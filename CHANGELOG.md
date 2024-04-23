@@ -1,3 +1,11 @@
+### 15.2.4 Fix pagination changes propagation in training run overview.
+* 9920547 -- [CI/CD] Update packages.json version based on GitLab tag.
+* 9633c7a -- Merge branch 'develop' into 'master'
+* 9603c42 -- Merge branch '239-fix-pagination-in-training-run-overview-not-working-properly' into 'develop'
+* d5da926 -- Remove console logging
+* 587825f -- prettier-fix
+* 3774385 -- Add version
+* f044ba5 -- Fix pagination in training run overview  not working properly
 ### 15.2.3 Fix aggregated command timeline not displaying commands.
 * a4ef0fd -- [CI/CD] Update packages.json version based on GitLab tag.
 * 6279450 -- Merge branch 'forbidden-commands-detection-method-integration' into 'master'
