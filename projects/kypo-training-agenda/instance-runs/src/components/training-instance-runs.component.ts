@@ -4,7 +4,7 @@ import { SentinelBaseDirective } from '@sentinel/common';
 import { OffsetPaginationEvent } from '@sentinel/common/pagination';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { TrainingInstance, TrainingRun } from '@muni-kypo-crp/training-model';
-import { SentinelTable, TableActionEvent } from '@sentinel/components/table';
+import { SentinelTable, TableActionEvent, TableLoadEvent } from '@sentinel/components/table';
 import { Observable } from 'rxjs';
 import { map, switchMap, take, takeWhile, tap } from 'rxjs/operators';
 import { TrainingRunTable } from '../model/training-run-table';
@@ -57,6 +57,14 @@ export class TrainingInstanceRunsComponent extends SentinelBaseDirective impleme
    */
   onTrainingRunsTableAction(event: TableActionEvent<TrainingRun>): void {
     event.action.result$.pipe(take(1)).subscribe();
+  }
+
+  onTrainingRunsLoadEvent(loadEvent: TableLoadEvent): void {
+    this.paginationService.setPagination(loadEvent.pagination.size);
+    this.trainingRunService
+      .getAll(this.trainingInstance.id, new OffsetPaginationEvent(0, loadEvent.pagination.size, '', 'asc'))
+      .pipe(takeWhile(() => this.isAlive))
+      .subscribe();
   }
 
   private initRunsOverviewComponent() {
