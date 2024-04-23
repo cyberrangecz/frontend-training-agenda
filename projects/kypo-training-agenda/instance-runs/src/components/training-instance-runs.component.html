@@ -5,6 +5,7 @@
       [hasError]="trainingRunsHasError$ | async"
       [isLoading]="loadingTrainingRuns$ | async"
       (tableAction)="onTrainingRunsTableAction($event)"
+      (TableLoadEvent)="onTrainingRunsLoadEvent($event)"
     >
     </kypo-training-run-overview>
   </mat-card>
