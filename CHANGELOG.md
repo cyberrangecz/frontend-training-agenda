@@ -1,3 +1,7 @@
+### 16.0.0 Update to Angular 16, update local issuer to Keycloak.
+* ea30673 -- [CI/CD] Update packages.json version based on GitLab tag.
+* 5530fdb -- Merge branch '240-update-to-angular-16' into 'master'
+* 335f73e -- Update to Angular 16
 ### 15.2.4 Fix pagination changes propagation in training run overview.
 * 9920547 -- [CI/CD] Update packages.json version based on GitLab tag.
 * 9633c7a -- Merge branch 'develop' into 'master'
