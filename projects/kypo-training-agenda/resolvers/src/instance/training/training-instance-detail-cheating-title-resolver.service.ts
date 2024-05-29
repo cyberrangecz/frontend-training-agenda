@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { Observable, of } from 'rxjs';
 import { catchError, mergeMap, take } from 'rxjs/operators';
@@ -7,7 +7,7 @@ import { CHEATING_DETECTION_EVENTS_PATH, CHEATING_DETECTION_CREATE_PATH } from '
 import { TrainingInstanceResolver } from './training-instance-resolver.service';
 
 @Injectable()
-export class TrainingInstanceDetailCheatingTitleResolver implements Resolve<string> {
+export class TrainingInstanceDetailCheatingTitleResolver {
   constructor(private trainingInstanceResolver: TrainingInstanceResolver) {}
 
   /**

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { SUMMARY_PATH } from '@muni-kypo-crp/training-agenda';
 
@@ -7,7 +7,7 @@ import { SUMMARY_PATH } from '@muni-kypo-crp/training-agenda';
  * Router breadcrumb title resolver
  */
 @Injectable()
-export class AdaptiveDefinitionDetailBreadcrumbResolver implements Resolve<string> {
+export class AdaptiveDefinitionDetailBreadcrumbResolver {
   /**
    * Retrieves a breadcrumb title based on provided url
    * @param route route snapshot

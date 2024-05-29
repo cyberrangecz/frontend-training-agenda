@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanDeactivate, UrlTree } from '@angular/router';
+import { UrlTree } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import {
@@ -14,7 +14,7 @@ import { AdaptiveInstanceEditOverviewComponent } from '../../components/adaptive
  * Route guard determining if navigation outside of training instance edit page should proceed
  */
 @Injectable()
-export class AdaptiveInstanceCanDeactivate implements CanDeactivate<AdaptiveInstanceEditOverviewComponent> {
+export class AdaptiveInstanceCanDeactivate {
   constructor(private dialog: MatDialog) {}
 
   canDeactivate(

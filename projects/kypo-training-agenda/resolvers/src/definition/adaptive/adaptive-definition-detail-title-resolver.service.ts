@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { TrainingDefinition } from '@muni-kypo-crp/training-model';
 import { Observable, of } from 'rxjs';
 import { catchError, mergeMap, take } from 'rxjs/operators';
@@ -7,7 +7,7 @@ import { SUMMARY_PATH } from '@muni-kypo-crp/training-agenda';
 import { AdaptiveDefinitionResolver } from './adaptive-definition-resolver.service';
 
 @Injectable()
-export class AdaptiveDefinitionDetailTitleResolver implements Resolve<string> {
+export class AdaptiveDefinitionDetailTitleResolver {
   constructor(private adaptiveDefinitionResolver: AdaptiveDefinitionResolver) {}
 
   /**

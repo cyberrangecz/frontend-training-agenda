@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, Router } from '@angular/router';
 import { AdaptiveRunApi } from '@muni-kypo-crp/training-api';
 import { TrainingRun } from '@muni-kypo-crp/training-model';
 import { EMPTY, Observable, of } from 'rxjs';
@@ -7,7 +7,7 @@ import { catchError, mergeMap, take } from 'rxjs/operators';
 import { ADAPTIVE_RUN_SELECTOR, TrainingErrorHandler, TrainingNavigator } from '@muni-kypo-crp/training-agenda';
 
 @Injectable()
-export class AdaptiveRunResultsResolver implements Resolve<TrainingRun> {
+export class AdaptiveRunResultsResolver {
   constructor(
     private api: AdaptiveRunApi,
     private errorHandler: TrainingErrorHandler,

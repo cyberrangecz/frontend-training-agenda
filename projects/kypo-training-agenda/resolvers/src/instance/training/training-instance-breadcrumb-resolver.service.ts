@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { EMPTY, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -14,7 +14,7 @@ import { TrainingInstanceResolver } from './training-instance-resolver.service';
  * Router breadcrumb title provider
  */
 @Injectable()
-export class TrainingInstanceBreadcrumbResolver implements Resolve<string> {
+export class TrainingInstanceBreadcrumbResolver {
   constructor(private trainingInstanceResolver: TrainingInstanceResolver) {}
 
   /**
