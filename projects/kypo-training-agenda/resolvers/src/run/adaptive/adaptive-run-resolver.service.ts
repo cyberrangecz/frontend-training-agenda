@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, Router } from '@angular/router';
 import { AdaptiveRunApi } from '@muni-kypo-crp/training-api';
 import { AccessTrainingRunInfo } from '@muni-kypo-crp/training-model';
 import { EMPTY, Observable, of } from 'rxjs';
@@ -13,7 +13,7 @@ import {
 import { RunningAdaptiveRunService } from '@muni-kypo-crp/training-agenda/adaptive-run-detail';
 
 @Injectable()
-export class AccessAdaptiveRunResolver implements Resolve<AccessTrainingRunInfo> {
+export class AccessAdaptiveRunResolver {
   constructor(
     private api: AdaptiveRunApi,
     private runningAdaptiveRunService: RunningAdaptiveRunService,

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { TrainingDefinition } from '@muni-kypo-crp/training-model';
 import { EMPTY, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -15,7 +15,7 @@ import { AdaptiveDefinitionResolver } from './adaptive-definition-resolver.servi
  * Router breadcrumb title provider
  */
 @Injectable()
-export class AdaptiveDefinitionBreadcrumbResolver implements Resolve<string> {
+export class AdaptiveDefinitionBreadcrumbResolver {
   constructor(private adaptiveDefinitionResolver: AdaptiveDefinitionResolver) {}
 
   /**

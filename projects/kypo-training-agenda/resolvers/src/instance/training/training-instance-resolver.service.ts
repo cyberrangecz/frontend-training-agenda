@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { TrainingInstanceApi } from '@muni-kypo-crp/training-api';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { EMPTY, Observable, of } from 'rxjs';
@@ -16,7 +16,7 @@ import {
  * Router data provider
  */
 @Injectable()
-export class TrainingInstanceResolver implements Resolve<TrainingInstance> {
+export class TrainingInstanceResolver {
   constructor(
     private api: TrainingInstanceApi,
     private errorHandler: TrainingErrorHandler,

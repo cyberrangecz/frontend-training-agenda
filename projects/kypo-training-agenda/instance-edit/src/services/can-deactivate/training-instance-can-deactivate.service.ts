@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { CanDeactivate, UrlTree } from '@angular/router';
+import { UrlTree } from '@angular/router';
 import {
   SentinelConfirmationDialogComponent,
   SentinelConfirmationDialogConfig,
@@ -14,7 +14,7 @@ import { TrainingInstanceEditOverviewComponent } from '../../components/training
  * Route guard determining if navigation outside of training instance edit page should proceed
  */
 @Injectable()
-export class TrainingInstanceCanDeactivate implements CanDeactivate<TrainingInstanceEditOverviewComponent> {
+export class TrainingInstanceCanDeactivate {
   constructor(private dialog: MatDialog) {}
 
   canDeactivate(

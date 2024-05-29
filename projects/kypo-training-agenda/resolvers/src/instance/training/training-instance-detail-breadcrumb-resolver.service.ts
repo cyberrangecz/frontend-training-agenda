@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import {
   ACCESS_TOKEN_PATH,
@@ -14,7 +14,7 @@ import {
  * Router breadcrumb title resolver
  */
 @Injectable()
-export class TrainingInstanceDetailBreadcrumbResolver implements Resolve<string> {
+export class TrainingInstanceDetailBreadcrumbResolver {
   /**
    * Retrieves a breadcrumb title based on provided url
    * @param route route snapshot

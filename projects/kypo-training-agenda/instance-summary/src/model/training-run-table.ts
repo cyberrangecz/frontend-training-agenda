@@ -1,7 +1,7 @@
 import { SentinelDateTimeFormatPipe } from '@sentinel/common/pipes';
 import { PaginatedResource } from '@sentinel/common/pagination';
 import { TrainingRun, TrainingRunStateEnum } from '@muni-kypo-crp/training-model';
-import { Column, SentinelTable, Row, RowExpand } from '@sentinel/components/table';
+import { Column, SentinelTable, Row, RowExpand, ExpandableSentinelTable } from '@sentinel/components/table';
 import { TrainingRunRowAdapter } from './training-run-row-adapter';
 import { DateHelper } from '@muni-kypo-crp/training-agenda/internal';
 import { TrainingRunInfoComponent } from '../components/runs/detail/training-run-info.component';
@@ -9,7 +9,7 @@ import { TrainingRunInfoComponent } from '../components/runs/detail/training-run
 /**
  * @dynamic
  */
-export class TrainingRunTable extends SentinelTable<TrainingRunRowAdapter> {
+export class TrainingRunTable extends ExpandableSentinelTable<TrainingRun, TrainingRunInfoComponent, null> {
   constructor(resource: PaginatedResource<TrainingRun>) {
     const columns = [
       new Column('playerName', 'player', true, 'participantRef'),
@@ -24,8 +24,8 @@ export class TrainingRunTable extends SentinelTable<TrainingRunRowAdapter> {
       // new Column('hasDetectionEvents', 'has detection events', false),
     ];
     const rows = resource.elements.map((element) => TrainingRunTable.createRow(element));
-    super(rows, columns);
-    this.expand = new RowExpand(TrainingRunInfoComponent);
+    const expand = new RowExpand(TrainingRunInfoComponent, null);
+    super(rows, columns, expand);
     this.pagination = resource.pagination;
     this.filterable = false;
   }

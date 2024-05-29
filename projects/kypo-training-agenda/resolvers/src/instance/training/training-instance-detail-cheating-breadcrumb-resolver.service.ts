@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import {
   CHEATING_DETECTION_CREATE_PATH,
@@ -11,7 +11,7 @@ import {
  * Router breadcrumb title resolver
  */
 @Injectable()
-export class TrainingInstanceDetailCheatingBreadcrumbResolver implements Resolve<string> {
+export class TrainingInstanceDetailCheatingBreadcrumbResolver {
   /**
    * Retrieves a breadcrumb title based on provided url
    * @param route route snapshot
