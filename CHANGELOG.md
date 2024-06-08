@@ -1,3 +1,6 @@
+### 16.0.1 Update file-uploading library.
+* 3828950 -- [CI/CD] Update packages.json version based on GitLab tag.
+* 7050480 -- Update file-uploading library
 ### 16.0.0 Update to Angular 16, update local issuer to Keycloak.
 * ea30673 -- [CI/CD] Update packages.json version based on GitLab tag.
 * 5530fdb -- Merge branch '240-update-to-angular-16' into 'master'
