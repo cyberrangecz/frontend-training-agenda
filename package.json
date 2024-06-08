@@ -57,7 +57,7 @@
     "@sentinel/common": "~16.2.3",
     "@sentinel/components": "~16.3.0",
     "@sentinel/layout": "~16.1.0",
-    "angular-file": "^3.6.0",
+    "angular-file": "^4.0.2",
     "angular-mgl-timeline": "^1.1.0",
     "angular-oauth2-oidc": "^16.0.0",
     "angular-oauth2-oidc-jwks": "^16.0.0",
