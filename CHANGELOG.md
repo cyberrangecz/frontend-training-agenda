@@ -1,3 +1,518 @@
+### 16.0.2 Partial adjustment of component dependence on a deprecated sentinel directive.
+* 46e0c78 -- [CI/CD] Update packages.json version based on GitLab tag.
+*   6684432 -- Merge branch '241-get-rid-of-straightforward-use-of-the-deprecated-sentinelbasedirective' into 'master'
+|\  
+| * 08a8168 -- Add partial adjustment of component dependence on a deprecated sentinel directive
+|/  
+* a5e61b3 -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* 3828950 -- [CI/CD] Update packages.json version based on GitLab tag.
+* 7050480 -- Update file-uploading library
+* 74a9bfa -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* ea30673 -- [CI/CD] Update packages.json version based on GitLab tag.
+*   5530fdb -- Merge branch '240-update-to-angular-16' into 'master'
+|\  
+| * 335f73e -- Update to Angular 16
+|/  
+* ac4d38f -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* 9920547 -- [CI/CD] Update packages.json version based on GitLab tag.
+*   9633c7a -- Merge branch 'develop' into 'master'
+|\  
+| *   9603c42 -- Merge branch '239-fix-pagination-in-training-run-overview-not-working-properly' into 'develop'
+| |\  
+| | * d5da926 -- Remove console logging
+| | * 587825f -- prettier-fix
+| | * 3774385 -- Add version
+| | * f044ba5 -- Fix pagination in training run overview  not working properly
+| |/  
+* | 1d7bdbf -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* | a4ef0fd -- [CI/CD] Update packages.json version based on GitLab tag.
+* |   6279450 -- Merge branch 'forbidden-commands-detection-method-integration' into 'master'
+|\ \  
+| * | 9ccaa50 -- Fix aggregated dashboard command timeline
+| |\| 
+| | * af303cf -- Fix aggregated command timeline not displaying commands.
+| * |   2b504c4 -- Merge branch 'forbidden-commands-detection-method-integration' of https://gitlab.ics.muni.cz/muni-kypo-crp/frontend-angular/agendas/kypo-training-agenda into forbidden-commands-detection-method-integration
+| |\ \  
+| * | | 662458f -- Add whitespace
+* | | | 8bfe629 -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* | | | f7978fb -- [CI/CD] Update packages.json version based on GitLab tag.
+* | | |   a7daead -- Merge branch 'develop' into 'master'
+|\ \ \ \  
+| | |_|/  
+| |/| |   
+| * | |   9efb0a2 -- Merge branch 'forbidden-commands-detection-method-integration' into 'develop'
+| |\ \ \  
+| | | |/  
+| | |/|   
+| | * |   2583fbf -- Merge branch 'develop' into 'forbidden-commands-detection-method-integration'
+| | |\ \  
+| | |/ /  
+| |/| /   
+| | |/    
+| * |   2c822a9 -- Merge branch '235-fix-free-form-question-saving-disabled' into 'develop'
+| |\ \  
+| | * | e4dc9e9 -- Resolve "Fix-free-form-question-saving-disabled"
+| |/ /  
+| | * 6a20a51 -- Change id to order in level description
+| | * cb3d2d7 -- Cheating detection text adjustements
+| | *   46d1367 -- Merge branch '235-fix-free-form-question-saving-disabled' into forbidden-commands-detection-method-integration
+| | |\  
+| | | * 8e66c53 -- Add version
+| | | *   e656760 -- Merge branch 'develop' into 235-fix-free-form-question-saving-disabled
+| | | |\  
+| | |_|/  
+| |/| |   
+| | | * 15bf3ef -- Fixed unable to save free form question
+| | | * cf62e43 -- prettier
+| | | * 8d1a2f7 -- set valid to true for free form questions
+| | * |   df491a8 -- Merge develop
+| | |\ \  
+| | |/ /  
+| |/| |   
+| * | |   3284aab -- Merge branch '237-add-required-field-to-general-questionnaire' into 'develop'
+| |\ \ \  
+| | * | | 52311ae -- Lint
+| | * | | 6f6f9e3 -- prettier
+| | * | | 07d2f89 -- Add version
+| | * | | 71e80a0 -- Update packages
+| | * | |   0bf6d32 -- Merge branch 'develop' into 237-add-required-field-to-general-questionnaire
+| | |\ \ \  
+| | |/ / /  
+| |/| | |   
+| | * | | ed347ee -- Implement answerRequired logic for adaptive questionaire
+| | * | |   dd7aced -- Merge branch 'master' into 237-add-required-field-to-general-questionnaire
+| | |\ \ \  
+| | * | | | df5e490 -- Adjust the required button. Change values based on api and model.
+| | * | | | 3289e91 -- Added required field to adaptive questionaire.
+| | | | * |   80149dd -- Merge conflicts
+| | | | |\ \  
+| | | | * | | f73e358 -- Fix commands not displaying
+| | | | * | |   3a4f16d -- Fix merge errors
+| | | | |\ \ \  
+| | | | * | | | 038be8b -- Update visualization version
+| | | | * | | | 49db9f5 -- Update version
+| | | | * | | | c9129e3 -- Update detection descriptions
+| | | | * | | |   adaad0d -- Merge branch 'develop' into forbidden-commands-detection-method-integration
+| | | | |\ \ \ \  
+| | | | * | | | | 9b14be8 -- Bump version of command timeline
+| | | | * | | | |   70a2c2a -- Merge branch 'develop' into forbidden-commands-detection-method-integration
+| | | | |\ \ \ \ \  
+| | | | * \ \ \ \ \   33e95e5 -- Merge branch 'develop' into 'forbidden-commands-detection-method-integration'
+| | | | |\ \ \ \ \ \  
+| | | | * | | | | | | 3cd4b44 -- Fix initial sorting
+| | | | * | | | | | | d063b83 -- Fix wrong filter type
+| | | | * | | | | | | de6faa0 -- prettier
+| | | | * | | | | | | 9760db8 -- Update packages
+| | | | * | | | | | | 2fc3d5f -- Add partial sorting support to detection event table
+* | | | | | | | | | | e45c49c -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* | | | | | | | | | | bc07f50 -- [CI/CD] Update packages.json version based on GitLab tag.
+* | | | | | | | | | | aeca144 -- Merge branch 'develop' into 'master'
+|\| | | | | | | | | | 
+| * | | | | | | | | |   79a936a -- Merge branch 'forbidden-commands-detection-method-integration' into 'develop'
+| |\ \ \ \ \ \ \ \ \ \  
+| | |_|_|_|_|_|_|_|/ /  
+| |/| | | | | | | | |   
+| | * | | | | | | | | 26e21e9 -- Forbidden commands detection method integration
+| |/ / / / / / / / /  
+* | | | | | | | | | 4efe73e -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* | | | | | | | | | c604fe5 -- [CI/CD] Update packages.json version based on GitLab tag.
+* | | | | | | | | | c9bc0a8 -- Merge branch 'develop' into 'master'
+|\| | | | | | | | | 
+| * | | | | | | | |   4300c7f -- Merge branch 'forbidden-commands-detection-method-integration' into 'develop'
+| |\ \ \ \ \ \ \ \ \  
+| | |_|_|_|_|_|_|/ /  
+| |/| | | | | | | |   
+| | * | | | | | | | 094764e -- Forbidden commands detection method integration
+| |/ / / / / / / /  
+* | | | | | | | | 27477e7 -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* | | | | | | | | 6fed87a -- [CI/CD] Update packages.json version based on GitLab tag.
+* | | | | | | | | 1feb4fd -- Merge branch 'develop' into 'master'
+|\| | | | | | | | 
+| * | | | | | | |   a1deedf -- Merge branch 'forbidden-commands-detection-method-integration' into 'develop'
+| |\ \ \ \ \ \ \ \  
+| | |_|_|_|_|_|/ /  
+| |/| | | | | | |   
+| | * | | | | | | 8b0cf34 -- Forbidden commands detection method integration
+| |/ / / / / / /  
+* | | | | | | | 5366e7c -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* | | | | | | | d70c924 -- [CI/CD] Update packages.json version based on GitLab tag.
+* | | | | | | | 8c81a6a -- Merge branch 'develop' into 'master'
+|\| | | | | | | 
+| * | | | | | |   3e55785 -- Merge branch 'forbidden-commands-detection-method-integration' into 'develop'
+| |\ \ \ \ \ \ \  
+| | |_|_|_|_|/ /  
+| |/| | | | | |   
+| | * | | | | | 21337b0 -- Forbidden commands detection method integration
+| |/ / / / / /  
+* | | | | | | a1f2d6f -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* | | | | | | 519274f -- [CI/CD] Update packages.json version based on GitLab tag.
+* | | | | | | 6556479 -- Merge branch 'develop' into 'master'
+|\| | | | | | 
+| * | | | | |   24a3ec2 -- Merge branch 'forbidden-commands-detection-method-integration' into 'develop'
+| |\ \ \ \ \ \  
+| | |_|_|_|/ /  
+| |/| | | | |   
+| | * | | | | 1d84cc2 -- Forbidden commands detection method integration
+| |/ / / / /  
+* | | | | | 8d483e3 -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* | | | | | cd11793 -- [CI/CD] Update packages.json version based on GitLab tag.
+* | | | | | 2864be1 -- Merge branch 'develop' into 'master'
+|\| | | | | 
+| * | | | |   04c04a9 -- Merge branch 'forbidden-commands-detection-method-integration' into 'develop'
+| |\ \ \ \ \  
+| | * | | | | f794703 -- Forbidden commands detection method integration
+| |/ / / / /  
+* | | | | | 20a7139 -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* | | | | | cc90d47 -- [CI/CD] Update packages.json version based on GitLab tag.
+* | | | | | 787cafa -- Merge branch 'develop' into 'master'
+|\| | | | | 
+| * | | | |   7dcf0c4 -- Merge branch 'forbidden-commands-detection-method-integration' into 'develop'
+| |\ \ \ \ \  
+| | | |_|/ /  
+| | |/| | |   
+| | * | | | 70d9812 -- Add version
+| | * | | | d98d4c3 -- update packages
+| | * | | | fc018e0 -- use detectionEvent training run id in timeline
+| | * | | |   5724194 -- Merge branch 'develop' into forbidden-commands-detection-method-integration
+| | |\ \ \ \  
+| | |/ / / /  
+| |/| | | |   
+| | * | | |   c89d24f -- Merge branch 'develop' into forbidden-commands-detection-method-integration
+| | |\ \ \ \  
+| | * | | | | a37672c -- Update packages
+| | * | | | | 2e842d1 -- Change level id to level order in event detail
+| | * | | | |   6ba0ed2 -- Merge branch 'develop' into forbidden-commands-detection-method-integration
+| | |\ \ \ \ \  
+| | * | | | | | a9032c1 -- Swap answer owner and answer blocks
+| | * | | | | | 0218f34 -- Cheating detection edit and text enhancements
+| | * | | | | | cfb3fb5 -- Update packages
+| | * | | | | |   595eaaa -- Merge changes from develop
+| | |\ \ \ \ \ \  
+| | * | | | | | | 57eae9f -- detection event detail page rework
+| | * | | | | | | bf0dcc3 -- Adjust detection event detail page
+| | * | | | | | | 736fe12 -- remove checked field
+| | * | | | | | | 556f263 -- Revert environment.ts
+| | * | | | | | | 89afb32 -- Update cheating detection create page, modules and tables.
+| | * | | | | | |   027b7d9 -- Merge develop
+| | |\ \ \ \ \ \ \  
+| | * \ \ \ \ \ \ \   fd9a182 -- Update table of detection forbidden command
+| | |\ \ \ \ \ \ \ \  
+| | | * | | | | | | | b05091a -- Prettier-fix
+| | | * | | | | | | | b32b81f -- Integrate new detected command model. Fix forbidden command service handling
+| | * | | | | | | | | e5b2600 -- prettier
+| | * | | | | | | | | 2908581 -- Update cheating detection commands table. Update cheating detection edit page
+| | |/ / / / / / / /  
+* | | | | | | | | | 277342d -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* | | | | | | | | | b52e51d -- [CI/CD] Update packages.json version based on GitLab tag.
+* | | | | | | | | | 640867b -- Merge branch 'develop' into 'master'
+|\| | | | | | | | | 
+| * | | | | | | | |   e48cb98 -- Merge branch 'forbidden-commands-detection-method-integration' into 'develop'
+| |\ \ \ \ \ \ \ \ \  
+| | |_|_|_|_|/ / / /  
+| |/| | | | | | | |   
+| | * | | | | | | | b7d09fe -- Forbidden commands detection method integration
+| |/ / / / / / / /  
+| * | | | | | | |   61b7d30 -- Merge changes
+| |\ \ \ \ \ \ \ \  
+| | |_|_|_|/ / / /  
+| |/| | | | | | |   
+| | * | | | | | | edf6990 -- Update detection event table
+* | | | | | | | | 59ad9fe -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* | | | | | | | | 168bad5 -- [CI/CD] Update packages.json version based on GitLab tag.
+* | | | | | | | | 6885508 -- Merge branch 'develop' into 'master'
+|\| | | | | | | | 
+| * | | | | | | |   cc3c9c3 -- Merge branch 'forbidden-commands-detection-method-integration' into 'develop'
+| |\ \ \ \ \ \ \ \  
+| | |_|_|_|/ / / /  
+| |/| | | | | | |   
+| | * | | | | | | 591c832 -- Forbidden commands detection method integration
+| |/ / / / / / /  
+* | | | | | | | 3819517 -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* | | | | | | | 44857b9 -- [CI/CD] Update packages.json version based on GitLab tag.
+* | | | | | | | ffeff1f -- Merge branch 'develop' into 'master'
+|\| | | | | | | 
+| |_|_|/ / / /  
+|/| | | | | |   
+| * | | | | | 391b424 -- Merge branch 'forbidden-commands-detection-method-integration' into 'develop'
+|/| | | | | | 
+| * | | | | | dab4397 -- Forbidden commands detection method integration
+|/ / / / / /  
+* | | | | | 2a56ab8 -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* | | | | | a996b67 -- [CI/CD] Update packages.json version based on GitLab tag.
+* | | | | |   333eb95 -- Merge branch 'forbidden-commands-detection-method-integration' into 'master'
+|\ \ \ \ \ \  
+| |_|_|_|/ /  
+|/| | | | |   
+| * | | | |   7476700 -- Merge branch 'master' into 'forbidden-commands-detection-method-integration'
+| |\ \ \ \ \  
+| |/ / / / /  
+|/| | | | |   
+* | | | | | a31b9d1 -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* | | | | | 7485298 -- [CI/CD] Update packages.json version based on GitLab tag.
+* | | | | |   d52b575 -- Merge branch 'develop' into 'master'
+|\ \ \ \ \ \  
+| |_|/ / / /  
+|/| | | | |   
+| * | | | | f562dc2 -- Update VERSION.txt
+| * | | | |   148760e -- Merge branch 'master' into 'develop'
+| |\ \ \ \ \  
+| |/ / / / /  
+|/| | | | |   
+* | | | | | 72c8220 -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* | | | | | ddb4f04 -- [CI/CD] Update packages.json version based on GitLab tag.
+* | | | | | 72ed33f -- Fix training run faulty button
+* | | | | | 011c07a -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* | | | | | 095d3bf -- [CI/CD] Update packages.json version based on GitLab tag.
+* | | | | |   fded626 -- Merge branch 'develop' into 'master'
+|\ \ \ \ \ \  
+| | |_|_|_|/  
+| |/| | | |   
+| | * | | |   cba114d -- Merge branch 'fix-resume-table-type' into 'develop'
+| | |\ \ \ \  
+| | | * | | | ebe7a81 -- Fix adapter table type
+| | |/ / / /  
+| | | * | | 2a4ba63 -- prettier-fix
+| | | * | | ba10ca0 -- Remove additional character
+| | | * | | f080601 -- bump visualization version
+| | | * | | d5a86dd -- Update version
+| | | * | |   4368ceb -- Merge branch 'develop' into forbidden-commands-detection-method-integration
+| | | |\ \ \  
+| | | |/ / /  
+| | |/| / /   
+| | | |/ /    
+| | * | |   12076b7 -- Merge branch '238-fix-training-run-actions-not-displayed' into 'develop'
+| | |\ \ \  
+| | | |_|/  
+| | |/| |   
+| | | * | 0c0848c -- Update version
+| | | * | 10d5552 -- Enable buttons in training runs
+| | |/ /  
+| | * | 554425a -- Merge branch '236-fix-training-instance-sorting-by-end-time' into 'develop'
+| |/| | 
+| | * | a25810a -- Update version
+| | * | 9a77bc4 -- Fix trianing instance end time sorting
+| |/ /  
+| | * 02451a9 -- Modified columns detection event table
+| | * 5c33ac4 -- added cheating detection id to form
+| | * fe44e94 -- added cheating detection id to form
+| | * db7ebf6 -- Implement visualization link
+| | * 349e74d -- formatting
+| | * 5fb57d0 -- prettier
+| | * 58fa54a -- Added command timeline to detection event detail
+| | * d1f21fe -- Integrate forbidden commands table
+| | *   1c98b1e -- merge changes from develop
+| | |\  
+| | |/  
+| |/|   
+| * |   a5abd84 -- Merge branch 'master' into 'develop'
+| |\ \  
+| |/ /  
+|/| |   
+* | | 1a095bb -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* | | b8a65c7 -- [CI/CD] Update packages.json version based on GitLab tag.
+* | |   2fd89c7 -- Merge branch 'fix-buttons' into 'master'
+|\ \ \  
+| * | | 94b1d4e -- Fix faulty buttons
+* | | | 9fb732f -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* | | | fde9aef -- [CI/CD] Update packages.json version based on GitLab tag.
+* | | | 93664ec -- Merge branch 'develop' into 'master'
+|\| | | 
+| | * | 559e3c9 -- Update angular material stylling in ATD simulator
+| | * | 3950985 -- Merge branch 'master' into develop
+| |/| | 
+| |/ /  
+|/| |   
+* | | 0e1ccd0 -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* | | bd55e12 -- [CI/CD] Update packages.json version based on GitLab tag.
+* | |   d3a5899 -- Merge branch 'develop' into 'master'
+|\ \ \  
+* | | | acca16d -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* | | | 557c226 -- [CI/CD] Update packages.json version based on GitLab tag.
+* | | |   55a997e -- Merge branch 'develop' into 'master'
+|\ \ \ \  
+| | | * \   e797819 -- Merge branch 'bump-api-version' into 'develop'
+| | | |\ \  
+| | | | * | 471b9bd -- Update version of api
+| | | |/ /  
+| | | * | 3784df0 -- Merge branch '227-add-sorting-options-to-training-run-table' into 'develop'
+| | |/| | 
+| | | * | d32f546 -- Fix test
+| | | * | a1fb4f4 -- Bump version
+| | | * | 0829611 -- Revert package
+| | | * | 0f2ea9b -- Update versions
+| | | * |   692cb08 -- Merge branch 'develop' into 227-add-sorting-options-to-training-run-table
+| | | |\ \  
+| | | |/ /  
+| | |/| |   
+| | * | | a110cb4 -- Merge branch '230-change-training-run-table-sandbox-uuid-to-allocation-id' into 'develop'
+| |/| | | 
+| | * | | 3fbdd09 -- update package.json
+| | * | | b778547 -- Update version
+| | * | | 4498dd4 -- Update package.json
+| | * | |   b0d90cb -- Merge branch 'develop' into 230-change-training-run-table-sandbox-uuid-to-allocation-id
+| | |\ \ \  
+| | |/ / /  
+| |/| | |   
+| | * | | db422c7 -- Add sandbox id to training run table
+| | | * | de1a2cf -- Remove sorting options for accessed training runs
+| | | * |   8c0b784 -- Merge develop
+| | | |\ \  
+| | |_|/ /  
+| |/| | |   
+| * | | | 05d92bb -- Merge branch '233-substract-broken-reference-graph-views' into 'develop'
+|/| | | | 
+| * | | | 5aa57e2 -- Prune all broken reference and trainee graphs
+|/ / / /  
+* | | | 71236a4 -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* | | | 9d66e66 -- [CI/CD] Update packages.json version based on GitLab tag.
+* | | |   d834a38 -- Merge branch '232-update-to-angular-15' into 'master'
+|\ \ \ \  
+| * | | | a55a926 -- Update to Angular 15
+|/ / / /  
+* | | | 3e03883 -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* | | | 70d45dc -- [CI/CD] Update packages.json version based on GitLab tag.
+* | | |   9743b60 -- Merge branch 'develop' into 'master'
+|\ \ \ \  
+| * \ \ \   e509fad -- Merge branch '231-add-createdat-column-to-training-definition-table' into 'develop'
+| |\ \ \ \  
+| | * | | | b5e73eb -- extend logic to adaptive training definition
+| | * | | | 53359b9 -- Bump model and api package
+| | * | | | 315e5d8 -- Add created at column to training definition
+| |/ / / /  
+| * | | |   5a034b2 -- Merge branch '229-fix-disabling-of-pool-button-while-creating-training-instance' into 'develop'
+| |\ \ \ \  
+| | |/ / /  
+| |/| | |   
+| | * | | f783244 -- Rename method isCreated to isCreatedAndStarted
+| | * | | dc33729 -- Simplify input of training instance to training instance id
+| | * | | f9d43d2 -- Bump version
+| | * | | b2383b1 -- Fix disabling of pool button
+| |/ / /  
+* | | | 0f95566 -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* | | | 28eecdc -- [CI/CD] Update packages.json version based on GitLab tag.
+* | | | e915222 -- Merge branch 'develop' into 'master'
+|\| | | 
+| | * | 2e39371 -- refactor
+| | * | 2780fef -- Added sorting support for accessed training run table
+| | * | e121568 -- Added sorting of player in training instance summary table
+| |/ /  
+| * |   add94f1 -- Merge branch 'master' into 'develop'
+| |\ \  
+| |/ /  
+|/| |   
+* | | 79d0f73 -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* | | ce08fa2 -- [CI/CD] Update packages.json version based on GitLab tag.
+* | |   1585d20 -- Merge branch 'develop' into 'master'
+|\ \ \  
+| * | | 3581a12 -- Develop
+|/ / /  
+| * |   ba4a04f -- Merge branch '226-unable-to-save-atd-when-adding-multiple-new-questions' into 'develop'
+| |\ \  
+| | * | 26f3772 -- Fix ATD saving when adding questions.
+| |/ /  
+| * |   7047f8a -- Merge branch '223-fix-markdown-rendering-for-atd-and-ltd-training-run' into 'develop'
+| |\ \  
+| | * \   c587ca1 -- Merge branch 'develop' into '223-fix-markdown-rendering-for-atd-and-ltd-training-run'
+| | |\ \  
+| | |/ /  
+| |/| |   
+| * | |   5c12c10 -- Merge branch '225-fix-word-splitting-in-training-preview' into 'develop'
+| |\ \ \  
+| | * \ \   494d7ae -- Merge branch 'develop' into '225-fix-word-splitting-in-training-preview'
+| | |\ \ \  
+| | * | | | bb53269 -- Update version
+| | * | | | b974996 -- Update version.
+| | * | | | fb5c423 -- Fix word splitting in training preview
+| * | | | |   986235b -- Merge branch '222-fix-training-definition-preview-does-not-support-markdown' into 'develop'
+| |\ \ \ \ \  
+| | |_|/ / /  
+| |/| | | |   
+| | * | | | 7761eaf -- Update multiple-choice-question-trainee.component.css
+| | * | | |   afb8685 -- Merge branch 'develop' into '222-fix-training-definition-preview-does-not-support-markdown'
+| | |\ \ \ \  
+| | |/ / / /  
+| |/| | | |   
+| * | | | |   7485349 -- Merge branch '224-add-text-wrapping-to-definition-preview' into 'develop'
+| |\ \ \ \ \  
+| | * | | | | ac4f291 -- Add text wrapping to definition preview.
+| | | |/ / /  
+| | |/| | |   
+| * | | | |   13f895f -- Merge branch '221-fix-atd-questionnaires-questions-error-after-every-refresh' into 'develop'
+| |\ \ \ \ \  
+| | |/ / / /  
+| |/| | | |   
+| | * | | |   78283f6 -- Merge branch 'develop' into '221-fix-atd-questionnaires-questions-error-after-every-refresh'
+| | |\ \ \ \  
+| | |/ / / /  
+| |/| | | |   
+| * | | | |   85fb53c -- Merge branch '220-change-authors-title-do-designers-in-atd-and-ltd' into 'develop'
+| |\ \ \ \ \  
+| | * \ \ \ \   9417cf1 -- Merge branch 'develop' into '220-change-authors-title-do-designers-in-atd-and-ltd'
+| | |\ \ \ \ \  
+| | |/ / / / /  
+| |/| | | | |   
+| * | | | | |   69a3edc -- Merge branch '219-fix-unable-to-save-atd-notes-and-outcomes-of-length-1' into 'develop'
+| |\ \ \ \ \ \  
+| | * | | | | | 23d3f6f -- Revert client id
+| | * | | | | |   4bd9901 -- Merge branch 'develop' into '219-fix-unable-to-save-atd-notes-and-outcomes-of-length-1'
+| | |\ \ \ \ \ \  
+| | |/ / / / / /  
+| |/| | | | | |   
+| | * | | | | | e58122c -- Fix unable to save LTD notes and outcomes of length 1
+| |/ / / / / /  
+|/| | | | | |   
+| | * | | | | eded065 -- Update version.
+| | * | | | | e2145a2 -- Update Designers Title.
+| |/ / / / /  
+|/| | | | |   
+| | * | | | 7b78457 -- Update version
+| | * | | | 6121a19 -- Fix error in some questions when refreshing.
+| |/ / / /  
+|/| | | |   
+| | * | | 910b82d -- Updated training definition preview questions with markup support.
+| |/ / /  
+|/| | |   
+| | * | 7bc9d1a -- Bump version
+| | * | ea65857 -- Update version
+| | * | b9d11ce -- Added markdown support to ATD preview and updated markdown css style color
+| | * | 57e5652 -- Added markdown rendering support to linear training run
+| |/ /  
+| * | c26cb0b -- Merge branch '218-add-relevant-sorting-options-to-tables' into 'develop'
+|/| | 
+| * | 4cafbde -- Updated version.
+| * | f0f5c08 -- Added sorting options to adaptive instance summary.
+| * | be6155d -- Added sorting to instance overview and summary tables.
+|/ /  
+* | 8b61b99 -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* | 8e0f6f3 -- [CI/CD] Update packages.json version based on GitLab tag.
+* |   52b0a45 -- Merge branch 'develop' into 'master'
+|\ \  
+| * | 001df8d -- Bump topology graph version.
+|/ /  
+* | 4fd7001 -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* | 87cd5c5 -- [CI/CD] Update packages.json version based on GitLab tag.
+* |   5ea5b41 -- Merge branch 'develop' into 'master'
+|\ \  
+| * | c492406 -- merge develop into master
+|/ /  
+| * 2db1b25 -- Prettier
+| * a3913b9 -- Adjusted structure of the forbidden commands table
+| * 41c452c -- Update cheating detection edit page with fixes and enhancements
+| * 7ba8f52 -- Updated cheating detection create page with forbidden commands.
+| * e2871d6 -- Integration of forbidden commands method into cheating detection.
+|/  
+* dc0e45d -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* e852761 -- [CI/CD] Update packages.json version based on GitLab tag.
+*   3131ee8 -- Merge branch '207-update-topology-and-timeline-component-display' into 'master'
+|\  
+| * f4813da -- Resolve "Update topology and timeline component display"
+|/  
+* 6e0b13e -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
+* 850c7b6 -- [CI/CD] Update packages.json version based on GitLab tag.
+*   17f7167 -- Merge branch 'develop' into 'master'
+|\  
+| * 55e6755 -- Merge Develop into master
+* cc0796b -- [CI/CD] CHANGELOG.md file updated with commits between the current and previous tag.
 ### 16.0.1 Update file-uploading library.
 * 3828950 -- [CI/CD] Update packages.json version based on GitLab tag.
 * 7050480 -- Update file-uploading library
