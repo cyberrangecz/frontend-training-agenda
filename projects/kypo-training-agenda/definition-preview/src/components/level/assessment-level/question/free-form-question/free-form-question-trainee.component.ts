@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { FreeFormQuestion } from '@muni-kypo-crp/training-model';
 
 @Component({
@@ -12,7 +11,7 @@ import { FreeFormQuestion } from '@muni-kypo-crp/training-model';
  * Component displaying FFQ type of question in the assessment level of a trainees training run.
  * If assessment is type of test or question is required, user needs to answer it, otherwise it is optional.
  */
-export class FreeFormQuestionTraineeComponent extends SentinelBaseDirective {
+export class FreeFormQuestionTraineeComponent {
   @Input() question: FreeFormQuestion;
   @Input() index: number;
 

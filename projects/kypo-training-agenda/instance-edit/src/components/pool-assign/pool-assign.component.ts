@@ -7,10 +7,8 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { SandboxPoolListAdapter } from '../../model/adapter/sandbox-pool-list-adapter';
 import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
-import { TrainingInstance } from '@muni-kypo-crp/training-model';
 
 @Component({
   selector: 'kypo-pool-assign',
@@ -18,7 +16,7 @@ import { TrainingInstance } from '@muni-kypo-crp/training-model';
   styleUrls: ['./pool-assign.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PoolAssignComponent extends SentinelBaseDirective implements OnChanges {
+export class PoolAssignComponent implements OnChanges {
   @Input() selectedPoolId: number;
   @Input() hasStarted: boolean;
   @Input() trainingInstanceId: number;
@@ -27,9 +25,7 @@ export class PoolAssignComponent extends SentinelBaseDirective implements OnChan
 
   poolDetailRoute: string;
 
-  constructor(private navigator: TrainingNavigator) {
-    super();
-  }
+  constructor(private navigator: TrainingNavigator) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if ('selectedPoolId' in changes) {

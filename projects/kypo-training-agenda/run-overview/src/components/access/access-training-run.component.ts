@@ -9,7 +9,6 @@ import {
   ViewChild,
 } from '@angular/core';
 import { MatButton } from '@angular/material/button';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { TraineeAccessTrainingFormGroup } from './trainee-access-training-form-group';
 import { AbstractControl } from '@angular/forms';
 
@@ -22,7 +21,7 @@ import { AbstractControl } from '@angular/forms';
   styleUrls: ['./access-training-run.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AccessTrainingRunComponent extends SentinelBaseDirective implements OnInit {
+export class AccessTrainingRunComponent implements OnInit {
   @ViewChild('pin') accessTokenPinInput: ElementRef;
   @ViewChild('accessButton') accessButton: MatButton;
   @Input() isLoading = false;

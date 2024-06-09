@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SentinelBaseDirective } from '@sentinel/common';
 
 /**
  * Component displaying adaptive instance results visualizations
@@ -11,8 +10,6 @@ import { SentinelBaseDirective } from '@sentinel/common';
   styleUrls: ['./adaptive-instance-results.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AdaptiveInstanceResultsComponent extends SentinelBaseDirective {
-  constructor(private activeRoute: ActivatedRoute) {
-    super();
-  }
+export class AdaptiveInstanceResultsComponent {
+  constructor(private activeRoute: ActivatedRoute) {}
 }

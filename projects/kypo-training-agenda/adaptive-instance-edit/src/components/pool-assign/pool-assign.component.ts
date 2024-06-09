@@ -7,13 +7,11 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { Observable } from 'rxjs';
 import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
 import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
 import { SandboxPoolListAdapter } from '../../models/adapter/sandbox-pool-list-adapter';
 import { AdaptiveInstanceEditService } from '../../services/state/edit/adaptive-instance-edit.service';
-import { TrainingInstance } from '@muni-kypo-crp/training-model';
 
 @Component({
   selector: 'kypo-pool-assign',
@@ -21,7 +19,7 @@ import { TrainingInstance } from '@muni-kypo-crp/training-model';
   styleUrls: ['./pool-assign.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PoolAssignComponent extends SentinelBaseDirective implements OnChanges {
+export class PoolAssignComponent implements OnChanges {
   readonly PAGE_SIZE: number;
 
   @Input() selectedPoolId: number;
@@ -41,7 +39,6 @@ export class PoolAssignComponent extends SentinelBaseDirective implements OnChan
     private context: TrainingAgendaContext,
     private navigator: TrainingNavigator
   ) {
-    super();
     this.PAGE_SIZE = this.context.config.defaultPaginationSize;
   }
 

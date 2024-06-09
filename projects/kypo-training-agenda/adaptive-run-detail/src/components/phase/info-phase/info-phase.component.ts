@@ -9,7 +9,6 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { InfoPhase } from '@muni-kypo-crp/training-model';
 
 @Component({
@@ -18,7 +17,7 @@ import { InfoPhase } from '@muni-kypo-crp/training-model';
   styleUrls: ['./info-phase.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InfoPhaseComponent extends SentinelBaseDirective implements AfterViewInit {
+export class InfoPhaseComponent implements AfterViewInit {
   @Input() phase: InfoPhase;
   @Input() isLast: boolean;
   @Input() isBacktracked: boolean;
@@ -26,10 +25,6 @@ export class InfoPhaseComponent extends SentinelBaseDirective implements AfterVi
   @Output() next: EventEmitter<void> = new EventEmitter();
   @ViewChild('controls', { read: ElementRef, static: false }) controlsPanel: ElementRef;
   @ViewChild('content', { read: ElementRef, static: false }) content: ElementRef;
-
-  constructor() {
-    super();
-  }
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {

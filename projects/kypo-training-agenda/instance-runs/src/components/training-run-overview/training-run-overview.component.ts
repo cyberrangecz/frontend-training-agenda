@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { TrainingRun } from '@muni-kypo-crp/training-model';
 import { SentinelTable, TableLoadEvent, TableActionEvent } from '@sentinel/components/table';
 
@@ -12,7 +11,7 @@ import { SentinelTable, TableLoadEvent, TableActionEvent } from '@sentinel/compo
   styleUrls: ['./training-run-overview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TrainingRunOverviewComponent extends SentinelBaseDirective {
+export class TrainingRunOverviewComponent {
   @Input() trainingRuns: SentinelTable<TrainingRun>;
   @Input() hasError: boolean;
   @Input() isLoading: boolean;

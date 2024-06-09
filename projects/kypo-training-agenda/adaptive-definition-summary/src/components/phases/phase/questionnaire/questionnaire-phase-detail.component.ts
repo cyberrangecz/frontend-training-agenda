@@ -1,7 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { QuestionnairePhase, QuestionnaireTypeEnum } from '@muni-kypo-crp/training-model';
-import { SentinelBaseDirective } from '@sentinel/common';
 
 @Component({
   selector: 'kypo-questionnaire-phase-detail',
@@ -16,7 +15,7 @@ import { SentinelBaseDirective } from '@sentinel/common';
     ]),
   ],
 })
-export class QuestionnairePhaseDetailComponent extends SentinelBaseDirective {
+export class QuestionnairePhaseDetailComponent {
   @Input() phase: QuestionnairePhase;
   @Input() expanded = false;
 

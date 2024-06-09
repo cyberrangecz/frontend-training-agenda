@@ -8,7 +8,6 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { TrainingPhase } from '@muni-kypo-crp/training-model';
 
 @Component({
@@ -17,7 +16,7 @@ import { TrainingPhase } from '@muni-kypo-crp/training-model';
   styleUrls: ['./training-phase.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TrainingPhaseComponent extends SentinelBaseDirective implements OnChanges {
+export class TrainingPhaseComponent implements OnChanges {
   @Input() phase: TrainingPhase;
 
   @ViewChild('rightPanel', { static: true }) rightPanelDiv: ElementRef;
@@ -26,10 +25,6 @@ export class TrainingPhaseComponent extends SentinelBaseDirective implements OnC
   topologyHeight: number;
 
   selectedTab: number;
-
-  constructor() {
-    super();
-  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if ('phase' in changes) {

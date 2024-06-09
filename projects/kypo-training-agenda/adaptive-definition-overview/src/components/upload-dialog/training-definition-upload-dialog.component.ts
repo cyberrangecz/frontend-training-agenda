@@ -1,6 +1,5 @@
 import { Component, EventEmitter } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { Observable } from 'rxjs';
 import { AdaptiveFileUploadProgressService } from '../../services/file-upload/adaptive-file-upload-progress.service';
 
@@ -12,7 +11,7 @@ import { AdaptiveFileUploadProgressService } from '../../services/file-upload/ad
   templateUrl: './training-definition-upload-dialog.component.html',
   styleUrls: ['./training-definition-upload-dialog.component.css'],
 })
-export class TrainingDefinitionUploadDialogComponent extends SentinelBaseDirective {
+export class TrainingDefinitionUploadDialogComponent {
   selectedFile: File;
   uploadInProgress$: Observable<boolean>;
   onUpload$ = new EventEmitter<File>();
@@ -21,7 +20,6 @@ export class TrainingDefinitionUploadDialogComponent extends SentinelBaseDirecti
     public dialogRef: MatDialogRef<TrainingDefinitionUploadDialogComponent>,
     private uploadProgressService: AdaptiveFileUploadProgressService
   ) {
-    super();
     this.uploadInProgress$ = this.uploadProgressService.isInProgress$;
   }
 

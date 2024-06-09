@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { ExtendedMatchingItems } from '@muni-kypo-crp/training-model';
 
 @Component({
@@ -8,7 +7,7 @@ import { ExtendedMatchingItems } from '@muni-kypo-crp/training-model';
   styleUrls: ['./extended-matching-items-trainee.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ExtendedMatchingItemsTraineeComponent extends SentinelBaseDirective {
+export class ExtendedMatchingItemsTraineeComponent {
   @Input() question: ExtendedMatchingItems;
   @Input() index: number;
 }

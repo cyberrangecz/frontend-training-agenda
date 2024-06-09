@@ -1,10 +1,9 @@
-import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { TrainingDefinition } from '@muni-kypo-crp/training-model';
-import { takeWhile } from 'rxjs/operators';
 import { CloneDialogFormGroup } from './clone-dialog-form-group';
 import { AbstractControl } from '@angular/forms';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
  * Displays dialog with a form to select name of cloned training definition
@@ -15,7 +14,7 @@ import { AbstractControl } from '@angular/forms';
   styleUrls: ['./clone-dialog.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CloneDialogComponent extends SentinelBaseDirective implements OnInit {
+export class CloneDialogComponent {
   cloneDialogFormGroup: CloneDialogFormGroup;
   valid = true;
 
@@ -23,19 +22,15 @@ export class CloneDialogComponent extends SentinelBaseDirective implements OnIni
     public dialogRef: MatDialogRef<CloneDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: TrainingDefinition
   ) {
-    super();
+    this.cloneDialogFormGroup = new CloneDialogFormGroup();
+    this.clonedDefinitionTitle.setValue('Clone of ' + this.data.title);
+    this.cloneDialogFormGroup.formGroup.valueChanges
+      .pipe(takeUntilDestroyed())
+      .subscribe(() => (this.valid = this.cloneDialogFormGroup.formGroup.valid));
   }
 
   get clonedDefinitionTitle(): AbstractControl {
     return this.cloneDialogFormGroup.formGroup.get('clonedDefinitionTitle');
-  }
-
-  ngOnInit(): void {
-    this.cloneDialogFormGroup = new CloneDialogFormGroup();
-    this.clonedDefinitionTitle.setValue('Clone of ' + this.data.title);
-    this.cloneDialogFormGroup.formGroup.valueChanges
-      .pipe(takeWhile(() => this.isAlive))
-      .subscribe(() => (this.valid = this.cloneDialogFormGroup.formGroup.valid));
   }
 
   /**

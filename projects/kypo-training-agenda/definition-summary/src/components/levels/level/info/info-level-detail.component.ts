@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { InfoLevel } from '@muni-kypo-crp/training-model';
-import { SentinelBaseDirective } from '@sentinel/common';
 
 @Component({
   selector: 'kypo-info-level-detail',
@@ -8,6 +7,6 @@ import { SentinelBaseDirective } from '@sentinel/common';
   styleUrls: ['./info-level-detail.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InfoLevelDetailComponent extends SentinelBaseDirective {
+export class InfoLevelDetailComponent {
   @Input() level: InfoLevel;
 }

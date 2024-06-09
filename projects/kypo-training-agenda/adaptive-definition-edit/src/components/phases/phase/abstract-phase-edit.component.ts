@@ -7,7 +7,6 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { Observable } from 'rxjs';
 import {
   AbstractPhaseTypeEnum,
@@ -27,7 +26,7 @@ import { PhaseRelation } from '@muni-kypo-crp/training-model/lib/phase/questionn
   styleUrls: ['./abstract-phase-edit.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AbstractPhaseEditComponent extends SentinelBaseDirective implements OnChanges {
+export class AbstractPhaseEditComponent implements OnChanges {
   @Input() phase: Phase;
   @Input() updateMatrix$: Observable<boolean>;
   @Input() presentTrainingPhases$: Observable<TrainingPhase[]>;

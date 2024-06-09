@@ -14,7 +14,6 @@ import {
   ViewChild,
   ViewChildren,
 } from '@angular/core';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { AssessmentTypeEnum } from '@muni-kypo-crp/training-model';
 import { AssessmentLevel } from '@muni-kypo-crp/training-model';
 import { Question } from '@muni-kypo-crp/training-model';
@@ -35,7 +34,7 @@ import { TrainingRunAssessmentLevelConcreteService } from '../../../services/tra
  * to answer all of the questions before he can continue to the next level. If it questionnaire type, trainee can skip
  * answering the questions.
  */
-export class AssessmentLevelComponent extends SentinelBaseDirective implements OnInit, OnChanges, AfterViewInit {
+export class AssessmentLevelComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() level: AssessmentLevel;
   @Input() isLast: boolean;
   @Input() isLevelAnswered: boolean;
@@ -47,9 +46,7 @@ export class AssessmentLevelComponent extends SentinelBaseDirective implements O
 
   canSubmit: boolean;
 
-  constructor(private assessmentService: TrainingRunAssessmentLevelService) {
-    super();
-  }
+  constructor(private assessmentService: TrainingRunAssessmentLevelService) {}
 
   ngOnInit(): void {
     this.initCanSubmit();

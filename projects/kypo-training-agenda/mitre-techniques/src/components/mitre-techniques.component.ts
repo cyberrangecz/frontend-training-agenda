@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SentinelBaseDirective } from '@sentinel/common';
-import { Observable, take, takeWhile } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { MitreTechniquesOverviewService } from '../services/mitre-techniques.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
  * Smart component of mitre techniques
@@ -13,7 +13,7 @@ import { MitreTechniquesOverviewService } from '../services/mitre-techniques.ser
   styleUrls: ['./mitre-techniques.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MitreTechniquesComponent extends SentinelBaseDirective implements OnInit {
+export class MitreTechniquesComponent implements OnInit {
   mitreTableHtml$: Observable<string>;
   showSwitch: boolean;
   played: boolean;
@@ -22,8 +22,7 @@ export class MitreTechniquesComponent extends SentinelBaseDirective implements O
     private mitreTechniquesOverviewService: MitreTechniquesOverviewService,
     private activeRoute: ActivatedRoute
   ) {
-    super();
-    this.activeRoute.data.pipe(takeWhile(() => this.isAlive)).subscribe((data) => {
+    this.activeRoute.data.pipe(takeUntilDestroyed()).subscribe((data) => {
       this.showSwitch = data.showSwitch;
       this.played = data.showSwitch;
     });

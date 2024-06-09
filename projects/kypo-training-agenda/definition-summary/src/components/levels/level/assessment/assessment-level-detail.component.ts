@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { AssessmentLevel } from '@muni-kypo-crp/training-model';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { AssessmentTypeEnum } from '@muni-kypo-crp/training-model';
 
 @Component({
@@ -9,7 +8,7 @@ import { AssessmentTypeEnum } from '@muni-kypo-crp/training-model';
   styleUrls: ['./assessment-level-detail.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AssessmentLevelDetailComponent extends SentinelBaseDirective {
+export class AssessmentLevelDetailComponent {
   @Input() level: AssessmentLevel;
 
   isTest(): boolean {

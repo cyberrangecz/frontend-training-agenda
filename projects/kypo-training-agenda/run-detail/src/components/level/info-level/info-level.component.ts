@@ -9,7 +9,6 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { InfoLevel } from '@muni-kypo-crp/training-model';
 
 @Component({
@@ -21,17 +20,13 @@ import { InfoLevel } from '@muni-kypo-crp/training-model';
 /**
  * Component to display training run's level of type INFO. Only displays markdown and allows user to continue immediately.
  */
-export class InfoLevelComponent extends SentinelBaseDirective implements AfterViewInit {
+export class InfoLevelComponent implements AfterViewInit {
   @Input() level: InfoLevel;
   @Input() isLast: boolean;
   @Input() isBacktracked: boolean;
   @Output() next: EventEmitter<void> = new EventEmitter();
   @ViewChild('controls', { read: ElementRef, static: false }) controlsPanel: ElementRef;
   @ViewChild('content', { read: ElementRef, static: false }) content: ElementRef;
-
-  constructor() {
-    super();
-  }
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {

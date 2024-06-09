@@ -1,7 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { InfoPhase } from '@muni-kypo-crp/training-model';
-import { SentinelBaseDirective } from '@sentinel/common';
 
 @Component({
   selector: 'kypo-info-phase-detail',
@@ -16,7 +15,7 @@ import { SentinelBaseDirective } from '@sentinel/common';
     ]),
   ],
 })
-export class InfoPhaseDetailComponent extends SentinelBaseDirective {
+export class InfoPhaseDetailComponent {
   @Input() phase: InfoPhase;
   @Input() expanded = false;
 

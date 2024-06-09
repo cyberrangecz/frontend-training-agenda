@@ -8,7 +8,6 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { SentinelStepper, StepperStateChange, StepStateEnum } from '@sentinel/components/stepper';
 import { LevelStepperAdapter } from '@muni-kypo-crp/training-agenda/internal';
 import { LevelMoveEvent } from '../../../model/events/level-move-event';
@@ -22,7 +21,7 @@ import { LevelMoveEvent } from '../../../model/events/level-move-event';
   styleUrls: ['./training-level-stepper.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TrainingLevelStepperComponent extends SentinelBaseDirective implements OnChanges {
+export class TrainingLevelStepperComponent implements OnChanges {
   @Input() levels: LevelStepperAdapter[];
   @Input() movingInProgress: boolean;
   @Input() activeStep: number;
@@ -34,9 +33,7 @@ export class TrainingLevelStepperComponent extends SentinelBaseDirective impleme
 
   private previousActiveStep = -1;
 
-  constructor(public dialog: MatDialog) {
-    super();
-  }
+  constructor(public dialog: MatDialog) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if ('levels' in changes) {
