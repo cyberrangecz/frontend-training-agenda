@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { TrainingRun } from '@muni-kypo-crp/training-model';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { TableLoadEvent, SentinelTable, TableActionEvent } from '@sentinel/components/table';
 
 @Component({
@@ -9,7 +8,7 @@ import { TableLoadEvent, SentinelTable, TableActionEvent } from '@sentinel/compo
   styleUrls: ['./adaptive-instance-runs.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AdaptiveInstanceRunsComponent extends SentinelBaseDirective {
+export class AdaptiveInstanceRunsComponent {
   @Input() trainingRuns: SentinelTable<TrainingRun>;
   @Input() hasError: boolean;
 

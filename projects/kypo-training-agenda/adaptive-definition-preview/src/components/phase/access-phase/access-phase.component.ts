@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, ElementRef, HostListener, Input, ViewChild } from '@angular/core';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { AccessPhase } from '@muni-kypo-crp/training-model';
 
 @Component({
@@ -8,17 +7,13 @@ import { AccessPhase } from '@muni-kypo-crp/training-model';
   styleUrls: ['./access-phase.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AccessPhaseComponent extends SentinelBaseDirective {
+export class AccessPhaseComponent {
   @Input() phase: AccessPhase;
 
   @ViewChild('rightPanel', { static: true }) rightPanelDiv: ElementRef;
 
   topologyWidth: number;
   topologyHeight: number;
-
-  constructor() {
-    super();
-  }
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any): void {

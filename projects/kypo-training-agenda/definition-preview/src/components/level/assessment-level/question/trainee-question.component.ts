@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { Question } from '@muni-kypo-crp/training-model';
 import { ExtendedMatchingItems } from '@muni-kypo-crp/training-model';
 import { FreeFormQuestion } from '@muni-kypo-crp/training-model';
@@ -15,7 +14,7 @@ import { MultipleChoiceQuestion } from '@muni-kypo-crp/training-model';
  * Wrapper component for displaying questions in training run's assessment level. It selects the correct component to
  * display based on the question type.
  */
-export class TraineeQuestionComponent extends SentinelBaseDirective implements OnInit {
+export class TraineeQuestionComponent implements OnInit {
   @Input() question: Question;
   @Input() index: number;
 

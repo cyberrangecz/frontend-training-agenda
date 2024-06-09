@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
-import { map, takeWhile } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
  * Displays access token of training instance for presentational purposes (to display on projector etc.)
@@ -15,16 +15,11 @@ import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-a
   styleUrls: ['./access-token-detail.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AccessTokenDetailComponent extends SentinelBaseDirective implements OnInit {
+export class AccessTokenDetailComponent {
   trainingInstance$: Observable<TrainingInstance>;
-
   constructor(private activeRoute: ActivatedRoute) {
-    super();
-  }
-
-  ngOnInit(): void {
     this.trainingInstance$ = this.activeRoute.data.pipe(
-      takeWhile(() => this.isAlive),
+      takeUntilDestroyed(),
       map((data) => data[TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME])
     );
   }

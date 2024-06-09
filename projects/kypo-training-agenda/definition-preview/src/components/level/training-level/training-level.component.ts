@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, ElementRef, HostListener, Input, ViewChild } from '@angular/core';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { TrainingLevel } from '@muni-kypo-crp/training-model';
 
 @Component({
@@ -12,17 +11,13 @@ import { TrainingLevel } from '@muni-kypo-crp/training-model';
  * Component of a training level in a training run. Users needs to find out correct solution (answer) and submit it
  * before he can continue to the next level. User can optionally take hints.
  */
-export class TrainingLevelComponent extends SentinelBaseDirective {
+export class TrainingLevelComponent {
   @Input() level: TrainingLevel;
 
   @ViewChild('rightPanel', { static: true }) rightPanelDiv: ElementRef;
 
   topologyWidth: number;
   topologyHeight: number;
-
-  constructor() {
-    super();
-  }
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any): void {

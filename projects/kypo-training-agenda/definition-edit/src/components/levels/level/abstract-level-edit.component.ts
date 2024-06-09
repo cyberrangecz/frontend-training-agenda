@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { AbstractLevelTypeEnum, MitreTechnique } from '@muni-kypo-crp/training-model';
 import { Level } from '@muni-kypo-crp/training-model';
 
@@ -12,7 +11,7 @@ import { Level } from '@muni-kypo-crp/training-model';
   styleUrls: ['./abstract-level-edit.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AbstractLevelEditComponent extends SentinelBaseDirective {
+export class AbstractLevelEditComponent {
   @Input() level: Level;
   @Input() mitreTechniquesList: MitreTechnique[];
   @Output() levelChange: EventEmitter<Level> = new EventEmitter();

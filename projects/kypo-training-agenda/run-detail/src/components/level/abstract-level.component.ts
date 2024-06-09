@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { AbstractLevelTypeEnum } from '@muni-kypo-crp/training-model';
 import { Level } from '@muni-kypo-crp/training-model';
 
@@ -13,7 +12,7 @@ import { Level } from '@muni-kypo-crp/training-model';
   styleUrls: ['./abstract-level.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AbstractLevelComponent extends SentinelBaseDirective {
+export class AbstractLevelComponent {
   @Input() level: Level;
   @Input() isLast: boolean;
   @Input() isLevelAnswered: boolean;
@@ -24,10 +23,6 @@ export class AbstractLevelComponent extends SentinelBaseDirective {
 
   @Output() next: EventEmitter<void> = new EventEmitter();
   levelTypes = AbstractLevelTypeEnum;
-
-  constructor() {
-    super();
-  }
 
   onNext(): void {
     this.next.emit();

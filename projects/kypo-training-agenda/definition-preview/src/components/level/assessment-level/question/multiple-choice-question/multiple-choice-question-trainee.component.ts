@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { MultipleChoiceQuestion } from '@muni-kypo-crp/training-model';
 
 @Component({
@@ -12,7 +11,7 @@ import { MultipleChoiceQuestion } from '@muni-kypo-crp/training-model';
  * Component displaying MCQ type of question in the assessment level of a trainees training run.
  * If is assessment is a test or question is required, it needs to be filled, otherwise it is optional.
  */
-export class MultipleChoiceQuestionTraineeComponent extends SentinelBaseDirective {
+export class MultipleChoiceQuestionTraineeComponent {
   @Input() question: MultipleChoiceQuestion;
   @Input() index: number;
 }

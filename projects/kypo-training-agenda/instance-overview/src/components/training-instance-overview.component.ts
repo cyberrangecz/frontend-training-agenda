@@ -1,16 +1,16 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { SentinelBaseDirective } from '@sentinel/common';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { OffsetPaginationEvent } from '@sentinel/common/pagination';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { SentinelTable, TableLoadEvent, TableActionEvent } from '@sentinel/components/table';
 import { Observable } from 'rxjs';
-import { map, take, takeWhile } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { TrainingInstanceOverviewControls } from '../model/adapters/training-instance-overview-controls';
 import { TrainingInstanceTable } from '../model/adapters/training-instance-table';
 import { TrainingNavigator, TrainingNotificationService } from '@muni-kypo-crp/training-agenda';
 import { TrainingInstanceOverviewService } from '../services/state/training-instance-overview.service';
 import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
  * Main component of organizer overview.
@@ -21,7 +21,7 @@ import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
   styleUrls: ['./training-instance-overview.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TrainingInstanceOverviewComponent extends SentinelBaseDirective implements OnInit, OnDestroy {
+export class TrainingInstanceOverviewComponent {
   readonly INITIAL_SORT_NAME = 'startTime';
   readonly INITIAL_SORT_DIR = 'desc';
 
@@ -36,16 +36,12 @@ export class TrainingInstanceOverviewComponent extends SentinelBaseDirective imp
     private navigator: TrainingNavigator,
     private notificationService: TrainingNotificationService
   ) {
-    super();
-  }
-
-  ngOnInit(): void {
     this.controls = TrainingInstanceOverviewControls.create(this.service);
     this.initTable();
   }
 
   onControlAction(control: SentinelControlItem): void {
-    control.result$.pipe(takeWhile(() => this.isAlive)).subscribe();
+    control.result$.pipe(takeUntilDestroyed()).subscribe();
   }
 
   onInstancesLoadEvent(loadEvent: TableLoadEvent): void {
@@ -60,7 +56,7 @@ export class TrainingInstanceOverviewComponent extends SentinelBaseDirective imp
         ),
         loadEvent.filter
       )
-      .pipe(takeWhile(() => this.isAlive))
+      .pipe(takeUntilDestroyed())
       .subscribe();
   }
 

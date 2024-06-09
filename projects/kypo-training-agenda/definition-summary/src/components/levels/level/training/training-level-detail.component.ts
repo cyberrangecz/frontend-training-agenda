@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { TrainingLevel } from '@muni-kypo-crp/training-model';
-import { SentinelBaseDirective } from '@sentinel/common';
 
 @Component({
   selector: 'kypo-training-level-detail',
@@ -8,7 +7,7 @@ import { SentinelBaseDirective } from '@sentinel/common';
   styleUrls: ['./training-level-detail.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TrainingLevelDetailComponent extends SentinelBaseDirective {
+export class TrainingLevelDetailComponent {
   @Input() level: TrainingLevel;
 
   getMitreTechniques(): string {

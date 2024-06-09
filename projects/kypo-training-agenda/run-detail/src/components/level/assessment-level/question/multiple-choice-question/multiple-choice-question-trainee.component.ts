@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { Question } from '@muni-kypo-crp/training-model';
 import { MultipleChoiceQuestion } from '@muni-kypo-crp/training-model';
 import { QuestionChoice } from '@muni-kypo-crp/training-model/lib/questions/question-choice';
@@ -15,7 +14,7 @@ import { QuestionChoice } from '@muni-kypo-crp/training-model/lib/questions/ques
  * Component displaying MCQ type of question in the assessment level of a trainees training run.
  * If is assessment is a test or question is required, it needs to be filled, otherwise it is optional.
  */
-export class MultipleChoiceQuestionTraineeComponent extends SentinelBaseDirective {
+export class MultipleChoiceQuestionTraineeComponent {
   @Input() question: MultipleChoiceQuestion;
   @Input() index: number;
   @Input() isBacktracked: boolean;

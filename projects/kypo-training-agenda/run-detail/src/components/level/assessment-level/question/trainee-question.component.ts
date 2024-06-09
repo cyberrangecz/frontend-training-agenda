@@ -8,7 +8,6 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { Question } from '@muni-kypo-crp/training-model';
 import { ExtendedMatchingItems } from '@muni-kypo-crp/training-model';
 import { FreeFormQuestion } from '@muni-kypo-crp/training-model';
@@ -27,7 +26,7 @@ import { MultipleChoiceQuestionTraineeComponent } from './multiple-choice-questi
  * Wrapper component for displaying questions in training run's assessment level. It selects the correct component to
  * display based on the question type.
  */
-export class TraineeQuestionComponent extends SentinelBaseDirective implements OnChanges {
+export class TraineeQuestionComponent implements OnChanges {
   @Input() question: Question;
   @Input() index: number;
   @Input() isBacktracked: boolean;

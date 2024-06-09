@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { InfoLevel } from '@muni-kypo-crp/training-model';
 
 @Component({
@@ -11,16 +10,12 @@ import { InfoLevel } from '@muni-kypo-crp/training-model';
 /**
  * Component to display training run's level of type INFO. Only displays markdown and allows user to continue immediately.
  */
-export class InfoLevelComponent extends SentinelBaseDirective {
+export class InfoLevelComponent {
   @Input() level: InfoLevel;
   @Input() isLast: boolean;
   @Input() isBacktracked: boolean;
   @Output() next: EventEmitter<void> = new EventEmitter();
   @ViewChild('controls', { read: ElementRef, static: true }) controlsPanel: ElementRef;
-
-  constructor() {
-    super();
-  }
 
   onNext(): void {
     this.next.emit();

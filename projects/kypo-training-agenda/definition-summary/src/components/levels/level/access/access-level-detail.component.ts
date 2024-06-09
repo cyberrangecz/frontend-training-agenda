@@ -1,7 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { AccessLevel } from '@muni-kypo-crp/training-model';
-import { SentinelBaseDirective } from '@sentinel/common';
 
 @Component({
   selector: 'kypo-access-level-detail',
@@ -16,7 +15,7 @@ import { SentinelBaseDirective } from '@sentinel/common';
     ]),
   ],
 })
-export class AccessLevelDetailComponent extends SentinelBaseDirective {
+export class AccessLevelDetailComponent {
   @Input() level: AccessLevel;
   @Input() expanded = false;
 

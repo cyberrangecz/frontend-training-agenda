@@ -66,6 +66,7 @@ export const environment = {
       // all matching urls will have authorization token header
       baseURL,
       'http://localhost',
+      'https://localhost',
     ],
     authorizationStrategyConfig: {
       authorizationUrl: userAngGroupURL + 'users/info',

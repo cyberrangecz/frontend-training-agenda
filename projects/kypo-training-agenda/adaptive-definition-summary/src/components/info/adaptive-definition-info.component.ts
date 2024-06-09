@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { TrainingDefinition } from '@muni-kypo-crp/training-model';
-import { SentinelBaseDirective } from '@sentinel/common';
 
 @Component({
   selector: 'kypo-adaptive-definition-info',
@@ -8,6 +7,6 @@ import { SentinelBaseDirective } from '@sentinel/common';
   styleUrls: ['./adaptive-definition-info.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AdaptiveDefinitionInfoComponent extends SentinelBaseDirective {
+export class AdaptiveDefinitionInfoComponent {
   @Input() trainingDefinition: TrainingDefinition;
 }

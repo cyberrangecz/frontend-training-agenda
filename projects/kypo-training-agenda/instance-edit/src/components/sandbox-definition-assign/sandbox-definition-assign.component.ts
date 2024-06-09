@@ -7,7 +7,6 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { SandboxDefinition } from '@muni-kypo-crp/sandbox-model';
 
 @Component({
@@ -16,7 +15,7 @@ import { SandboxDefinition } from '@muni-kypo-crp/sandbox-model';
   styleUrls: ['./sandbox-definition-assign.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SandboxDefinitionAssignComponent extends SentinelBaseDirective implements OnChanges {
+export class SandboxDefinitionAssignComponent implements OnChanges {
   @Input() selectedSandboxDefinitionId: number;
   @Input() sandboxDefinitions: SandboxDefinition[];
   @Output() selectionChanged: EventEmitter<number> = new EventEmitter();

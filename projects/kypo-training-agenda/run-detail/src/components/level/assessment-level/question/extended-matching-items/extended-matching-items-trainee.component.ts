@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { Question } from '@muni-kypo-crp/training-model';
 import { ExtendedMatchingItems } from '@muni-kypo-crp/training-model';
 
@@ -13,7 +12,7 @@ import { ExtendedMatchingItems } from '@muni-kypo-crp/training-model';
  * Component displaying EMI type of question in the assessment level of a trainees training run.
  * If assessment is type of test or question is required, user needs to answer it, otherwise it is optional.
  */
-export class ExtendedMatchingItemsTraineeComponent extends SentinelBaseDirective {
+export class ExtendedMatchingItemsTraineeComponent {
   @Input() question: ExtendedMatchingItems;
   @Input() index: number;
   @Input() isBacktracked: boolean;

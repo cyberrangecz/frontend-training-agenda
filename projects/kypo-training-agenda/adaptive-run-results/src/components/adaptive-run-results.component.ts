@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { ADAPTIVE_RUN_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
@@ -17,15 +16,13 @@ import { MitreTechniquesOverviewService } from '../service/mitre-techniques.serv
 /**
  * Component displaying visualization of adaptive run results
  */
-export class AdaptiveRunResultsComponent extends SentinelBaseDirective implements OnInit {
+export class AdaptiveRunResultsComponent implements OnInit {
   vizSize: { width: number; height: number };
 
   trainingRun$: Observable<any>;
   controls: SentinelControlItem[] = [];
 
-  constructor(private activatedRoute: ActivatedRoute, private service: MitreTechniquesOverviewService) {
-    super();
-  }
+  constructor(private activatedRoute: ActivatedRoute, private service: MitreTechniquesOverviewService) {}
 
   /**
    * Resolves controls action and calls appropriate handler

@@ -6,21 +6,21 @@ import { takeWhile } from 'rxjs/operators';
 import { ADAPTIVE_DEFINITION_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
 import { PhaseStepperAdapter } from '@muni-kypo-crp/training-agenda/internal';
 import { AdaptivePreviewStepper } from '../model/adaptive-preview-stepper';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'kypo-designer-preview',
   templateUrl: './adaptive-preview.component.html',
   styleUrls: ['./adaptive-preview.component.css'],
 })
-export class AdaptivePreviewComponent extends SentinelBaseDirective implements OnInit {
+export class AdaptivePreviewComponent implements OnInit {
   activePhase: Phase;
   phases: Phase[];
   stepper: AdaptivePreviewStepper;
   isStepperDisplayed: boolean;
 
   constructor(private activeRoute: ActivatedRoute) {
-    super();
-    this.activeRoute.data.pipe(takeWhile(() => this.isAlive)).subscribe((data) => {
+    this.activeRoute.data.pipe(takeUntilDestroyed()).subscribe((data) => {
       this.phases = data[ADAPTIVE_DEFINITION_DATA_ATTRIBUTE_NAME].levels;
       this.isStepperDisplayed = data[ADAPTIVE_DEFINITION_DATA_ATTRIBUTE_NAME].showStepperBar;
     });

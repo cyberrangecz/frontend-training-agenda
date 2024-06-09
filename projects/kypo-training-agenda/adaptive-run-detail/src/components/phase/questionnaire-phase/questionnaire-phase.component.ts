@@ -12,7 +12,6 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { take } from 'rxjs/operators';
 import {
   AdaptiveQuestion,
@@ -28,7 +27,7 @@ import { RunningAdaptiveRunService } from './../../../services/adaptive-run/runn
   styleUrls: ['./questionnaire-phase.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class QuestionnairePhaseComponent extends SentinelBaseDirective implements OnChanges, OnInit, AfterViewInit {
+export class QuestionnairePhaseComponent implements OnChanges, OnInit, AfterViewInit {
   @Input() phase: QuestionnairePhase;
   @Input() isLast: boolean;
   @Input() isPhaseAnswered: boolean;
@@ -71,9 +70,7 @@ export class QuestionnairePhaseComponent extends SentinelBaseDirective implement
     });
   }
 
-  constructor(private runningAdaptiveRunService: RunningAdaptiveRunService) {
-    super();
-  }
+  constructor(private runningAdaptiveRunService: RunningAdaptiveRunService) {}
 
   onNext(): void {
     this.next.emit();
