@@ -1,20 +1,22 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   EventEmitter,
+  inject,
   Input,
   OnChanges,
   Output,
   SimpleChanges,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { takeWhile } from 'rxjs/operators';
 import { AdaptiveDefinitionSelectComponent } from '../adaptive-definition-select/adaptive-definition-select.component';
 import { AdaptiveInstanceFormGroup } from './adaptive-instance-form-group';
 import { AbstractControl } from '@angular/forms';
 import { AdaptiveInstanceChangeEvent } from '../../models/events/adaptive-instance-change-event';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
  * Component for creating new or editing existing training instance
@@ -25,7 +27,7 @@ import { AdaptiveInstanceChangeEvent } from '../../models/events/adaptive-instan
   styleUrls: ['./adaptive-instance-edit.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AdaptiveInstanceEditComponent extends SentinelBaseDirective implements OnChanges {
+export class AdaptiveInstanceEditComponent implements OnChanges {
   @Input() trainingInstance: TrainingInstance;
   @Input() hasStarted: boolean;
   @Input() editMode: boolean;
@@ -33,10 +35,9 @@ export class AdaptiveInstanceEditComponent extends SentinelBaseDirective impleme
 
   now: Date;
   trainingInstanceFormGroup: AdaptiveInstanceFormGroup;
+  destroyRef = inject(DestroyRef);
 
-  constructor(private dialog: MatDialog) {
-    super();
-  }
+  constructor(private dialog: MatDialog) {}
 
   get startTime(): AbstractControl {
     return this.trainingInstanceFormGroup.formGroup.get('startTime');
@@ -78,7 +79,7 @@ export class AdaptiveInstanceEditComponent extends SentinelBaseDirective impleme
 
     dialogRef
       .afterClosed()
-      .pipe(takeWhile(() => this.isAlive))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((result) => {
         if (result && result.type === 'confirm') {
           this.trainingInstanceFormGroup.formGroup.markAsDirty();
@@ -89,7 +90,7 @@ export class AdaptiveInstanceEditComponent extends SentinelBaseDirective impleme
 
   private setupOnFormChangedEvent() {
     this.trainingInstanceFormGroup.formGroup.valueChanges
-      .pipe(takeWhile(() => this.isAlive))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => this.onChanged());
   }
 

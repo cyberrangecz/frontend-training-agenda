@@ -1,17 +1,19 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   EventEmitter,
+  inject,
   Input,
   OnChanges,
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { takeWhile } from 'rxjs/operators';
 import { AccessPhaseEditFormGroup } from './access-phase-edit-form-group';
 import { AbstractControl } from '@angular/forms';
 import { AccessPhase } from '@muni-kypo-crp/training-model';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
  * Component for editing of new or existing info-phase-training-phase phases
@@ -22,11 +24,12 @@ import { AccessPhase } from '@muni-kypo-crp/training-model';
   styleUrls: ['./access-phase-edit.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AccessPhaseEditComponent extends SentinelBaseDirective implements OnChanges {
+export class AccessPhaseEditComponent implements OnChanges {
   @Input() phase: AccessPhase;
   @Output() phaseChange: EventEmitter<AccessPhase> = new EventEmitter();
 
   phaseConfigFormGroup: AccessPhaseEditFormGroup;
+  destroyRef = inject(DestroyRef);
 
   get title(): AbstractControl {
     return this.phaseConfigFormGroup.formGroup.get('title');
@@ -45,7 +48,7 @@ export class AccessPhaseEditComponent extends SentinelBaseDirective implements O
     if ('phase' in changes) {
       this.phaseConfigFormGroup = new AccessPhaseEditFormGroup(this.phase);
       this.phaseConfigFormGroup.formGroup.get('title').markAsTouched();
-      this.phaseConfigFormGroup.formGroup.valueChanges.pipe(takeWhile(() => this.isAlive)).subscribe(() => {
+      this.phaseConfigFormGroup.formGroup.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
         this.phaseConfigFormGroup.setToPhase(this.phase);
         this.phaseChange.emit(this.phase);
       });

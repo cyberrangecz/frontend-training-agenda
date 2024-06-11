@@ -1,8 +1,9 @@
-import { SentinelBaseDirective } from '@sentinel/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   EventEmitter,
+  inject,
   Input,
   OnChanges,
   Output,
@@ -12,6 +13,7 @@ import { TrainingPhaseEditFormGroup } from './training-phase-edit-form-group';
 import { takeWhile } from 'rxjs/operators';
 import { AbstractControl, UntypedFormArray } from '@angular/forms';
 import { AdaptiveQuestion, MitreTechnique, TrainingPhase } from '@muni-kypo-crp/training-model';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'kypo-training-phase-configuration',
@@ -19,7 +21,7 @@ import { AdaptiveQuestion, MitreTechnique, TrainingPhase } from '@muni-kypo-crp/
   styleUrls: ['./training-phase-edit.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TrainingPhaseEditComponent extends SentinelBaseDirective implements OnChanges {
+export class TrainingPhaseEditComponent implements OnChanges {
   @Input() phase: TrainingPhase;
   @Input() updateMatrixFlag: boolean;
   @Input() presentTrainingPhases: TrainingPhase[];
@@ -28,6 +30,7 @@ export class TrainingPhaseEditComponent extends SentinelBaseDirective implements
   @Output() phaseChange: EventEmitter<TrainingPhase> = new EventEmitter();
 
   phaseConfigFormGroup: TrainingPhaseEditFormGroup;
+  destroyRef = inject(DestroyRef);
 
   get title(): AbstractControl {
     return this.phaseConfigFormGroup.formGroup.get('title');
@@ -53,7 +56,7 @@ export class TrainingPhaseEditComponent extends SentinelBaseDirective implements
     if ('phase' in changes || 'updateMatrixFlag' in changes) {
       this.phaseConfigFormGroup = new TrainingPhaseEditFormGroup(this.phase);
       this.setFormsAsTouched();
-      this.phaseConfigFormGroup.formGroup.valueChanges.pipe(takeWhile(() => this.isAlive)).subscribe(() => {
+      this.phaseConfigFormGroup.formGroup.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
         this.phaseConfigFormGroup.setToPhase(this.phase);
         this.phaseChange.emit(this.phase);
       });

@@ -1,7 +1,9 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   EventEmitter,
+  inject,
   Input,
   OnChanges,
   OnInit,
@@ -14,7 +16,6 @@ import {
   SentinelConfirmationDialogConfig,
   SentinelDialogResultEnum,
 } from '@sentinel/components/dialogs';
-import { SentinelBaseDirective } from '@sentinel/common';
 import {
   SentinelControlItem,
   SentinelControlMenuItem,
@@ -25,10 +26,10 @@ import { Question } from '@muni-kypo-crp/training-model';
 import { MultipleChoiceQuestion } from '@muni-kypo-crp/training-model';
 import { FreeFormQuestion } from '@muni-kypo-crp/training-model';
 import { defer, EMPTY, Observable, of } from 'rxjs';
-import { takeWhile } from 'rxjs/operators';
 import { QuestionChangeEvent } from '../../../../../../model/events/question-change-event';
 import { SentinelStepper, StepStateEnum } from '@sentinel/components/stepper';
 import { QuestionStepperAdapter } from '@muni-kypo-crp/training-agenda/internal';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
  * Wrapper component for questions inside the assessment level
@@ -39,7 +40,7 @@ import { QuestionStepperAdapter } from '@muni-kypo-crp/training-agenda/internal'
   styleUrls: ['./questions-overview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class QuestionsOverviewComponent extends SentinelBaseDirective implements OnInit, OnChanges {
+export class QuestionsOverviewComponent implements OnInit, OnChanges {
   @Input() questions: Question[];
   @Input() isTest: boolean;
   @Input() disabled: boolean;
@@ -51,10 +52,9 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
   selectedStep: number;
   controls: SentinelControlItem[];
   questionChanged: boolean;
+  destroyRef = inject(DestroyRef);
 
-  constructor(public dialog: MatDialog) {
-    super();
-  }
+  constructor(public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.selectedStep = 0;
@@ -95,7 +95,7 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
   }
 
   onControlAction(control: SentinelControlItem): void {
-    control.result$.pipe(takeWhile(() => this.isAlive)).subscribe();
+    control.result$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
   }
 
   /**
@@ -237,7 +237,7 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
 
     dialogRef
       .afterClosed()
-      .pipe(takeWhile(() => this.isAlive))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((result) => {
         if (result === SentinelDialogResultEnum.CONFIRMED) {
           this.stepperQuestions.items.splice(this.selectedStep, 1);

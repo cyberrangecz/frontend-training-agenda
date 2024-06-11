@@ -1,13 +1,13 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { SentinelBaseDirective } from '@sentinel/common';
+import { AfterViewInit, ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { Phase } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
-import { take, takeWhile, tap } from 'rxjs/operators';
+import { take, tap } from 'rxjs/operators';
 import { AdaptiveRunStepper } from '../model/adaptive-run-stepper';
 import { SentinelUser } from '@sentinel/layout';
 import { SentinelAuthService } from '@sentinel/auth';
 import { PhaseStepperAdapter } from '@muni-kypo-crp/training-agenda/internal';
 import { RunningAdaptiveRunService } from '../services/adaptive-run/running/running-adaptive-run.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'kypo-adaptive-training-run-detail',
@@ -19,7 +19,7 @@ import { RunningAdaptiveRunService } from '../services/adaptive-run/running/runn
  * Main component of trainees training. Displays window with current level of a training and navigation to the next.
  * Optionally displays stepper with progress of the training and timer counting time from the start of a training.
  */
-export class AdaptiveRunDetailComponent extends SentinelBaseDirective implements OnInit, AfterViewInit {
+export class AdaptiveRunDetailComponent implements OnInit, AfterViewInit {
   user$: Observable<SentinelUser>;
   activePhase$: Observable<Phase>;
   isCurrentPhaseAnswered$: Observable<boolean>;
@@ -36,10 +36,9 @@ export class AdaptiveRunDetailComponent extends SentinelBaseDirective implements
   sandboxDefinitionId: number;
   localEnvironment: boolean;
   backwardMode: boolean;
+  destroyRef = inject(DestroyRef);
 
-  constructor(private trainingRunService: RunningAdaptiveRunService, private auth: SentinelAuthService) {
-    super();
-  }
+  constructor(private trainingRunService: RunningAdaptiveRunService, private auth: SentinelAuthService) {}
 
   ngOnInit(): void {
     this.init();
@@ -68,7 +67,7 @@ export class AdaptiveRunDetailComponent extends SentinelBaseDirective implements
     }
 
     this.activePhase$ = this.trainingRunService.activePhase$.pipe(
-      takeWhile(() => this.isAlive),
+      takeUntilDestroyed(this.destroyRef),
       tap(() => {
         this.isLast = this.trainingRunService.isLast();
         if (this.isStepperDisplayed) {

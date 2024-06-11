@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
-import { map, takeWhile } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
  * Component displaying progress visualization
@@ -15,16 +15,15 @@ import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-a
   styleUrls: ['./training-instance-progress.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TrainingInstanceProgressComponent extends SentinelBaseDirective implements OnInit {
+export class TrainingInstanceProgressComponent implements OnInit {
   @Input() trainingInstance$: Observable<TrainingInstance>;
+  destroyRef = inject(DestroyRef);
 
-  constructor(private activeRoute: ActivatedRoute) {
-    super();
-  }
+  constructor(private activeRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.trainingInstance$ = this.activeRoute.data.pipe(
-      takeWhile(() => this.isAlive),
+      takeUntilDestroyed(this.destroyRef),
       map((data) => data[TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME])
     );
   }

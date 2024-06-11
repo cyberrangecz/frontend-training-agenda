@@ -1,16 +1,16 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { OffsetPaginationEvent } from '@sentinel/common/pagination';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { TrainingInstance, TrainingRun } from '@muni-kypo-crp/training-model';
 import { SentinelTable, TableActionEvent } from '@sentinel/components/table';
 import { Observable } from 'rxjs';
-import { map, switchMap, take, takeWhile, tap } from 'rxjs/operators';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 import { AdaptiveRunTable } from '../model/adaptive-run-table';
 import { AdaptiveRunService } from '../services/runs/adaptive-run.service';
 import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
 import { ADAPTIVE_INSTANCE_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
  * Smart component of training instance runs
@@ -21,14 +21,13 @@ import { ADAPTIVE_INSTANCE_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-a
   styleUrls: ['./adaptive-instance-runs.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AdaptiveInstanceRunsComponent extends SentinelBaseDirective implements OnInit {
+export class AdaptiveInstanceRunsComponent implements OnInit {
   trainingInstance$: Observable<TrainingInstance>;
   trainingRuns$: Observable<SentinelTable<TrainingRun>>;
   trainingRunsHasError$: Observable<boolean>;
-
   trainingRunsControls: SentinelControlItem[];
-
   selectedTrainingRunIds: number[] = [];
+  destroyRef = inject(DestroyRef);
 
   private trainingInstance: TrainingInstance;
 
@@ -36,9 +35,7 @@ export class AdaptiveInstanceRunsComponent extends SentinelBaseDirective impleme
     private activeRoute: ActivatedRoute,
     private paginationService: PaginationService,
     private adaptiveRunService: AdaptiveRunService
-  ) {
-    super();
-  }
+  ) {}
 
   ngOnInit(): void {
     this.trainingInstance$ = this.activeRoute.data.pipe(
@@ -68,7 +65,7 @@ export class AdaptiveInstanceRunsComponent extends SentinelBaseDirective impleme
       )
       .subscribe();
     this.trainingRuns$ = this.adaptiveRunService.resource$.pipe(
-      takeWhile(() => this.isAlive),
+      takeUntilDestroyed(this.destroyRef),
       map((resource) => {
         return new AdaptiveRunTable(resource, this.adaptiveRunService, this.trainingInstance);
       })

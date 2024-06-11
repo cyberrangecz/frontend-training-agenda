@@ -1,10 +1,10 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, DestroyRef, EventEmitter, inject, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { TrainingDefinition } from '@muni-kypo-crp/training-model';
 import { takeWhile } from 'rxjs/operators';
 import { TrainingDefinitionChangeEvent } from '../../model/events/training-definition-change-event';
 import { AdaptiveTrainingDefinitionEditFormGroup } from './adaptive-training-definition-edit-form-group';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
  * Component for creating new or editing already existing training definition
@@ -14,16 +14,13 @@ import { AdaptiveTrainingDefinitionEditFormGroup } from './adaptive-training-def
   templateUrl: './adaptive-training-definition-edit.component.html',
   styleUrls: ['./adaptive-training-definition-edit.component.css'],
 })
-export class AdaptiveTrainingDefinitionEditComponent extends SentinelBaseDirective implements OnChanges {
+export class AdaptiveTrainingDefinitionEditComponent implements OnChanges {
   @Input() trainingDefinition: TrainingDefinition;
   @Output() edited: EventEmitter<TrainingDefinitionChangeEvent> = new EventEmitter();
 
   trainingDefinitionEditFormGroup: AdaptiveTrainingDefinitionEditFormGroup;
   freeFormValid = true;
-
-  constructor() {
-    super();
-  }
+  destroyRef = inject(DestroyRef);
 
   get title(): AbstractControl {
     return this.trainingDefinitionEditFormGroup.formGroup.get('title');
@@ -78,7 +75,7 @@ export class AdaptiveTrainingDefinitionEditComponent extends SentinelBaseDirecti
 
   private setupOnFormChangedEvent() {
     this.trainingDefinitionEditFormGroup.formGroup.valueChanges
-      .pipe(takeWhile(() => this.isAlive))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => this.onChanged());
   }
 

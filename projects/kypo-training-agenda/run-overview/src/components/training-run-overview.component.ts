@@ -1,5 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { SentinelBaseDirective } from '@sentinel/common';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { OffsetPaginationEvent } from '@sentinel/common/pagination';
 import { AccessedTrainingRun } from '@muni-kypo-crp/training-model';
 import { SentinelTable, TableLoadEvent, TableActionEvent } from '@sentinel/components/table';
@@ -11,6 +10,7 @@ import { AccessedTrainingRunService } from '../services/state/training/accessed-
 import { AccessedAdaptiveRunService } from '../services/state/adaptive/accessed-adaptive-run.service';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { AccessedTrainingRunControls } from '../model/accessed-training-run-controls';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
  * Main smart component of the trainee overview.
@@ -21,18 +21,18 @@ import { AccessedTrainingRunControls } from '../model/accessed-training-run-cont
   styleUrls: ['./training-run-overview.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TrainingRunOverviewComponent extends SentinelBaseDirective implements OnInit {
+export class TrainingRunOverviewComponent implements OnInit {
   trainingRuns$: Observable<SentinelTable<AccessedTrainingRun>>;
   hasError$: Observable<boolean>;
   isLoading = false;
   controls: SentinelControlItem[];
+  destroyRef = inject(DestroyRef);
 
   constructor(
     private trainingRunOverviewService: AccessedTrainingRunService,
     private accessedAdaptiveRunService: AccessedAdaptiveRunService,
     private paginationService: PaginationService
   ) {
-    super();
     this.controls = AccessedTrainingRunControls.create(trainingRunOverviewService);
   }
 
@@ -49,12 +49,12 @@ export class TrainingRunOverviewComponent extends SentinelBaseDirective implemen
     if (this.isAdaptiveToken(accessToken)) {
       this.accessedAdaptiveRunService
         .access(accessToken)
-        .pipe(takeWhile(() => this.isAlive))
+        .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(() => (this.isLoading = false));
     } else {
       this.trainingRunOverviewService
         .access(accessToken)
-        .pipe(takeWhile(() => this.isAlive))
+        .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(() => (this.isLoading = false));
     }
   }
@@ -73,7 +73,7 @@ export class TrainingRunOverviewComponent extends SentinelBaseDirective implemen
   loadAccessedTrainingRuns(loadEvent: TableLoadEvent): void {
     this.trainingRunOverviewService
       .getAll(new OffsetPaginationEvent(0, 0, '', 'asc'), loadEvent.filter)
-      .pipe(takeWhile(() => this.isAlive))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe();
   }
 
@@ -95,6 +95,6 @@ export class TrainingRunOverviewComponent extends SentinelBaseDirective implemen
   }
 
   onControlsAction(control: SentinelControlItem): void {
-    control.result$.pipe(takeWhile(() => this.isAlive)).subscribe();
+    control.result$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
   }
 }

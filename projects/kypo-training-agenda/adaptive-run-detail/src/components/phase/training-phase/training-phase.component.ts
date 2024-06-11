@@ -2,9 +2,11 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   ElementRef,
   EventEmitter,
   HostListener,
+  inject,
   Input,
   OnChanges,
   OnInit,
@@ -12,14 +14,14 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { TrainingPhase } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
 import { KypoTopologyErrorService } from '@muni-kypo-crp/topology-graph';
 import { TrainingErrorHandler } from '@muni-kypo-crp/training-agenda';
-import { delay, take, takeWhile } from 'rxjs/operators';
+import { delay, take } from 'rxjs/operators';
 import { AdaptiveRunTrainingPhaseService } from './../../../services/adaptive-run/training-phase/adaptive-run-training-phase.service';
 import { AdaptiveRunTrainingPhaseConcreteService } from '../../../services/adaptive-run/training-phase/adaptive-run-training-phase-concrete.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'kypo-training-phase',
@@ -28,7 +30,7 @@ import { AdaptiveRunTrainingPhaseConcreteService } from '../../../services/adapt
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [{ provide: AdaptiveRunTrainingPhaseService, useClass: AdaptiveRunTrainingPhaseConcreteService }],
 })
-export class TrainingPhaseComponent extends SentinelBaseDirective implements OnInit, OnChanges, AfterViewInit {
+export class TrainingPhaseComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() phase: TrainingPhase;
   @Input() isLast: boolean;
   @Input() isPhaseAnswered: boolean;
@@ -51,14 +53,13 @@ export class TrainingPhaseComponent extends SentinelBaseDirective implements OnI
   displayedSolutionContent$: Observable<string>;
   calculating = false;
   controlsWrapped: boolean;
+  destroyRef = inject(DestroyRef);
 
   constructor(
     private trainingPhaseService: AdaptiveRunTrainingPhaseService,
     private topologyErrorService: KypoTopologyErrorService,
     private errorHandler: TrainingErrorHandler
-  ) {
-    super();
-  }
+  ) {}
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any): void {
@@ -136,7 +137,7 @@ export class TrainingPhaseComponent extends SentinelBaseDirective implements OnI
   }
 
   private subscribeToTopologyErrorHandler() {
-    this.topologyErrorService.error$.pipe(takeWhile(() => this.isAlive)).subscribe({
+    this.topologyErrorService.error$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (event) => this.errorHandler.emit(event.err, event.action),
       error: (err) => this.errorHandler.emit(err, 'There is a problem with topology error handler.'),
     });

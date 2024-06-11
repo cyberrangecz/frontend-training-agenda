@@ -1,10 +1,9 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, Input, OnInit, ViewChild } from '@angular/core';
 import { AbstractPhaseTypeEnum, Phase, QuestionnairePhase, QuestionnaireTypeEnum } from '@muni-kypo-crp/training-model';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { PhaseDetailExpandControls } from '../../model/phase-detail-expand-controls';
-import { takeWhile } from 'rxjs/operators';
 import { MatAccordion } from '@angular/material/expansion';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'kypo-adaptive-definition-phases',
@@ -12,19 +11,20 @@ import { MatAccordion } from '@angular/material/expansion';
   styleUrls: ['./adaptive-definition-phases.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AdaptiveDefinitionPhasesDetailComponent extends SentinelBaseDirective implements OnInit {
+export class AdaptiveDefinitionPhasesDetailComponent implements OnInit {
   @Input() phases: Phase[];
 
   @ViewChild(MatAccordion) accordion: MatAccordion;
 
   controls: SentinelControlItem[];
+  destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
     this.controls = PhaseDetailExpandControls.create();
   }
 
   onControlsAction(control: SentinelControlItem): void {
-    control.result$.pipe(takeWhile(() => this.isAlive)).subscribe((res) => {
+    control.result$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((res) => {
       res === 'expand' ? this.accordion.openAll() : this.accordion.closeAll();
     });
   }

@@ -2,9 +2,11 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   ElementRef,
   EventEmitter,
   HostListener,
+  inject,
   Input,
   OnChanges,
   OnInit,
@@ -12,14 +14,14 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { AccessPhase } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
 import { KypoTopologyErrorService } from '@muni-kypo-crp/topology-graph';
 import { TrainingErrorHandler } from '@muni-kypo-crp/training-agenda';
-import { take, takeWhile } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 import { AdaptiveRunAccessPhaseService } from './../../../services/adaptive-run/access-phase/adaptive-run-access-phase.service';
 import { AdaptiveRunAccessPhaseConcreteService } from '../../../services/adaptive-run/access-phase/adaptive-run-access-phase-concrete.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'kypo-access-phase',
@@ -28,7 +30,7 @@ import { AdaptiveRunAccessPhaseConcreteService } from '../../../services/adaptiv
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [{ provide: AdaptiveRunAccessPhaseService, useClass: AdaptiveRunAccessPhaseConcreteService }],
 })
-export class AccessPhaseComponent extends SentinelBaseDirective implements OnInit, OnChanges, AfterViewInit {
+export class AccessPhaseComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() phase: AccessPhase;
   @Input() isLast: boolean;
   @Input() isPhaseAnswered: boolean;
@@ -49,14 +51,13 @@ export class AccessPhaseComponent extends SentinelBaseDirective implements OnIni
   isCorrectPasskeySubmitted$: Observable<boolean>;
   isLoading$: Observable<boolean>;
   controlsWrapped: boolean;
+  destroyRef = inject(DestroyRef);
 
   constructor(
     private accessPhaseService: AdaptiveRunAccessPhaseService,
     private topologyErrorService: KypoTopologyErrorService,
     private errorHandler: TrainingErrorHandler
-  ) {
-    super();
-  }
+  ) {}
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any): void {
@@ -121,7 +122,7 @@ export class AccessPhaseComponent extends SentinelBaseDirective implements OnIni
   }
 
   private subscribeToTopologyErrorHandler() {
-    this.topologyErrorService.error$.pipe(takeWhile(() => this.isAlive)).subscribe({
+    this.topologyErrorService.error$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (event) => this.errorHandler.emit(event.err, event.action),
       error: (err) => this.errorHandler.emit(err, 'There is a problem with topology error handler.'),
     });

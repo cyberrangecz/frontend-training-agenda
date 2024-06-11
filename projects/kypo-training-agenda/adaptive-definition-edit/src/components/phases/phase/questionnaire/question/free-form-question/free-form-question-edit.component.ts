@@ -1,7 +1,9 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   EventEmitter,
+  inject,
   Input,
   OnChanges,
   Output,
@@ -11,7 +13,8 @@ import { AdaptiveQuestion, QuestionnaireTypeEnum } from '@muni-kypo-crp/training
 import { QuestionFormGroup } from '../question-form-group';
 import { AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { takeWhile } from 'rxjs/operators';
-import { SentinelBaseDirective, SentinelValidators } from '@sentinel/common';
+import { SentinelValidators } from '@sentinel/common';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'kypo-adaptive-free-form-question-edit',
@@ -22,7 +25,7 @@ import { SentinelBaseDirective, SentinelValidators } from '@sentinel/common';
 /**
  * Component for editing a question of type Free Form
  */
-export class FreeFormQuestionEditComponent extends SentinelBaseDirective implements OnChanges {
+export class FreeFormQuestionEditComponent implements OnChanges {
   @Input() index: number;
   @Input() question: AdaptiveQuestion;
   @Input() required: boolean;
@@ -31,6 +34,7 @@ export class FreeFormQuestionEditComponent extends SentinelBaseDirective impleme
 
   questionnaireTypes = QuestionnaireTypeEnum;
   freeFormQuestionFormGroup: QuestionFormGroup;
+  destroyRef = inject(DestroyRef);
 
   get title(): AbstractControl {
     return this.freeFormQuestionFormGroup.questionFormGroup.get('title');
@@ -45,7 +49,7 @@ export class FreeFormQuestionEditComponent extends SentinelBaseDirective impleme
       this.freeFormQuestionFormGroup = new QuestionFormGroup(this.question, this.questionnaireType);
       this.choices.markAllAsTouched();
       this.freeFormQuestionFormGroup.questionFormGroup.valueChanges
-        .pipe(takeWhile(() => this.isAlive))
+        .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(() => this.questionChanged());
     }
   }

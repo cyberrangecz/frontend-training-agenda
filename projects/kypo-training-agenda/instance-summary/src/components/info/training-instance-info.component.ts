@@ -1,20 +1,22 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   EventEmitter,
+  inject,
   Input,
   OnChanges,
   OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { TrainingDefinition } from '@muni-kypo-crp/training-model';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { map, takeWhile } from 'rxjs/operators';
 import { TrainingInstanceInfoControls } from '../../model/training-instance-info-controls';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
  * Component for displaying basic info about selected training instance.
@@ -25,7 +27,7 @@ import { TrainingInstanceInfoControls } from '../../model/training-instance-info
   styleUrls: ['./training-instance-info.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TrainingInstanceInfoComponent extends SentinelBaseDirective implements OnInit, OnChanges {
+export class TrainingInstanceInfoComponent implements OnInit, OnChanges {
   @Input() trainingInstance: TrainingInstance;
   @Input() accessTokenLink: string;
   @Input() poolIdLink: string;
@@ -40,12 +42,8 @@ export class TrainingInstanceInfoComponent extends SentinelBaseDirective impleme
   @Output() showNotification: EventEmitter<string[]> = new EventEmitter();
 
   trainingDefinition: TrainingDefinition;
-
   infoControls: SentinelControlItem[];
-
-  constructor() {
-    super();
-  }
+  destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
     this.initInfoComponent();
@@ -58,7 +56,7 @@ export class TrainingInstanceInfoComponent extends SentinelBaseDirective impleme
   }
 
   onInfoControlAction(control: SentinelControlItem): void {
-    control.result$.pipe(takeWhile(() => this.isAlive)).subscribe();
+    control.result$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
   }
 
   private initInfoComponent() {

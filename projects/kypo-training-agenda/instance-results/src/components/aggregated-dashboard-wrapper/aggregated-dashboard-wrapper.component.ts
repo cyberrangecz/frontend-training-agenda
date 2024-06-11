@@ -1,26 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import { SentinelBaseDirective } from '@sentinel/common';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, takeWhile } from 'rxjs';
 import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
 import { map } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'kypo-aggregated-dashboard-wrapper',
   templateUrl: './aggregated-dashboard-wrapper.component.html',
   styleUrls: ['./aggregated-dashboard-wrapper.component.css'],
 })
-export class AggregatedDashboardWrapperComponent extends SentinelBaseDirective implements OnInit {
+export class AggregatedDashboardWrapperComponent implements OnInit {
   trainingInstance$: Observable<TrainingInstance>;
+  destroyRef = inject(DestroyRef);
 
-  constructor(private activeRoute: ActivatedRoute, private router: Router, private navigator: TrainingNavigator) {
-    super();
-  }
+  constructor(private activeRoute: ActivatedRoute, private router: Router, private navigator: TrainingNavigator) {}
 
   ngOnInit(): void {
     this.trainingInstance$ = this.activeRoute.parent.data.pipe(
-      takeWhile(() => this.isAlive),
+      takeUntilDestroyed(this.destroyRef),
       map((data) => data.trainingInstance as TrainingInstance)
     );
   }

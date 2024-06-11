@@ -1,18 +1,20 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   EventEmitter,
+  inject,
   Input,
   OnChanges,
   Output,
   SimpleChanges,
 } from '@angular/core';
 import { AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { SentinelBaseDirective, SentinelValidators } from '@sentinel/common';
+import { SentinelValidators } from '@sentinel/common';
 import { Question } from '@muni-kypo-crp/training-model';
 import { MultipleChoiceQuestion } from '@muni-kypo-crp/training-model';
-import { takeWhile } from 'rxjs/operators';
 import { MultipleChoiceFormGroup } from './multiple-choice-question-edit-form-group';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
  * Component for editing a question of type Multiple Choice Question
@@ -23,7 +25,7 @@ import { MultipleChoiceFormGroup } from './multiple-choice-question-edit-form-gr
   styleUrls: ['./multiple-choice-question-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MultipleChoiceQuestionEditComponent extends SentinelBaseDirective implements OnChanges {
+export class MultipleChoiceQuestionEditComponent implements OnChanges {
   @Input() question: MultipleChoiceQuestion;
   @Input() isTest: boolean;
   @Input() required: boolean;
@@ -32,10 +34,7 @@ export class MultipleChoiceQuestionEditComponent extends SentinelBaseDirective i
   multipleChoicesFormGroup: MultipleChoiceFormGroup;
   maxQuestionScore = Question.MAX_QUESTION_SCORE;
   maxQuestionPenalty = Question.MAX_QUESTION_PENALTY;
-
-  constructor() {
-    super();
-  }
+  destroyRef = inject(DestroyRef);
 
   get title(): AbstractControl {
     return this.multipleChoicesFormGroup.formGroup.get('title');
@@ -56,7 +55,7 @@ export class MultipleChoiceQuestionEditComponent extends SentinelBaseDirective i
       this.checkState();
       this.choices.markAllAsTouched();
       this.multipleChoicesFormGroup.formGroup.valueChanges
-        .pipe(takeWhile(() => this.isAlive))
+        .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(() => this.questionChanged());
     }
     if ('isTest' in changes && !changes.isTest.isFirstChange()) {

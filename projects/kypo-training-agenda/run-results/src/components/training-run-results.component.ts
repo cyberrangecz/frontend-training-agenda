@@ -1,12 +1,12 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { Observable } from 'rxjs';
 import { take, takeWhile } from 'rxjs/operators';
 import { TRAINING_RUN_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
 import { TrainingDefinitionApi } from '@muni-kypo-crp/training-api';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { MitreTechniquesOverviewService } from '../service/mitre-techniques.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'kypo-training-run-results',
@@ -17,16 +17,15 @@ import { MitreTechniquesOverviewService } from '../service/mitre-techniques.serv
 /**
  * Component displaying visualization of training run results
  */
-export class TrainingRunResultsComponent extends SentinelBaseDirective implements OnInit {
+export class TrainingRunResultsComponent implements OnInit {
   hasReferenceSolution$: Observable<boolean>;
+  destroyRef = inject(DestroyRef);
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private trainingDefinitionApi: TrainingDefinitionApi,
     private service: MitreTechniquesOverviewService
-  ) {
-    super();
-  }
+  ) {}
 
   ngOnInit(): void {
     this.loadVisualizationInfo();
@@ -45,7 +44,7 @@ export class TrainingRunResultsComponent extends SentinelBaseDirective implement
    */
   loadVisualizationInfo(): void {
     this.activatedRoute.data
-      .pipe(takeWhile(() => this.isAlive))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(
         (data) =>
           (this.hasReferenceSolution$ = this.trainingDefinitionApi.hasReferenceSolution(

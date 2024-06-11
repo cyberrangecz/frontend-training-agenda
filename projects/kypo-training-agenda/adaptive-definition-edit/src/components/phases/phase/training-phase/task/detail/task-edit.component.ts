@@ -1,17 +1,19 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   EventEmitter,
+  inject,
   Input,
   OnChanges,
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { TaskEditFormGroup } from './task-edit-form-group';
 import { AbstractControl } from '@angular/forms';
 import { takeWhile } from 'rxjs/operators';
 import { Task } from '@muni-kypo-crp/training-model';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'kypo-task-configuration',
@@ -19,11 +21,12 @@ import { Task } from '@muni-kypo-crp/training-model';
   styleUrls: ['./task-edit.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TaskEditComponent extends SentinelBaseDirective implements OnChanges {
+export class TaskEditComponent implements OnChanges {
   @Input() task: Task;
   @Output() taskChange: EventEmitter<Task> = new EventEmitter();
 
   taskConfigFormGroup: TaskEditFormGroup;
+  destroyRef = inject(DestroyRef);
 
   get title(): AbstractControl {
     return this.taskConfigFormGroup.formGroup.get('title');
@@ -49,7 +52,7 @@ export class TaskEditComponent extends SentinelBaseDirective implements OnChange
     if ('task' in changes) {
       this.taskConfigFormGroup = new TaskEditFormGroup(this.task);
       this.markFormsAsTouched();
-      this.taskConfigFormGroup.formGroup.valueChanges.pipe(takeWhile(() => this.isAlive)).subscribe(() => {
+      this.taskConfigFormGroup.formGroup.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
         this.taskConfigFormGroup.setToTask(this.task);
         this.taskChange.emit(this.task);
       });

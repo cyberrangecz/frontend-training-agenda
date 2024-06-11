@@ -1,18 +1,20 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   EventEmitter,
+  inject,
   Input,
   OnChanges,
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { Hint, MitreTechnique, TrainingLevel } from '@muni-kypo-crp/training-model';
 import { takeWhile } from 'rxjs/operators';
 import { TrainingLevelEditFormGroup } from './training-level-edit-form-group';
 import { AbstractControl } from '@angular/forms';
 import { SentinelControlItem } from '@sentinel/components/controls';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
  * Component for editing new or existing training level
@@ -23,12 +25,13 @@ import { SentinelControlItem } from '@sentinel/components/controls';
   styleUrls: ['./training-level-edit.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TrainingLevelEditComponent extends SentinelBaseDirective implements OnChanges {
+export class TrainingLevelEditComponent implements OnChanges {
   @Input() level: TrainingLevel;
   @Input() mitreTechniquesList: MitreTechnique[];
   @Output() levelChange: EventEmitter<TrainingLevel> = new EventEmitter();
   trainingLevelConfigFormGroup: TrainingLevelEditFormGroup;
   controls: SentinelControlItem[];
+  destroyRef = inject(DestroyRef);
 
   get title(): AbstractControl {
     return this.trainingLevelConfigFormGroup.formGroup.get('title');
@@ -77,11 +80,13 @@ export class TrainingLevelEditComponent extends SentinelBaseDirective implements
     if ('level' in changes) {
       this.trainingLevelConfigFormGroup = new TrainingLevelEditFormGroup(this.level);
       this.setFormsAsTouched();
-      this.trainingLevelConfigFormGroup.formGroup.valueChanges.pipe(takeWhile(() => this.isAlive)).subscribe(() => {
-        this.variantAnswers.value ? this.enableVariableName() : this.enableAnswer();
-        this.trainingLevelConfigFormGroup.setToLevel(this.level);
-        this.levelChange.emit(this.level);
-      });
+      this.trainingLevelConfigFormGroup.formGroup.valueChanges
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(() => {
+          this.variantAnswers.value ? this.enableVariableName() : this.enableAnswer();
+          this.trainingLevelConfigFormGroup.setToLevel(this.level);
+          this.levelChange.emit(this.level);
+        });
     }
   }
 

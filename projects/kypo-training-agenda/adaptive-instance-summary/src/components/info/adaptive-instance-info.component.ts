@@ -1,20 +1,22 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   EventEmitter,
+  inject,
   Input,
   OnChanges,
   OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { TrainingDefinition } from '@muni-kypo-crp/training-model';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { Observable } from 'rxjs';
-import { map, takeWhile } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { AdaptiveInstanceInfoControls } from '../../model/adaptive-instance-info-controls';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
  * Component for displaying basic info about selected training instance.
@@ -25,7 +27,7 @@ import { AdaptiveInstanceInfoControls } from '../../model/adaptive-instance-info
   styleUrls: ['./adaptive-instance-info.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AdaptiveInstanceInfoComponent extends SentinelBaseDirective implements OnInit, OnChanges {
+export class AdaptiveInstanceInfoComponent implements OnInit, OnChanges {
   @Input() trainingInstance: TrainingInstance;
   @Input() accessTokenLink: string;
   @Input() poolIdLink: string;
@@ -38,10 +40,7 @@ export class AdaptiveInstanceInfoComponent extends SentinelBaseDirective impleme
   trainingDefinition: TrainingDefinition;
 
   infoControls: SentinelControlItem[];
-
-  constructor() {
-    super();
-  }
+  destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
     this.initInfoComponent();
@@ -54,7 +53,7 @@ export class AdaptiveInstanceInfoComponent extends SentinelBaseDirective impleme
   }
 
   onInfoControlAction(control: SentinelControlItem): void {
-    control.result$.pipe(takeWhile(() => this.isAlive)).subscribe();
+    control.result$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
   }
 
   private initInfoComponent() {

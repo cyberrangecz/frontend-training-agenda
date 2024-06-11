@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, DestroyRef, EventEmitter, inject, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { AdaptiveQuestion, QuestionnaireTypeEnum } from '@muni-kypo-crp/training-model';
 import { QuestionFormGroup } from '../question-form-group';
 import { AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { SentinelBaseDirective, SentinelValidators } from '@sentinel/common';
+import { SentinelValidators } from '@sentinel/common';
 import { takeWhile } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'kypo-rating-form-question-edit',
@@ -13,7 +14,7 @@ import { takeWhile } from 'rxjs/operators';
 /**
  * Component for editing a question of type Rating Form
  */
-export class RatingFormQuestionEditComponent extends SentinelBaseDirective implements OnChanges {
+export class RatingFormQuestionEditComponent implements OnChanges {
   @Input() index: number;
   @Input() question: AdaptiveQuestion;
   @Input() required: boolean;
@@ -24,6 +25,7 @@ export class RatingFormQuestionEditComponent extends SentinelBaseDirective imple
   ratingFormFormGroup: QuestionFormGroup;
   selectedRatingLevel: number;
   ratingLevelOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  destroyRef = inject(DestroyRef);
 
   get title(): AbstractControl {
     return this.ratingFormFormGroup.questionFormGroup.get('title');
@@ -38,7 +40,7 @@ export class RatingFormQuestionEditComponent extends SentinelBaseDirective imple
       this.selectedRatingLevel = this.question.choices.length;
       this.choices.markAllAsTouched();
       this.ratingFormFormGroup.questionFormGroup.valueChanges
-        .pipe(takeWhile(() => this.isAlive))
+        .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(() => this.questionChanged());
     }
   }
