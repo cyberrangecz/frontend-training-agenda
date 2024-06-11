@@ -1,23 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TrainingRun } from '@muni-kypo-crp/training-model';
-import { SentinelBaseDirective } from '@sentinel/common';
-import { takeWhile } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'kypo-command-timeline-wrapper',
   templateUrl: './command-timeline-wrapper.component.html',
   styleUrls: ['./command-timeline-wrapper.component.css'],
 })
-export class CommandTimelineWrapperComponent extends SentinelBaseDirective implements OnInit {
+export class CommandTimelineWrapperComponent implements OnInit {
   trainingRun: TrainingRun;
+  destroyRef = inject(DestroyRef);
 
-  constructor(private activeRoute: ActivatedRoute) {
-    super();
-  }
+  constructor(private activeRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.activeRoute.parent.data
-      .pipe(takeWhile(() => this.isAlive))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((data) => (this.trainingRun = data.trainingRun));
   }
 }

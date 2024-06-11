@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component, HostListener } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, HostListener, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { MitreTechnique, Phase, TrainingDefinition } from '@muni-kypo-crp/training-model';
 import { combineLatest, Observable } from 'rxjs';
@@ -17,6 +16,7 @@ import { PhaseEditService } from '../services/state/phase/phase-edit.service';
 import { PhaseEditConcreteService } from '../services/state/phase/phase-edit-concrete.service';
 import { MitreTechniquesService } from '../services/state/mitre-techniques/mitre-techniques.service';
 import { MitreTechniquesConcreteService } from '../services/state/mitre-techniques/mitre-techniques-concrete.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
  * Main smart component of training definition edit/new page.
@@ -33,7 +33,7 @@ import { MitreTechniquesConcreteService } from '../services/state/mitre-techniqu
     { provide: MitreTechniquesService, useClass: MitreTechniquesConcreteService },
   ],
 })
-export class AdaptiveDefinitionEditOverviewComponent extends SentinelBaseDirective {
+export class AdaptiveDefinitionEditOverviewComponent {
   trainingDefinition$: Observable<TrainingDefinition>;
   editMode$: Observable<boolean>;
   tdTitle$: Observable<string>;
@@ -48,6 +48,7 @@ export class AdaptiveDefinitionEditOverviewComponent extends SentinelBaseDirecti
   defaultPaginationSize: number;
   controls: SentinelControlItem[];
   mitreTechniques$: Observable<MitreTechnique[]>;
+  destroyRef = inject(DestroyRef);
 
   constructor(
     private activeRoute: ActivatedRoute,
@@ -56,7 +57,6 @@ export class AdaptiveDefinitionEditOverviewComponent extends SentinelBaseDirecti
     private phaseEditService: PhaseEditService,
     private mitreTechniquesService: MitreTechniquesService
   ) {
-    super();
     this.defaultPaginationSize = this.paginationService.getPagination();
     this.trainingDefinition$ = this.editService.trainingDefinition$;
     this.tdTitle$ = this.editService.trainingDefinition$.pipe(map((td) => td.title));
@@ -65,16 +65,13 @@ export class AdaptiveDefinitionEditOverviewComponent extends SentinelBaseDirecti
     this.mitreTechniques$ = this.mitreTechniquesService.mitreTechniques$;
     this.phases$ = this.phaseEditService.phases$;
     this.trainingPhasesCount$ = this.phaseEditService.presentTrainingPhases$.pipe(map((phases) => phases.length));
-    this.mitreTechniquesService
-      .getAll()
-      .pipe(takeWhile(() => this.isAlive))
-      .subscribe();
+    this.mitreTechniquesService.getAll().pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
     const valid$: Observable<boolean> = combineLatest(
       this.editService.definitionValid$,
       this.phaseEditService.phasesValid$
     ).pipe(map((valid) => valid[0] && valid[1]));
     this.activeRoute.data
-      .pipe(takeWhile(() => this.isAlive))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((data) => this.editService.set(data[ADAPTIVE_DEFINITION_DATA_ATTRIBUTE_NAME]));
     this.editMode$ = this.editService.editMode$.pipe(
       tap(
@@ -98,7 +95,7 @@ export class AdaptiveDefinitionEditOverviewComponent extends SentinelBaseDirecti
   }
 
   /**
-   * Determines if all changes in sub components are saved and user can navigate to different page
+   * Determines if all changes in subcomponents are saved and user can navigate to different page
    */
   canDeactivate(): boolean {
     return this.canDeactivateTDEdit && this.canDeactivateAuthors && this.unsavedPhases.length <= 0;
@@ -114,7 +111,7 @@ export class AdaptiveDefinitionEditOverviewComponent extends SentinelBaseDirecti
   }
 
   onControlsAction(control: SentinelControlItem): void {
-    control.result$.pipe(takeWhile(() => this.isAlive)).subscribe(() => (this.canDeactivateTDEdit = true));
+    control.result$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => (this.canDeactivateTDEdit = true));
   }
 
   /**

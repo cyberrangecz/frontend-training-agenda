@@ -1,18 +1,19 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   EventEmitter,
+  inject,
   Input,
   OnChanges,
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { AssessmentLevel } from '@muni-kypo-crp/training-model';
 import { Question } from '@muni-kypo-crp/training-model';
-import { takeWhile } from 'rxjs/operators';
 import { AssessmentLevelEditFormGroup } from './assessment-level-edit-form-group';
 import { AbstractControl } from '@angular/forms';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
  * Component for editing new or existing assessment level
@@ -23,10 +24,11 @@ import { AbstractControl } from '@angular/forms';
   styleUrls: ['./assessment-level-edit.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AssessmentLevelEditComponent extends SentinelBaseDirective implements OnChanges {
+export class AssessmentLevelEditComponent implements OnChanges {
   @Input() level: AssessmentLevel;
   @Output() levelChange: EventEmitter<AssessmentLevel> = new EventEmitter();
   assessmentFormGroup: AssessmentLevelEditFormGroup;
+  destroyRef = inject(DestroyRef);
 
   get title(): AbstractControl {
     return this.assessmentFormGroup.formGroup.get('title');
@@ -49,7 +51,7 @@ export class AssessmentLevelEditComponent extends SentinelBaseDirective implemen
       this.assessmentFormGroup = new AssessmentLevelEditFormGroup(this.level);
       this.title.markAsTouched();
       this.estimatedDuration.markAsTouched();
-      this.assessmentFormGroup.formGroup.valueChanges.pipe(takeWhile(() => this.isAlive)).subscribe(() => {
+      this.assessmentFormGroup.formGroup.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
         this.assessmentFormGroup.setToLevel(this.level);
         this.levelChange.emit(this.level);
       });

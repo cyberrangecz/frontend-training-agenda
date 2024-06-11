@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { SentinelBaseDirective } from '@sentinel/common';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { OffsetPaginationEvent } from '@sentinel/common/pagination';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { TrainingDefinition } from '@muni-kypo-crp/training-model';
@@ -11,6 +10,7 @@ import { TrainingDefinitionTable } from '../model/training-definition-table';
 import { AdaptiveDefinitionService } from '../services/state/adaptive-definition.service';
 import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
 import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
  * Main smart component of training definition overview
@@ -20,7 +20,7 @@ import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
   templateUrl: './adaptive-definition-overview.component.html',
   styleUrls: ['./adaptive-definition-overview.component.css'],
 })
-export class AdaptiveDefinitionOverviewComponent extends SentinelBaseDirective implements OnInit {
+export class AdaptiveDefinitionOverviewComponent implements OnInit {
   readonly INIT_SORT_NAME = 'lastEdited';
   readonly INIT_SORT_DIR = 'desc';
 
@@ -29,14 +29,13 @@ export class AdaptiveDefinitionOverviewComponent extends SentinelBaseDirective i
   isLoading$: Observable<boolean>;
   topControls: SentinelControlItem[] = [];
   bottomControls: SentinelControlItem[] = [];
+  destroyRef = inject(DestroyRef);
 
   constructor(
     private paginationService: PaginationService,
     private trainingDefinitionService: AdaptiveDefinitionService,
     private trainingNavigator: TrainingNavigator
-  ) {
-    super();
-  }
+  ) {}
 
   ngOnInit(): void {
     this.topControls = TrainingDefinitionOverviewControls.createTopControls(this.trainingDefinitionService);
@@ -61,7 +60,7 @@ export class AdaptiveDefinitionOverviewComponent extends SentinelBaseDirective i
         ),
         loadEvent.filter
       )
-      .pipe(takeWhile(() => this.isAlive))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe();
   }
 

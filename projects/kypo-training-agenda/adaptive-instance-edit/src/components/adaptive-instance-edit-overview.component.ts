@@ -1,11 +1,10 @@
-import { SentinelBaseDirective } from '@sentinel/common';
 import { PaginatedResource, OffsetPaginationEvent } from '@sentinel/common/pagination';
 import { ChangeDetectionStrategy, Component, HostListener } from '@angular/core';
 import { Observable } from 'rxjs';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, take, takeWhile } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { AdaptiveInstanceEditService } from '../services/state/edit/adaptive-instance-edit.service';
 import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
 import { AdaptiveInstanceEditControls } from '../models/adapter/adaptive-instance-edit-controls';
@@ -16,6 +15,7 @@ import { SentinelUserAssignService } from '@sentinel/components/user-assign';
 import { OrganizersAssignService } from '../services/state/organizers-assign/organizers-assign.service';
 import { Pool, SandboxDefinition } from '@muni-kypo-crp/sandbox-model';
 import { SandboxPoolListAdapter } from '../models/adapter/sandbox-pool-list-adapter';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'kypo-adaptive-instance-edit-overview',
@@ -27,7 +27,7 @@ import { SandboxPoolListAdapter } from '../models/adapter/sandbox-pool-list-adap
     { provide: SentinelUserAssignService, useClass: OrganizersAssignService },
   ],
 })
-export class AdaptiveInstanceEditOverviewComponent extends SentinelBaseDirective {
+export class AdaptiveInstanceEditOverviewComponent {
   readonly PAGE_SIZE: number = 999;
 
   trainingInstance$: Observable<TrainingInstance>;
@@ -53,7 +53,6 @@ export class AdaptiveInstanceEditOverviewComponent extends SentinelBaseDirective
     private paginationService: PaginationService,
     private editService: AdaptiveInstanceEditService
   ) {
-    super();
     this.defaultPaginationSize = this.paginationService.getPagination();
     this.trainingInstance$ = this.editService.trainingInstance$;
     this.hasStarted$ = this.editService.hasStarted$;
@@ -62,7 +61,7 @@ export class AdaptiveInstanceEditOverviewComponent extends SentinelBaseDirective
     const saveDisabled$: Observable<boolean> = this.editService.saveDisabled$;
     this.tiTitle$ = this.editService.trainingInstance$.pipe(map((ti) => ti.title));
     this.activeRoute.data
-      .pipe(takeWhile(() => this.isAlive))
+      .pipe(takeUntilDestroyed())
       .subscribe((data) => this.editService.set(data[ADAPTIVE_INSTANCE_DATA_ATTRIBUTE_NAME]));
     this.pools$ = this.editService.pools$.pipe(map((pool) => this.mapToAdapter(pool)));
     this.sandboxDefinitions$ = this.editService.sandboxDefinitions$.pipe(map((definitions) => definitions.elements));

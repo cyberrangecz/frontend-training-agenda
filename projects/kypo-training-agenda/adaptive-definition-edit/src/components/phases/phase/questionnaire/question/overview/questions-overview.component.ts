@@ -1,6 +1,15 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  EventEmitter,
+  inject,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { AdaptiveQuestion, QuestionTypeEnum } from '@muni-kypo-crp/training-model';
-import { SentinelBaseDirective, SentinelValidators } from '@sentinel/common';
 import { AdaptiveQuestionStepperAdapter } from '@muni-kypo-crp/training-agenda/internal';
 import { SentinelStepper, StepStateEnum } from '@sentinel/components/stepper';
 import {
@@ -17,14 +26,14 @@ import {
   SentinelConfirmationDialogConfig,
   SentinelDialogResultEnum,
 } from '@sentinel/components/dialogs';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'kypo-adaptive-questions-overview',
   templateUrl: './questions-overview.component.html',
   styleUrls: ['./questions-overview.component.css'],
 })
-export class QuestionsOverviewComponent extends SentinelBaseDirective implements OnInit, OnChanges {
+export class QuestionsOverviewComponent implements OnInit, OnChanges {
   @Input() questions: AdaptiveQuestion[];
   @Input() questionnaireOrder: number;
   @Input() questionnaireType: QuestionTypeEnum;
@@ -35,10 +44,9 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
   controls: SentinelControlItem[];
   questionsHasError: boolean;
   selectedStep: number;
+  destroyRef = inject(DestroyRef);
 
-  constructor(public dialog: MatDialog) {
-    super();
-  }
+  constructor(public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.selectedStep = 0;
@@ -114,7 +122,7 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
     }
     dialogRef
       .afterClosed()
-      .pipe(takeWhile(() => this.isAlive))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((result) => {
         if (result === SentinelDialogResultEnum.CONFIRMED) {
           this.deleteRelationChange.emit(this.selectedStep);
@@ -161,7 +169,7 @@ export class QuestionsOverviewComponent extends SentinelBaseDirective implements
   }
 
   onControlAction(control: SentinelControlItem): void {
-    control.result$.pipe(takeWhile(() => this.isAlive)).subscribe();
+    control.result$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
   }
 
   private calculateHasError() {

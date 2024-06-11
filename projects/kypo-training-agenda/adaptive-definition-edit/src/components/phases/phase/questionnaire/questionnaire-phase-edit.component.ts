@@ -1,13 +1,14 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   EventEmitter,
+  inject,
   Input,
   OnChanges,
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { takeWhile } from 'rxjs/operators';
 import { QuestionnairePhaseEditFormGroup } from './questionnaire-phase-edit-form-group';
 import { AbstractControl, UntypedFormArray } from '@angular/forms';
@@ -20,6 +21,7 @@ import {
   QuestionTypeEnum,
   TrainingPhase,
 } from '@muni-kypo-crp/training-model';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'kypo-questionnaire-phase-configuration',
@@ -27,7 +29,7 @@ import {
   styleUrls: ['./questionnaire-phase-edit.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class QuestionnairePhaseEditComponent extends SentinelBaseDirective implements OnChanges {
+export class QuestionnairePhaseEditComponent implements OnChanges {
   @Input() phase: QuestionnairePhase;
   @Output() phaseChange: EventEmitter<QuestionnairePhase> = new EventEmitter();
   @Input() updateQuestionsFlag: boolean;
@@ -35,6 +37,7 @@ export class QuestionnairePhaseEditComponent extends SentinelBaseDirective imple
 
   questionnaireFormGroup: QuestionnairePhaseEditFormGroup;
   questionnaireTypes = QuestionnaireTypeEnum;
+  destroyRef = inject(DestroyRef);
 
   get title(): AbstractControl {
     return this.questionnaireFormGroup.formGroup.get('title');
@@ -59,7 +62,7 @@ export class QuestionnairePhaseEditComponent extends SentinelBaseDirective imple
         });
       });
       this.title.markAsTouched();
-      this.questionnaireFormGroup.formGroup.valueChanges.pipe(takeWhile(() => this.isAlive)).subscribe(() => {
+      this.questionnaireFormGroup.formGroup.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
         this.questionnaireFormGroup.setToPhase(this.phase);
         this.phaseChange.emit(this.phase);
       });
@@ -153,7 +156,7 @@ export class QuestionnairePhaseEditComponent extends SentinelBaseDirective imple
   private updateForm() {
     this.phaseChange.emit(this.phase);
     this.questionnaireFormGroup = new QuestionnairePhaseEditFormGroup(this.phase);
-    this.questionnaireFormGroup.formGroup.valueChanges.pipe(takeWhile(() => this.isAlive)).subscribe(() => {
+    this.questionnaireFormGroup.formGroup.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
       this.questionnaireFormGroup.setToPhase(this.phase);
       this.phaseChange.emit(this.phase);
     });

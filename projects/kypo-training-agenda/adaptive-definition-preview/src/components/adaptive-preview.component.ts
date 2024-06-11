@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { Phase } from '@muni-kypo-crp/training-model';
-import { takeWhile } from 'rxjs/operators';
 import { ADAPTIVE_DEFINITION_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
 import { PhaseStepperAdapter } from '@muni-kypo-crp/training-agenda/internal';
 import { AdaptivePreviewStepper } from '../model/adaptive-preview-stepper';

@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { Observable } from 'rxjs';
 import { takeWhile } from 'rxjs/operators';
 import { TrainingDefinitionApi } from '@muni-kypo-crp/training-api';
 import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
  * Component displaying training instance results visualizations
@@ -15,16 +15,15 @@ import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-a
   styleUrls: ['./training-instance-results.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TrainingInstanceResultsComponent extends SentinelBaseDirective implements OnInit {
+export class TrainingInstanceResultsComponent implements OnInit {
   hasReferenceSolution$: Observable<boolean>;
+  destroyRef = inject(DestroyRef);
 
-  constructor(private activeRoute: ActivatedRoute, private trainingDefinitionApi: TrainingDefinitionApi) {
-    super();
-  }
+  constructor(private activeRoute: ActivatedRoute, private trainingDefinitionApi: TrainingDefinitionApi) {}
 
   ngOnInit(): void {
     this.activeRoute.data
-      .pipe(takeWhile(() => this.isAlive))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(
         (data) =>
           (this.hasReferenceSolution$ = this.trainingDefinitionApi.hasReferenceSolution(

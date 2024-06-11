@@ -1,7 +1,6 @@
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { defer, Observable, of } from 'rxjs';
 import { map, takeWhile } from 'rxjs/operators';
@@ -9,6 +8,7 @@ import { PhaseStepperAdapter } from '@muni-kypo-crp/training-agenda/internal';
 import { PhaseEditService } from '../../../../../../services/state/phase/phase-edit.service';
 import { PhaseMoveEvent } from '../../../../../../model/events/phase-move-event';
 import { Task } from '@muni-kypo-crp/training-model';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
  * Main hint edit component. Contains stepper to navigate through existing hints and controls to create new hints
@@ -25,15 +25,14 @@ import { Task } from '@muni-kypo-crp/training-model';
     },
   ],
 })
-export class TasksOverviewComponent extends SentinelBaseDirective implements OnInit {
+export class TasksOverviewComponent implements OnInit {
   stepperTasks: Observable<PhaseStepperAdapter[]>;
   controls: SentinelControlItem[];
   activeStep$: Observable<number>;
   tasksHasErrors: boolean;
+  destroyRef = inject(DestroyRef);
 
-  constructor(public dialog: MatDialog, private phaseService: PhaseEditService) {
-    super();
-  }
+  constructor(public dialog: MatDialog, private phaseService: PhaseEditService) {}
 
   ngOnInit(): void {
     this.activeStep$ = this.phaseService.activeTaskStep$;
@@ -48,7 +47,7 @@ export class TasksOverviewComponent extends SentinelBaseDirective implements OnI
   }
 
   onControlAction(control: SentinelControlItem): void {
-    control.result$.pipe(takeWhile(() => this.isAlive)).subscribe();
+    control.result$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
   }
 
   onTaskMoved(event: PhaseMoveEvent): void {

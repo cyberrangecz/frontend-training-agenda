@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { SentinelBaseDirective } from '@sentinel/common';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Observable, timer } from 'rxjs';
-import { map, takeWhile } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
  * Component of training timer displaying time passed from start of the training
@@ -12,9 +12,10 @@ import { map, takeWhile } from 'rxjs/operators';
   styleUrls: ['./training-timer.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TrainingTimerComponent extends SentinelBaseDirective implements OnChanges {
+export class TrainingTimerComponent implements OnChanges {
   @Input() startTime: Date;
   timeElapsed: Observable<number>;
+  destroyRef = inject(DestroyRef);
 
   ngOnChanges(changes: SimpleChanges): void {
     if ('startTime' in changes) {
@@ -25,7 +26,7 @@ export class TrainingTimerComponent extends SentinelBaseDirective implements OnC
   private startCounter() {
     const period = 1000;
     this.timeElapsed = timer(0, period).pipe(
-      takeWhile(() => this.isAlive),
+      takeUntilDestroyed(this.destroyRef),
       map(() => this.calculateElapsedTime())
     );
   }

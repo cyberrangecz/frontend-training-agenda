@@ -2,9 +2,11 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   ElementRef,
   EventEmitter,
   HostListener,
+  inject,
   Input,
   OnChanges,
   OnInit,
@@ -12,14 +14,14 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { AccessLevel } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
-import { take, takeWhile } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 import { KypoTopologyErrorService } from '@muni-kypo-crp/topology-graph';
 import { TrainingErrorHandler } from '@muni-kypo-crp/training-agenda';
 import { TrainingRunAccessLevelService } from '../../../services/training-run/level/access/training-run-access-level.service';
 import { TrainingRunAccessLevelConcreteService } from '../../../services/training-run/level/access/training-run-access-level-concrete.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'kypo-access-level',
@@ -31,7 +33,7 @@ import { TrainingRunAccessLevelConcreteService } from '../../../services/trainin
 /**
  * Component to display training run's level of type ACCESS. Only displays markdown and allows user to continue immediately.
  */
-export class AccessLevelComponent extends SentinelBaseDirective implements OnInit, OnChanges, AfterViewInit {
+export class AccessLevelComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() level: AccessLevel;
   @Input() isLast: boolean;
   @Input() isLevelAnswered: boolean;
@@ -52,14 +54,13 @@ export class AccessLevelComponent extends SentinelBaseDirective implements OnIni
   isCorrectPasskeySubmitted$: Observable<boolean>;
   isLoading$: Observable<boolean>;
   controlsWrapped: boolean;
+  destroyRef = inject(DestroyRef);
 
   constructor(
     private accessLevelService: TrainingRunAccessLevelService,
     private topologyErrorService: KypoTopologyErrorService,
     private errorHandler: TrainingErrorHandler
-  ) {
-    super();
-  }
+  ) {}
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any): void {
@@ -130,7 +131,7 @@ export class AccessLevelComponent extends SentinelBaseDirective implements OnIni
   }
 
   private subscribeToTopologyErrorHandler() {
-    this.topologyErrorService.error$.pipe(takeWhile(() => this.isAlive)).subscribe({
+    this.topologyErrorService.error$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (event) => this.errorHandler.emit(event.err, event.action),
       error: (err) => this.errorHandler.emit(err, 'There is a problem with topology error handler.'),
     });

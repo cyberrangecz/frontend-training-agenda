@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, DestroyRef, EventEmitter, inject, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { AdaptiveQuestion, QuestionnaireTypeEnum } from '@muni-kypo-crp/training-model';
-import { SentinelBaseDirective, SentinelValidators } from '@sentinel/common';
+import { SentinelValidators } from '@sentinel/common';
 import { AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { QuestionFormGroup } from '../question-form-group';
 import { takeWhile } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'kypo-adaptive-multiple-choice-question-edit',
@@ -13,7 +14,7 @@ import { takeWhile } from 'rxjs/operators';
 /**
  * Component for editing a question of type Multiple Choice
  */
-export class MultipleChoiceQuestionEditComponent extends SentinelBaseDirective implements OnChanges {
+export class MultipleChoiceQuestionEditComponent implements OnChanges {
   @Input() index: number;
   @Input() question: AdaptiveQuestion;
   @Input() required: boolean;
@@ -22,13 +23,14 @@ export class MultipleChoiceQuestionEditComponent extends SentinelBaseDirective i
 
   questionnaireTypes = QuestionnaireTypeEnum;
   multipleChoicesFormGroup: QuestionFormGroup;
+  destroyRef = inject(DestroyRef);
 
   ngOnChanges(changes: SimpleChanges): void {
     if ('question' in changes) {
       this.multipleChoicesFormGroup = new QuestionFormGroup(this.question, this.questionnaireType);
       this.choices.markAllAsTouched();
       this.multipleChoicesFormGroup.questionFormGroup.valueChanges
-        .pipe(takeWhile(() => this.isAlive))
+        .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(() => this.questionChanged());
     }
   }

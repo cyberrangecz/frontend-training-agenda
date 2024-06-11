@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { OffsetPaginationEvent } from '@sentinel/common/pagination';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { TrainingInstance, TrainingRun } from '@muni-kypo-crp/training-model';
@@ -11,6 +10,7 @@ import { TrainingRunTable } from '../model/training-run-table';
 import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
 import { TrainingRunService } from '../services/runs/training-run.service';
 import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
  * Smart component of training instance runs
@@ -21,15 +21,14 @@ import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
   styleUrls: ['./training-instance-runs.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TrainingInstanceRunsComponent extends SentinelBaseDirective implements OnInit {
+export class TrainingInstanceRunsComponent implements OnInit {
   trainingInstance$: Observable<TrainingInstance>;
   trainingRuns$: Observable<SentinelTable<TrainingRun>>;
   trainingRunsHasError$: Observable<boolean>;
   loadingTrainingRuns$: Observable<boolean>;
-
   archivedTrainingRunsControls: SentinelControlItem[];
-
   selectedArchivedTrainingRunIds: number[] = [];
+  destroyRef = inject(DestroyRef);
 
   private trainingInstance: TrainingInstance;
 
@@ -37,9 +36,7 @@ export class TrainingInstanceRunsComponent extends SentinelBaseDirective impleme
     private activeRoute: ActivatedRoute,
     private paginationService: PaginationService,
     private trainingRunService: TrainingRunService
-  ) {
-    super();
-  }
+  ) {}
 
   ngOnInit(): void {
     this.trainingInstance$ = this.activeRoute.data.pipe(
@@ -63,7 +60,7 @@ export class TrainingInstanceRunsComponent extends SentinelBaseDirective impleme
     this.paginationService.setPagination(loadEvent.pagination.size);
     this.trainingRunService
       .getAll(this.trainingInstance.id, new OffsetPaginationEvent(0, loadEvent.pagination.size, '', 'asc'))
-      .pipe(takeWhile(() => this.isAlive))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe();
   }
 
@@ -78,7 +75,7 @@ export class TrainingInstanceRunsComponent extends SentinelBaseDirective impleme
       .subscribe();
 
     this.trainingRuns$ = this.trainingRunService.resource$.pipe(
-      takeWhile(() => this.isAlive),
+      takeUntilDestroyed(this.destroyRef),
       map((resource) => {
         return new TrainingRunTable(resource, this.trainingRunService, this.trainingInstance);
       })

@@ -21,7 +21,7 @@ export class TrainingInstanceTable extends SentinelTable<TrainingInstanceRowAdap
       new Column('title', 'Title', true),
       new Column('startTimeFormatted', 'Start Time', true, 'startTime'),
       new Column('endTimeFormatted', 'End Time', true, 'endTime'),
-      new Column('expiresIn', 'Expires In', true, 'endTime'),
+      new Column('expiresIn', 'Expires In', true, 'expireTime'),
       new Column('tdTitle', 'Training Definition', true, 'title'),
       new Column('lastEditBy', 'Last Edit By', false),
       new Column('poolTitle', 'Pool', true, 'poolId'),

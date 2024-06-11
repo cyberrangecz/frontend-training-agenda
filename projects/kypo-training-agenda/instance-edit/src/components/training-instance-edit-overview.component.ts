@@ -1,11 +1,10 @@
-import { ChangeDetectionStrategy, Component, HostListener } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, HostListener, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { PaginatedResource, OffsetPaginationEvent } from '@sentinel/common/pagination';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
-import { map, take, takeWhile } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { TrainingInstanceEditControls } from '../model/adapter/training-instance-edit-controls';
 import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
 import { TrainingInstanceChangeEvent } from '../model/events/training-instance-change-event';
@@ -16,6 +15,7 @@ import { SentinelUserAssignService } from '@sentinel/components/user-assign';
 import { OrganizersAssignService } from '../services/state/organizers-assign/organizers-assign.service';
 import { SandboxPoolListAdapter } from '../model/adapter/sandbox-pool-list-adapter';
 import { Pool, SandboxDefinition } from '@muni-kypo-crp/sandbox-model';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
  * Main component of training instance edit/create page. Serves mainly as a smart component wrapper
@@ -30,7 +30,7 @@ import { Pool, SandboxDefinition } from '@muni-kypo-crp/sandbox-model';
     { provide: SentinelUserAssignService, useClass: OrganizersAssignService },
   ],
 })
-export class TrainingInstanceEditOverviewComponent extends SentinelBaseDirective {
+export class TrainingInstanceEditOverviewComponent {
   readonly PAGE_SIZE: number = 999;
 
   trainingInstance$: Observable<TrainingInstance>;
@@ -49,6 +49,7 @@ export class TrainingInstanceEditOverviewComponent extends SentinelBaseDirective
   defaultPaginationSize: number;
   hasAssignedPool: boolean;
   controls: SentinelControlItem[];
+  destroyRef = inject(DestroyRef);
 
   constructor(
     private router: Router,
@@ -56,7 +57,6 @@ export class TrainingInstanceEditOverviewComponent extends SentinelBaseDirective
     private paginationService: PaginationService,
     private editService: TrainingInstanceEditService
   ) {
-    super();
     this.defaultPaginationSize = this.paginationService.getPagination();
     this.trainingInstance$ = this.editService.trainingInstance$;
     this.hasStarted$ = this.editService.hasStarted$;
@@ -65,7 +65,7 @@ export class TrainingInstanceEditOverviewComponent extends SentinelBaseDirective
     this.editMode$ = this.editService.editMode$;
     this.tiTitle$ = this.editService.trainingInstance$.pipe(map((ti) => ti.title));
     this.activeRoute.data
-      .pipe(takeWhile(() => this.isAlive))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((data) => this.editService.set(data[TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME]));
     this.pools$ = this.editService.pools$.pipe(map((pool) => this.mapToAdapter(pool)));
     this.sandboxDefinitions$ = this.editService.sandboxDefinitions$.pipe(map((definitions) => definitions.elements));

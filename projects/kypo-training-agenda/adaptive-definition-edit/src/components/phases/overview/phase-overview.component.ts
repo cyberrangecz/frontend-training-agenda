@@ -1,7 +1,9 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   EventEmitter,
+  inject,
   Input,
   OnChanges,
   OnInit,
@@ -9,10 +11,9 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { Observable } from 'rxjs';
-import { map, takeWhile, tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import {
   AdaptiveQuestion,
   MitreTechnique,
@@ -27,6 +28,7 @@ import { PhaseEditService } from '../../../services/state/phase/phase-edit.servi
 import { PhaseMoveEvent } from '../../../model/events/phase-move-event';
 import { PhaseOverviewControls } from '../../../model/adapters/phase-overview-controls';
 import { PhaseRelation } from '@muni-kypo-crp/training-model/lib/phase/questionnaire-phase/phase-relation';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
  * Smart component for phases stepper and phases edit components
@@ -37,7 +39,7 @@ import { PhaseRelation } from '@muni-kypo-crp/training-model/lib/phase/questionn
   styleUrls: ['./phase-overview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PhaseOverviewComponent extends SentinelBaseDirective implements OnInit, OnChanges {
+export class PhaseOverviewComponent implements OnInit, OnChanges {
   @Output() unsavedPhases: EventEmitter<Phase[]> = new EventEmitter();
   @Output() phasesCount: EventEmitter<number> = new EventEmitter();
   @Input() trainingDefinition: TrainingDefinition;
@@ -52,10 +54,9 @@ export class PhaseOverviewComponent extends SentinelBaseDirective implements OnI
   presentTrainingPhases$: Observable<TrainingPhase[]>;
   phaseRelations: PhaseRelation[] = [];
   questions: Map<number, AdaptiveQuestion> = new Map<number, AdaptiveQuestion>();
+  destroyRef = inject(DestroyRef);
 
-  constructor(private dialog: MatDialog, private phaseService: PhaseEditService) {
-    super();
-  }
+  constructor(private dialog: MatDialog, private phaseService: PhaseEditService) {}
 
   ngOnInit(): void {
     this.activeStep$ = this.phaseService.activeStep$;
@@ -69,7 +70,7 @@ export class PhaseOverviewComponent extends SentinelBaseDirective implements OnI
     this.presentTrainingPhases$ = this.phaseService.presentTrainingPhases$;
 
     this.phaseService.unsavedPhases$
-      .pipe(takeWhile(() => this.isAlive))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((unsavedLevels) => this.unsavedPhases.emit(unsavedLevels));
     this.initControl();
   }
@@ -78,7 +79,7 @@ export class PhaseOverviewComponent extends SentinelBaseDirective implements OnI
     if ('trainingDefinition' in changes) {
       this.phaseService.set(this.trainingDefinition.id, this.trainingDefinition.levels as Phase[]);
       this.phaseService.phases$
-        .pipe(takeWhile(() => this.isAlive))
+        .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe((phases) => this.updateQuestionsAndPhaseRelations(phases));
     }
   }
@@ -92,7 +93,7 @@ export class PhaseOverviewComponent extends SentinelBaseDirective implements OnI
   }
 
   onControlAction(control: SentinelControlItem): void {
-    control.result$.pipe(takeWhile(() => this.isAlive)).subscribe();
+    control.result$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
   }
 
   /**

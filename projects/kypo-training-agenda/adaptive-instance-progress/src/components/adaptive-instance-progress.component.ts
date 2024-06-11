@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, HostListener, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, HostListener, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
-import { map, takeWhile, tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
  * Component displaying adaptive instance progress visualizations
@@ -15,13 +15,12 @@ import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-a
   styleUrls: ['./adaptive-instance-progress.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AdaptiveInstanceProgressComponent extends SentinelBaseDirective implements OnInit {
+export class AdaptiveInstanceProgressComponent implements OnInit {
   trainingInstance$: Observable<TrainingInstance>;
   vizSize: { width: number; height: number };
+  destroyRef = inject(DestroyRef);
 
-  constructor(private activeRoute: ActivatedRoute) {
-    super();
-  }
+  constructor(private activeRoute: ActivatedRoute) {}
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any): void {
@@ -30,7 +29,7 @@ export class AdaptiveInstanceProgressComponent extends SentinelBaseDirective imp
 
   ngOnInit(): void {
     this.trainingInstance$ = this.activeRoute.data.pipe(
-      takeWhile(() => this.isAlive),
+      takeUntilDestroyed(this.destroyRef),
       map((data) => data[TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME]),
       tap(() => this.calculateVisualizationSize(window.innerWidth, window.innerHeight))
     );

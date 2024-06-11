@@ -1,17 +1,18 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   EventEmitter,
+  inject,
   Input,
   OnChanges,
   Output,
   SimpleChanges,
 } from '@angular/core';
 import { AbstractControl, Validators } from '@angular/forms';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { Hint } from '@muni-kypo-crp/training-model';
-import { takeWhile } from 'rxjs/operators';
 import { HintEditFormGroup } from './hint-edit-form-group';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'kypo-hint-edit',
@@ -22,7 +23,7 @@ import { HintEditFormGroup } from './hint-edit-form-group';
 /**
  * Component to edit new or existing training level hint
  */
-export class HintDetailEditComponent extends SentinelBaseDirective implements OnChanges {
+export class HintDetailEditComponent implements OnChanges {
   @Input() hint: Hint;
   @Input() levelMaxScore: number;
   @Input() hintsPenaltySum: number;
@@ -31,10 +32,7 @@ export class HintDetailEditComponent extends SentinelBaseDirective implements On
 
   maxHintPenalty: number;
   hintConfigurationFormGroup: HintEditFormGroup;
-
-  constructor() {
-    super();
-  }
+  destroyRef = inject(DestroyRef);
 
   get title(): AbstractControl {
     return this.hintConfigurationFormGroup.formGroup.get('title');
@@ -70,7 +68,7 @@ export class HintDetailEditComponent extends SentinelBaseDirective implements On
 
   private subscribeFormChanges() {
     this.hintConfigurationFormGroup.formGroup.valueChanges
-      .pipe(takeWhile(() => this.isAlive))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => this.onHintChanged());
   }
 

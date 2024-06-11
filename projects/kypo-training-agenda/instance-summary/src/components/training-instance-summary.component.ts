@@ -1,7 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OffsetPaginationEvent } from '@sentinel/common/pagination';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { TrainingInstance, TrainingRun } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
 import { map, switchMap, take, takeWhile, tap } from 'rxjs/operators';
@@ -15,6 +14,7 @@ import { TableLoadEvent, SentinelTable, TableActionEvent } from '@sentinel/compo
 import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
 import { TrainingRunService } from '../services/state/runs/training-run.service';
 import { TrainingRunTable } from '../model/training-run-table';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
  * Smart component of training instance summary
@@ -25,7 +25,7 @@ import { TrainingRunTable } from '../model/training-run-table';
   styleUrls: ['./training-instance-summary.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TrainingInstanceSummaryComponent extends SentinelBaseDirective implements OnInit {
+export class TrainingInstanceSummaryComponent implements OnInit {
   trainingInstance$: Observable<TrainingInstance>;
   hasStarted$: Observable<boolean>;
   trainingRuns$: Observable<SentinelTable<TrainingRun>>;
@@ -35,6 +35,8 @@ export class TrainingInstanceSummaryComponent extends SentinelBaseDirective impl
   trainingInstancePoolIdLink: string;
   trainingDefinitionLink: string;
 
+  destroyRef = inject(DestroyRef);
+
   constructor(
     private activeRoute: ActivatedRoute,
     private navigator: TrainingNavigator,
@@ -42,9 +44,7 @@ export class TrainingInstanceSummaryComponent extends SentinelBaseDirective impl
     private notificationService: TrainingNotificationService,
     private paginationService: PaginationService,
     private trainingRunService: TrainingRunService
-  ) {
-    super();
-  }
+  ) {}
 
   ngOnInit(): void {
     this.trainingInstance$ = this.activeRoute.data.pipe(
@@ -78,7 +78,7 @@ export class TrainingInstanceSummaryComponent extends SentinelBaseDirective impl
             new OffsetPaginationEvent(0, event.pagination.size, event.pagination.sort, event.pagination.sortDir)
           )
         ),
-        takeWhile(() => this.isAlive)
+        takeUntilDestroyed(this.destroyRef)
       )
       .subscribe();
   }
@@ -106,7 +106,7 @@ export class TrainingInstanceSummaryComponent extends SentinelBaseDirective impl
       )
       .subscribe();
     this.trainingRuns$ = this.trainingRunService.resource$.pipe(
-      takeWhile(() => this.isAlive),
+      takeUntilDestroyed(this.destroyRef),
       map((resource) => new TrainingRunTable(resource))
     );
     this.trainingRunsHasError$ = this.trainingRunService.hasError$;

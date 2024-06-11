@@ -1,13 +1,13 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { SentinelBaseDirective } from '@sentinel/common';
+import { AfterViewInit, ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { Level } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
-import { take, takeWhile, tap } from 'rxjs/operators';
+import { take, tap } from 'rxjs/operators';
 import { LevelStepperAdapter } from '@muni-kypo-crp/training-agenda/internal';
 import { TrainingRunStepper } from '../model/training-run-stepper';
 import { SentinelUser } from '@sentinel/layout';
 import { SentinelAuthService } from '@sentinel/auth';
 import { RunningTrainingRunService } from '../services/training-run/running/running-training-run.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'kypo-training-run-detail',
@@ -19,7 +19,7 @@ import { RunningTrainingRunService } from '../services/training-run/running/runn
  * Main component of trainees training. Displays window with current level of a training and navigation to the next.
  * Optionally displays stepper with progress of the training and timer counting time from the start of a training.
  */
-export class TrainingRunDetailComponent extends SentinelBaseDirective implements OnInit, AfterViewInit {
+export class TrainingRunDetailComponent implements OnInit, AfterViewInit {
   user$: Observable<SentinelUser>;
   activeLevel$: Observable<Level>;
   backtrackedLevel$: Observable<Level>;
@@ -35,10 +35,9 @@ export class TrainingRunDetailComponent extends SentinelBaseDirective implements
   sandboxDefinitionId: number;
   localEnvironment: boolean;
   backwardMode: boolean;
+  destroyRef = inject(DestroyRef);
 
-  constructor(private trainingRunService: RunningTrainingRunService, private auth: SentinelAuthService) {
-    super();
-  }
+  constructor(private trainingRunService: RunningTrainingRunService, private auth: SentinelAuthService) {}
 
   ngOnInit(): void {
     this.init();
@@ -66,7 +65,7 @@ export class TrainingRunDetailComponent extends SentinelBaseDirective implements
       this.stepper = new TrainingRunStepper(stepperAdapterLevels, this.trainingRunService.getActiveLevelPosition());
     }
     this.activeLevel$ = this.trainingRunService.activeLevel$.pipe(
-      takeWhile(() => this.isAlive),
+      takeUntilDestroyed(this.destroyRef),
       tap(() => {
         this.isLast = this.trainingRunService.isLast();
         if (this.isStepperDisplayed) {

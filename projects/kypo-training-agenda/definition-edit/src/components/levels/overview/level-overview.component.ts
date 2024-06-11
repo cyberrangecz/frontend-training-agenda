@@ -1,7 +1,9 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   EventEmitter,
+  inject,
   Input,
   OnChanges,
   OnInit,
@@ -9,15 +11,15 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { Level, MitreTechnique, TrainingDefinition } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
-import { map, takeWhile, tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { LevelOverviewControls } from '../../../model/adapters/level-overview-controls';
 import { LevelStepperAdapter } from '@muni-kypo-crp/training-agenda/internal';
 import { LevelMoveEvent } from '../../../model/events/level-move-event';
 import { LevelEditService } from '../../../services/state/level/level-edit.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
  * Smart component for level stepper and level edit components
@@ -28,7 +30,7 @@ import { LevelEditService } from '../../../services/state/level/level-edit.servi
   styleUrls: ['./level-overview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LevelOverviewComponent extends SentinelBaseDirective implements OnInit, OnChanges {
+export class LevelOverviewComponent implements OnInit, OnChanges {
   @Output() unsavedLevels: EventEmitter<Level[]> = new EventEmitter();
   @Output() levelsCount: EventEmitter<number> = new EventEmitter();
   @Input() trainingDefinition: TrainingDefinition;
@@ -39,10 +41,9 @@ export class LevelOverviewComponent extends SentinelBaseDirective implements OnI
   stepperLevels: Observable<LevelStepperAdapter[]>;
   controls: SentinelControlItem[];
   levelMovingInProgress: boolean;
+  destroyRef = inject(DestroyRef);
 
-  constructor(private dialog: MatDialog, private levelService: LevelEditService) {
-    super();
-  }
+  constructor(private dialog: MatDialog, private levelService: LevelEditService) {}
 
   ngOnInit(): void {
     this.activeStep$ = this.levelService.activeStep$;
@@ -52,7 +53,7 @@ export class LevelOverviewComponent extends SentinelBaseDirective implements OnI
     );
 
     this.levelService.unsavedLevels$
-      .pipe(takeWhile(() => this.isAlive))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((unsavedLevels) => this.unsavedLevels.emit(unsavedLevels));
     this.initControl();
   }
@@ -72,7 +73,7 @@ export class LevelOverviewComponent extends SentinelBaseDirective implements OnI
   }
 
   onControlAction(control: SentinelControlItem): void {
-    control.result$.pipe(takeWhile(() => this.isAlive)).subscribe();
+    control.result$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
   }
 
   /**
@@ -83,7 +84,7 @@ export class LevelOverviewComponent extends SentinelBaseDirective implements OnI
     this.levelMovingInProgress = true;
     this.levelService
       .move(event.stepperState.previousIndex, event.stepperState.currentIndex)
-      .pipe(takeWhile(() => this.isAlive))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(
         () => {
           this.levelMovingInProgress = false;

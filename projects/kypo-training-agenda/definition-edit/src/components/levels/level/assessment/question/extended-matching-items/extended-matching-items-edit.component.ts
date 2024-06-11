@@ -1,18 +1,21 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   EventEmitter,
+  inject,
   Input,
   OnChanges,
   Output,
   SimpleChanges,
 } from '@angular/core';
 import { AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
-import { SentinelBaseDirective, SentinelValidators } from '@sentinel/common';
+import { SentinelValidators } from '@sentinel/common';
 import { Question } from '@muni-kypo-crp/training-model';
 import { ExtendedMatchingItems } from '@muni-kypo-crp/training-model';
 import { takeWhile } from 'rxjs/operators';
 import { ExtendedMatchingItemsFormGroup } from './extended-matching-items-form-group';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
  * Component for editing a question of type Extended Matching Items
@@ -23,7 +26,7 @@ import { ExtendedMatchingItemsFormGroup } from './extended-matching-items-form-g
   styleUrls: ['./extended-matching-items-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ExtendedMatchingItemsEditComponent extends SentinelBaseDirective implements OnChanges {
+export class ExtendedMatchingItemsEditComponent implements OnChanges {
   @Input() question: ExtendedMatchingItems;
   @Input() isTest: boolean;
   @Input() required: boolean;
@@ -34,10 +37,7 @@ export class ExtendedMatchingItemsEditComponent extends SentinelBaseDirective im
   extendedMatchingQuestionFormGroup: ExtendedMatchingItemsFormGroup;
   maxQuestionScore = Question.MAX_QUESTION_SCORE;
   maxQuestionPenalty = Question.MAX_QUESTION_PENALTY;
-
-  constructor() {
-    super();
-  }
+  destroyRef = inject(DestroyRef);
 
   get title(): AbstractControl {
     return this.extendedMatchingQuestionFormGroup.formGroup.get('title');
@@ -62,7 +62,7 @@ export class ExtendedMatchingItemsEditComponent extends SentinelBaseDirective im
       this.options.markAllAsTouched();
       this.statements.markAllAsTouched();
       this.extendedMatchingQuestionFormGroup.formGroup.valueChanges
-        .pipe(takeWhile(() => this.isAlive))
+        .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(() => this.questionChanged());
     }
     if ('isTest' in changes && !changes.isTest.isFirstChange()) {

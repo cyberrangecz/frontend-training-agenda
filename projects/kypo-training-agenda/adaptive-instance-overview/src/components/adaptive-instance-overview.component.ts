@@ -1,6 +1,5 @@
-import { SentinelBaseDirective } from '@sentinel/common';
 import { OffsetPaginationEvent } from '@sentinel/common/pagination';
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { TableLoadEvent, SentinelTable, TableActionEvent } from '@sentinel/components/table';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
@@ -11,6 +10,7 @@ import { TrainingNavigator, TrainingNotificationService } from '@muni-kypo-crp/t
 import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
 import { AdaptiveInstanceOverviewControls } from '../model/adapters/adaptive-instance-overview-controls';
 import { AdaptiveInstanceTable } from '../model/adapters/adaptive-instance-table';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'kypo-adaptive-instance-overview',
@@ -18,7 +18,7 @@ import { AdaptiveInstanceTable } from '../model/adapters/adaptive-instance-table
   styleUrls: ['./adaptive-instance-overview.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AdaptiveInstanceOverviewComponent extends SentinelBaseDirective implements OnInit, OnDestroy {
+export class AdaptiveInstanceOverviewComponent implements OnInit {
   readonly INITIAL_SORT_NAME = 'startTime';
   readonly INITIAL_SORT_DIR = 'desc';
 
@@ -26,15 +26,14 @@ export class AdaptiveInstanceOverviewComponent extends SentinelBaseDirective imp
   hasError$: Observable<boolean>;
 
   controls: SentinelControlItem[];
+  destroyRef = inject(DestroyRef);
 
   constructor(
     private service: AdaptiveInstanceOverviewService,
     private paginationService: PaginationService,
     private navigator: TrainingNavigator,
     private notificationService: TrainingNotificationService
-  ) {
-    super();
-  }
+  ) {}
 
   ngOnInit(): void {
     this.controls = AdaptiveInstanceOverviewControls.create(this.service);
@@ -42,7 +41,7 @@ export class AdaptiveInstanceOverviewComponent extends SentinelBaseDirective imp
   }
 
   onControlAction(control: SentinelControlItem): void {
-    control.result$.pipe(takeWhile(() => this.isAlive)).subscribe();
+    control.result$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
   }
 
   onInstancesLoadEvent(loadEvent: TableLoadEvent): void {
@@ -57,7 +56,7 @@ export class AdaptiveInstanceOverviewComponent extends SentinelBaseDirective imp
         ),
         loadEvent.filter
       )
-      .pipe(takeWhile(() => this.isAlive))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe();
   }
 

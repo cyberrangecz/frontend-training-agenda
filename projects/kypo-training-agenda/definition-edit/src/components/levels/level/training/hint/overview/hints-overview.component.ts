@@ -2,7 +2,9 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   EventEmitter,
+  inject,
   Input,
   OnChanges,
   OnInit,
@@ -15,13 +17,12 @@ import {
   SentinelConfirmationDialogConfig,
   SentinelDialogResultEnum,
 } from '@sentinel/components/dialogs';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { Hint } from '@muni-kypo-crp/training-model';
 import { SentinelStepper, StepStateEnum } from '@sentinel/components/stepper';
 import { BehaviorSubject, defer, EMPTY, Observable, of } from 'rxjs';
-import { takeWhile } from 'rxjs/operators';
 import { HintStepperAdapter } from '../../../../../../model/adapters/hint-stepper-adapter';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
  * Main hint edit component. Contains stepper to navigate through existing hints and controls to create new hints
@@ -38,7 +39,7 @@ import { HintStepperAdapter } from '../../../../../../model/adapters/hint-steppe
     },
   ],
 })
-export class HintsOverviewComponent extends SentinelBaseDirective implements OnInit, OnChanges {
+export class HintsOverviewComponent implements OnInit, OnChanges {
   @Input() hints: Hint[];
   @Input() levelId: any;
   @Input() levelMaxScore: number;
@@ -51,10 +52,9 @@ export class HintsOverviewComponent extends SentinelBaseDirective implements OnI
   selectedStep: number;
   stepperHints: SentinelStepper<HintStepperAdapter> = { items: [] };
   controls: SentinelControlItem[];
+  destroyRef = inject(DestroyRef);
 
-  constructor(public dialog: MatDialog) {
-    super();
-  }
+  constructor(public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.selectedStep = 0;
@@ -77,7 +77,7 @@ export class HintsOverviewComponent extends SentinelBaseDirective implements OnI
   }
 
   onControlAction(control: SentinelControlItem): void {
-    control.result$.pipe(takeWhile(() => this.isAlive)).subscribe();
+    control.result$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
   }
 
   /**
@@ -117,7 +117,7 @@ export class HintsOverviewComponent extends SentinelBaseDirective implements OnI
 
     dialogRef
       .afterClosed()
-      .pipe(takeWhile(() => this.isAlive))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((result) => {
         if (result === SentinelDialogResultEnum.CONFIRMED) {
           this.stepperHints.items.splice(index, 1);

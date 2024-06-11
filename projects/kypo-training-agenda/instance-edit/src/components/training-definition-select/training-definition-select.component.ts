@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component, Inject, OnInit, Optional } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, Inject, OnInit, Optional } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
 import { TrainingDefinition } from '@muni-kypo-crp/training-model';
 import { TrainingDefinitionInfo } from '@muni-kypo-crp/training-model';
@@ -8,6 +7,7 @@ import { merge, Observable } from 'rxjs';
 import { takeWhile } from 'rxjs/operators';
 import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
 import { TrainingDefinitionOrganizerSelectConcreteService } from '../../services/state/training-definition-selector/training-definition-organizer-select-concrete.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
  * Popup dialog for associating training definitions with training instance
@@ -22,8 +22,9 @@ import { TrainingDefinitionOrganizerSelectConcreteService } from '../../services
     { provide: 'unreleasedService', useClass: TrainingDefinitionOrganizerSelectConcreteService },
   ],
 })
-export class TrainingDefinitionSelectComponent extends SentinelBaseDirective implements OnInit {
+export class TrainingDefinitionSelectComponent implements OnInit {
   readonly PAGE_SIZE;
+  destroyRef = inject(DestroyRef);
 
   released$: Observable<PaginatedResource<TrainingDefinitionInfo>>;
   releasedHasError$: Observable<boolean>;
@@ -39,7 +40,6 @@ export class TrainingDefinitionSelectComponent extends SentinelBaseDirective imp
     @Inject('releasedService') private releasedService: TrainingDefinitionOrganizerSelectConcreteService,
     @Inject('unreleasedService') private unreleasedService: TrainingDefinitionOrganizerSelectConcreteService
   ) {
-    super();
     this.PAGE_SIZE = this.paginationService.getPagination();
     this.selected = [this.data];
   }
@@ -51,14 +51,8 @@ export class TrainingDefinitionSelectComponent extends SentinelBaseDirective imp
     this.unreleased$ = this.unreleasedService.resource$;
     this.unreleasedHasError$ = this.unreleasedService.hasError$;
     this.isLoading$ = merge(this.releasedService.isLoading$, this.unreleasedService.isLoading$);
-    this.releasedService
-      .getAll(pagination, 'RELEASED')
-      .pipe(takeWhile(() => this.isAlive))
-      .subscribe();
-    this.unreleasedService
-      .getAll(pagination, 'UNRELEASED')
-      .pipe(takeWhile(() => this.isAlive))
-      .subscribe();
+    this.releasedService.getAll(pagination, 'RELEASED').pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
+    this.unreleasedService.getAll(pagination, 'UNRELEASED').pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
   }
 
   /**
@@ -68,15 +62,9 @@ export class TrainingDefinitionSelectComponent extends SentinelBaseDirective imp
    */
   fetch(pagination: OffsetPaginationEvent, released: boolean): void {
     if (released) {
-      this.releasedService
-        .getAll(pagination, 'RELEASED')
-        .pipe(takeWhile(() => this.isAlive))
-        .subscribe();
+      this.releasedService.getAll(pagination, 'RELEASED').pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
     } else {
-      this.unreleasedService
-        .getAll(pagination, 'UNRELEASED')
-        .pipe(takeWhile(() => this.isAlive))
-        .subscribe();
+      this.unreleasedService.getAll(pagination, 'UNRELEASED').pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
     }
   }
 

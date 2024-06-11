@@ -2,9 +2,11 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   ElementRef,
   EventEmitter,
   HostListener,
+  inject,
   Input,
   OnChanges,
   OnInit,
@@ -12,15 +14,15 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { KypoTopologyErrorService } from '@muni-kypo-crp/topology-graph';
 import { Observable } from 'rxjs';
-import { delay, take, takeWhile } from 'rxjs/operators';
+import { delay, take } from 'rxjs/operators';
 import { HintButton } from '@muni-kypo-crp/training-agenda/internal';
 import { TrainingErrorHandler } from '@muni-kypo-crp/training-agenda';
 import { TrainingLevel } from '@muni-kypo-crp/training-model';
 import { TrainingRunTrainingLevelService } from './../../../services/training-run/level/training/training-run-training-level.service';
 import { TrainingRunTrainingLevelConcreteService } from './../../../services/training-run/level/training/training-run-training-level-concrete.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'kypo-training-level',
@@ -33,7 +35,7 @@ import { TrainingRunTrainingLevelConcreteService } from './../../../services/tra
  * Component of a training level in a training run. Users needs to find out correct solution (answer) and submit it
  * before he can continue to the next level. User can optionally take hints.
  */
-export class TrainingLevelComponent extends SentinelBaseDirective implements OnInit, OnChanges, AfterViewInit {
+export class TrainingLevelComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() level: TrainingLevel;
   @Input() isLast: boolean;
   @Input() isLevelAnswered: boolean;
@@ -57,14 +59,13 @@ export class TrainingLevelComponent extends SentinelBaseDirective implements OnI
   hintsButtons$: Observable<HintButton[]>;
   displayedSolutionContent$: Observable<string>;
   controlsWrapped: boolean;
+  destroyRef = inject(DestroyRef);
 
   constructor(
     private trainingLevelService: TrainingRunTrainingLevelService,
     private topologyErrorService: KypoTopologyErrorService,
     private errorHandler: TrainingErrorHandler
-  ) {
-    super();
-  }
+  ) {}
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any): void {
@@ -160,7 +161,7 @@ export class TrainingLevelComponent extends SentinelBaseDirective implements OnI
   }
 
   private subscribeToTopologyErrorHandler() {
-    this.topologyErrorService.error$.pipe(takeWhile(() => this.isAlive)).subscribe({
+    this.topologyErrorService.error$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (event) => this.errorHandler.emit(event.err, event.action),
       error: (err) => this.errorHandler.emit(err, 'There is a problem with topology error handler.'),
     });

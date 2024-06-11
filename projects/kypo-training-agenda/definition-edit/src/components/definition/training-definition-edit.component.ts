@@ -1,10 +1,9 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, DestroyRef, EventEmitter, inject, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { TrainingDefinition } from '@muni-kypo-crp/training-model';
-import { takeWhile } from 'rxjs/operators';
 import { TrainingDefinitionChangeEvent } from '../../model/events/training-definition-change-event';
 import { TrainingDefinitionEditFormGroup } from './training-definition-edit-form-group';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
  * Component for creating new or editing already existing training definition
@@ -14,16 +13,13 @@ import { TrainingDefinitionEditFormGroup } from './training-definition-edit-form
   templateUrl: './training-definition-edit.component.html',
   styleUrls: ['./training-definition-edit.component.css'],
 })
-export class TrainingDefinitionEditComponent extends SentinelBaseDirective implements OnChanges {
+export class TrainingDefinitionEditComponent implements OnChanges {
   @Input() trainingDefinition: TrainingDefinition;
   @Output() edited: EventEmitter<TrainingDefinitionChangeEvent> = new EventEmitter();
 
   trainingDefinitionEditFormGroup: TrainingDefinitionEditFormGroup;
   freeFormValid = true;
-
-  constructor() {
-    super();
-  }
+  destroyRef = inject(DestroyRef);
 
   get title(): AbstractControl {
     return this.trainingDefinitionEditFormGroup.formGroup.get('title');
@@ -82,7 +78,7 @@ export class TrainingDefinitionEditComponent extends SentinelBaseDirective imple
 
   private setupOnFormChangedEvent() {
     this.trainingDefinitionEditFormGroup.formGroup.valueChanges
-      .pipe(takeWhile(() => this.isAlive))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => this.onChanged());
   }
 

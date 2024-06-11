@@ -1,10 +1,9 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, Input, OnInit, ViewChild } from '@angular/core';
 import { AbstractLevelTypeEnum, Level } from '@muni-kypo-crp/training-model';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { LevelDetailExpandControls } from '../../model/level-detail-expand-controls';
-import { takeWhile } from 'rxjs/operators';
 import { MatAccordion } from '@angular/material/expansion';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'kypo-training-definition-levels',
@@ -12,19 +11,20 @@ import { MatAccordion } from '@angular/material/expansion';
   styleUrls: ['./training-definition-levels.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TrainingDefinitionLevelsDetailComponent extends SentinelBaseDirective implements OnInit {
+export class TrainingDefinitionLevelsDetailComponent implements OnInit {
   @Input() levels: Level[];
 
   @ViewChild(MatAccordion) accordion: MatAccordion;
 
   controls: SentinelControlItem[];
+  destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
     this.controls = LevelDetailExpandControls.create();
   }
 
   onControlsAction(control: SentinelControlItem): void {
-    control.result$.pipe(takeWhile(() => this.isAlive)).subscribe((res) => {
+    control.result$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((res) => {
       res === 'expand' ? this.accordion.openAll() : this.accordion.closeAll();
     });
   }

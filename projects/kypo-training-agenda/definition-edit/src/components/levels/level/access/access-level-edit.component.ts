@@ -1,17 +1,18 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   EventEmitter,
+  inject,
   Input,
   OnChanges,
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { AccessLevel } from '@muni-kypo-crp/training-model';
-import { takeWhile } from 'rxjs/operators';
 import { AccessLevelEditFormGroup } from './access-level-edit-form-group';
 import { AbstractControl } from '@angular/forms';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
  * Component for editing of new or existing info level
@@ -22,11 +23,12 @@ import { AbstractControl } from '@angular/forms';
   styleUrls: ['./access-level-edit.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AccessLevelEditComponent extends SentinelBaseDirective implements OnChanges {
+export class AccessLevelEditComponent implements OnChanges {
   @Input() level: AccessLevel;
   @Output() levelChange: EventEmitter<AccessLevel> = new EventEmitter();
 
   accessLevelConfigFormGroup: AccessLevelEditFormGroup;
+  destroyRef = inject(DestroyRef);
 
   get title(): AbstractControl {
     return this.accessLevelConfigFormGroup.formGroup.get('title');
@@ -45,7 +47,7 @@ export class AccessLevelEditComponent extends SentinelBaseDirective implements O
     if ('level' in changes) {
       this.accessLevelConfigFormGroup = new AccessLevelEditFormGroup(this.level);
       this.title.markAsTouched();
-      this.accessLevelConfigFormGroup.formGroup.valueChanges.pipe(takeWhile(() => this.isAlive)).subscribe(() => {
+      this.accessLevelConfigFormGroup.formGroup.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
         this.accessLevelConfigFormGroup.setToLevel(this.level);
         this.levelChange.emit(this.level);
       });

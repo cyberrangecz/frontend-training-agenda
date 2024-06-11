@@ -1,18 +1,20 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   EventEmitter,
+  inject,
   Input,
   OnChanges,
   Output,
   SimpleChanges,
 } from '@angular/core';
 import { AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { SentinelBaseDirective, SentinelValidators } from '@sentinel/common';
+import { SentinelValidators } from '@sentinel/common';
 import { Question } from '@muni-kypo-crp/training-model';
 import { FreeFormQuestion } from '@muni-kypo-crp/training-model';
-import { takeWhile } from 'rxjs/operators';
 import { FreeFormQuestionFormGroup } from './free-form-question-form-group';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'kypo-free-form-question-edit',
@@ -23,7 +25,7 @@ import { FreeFormQuestionFormGroup } from './free-form-question-form-group';
 /**
  * Component for editing a question of type Free Form
  */
-export class FreeFormQuestionEditComponent extends SentinelBaseDirective implements OnChanges {
+export class FreeFormQuestionEditComponent implements OnChanges {
   @Input() question: FreeFormQuestion;
   @Input() isTest: boolean;
   @Input() required: boolean;
@@ -34,6 +36,7 @@ export class FreeFormQuestionEditComponent extends SentinelBaseDirective impleme
   maxQuestionScore = Question.MAX_QUESTION_SCORE;
   maxQuestionPenalty = Question.MAX_QUESTION_PENALTY;
   freeFormChoices: UntypedFormArray;
+  destroyRef = inject(DestroyRef);
 
   get title(): AbstractControl {
     return this.freeFormQuestionFormGroup.freeFormQuestionFormGroup.get('title');
@@ -54,7 +57,7 @@ export class FreeFormQuestionEditComponent extends SentinelBaseDirective impleme
       this.checkState();
       this.choices.markAllAsTouched();
       this.freeFormQuestionFormGroup.freeFormQuestionFormGroup.valueChanges
-        .pipe(takeWhile(() => this.isAlive))
+        .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(() => this.questionChanged());
     }
     if ('isTest' in changes && !changes.isTest.isFirstChange()) {

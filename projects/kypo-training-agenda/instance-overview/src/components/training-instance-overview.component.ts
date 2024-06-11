@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular/core';
 import { OffsetPaginationEvent } from '@sentinel/common/pagination';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
@@ -27,6 +27,7 @@ export class TrainingInstanceOverviewComponent {
 
   instances$: Observable<SentinelTable<TrainingInstance>>;
   hasError$: Observable<boolean>;
+  destroyRef = inject(DestroyRef);
 
   controls: SentinelControlItem[];
 
@@ -41,7 +42,7 @@ export class TrainingInstanceOverviewComponent {
   }
 
   onControlAction(control: SentinelControlItem): void {
-    control.result$.pipe(takeUntilDestroyed()).subscribe();
+    control.result$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
   }
 
   onInstancesLoadEvent(loadEvent: TableLoadEvent): void {
@@ -56,7 +57,7 @@ export class TrainingInstanceOverviewComponent {
         ),
         loadEvent.filter
       )
-      .pipe(takeUntilDestroyed())
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe();
   }
 

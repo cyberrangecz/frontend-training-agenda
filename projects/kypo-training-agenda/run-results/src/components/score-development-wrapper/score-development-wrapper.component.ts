@@ -1,31 +1,30 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, DestroyRef, HostListener, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TrainingRun } from '@muni-kypo-crp/training-model';
-import { SentinelBaseDirective } from '@sentinel/common';
-import { map, Observable, takeWhile } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { VisualizationInfo } from '@muni-kypo-crp/training-agenda/internal';
 import { KypoTraineeModeInfo } from '@muni-kypo-crp/overview-visualization';
 import { TRAINING_RUN_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
 import { TrainingDefinitionApi } from '@muni-kypo-crp/training-api';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'kypo-score-development-wrapper',
   templateUrl: './score-development-wrapper.component.html',
   styleUrls: ['./score-development-wrapper.component.css'],
 })
-export class ScoreDevelopmentWrapperComponent extends SentinelBaseDirective implements OnInit {
+export class ScoreDevelopmentWrapperComponent implements OnInit {
   visualizationInfo$: Observable<VisualizationInfo>;
   traineeModeInfo$: Observable<KypoTraineeModeInfo>;
   vizSize: { width: number; height: number };
+  destroyRef = inject(DestroyRef);
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any): void {
     this.setVisualizationSize(event.target.innerWidth, event.target.innerHeight);
   }
 
-  constructor(private activatedRoute: ActivatedRoute, private trainingDefinitionApi: TrainingDefinitionApi) {
-    super();
-  }
+  constructor(private activatedRoute: ActivatedRoute, private trainingDefinitionApi: TrainingDefinitionApi) {}
 
   ngOnInit(): void {
     this.setVisualizationSize(window.innerWidth, innerHeight);
@@ -37,7 +36,7 @@ export class ScoreDevelopmentWrapperComponent extends SentinelBaseDirective impl
    */
   loadVisualizationInfo(): void {
     this.visualizationInfo$ = this.activatedRoute.data.pipe(
-      takeWhile(() => this.isAlive),
+      takeUntilDestroyed(this.destroyRef),
       map((data) => this.createTrainingVisualizationInfo(data[TRAINING_RUN_DATA_ATTRIBUTE_NAME]))
     );
     this.traineeModeInfo$ = this.visualizationInfo$.pipe(

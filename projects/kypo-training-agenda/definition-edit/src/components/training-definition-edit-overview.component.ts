@@ -1,11 +1,10 @@
-import { ChangeDetectionStrategy, Component, HostListener } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, HostListener, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SentinelBaseDirective } from '@sentinel/common';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { MitreTechnique, TrainingDefinition } from '@muni-kypo-crp/training-model';
 import { Level } from '@muni-kypo-crp/training-model';
 import { combineLatest, Observable } from 'rxjs';
-import { map, takeWhile, tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { TrainingDefinitionEditControls } from '../model/adapters/training-definition-edit-controls';
 import { TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
 import { TrainingDefinitionChangeEvent } from '../model/events/training-definition-change-event';
@@ -18,6 +17,7 @@ import { LevelEditService } from '../services/state/level/level-edit.service';
 import { LevelEditConcreteService } from '../services/state/level/level-edit-concrete.service';
 import { MitreTechniquesService } from '../services/state/mitre-techniques/mitre-techniques.service';
 import { MitreTechniquesConcreteService } from '../services/state/mitre-techniques/mitre-techniques-concrete.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
  * Main smart component of training definition edit/new page.
@@ -34,7 +34,7 @@ import { MitreTechniquesConcreteService } from '../services/state/mitre-techniqu
     { provide: MitreTechniquesService, useClass: MitreTechniquesConcreteService },
   ],
 })
-export class TrainingDefinitionEditOverviewComponent extends SentinelBaseDirective {
+export class TrainingDefinitionEditOverviewComponent {
   trainingDefinition$: Observable<TrainingDefinition>;
   editMode$: Observable<boolean>;
   tdTitle$: Observable<string>;
@@ -48,6 +48,7 @@ export class TrainingDefinitionEditOverviewComponent extends SentinelBaseDirecti
   defaultPaginationSize: number;
   controls: SentinelControlItem[];
   mitreTechniques$: Observable<MitreTechnique[]>;
+  destroyRef = inject(DestroyRef);
 
   constructor(
     private activeRoute: ActivatedRoute,
@@ -56,16 +57,12 @@ export class TrainingDefinitionEditOverviewComponent extends SentinelBaseDirecti
     private levelEditService: LevelEditService,
     private mitreTechniquesService: MitreTechniquesService
   ) {
-    super();
     this.defaultPaginationSize = this.paginationService.getPagination();
     this.trainingDefinition$ = this.editService.trainingDefinition$;
     this.tdTitle$ = this.editService.trainingDefinition$.pipe(map((td) => td.title));
     this.saveDisabled$ = this.editService.saveDisabled$;
     this.mitreTechniques$ = this.mitreTechniquesService.mitreTechniques$;
-    this.mitreTechniquesService
-      .getAll()
-      .pipe(takeWhile(() => this.isAlive))
-      .subscribe();
+    this.mitreTechniquesService.getAll().pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
     const valid$: Observable<boolean> = combineLatest(
       this.editService.definitionValid$,
       this.levelEditService.levelsValid$
@@ -73,7 +70,7 @@ export class TrainingDefinitionEditOverviewComponent extends SentinelBaseDirecti
     this.levelSaveDisabled$ = this.levelEditService.levelsSaveDisabled$;
     this.unsavedLevels$ = levelEditService.unsavedLevels$;
     this.activeRoute.data
-      .pipe(takeWhile(() => this.isAlive))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((data) => this.editService.set(data[TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME]));
     this.editMode$ = this.editService.editMode$.pipe(
       tap(
@@ -113,7 +110,7 @@ export class TrainingDefinitionEditOverviewComponent extends SentinelBaseDirecti
   }
 
   onControlsAction(control: SentinelControlItem): void {
-    control.result$.pipe(takeWhile(() => this.isAlive)).subscribe(() => (this.canDeactivateTDEdit = true));
+    control.result$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => (this.canDeactivateTDEdit = true));
   }
 
   /**
