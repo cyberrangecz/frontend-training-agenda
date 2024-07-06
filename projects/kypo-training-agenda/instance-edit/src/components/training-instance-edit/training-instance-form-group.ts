@@ -28,7 +28,12 @@ export class TrainingInstanceFormGroup {
   disable(): void {
     this.formGroup.disable({ emitEvent: false });
     this.formGroup.get('title').enable({ emitEvent: false });
-    this.formGroup.get('endTime').enable({ emitEvent: false });
+    const isExpired = this.formGroup.get('endTime').value
+      ? this.formGroup.get('endTime').value.valueOf() < Date.now()
+      : false;
+    if (!isExpired) {
+      this.formGroup.get('endTime').enable({ emitEvent: false });
+    }
   }
 
   private dateSequenceValidator: ValidatorFn = (control: UntypedFormGroup): ValidationErrors | null => {
