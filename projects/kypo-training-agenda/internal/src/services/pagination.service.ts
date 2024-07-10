@@ -5,21 +5,33 @@ import { TrainingAgendaContext } from './context/training-agenda-context.service
 export class PaginationService {
   constructor(private context: TrainingAgendaContext) {}
 
+  public readonly DEFAULT_PAGINATION = this.context.config.defaultPaginationSize;
+
   /**
    * Returns selected pagination size from local storage or default when none was selected yet
+   * @param id id of the component
    */
-  getPagination(): number {
-    const storage = window.localStorage;
-    const pagination = storage.getItem('pagination');
-    return pagination ? Number(pagination) : this.context.config.defaultPaginationSize;
+  getPagination(id: string): number {
+    return this.readPaginationMap().get(id) || this.DEFAULT_PAGINATION;
   }
 
   /**
    * Sets desired pagination for to local storage
+   * @param id id of the component
    * @param pagination desired pagination
    */
-  setPagination(pagination: number): void {
-    const storage = window.localStorage;
-    storage.setItem('pagination', `${pagination}`);
+  setPagination(id: string, pagination: number): void {
+    const paginationMap = this.readPaginationMap();
+    paginationMap.set(id, pagination);
+    this.writePaginationMap(paginationMap);
+  }
+
+  private readPaginationMap(): Map<string, number> {
+    const pagination = JSON.parse(window.localStorage.getItem('pagination')) as Map<string, number>;
+    return pagination || new Map<string, number>();
+  }
+
+  private writePaginationMap(pagination: Map<string, number>): void {
+    window.localStorage.setItem('pagination', JSON.stringify(pagination));
   }
 }
