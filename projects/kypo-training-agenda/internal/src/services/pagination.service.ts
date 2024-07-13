@@ -30,8 +30,14 @@ export class PaginationService {
 
   private static readPagination(): Pagination {
     const paginationStr = window.localStorage.getItem('pagination') || '{}';
-    const paginationObj = JSON.parse(paginationStr);
-    return typeof paginationObj === 'object' ? paginationObj : {};
+    try {
+      const paginationObj = JSON.parse(paginationStr);
+      return typeof paginationObj === 'object' ? paginationObj : {};
+    } catch (error) {
+      console.warn('PaginationService: Failed to parse pagination from local storage');
+      console.warn(error);
+      return {};
+    }
   }
 
   private static writePagination(pagination: Pagination): void {
