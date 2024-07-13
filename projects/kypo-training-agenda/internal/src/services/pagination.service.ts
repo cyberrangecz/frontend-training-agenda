@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { TrainingAgendaContext } from './context/training-agenda-context.service';
 
+type Pagination = { [id: string]: number };
+
 @Injectable()
 export class PaginationService {
   constructor(private context: TrainingAgendaContext) {}
@@ -12,26 +14,27 @@ export class PaginationService {
    * @param id id of the component
    */
   getPagination(id: string): number {
-    return this.readPaginationMap().get(id) || this.DEFAULT_PAGINATION;
+    return PaginationService.readPagination()[id] || this.DEFAULT_PAGINATION;
   }
 
   /**
    * Sets desired pagination for to local storage
    * @param id id of the component
-   * @param pagination desired pagination
+   * @param paginationSize desired pagination
    */
-  setPagination(id: string, pagination: number): void {
-    const paginationMap = this.readPaginationMap();
-    paginationMap.set(id, pagination);
-    this.writePaginationMap(paginationMap);
+  setPagination(id: string, paginationSize: number): void {
+    const pagination = PaginationService.readPagination();
+    pagination[id] = paginationSize;
+    PaginationService.writePagination(pagination);
   }
 
-  private readPaginationMap(): Map<string, number> {
-    const pagination = JSON.parse(window.localStorage.getItem('pagination')) as Map<string, number>;
-    return pagination || new Map<string, number>();
+  private static readPagination(): Pagination {
+    const paginationStr = window.localStorage.getItem('pagination') || '{}';
+    const paginationObj = JSON.parse(paginationStr);
+    return typeof paginationObj === 'object' ? paginationObj : {};
   }
 
-  private writePaginationMap(pagination: Map<string, number>): void {
+  private static writePagination(pagination: Pagination): void {
     window.localStorage.setItem('pagination', JSON.stringify(pagination));
   }
 }
