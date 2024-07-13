@@ -1,3 +1,4 @@
+16.0.5 Save pagination size by id.
 16.0.4 Disable end time field for edit of an expired instance.
 16.0.3 Update all non-cheating detection components to work without  a deprecated Sentinel directive.
 16.0.2 Partial adjustment of component dependence on a deprecated sentinel directive.
