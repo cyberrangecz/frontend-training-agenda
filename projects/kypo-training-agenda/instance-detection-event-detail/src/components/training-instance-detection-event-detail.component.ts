@@ -36,6 +36,7 @@ import { DetectionEventForbiddenCommandsTable } from '../model/detection-event-f
 })
 export class TrainingInstanceDetectionEventDetailComponent extends SentinelBaseDirective implements OnInit {
   @Input() event: AbstractDetectionEvent;
+  @Input() paginationId = 'kypo-training-instance-detection-event-detail';
   readonly INIT_SORT_NAME = 'lastEdited';
   readonly INIT_SORT_DIR = 'asc';
 
@@ -139,7 +140,7 @@ export class TrainingInstanceDetectionEventDetailComponent extends SentinelBaseD
     );
     const initialPagination = new OffsetPaginationEvent(
       0,
-      this.paginationService.getPagination(),
+      this.paginationService.getPagination(this.paginationId),
       this.INIT_SORT_NAME,
       this.INIT_SORT_DIR
     );
@@ -154,7 +155,7 @@ export class TrainingInstanceDetectionEventDetailComponent extends SentinelBaseD
     );
     const initialPagination = new OffsetPaginationEvent(
       0,
-      this.paginationService.getPagination(),
+      this.paginationService.getPagination(this.paginationId),
       this.INIT_SORT_NAME,
       this.INIT_SORT_DIR
     );
@@ -166,7 +167,7 @@ export class TrainingInstanceDetectionEventDetailComponent extends SentinelBaseD
    * @param loadEvent event emitted by table component to get new data
    */
   onLoadEventParticipants(loadEvent: TableLoadEvent): void {
-    this.paginationService.setPagination(loadEvent.pagination.size);
+    this.paginationService.setPagination(this.paginationId, loadEvent.pagination.size);
     this.detectionEventParticipantService
       .getAll(
         this.eventId,
@@ -177,7 +178,7 @@ export class TrainingInstanceDetectionEventDetailComponent extends SentinelBaseD
   }
 
   onLoadEventForbiddenCommands(loadEvent: TableLoadEvent): void {
-    this.paginationService.setPagination(loadEvent.pagination.size);
+    this.paginationService.setPagination(this.paginationId, loadEvent.pagination.size);
     this.detectionEventForbiddenCommandsService
       .getAll(
         this.eventId,
