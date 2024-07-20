@@ -21,7 +21,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   styleUrls: ['./training-definition-overview.component.css'],
 })
 export class TrainingDefinitionOverviewComponent implements OnInit {
-  @Input() paginationId = 'trainingDefinitionOverviewPagination';
+  @Input() paginationId = 'training-definition-overview';
 
   readonly INIT_SORT_NAME = 'lastEdited';
   readonly INIT_SORT_DIR = 'desc';
