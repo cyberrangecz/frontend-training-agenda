@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, Input, OnInit } from '@angular/core';
 import { OffsetPaginationEvent } from '@sentinel/common/pagination';
 import { AccessedTrainingRun } from '@muni-kypo-crp/training-model';
 import { SentinelTable, TableLoadEvent, TableActionEvent } from '@sentinel/components/table';
@@ -79,7 +79,7 @@ export class TrainingRunOverviewComponent implements OnInit {
 
   private initTable() {
     const initialLoadEvent: TableLoadEvent = {
-      pagination: new OffsetPaginationEvent(0, this.paginationService.getPagination(), '', 'asc'),
+      pagination: new OffsetPaginationEvent(0, this.paginationService.DEFAULT_PAGINATION, '', 'asc'),
     };
 
     this.trainingRuns$ = this.trainingRunOverviewService.resource$.pipe(

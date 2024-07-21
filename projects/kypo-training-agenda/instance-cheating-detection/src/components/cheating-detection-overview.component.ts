@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { OffsetPaginationEvent } from '@sentinel/common/pagination';
 import { Observable } from 'rxjs';
@@ -22,6 +22,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./cheating-detection-overview.component.scss'],
 })
 export class CheatingDetectionOverviewComponent extends SentinelBaseDirective implements OnInit {
+  @Input() paginationId = 'cheating-detection-overview';
   @Output() showCheatingDetectionCreate: EventEmitter<boolean> = new EventEmitter();
   readonly INIT_SORT_NAME = 'lastEdited';
   readonly INIT_SORT_DIR = 'asc';
@@ -62,7 +63,7 @@ export class CheatingDetectionOverviewComponent extends SentinelBaseDirective im
    * @param loadEvent event emitted by table component to get new data
    */
   onLoadEvent(loadEvent: TableLoadEvent): void {
-    this.paginationService.setPagination(loadEvent.pagination.size);
+    this.paginationService.setPagination(this.paginationId, loadEvent.pagination.size);
     this.cheatingDetectionService
       .getAll(
         this.trainingInstanceId,
@@ -96,7 +97,7 @@ export class CheatingDetectionOverviewComponent extends SentinelBaseDirective im
     );
     const initialPagination = new OffsetPaginationEvent(
       0,
-      this.paginationService.getPagination(),
+      this.paginationService.getPagination(this.paginationId),
       this.INIT_SORT_NAME,
       this.INIT_SORT_DIR
     );

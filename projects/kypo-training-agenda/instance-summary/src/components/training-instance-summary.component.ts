@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OffsetPaginationEvent } from '@sentinel/common/pagination';
 import { TrainingInstance, TrainingRun } from '@muni-kypo-crp/training-model';
@@ -26,6 +26,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TrainingInstanceSummaryComponent implements OnInit {
+  @Input() paginationId = 'training-instance-summary';
+
   trainingInstance$: Observable<TrainingInstance>;
   hasStarted$: Observable<boolean>;
   trainingRuns$: Observable<SentinelTable<TrainingRun>>;
@@ -69,7 +71,7 @@ export class TrainingInstanceSummaryComponent implements OnInit {
    * @param event reload data event emitted from table
    */
   onTrainingRunTableLoadEvent(event: TableLoadEvent): void {
-    this.paginationService.setPagination(event.pagination.size);
+    this.paginationService.setPagination(this.paginationId, event.pagination.size);
     this.trainingInstance$
       .pipe(
         switchMap((ti) =>
@@ -98,7 +100,12 @@ export class TrainingInstanceSummaryComponent implements OnInit {
   }
 
   private initTrainingRunsComponent() {
-    const initialPagination = new OffsetPaginationEvent(0, this.paginationService.getPagination(), '', 'asc');
+    const initialPagination = new OffsetPaginationEvent(
+      0,
+      this.paginationService.getPagination(this.paginationId),
+      '',
+      'asc'
+    );
     this.trainingInstance$
       .pipe(
         take(1),

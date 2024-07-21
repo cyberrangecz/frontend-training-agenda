@@ -40,12 +40,11 @@ export class TrainingDefinitionSelectComponent implements OnInit {
     @Inject('releasedService') private releasedService: TrainingDefinitionOrganizerSelectConcreteService,
     @Inject('unreleasedService') private unreleasedService: TrainingDefinitionOrganizerSelectConcreteService
   ) {
-    this.PAGE_SIZE = this.paginationService.getPagination();
     this.selected = [this.data];
   }
 
   ngOnInit(): void {
-    const pagination = new OffsetPaginationEvent(0, this.PAGE_SIZE, 'title', 'asc');
+    const pagination = new OffsetPaginationEvent(0, this.paginationService.DEFAULT_PAGINATION, 'title', 'asc');
     this.released$ = this.releasedService.resource$;
     this.releasedHasError$ = this.releasedService.hasError$;
     this.unreleased$ = this.unreleasedService.resource$;

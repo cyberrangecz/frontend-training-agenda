@@ -57,7 +57,7 @@ export class AdaptiveDefinitionEditOverviewComponent {
     private phaseEditService: PhaseEditService,
     private mitreTechniquesService: MitreTechniquesService
   ) {
-    this.defaultPaginationSize = this.paginationService.getPagination();
+    this.defaultPaginationSize = this.paginationService.DEFAULT_PAGINATION;
     this.trainingDefinition$ = this.editService.trainingDefinition$;
     this.tdTitle$ = this.editService.trainingDefinition$.pipe(map((td) => td.title));
     this.definitionSaveDisabled$ = this.editService.saveDisabled$;

@@ -57,7 +57,7 @@ export class AdaptiveInstanceRunsComponent implements OnInit {
   }
 
   private initRunsOverviewComponent() {
-    const initialPagination = new OffsetPaginationEvent(0, this.paginationService.getPagination(), '', 'asc');
+    const initialPagination = new OffsetPaginationEvent(0, this.paginationService.DEFAULT_PAGINATION, '', 'asc');
     this.trainingInstance$
       .pipe(
         take(1),

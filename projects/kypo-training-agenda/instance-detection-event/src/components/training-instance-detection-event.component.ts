@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { SentinelBaseDirective } from '@sentinel/common';
 import { OffsetPaginationEvent } from '@sentinel/common/pagination';
 import { Observable } from 'rxjs';
@@ -21,6 +21,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./training-instance-detection-event.component.css'],
 })
 export class TrainingInstanceDetectionEventComponent extends SentinelBaseDirective implements OnInit {
+  @Input() paginationId = 'training-instance-detection-event';
   readonly INIT_SORT_NAME = 'levelId';
   readonly INIT_SORT_DIR = 'asc';
 
@@ -52,7 +53,7 @@ export class TrainingInstanceDetectionEventComponent extends SentinelBaseDirecti
    * @param loadEvent event emitted by table component to get new data
    */
   onLoadEvent(loadEvent: TableLoadEvent): void {
-    this.paginationService.setPagination(loadEvent.pagination.size);
+    this.paginationService.setPagination(this.paginationId, loadEvent.pagination.size);
     this.detectionEventService
       .getAll(
         this.cheatingDetectionId,
@@ -93,7 +94,7 @@ export class TrainingInstanceDetectionEventComponent extends SentinelBaseDirecti
     );
     const initialPagination = new OffsetPaginationEvent(
       0,
-      this.paginationService.getPagination(),
+      this.paginationService.getPagination(this.paginationId),
       this.INIT_SORT_NAME,
       this.INIT_SORT_DIR
     );
