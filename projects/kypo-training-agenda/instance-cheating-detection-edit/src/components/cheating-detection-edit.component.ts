@@ -1,15 +1,16 @@
-import { Component } from '@angular/core';
-import { SentinelBaseDirective, SentinelValidators } from '@sentinel/common';
+import { Component, DestroyRef, inject } from '@angular/core';
+import { SentinelValidators } from '@sentinel/common';
 import { AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { CheatingDetectionEditFormGroup } from './cheating-detection-edit-form-group';
 import { CheatingDetectionEditService } from '../services/cheating-detection-edit.service';
 import { ActivatedRoute } from '@angular/router';
 import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
-import { CheatingDetection, CheatingDetectionStateEnum, TrainingInstance } from '@muni-kypo-crp/training-model';
+import { CheatingDetection, TrainingInstance } from '@muni-kypo-crp/training-model';
 import { SentinelControlItem } from '@sentinel/components/controls';
-import { map, take, takeWhile } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { defer, Observable, of } from 'rxjs';
 import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
  * Main component of training instance cheating detection edit.
@@ -19,7 +20,7 @@ import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-a
   templateUrl: './cheating-detection-edit.component.html',
   styleUrls: ['./cheating-detection-edit.component.css'],
 })
-export class CheatingDetectionEditComponent extends SentinelBaseDirective {
+export class CheatingDetectionEditComponent {
   trainingInstance$: Observable<TrainingInstance>;
   cheatingDetectionEditFormGroup: CheatingDetectionEditFormGroup;
   cheatingDetection: CheatingDetection;
@@ -27,15 +28,15 @@ export class CheatingDetectionEditComponent extends SentinelBaseDirective {
   trainingInstanceId: number;
   maximumProximityThreshold = 86400;
   isAPG = false;
+  destroyRef = inject(DestroyRef);
 
   constructor(
     private activeRoute: ActivatedRoute,
     private paginationService: PaginationService,
     private editService: CheatingDetectionEditService
   ) {
-    super();
     this.trainingInstance$ = this.activeRoute.data.pipe(
-      takeWhile(() => this.isAlive),
+      takeUntilDestroyed(this.destroyRef),
       map((data) => data[TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME])
     );
     this.trainingInstance$.subscribe((instance) => {
@@ -48,7 +49,7 @@ export class CheatingDetectionEditComponent extends SentinelBaseDirective {
     );
     this.initControls(this.editService);
     this.cheatingDetectionEditFormGroup.formGroup.valueChanges
-      .pipe(takeWhile(() => this.isAlive))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => this.initControls(this.editService));
   }
 
@@ -59,27 +60,8 @@ export class CheatingDetectionEditComponent extends SentinelBaseDirective {
   ifNotAPG() {
     return !this.isAPG;
   }
-  get answerSimilarityMethod(): AbstractControl {
-    return this.cheatingDetectionEditFormGroup.formGroup.get('answerSimilarityDetection');
-  }
-  get locationSimilarityMethod(): AbstractControl {
-    return this.cheatingDetectionEditFormGroup.formGroup.get('locationSimilarityDetection');
-  }
-  get timeProximityMethod(): AbstractControl {
-    return this.cheatingDetectionEditFormGroup.formGroup.get('timeProximityDetection');
-  }
-  get minimalSolveTimeMethod(): AbstractControl {
-    return this.cheatingDetectionEditFormGroup.formGroup.get('minimalSolveTimeDetection');
-  }
-  get noCommandsMethod(): AbstractControl {
-    return this.cheatingDetectionEditFormGroup.formGroup.get('noCommandsDetection');
-  }
   get forbiddenCommandsMethod(): AbstractControl {
     return this.cheatingDetectionEditFormGroup.formGroup.get('forbiddenCommandsDetection');
-  }
-
-  get timeThreshold(): AbstractControl {
-    return this.cheatingDetectionEditFormGroup.formGroup.get('proximityThreshold');
   }
 
   get forbiddenCommands(): UntypedFormArray {
@@ -96,6 +78,9 @@ export class CheatingDetectionEditComponent extends SentinelBaseDirective {
       .slice(index)
       .forEach((choice) => choice.get('order').setValue(choice.get('order').value - 1));
     this.forbiddenCommandsChanged();
+  }
+  get timeProximityMethod(): AbstractControl {
+    return this.cheatingDetectionEditFormGroup.formGroup.get('timeProximityDetection');
   }
 
   addForbiddenCommand(): void {
