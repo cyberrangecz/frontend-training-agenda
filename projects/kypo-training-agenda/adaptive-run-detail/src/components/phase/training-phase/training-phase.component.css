@@ -1,3 +1,7 @@
+sentinel-markdown-view {
+  background-color: transparent;
+}
+
 markdown ::ng-deep img {
   max-width: 100%;
   display: block;
