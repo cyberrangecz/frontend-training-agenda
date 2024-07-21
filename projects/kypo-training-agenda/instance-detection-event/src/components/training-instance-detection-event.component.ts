@@ -1,16 +1,15 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { SentinelBaseDirective } from '@sentinel/common';
+import { Component, DestroyRef, inject, Input, OnInit } from '@angular/core';
 import { OffsetPaginationEvent } from '@sentinel/common/pagination';
 import { Observable } from 'rxjs';
 import { SentinelTable, TableActionEvent, TableLoadEvent } from '@sentinel/components/table';
 import { AbstractDetectionEvent } from '@muni-kypo-crp/training-model';
-import { SentinelControlItem } from '@sentinel/components/controls';
 import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
 import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME, TrainingNavigator } from '@muni-kypo-crp/training-agenda';
-import { map, take, takeWhile } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { DetectionEventTable } from '../model/detection-event-table';
 import { DetectionEventService } from '../services/detection-event.service';
 import { ActivatedRoute } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
  * Main component of training instance detection event.
@@ -20,7 +19,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './training-instance-detection-event.component.html',
   styleUrls: ['./training-instance-detection-event.component.css'],
 })
-export class TrainingInstanceDetectionEventComponent extends SentinelBaseDirective implements OnInit {
+export class TrainingInstanceDetectionEventComponent implements OnInit {
   @Input() paginationId = 'training-instance-detection-event';
   readonly INIT_SORT_NAME = 'levelId';
   readonly INIT_SORT_DIR = 'asc';
@@ -30,18 +29,17 @@ export class TrainingInstanceDetectionEventComponent extends SentinelBaseDirecti
   hasError$: Observable<boolean>;
   isLoading$: Observable<boolean>;
   trainingInstanceId: number;
+  destroyRef = inject(DestroyRef);
 
   constructor(
     private detectionEventService: DetectionEventService,
     private paginationService: PaginationService,
     private activeRoute: ActivatedRoute,
     private navigator: TrainingNavigator
-  ) {
-    super();
-  }
+  ) {}
 
   ngOnInit(): void {
-    this.activeRoute.data.pipe(takeWhile(() => this.isAlive)).subscribe((data) => {
+    this.activeRoute.data.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((data) => {
       this.trainingInstanceId = data[TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME].id;
     });
     this.cheatingDetectionId = this.activeRoute.snapshot.params['trainingInstanceId'];
@@ -66,16 +64,8 @@ export class TrainingInstanceDetectionEventComponent extends SentinelBaseDirecti
         ),
         loadEvent.filter
       )
-      .pipe(takeWhile(() => this.isAlive))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe();
-  }
-
-  /**
-   * Resolves controls action and calls appropriate handler
-   * @param control selected control emitted by controls component
-   */
-  onControlsAction(control: SentinelControlItem): void {
-    control.result$.pipe(take(1)).subscribe();
   }
 
   /**

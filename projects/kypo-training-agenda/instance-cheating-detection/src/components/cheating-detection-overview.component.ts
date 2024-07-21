@@ -1,17 +1,17 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { SentinelBaseDirective } from '@sentinel/common';
+import { Component, DestroyRef, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { OffsetPaginationEvent } from '@sentinel/common/pagination';
 import { Observable } from 'rxjs';
 import { SentinelTable, TableActionEvent, TableLoadEvent } from '@sentinel/components/table';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
-import { map, take, takeWhile } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME, TrainingNavigator } from '@muni-kypo-crp/training-agenda';
 import { CheatingDetectionOverviewControls } from '../model/cheating-detection-overview-controls';
 import { CheatingDetectionService } from '../services/cheating-detection.service';
 import { CheatingDetectionTable } from '../model/cheating-detection-table';
 import { CheatingDetection, TrainingInstance } from '@muni-kypo-crp/training-model';
 import { ActivatedRoute } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
  * Main component of cheating detection.
@@ -19,9 +19,9 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'kypo-cheating-detection-overview',
   templateUrl: './cheating-detection-overview.component.html',
-  styleUrls: ['./cheating-detection-overview.component.scss'],
+  styleUrls: ['./cheating-detection-overview.component.css'],
 })
-export class CheatingDetectionOverviewComponent extends SentinelBaseDirective implements OnInit {
+export class CheatingDetectionOverviewComponent implements OnInit {
   @Input() paginationId = 'cheating-detection-overview';
   @Output() showCheatingDetectionCreate: EventEmitter<boolean> = new EventEmitter();
   readonly INIT_SORT_NAME = 'lastEdited';
@@ -33,19 +33,18 @@ export class CheatingDetectionOverviewComponent extends SentinelBaseDirective im
   isLoading$: Observable<boolean>;
   topControls: SentinelControlItem[] = [];
   trainingInstanceId: number;
+  destroyRef = inject(DestroyRef);
 
   constructor(
     private activeRoute: ActivatedRoute,
     private cheatingDetectionService: CheatingDetectionService,
     private paginationService: PaginationService,
     private navigator: TrainingNavigator
-  ) {
-    super();
-  }
+  ) {}
 
   ngOnInit(): void {
     this.trainingInstance$ = this.activeRoute.data.pipe(
-      takeWhile(() => this.isAlive),
+      takeUntilDestroyed(this.destroyRef),
       map((data) => data[TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME])
     );
     this.trainingInstance$.subscribe((instance) => {
@@ -69,7 +68,7 @@ export class CheatingDetectionOverviewComponent extends SentinelBaseDirective im
         this.trainingInstanceId,
         new OffsetPaginationEvent(0, loadEvent.pagination.size, loadEvent.pagination.sort, loadEvent.pagination.sortDir)
       )
-      .pipe(takeWhile(() => this.isAlive))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe();
   }
 
