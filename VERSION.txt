@@ -1,3 +1,4 @@
+16.1.4 Add better explanation to force delete dialog of an instance.
 16.1.3 Update cheating detection components to work without  a deprecated Sentinel directive.
 16.1.2 Update pagination to save size by component id.
 16.1.1 Fix training and info phase background color.

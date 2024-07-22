@@ -153,13 +153,32 @@ export class AdaptiveInstanceOverviewConcreteService extends AdaptiveInstanceOve
     return dialogRef.afterClosed();
   }
 
+  private displayDialogToConfirmForceDelete(trainingInstance: TrainingInstance): Observable<SentinelDialogResultEnum> {
+    const dialogRef = this.dialog.open(SentinelConfirmationDialogComponent, {
+      data: new SentinelConfirmationDialogConfig(
+        'Force Delete Training Instance',
+        `A pool is currently assigned to this instance.
+        Do you want to force delete training instance "${trainingInstance.title}" ?
+        This will unlock the pool and purge its command history.`,
+        'Cancel',
+        'Force delete'
+      ),
+      maxWidth: '100rem',
+    });
+    return dialogRef.afterClosed();
+  }
+
   private callApiToDelete(trainingInstance: TrainingInstance): Observable<PaginatedResource<TrainingInstance>> {
     return this.adaptiveInstanceApi.delete(trainingInstance.id).pipe(
       tap(() => this.notificationService.emit('success', 'Training instance was successfully deleted')),
       catchError((err) =>
-        this.errorHandler
-          .emit(err, 'Deleting training instance', 'Force')
-          .pipe(switchMap((shouldForce) => (shouldForce ? this.forceDelete(trainingInstance.id) : EMPTY)))
+        err.status === 409
+          ? this.displayDialogToConfirmForceDelete(trainingInstance).pipe(
+              switchMap((result) =>
+                result === SentinelDialogResultEnum.CONFIRMED ? this.forceDelete(trainingInstance.id) : EMPTY
+              )
+            )
+          : this.errorHandler.emit(err, 'Deleting training instance')
       ),
       switchMap(() => this.getAll(this.lastPagination, this.lastFilters))
     );
