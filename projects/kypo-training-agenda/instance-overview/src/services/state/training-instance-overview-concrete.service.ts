@@ -167,7 +167,6 @@ export class TrainingInstanceOverviewConcreteService extends TrainingInstanceOve
         'Cancel',
         'Force delete'
       ),
-      maxWidth: '100rem',
     });
     return dialogRef.afterClosed();
   }
