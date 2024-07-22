@@ -163,7 +163,6 @@ export class AdaptiveInstanceOverviewConcreteService extends AdaptiveInstanceOve
         'Cancel',
         'Force delete'
       ),
-      maxWidth: '100rem',
     });
     return dialogRef.afterClosed();
   }
