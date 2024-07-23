@@ -174,15 +174,16 @@ export class TrainingInstanceOverviewConcreteService extends TrainingInstanceOve
   private callApiToDelete(trainingInstance: TrainingInstance): Observable<PaginatedResource<TrainingInstance>> {
     return this.trainingInstanceApi.delete(trainingInstance.id).pipe(
       tap(() => this.notificationService.emit('success', 'Training instance was successfully deleted')),
-      catchError((err) =>
-        err.status === 409
-          ? this.displayDialogToConfirmForceDelete(trainingInstance).pipe(
-              switchMap((result) =>
-                result === SentinelDialogResultEnum.CONFIRMED ? this.forceDelete(trainingInstance.id) : EMPTY
-              )
+      catchError((err) => {
+        if (err && err.status === 409) {
+          return this.displayDialogToConfirmForceDelete(trainingInstance).pipe(
+            switchMap((result) =>
+              result === SentinelDialogResultEnum.CONFIRMED ? this.forceDelete(trainingInstance.id) : EMPTY
             )
-          : this.errorHandler.emit(err, 'Deleting training instance')
-      ),
+          );
+        }
+        return this.errorHandler.emit(err, 'Deleting training instance');
+      }),
       switchMap(() => this.getAll(this.lastPagination, this.lastFilter))
     );
   }
