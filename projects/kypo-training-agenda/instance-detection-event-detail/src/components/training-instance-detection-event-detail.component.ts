@@ -1,5 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { SentinelBaseDirective } from '@sentinel/common';
+import { Component, DestroyRef, inject, Input, OnInit } from '@angular/core';
 import { OffsetPaginationEvent } from '@sentinel/common/pagination';
 import { SentinelDateTimeFormatPipe } from '@sentinel/common/pipes';
 import {
@@ -16,7 +15,7 @@ import {
 } from '@muni-kypo-crp/training-model';
 import { Observable } from 'rxjs';
 import { SentinelTable, TableActionEvent, TableLoadEvent } from '@sentinel/components/table';
-import { map, take, takeWhile } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
 import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
 import { DetectionEventParticipantTable } from '../model/detection-event-participant-table';
@@ -25,6 +24,7 @@ import { DetectionEventService } from '../services/detection-event/detection-eve
 import { ActivatedRoute } from '@angular/router';
 import { DetectionEventForbiddenCommandsService } from '../services/forbidden-commands/detection-event-forbidden-commands.service';
 import { DetectionEventForbiddenCommandsTable } from '../model/detection-event-forbidden-commands-table';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
  * Main component of training instance detection event detail.
@@ -34,8 +34,9 @@ import { DetectionEventForbiddenCommandsTable } from '../model/detection-event-f
   templateUrl: './training-instance-detection-event-detail.component.html',
   styleUrls: ['./training-instance-detection-event-detail.component.css'],
 })
-export class TrainingInstanceDetectionEventDetailComponent extends SentinelBaseDirective implements OnInit {
+export class TrainingInstanceDetectionEventDetailComponent implements OnInit {
   @Input() event: AbstractDetectionEvent;
+  @Input() paginationId = 'kypo-training-instance-detection-event-detail';
   readonly INIT_SORT_NAME = 'lastEdited';
   readonly INIT_SORT_DIR = 'asc';
 
@@ -55,9 +56,9 @@ export class TrainingInstanceDetectionEventDetailComponent extends SentinelBaseD
 
   eventId: number;
   detectionRunAt: Date;
-  detectionRunAtFormatted: string;
   eventType: AbstractDetectionEventTypeEnum;
   eventTypeFormatted: string;
+  destroyRef = inject(DestroyRef);
 
   constructor(
     private detectionEventService: DetectionEventService,
@@ -66,9 +67,7 @@ export class TrainingInstanceDetectionEventDetailComponent extends SentinelBaseD
     private paginationService: PaginationService,
     private navigator: TrainingNavigator,
     private activeRoute: ActivatedRoute
-  ) {
-    super();
-  }
+  ) {}
 
   ngOnInit(): void {
     this.eventId = Number(this.activeRoute.snapshot.paramMap.get('eventId'));
@@ -139,7 +138,7 @@ export class TrainingInstanceDetectionEventDetailComponent extends SentinelBaseD
     );
     const initialPagination = new OffsetPaginationEvent(
       0,
-      this.paginationService.getPagination(),
+      this.paginationService.getPagination(this.paginationId),
       this.INIT_SORT_NAME,
       this.INIT_SORT_DIR
     );
@@ -154,7 +153,7 @@ export class TrainingInstanceDetectionEventDetailComponent extends SentinelBaseD
     );
     const initialPagination = new OffsetPaginationEvent(
       0,
-      this.paginationService.getPagination(),
+      this.paginationService.getPagination(this.paginationId),
       this.INIT_SORT_NAME,
       this.INIT_SORT_DIR
     );
@@ -166,24 +165,24 @@ export class TrainingInstanceDetectionEventDetailComponent extends SentinelBaseD
    * @param loadEvent event emitted by table component to get new data
    */
   onLoadEventParticipants(loadEvent: TableLoadEvent): void {
-    this.paginationService.setPagination(loadEvent.pagination.size);
+    this.paginationService.setPagination(this.paginationId, loadEvent.pagination.size);
     this.detectionEventParticipantService
       .getAll(
         this.eventId,
         new OffsetPaginationEvent(0, loadEvent.pagination.size, loadEvent.pagination.sort, loadEvent.pagination.sortDir)
       )
-      .pipe(takeWhile(() => this.isAlive))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe();
   }
 
   onLoadEventForbiddenCommands(loadEvent: TableLoadEvent): void {
-    this.paginationService.setPagination(loadEvent.pagination.size);
+    this.paginationService.setPagination(this.paginationId, loadEvent.pagination.size);
     this.detectionEventForbiddenCommandsService
       .getAll(
         this.eventId,
         new OffsetPaginationEvent(0, loadEvent.pagination.size, loadEvent.pagination.sort, loadEvent.pagination.sortDir)
       )
-      .pipe(takeWhile(() => this.isAlive))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe();
   }
 }

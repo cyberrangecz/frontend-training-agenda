@@ -57,7 +57,7 @@ export class TrainingInstanceEditOverviewComponent {
     private paginationService: PaginationService,
     private editService: TrainingInstanceEditService
   ) {
-    this.defaultPaginationSize = this.paginationService.getPagination();
+    this.defaultPaginationSize = this.paginationService.DEFAULT_PAGINATION;
     this.trainingInstance$ = this.editService.trainingInstance$;
     this.hasStarted$ = this.editService.hasStarted$;
     this.instanceValid$ = this.editService.instanceValid$;

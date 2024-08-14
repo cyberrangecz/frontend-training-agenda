@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OffsetPaginationEvent } from '@sentinel/common/pagination';
 import { SentinelControlItem } from '@sentinel/components/controls';
@@ -22,6 +22,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TrainingInstanceRunsComponent implements OnInit {
+  @Input() paginationId = 'training-instance-runs';
   trainingInstance$: Observable<TrainingInstance>;
   trainingRuns$: Observable<SentinelTable<TrainingRun>>;
   trainingRunsHasError$: Observable<boolean>;
@@ -57,7 +58,7 @@ export class TrainingInstanceRunsComponent implements OnInit {
   }
 
   onTrainingRunsLoadEvent(loadEvent: TableLoadEvent): void {
-    this.paginationService.setPagination(loadEvent.pagination.size);
+    this.paginationService.setPagination(this.paginationId, loadEvent.pagination.size);
     this.trainingRunService
       .getAll(this.trainingInstance.id, new OffsetPaginationEvent(0, loadEvent.pagination.size, '', 'asc'))
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -65,7 +66,12 @@ export class TrainingInstanceRunsComponent implements OnInit {
   }
 
   private initRunsOverviewComponent() {
-    const initialPagination = new OffsetPaginationEvent(0, this.paginationService.getPagination(), '', 'asc');
+    const initialPagination = new OffsetPaginationEvent(
+      0,
+      this.paginationService.getPagination(this.paginationId),
+      '',
+      'asc'
+    );
 
     this.trainingInstance$
       .pipe(

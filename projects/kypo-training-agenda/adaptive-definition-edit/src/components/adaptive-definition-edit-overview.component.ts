@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, HostListener, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, HostListener, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { MitreTechnique, Phase, TrainingDefinition } from '@muni-kypo-crp/training-model';
 import { combineLatest, Observable } from 'rxjs';
-import { map, takeWhile, tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { TrainingDefinitionEditControls } from '../model/adapters/training-definition-edit-controls';
 import { TrainingDefinitionChangeEvent } from '../model/events/training-definition-change-event';
 import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
@@ -17,6 +17,7 @@ import { PhaseEditConcreteService } from '../services/state/phase/phase-edit-con
 import { MitreTechniquesService } from '../services/state/mitre-techniques/mitre-techniques.service';
 import { MitreTechniquesConcreteService } from '../services/state/mitre-techniques/mitre-techniques-concrete.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { OffsetPaginationEvent } from '@sentinel/common/pagination';
 
 /**
  * Main smart component of training definition edit/new page.
@@ -33,7 +34,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     { provide: MitreTechniquesService, useClass: MitreTechniquesConcreteService },
   ],
 })
-export class AdaptiveDefinitionEditOverviewComponent {
+export class AdaptiveDefinitionEditOverviewComponent implements OnInit {
   trainingDefinition$: Observable<TrainingDefinition>;
   editMode$: Observable<boolean>;
   tdTitle$: Observable<string>;
@@ -55,9 +56,10 @@ export class AdaptiveDefinitionEditOverviewComponent {
     private paginationService: PaginationService,
     private editService: AdaptiveDefinitionEditService,
     private phaseEditService: PhaseEditService,
-    private mitreTechniquesService: MitreTechniquesService
+    private mitreTechniquesService: MitreTechniquesService,
+    private userAssignService: SentinelUserAssignService
   ) {
-    this.defaultPaginationSize = this.paginationService.getPagination();
+    this.defaultPaginationSize = this.paginationService.DEFAULT_PAGINATION;
     this.trainingDefinition$ = this.editService.trainingDefinition$;
     this.tdTitle$ = this.editService.trainingDefinition$.pipe(map((td) => td.title));
     this.definitionSaveDisabled$ = this.editService.saveDisabled$;
@@ -84,6 +86,16 @@ export class AdaptiveDefinitionEditOverviewComponent {
           ))
       )
     );
+  }
+
+  ngOnInit(): void {
+    this.trainingDefinition$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((trainingDefinition) => {
+      if (trainingDefinition) {
+        this.userAssignService
+          .getAssigned(trainingDefinition.id, new OffsetPaginationEvent(0, this.defaultPaginationSize))
+          .subscribe();
+      }
+    });
   }
 
   /**

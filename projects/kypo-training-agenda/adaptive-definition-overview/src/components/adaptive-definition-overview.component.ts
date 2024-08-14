@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, Input, OnInit } from '@angular/core';
 import { OffsetPaginationEvent } from '@sentinel/common/pagination';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { TrainingDefinition } from '@muni-kypo-crp/training-model';
@@ -21,6 +21,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   styleUrls: ['./adaptive-definition-overview.component.css'],
 })
 export class AdaptiveDefinitionOverviewComponent implements OnInit {
+  @Input() paginationId = 'adaptive-definition-overview';
   readonly INIT_SORT_NAME = 'lastEdited';
   readonly INIT_SORT_DIR = 'desc';
 
@@ -48,8 +49,8 @@ export class AdaptiveDefinitionOverviewComponent implements OnInit {
    * @param loadEvent event emitted by table component to get new data
    */
   onLoadEvent(loadEvent: TableLoadEvent): void {
-    this.paginationService.setPagination(loadEvent.pagination.size);
-    loadEvent.pagination.size = this.paginationService.getPagination();
+    this.paginationService.setPagination(this.paginationId, loadEvent.pagination.size);
+    loadEvent.pagination.size = this.paginationService.getPagination(this.paginationId);
     this.trainingDefinitionService
       .getAll(
         new OffsetPaginationEvent(
@@ -88,7 +89,7 @@ export class AdaptiveDefinitionOverviewComponent implements OnInit {
     );
     const initialPagination = new OffsetPaginationEvent(
       0,
-      this.paginationService.getPagination(),
+      this.paginationService.getPagination(this.paginationId),
       this.INIT_SORT_NAME,
       this.INIT_SORT_DIR
     );

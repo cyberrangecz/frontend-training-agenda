@@ -9,7 +9,6 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { takeWhile } from 'rxjs/operators';
 import { QuestionnairePhaseEditFormGroup } from './questionnaire-phase-edit-form-group';
 import { AbstractControl, UntypedFormArray } from '@angular/forms';
 import {
@@ -55,11 +54,8 @@ export class QuestionnairePhaseEditComponent implements OnChanges {
     if ('phase' in changes || 'updateQuestionsFlag' in changes) {
       this.questionnaireFormGroup = new QuestionnairePhaseEditFormGroup(this.phase);
       this.phase.questions.forEach((question) => {
-        question.relations = 0;
-        this.phase.phaseRelations.forEach((relation) => {
-          const hasRelation = relation.questionIds.find((questionId) => questionId === question.id);
-          question.relations += hasRelation ? 1 : 0;
-        });
+        this.updateQuestionRelations(this.phase, question);
+        this.validateQuestion(question);
       });
       this.title.markAsTouched();
       this.questionnaireFormGroup.formGroup.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
@@ -75,7 +71,7 @@ export class QuestionnairePhaseEditComponent implements OnChanges {
    */
   onQuestionsChanged(questions: AdaptiveQuestion[]): void {
     questions.forEach((question) => {
-      question.valid = question.choices.length != 0;
+      this.validateQuestion(question);
     });
     this.phase.questions = questions;
     this.questionnaireFormGroup.setToPhase(this.phase);
@@ -151,6 +147,16 @@ export class QuestionnairePhaseEditComponent implements OnChanges {
     this.phase.phaseRelations.forEach((relation) => {
       relation.questionIds = relation.questionIds.filter((id) => id !== qId);
     });
+  }
+
+  private validateQuestion(question: AdaptiveQuestion): void {
+    question.valid = !!question.text && question.choices.length > 0;
+  }
+
+  private updateQuestionRelations(phase: QuestionnairePhase, question: AdaptiveQuestion): void {
+    question.relations = phase.phaseRelations.reduce((acc, relation) => {
+      return acc + relation.questionIds.filter((id) => id === question.id).length;
+    }, 0);
   }
 
   private updateForm() {

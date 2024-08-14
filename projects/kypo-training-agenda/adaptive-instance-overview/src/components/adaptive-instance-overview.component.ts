@@ -1,5 +1,5 @@
 import { OffsetPaginationEvent } from '@sentinel/common/pagination';
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { TableLoadEvent, SentinelTable, TableActionEvent } from '@sentinel/components/table';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
@@ -19,6 +19,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AdaptiveInstanceOverviewComponent implements OnInit {
+  @Input() paginationId = 'adaptive-instance-overview';
   readonly INITIAL_SORT_NAME = 'startTime';
   readonly INITIAL_SORT_DIR = 'desc';
 
@@ -45,7 +46,7 @@ export class AdaptiveInstanceOverviewComponent implements OnInit {
   }
 
   onInstancesLoadEvent(loadEvent: TableLoadEvent): void {
-    this.paginationService.setPagination(loadEvent.pagination.size);
+    this.paginationService.setPagination(this.paginationId, loadEvent.pagination.size);
     this.service
       .getAll(
         new OffsetPaginationEvent(
@@ -68,7 +69,7 @@ export class AdaptiveInstanceOverviewComponent implements OnInit {
     const initLoadEvent: TableLoadEvent = {
       pagination: new OffsetPaginationEvent(
         0,
-        this.paginationService.getPagination(),
+        this.paginationService.getPagination(this.paginationId),
         this.INITIAL_SORT_NAME,
         this.INITIAL_SORT_DIR
       ),
