@@ -1,3 +1,4 @@
+16.1.7 Update sentinel and component versions.
 16.1.6 Fix validation of adaptive questions.
 16.1.5 Fix designer table not being initialized.
 16.1.4 Add better explanation to force delete dialog of an instance.
