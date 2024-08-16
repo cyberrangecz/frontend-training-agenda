@@ -2,15 +2,14 @@ import { ChangeDetectionStrategy, Component, DestroyRef, HostListener, inject, O
 import { ActivatedRoute } from '@angular/router';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { MitreTechnique, Phase, TrainingDefinition } from '@muni-kypo-crp/training-model';
-import { combineLatest, Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { combineLatest, Observable, switchMap } from 'rxjs';
+import { filter, map, tap } from 'rxjs/operators';
 import { TrainingDefinitionEditControls } from '../model/adapters/training-definition-edit-controls';
 import { TrainingDefinitionChangeEvent } from '../model/events/training-definition-change-event';
 import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
 import { AdaptiveDefinitionEditService } from '../services/state/edit/adaptive-definition-edit.service';
 import { ADAPTIVE_DEFINITION_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
 import { AdaptiveDefinitionEditConcreteService } from '../services/state/edit/adaptive-definition-edit-concrete.service';
-import { SentinelUserAssignService } from '@sentinel/components/user-assign';
 import { AuthorsAssignService } from '../services/state/authors-assign/authors-assign.service';
 import { PhaseEditService } from '../services/state/phase/phase-edit.service';
 import { PhaseEditConcreteService } from '../services/state/phase/phase-edit-concrete.service';
@@ -18,6 +17,7 @@ import { MitreTechniquesService } from '../services/state/mitre-techniques/mitre
 import { MitreTechniquesConcreteService } from '../services/state/mitre-techniques/mitre-techniques-concrete.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { OffsetPaginationEvent } from '@sentinel/common/pagination';
+import { SentinelUserAssignService } from '@sentinel/components/user-assign';
 
 /**
  * Main smart component of training definition edit/new page.
@@ -57,7 +57,7 @@ export class AdaptiveDefinitionEditOverviewComponent implements OnInit {
     private editService: AdaptiveDefinitionEditService,
     private phaseEditService: PhaseEditService,
     private mitreTechniquesService: MitreTechniquesService,
-    private userAssignService: SentinelUserAssignService
+    private authorsAssignService: SentinelUserAssignService
   ) {
     this.defaultPaginationSize = this.paginationService.DEFAULT_PAGINATION;
     this.trainingDefinition$ = this.editService.trainingDefinition$;
@@ -89,13 +89,19 @@ export class AdaptiveDefinitionEditOverviewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.trainingDefinition$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((trainingDefinition) => {
-      if (trainingDefinition) {
-        this.userAssignService
+    this.editMode$
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        filter((editMode) => editMode),
+        switchMap(() => this.editService.trainingDefinition$),
+        takeUntilDestroyed(this.destroyRef),
+        filter((trainingDefinition) => !!trainingDefinition && !!trainingDefinition.id)
+      )
+      .subscribe((trainingDefinition) =>
+        this.authorsAssignService
           .getAssigned(trainingDefinition.id, new OffsetPaginationEvent(0, this.defaultPaginationSize))
-          .subscribe();
-      }
-    });
+          .subscribe()
+      );
   }
 
   /**

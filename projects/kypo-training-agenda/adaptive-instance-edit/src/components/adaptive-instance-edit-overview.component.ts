@@ -1,21 +1,21 @@
-import { PaginatedResource, OffsetPaginationEvent } from '@sentinel/common/pagination';
-import { ChangeDetectionStrategy, Component, HostListener } from '@angular/core';
-import { Observable } from 'rxjs';
+import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
+import { ChangeDetectionStrategy, Component, DestroyRef, HostListener, inject, OnInit } from '@angular/core';
+import { Observable, switchMap } from 'rxjs';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, take } from 'rxjs/operators';
+import { filter, map, take } from 'rxjs/operators';
 import { AdaptiveInstanceEditService } from '../services/state/edit/adaptive-instance-edit.service';
 import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
 import { AdaptiveInstanceEditControls } from '../models/adapter/adaptive-instance-edit-controls';
 import { ADAPTIVE_INSTANCE_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
 import { AdaptiveInstanceChangeEvent } from '../models/events/adaptive-instance-change-event';
 import { AdaptiveInstanceEditConcreteService } from '../services/state/edit/adaptive-instance-edit-concrete.service';
-import { SentinelUserAssignService } from '@sentinel/components/user-assign';
 import { OrganizersAssignService } from '../services/state/organizers-assign/organizers-assign.service';
 import { Pool, SandboxDefinition } from '@muni-kypo-crp/sandbox-model';
 import { SandboxPoolListAdapter } from '../models/adapter/sandbox-pool-list-adapter';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { SentinelUserAssignService } from '@sentinel/components/user-assign';
 
 @Component({
   selector: 'kypo-adaptive-instance-edit-overview',
@@ -27,7 +27,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     { provide: SentinelUserAssignService, useClass: OrganizersAssignService },
   ],
 })
-export class AdaptiveInstanceEditOverviewComponent {
+export class AdaptiveInstanceEditOverviewComponent implements OnInit {
   readonly PAGE_SIZE: number = 999;
 
   trainingInstance$: Observable<TrainingInstance>;
@@ -46,12 +46,14 @@ export class AdaptiveInstanceEditOverviewComponent {
   defaultPaginationSize: number;
   hasAssignedPool: boolean;
   controls: SentinelControlItem[];
+  destroyRef = inject(DestroyRef);
 
   constructor(
     private router: Router,
     private activeRoute: ActivatedRoute,
     private paginationService: PaginationService,
-    private editService: AdaptiveInstanceEditService
+    private editService: AdaptiveInstanceEditService,
+    private userAssignService: SentinelUserAssignService
   ) {
     this.defaultPaginationSize = this.paginationService.DEFAULT_PAGINATION;
     this.trainingInstance$ = this.editService.trainingInstance$;
@@ -68,6 +70,22 @@ export class AdaptiveInstanceEditOverviewComponent {
     this.refreshPools();
     this.refreshSandboxDefinitions();
     this.controls = AdaptiveInstanceEditControls.create(this.editService, saveDisabled$, this.instanceValid$);
+  }
+
+  ngOnInit(): void {
+    this.editMode$
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        filter((editMode) => editMode),
+        switchMap(() => this.editService.trainingInstance$),
+        takeUntilDestroyed(this.destroyRef),
+        filter((trainingInstance) => !!trainingInstance && !!trainingInstance.id)
+      )
+      .subscribe((trainingInstance) =>
+        this.userAssignService
+          .getAssigned(trainingInstance.id, new OffsetPaginationEvent(0, this.defaultPaginationSize))
+          .subscribe()
+      );
   }
 
   /**

@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component, DestroyRef, HostListener, inject, O
 import { ActivatedRoute } from '@angular/router';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { Level, MitreTechnique, TrainingDefinition } from '@muni-kypo-crp/training-model';
-import { combineLatest, Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { combineLatest, Observable, switchMap } from 'rxjs';
+import { filter, map, tap } from 'rxjs/operators';
 import { TrainingDefinitionEditControls } from '../model/adapters/training-definition-edit-controls';
 import { TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
 import { TrainingDefinitionChangeEvent } from '../model/events/training-definition-change-event';
@@ -56,7 +56,7 @@ export class TrainingDefinitionEditOverviewComponent implements OnInit {
     private editService: TrainingDefinitionEditService,
     private levelEditService: LevelEditService,
     private mitreTechniquesService: MitreTechniquesService,
-    private userAssignService: SentinelUserAssignService
+    private authorsAssignService: SentinelUserAssignService
   ) {
     this.defaultPaginationSize = this.paginationService.DEFAULT_PAGINATION;
     this.trainingDefinition$ = this.editService.trainingDefinition$;
@@ -87,13 +87,19 @@ export class TrainingDefinitionEditOverviewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.trainingDefinition$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((trainingDefinition) => {
-      if (trainingDefinition) {
-        this.userAssignService
+    this.editMode$
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        filter((editMode) => editMode),
+        switchMap(() => this.editService.trainingDefinition$),
+        takeUntilDestroyed(this.destroyRef),
+        filter((trainingDefinition) => !!trainingDefinition && !!trainingDefinition.id)
+      )
+      .subscribe((trainingDefinition) =>
+        this.authorsAssignService
           .getAssigned(trainingDefinition.id, new OffsetPaginationEvent(0, this.defaultPaginationSize))
-          .subscribe();
-      }
-    });
+          .subscribe()
+      );
   }
 
   /**
