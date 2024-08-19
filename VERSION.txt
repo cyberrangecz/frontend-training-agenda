@@ -1,3 +1,4 @@
+16.2.0 Update additional components versions to latest version.
 16.1.9 Update visualization versions.
 16.1.8 Update topology graph version.
 16.1.7 Update sentinel and component versions.
