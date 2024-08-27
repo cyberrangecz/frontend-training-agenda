@@ -2,8 +2,12 @@
   flex: 1 1 auto;
 }
 
+.list-spacer {
+  margin: 16px 0;
+}
+
 .content {
-  min-width: 400px;
+  min-width: 500px;
 }
 
 .empty-content {

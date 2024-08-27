@@ -1,11 +1,8 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, Inject, OnInit, Optional } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
-import { TrainingDefinition } from '@muni-kypo-crp/training-model';
-import { TrainingDefinitionInfo } from '@muni-kypo-crp/training-model';
+import { TrainingDefinition, TrainingDefinitionInfo } from '@muni-kypo-crp/training-model';
 import { merge, Observable } from 'rxjs';
-import { takeWhile } from 'rxjs/operators';
-import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
 import { TrainingDefinitionOrganizerSelectConcreteService } from '../../services/state/training-definition-selector/training-definition-organizer-select-concrete.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
@@ -23,7 +20,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   ],
 })
 export class TrainingDefinitionSelectComponent implements OnInit {
-  readonly PAGE_SIZE;
   destroyRef = inject(DestroyRef);
 
   released$: Observable<PaginatedResource<TrainingDefinitionInfo>>;
@@ -36,7 +32,6 @@ export class TrainingDefinitionSelectComponent implements OnInit {
   constructor(
     @Optional() @Inject(MAT_DIALOG_DATA) public data: TrainingDefinition,
     public dialogRef: MatDialogRef<TrainingDefinitionSelectComponent>,
-    private paginationService: PaginationService,
     @Inject('releasedService') private releasedService: TrainingDefinitionOrganizerSelectConcreteService,
     @Inject('unreleasedService') private unreleasedService: TrainingDefinitionOrganizerSelectConcreteService
   ) {
@@ -44,7 +39,7 @@ export class TrainingDefinitionSelectComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const pagination = new OffsetPaginationEvent(0, this.paginationService.DEFAULT_PAGINATION, 'title', 'asc');
+    const pagination = new OffsetPaginationEvent(0, Number.MAX_SAFE_INTEGER, 'title', 'asc');
     this.released$ = this.releasedService.resource$;
     this.releasedHasError$ = this.releasedService.hasError$;
     this.unreleased$ = this.unreleasedService.resource$;
