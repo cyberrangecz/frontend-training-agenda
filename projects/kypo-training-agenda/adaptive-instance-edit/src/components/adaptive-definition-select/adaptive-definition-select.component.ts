@@ -30,6 +30,8 @@ export class AdaptiveDefinitionSelectComponent implements OnInit {
   selected: TrainingDefinitionInfo[] = [];
   destroyRef = inject(DestroyRef);
 
+  protected readonly LIST_HEIGHT = Number.MAX_SAFE_INTEGER;
+
   constructor(
     @Optional() @Inject(MAT_DIALOG_DATA) public data: TrainingDefinition,
     public dialogRef: MatDialogRef<AdaptiveDefinitionSelectComponent>,

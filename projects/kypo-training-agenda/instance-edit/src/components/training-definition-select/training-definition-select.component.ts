@@ -20,14 +20,15 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   ],
 })
 export class TrainingDefinitionSelectComponent implements OnInit {
-  destroyRef = inject(DestroyRef);
-
   released$: Observable<PaginatedResource<TrainingDefinitionInfo>>;
   releasedHasError$: Observable<boolean>;
   unreleased$: Observable<PaginatedResource<TrainingDefinitionInfo>>;
   unreleasedHasError$: Observable<boolean>;
   isLoading$: Observable<boolean>;
   selected: TrainingDefinitionInfo[] = [];
+  destroyRef = inject(DestroyRef);
+
+  protected readonly LIST_HEIGHT = Number.MAX_SAFE_INTEGER;
 
   constructor(
     @Optional() @Inject(MAT_DIALOG_DATA) public data: TrainingDefinition,
