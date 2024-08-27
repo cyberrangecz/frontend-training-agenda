@@ -22,8 +22,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   ],
 })
 export class AdaptiveDefinitionSelectComponent implements OnInit {
-  readonly PAGE_SIZE;
-
   released$: Observable<PaginatedResource<TrainingDefinitionInfo>>;
   releasedHasError$: Observable<boolean>;
   unreleased$: Observable<PaginatedResource<TrainingDefinitionInfo>>;
@@ -32,6 +30,8 @@ export class AdaptiveDefinitionSelectComponent implements OnInit {
   selected: TrainingDefinitionInfo[] = [];
   destroyRef = inject(DestroyRef);
 
+  protected readonly LIST_HEIGHT = Number.MAX_SAFE_INTEGER;
+
   constructor(
     @Optional() @Inject(MAT_DIALOG_DATA) public data: TrainingDefinition,
     public dialogRef: MatDialogRef<AdaptiveDefinitionSelectComponent>,
@@ -39,12 +39,11 @@ export class AdaptiveDefinitionSelectComponent implements OnInit {
     @Inject('releasedService') private releasedService: AdaptiveDefinitionOrganizerSelectConcreteService,
     @Inject('unreleasedService') private unreleasedService: AdaptiveDefinitionOrganizerSelectConcreteService
   ) {
-    this.PAGE_SIZE = this.context.config.defaultPaginationSize;
     this.selected = [this.data];
   }
 
   ngOnInit(): void {
-    const pagination = new OffsetPaginationEvent(0, this.PAGE_SIZE, 'title', 'asc');
+    const pagination = new OffsetPaginationEvent(0, Number.MAX_SAFE_INTEGER, 'title', 'asc');
     this.released$ = this.releasedService.resource$;
     this.releasedHasError$ = this.releasedService.hasError$;
     this.unreleased$ = this.unreleasedService.resource$;
