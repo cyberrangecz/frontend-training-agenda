@@ -1,3 +1,4 @@
+16.2.3 Update topology graph version.
 16.2.2 Fix training definition dialog not displaying all definitions.
 16.2.1 Remove sorting option on expire time in training instance overview.
 16.2.0 Update additional components versions to latest version.
