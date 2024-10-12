@@ -18,12 +18,10 @@ export class TrainingPreviewComponent implements OnInit {
   activeLevel: Level;
   levels: Level[];
   stepper: TrainingPreviewStepper;
-  isStepperDisplayed: boolean;
 
   constructor(private activeRoute: ActivatedRoute) {
     this.activeRoute.data.pipe(takeUntilDestroyed()).subscribe((data) => {
       this.levels = data[TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME].levels;
-      this.isStepperDisplayed = data[TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME].showStepperBar;
     });
   }
 

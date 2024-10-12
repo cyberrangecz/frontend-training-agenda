@@ -20,6 +20,7 @@ export class TrainingInstanceFormGroup {
         ]),
         localEnvironment: new UntypedFormControl(trainingInstance.localEnvironment),
         backwardMode: new UntypedFormControl(trainingInstance.backwardMode),
+        showStepperBar: new UntypedFormControl(trainingInstance.showStepperBar),
       },
       { validators: this.dateSequenceValidator }
     );
@@ -66,6 +67,7 @@ export class TrainingInstanceFormGroup {
     trainingInstance.accessToken = this.formGroup.get('accessTokenPrefix').value?.trim();
     trainingInstance.localEnvironment = this.formGroup.get('localEnvironment').value;
     trainingInstance.backwardMode = this.formGroup.get('backwardMode').value;
+    trainingInstance.showStepperBar = this.formGroup.get('showStepperBar').value;
   }
 
   private getTokenPrefix(accessToken: string): string {

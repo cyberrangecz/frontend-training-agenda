@@ -27,9 +27,6 @@ export class TrainingDefinitionEditComponent implements OnChanges {
   get description(): AbstractControl {
     return this.trainingDefinitionEditFormGroup.formGroup.get('description');
   }
-  get showProgress(): AbstractControl {
-    return this.trainingDefinitionEditFormGroup.formGroup.get('showProgress');
-  }
   get outcomes(): UntypedFormArray {
     return this.trainingDefinitionEditFormGroup.formGroup.get('outcomes') as UntypedFormArray;
   }

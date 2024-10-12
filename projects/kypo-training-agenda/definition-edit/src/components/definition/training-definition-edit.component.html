@@ -31,18 +31,6 @@
 
 
         <div class="checkboxes-container">
-          <!-- SHOW STEPPER BAR checkbox-->
-          <div class="form-line">
-            <div class="form-line-content">
-              <mat-checkbox matTooltip="When active, trainee can see which level
-              he is playing and how many there are until the end"
-                            labelPosition="after"
-                            formControlName="showProgress"
-                            (change)="checkboxTouched()">
-                Show Stepper Bar
-              </mat-checkbox>
-            </div>
-          </div>
 
           <!-- DEFAULT CONTENT checkbox -->
           <div class="form-line" *ngIf="!trainingDefinition.id">

@@ -16,7 +16,6 @@ export class AdaptiveTrainingDefinitionEditFormGroup {
         trainingDefinition.prerequisites.map((prereq) => new UntypedFormControl(prereq))
       ),
       outcomes: new UntypedFormArray(trainingDefinition.outcomes.map((outcomes) => new UntypedFormControl(outcomes))),
-      showProgress: new UntypedFormControl(trainingDefinition.showStepperBar),
       defaultContent: new UntypedFormControl(trainingDefinition.defaultContent),
     });
   }
@@ -28,7 +27,6 @@ export class AdaptiveTrainingDefinitionEditFormGroup {
   setValuesToTrainingDefinition(trainingDefinition: TrainingDefinition): void {
     trainingDefinition.title = this.formGroup.get('title').value;
     trainingDefinition.description = this.formGroup.get('description').value;
-    trainingDefinition.showStepperBar = this.formGroup.get('showProgress').value;
     trainingDefinition.outcomes = this.formGroup.get('outcomes').value;
     trainingDefinition.prerequisites = this.formGroup.get('prerequisites').value;
     trainingDefinition.defaultContent = this.formGroup.get('defaultContent').value;
