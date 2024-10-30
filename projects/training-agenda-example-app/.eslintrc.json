@@ -9,7 +9,7 @@
       ],
       "parserOptions": {
         "project": [
-          "projects/training-agenda-example-app/tsconfig.lint.json",
+          "projects/training-agenda-example-app/tsconfig.lint-app.json",
           "projects/training-agenda-example-app/tsconfig.spec.json"
         ],
         "createDefaultProgram": false
