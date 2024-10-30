@@ -1,6 +1,6 @@
 import { Component, DestroyRef, inject, Input, OnInit } from '@angular/core';
 import { OffsetPaginationEvent } from '@sentinel/common/pagination';
-import { SentinelDateTimeFormatPipe } from '@sentinel/common/pipes';
+import { DatePipe } from '@angular/common';
 import {
   AbstractDetectionEvent,
   AbstractDetectionEventTypeEnum,
@@ -66,7 +66,7 @@ export class TrainingInstanceDetectionEventDetailComponent implements OnInit {
     private detectionEventForbiddenCommandsService: DetectionEventForbiddenCommandsService,
     private paginationService: PaginationService,
     private navigator: TrainingNavigator,
-    private activeRoute: ActivatedRoute
+    private activeRoute: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
@@ -112,7 +112,7 @@ export class TrainingInstanceDetectionEventDetailComponent implements OnInit {
     }
   }
   detectionRunTime(): string {
-    const datePipe = new SentinelDateTimeFormatPipe('en-EN');
+    const datePipe = new DatePipe('en-EN');
     return `${datePipe.transform(this.detectionRunAt)}`;
   }
   /**
@@ -134,13 +134,13 @@ export class TrainingInstanceDetectionEventDetailComponent implements OnInit {
     this.participantTableHasError$ = this.detectionEventParticipantService.hasError$;
     this.participantTableIsLoading$ = this.detectionEventParticipantService.isLoading$;
     this.participants$ = this.detectionEventParticipantService.resource$.pipe(
-      map((resource) => new DetectionEventParticipantTable(resource))
+      map((resource) => new DetectionEventParticipantTable(resource)),
     );
     const initialPagination = new OffsetPaginationEvent(
       0,
       this.paginationService.getPagination(this.paginationId),
       this.INIT_SORT_NAME,
-      this.INIT_SORT_DIR
+      this.INIT_SORT_DIR,
     );
     this.onLoadEventParticipants({ pagination: initialPagination });
   }
@@ -149,13 +149,13 @@ export class TrainingInstanceDetectionEventDetailComponent implements OnInit {
     this.forbiddenCommandsTableHasError$ = this.detectionEventForbiddenCommandsService.hasError$;
     this.forbiddenCommandsTableIsLoading$ = this.detectionEventForbiddenCommandsService.isLoading$;
     this.forbiddenCommands$ = this.detectionEventForbiddenCommandsService.resource$.pipe(
-      map((resource) => new DetectionEventForbiddenCommandsTable(resource))
+      map((resource) => new DetectionEventForbiddenCommandsTable(resource)),
     );
     const initialPagination = new OffsetPaginationEvent(
       0,
       this.paginationService.getPagination(this.paginationId),
       this.INIT_SORT_NAME,
-      this.INIT_SORT_DIR
+      this.INIT_SORT_DIR,
     );
     this.onLoadEventForbiddenCommands({ pagination: initialPagination });
   }
@@ -169,7 +169,12 @@ export class TrainingInstanceDetectionEventDetailComponent implements OnInit {
     this.detectionEventParticipantService
       .getAll(
         this.eventId,
-        new OffsetPaginationEvent(0, loadEvent.pagination.size, loadEvent.pagination.sort, loadEvent.pagination.sortDir)
+        new OffsetPaginationEvent(
+          0,
+          loadEvent.pagination.size,
+          loadEvent.pagination.sort,
+          loadEvent.pagination.sortDir,
+        ),
       )
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe();
@@ -180,7 +185,12 @@ export class TrainingInstanceDetectionEventDetailComponent implements OnInit {
     this.detectionEventForbiddenCommandsService
       .getAll(
         this.eventId,
-        new OffsetPaginationEvent(0, loadEvent.pagination.size, loadEvent.pagination.sort, loadEvent.pagination.sortDir)
+        new OffsetPaginationEvent(
+          0,
+          loadEvent.pagination.size,
+          loadEvent.pagination.sort,
+          loadEvent.pagination.sortDir,
+        ),
       )
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe();

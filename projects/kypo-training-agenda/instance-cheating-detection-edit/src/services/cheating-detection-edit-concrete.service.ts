@@ -16,7 +16,7 @@ export class CheatingDetectionEditConcreteService extends CheatingDetectionEditS
     private navigator: TrainingNavigator,
     private notificationService: TrainingNotificationService,
     private errorHandler: TrainingErrorHandler,
-    private api: CheatingDetectionApi
+    private api: CheatingDetectionApi,
   ) {
     super();
   }
@@ -30,9 +30,9 @@ export class CheatingDetectionEditConcreteService extends CheatingDetectionEditS
     return this.api.createAndExecute(cheatingDetection).pipe(
       tap(
         () => this.notificationService.emit('success', 'Cheating Detection started executing'),
-        (err) => this.errorHandler.emit(err, 'Creating and Executing Cheating Detection')
+        (err) => this.errorHandler.emit(err, 'Creating and Executing Cheating Detection'),
       ),
-      switchMap(() => this.router.navigate([this.navigator.toTrainingInstanceCheatingDetection(trainingInstanceId)]))
+      switchMap(() => this.router.navigate([this.navigator.toTrainingInstanceCheatingDetection(trainingInstanceId)])),
     );
   }
 }

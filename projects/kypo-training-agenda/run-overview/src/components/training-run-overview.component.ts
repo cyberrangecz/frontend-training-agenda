@@ -31,7 +31,7 @@ export class TrainingRunOverviewComponent implements OnInit {
   constructor(
     private trainingRunOverviewService: AccessedTrainingRunService,
     private accessedAdaptiveRunService: AccessedAdaptiveRunService,
-    private paginationService: PaginationService
+    private paginationService: PaginationService,
   ) {
     this.controls = AccessedTrainingRunControls.create(trainingRunOverviewService);
   }
@@ -83,7 +83,7 @@ export class TrainingRunOverviewComponent implements OnInit {
     };
 
     this.trainingRuns$ = this.trainingRunOverviewService.resource$.pipe(
-      map((resource) => new AccessedTrainingRunTable(resource, this.trainingRunOverviewService))
+      map((resource) => new AccessedTrainingRunTable(resource, this.trainingRunOverviewService)),
     );
     this.hasError$ = this.trainingRunOverviewService.hasError$;
     this.loadAccessedTrainingRuns(initialLoadEvent);

@@ -1,7 +1,7 @@
 import { asyncData } from '@sentinel/common/testing';
 import { TrainingDefinitionEditOverviewMaterialModule } from '../../../definition-edit/src/components/training-definition-edit-overview-material.module';
 import { AdaptivePreviewComponent } from './adaptive-preview.component';
-import { TestBed, ComponentFixture, async } from '@angular/core/testing';
+import { TestBed, ComponentFixture, waitForAsync } from '@angular/core/testing';
 import {
   TrainingDefinition,
   Phase,
@@ -20,7 +20,7 @@ describe('TrainingPreviewComponent', () => {
 
   let activeRouteSpy: jasmine.SpyObj<ActivatedRoute>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     activeRouteSpy = createActivatedRouteSpy();
     activeRouteSpy.data = asyncData({ adaptiveDefinition: createMock() });
     TestBed.configureTestingModule({

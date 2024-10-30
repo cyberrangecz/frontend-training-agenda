@@ -25,7 +25,11 @@ export class TrainingDefinitionLevelsDetailComponent implements OnInit {
 
   onControlsAction(control: SentinelControlItem): void {
     control.result$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((res) => {
-      res === 'expand' ? this.accordion.openAll() : this.accordion.closeAll();
+      if (res === 'expand') {
+        this.accordion.openAll();
+      } else {
+        this.accordion.closeAll();
+      }
     });
   }
 

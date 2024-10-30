@@ -83,7 +83,11 @@ export class TrainingLevelEditComponent implements OnChanges {
       this.trainingLevelConfigFormGroup.formGroup.valueChanges
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(() => {
-          this.variantAnswers.value ? this.enableVariableName() : this.enableAnswer();
+          if (this.variantAnswers.value) {
+            this.enableVariableName();
+          } else {
+            this.enableAnswer();
+          }
           this.trainingLevelConfigFormGroup.setToLevel(this.level);
           this.levelChange.emit(this.level);
         });

@@ -56,7 +56,7 @@ export class TrainingDefinitionEditOverviewComponent implements OnInit {
     private editService: TrainingDefinitionEditService,
     private levelEditService: LevelEditService,
     private mitreTechniquesService: MitreTechniquesService,
-    private authorsAssignService: SentinelUserAssignService
+    private authorsAssignService: SentinelUserAssignService,
   ) {
     this.defaultPaginationSize = this.paginationService.DEFAULT_PAGINATION;
     this.trainingDefinition$ = this.editService.trainingDefinition$;
@@ -66,7 +66,7 @@ export class TrainingDefinitionEditOverviewComponent implements OnInit {
     this.mitreTechniquesService.getAll().pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
     const valid$: Observable<boolean> = combineLatest(
       this.editService.definitionValid$,
-      this.levelEditService.levelsValid$
+      this.levelEditService.levelsValid$,
     ).pipe(map((valid) => valid[0] && valid[1]));
     this.levelSaveDisabled$ = this.levelEditService.levelsSaveDisabled$;
     this.unsavedLevels$ = levelEditService.unsavedLevels$;
@@ -80,9 +80,9 @@ export class TrainingDefinitionEditOverviewComponent implements OnInit {
             this.editService,
             this.saveDisabled$,
             this.levelSaveDisabled$,
-            valid$
-          ))
-      )
+            valid$,
+          )),
+      ),
     );
   }
 
@@ -93,12 +93,12 @@ export class TrainingDefinitionEditOverviewComponent implements OnInit {
         filter((editMode) => editMode),
         switchMap(() => this.editService.trainingDefinition$),
         takeUntilDestroyed(this.destroyRef),
-        filter((trainingDefinition) => !!trainingDefinition && !!trainingDefinition.id)
+        filter((trainingDefinition) => !!trainingDefinition && !!trainingDefinition.id),
       )
       .subscribe((trainingDefinition) =>
         this.authorsAssignService
           .getAssigned(trainingDefinition.id, new OffsetPaginationEvent(0, this.defaultPaginationSize))
-          .subscribe()
+          .subscribe(),
       );
   }
 

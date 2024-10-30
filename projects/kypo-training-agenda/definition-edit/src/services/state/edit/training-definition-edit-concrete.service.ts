@@ -24,7 +24,7 @@ export class TrainingDefinitionEditConcreteService extends TrainingDefinitionEdi
     private errorHandler: TrainingErrorHandler,
     private navigator: TrainingNavigator,
     private notificationService: TrainingNotificationService,
-    private levelEditService: LevelEditService
+    private levelEditService: LevelEditService,
   ) {
     super();
   }
@@ -79,8 +79,8 @@ export class TrainingDefinitionEditConcreteService extends TrainingDefinitionEdi
           this.notificationService.emit('success', 'Changes were saved');
           this.onSaved();
         },
-        (err) => this.errorHandler.emit(err, 'Editing training definition')
-      )
+        (err) => this.errorHandler.emit(err, 'Editing training definition'),
+      ),
     );
   }
 
@@ -91,9 +91,9 @@ export class TrainingDefinitionEditConcreteService extends TrainingDefinitionEdi
           this.notificationService.emit('success', 'Training was created');
           this.onSaved();
         },
-        (err) => this.errorHandler.emit(err, 'Creating training definition')
+        (err) => this.errorHandler.emit(err, 'Creating training definition'),
       ),
-      map((td) => td.id)
+      map((td) => td.id),
     );
   }
 

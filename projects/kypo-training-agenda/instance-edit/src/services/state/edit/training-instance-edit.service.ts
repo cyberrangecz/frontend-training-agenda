@@ -25,7 +25,7 @@ export abstract class TrainingInstanceEditService {
   pools$: Observable<PaginatedResource<Pool>> = this.poolsSubject$.asObservable();
 
   protected sandboxDefinitionsSubject$: BehaviorSubject<PaginatedResource<SandboxDefinition>> = new BehaviorSubject(
-    this.initSandboxDefinitions(999)
+    this.initSandboxDefinitions(999),
   );
 
   sandboxDefinitions$: Observable<PaginatedResource<SandboxDefinition>> =
@@ -57,7 +57,7 @@ export abstract class TrainingInstanceEditService {
   protected constructor() {
     this.hasStarted$ = timer(1).pipe(
       switchMap(() => this.trainingInstance$),
-      map((ti) => ti?.hasStarted())
+      map((ti) => ti?.hasStarted()),
     );
   }
 
@@ -93,7 +93,7 @@ export abstract class TrainingInstanceEditService {
   abstract getAllPools(OffsetPaginationEvent: OffsetPaginationEvent): Observable<PaginatedResource<Pool>>;
 
   abstract getAllSandboxDefinitions(
-    OffsetPaginationEvent: OffsetPaginationEvent
+    OffsetPaginationEvent: OffsetPaginationEvent,
   ): Observable<PaginatedResource<SandboxDefinition>>;
 
   protected initPools(pageSize: number): PaginatedResource<Pool> {

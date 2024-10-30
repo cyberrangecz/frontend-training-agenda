@@ -45,7 +45,7 @@ export class TrainingInstanceSummaryComponent implements OnInit {
     private trainingInstanceSummaryService: TrainingInstanceSummaryService,
     private notificationService: TrainingNotificationService,
     private paginationService: PaginationService,
-    private trainingRunService: TrainingRunService
+    private trainingRunService: TrainingRunService,
   ) {}
 
   ngOnInit(): void {
@@ -53,7 +53,7 @@ export class TrainingInstanceSummaryComponent implements OnInit {
       map((data) => data[TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME]),
       tap((ti) => {
         this.initSummaryComponent(ti);
-      })
+      }),
     );
     this.initTrainingRunsComponent();
   }
@@ -77,10 +77,10 @@ export class TrainingInstanceSummaryComponent implements OnInit {
         switchMap((ti) =>
           this.trainingRunService.getAll(
             ti.id,
-            new OffsetPaginationEvent(0, event.pagination.size, event.pagination.sort, event.pagination.sortDir)
-          )
+            new OffsetPaginationEvent(0, event.pagination.size, event.pagination.sort, event.pagination.sortDir),
+          ),
         ),
-        takeUntilDestroyed(this.destroyRef)
+        takeUntilDestroyed(this.destroyRef),
       )
       .subscribe();
   }
@@ -94,7 +94,7 @@ export class TrainingInstanceSummaryComponent implements OnInit {
     this.trainingInstanceAccessTokenLink = `/${this.navigator.toTrainingInstanceAccessToken(trainingInstance.id)}`;
     this.trainingInstancePoolIdLink = `/${this.navigator.toPool(trainingInstance.poolId)}`;
     this.trainingDefinitionLink = `/${this.navigator.toTrainingDefinitionDetail(
-      trainingInstance.trainingDefinition.id
+      trainingInstance.trainingDefinition.id,
     )}`;
     this.hasStarted$ = this.trainingInstanceSummaryService.hasStarted$;
   }
@@ -104,17 +104,17 @@ export class TrainingInstanceSummaryComponent implements OnInit {
       0,
       this.paginationService.getPagination(this.paginationId),
       '',
-      'asc'
+      'asc',
     );
     this.trainingInstance$
       .pipe(
         take(1),
-        switchMap((ti) => this.trainingRunService.getAll(ti.id, initialPagination))
+        switchMap((ti) => this.trainingRunService.getAll(ti.id, initialPagination)),
       )
       .subscribe();
     this.trainingRuns$ = this.trainingRunService.resource$.pipe(
       takeUntilDestroyed(this.destroyRef),
-      map((resource) => new TrainingRunTable(resource))
+      map((resource) => new TrainingRunTable(resource)),
     );
     this.trainingRunsHasError$ = this.trainingRunService.hasError$;
   }
@@ -143,7 +143,7 @@ export class TrainingInstanceSummaryComponent implements OnInit {
     this.trainingInstance$
       .pipe(
         switchMap((ti) => this.trainingRunService.exportScore(ti.id)),
-        take(1)
+        take(1),
       )
       .subscribe();
   }

@@ -15,12 +15,16 @@ export class AggregatedDashboardWrapperComponent implements OnInit {
   trainingInstance$: Observable<TrainingInstance>;
   destroyRef = inject(DestroyRef);
 
-  constructor(private activeRoute: ActivatedRoute, private router: Router, private navigator: TrainingNavigator) {}
+  constructor(
+    private activeRoute: ActivatedRoute,
+    private router: Router,
+    private navigator: TrainingNavigator,
+  ) {}
 
   ngOnInit(): void {
     this.trainingInstance$ = this.activeRoute.parent.data.pipe(
       takeUntilDestroyed(this.destroyRef),
-      map((data) => data.trainingInstance as TrainingInstance)
+      map((data) => data.trainingInstance as TrainingInstance),
     );
   }
 

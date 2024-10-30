@@ -18,7 +18,7 @@ export class TrainingRunAccessLevelConcreteService extends TrainingRunAccessLeve
     private sandboxApi: SandboxInstanceApi,
     private errorHandler: TrainingErrorHandler,
     protected dialog: MatDialog,
-    protected runningTrainingRunService: RunningTrainingRunService
+    protected runningTrainingRunService: RunningTrainingRunService,
   ) {
     super(dialog, runningTrainingRunService);
   }
@@ -32,8 +32,8 @@ export class TrainingRunAccessLevelConcreteService extends TrainingRunAccessLeve
         (_) => _,
         (err) => {
           this.errorHandler.emit(err, 'Access files for trainee');
-        }
-      )
+        },
+      ),
     );
   }
 
@@ -50,8 +50,8 @@ export class TrainingRunAccessLevelConcreteService extends TrainingRunAccessLeve
         (err) => {
           this.isLoadingSubject$.next(false);
           this.errorHandler.emit(err, 'Submitting passkey');
-        }
-      )
+        },
+      ),
     );
   }
 }

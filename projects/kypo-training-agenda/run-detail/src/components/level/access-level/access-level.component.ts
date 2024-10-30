@@ -59,7 +59,7 @@ export class AccessLevelComponent implements OnInit, OnChanges, AfterViewInit {
   constructor(
     private accessLevelService: TrainingRunAccessLevelService,
     private topologyErrorService: KypoTopologyErrorService,
-    private errorHandler: TrainingErrorHandler
+    private errorHandler: TrainingErrorHandler,
   ) {}
 
   @HostListener('window:resize', ['$event'])
@@ -156,7 +156,7 @@ export class AccessLevelComponent implements OnInit, OnChanges, AfterViewInit {
   // Checks if items in control bar are wrapped based on their top offset
   isWrapped(): boolean {
     const elements = Array.from(this.controlsContainer.nativeElement.childNodes).filter(
-      (elem: HTMLElement) => elem.offsetTop !== undefined
+      (elem: HTMLElement) => elem.offsetTop !== undefined,
     );
     return elements.some((elem: HTMLElement) => elem.offsetTop !== (elements[0] as HTMLElement).offsetTop);
   }

@@ -97,7 +97,7 @@ export class AdaptiveInstanceEditComponent implements OnChanges {
   private onChanged() {
     this.trainingInstanceFormGroup.setValuesToTrainingInstance(this.trainingInstance);
     this.edited.emit(
-      new AdaptiveInstanceChangeEvent(this.trainingInstance, this.trainingInstanceFormGroup.formGroup.valid)
+      new AdaptiveInstanceChangeEvent(this.trainingInstance, this.trainingInstanceFormGroup.formGroup.valid),
     );
   }
 }

@@ -53,7 +53,7 @@ export class AdaptiveInstanceEditOverviewComponent implements OnInit {
     private activeRoute: ActivatedRoute,
     private paginationService: PaginationService,
     private editService: AdaptiveInstanceEditService,
-    private userAssignService: SentinelUserAssignService
+    private userAssignService: SentinelUserAssignService,
   ) {
     this.defaultPaginationSize = this.paginationService.DEFAULT_PAGINATION;
     this.trainingInstance$ = this.editService.trainingInstance$;
@@ -79,12 +79,12 @@ export class AdaptiveInstanceEditOverviewComponent implements OnInit {
         filter((editMode) => editMode),
         switchMap(() => this.editService.trainingInstance$),
         takeUntilDestroyed(this.destroyRef),
-        filter((trainingInstance) => !!trainingInstance && !!trainingInstance.id)
+        filter((trainingInstance) => !!trainingInstance && !!trainingInstance.id),
       )
       .subscribe((trainingInstance) =>
         this.userAssignService
           .getAssigned(trainingInstance.id, new OffsetPaginationEvent(0, this.defaultPaginationSize))
-          .subscribe()
+          .subscribe(),
       );
   }
 

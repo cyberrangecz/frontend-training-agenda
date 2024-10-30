@@ -17,7 +17,7 @@ export abstract class CheatingDetectionService extends OffsetPaginatedElementsSe
    */
   abstract getAll(
     trainingInstanceId: number,
-    pagination: OffsetPaginationEvent
+    pagination: OffsetPaginationEvent,
   ): Observable<PaginatedResource<CheatingDetection>>;
 
   /**
@@ -33,7 +33,7 @@ export abstract class CheatingDetectionService extends OffsetPaginatedElementsSe
    */
   abstract toDetectionEventsOfCheatingDetection(
     trainingInstanceId: number,
-    cheatingDetectionId: number
+    cheatingDetectionId: number,
   ): Observable<any>;
 
   /**

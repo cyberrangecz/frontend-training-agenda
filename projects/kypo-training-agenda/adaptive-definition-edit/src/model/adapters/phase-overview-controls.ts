@@ -26,14 +26,14 @@ export class PhaseOverviewControls {
         'Add',
         'primary',
         of(false),
-        this.createAddExpandedMenuControlButtons(service)
+        this.createAddExpandedMenuControlButtons(service),
       ),
       new SentinelControlItem(
         this.DELETE_ACTION_ID,
         'Delete',
         'warn',
         deleteDisabled$,
-        defer(() => service.deleteSelected())
+        defer(() => service.deleteSelected()),
       ),
     ];
   }
@@ -46,7 +46,7 @@ export class PhaseOverviewControls {
         'primary',
         of(false),
         defer(() => service.add(AbstractPhaseTypeEnum.Training)),
-        'transform'
+        'transform',
       ),
       new SentinelControlMenuItem(
         this.ADD_INFO_PHASE_ID,
@@ -54,7 +54,7 @@ export class PhaseOverviewControls {
         'primary',
         of(false),
         defer(() => service.add(AbstractPhaseTypeEnum.Info)),
-        'info'
+        'info',
       ),
       new SentinelControlMenuItem(
         this.ADD_ADAPTIVE_QUESTIONNAIRE_PHASE_ID,
@@ -62,7 +62,7 @@ export class PhaseOverviewControls {
         'primary',
         of(false),
         defer(() => service.add(AbstractPhaseTypeEnum.Questionnaire, QuestionnaireTypeEnum.Adaptive)),
-        'help_center'
+        'help_center',
       ),
       new SentinelControlMenuItem(
         this.ADD_GENERAL_QUESTIONNAIRE_PHASE_ID,
@@ -70,7 +70,7 @@ export class PhaseOverviewControls {
         'primary',
         of(false),
         defer(() => service.add(AbstractPhaseTypeEnum.Questionnaire, QuestionnaireTypeEnum.General)),
-        'help'
+        'help',
       ),
       new SentinelControlMenuItem(
         this.ADD_ACCESS_PHASE_ID,
@@ -78,7 +78,7 @@ export class PhaseOverviewControls {
         'primary',
         of(false),
         defer(() => service.add(AbstractPhaseTypeEnum.Access)),
-        'settings'
+        'settings',
       ),
     ];
   }

@@ -12,7 +12,7 @@ export class TrainingInstanceEditControls {
   static create(
     service: TrainingInstanceEditService,
     saveDisabled$: Observable<boolean>,
-    instanceValid$: Observable<boolean>
+    instanceValid$: Observable<boolean>,
   ): SentinelControlItem[] {
     return TrainingInstanceEditControls.createControls(service, saveDisabled$, instanceValid$);
   }
@@ -20,10 +20,10 @@ export class TrainingInstanceEditControls {
   private static createControls(
     service: TrainingInstanceEditService,
     saveDisabled$: Observable<boolean>,
-    instanceValid$: Observable<boolean>
+    instanceValid$: Observable<boolean>,
   ): SentinelControlItem[] {
     const disabled$: Observable<boolean> = combineLatest(saveDisabled$, instanceValid$).pipe(
-      map((save) => save[0] || !save[1])
+      map((save) => save[0] || !save[1]),
     );
     return [
       new SentinelControlItem(
@@ -31,7 +31,7 @@ export class TrainingInstanceEditControls {
         'Save',
         'primary',
         disabled$,
-        defer(() => service.save())
+        defer(() => service.save()),
       ),
     ];
   }

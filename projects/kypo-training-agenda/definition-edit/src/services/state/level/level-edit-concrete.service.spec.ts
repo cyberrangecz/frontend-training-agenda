@@ -108,7 +108,7 @@ describe('LevelEditConcreteService', () => {
         expect(res).toEqual(assessmentLevel);
         done();
       },
-      () => fail
+      () => fail,
     );
   });
 
@@ -122,7 +122,7 @@ describe('LevelEditConcreteService', () => {
         expect(res).toEqual(trainingLevel);
         done();
       },
-      () => fail
+      () => fail,
     );
   });
 
@@ -136,7 +136,7 @@ describe('LevelEditConcreteService', () => {
         expect(res).toEqual(infoLevel);
         done();
       },
-      () => fail
+      () => fail,
     );
   });
 
@@ -150,7 +150,7 @@ describe('LevelEditConcreteService', () => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         expect(errorHandlerSpy.emit).toHaveBeenCalledWith(err, jasmine.anything());
         done();
-      }
+      },
     );
   });
 
@@ -164,7 +164,7 @@ describe('LevelEditConcreteService', () => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         expect(errorHandlerSpy.emit).toHaveBeenCalledWith(err, jasmine.anything());
         done();
-      }
+      },
     );
   });
 
@@ -177,7 +177,7 @@ describe('LevelEditConcreteService', () => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         expect(errorHandlerSpy.emit).toHaveBeenCalledWith(err, jasmine.anything());
         done();
-      }
+      },
     );
   });
 
@@ -192,7 +192,7 @@ describe('LevelEditConcreteService', () => {
         expect(notificationSpy.emit).toHaveBeenCalledWith('success', jasmine.anything());
         done();
       },
-      () => fail
+      () => fail,
     );
   });
 
@@ -207,7 +207,7 @@ describe('LevelEditConcreteService', () => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         expect(errorHandlerSpy.emit).toHaveBeenCalledWith(err, jasmine.anything());
         done();
-      }
+      },
     );
   });
 
@@ -222,7 +222,7 @@ describe('LevelEditConcreteService', () => {
         expect(apiSpy.deleteLevel).toHaveBeenCalledTimes(1);
         done();
       },
-      () => fail
+      () => fail,
     );
   });
 
@@ -237,7 +237,7 @@ describe('LevelEditConcreteService', () => {
       () => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         done();
-      }
+      },
     );
   });
 

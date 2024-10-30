@@ -111,7 +111,7 @@ export class HintsOverviewComponent implements OnInit, OnChanges {
         'Delete Hint',
         `Do you want to delete hint "${hint.title}"?`,
         'Cancel',
-        'Delete'
+        'Delete',
       ),
     });
 
@@ -212,14 +212,14 @@ export class HintsOverviewComponent implements OnInit, OnChanges {
         'Add',
         'primary',
         of(false),
-        defer(() => this.addHint())
+        defer(() => this.addHint()),
       ),
       new SentinelControlItem(
         'delete',
         'Delete',
         'warn',
         this.deleteDisabledSubject$.asObservable(),
-        defer(() => this.deleteActiveHint())
+        defer(() => this.deleteActiveHint()),
       ),
     ];
   }

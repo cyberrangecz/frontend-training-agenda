@@ -15,7 +15,7 @@ export class AdaptiveRunAccessPhaseConcreteService extends AdaptiveRunAccessPhas
     private sandboxApi: SandboxInstanceApi,
     private errorHandler: TrainingErrorHandler,
     protected dialog: MatDialog,
-    protected runningAdaptiveRunService: RunningAdaptiveRunService
+    protected runningAdaptiveRunService: RunningAdaptiveRunService,
   ) {
     super(dialog, runningAdaptiveRunService);
   }
@@ -26,8 +26,8 @@ export class AdaptiveRunAccessPhaseConcreteService extends AdaptiveRunAccessPhas
         (_) => _,
         (err) => {
           this.errorHandler.emit(err, 'Access files for trainee');
-        }
-      )
+        },
+      ),
     );
   }
 
@@ -40,8 +40,8 @@ export class AdaptiveRunAccessPhaseConcreteService extends AdaptiveRunAccessPhas
         (err) => {
           this.isLoadingSubject$.next(false);
           this.errorHandler.emit(err, 'Submitting passkey');
-        }
-      )
+        },
+      ),
     );
   }
 }

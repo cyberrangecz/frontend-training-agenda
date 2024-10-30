@@ -20,7 +20,7 @@ export class TrainingRunTrainingLevelConcreteService extends TrainingRunTraining
     private sandboxApi: SandboxInstanceApi,
     private errorHandler: TrainingErrorHandler,
     protected dialog: MatDialog,
-    protected runningTrainingRunService: RunningTrainingRunService
+    protected runningTrainingRunService: RunningTrainingRunService,
   ) {
     super(dialog, runningTrainingRunService);
   }
@@ -34,8 +34,8 @@ export class TrainingRunTrainingLevelConcreteService extends TrainingRunTraining
         (_) => _,
         (err) => {
           this.errorHandler.emit(err, 'Access files for trainee');
-        }
-      )
+        },
+      ),
     );
   }
 
@@ -47,15 +47,15 @@ export class TrainingRunTrainingLevelConcreteService extends TrainingRunTraining
     this.isLoadingSubject$.next(true);
     return this.api.isCorrectAnswer(this.runningTrainingRunService.trainingRunId, answer).pipe(
       switchMap((answerCheckResult) =>
-        answerCheckResult.isCorrect ? this.onCorrectAnswerSubmitted() : this.onWrongAnswerSubmitted(answerCheckResult)
+        answerCheckResult.isCorrect ? this.onCorrectAnswerSubmitted() : this.onWrongAnswerSubmitted(answerCheckResult),
       ),
       tap(
         () => this.isLoadingSubject$.next(false),
         (err) => {
           this.isLoadingSubject$.next(false);
           this.errorHandler.emit(err, 'Submitting answer');
-        }
-      )
+        },
+      ),
     );
   }
 
@@ -67,8 +67,8 @@ export class TrainingRunTrainingLevelConcreteService extends TrainingRunTraining
       switchMap((result) =>
         result === SentinelDialogResultEnum.CONFIRMED
           ? this.callApiToRevealSolution(this.runningTrainingRunService.trainingRunId)
-          : EMPTY
-      )
+          : EMPTY,
+      ),
     );
   }
 
@@ -81,8 +81,8 @@ export class TrainingRunTrainingLevelConcreteService extends TrainingRunTraining
       switchMap((result) =>
         result === SentinelDialogResultEnum.CONFIRMED
           ? this.callApiToTakeHint(this.runningTrainingRunService.trainingRunId, hint)
-          : EMPTY
-      )
+          : EMPTY,
+      ),
     );
   }
 
@@ -97,8 +97,8 @@ export class TrainingRunTrainingLevelConcreteService extends TrainingRunTraining
         (err) => {
           this.isLoadingSubject$.next(false);
           this.errorHandler.emit(err, 'Revealing solution');
-        }
-      )
+        },
+      ),
     );
   }
 
@@ -113,8 +113,8 @@ export class TrainingRunTrainingLevelConcreteService extends TrainingRunTraining
         (err) => {
           this.isLoadingSubject$.next(false);
           this.errorHandler.emit(err, `Taking hint "${hint.title}"`);
-        }
-      )
+        },
+      ),
     );
   }
 }

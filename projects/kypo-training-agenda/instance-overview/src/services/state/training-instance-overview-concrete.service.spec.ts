@@ -78,7 +78,7 @@ describe('TrainingInstanceOverviewConcreteService', () => {
         expect(trainingInstanceApiSpy.getAll).toHaveBeenCalledTimes(1);
         done();
       },
-      () => fail
+      () => fail,
     );
   });
 
@@ -92,7 +92,7 @@ describe('TrainingInstanceOverviewConcreteService', () => {
         expect(trainingInstanceApiSpy.getAll).toHaveBeenCalledTimes(1);
         service.hasError$.subscribe((val) => expect(val).toBeTrue());
         done();
-      }
+      },
     );
   });
 
@@ -136,7 +136,7 @@ describe('TrainingInstanceOverviewConcreteService', () => {
         expect(notificationSpy.emit).toHaveBeenCalledWith('success', jasmine.anything());
         done();
       },
-      () => fail
+      () => fail,
     );
   });
 
@@ -151,7 +151,7 @@ describe('TrainingInstanceOverviewConcreteService', () => {
         expect(trainingInstanceApiSpy.delete).toHaveBeenCalledTimes(1);
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         done();
-      }
+      },
     );
   });
 

@@ -39,20 +39,20 @@ export class CheatingDetectionOverviewComponent implements OnInit {
     private activeRoute: ActivatedRoute,
     private cheatingDetectionService: CheatingDetectionService,
     private paginationService: PaginationService,
-    private navigator: TrainingNavigator
+    private navigator: TrainingNavigator,
   ) {}
 
   ngOnInit(): void {
     this.trainingInstance$ = this.activeRoute.data.pipe(
       takeUntilDestroyed(this.destroyRef),
-      map((data) => data[TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME])
+      map((data) => data[TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME]),
     );
     this.trainingInstance$.subscribe((instance) => {
       this.trainingInstanceId = instance.id;
     });
     this.topControls = CheatingDetectionOverviewControls.createTopControls(
       this.cheatingDetectionService,
-      this.trainingInstanceId
+      this.trainingInstanceId,
     );
     this.initTable();
   }
@@ -66,7 +66,12 @@ export class CheatingDetectionOverviewComponent implements OnInit {
     this.cheatingDetectionService
       .getAll(
         this.trainingInstanceId,
-        new OffsetPaginationEvent(0, loadEvent.pagination.size, loadEvent.pagination.sort, loadEvent.pagination.sortDir)
+        new OffsetPaginationEvent(
+          0,
+          loadEvent.pagination.size,
+          loadEvent.pagination.sort,
+          loadEvent.pagination.sortDir,
+        ),
       )
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe();
@@ -92,13 +97,13 @@ export class CheatingDetectionOverviewComponent implements OnInit {
     this.hasError$ = this.cheatingDetectionService.hasError$;
     this.isLoading$ = this.cheatingDetectionService.isLoading$;
     this.cheatingDetections$ = this.cheatingDetectionService.resource$.pipe(
-      map((resource) => new CheatingDetectionTable(resource, this.cheatingDetectionService, this.navigator))
+      map((resource) => new CheatingDetectionTable(resource, this.cheatingDetectionService, this.navigator)),
     );
     const initialPagination = new OffsetPaginationEvent(
       0,
       this.paginationService.getPagination(this.paginationId),
       this.INIT_SORT_NAME,
-      this.INIT_SORT_DIR
+      this.INIT_SORT_DIR,
     );
     this.onLoadEvent({ pagination: initialPagination });
   }

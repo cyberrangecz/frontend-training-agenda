@@ -11,10 +11,10 @@ export class QuestionnairePhaseEditFormGroup {
     this.formGroup = new UntypedFormGroup({
       title: new UntypedFormControl(phase.title, Validators.required),
       questions: new UntypedFormArray(
-        phase.questions.map((question) => QuestionnairePhaseEditFormGroup.createQuestions(question))
+        phase.questions.map((question) => QuestionnairePhaseEditFormGroup.createQuestions(question)),
       ),
       phaseRelations: new UntypedFormArray(
-        phase.phaseRelations.map((relation) => QuestionnairePhaseEditFormGroup.createRelations(relation))
+        phase.phaseRelations.map((relation) => QuestionnairePhaseEditFormGroup.createRelations(relation)),
       ),
     });
   }

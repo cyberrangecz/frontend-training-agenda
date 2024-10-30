@@ -21,6 +21,6 @@ export abstract class AdaptiveRunService extends OffsetPaginatedElementsService<
    */
   abstract getAll(
     trainingInstanceId: number,
-    pagination: OffsetPaginationEvent
+    pagination: OffsetPaginationEvent,
   ): Observable<PaginatedResource<TrainingRun>>;
 }

@@ -15,7 +15,7 @@ export class CheatingDetectionOverviewControls {
         'Create Cheating Detection',
         'primary',
         of(false),
-        defer(() => service.toCreatePage(trainingInstanceId))
+        defer(() => service.toCreatePage(trainingInstanceId)),
       ),
     ];
   }

@@ -15,7 +15,11 @@ import {
  */
 @Injectable()
 export class TrainingDefinitionResolver {
-  constructor(private api: TrainingDefinitionApi, private errorHandler: TrainingErrorHandler, private router: Router) {}
+  constructor(
+    private api: TrainingDefinitionApi,
+    private errorHandler: TrainingErrorHandler,
+    private router: Router,
+  ) {}
 
   /**
    * Retrieves a specific resource based on id provided in url. Navigates to a resource overview if no resource with such id exists.
@@ -24,7 +28,7 @@ export class TrainingDefinitionResolver {
    */
   resolve(
     route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
+    state: RouterStateSnapshot,
   ): Observable<TrainingDefinition> | Promise<TrainingDefinition> | TrainingDefinition {
     if (state.url.endsWith(`${TRAINING_DEFINITION_PATH}/${TRAINING_DEFINITION_NEW_PATH}`)) {
       return null;
@@ -37,7 +41,7 @@ export class TrainingDefinitionResolver {
           this.errorHandler.emit(err, 'Training definition resolver');
           this.navigateToNew();
           return EMPTY;
-        })
+        }),
       );
     }
     return this.navigateToNew();

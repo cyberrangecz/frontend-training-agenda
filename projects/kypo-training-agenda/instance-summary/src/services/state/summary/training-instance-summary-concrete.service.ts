@@ -8,7 +8,10 @@ import { TrainingInstanceSummaryService } from './training-instance-summary.serv
 
 @Injectable()
 export class TrainingInstanceSummaryConcreteService extends TrainingInstanceSummaryService {
-  constructor(private router: Router, private navigator: TrainingNavigator) {
+  constructor(
+    private router: Router,
+    private navigator: TrainingNavigator,
+  ) {
     super();
   }
 

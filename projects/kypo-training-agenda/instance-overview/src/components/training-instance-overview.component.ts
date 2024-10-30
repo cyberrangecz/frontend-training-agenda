@@ -36,7 +36,7 @@ export class TrainingInstanceOverviewComponent {
     private service: TrainingInstanceOverviewService,
     private paginationService: PaginationService,
     private navigator: TrainingNavigator,
-    private notificationService: TrainingNotificationService
+    private notificationService: TrainingNotificationService,
   ) {
     this.controls = TrainingInstanceOverviewControls.create(this.service);
     this.initTable();
@@ -54,9 +54,9 @@ export class TrainingInstanceOverviewComponent {
           0,
           loadEvent.pagination.size,
           loadEvent.pagination.sort,
-          loadEvent.pagination.sortDir
+          loadEvent.pagination.sortDir,
         ),
-        loadEvent.filter
+        loadEvent.filter,
       )
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe();
@@ -72,11 +72,11 @@ export class TrainingInstanceOverviewComponent {
         0,
         this.paginationService.getPagination(this.paginationId),
         this.INITIAL_SORT_NAME,
-        this.INITIAL_SORT_DIR
+        this.INITIAL_SORT_DIR,
       ),
     };
     this.instances$ = this.service.resource$.pipe(
-      map((instances) => new TrainingInstanceTable(instances, this.service, this.navigator))
+      map((instances) => new TrainingInstanceTable(instances, this.service, this.navigator)),
     );
     this.hasError$ = this.service.hasError$;
     this.onInstancesLoadEvent(initLoadEvent);

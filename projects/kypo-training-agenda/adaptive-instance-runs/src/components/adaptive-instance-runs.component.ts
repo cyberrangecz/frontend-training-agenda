@@ -34,7 +34,7 @@ export class AdaptiveInstanceRunsComponent implements OnInit {
   constructor(
     private activeRoute: ActivatedRoute,
     private paginationService: PaginationService,
-    private adaptiveRunService: AdaptiveRunService
+    private adaptiveRunService: AdaptiveRunService,
   ) {}
 
   ngOnInit(): void {
@@ -42,7 +42,7 @@ export class AdaptiveInstanceRunsComponent implements OnInit {
       map((data) => data[ADAPTIVE_INSTANCE_DATA_ATTRIBUTE_NAME]),
       tap((ti) => {
         this.trainingInstance = ti;
-      })
+      }),
     );
 
     this.initRunsOverviewComponent();
@@ -61,14 +61,14 @@ export class AdaptiveInstanceRunsComponent implements OnInit {
     this.trainingInstance$
       .pipe(
         take(1),
-        switchMap((ti) => this.adaptiveRunService.getAll(ti.id, initialPagination))
+        switchMap((ti) => this.adaptiveRunService.getAll(ti.id, initialPagination)),
       )
       .subscribe();
     this.trainingRuns$ = this.adaptiveRunService.resource$.pipe(
       takeUntilDestroyed(this.destroyRef),
       map((resource) => {
         return new AdaptiveRunTable(resource, this.adaptiveRunService, this.trainingInstance);
-      })
+      }),
     );
 
     this.trainingRunsHasError$ = this.adaptiveRunService.hasError$;

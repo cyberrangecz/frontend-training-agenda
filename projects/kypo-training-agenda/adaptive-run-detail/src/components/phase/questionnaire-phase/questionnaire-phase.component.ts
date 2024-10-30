@@ -81,7 +81,7 @@ export class QuestionnairePhaseComponent implements OnChanges, OnInit, AfterView
       this.questionAnswers[questionIndex].answers.push(answer);
     } else {
       this.questionAnswers[questionIndex].answers = this.questionAnswers[questionIndex].answers.filter(
-        (a) => a !== answer
+        (a) => a !== answer,
       );
     }
   }

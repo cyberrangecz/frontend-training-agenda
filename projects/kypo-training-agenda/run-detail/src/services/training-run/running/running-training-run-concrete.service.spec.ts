@@ -83,7 +83,7 @@ describe('RunningTrainingRunConcreteService', () => {
         expect(service.getActiveLevel()).toEqual(nextLevel);
         done();
       },
-      () => fail
+      () => fail,
     );
   });
 
@@ -97,7 +97,7 @@ describe('RunningTrainingRunConcreteService', () => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         expect(errorHandlerSpy.emit).toHaveBeenCalledWith(err, jasmine.anything());
         done();
-      }
+      },
     );
   });
 
@@ -112,7 +112,7 @@ describe('RunningTrainingRunConcreteService', () => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         expect(errorHandlerSpy.emit).toHaveBeenCalledWith(err, jasmine.anything());
         done();
-      }
+      },
     );
   });
 

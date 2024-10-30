@@ -16,7 +16,7 @@ export class AdaptiveRunTrainingPhaseConcreteService extends AdaptiveRunTraining
     private sandboxApi: SandboxInstanceApi,
     private errorHandler: TrainingErrorHandler,
     protected dialog: MatDialog,
-    protected runningAdaptiveRunService: RunningAdaptiveRunService
+    protected runningAdaptiveRunService: RunningAdaptiveRunService,
   ) {
     super(dialog, runningAdaptiveRunService);
   }
@@ -27,8 +27,8 @@ export class AdaptiveRunTrainingPhaseConcreteService extends AdaptiveRunTraining
         (_) => _,
         (err) => {
           this.errorHandler.emit(err, 'Access files for trainee');
-        }
-      )
+        },
+      ),
     );
   }
 
@@ -36,15 +36,15 @@ export class AdaptiveRunTrainingPhaseConcreteService extends AdaptiveRunTraining
     this.isLoadingSubject$.next(true);
     return this.api.isCorrectAnswer(this.runningAdaptiveRunService.trainingRunId, answer).pipe(
       switchMap((answerCheckResult) =>
-        answerCheckResult.isCorrect ? this.onCorrectAnswerSubmitted() : this.onWrongAnswerSubmitted(answerCheckResult)
+        answerCheckResult.isCorrect ? this.onCorrectAnswerSubmitted() : this.onWrongAnswerSubmitted(answerCheckResult),
       ),
       tap(
         () => this.isLoadingSubject$.next(false),
         (err) => {
           this.isLoadingSubject$.next(false);
           this.errorHandler.emit(err, 'Submitting answer');
-        }
-      )
+        },
+      ),
     );
   }
 
@@ -53,8 +53,8 @@ export class AdaptiveRunTrainingPhaseConcreteService extends AdaptiveRunTraining
       switchMap((result) =>
         result === SentinelDialogResultEnum.CONFIRMED
           ? this.callApiToRevealSolution(this.runningAdaptiveRunService.trainingRunId)
-          : EMPTY
-      )
+          : EMPTY,
+      ),
     );
   }
 
@@ -69,8 +69,8 @@ export class AdaptiveRunTrainingPhaseConcreteService extends AdaptiveRunTraining
         (err) => {
           this.isLoadingSubject$.next(false);
           this.errorHandler.emit(err, 'Revealing solution');
-        }
-      )
+        },
+      ),
     );
   }
 }

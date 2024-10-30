@@ -27,7 +27,7 @@ export class AdaptiveDefinitionTitleResolver {
       return resolved.pipe(
         take(1),
         mergeMap((td) => (td ? of(`Edit ${td.title}`) : '')),
-        catchError(() => '')
+        catchError(() => ''),
       );
     }
     return '';

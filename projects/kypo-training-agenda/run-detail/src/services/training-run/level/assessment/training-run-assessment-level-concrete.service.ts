@@ -15,7 +15,7 @@ export class TrainingRunAssessmentLevelConcreteService extends TrainingRunAssess
   constructor(
     private api: TrainingRunApi,
     private errorHandler: TrainingErrorHandler,
-    private runningTrainingRunService: RunningTrainingRunService
+    private runningTrainingRunService: RunningTrainingRunService,
   ) {
     super();
   }
@@ -28,9 +28,9 @@ export class TrainingRunAssessmentLevelConcreteService extends TrainingRunAssess
     return this.api.submitAnswers(this.runningTrainingRunService.trainingRunId, answers).pipe(
       tap(
         (_) => _,
-        (err) => this.errorHandler.emit(err, 'Submitting answers')
+        (err) => this.errorHandler.emit(err, 'Submitting answers'),
       ),
-      switchMap(() => this.runningTrainingRunService.next())
+      switchMap(() => this.runningTrainingRunService.next()),
     );
   }
 }

@@ -21,7 +21,7 @@ export class AdaptiveInstanceResolver {
     private api: AdaptiveInstanceApi,
     private errorHandler: TrainingErrorHandler,
     private navigator: TrainingNavigator,
-    private router: Router
+    private router: Router,
   ) {}
 
   /**
@@ -31,7 +31,7 @@ export class AdaptiveInstanceResolver {
    */
   resolve(
     route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
+    state: RouterStateSnapshot,
   ): Observable<TrainingInstance> | Promise<TrainingInstance> | TrainingInstance {
     if (state.url.endsWith(`${ADAPTIVE_INSTANCE_PATH}/${TRAINING_INSTANCE_NEW_PATH}`)) {
       return null;
@@ -45,7 +45,7 @@ export class AdaptiveInstanceResolver {
           this.errorHandler.emit(err, 'Adaptive instance resolver');
           this.navigateToNew();
           return EMPTY;
-        })
+        }),
       );
     }
     return this.navigateToNew();

@@ -1,5 +1,5 @@
 import { PaginatedResource } from '@sentinel/common/pagination';
-import { SentinelDateTimeFormatPipe } from '@sentinel/common/pipes';
+import { DatePipe } from '@angular/common';
 import { TrainingRun, TrainingRunStateEnum } from '@muni-kypo-crp/training-model';
 import { Column, SentinelTable, Row } from '@sentinel/components/table';
 import { AdaptiveRunRowAdapter } from './adaptive-run-row-adapter';
@@ -25,7 +25,7 @@ export class AdaptiveRunTable extends SentinelTable<AdaptiveRunRowAdapter> {
   }
 
   private static createRow(element: TrainingRun): Row<AdaptiveRunRowAdapter> {
-    const datePipe = new SentinelDateTimeFormatPipe('en-EN');
+    const datePipe = new DatePipe('en-EN');
     const adapter = element as AdaptiveRunRowAdapter;
     adapter.playerName = adapter.player.name;
     adapter.startTimeFormatted = `${datePipe.transform(adapter.startTime)}`;

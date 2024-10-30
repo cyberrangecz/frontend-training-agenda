@@ -247,7 +247,7 @@ export class TrainingDefaultNavigator extends TrainingNavigator {
 
   toTrainingInstanceCheatingDetectionEventDetail(tid: number | string, cid: number | string, eventId: number): string {
     return `${this.toTrainingInstanceDetail(
-      tid
+      tid,
     )}/${CHEATING_DETECTION_PATH}/${cid}/${CHEATING_DETECTION_EVENTS_PATH}/${eventId}/${CHEATING_DETECTION_EVENT_DETAIL_PATH}`;
   }
 

@@ -67,7 +67,7 @@ export class TrainingInstanceInfoComponent implements OnInit, OnChanges {
       this.showAggregatedResults,
       this.showCheatingDetection,
       this.exportScore,
-      disabled$
+      disabled$,
     );
   }
 

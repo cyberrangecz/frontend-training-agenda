@@ -19,7 +19,7 @@ export class AccessAdaptiveRunResolver {
     private runningAdaptiveRunService: RunningAdaptiveRunService,
     private errorHandler: TrainingErrorHandler,
     private navigator: TrainingNavigator,
-    private router: Router
+    private router: Router,
   ) {}
 
   /**
@@ -27,7 +27,7 @@ export class AccessAdaptiveRunResolver {
    * @param route route snapshot
    */
   resolve(
-    route: ActivatedRouteSnapshot
+    route: ActivatedRouteSnapshot,
   ): Observable<AccessTrainingRunInfo> | Promise<AccessTrainingRunInfo> | AccessTrainingRunInfo {
     if (route.paramMap.has(TRAINING_RUN_SELECTOR)) {
       return this.resume(route);
@@ -51,7 +51,7 @@ export class AccessAdaptiveRunResolver {
       catchError((err) => {
         this.errorHandler.emit(err, 'Resuming adaptive run');
         return this.navigateToOverview();
-      })
+      }),
     );
   }
 
@@ -62,7 +62,7 @@ export class AccessAdaptiveRunResolver {
       catchError((err) => {
         this.errorHandler.emit(err, 'Accessing adaptive run');
         return this.navigateToOverview();
-      })
+      }),
     );
   }
 }

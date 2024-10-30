@@ -18,14 +18,14 @@ export class PhaseDetailExpandControls {
         this.EXPAND_LABEL,
         'primary',
         of(false),
-        defer(() => of(this.EXPAND_ACTION_ID))
+        defer(() => of(this.EXPAND_ACTION_ID)),
       ),
       new SentinelControlItem(
         this.EXPAND_ACTION_ID,
         this.COLLAPSE_LABEL,
         'primary',
         of(false),
-        defer(() => of(this.COLLAPSE_ACTION_ID))
+        defer(() => of(this.COLLAPSE_ACTION_ID)),
       ),
     ];
   }

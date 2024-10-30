@@ -22,7 +22,10 @@ export class AdaptiveRunResultsComponent implements OnInit {
   trainingRun$: Observable<any>;
   controls: SentinelControlItem[] = [];
 
-  constructor(private activatedRoute: ActivatedRoute, private service: MitreTechniquesOverviewService) {}
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private service: MitreTechniquesOverviewService,
+  ) {}
 
   /**
    * Resolves controls action and calls appropriate handler
