@@ -27,7 +27,7 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
     private router: Router,
     private navigator: TrainingNavigator,
     private errorHandler: TrainingErrorHandler,
-    private notificationService: TrainingNotificationService
+    private notificationService: TrainingNotificationService,
   ) {
     super();
   }
@@ -74,7 +74,7 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
       return this.update();
     } else {
       return this.create().pipe(
-        switchMap((id) => from(this.router.navigate([this.navigator.toTrainingInstanceEdit(id)])))
+        switchMap((id) => from(this.router.navigate([this.navigator.toTrainingInstanceEdit(id)]))),
       );
     }
   }
@@ -102,13 +102,13 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
         (pools) => {
           this.poolsSubject$.next(pools);
         },
-        (err) => this.errorHandler.emit(err, 'Fetching available pools')
-      )
+        (err) => this.errorHandler.emit(err, 'Fetching available pools'),
+      ),
     );
   }
 
   getAllSandboxDefinitions(
-    offsetPaginationEvent: OffsetPaginationEvent
+    offsetPaginationEvent: OffsetPaginationEvent,
   ): Observable<PaginatedResource<SandboxDefinition>> {
     this.lastPagination = offsetPaginationEvent;
     this.lastPagination.size = Number.MAX_SAFE_INTEGER;
@@ -117,14 +117,14 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
         (sandboxDefinitions) => {
           this.sandboxDefinitionsSubject$.next(sandboxDefinitions);
         },
-        (err) => this.errorHandler.emit(err, 'Fetching available sandbox definitions')
-      )
+        (err) => this.errorHandler.emit(err, 'Fetching available sandbox definitions'),
+      ),
     );
   }
 
   private checkInstanceValidity(): void {
     this.saveDisabledSubject$.next(
-      !this.instanceValidSubject$.value || (!this.editedSnapshot.localEnvironment && !this.editedSnapshot.poolId)
+      !this.instanceValidSubject$.value || (!this.editedSnapshot.localEnvironment && !this.editedSnapshot.poolId),
     );
   }
 
@@ -143,8 +143,8 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
           this.notificationService.emit('success', 'Training instance was created');
           this.onSaved();
         },
-        (err) => this.errorHandler.emit(err, 'Creating training instance')
-      )
+        (err) => this.errorHandler.emit(err, 'Creating training instance'),
+      ),
     );
   }
 
@@ -165,8 +165,8 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
         (err) => {
           this.saveDisabledSubject$.next(false);
           this.errorHandler.emit(err, 'Editing training instance');
-        }
-      )
+        },
+      ),
     );
   }
 

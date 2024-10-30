@@ -6,7 +6,10 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class MitreTechniquesOverviewConcreteService extends MitreTechniquesOverviewService {
-  constructor(private router: Router, private navigator: TrainingNavigator) {
+  constructor(
+    private router: Router,
+    private navigator: TrainingNavigator,
+  ) {
     super();
   }
 

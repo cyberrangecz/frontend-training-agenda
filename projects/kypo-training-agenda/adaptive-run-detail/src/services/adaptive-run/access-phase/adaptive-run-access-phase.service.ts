@@ -4,7 +4,10 @@ import { SentinelConfirmationDialogComponent, SentinelConfirmationDialogConfig }
 import { RunningAdaptiveRunService } from '../running/running-adaptive-run.service';
 
 export abstract class AdaptiveRunAccessPhaseService {
-  protected constructor(protected dialog: MatDialog, protected runningAdaptiveRunService: RunningAdaptiveRunService) {}
+  protected constructor(
+    protected dialog: MatDialog,
+    protected runningAdaptiveRunService: RunningAdaptiveRunService,
+  ) {}
 
   protected isCorrectPasskeySubmittedSubject$: BehaviorSubject<boolean>;
   isCorrectPasskeySubmitted$: Observable<boolean>;

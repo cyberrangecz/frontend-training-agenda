@@ -1,4 +1,4 @@
-import { async, TestBed } from '@angular/core/testing';
+import { waitForAsync, TestBed } from '@angular/core/testing';
 import { asyncData } from '@sentinel/common/testing';
 import { PaginatedResource, OffsetPagination, OffsetPaginationEvent } from '@sentinel/common/pagination';
 import { AdaptiveDefinitionApiService } from '@muni-kypo-crp/training-api';
@@ -20,7 +20,7 @@ describe('TrainingDefinitionOrganizerSelectorService', () => {
   let service: AdaptiveDefinitionOrganizerSelectConcreteService;
   let context: TrainingAgendaContext;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     errorHandlerSpy = createErrorHandlerSpy();
     adApiSpy = createAdaptiveDefinitionApiSpy();
     context = createContext();
@@ -55,7 +55,7 @@ describe('TrainingDefinitionOrganizerSelectorService', () => {
       () => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         done();
-      }
+      },
     );
   });
 

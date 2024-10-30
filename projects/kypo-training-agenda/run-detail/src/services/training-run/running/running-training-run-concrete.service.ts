@@ -24,7 +24,7 @@ export class RunningTrainingRunConcreteService extends RunningTrainingRunService
     private errorHandler: TrainingErrorHandler,
     private navigator: TrainingNavigator,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {
     super();
   }
@@ -81,8 +81,8 @@ export class RunningTrainingRunConcreteService extends RunningTrainingRunService
     return this.api.moveToLevel(this.trainingRunId, levelId).pipe(
       tap(
         (level) => this.setBacktrackedLevel(level),
-        (err) => this.errorHandler.emit(err, 'Moving to next level')
-      )
+        (err) => this.errorHandler.emit(err, 'Moving to next level'),
+      ),
     );
   }
 
@@ -111,7 +111,7 @@ export class RunningTrainingRunConcreteService extends RunningTrainingRunService
     return this.topologyService.getVMConsolesUrl(sandboxId).pipe(
       tap({
         error: (err) => this.errorHandler.emit(err, 'Obtaining console URL'),
-      })
+      }),
     );
   }
 
@@ -134,8 +134,8 @@ export class RunningTrainingRunConcreteService extends RunningTrainingRunService
           this.isCurrentLevelAnsweredSubject$.next(false);
           this.setActiveLevel(level);
         },
-        (err) => this.errorHandler.emit(err, 'Moving to next level')
-      )
+        (err) => this.errorHandler.emit(err, 'Moving to next level'),
+      ),
     );
   }
 
@@ -153,7 +153,7 @@ export class RunningTrainingRunConcreteService extends RunningTrainingRunService
         }, 5000);
         return EMPTY;
       }),
-      tap(() => this.clear())
+      tap(() => this.clear()),
     );
   }
 
@@ -161,7 +161,7 @@ export class RunningTrainingRunConcreteService extends RunningTrainingRunService
     return this.dialog.open(LoadingDialogComponent, {
       data: new LoadingDialogConfig(
         'Processing training data for visualization',
-        `Please wait while your training data are being processed`
+        `Please wait while your training data are being processed`,
       ),
     });
   }

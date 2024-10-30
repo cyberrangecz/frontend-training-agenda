@@ -11,7 +11,10 @@ import { RunningTrainingRunService } from '../../running/running-training-run.se
 import { HintButton } from '@muni-kypo-crp/training-agenda/internal';
 
 export abstract class TrainingRunTrainingLevelService {
-  protected constructor(protected dialog: MatDialog, protected runningTrainingRunService: RunningTrainingRunService) {}
+  protected constructor(
+    protected dialog: MatDialog,
+    protected runningTrainingRunService: RunningTrainingRunService,
+  ) {}
 
   protected hintsSubject$: BehaviorSubject<HintButton[]>;
   hints$: Observable<HintButton[]>;
@@ -143,7 +146,7 @@ export abstract class TrainingRunTrainingLevelService {
         `Do you want to reveal hint "${hint.title}"?
  It will cost you ${hint.penalty} points.`,
         'Cancel',
-        'Reveal'
+        'Reveal',
       ),
     });
     return dialogRef.afterClosed();

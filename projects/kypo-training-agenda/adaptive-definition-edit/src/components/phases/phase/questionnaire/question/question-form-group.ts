@@ -26,11 +26,11 @@ export class QuestionFormGroup {
                 text: new UntypedFormControl(choice.text, [SentinelValidators.noWhitespace, Validators.required]),
                 correct: new UntypedFormControl(choice.correct),
                 order: new UntypedFormControl(choice.order),
-              })
-          )
+              }),
+          ),
         ),
       },
-      this.noSelectedChoices
+      this.noSelectedChoices,
     );
   }
 

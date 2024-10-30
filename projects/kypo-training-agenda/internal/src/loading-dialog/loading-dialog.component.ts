@@ -10,7 +10,7 @@ import { LoadingDialogConfig } from './loading-dialog-config';
 export class LoadingDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<LoadingDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: LoadingDialogConfig
+    @Inject(MAT_DIALOG_DATA) public data: LoadingDialogConfig,
   ) {
     dialogRef.disableClose = true;
   }

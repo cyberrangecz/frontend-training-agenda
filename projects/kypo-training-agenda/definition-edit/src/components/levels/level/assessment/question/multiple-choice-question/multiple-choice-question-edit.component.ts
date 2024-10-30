@@ -116,7 +116,7 @@ export class MultipleChoiceQuestionEditComponent implements OnChanges {
         text: new UntypedFormControl('', [SentinelValidators.noWhitespace, Validators.required]),
         correct: new UntypedFormControl(false),
         order: new UntypedFormControl(this.choices.length),
-      })
+      }),
     );
     this.questionChanged();
   }

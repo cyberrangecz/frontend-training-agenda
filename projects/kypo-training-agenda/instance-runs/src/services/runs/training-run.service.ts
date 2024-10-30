@@ -20,7 +20,7 @@ export abstract class TrainingRunService extends OffsetPaginatedElementsPollingS
    */
   abstract getAll(
     trainingInstanceId: number,
-    pagination: OffsetPaginationEvent
+    pagination: OffsetPaginationEvent,
   ): Observable<PaginatedResource<TrainingRun>>;
 
   /**

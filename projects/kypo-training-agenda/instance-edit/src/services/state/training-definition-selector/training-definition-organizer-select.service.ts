@@ -11,6 +11,6 @@ export abstract class TrainingDefinitionOrganizerSelectService extends OffsetPag
    */
   abstract getAll(
     pagination: OffsetPaginationEvent,
-    stateFilter: string
+    stateFilter: string,
   ): Observable<PaginatedResource<TrainingDefinitionInfo>>;
 }

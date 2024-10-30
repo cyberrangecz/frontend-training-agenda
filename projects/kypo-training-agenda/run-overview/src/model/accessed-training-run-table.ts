@@ -31,7 +31,7 @@ export class AccessedTrainingRunTable extends SentinelTable<AccessedTrainingRunR
 
   private static createRow(
     accessedTrainingRun: AccessedTrainingRun,
-    service: AccessedTrainingRunService
+    service: AccessedTrainingRunService,
   ): Row<AccessedTrainingRunRowAdapter> {
     const adapter = accessedTrainingRun as AccessedTrainingRunRowAdapter;
     return new Row(adapter, this.createActions(adapter, service));
@@ -49,8 +49,8 @@ export class AccessedTrainingRunTable extends SentinelTable<AccessedTrainingRunR
         defer(() =>
           trainingRun.type === TrainingRunTypeEnum.LINEAR
             ? service.resumeLinear(trainingRun.trainingRunId)
-            : service.resumeAdaptive(trainingRun.trainingRunId)
-        )
+            : service.resumeAdaptive(trainingRun.trainingRunId),
+        ),
       ),
       new RowAction(
         'results',
@@ -69,7 +69,7 @@ export class AccessedTrainingRunTable extends SentinelTable<AccessedTrainingRunR
               break;
           }
           return EMPTY;
-        })
+        }),
       ),
     ];
   }

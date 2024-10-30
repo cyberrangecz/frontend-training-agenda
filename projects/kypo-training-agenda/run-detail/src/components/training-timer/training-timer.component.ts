@@ -27,7 +27,7 @@ export class TrainingTimerComponent implements OnChanges {
     const period = 1000;
     this.timeElapsed = timer(0, period).pipe(
       takeUntilDestroyed(this.destroyRef),
-      map(() => this.calculateElapsedTime())
+      map(() => this.calculateElapsedTime()),
     );
   }
 

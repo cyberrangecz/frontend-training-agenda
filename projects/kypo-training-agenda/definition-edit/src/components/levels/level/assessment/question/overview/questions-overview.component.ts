@@ -231,7 +231,7 @@ export class QuestionsOverviewComponent implements OnInit, OnChanges {
         'Delete question',
         `Do you want to delete question "${this.stepperQuestions.items[this.selectedStep].title}"?`,
         'Cancel',
-        'Delete'
+        'Delete',
       ),
     });
 
@@ -276,7 +276,7 @@ export class QuestionsOverviewComponent implements OnInit, OnChanges {
           'primary',
           of(false),
           defer(() => this.addFFQ()),
-          'help_outline'
+          'help_outline',
         ),
         new SentinelControlMenuItem(
           'mcq',
@@ -284,7 +284,7 @@ export class QuestionsOverviewComponent implements OnInit, OnChanges {
           'primary',
           of(false),
           defer(() => this.addMCQ()),
-          'check_circle'
+          'check_circle',
         ),
         new SentinelControlMenuItem(
           'emi',
@@ -292,7 +292,7 @@ export class QuestionsOverviewComponent implements OnInit, OnChanges {
           'primary',
           of(false),
           defer(() => this.addEMI()),
-          'list_alt'
+          'list_alt',
         ),
       ]),
     ];

@@ -1,5 +1,5 @@
 import { PaginatedResource } from '@sentinel/common/pagination';
-import { SentinelDateTimeFormatPipe } from '@sentinel/common/pipes';
+import { DatePipe } from '@angular/common';
 import { TrainingDefinitionStateEnum } from '@muni-kypo-crp/training-model';
 import { TrainingDefinition } from '@muni-kypo-crp/training-model';
 import {
@@ -24,7 +24,7 @@ export class TrainingDefinitionTable extends SentinelTable<TrainingDefinition> {
   constructor(
     resource: PaginatedResource<TrainingDefinition>,
     service: TrainingDefinitionService,
-    navigator: TrainingNavigator
+    navigator: TrainingNavigator,
   ) {
     const columns = [
       new Column('title', 'title', true),
@@ -36,7 +36,7 @@ export class TrainingDefinitionTable extends SentinelTable<TrainingDefinition> {
     ];
 
     const rows = resource.elements.map((definition) =>
-      TrainingDefinitionTable.createRow(definition, service, navigator)
+      TrainingDefinitionTable.createRow(definition, service, navigator),
     );
     super(rows, columns);
 
@@ -49,10 +49,10 @@ export class TrainingDefinitionTable extends SentinelTable<TrainingDefinition> {
   private static createRow(
     td: TrainingDefinition,
     service: TrainingDefinitionService,
-    navigator: TrainingNavigator
+    navigator: TrainingNavigator,
   ): Row<TrainingDefinition> {
     const adapter = td as TrainingDefinitionRowAdapter;
-    const datePipe = new SentinelDateTimeFormatPipe('en-EN');
+    const datePipe = new DatePipe('en-EN');
     adapter.createdAtFormatted = `${datePipe.transform(adapter.createdAt)}`;
     const row = new Row(adapter, TrainingDefinitionTable.createActions(adapter, service));
     row.addLink('title', navigator.toTrainingDefinitionDetail(td.id));
@@ -68,12 +68,12 @@ export class TrainingDefinitionTable extends SentinelTable<TrainingDefinition> {
       new EditAction(
         'Edit training definition',
         of(false),
-        defer(() => service.edit(td))
+        defer(() => service.edit(td)),
       ),
       new DeleteAction(
         'Delete training definition',
         of(false),
-        defer(() => service.delete(td))
+        defer(() => service.delete(td)),
       ),
       new RowAction(
         'clone',
@@ -82,12 +82,12 @@ export class TrainingDefinitionTable extends SentinelTable<TrainingDefinition> {
         'primary',
         'Clone training definition',
         of(false),
-        defer(() => service.clone(td))
+        defer(() => service.clone(td)),
       ),
       new DownloadAction(
         'Download training definition',
         of(false),
-        defer(() => service.download(td))
+        defer(() => service.download(td)),
       ),
       new RowAction(
         'preview',
@@ -96,7 +96,7 @@ export class TrainingDefinitionTable extends SentinelTable<TrainingDefinition> {
         'primary',
         'Preview training run',
         of(false),
-        defer(() => service.preview(td))
+        defer(() => service.preview(td)),
       ),
     ];
   }
@@ -112,7 +112,7 @@ export class TrainingDefinitionTable extends SentinelTable<TrainingDefinition> {
             'primary',
             'Unrelease training definition',
             of(false),
-            defer(() => service.changeState(td, TrainingDefinitionStateEnum.Unreleased))
+            defer(() => service.changeState(td, TrainingDefinitionStateEnum.Unreleased)),
           ),
           new RowAction(
             'archive',
@@ -121,7 +121,7 @@ export class TrainingDefinitionTable extends SentinelTable<TrainingDefinition> {
             'warn',
             'Archive training definition',
             of(false),
-            defer(() => service.changeState(td, TrainingDefinitionStateEnum.Archived))
+            defer(() => service.changeState(td, TrainingDefinitionStateEnum.Archived)),
           ),
         ];
       case TrainingDefinitionStateEnum.Unreleased:
@@ -133,7 +133,7 @@ export class TrainingDefinitionTable extends SentinelTable<TrainingDefinition> {
             'primary',
             'Release training definition',
             of(false),
-            defer(() => service.changeState(td, TrainingDefinitionStateEnum.Released))
+            defer(() => service.changeState(td, TrainingDefinitionStateEnum.Released)),
           ),
         ];
       default:

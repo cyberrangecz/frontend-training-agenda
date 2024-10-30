@@ -88,7 +88,7 @@ describe('TrainingDefinitionEditConcreteService', () => {
         expect(notificationSpy.emit).toHaveBeenCalledWith('success', jasmine.anything());
         expect(res).toEqual(0);
       },
-      () => fail
+      () => fail,
     );
   });
 
@@ -103,7 +103,7 @@ describe('TrainingDefinitionEditConcreteService', () => {
         expect(notificationSpy.emit).toHaveBeenCalledWith('success', jasmine.anything());
         done();
       },
-      () => fail
+      () => fail,
     );
   });
 
@@ -117,7 +117,7 @@ describe('TrainingDefinitionEditConcreteService', () => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         expect(errorHandlerSpy.emit).toHaveBeenCalledWith(err, jasmine.anything());
         done();
-      }
+      },
     );
   });
 
@@ -130,7 +130,7 @@ describe('TrainingDefinitionEditConcreteService', () => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         expect(errorHandlerSpy.emit).toHaveBeenCalledWith(err, jasmine.anything());
         done();
-      }
+      },
     );
   });
 
@@ -145,7 +145,7 @@ describe('TrainingDefinitionEditConcreteService', () => {
         expect(notificationSpy.emit).toHaveBeenCalledWith('success', jasmine.anything());
         done();
       },
-      () => fail
+      () => fail,
     );
   });
 
@@ -158,7 +158,7 @@ describe('TrainingDefinitionEditConcreteService', () => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         expect(errorHandlerSpy.emit).toHaveBeenCalledWith(err, jasmine.anything());
         done();
-      }
+      },
     );
   });
 

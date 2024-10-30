@@ -1,6 +1,6 @@
 import { SentinelFreeFormComponent } from '@sentinel/components/free-form';
 import { TrainingDefinitionEditComponent } from './training-definition-edit.component';
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { SimpleChanges, SimpleChange } from '@angular/core';
 import { TrainingDefinition, Level, AssessmentLevel, InfoLevel, TrainingLevel } from '@muni-kypo-crp/training-model';
 import { TrainingDefinitionChangeEvent } from '../../model/events/training-definition-change-event';
@@ -11,7 +11,7 @@ describe('TrainingDefinitionEditComponent', () => {
   let component: TrainingDefinitionEditComponent;
   let fixture: ComponentFixture<TrainingDefinitionEditComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [MaterialTestingModule, SentinelFreeFormComponent],
       declarations: [TrainingDefinitionEditComponent],

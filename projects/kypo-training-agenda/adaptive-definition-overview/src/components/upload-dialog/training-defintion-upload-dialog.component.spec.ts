@@ -1,7 +1,7 @@
 import { ngfModule } from 'angular-file';
 import { TrainingDefinitionUploadDialogComponent } from './training-definition-upload-dialog.component';
 import { MatDialogRef } from '@angular/material/dialog';
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { asyncData } from '@sentinel/common/testing';
 import { SentinelPipesModule } from '@sentinel/common/pipes';
@@ -19,7 +19,7 @@ describe('TrainingDefinitionUploadDialogComponent', () => {
   let matDialogRefSpy: jasmine.SpyObj<MatDialogRef<TrainingDefinitionUploadDialogComponent>>;
   let uploadProgressService: jasmine.SpyObj<AdaptiveFileUploadProgressService>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     matDialogRefSpy = createDialogRefSpy();
     uploadProgressService = createAdaptiveFileUploadProgressServiceSpy();
     uploadProgressService.isInProgress$ = asyncData(false);

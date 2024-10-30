@@ -15,8 +15,8 @@ export class TrainingPhaseEditFormGroup {
       ]),
       decisionMatrix: new UntypedFormArray(
         phase.decisionMatrix.map((row, index) =>
-          TrainingPhaseEditFormGroup.createRows(row, index === phase.decisionMatrix.length - 1)
-        )
+          TrainingPhaseEditFormGroup.createRows(row, index === phase.decisionMatrix.length - 1),
+        ),
       ),
     });
   }

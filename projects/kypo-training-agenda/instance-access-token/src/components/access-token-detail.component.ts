@@ -20,7 +20,7 @@ export class AccessTokenDetailComponent {
   constructor(private activeRoute: ActivatedRoute) {
     this.trainingInstance$ = this.activeRoute.data.pipe(
       takeUntilDestroyed(),
-      map((data) => data[TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME])
+      map((data) => data[TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME]),
     );
   }
 }

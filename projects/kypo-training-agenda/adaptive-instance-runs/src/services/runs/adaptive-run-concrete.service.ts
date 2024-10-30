@@ -32,7 +32,7 @@ export class AdaptiveRunConcreteService extends AdaptiveRunService {
     private dialog: MatDialog,
     private context: TrainingAgendaContext,
     private notificationService: TrainingNotificationService,
-    private errorHandler: TrainingErrorHandler
+    private errorHandler: TrainingErrorHandler,
   ) {
     super(context.config.defaultPaginationSize, context.config.pollingPeriod);
   }
@@ -47,8 +47,8 @@ export class AdaptiveRunConcreteService extends AdaptiveRunService {
     return this.adaptiveInstanceApi.getAssociatedTrainingRuns(trainingInstanceId, pagination).pipe(
       tap(
         (runs) => this.resourceSubject$.next(runs),
-        () => this.onGetAllError()
-      )
+        () => this.onGetAllError(),
+      ),
     );
   }
 
@@ -62,7 +62,7 @@ export class AdaptiveRunConcreteService extends AdaptiveRunService {
           return of();
         }
         return this.callApiToDeleteSandbox(trainingRun);
-      })
+      }),
     );
   }
 
@@ -72,7 +72,7 @@ export class AdaptiveRunConcreteService extends AdaptiveRunService {
         'Delete Sandbox Instance',
         `Do you want to delete sandbox instance and training run of player "${trainingRun?.player?.name}"?`,
         'Cancel',
-        'Delete'
+        'Delete',
       ),
     });
     return dialogRef.afterClosed();
@@ -98,8 +98,8 @@ export class AdaptiveRunConcreteService extends AdaptiveRunService {
       switchMap(() => this.sauApi.createCleanupRequest(sandboxToDelete.allocationUnitId)),
       tap(
         () => this.notificationService.emit('success', 'Deleting of sandbox instance started'),
-        (err) => this.errorHandler.emit(err, 'Deleting sandbox instance')
-      )
+        (err) => this.errorHandler.emit(err, 'Deleting sandbox instance'),
+      ),
     );
   }
 
@@ -107,8 +107,8 @@ export class AdaptiveRunConcreteService extends AdaptiveRunService {
     return this.adaptiveRunApi.delete(trainingRun.id, true).pipe(
       tap(
         () => this.notificationService.emit('success', 'Deleting of training run started'),
-        (err) => this.errorHandler.emit(err, 'Deleting training run')
-      )
+        (err) => this.errorHandler.emit(err, 'Deleting training run'),
+      ),
     );
   }
 

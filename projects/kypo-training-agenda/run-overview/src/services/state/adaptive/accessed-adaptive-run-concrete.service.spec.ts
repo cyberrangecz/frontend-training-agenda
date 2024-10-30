@@ -1,4 +1,4 @@
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { OffsetPaginationEvent } from '@sentinel/common/pagination';
@@ -25,7 +25,7 @@ describe('AccessedTrainingRunConcreteService', () => {
   let routerSpy: jasmine.SpyObj<Router>;
   let context: TrainingAgendaContext;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     errorHandlerSpy = createErrorHandlerSpy();
     apiSpy = createAdaptiveRunApiSpy();
     navigatorSpy = createNavigatorSpy();
@@ -58,7 +58,7 @@ describe('AccessedTrainingRunConcreteService', () => {
       () => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         done();
-      }
+      },
     );
     expect(apiSpy.getAccessed).toHaveBeenCalledTimes(1);
   });

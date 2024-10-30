@@ -15,12 +15,12 @@
   <div class="data-field">
     <mat-icon class="material-icons-round"> hourglass_top </mat-icon>
     <div class="icon-label">Start Time</div>
-    <div class="value-field">{{ trainingInstance.startTime | sentinelDateTimeFormat }}</div>
+    <div class="value-field">{{ trainingInstance.startTime | date }}</div>
   </div>
   <div class="data-field">
     <mat-icon class="material-icons-round"> hourglass_bottom </mat-icon>
     <div class="icon-label">End Time</div>
-    <div class="value-field">{{ trainingInstance.endTime | sentinelDateTimeFormat }}</div>
+    <div class="value-field">{{ trainingInstance.endTime | date }}</div>
   </div>
   <div class="data-field">
     <mat-icon class="material-icons-round"> view_comfy </mat-icon>

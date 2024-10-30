@@ -17,14 +17,14 @@ export class TrainingDefinitionOverviewControls {
         'Create',
         'primary',
         of(false),
-        defer(() => service.create())
+        defer(() => service.create()),
       ),
       new SentinelControlItem(
         this.UPLOAD_ACTION_ID,
         'Upload',
         'primary',
         of(false),
-        defer(() => service.upload())
+        defer(() => service.upload()),
       ),
     ];
   }
@@ -36,7 +36,7 @@ export class TrainingDefinitionOverviewControls {
         'MITRE ATT&CK Techniques',
         'primary',
         of(false),
-        defer(() => service.showMitreTechniques())
+        defer(() => service.showMitreTechniques()),
       ),
     ];
   }

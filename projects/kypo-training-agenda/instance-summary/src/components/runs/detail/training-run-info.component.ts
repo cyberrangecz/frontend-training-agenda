@@ -26,7 +26,7 @@ export class TrainingRunInfoComponent implements OnInit {
         this.info = new TrainingInfoTable(res);
         this.hasError = false;
       },
-      () => (this.hasError = true)
+      () => (this.hasError = true),
     );
   }
 

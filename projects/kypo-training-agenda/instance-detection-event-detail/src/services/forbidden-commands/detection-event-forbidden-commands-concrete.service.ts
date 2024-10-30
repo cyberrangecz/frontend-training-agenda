@@ -19,7 +19,7 @@ export class DetectionEventForbiddenCommandsConcreteService extends DetectionEve
     private api: DetectionEventApi,
     private dialog: MatDialog,
     private router: Router,
-    private context: TrainingAgendaContext
+    private context: TrainingAgendaContext,
   ) {
     super(context.config.defaultPaginationSize);
   }
@@ -32,15 +32,15 @@ export class DetectionEventForbiddenCommandsConcreteService extends DetectionEve
    */
   public getAll(
     detectionEventId: number,
-    pagination: OffsetPaginationEvent
+    pagination: OffsetPaginationEvent,
   ): Observable<PaginatedResource<DetectedForbiddenCommand>> {
     return this.api.getAllForbiddenCommandsOfEvent(pagination, detectionEventId).pipe(
       tap(
         (commands) => {
           this.resourceSubject$.next(commands);
         },
-        () => this.onGetAllError()
-      )
+        () => this.onGetAllError(),
+      ),
     );
   }
 

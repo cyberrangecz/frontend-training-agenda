@@ -28,7 +28,7 @@ export class CheatingDetectionConcreteService extends CheatingDetectionService {
     private context: TrainingAgendaContext,
     private navigator: TrainingNavigator,
     private notificationService: TrainingNotificationService,
-    private errorHandler: TrainingErrorHandler
+    private errorHandler: TrainingErrorHandler,
   ) {
     super(context.config.defaultPaginationSize);
   }
@@ -43,15 +43,15 @@ export class CheatingDetectionConcreteService extends CheatingDetectionService {
    */
   getAll(
     trainingInstanceId: number,
-    pagination: OffsetPaginationEvent
+    pagination: OffsetPaginationEvent,
   ): Observable<PaginatedResource<CheatingDetection>> {
     return this.api.getAll(pagination, trainingInstanceId).pipe(
       tap(
         (detections) => {
           this.resourceSubject$.next(detections);
         },
-        () => this.onGetAllError()
-      )
+        () => this.onGetAllError(),
+      ),
     );
   }
 
@@ -72,7 +72,7 @@ export class CheatingDetectionConcreteService extends CheatingDetectionService {
     return from(
       this.router.navigate([
         this.navigator.toTrainingInstanceCheatingDetectionEvents(trainingInstanceId, cheatingDetectionId),
-      ])
+      ]),
     );
   }
 
@@ -86,8 +86,8 @@ export class CheatingDetectionConcreteService extends CheatingDetectionService {
       switchMap((result) =>
         result === SentinelDialogResultEnum.CONFIRMED
           ? this.callApiToDelete(cheatingDetectionId, trainingInstanceId)
-          : EMPTY
-      )
+          : EMPTY,
+      ),
     );
   }
 
@@ -100,8 +100,8 @@ export class CheatingDetectionConcreteService extends CheatingDetectionService {
     return this.api.rerun(cheatingDetectionId, trainingInstanceId).pipe(
       tap(
         () => this.notificationService.emit('success', 'Cheating Detection was re-executed.'),
-        (err) => this.errorHandler.emit(err, 'executing cheating detection rerun')
-      )
+        (err) => this.errorHandler.emit(err, 'executing cheating detection rerun'),
+      ),
     );
   }
 
@@ -111,7 +111,7 @@ export class CheatingDetectionConcreteService extends CheatingDetectionService {
         'Delete Cheating Detection',
         `Do you want to delete cheating detection "${cheatingDetectionId}"?`,
         'Cancel',
-        'Delete'
+        'Delete',
       ),
     });
     return dialogRef.afterClosed();
@@ -119,14 +119,14 @@ export class CheatingDetectionConcreteService extends CheatingDetectionService {
 
   private callApiToDelete(
     cheatingDetectionId: number,
-    trainingInstanceId: number
+    trainingInstanceId: number,
   ): Observable<PaginatedResource<CheatingDetection>> {
     return this.api.delete(cheatingDetectionId, trainingInstanceId).pipe(
       tap(
         () => this.notificationService.emit('success', 'Cheating Detection was deleted'),
-        (err) => this.errorHandler.emit(err, 'Deleting cheating detection')
+        (err) => this.errorHandler.emit(err, 'Deleting cheating detection'),
       ),
-      switchMap(() => this.getAll(trainingInstanceId, this.lastPagination))
+      switchMap(() => this.getAll(trainingInstanceId, this.lastPagination)),
     );
   }
 
@@ -138,8 +138,8 @@ export class CheatingDetectionConcreteService extends CheatingDetectionService {
     return this.api.createAndExecute(cheatingDetection).pipe(
       tap(
         () => this.notificationService.emit('success', 'Cheating Detection was executed'),
-        (err) => this.errorHandler.emit(err, 'Creating and executing cheating detection')
-      )
+        (err) => this.errorHandler.emit(err, 'Creating and executing cheating detection'),
+      ),
     );
   }
   private onGetAllError() {

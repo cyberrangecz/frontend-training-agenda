@@ -19,7 +19,7 @@ export class DetectionEventParticipantConcreteService extends DetectionEventPart
     private api: DetectionEventApi,
     private dialog: MatDialog,
     private router: Router,
-    private context: TrainingAgendaContext
+    private context: TrainingAgendaContext,
   ) {
     super(context.config.defaultPaginationSize);
   }
@@ -31,15 +31,15 @@ export class DetectionEventParticipantConcreteService extends DetectionEventPart
    */
   public getAll(
     detectionEventId: number,
-    pagination: OffsetPaginationEvent
+    pagination: OffsetPaginationEvent,
   ): Observable<PaginatedResource<DetectionEventParticipant>> {
     return this.api.getAllParticipants(pagination, detectionEventId).pipe(
       tap(
         (detections) => {
           this.resourceSubject$.next(detections);
         },
-        () => this.onGetAllError()
-      )
+        () => this.onGetAllError(),
+      ),
     );
   }
 

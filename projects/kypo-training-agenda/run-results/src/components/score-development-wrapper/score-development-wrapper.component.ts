@@ -24,7 +24,10 @@ export class ScoreDevelopmentWrapperComponent implements OnInit {
     this.setVisualizationSize(event.target.innerWidth, event.target.innerHeight);
   }
 
-  constructor(private activatedRoute: ActivatedRoute, private trainingDefinitionApi: TrainingDefinitionApi) {}
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private trainingDefinitionApi: TrainingDefinitionApi,
+  ) {}
 
   ngOnInit(): void {
     this.setVisualizationSize(window.innerWidth, innerHeight);
@@ -37,7 +40,7 @@ export class ScoreDevelopmentWrapperComponent implements OnInit {
   loadVisualizationInfo(): void {
     this.visualizationInfo$ = this.activatedRoute.data.pipe(
       takeUntilDestroyed(this.destroyRef),
-      map((data) => this.createTrainingVisualizationInfo(data[TRAINING_RUN_DATA_ATTRIBUTE_NAME]))
+      map((data) => this.createTrainingVisualizationInfo(data[TRAINING_RUN_DATA_ATTRIBUTE_NAME])),
     );
     this.traineeModeInfo$ = this.visualizationInfo$.pipe(
       map((vizInfo) => {
@@ -45,7 +48,7 @@ export class ScoreDevelopmentWrapperComponent implements OnInit {
         traineeModeInfo.trainingRunId = vizInfo.trainingRunId;
         traineeModeInfo.activeTraineeId = vizInfo.traineeId;
         return traineeModeInfo;
-      })
+      }),
     );
   }
 

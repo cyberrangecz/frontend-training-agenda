@@ -21,7 +21,7 @@ export class LevelOverviewControls {
   static create(
     service: LevelEditService,
     editMode: boolean,
-    deleteDisabled$: Observable<boolean>
+    deleteDisabled$: Observable<boolean>,
   ): SentinelControlItem[] {
     return [
       new SentinelExpandableControlItem(
@@ -29,14 +29,14 @@ export class LevelOverviewControls {
         'Add',
         'primary',
         of(!editMode),
-        this.createAddExpandedMenuControlButtons(service)
+        this.createAddExpandedMenuControlButtons(service),
       ),
       new SentinelControlItem(
         this.DELETE_ACTION_ID,
         'Delete',
         'warn',
         deleteDisabled$,
-        defer(() => service.deleteSelected())
+        defer(() => service.deleteSelected()),
       ),
     ];
   }
@@ -49,7 +49,7 @@ export class LevelOverviewControls {
         'primary',
         of(false),
         defer(() => service.add(AbstractLevelTypeEnum.Training)),
-        'videogame_asset'
+        'videogame_asset',
       ),
       new SentinelControlMenuItem(
         this.ADD_ACCESS_LEVEL_ID,
@@ -57,7 +57,7 @@ export class LevelOverviewControls {
         'primary',
         of(false),
         defer(() => service.add(AbstractLevelTypeEnum.Access)),
-        'settings'
+        'settings',
       ),
       new SentinelControlMenuItem(
         this.ADD_ASSESSMENT_LEVEL_ID,
@@ -65,7 +65,7 @@ export class LevelOverviewControls {
         'primary',
         of(false),
         defer(() => service.add(AbstractLevelTypeEnum.Assessment)),
-        'assignment'
+        'assignment',
       ),
       new SentinelControlMenuItem(
         this.ADD_INFO_LEVEL_ID,
@@ -73,7 +73,7 @@ export class LevelOverviewControls {
         'primary',
         of(false),
         defer(() => service.add(AbstractLevelTypeEnum.Info)),
-        'info'
+        'info',
       ),
     ];
   }

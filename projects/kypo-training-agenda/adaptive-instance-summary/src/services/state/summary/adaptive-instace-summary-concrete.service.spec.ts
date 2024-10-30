@@ -1,4 +1,4 @@
-import { async, TestBed } from '@angular/core/testing';
+import { waitForAsync, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { asyncData } from '@sentinel/common/testing';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
@@ -17,7 +17,7 @@ describe('AdaptiveInstanceSummaryConcreteService', () => {
   let service: AdaptiveInstanceSummaryConcreteService;
   let context: TrainingAgendaContext;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     routerSpy = createRouterSpy();
     navigatorSpy = createNavigatorSpy();
     context = createContext();

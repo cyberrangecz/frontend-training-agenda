@@ -75,7 +75,7 @@ describe('TrainingDefinitionConcreteService', () => {
         expect(res).toEqual(createPaginatedMock());
         done();
       },
-      () => fail
+      () => fail,
     );
     expect(apiSpy.getAll).toHaveBeenCalledTimes(1);
     expect(apiSpy.getAll).toHaveBeenCalledWith(createPagination(), [new SentinelFilter('title', 'filter')]);
@@ -88,7 +88,7 @@ describe('TrainingDefinitionConcreteService', () => {
       () => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         done();
-      }
+      },
     );
     expect(apiSpy.getAll).toHaveBeenCalledTimes(1);
     expect(apiSpy.getAll).toHaveBeenCalledWith(createPagination(), [new SentinelFilter('title', 'filter')]);
@@ -98,7 +98,7 @@ describe('TrainingDefinitionConcreteService', () => {
     navigatorSpy.toNewTrainingDefinition.and.returnValue('create');
     service.create().subscribe(
       () => done(),
-      () => fail
+      () => fail,
     );
     expect(navigatorSpy.toNewTrainingDefinition).toHaveBeenCalledTimes(1);
   });
@@ -107,7 +107,7 @@ describe('TrainingDefinitionConcreteService', () => {
     navigatorSpy.toTrainingDefinitionEdit.and.returnValue('edit');
     service.edit(new TrainingDefinition()).subscribe(
       () => done(),
-      () => fail
+      () => fail,
     );
     expect(navigatorSpy.toTrainingDefinitionEdit).toHaveBeenCalledTimes(1);
   });
@@ -116,7 +116,7 @@ describe('TrainingDefinitionConcreteService', () => {
     navigatorSpy.toTrainingDefinitionPreview.and.returnValue('preview');
     service.preview(new TrainingDefinition()).subscribe(
       () => done(),
-      () => fail
+      () => fail,
     );
     expect(navigatorSpy.toTrainingDefinitionPreview).toHaveBeenCalledTimes(1);
   });
@@ -134,7 +134,7 @@ describe('TrainingDefinitionConcreteService', () => {
         expect(res).toEqual(createPaginatedMock());
         done();
       },
-      () => fail
+      () => fail,
     );
   });
 
@@ -150,7 +150,7 @@ describe('TrainingDefinitionConcreteService', () => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         expect(errorHandlerSpy.emit).toHaveBeenCalledWith(err, jasmine.anything());
         done();
-      }
+      },
     );
   });
 
@@ -168,7 +168,7 @@ describe('TrainingDefinitionConcreteService', () => {
         expect(res).toEqual(createPaginatedMock());
         done();
       },
-      () => fail
+      () => fail,
     );
   });
 
@@ -185,7 +185,7 @@ describe('TrainingDefinitionConcreteService', () => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         expect(errorHandlerSpy.emit).toHaveBeenCalledWith(err, jasmine.anything());
         done();
-      }
+      },
     );
   });
 
@@ -199,7 +199,7 @@ describe('TrainingDefinitionConcreteService', () => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         expect(errorHandlerSpy.emit).toHaveBeenCalledWith(err, jasmine.anything());
         done();
-      }
+      },
     );
   });
 
@@ -215,7 +215,7 @@ describe('TrainingDefinitionConcreteService', () => {
         expect(res).toEqual(1);
         done();
       },
-      () => fail
+      () => fail,
     );
   });
 
@@ -230,7 +230,7 @@ describe('TrainingDefinitionConcreteService', () => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         expect(errorHandlerSpy.emit).toHaveBeenCalledWith(err, jasmine.anything());
         done();
-      }
+      },
     );
   });
 

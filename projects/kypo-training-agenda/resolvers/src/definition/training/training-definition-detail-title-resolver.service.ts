@@ -20,7 +20,7 @@ export class TrainingDefinitionDetailTitleResolver {
     return resolved.pipe(
       take(1),
       mergeMap((td) => (td ? of(this.resolveTitle(td, state)) : '')),
-      catchError(() => '')
+      catchError(() => ''),
     );
   }
 

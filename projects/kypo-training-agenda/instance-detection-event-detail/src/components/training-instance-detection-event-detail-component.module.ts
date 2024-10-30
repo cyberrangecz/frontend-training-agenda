@@ -42,7 +42,7 @@ import { MatDividerModule } from '@angular/material/divider';
 })
 export class TrainingInstanceDetectionEventDetailComponentsModule {
   static forRoot(
-    config: TrainingAgendaConfig
+    config: TrainingAgendaConfig,
   ): ModuleWithProviders<TrainingInstanceDetectionEventDetailComponentsModule> {
     return {
       ngModule: TrainingInstanceDetectionEventDetailComponentsModule,

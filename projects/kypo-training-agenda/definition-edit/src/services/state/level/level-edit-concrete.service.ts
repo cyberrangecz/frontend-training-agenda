@@ -26,7 +26,7 @@ export class LevelEditConcreteService extends LevelEditService {
     private api: TrainingDefinitionApi,
     private dialog: MatDialog,
     private errorHandler: TrainingErrorHandler,
-    private notificationService: TrainingNotificationService
+    private notificationService: TrainingNotificationService,
   ) {
     super();
   }
@@ -116,8 +116,8 @@ export class LevelEditConcreteService extends LevelEditService {
             this.onLevelsSaved();
             this.notificationService.emit('success', `Levels have been saved`);
           },
-          (err) => this.errorHandler.emit(err, `Saving levels in training definition`)
-        )
+          (err) => this.errorHandler.emit(err, `Saving levels in training definition`),
+        ),
       );
     } else {
       return EMPTY;
@@ -130,7 +130,7 @@ export class LevelEditConcreteService extends LevelEditService {
   deleteSelected(): Observable<Level[]> {
     const level = this.getSelected();
     return this.displayDialogToDelete(level).pipe(
-      switchMap((result) => (result === SentinelDialogResultEnum.CONFIRMED ? this.callApiToDelete(level) : EMPTY))
+      switchMap((result) => (result === SentinelDialogResultEnum.CONFIRMED ? this.callApiToDelete(level) : EMPTY)),
     );
   }
 
@@ -149,8 +149,8 @@ export class LevelEditConcreteService extends LevelEditService {
         (err) => {
           this.moveRollback(fromIndex);
           this.errorHandler.emit(err, `Moving level "${from.title}"`);
-        }
-      )
+        },
+      ),
     );
   }
 
@@ -165,8 +165,8 @@ export class LevelEditConcreteService extends LevelEditService {
       switchMap((basicLevelInfo) => this.api.getLevel(basicLevelInfo.id) as Observable<TrainingLevel>),
       tap(
         (level) => this.onLevelAdded(level),
-        (err) => this.errorHandler.emit(err, 'Adding training level')
-      )
+        (err) => this.errorHandler.emit(err, 'Adding training level'),
+      ),
     );
   }
 
@@ -175,8 +175,8 @@ export class LevelEditConcreteService extends LevelEditService {
       switchMap((basicLevelInfo) => this.api.getLevel(basicLevelInfo.id) as Observable<AccessLevel>),
       tap(
         (level) => this.onLevelAdded(level),
-        (err) => this.errorHandler.emit(err, 'Adding training level')
-      )
+        (err) => this.errorHandler.emit(err, 'Adding training level'),
+      ),
     );
   }
 
@@ -185,8 +185,8 @@ export class LevelEditConcreteService extends LevelEditService {
       switchMap((basicLevelInfo) => this.api.getLevel(basicLevelInfo.id) as Observable<InfoLevel>),
       tap(
         (level) => this.onLevelAdded(level),
-        (err) => this.errorHandler.emit(err, 'Adding info level')
-      )
+        (err) => this.errorHandler.emit(err, 'Adding info level'),
+      ),
     );
   }
 
@@ -195,8 +195,8 @@ export class LevelEditConcreteService extends LevelEditService {
       switchMap((basicLevelInfo) => this.api.getLevel(basicLevelInfo.id) as Observable<AssessmentLevel>),
       tap(
         (level) => this.onLevelAdded(level),
-        (err) => this.errorHandler.emit(err, 'Adding assessment level')
-      )
+        (err) => this.errorHandler.emit(err, 'Adding assessment level'),
+      ),
     );
   }
 
@@ -206,7 +206,7 @@ export class LevelEditConcreteService extends LevelEditService {
         'Delete Level',
         `Do you want to delete level "${level.title}"?`,
         'Cancel',
-        'Delete'
+        'Delete',
       ),
     });
     return dialogRef.afterClosed();
@@ -216,8 +216,8 @@ export class LevelEditConcreteService extends LevelEditService {
     return this.api.deleteLevel(this.trainingDefinitionId, level.id).pipe(
       tap(
         () => this.onLevelDeleted(level.id),
-        (err) => this.errorHandler.emit(err, 'Deleting level "' + level.title + '"')
-      )
+        (err) => this.errorHandler.emit(err, 'Deleting level "' + level.title + '"'),
+      ),
     );
   }
 

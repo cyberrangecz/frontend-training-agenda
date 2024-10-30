@@ -12,7 +12,7 @@ export class AdaptiveRunResultsResolver {
     private api: AdaptiveRunApi,
     private errorHandler: TrainingErrorHandler,
     private navigator: TrainingNavigator,
-    private router: Router
+    private router: Router,
   ) {}
 
   resolve(route: ActivatedRouteSnapshot): Observable<TrainingRun> | Promise<TrainingRun> | TrainingRun {
@@ -25,7 +25,7 @@ export class AdaptiveRunResultsResolver {
           this.errorHandler.emit(err, 'Adaptive run results');
           this.navigateToOverview();
           return EMPTY;
-        })
+        }),
       );
     }
     return this.navigateToOverview();

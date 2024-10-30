@@ -24,7 +24,7 @@ export class AdaptiveDefinitionEditConcreteService extends AdaptiveDefinitionEdi
     private errorHandler: TrainingErrorHandler,
     private navigator: TrainingNavigator,
     private notificationService: TrainingNotificationService,
-    private phaseEditService: PhaseEditService
+    private phaseEditService: PhaseEditService,
   ) {
     super();
   }
@@ -55,7 +55,7 @@ export class AdaptiveDefinitionEditConcreteService extends AdaptiveDefinitionEdi
           this.phaseEditService.saveUnsavedPhases(),
           this.api
             .get(this.trainingDefinitionSubject$.getValue().id, true)
-            .pipe(tap((val) => this.trainingDefinitionSubject$.next(val)))
+            .pipe(tap((val) => this.trainingDefinitionSubject$.next(val))),
         );
       }
     } else {
@@ -84,8 +84,8 @@ export class AdaptiveDefinitionEditConcreteService extends AdaptiveDefinitionEdi
           this.notificationService.emit('success', 'Changes were saved');
           this.onSaved();
         },
-        (err) => this.errorHandler.emit(err, 'Editing training definition')
-      )
+        (err) => this.errorHandler.emit(err, 'Editing training definition'),
+      ),
     );
   }
 
@@ -96,9 +96,9 @@ export class AdaptiveDefinitionEditConcreteService extends AdaptiveDefinitionEdi
           this.notificationService.emit('success', 'Training was created');
           this.onSaved();
         },
-        (err) => this.errorHandler.emit(err, 'Creating training definition')
+        (err) => this.errorHandler.emit(err, 'Creating training definition'),
       ),
-      map((td) => td.id)
+      map((td) => td.id),
     );
   }
 

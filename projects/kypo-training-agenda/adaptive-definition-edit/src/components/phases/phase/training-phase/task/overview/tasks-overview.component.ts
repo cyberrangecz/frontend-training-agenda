@@ -32,12 +32,15 @@ export class TasksOverviewComponent implements OnInit {
   tasksHasErrors: boolean;
   destroyRef = inject(DestroyRef);
 
-  constructor(public dialog: MatDialog, private phaseService: PhaseEditService) {}
+  constructor(
+    public dialog: MatDialog,
+    private phaseService: PhaseEditService,
+  ) {}
 
   ngOnInit(): void {
     this.activeStep$ = this.phaseService.activeTaskStep$;
     this.stepperTasks = this.phaseService.activeTasks$.pipe(
-      map((tasks) => tasks.map((task) => new PhaseStepperAdapter(task)))
+      map((tasks) => tasks.map((task) => new PhaseStepperAdapter(task))),
     );
     this.initControls();
   }
@@ -65,21 +68,21 @@ export class TasksOverviewComponent implements OnInit {
         'Add',
         'primary',
         of(false),
-        defer(() => this.phaseService.addTask())
+        defer(() => this.phaseService.addTask()),
       ),
       new SentinelControlItem(
         'copy',
         'Copy',
         'accent',
         this.phaseService.activeTasks$.pipe(map((tasks) => tasks.length <= 0)),
-        defer(() => this.phaseService.cloneTask())
+        defer(() => this.phaseService.cloneTask()),
       ),
       new SentinelControlItem(
         'delete',
         'Delete',
         'warn',
         this.phaseService.activeTasks$.pipe(map((tasks) => tasks.length <= 0)),
-        defer(() => this.phaseService.deleteTask())
+        defer(() => this.phaseService.deleteTask()),
       ),
     ];
   }
