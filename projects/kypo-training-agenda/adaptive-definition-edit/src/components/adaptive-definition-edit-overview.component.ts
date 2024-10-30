@@ -57,7 +57,7 @@ export class AdaptiveDefinitionEditOverviewComponent implements OnInit {
     private editService: AdaptiveDefinitionEditService,
     private phaseEditService: PhaseEditService,
     private mitreTechniquesService: MitreTechniquesService,
-    private authorsAssignService: SentinelUserAssignService
+    private authorsAssignService: SentinelUserAssignService,
   ) {
     this.defaultPaginationSize = this.paginationService.DEFAULT_PAGINATION;
     this.trainingDefinition$ = this.editService.trainingDefinition$;
@@ -70,7 +70,7 @@ export class AdaptiveDefinitionEditOverviewComponent implements OnInit {
     this.mitreTechniquesService.getAll().pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
     const valid$: Observable<boolean> = combineLatest(
       this.editService.definitionValid$,
-      this.phaseEditService.phasesValid$
+      this.phaseEditService.phasesValid$,
     ).pipe(map((valid) => valid[0] && valid[1]));
     this.activeRoute.data
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -82,9 +82,9 @@ export class AdaptiveDefinitionEditOverviewComponent implements OnInit {
             this.editService,
             this.definitionSaveDisabled$,
             this.phasesSaveDisabled$,
-            valid$
-          ))
-      )
+            valid$,
+          )),
+      ),
     );
   }
 
@@ -95,12 +95,12 @@ export class AdaptiveDefinitionEditOverviewComponent implements OnInit {
         filter((editMode) => editMode),
         switchMap(() => this.editService.trainingDefinition$),
         takeUntilDestroyed(this.destroyRef),
-        filter((trainingDefinition) => !!trainingDefinition && !!trainingDefinition.id)
+        filter((trainingDefinition) => !!trainingDefinition && !!trainingDefinition.id),
       )
       .subscribe((trainingDefinition) =>
         this.authorsAssignService
           .getAssigned(trainingDefinition.id, new OffsetPaginationEvent(0, this.defaultPaginationSize))
-          .subscribe()
+          .subscribe(),
       );
   }
 

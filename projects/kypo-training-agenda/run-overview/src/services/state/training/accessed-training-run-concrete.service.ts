@@ -21,7 +21,7 @@ export class AccessedTrainingRunConcreteService extends AccessedTrainingRunServi
     private router: Router,
     private context: TrainingAgendaContext,
     private navigator: TrainingNavigator,
-    private errorHandler: TrainingErrorHandler
+    private errorHandler: TrainingErrorHandler,
   ) {
     super(context.config.defaultPaginationSize);
   }
@@ -47,8 +47,8 @@ export class AccessedTrainingRunConcreteService extends AccessedTrainingRunServi
         (err) => {
           this.errorHandler.emit(err, 'Fetching training runs');
           this.hasErrorSubject$.next(true);
-        }
-      )
+        },
+      ),
     );
   }
 
@@ -82,7 +82,7 @@ export class AccessedTrainingRunConcreteService extends AccessedTrainingRunServi
 
   private getAllAdaptive(
     pagination: OffsetPaginationEvent,
-    trainingRuns: PaginatedResource<AccessedTrainingRun>
+    trainingRuns: PaginatedResource<AccessedTrainingRun>,
   ): Observable<PaginatedResource<AccessedTrainingRun>> {
     return this.adaptiveApi.getAccessed(pagination).pipe(
       map(
@@ -93,8 +93,8 @@ export class AccessedTrainingRunConcreteService extends AccessedTrainingRunServi
         (err) => {
           this.errorHandler.emit(err, 'Fetching adaptive runs');
           this.hasErrorSubject$.next(true);
-        }
-      )
+        },
+      ),
     );
   }
 }

@@ -5,7 +5,7 @@ import { TrainingDefinitionChangeEvent } from '../../../model/events/training-de
 
 export abstract class TrainingDefinitionEditService {
   protected trainingDefinitionSubject$: BehaviorSubject<TrainingDefinition> = new BehaviorSubject<TrainingDefinition>(
-    null
+    null,
   );
   /**
    * Currently edited training definition

@@ -64,10 +64,10 @@
               "projects/training-agenda-example-app/src/assets"
             ],
             "styles": [
-              "projects/training-agenda-example-app/src/styles.scss",
-              "projects/training-agenda-example-app/src/theme.scss",
+              "node_modules/@muni-kypo-crp/overview-visualization/styles.css",
               "projects/training-agenda-example-app/src/variables.scss",
-              "node_modules/@muni-kypo-crp/overview-visualization/styles.css"
+              "projects/training-agenda-example-app/src/theme.scss",
+              "projects/training-agenda-example-app/src/styles.scss"
             ],
             "scripts": [],
             "vendorChunk": true,
@@ -111,18 +111,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "training-agenda-example-app:build"
+            "buildTarget": "training-agenda-example-app:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "training-agenda-example-app:build:production"
+              "buildTarget": "training-agenda-example-app:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "training-agenda-example-app:build"
+            "buildTarget": "training-agenda-example-app:build"
           }
         },
         "test": {

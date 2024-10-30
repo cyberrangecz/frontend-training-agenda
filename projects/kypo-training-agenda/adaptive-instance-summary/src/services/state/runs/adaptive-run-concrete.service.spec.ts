@@ -1,4 +1,4 @@
-import { async, TestBed } from '@angular/core/testing';
+import { waitForAsync, TestBed } from '@angular/core/testing';
 import { MatDialog } from '@angular/material/dialog';
 import { OffsetPaginationEvent, OffsetPagination, PaginatedResource } from '@sentinel/common/pagination';
 import { SandboxInstanceApi } from '@muni-kypo-crp/sandbox-api';
@@ -32,7 +32,7 @@ describe('TrainingRunConcreteService', () => {
   let service: AdaptiveRunConcreteService;
   let context: TrainingAgendaContext;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     errorHandlerSpy = createErrorHandlerSpy();
     notificationSpy = createNotificationSpy();
     sandboxInstanceApiSpy = createSandboxInstanceApiSpy();
@@ -66,18 +66,18 @@ describe('TrainingRunConcreteService', () => {
     adaptiveInstanceApiSpy.getAssociatedTrainingRuns.and.returnValue(throwError(null));
     service.hasError$
       .pipe(
-        skip(1) // we ignore initial value
+        skip(1), // we ignore initial value
       )
       .subscribe(
         (hasError) => {
           expect(hasError).toBeTruthy();
           done();
         },
-        () => fail
+        () => fail,
       );
     service.getAll(0, pagination).subscribe(
       () => fail,
-      (_) => _
+      (_) => _,
     );
   });
 

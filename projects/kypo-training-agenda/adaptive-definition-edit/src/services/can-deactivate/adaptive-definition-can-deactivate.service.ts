@@ -26,7 +26,7 @@ export class AdaptiveDefinitionCanDeactivate {
         'Unsaved Changes',
         'There are unsaved changes in training definition, authors or phase. Do you really want to leave without saving?',
         'Cancel',
-        'Leave'
+        'Leave',
       ),
     });
     return dialogRef.afterClosed().pipe(map((result) => result === SentinelDialogResultEnum.CONFIRMED));

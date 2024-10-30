@@ -24,7 +24,7 @@ export class TrainingRunResultsComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private trainingDefinitionApi: TrainingDefinitionApi,
-    private service: MitreTechniquesOverviewService
+    private service: MitreTechniquesOverviewService,
   ) {}
 
   ngOnInit(): void {
@@ -48,8 +48,8 @@ export class TrainingRunResultsComponent implements OnInit {
       .subscribe(
         (data) =>
           (this.hasReferenceSolution$ = this.trainingDefinitionApi.hasReferenceSolution(
-            data[TRAINING_RUN_DATA_ATTRIBUTE_NAME].trainingDefinitionId
-          ))
+            data[TRAINING_RUN_DATA_ATTRIBUTE_NAME].trainingDefinitionId,
+          )),
       );
   }
 }

@@ -1,6 +1,6 @@
 import { CloneDialogComponent } from './clone-dialog.component';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TrainingDefinitionEditOverviewMaterialModule } from '../../../../definition-edit/src/components/training-definition-edit-overview-material.module';
 import { TrainingDefinition, Level, AssessmentLevel, InfoLevel, TrainingLevel } from '@muni-kypo-crp/training-model';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -12,7 +12,7 @@ describe('CloneDialogComponent', () => {
   let fixture: ComponentFixture<CloneDialogComponent>;
   let matDialogRefSpy: jasmine.SpyObj<MatDialogRef<CloneDialogComponent>>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     matDialogRefSpy = createDialogRefSpy();
     TestBed.configureTestingModule({
       imports: [TrainingDefinitionEditOverviewMaterialModule, SentinelPipesModule, BrowserAnimationsModule],

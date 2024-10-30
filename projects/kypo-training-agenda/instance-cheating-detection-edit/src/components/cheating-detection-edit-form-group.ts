@@ -30,9 +30,9 @@ export class CheatingDetectionEditFormGroup {
                 type: new UntypedFormControl(forbiddenCommand.type, [Validators.required]),
                 id: new UntypedFormControl(cheatingDetection.id),
               },
-              [Validators.required]
-            )
-        )
+              [Validators.required],
+            ),
+        ),
       ),
     });
     this.trainingInstanceId = trainingInstanceId;

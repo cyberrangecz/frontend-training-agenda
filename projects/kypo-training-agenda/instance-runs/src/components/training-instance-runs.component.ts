@@ -36,7 +36,7 @@ export class TrainingInstanceRunsComponent implements OnInit {
   constructor(
     private activeRoute: ActivatedRoute,
     private paginationService: PaginationService,
-    private trainingRunService: TrainingRunService
+    private trainingRunService: TrainingRunService,
   ) {}
 
   ngOnInit(): void {
@@ -44,7 +44,7 @@ export class TrainingInstanceRunsComponent implements OnInit {
       map((data) => data[TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME]),
       tap((ti) => {
         this.trainingInstance = ti;
-      })
+      }),
     );
     this.initRunsOverviewComponent();
   }
@@ -70,13 +70,13 @@ export class TrainingInstanceRunsComponent implements OnInit {
       0,
       this.paginationService.getPagination(this.paginationId),
       '',
-      'asc'
+      'asc',
     );
 
     this.trainingInstance$
       .pipe(
         take(1),
-        switchMap((ti) => this.trainingRunService.getAll(ti.id, initialPagination))
+        switchMap((ti) => this.trainingRunService.getAll(ti.id, initialPagination)),
       )
       .subscribe();
 
@@ -84,7 +84,7 @@ export class TrainingInstanceRunsComponent implements OnInit {
       takeUntilDestroyed(this.destroyRef),
       map((resource) => {
         return new TrainingRunTable(resource, this.trainingRunService, this.trainingInstance);
-      })
+      }),
     );
 
     this.trainingRunsHasError$ = this.trainingRunService.hasError$;

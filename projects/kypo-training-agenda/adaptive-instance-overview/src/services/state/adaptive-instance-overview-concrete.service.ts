@@ -30,7 +30,7 @@ export class AdaptiveInstanceOverviewConcreteService extends AdaptiveInstanceOve
     private navigator: TrainingNavigator,
     private context: TrainingAgendaContext,
     private notificationService: TrainingNotificationService,
-    private errorHandler: TrainingErrorHandler
+    private errorHandler: TrainingErrorHandler,
   ) {
     super(context.config.defaultPaginationSize);
   }
@@ -48,8 +48,8 @@ export class AdaptiveInstanceOverviewConcreteService extends AdaptiveInstanceOve
         (err) => {
           this.hasErrorSubject$.next(true);
           this.errorHandler.emit(err, 'Fetching training instances');
-        }
-      )
+        },
+      ),
     );
   }
 
@@ -70,8 +70,8 @@ export class AdaptiveInstanceOverviewConcreteService extends AdaptiveInstanceOve
   delete(trainingInstance: TrainingInstance): Observable<PaginatedResource<TrainingInstance>> {
     return this.displayDialogToDelete(trainingInstance).pipe(
       switchMap((result) =>
-        result === SentinelDialogResultEnum.CONFIRMED ? this.callApiToDelete(trainingInstance) : EMPTY
-      )
+        result === SentinelDialogResultEnum.CONFIRMED ? this.callApiToDelete(trainingInstance) : EMPTY,
+      ),
     );
   }
 
@@ -103,9 +103,9 @@ export class AdaptiveInstanceOverviewConcreteService extends AdaptiveInstanceOve
           this.hasErrorSubject$.next(true);
           this.errorHandler.emit(err, 'Fetching pool size');
           return EMPTY;
-        }
+        },
       ),
-      catchError((err) => (err.status === 404 ? of('-') : EMPTY))
+      catchError((err) => (err.status === 404 ? of('-') : EMPTY)),
     );
   }
 
@@ -124,11 +124,11 @@ export class AdaptiveInstanceOverviewConcreteService extends AdaptiveInstanceOve
             this.hasErrorSubject$.next(true);
             this.errorHandler.emit(err, 'Fetching available sandboxes');
             return EMPTY;
-          }
+          },
         ),
         catchError((err) => {
           return err.status === 404 ? of('') : EMPTY;
-        })
+        }),
       );
   }
 
@@ -137,7 +137,7 @@ export class AdaptiveInstanceOverviewConcreteService extends AdaptiveInstanceOve
       catchError((err) => {
         this.errorHandler.emit(err, 'Management SSH Access');
         return EMPTY;
-      })
+      }),
     );
   }
 
@@ -147,7 +147,7 @@ export class AdaptiveInstanceOverviewConcreteService extends AdaptiveInstanceOve
         'Delete Training Instance',
         `Do you want to delete training instance "${trainingInstance.title}"?`,
         'Cancel',
-        'Delete'
+        'Delete',
       ),
     });
     return dialogRef.afterClosed();
@@ -161,7 +161,7 @@ export class AdaptiveInstanceOverviewConcreteService extends AdaptiveInstanceOve
         Do you want to force delete training instance "${trainingInstance.title}" ?
         This will unlock the pool and purge its command history.`,
         'Cancel',
-        'Force delete'
+        'Force delete',
       ),
       maxWidth: '42rem',
     });
@@ -175,13 +175,13 @@ export class AdaptiveInstanceOverviewConcreteService extends AdaptiveInstanceOve
         if (err && err.status === 409) {
           return this.displayDialogToConfirmForceDelete(trainingInstance).pipe(
             switchMap((result) =>
-              result === SentinelDialogResultEnum.CONFIRMED ? this.forceDelete(trainingInstance.id) : EMPTY
-            )
+              result === SentinelDialogResultEnum.CONFIRMED ? this.forceDelete(trainingInstance.id) : EMPTY,
+            ),
           );
         }
         return this.errorHandler.emit(err, 'Deleting training instance');
       }),
-      switchMap(() => this.getAll(this.lastPagination, this.lastFilters))
+      switchMap(() => this.getAll(this.lastPagination, this.lastFilters)),
     );
   }
 
@@ -189,8 +189,8 @@ export class AdaptiveInstanceOverviewConcreteService extends AdaptiveInstanceOve
     return this.adaptiveInstanceApi.delete(id, true).pipe(
       tap(
         () => this.notificationService.emit('success', 'Training instance was successfully deleted'),
-        (err) => this.errorHandler.emit(err, 'Force deleting training instance')
-      )
+        (err) => this.errorHandler.emit(err, 'Force deleting training instance'),
+      ),
     );
   }
 }

@@ -18,7 +18,7 @@ export class TrainingInstanceInfoControls {
     showAggregatedResults: EventEmitter<boolean>,
     showCheatingDetection: EventEmitter<boolean>,
     exportScore: EventEmitter<boolean>,
-    disabled$: Observable<boolean>
+    disabled$: Observable<boolean>,
   ): SentinelControlItem[] {
     return [
       new SentinelControlItem(
@@ -29,7 +29,7 @@ export class TrainingInstanceInfoControls {
         defer(() => {
           showProgressEmitter.emit(true);
           return EMPTY;
-        })
+        }),
       ),
       new SentinelControlItem(
         this.RESULTS_ACTION_ID,
@@ -39,7 +39,7 @@ export class TrainingInstanceInfoControls {
         defer(() => {
           showResultsEmitter.emit(false);
           return EMPTY;
-        })
+        }),
       ),
       new SentinelControlItem(
         this.RESULTS_AGGREGATED_ID,
@@ -49,7 +49,7 @@ export class TrainingInstanceInfoControls {
         defer(() => {
           showAggregatedResults.emit(false);
           return EMPTY;
-        })
+        }),
       ),
       new SentinelControlItem(
         this.CHEATING_DETECTION_ID,
@@ -59,7 +59,7 @@ export class TrainingInstanceInfoControls {
         defer(() => {
           showCheatingDetection.emit(false);
           return EMPTY;
-        })
+        }),
       ),
       new SentinelControlItem(
         this.EXPORT_SCORE_ID,
@@ -69,7 +69,7 @@ export class TrainingInstanceInfoControls {
         defer(() => {
           exportScore.emit(false);
           return EMPTY;
-        })
+        }),
       ),
     ];
   }

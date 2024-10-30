@@ -5,13 +5,14 @@
   "overrides": [
     {
       "files": [
-        "*.ts"
+        "src/**/*.ts"
       ],
       "parserOptions": {
         "project": [
-          "projects/training-agenda-example-app/tsconfig.*?.json"
+          "projects/training-agenda-example-app/tsconfig.lint.json",
+          "projects/training-agenda-example-app/tsconfig.spec.json"
         ],
-        "createDefaultProgram": true
+        "createDefaultProgram": false
       },
       "rules": {
         "@angular-eslint/directive-selector": [

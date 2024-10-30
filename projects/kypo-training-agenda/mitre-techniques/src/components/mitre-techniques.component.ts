@@ -20,7 +20,7 @@ export class MitreTechniquesComponent implements OnInit {
 
   constructor(
     private mitreTechniquesOverviewService: MitreTechniquesOverviewService,
-    private activeRoute: ActivatedRoute
+    private activeRoute: ActivatedRoute,
   ) {
     this.activeRoute.data.pipe(takeUntilDestroyed()).subscribe((data) => {
       this.showSwitch = data.showSwitch;

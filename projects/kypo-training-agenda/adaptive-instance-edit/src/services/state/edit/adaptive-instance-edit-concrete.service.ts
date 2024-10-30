@@ -27,7 +27,7 @@ export class AdaptiveInstanceEditConcreteService extends AdaptiveInstanceEditSer
     private router: Router,
     private navigator: TrainingNavigator,
     private errorHandler: TrainingErrorHandler,
-    private notificationService: TrainingNotificationService
+    private notificationService: TrainingNotificationService,
   ) {
     super();
   }
@@ -74,7 +74,7 @@ export class AdaptiveInstanceEditConcreteService extends AdaptiveInstanceEditSer
       return this.update();
     } else {
       return this.create().pipe(
-        switchMap((id) => from(this.router.navigate([this.navigator.toAdaptiveInstanceEdit(id)])))
+        switchMap((id) => from(this.router.navigate([this.navigator.toAdaptiveInstanceEdit(id)]))),
       );
     }
   }
@@ -102,13 +102,13 @@ export class AdaptiveInstanceEditConcreteService extends AdaptiveInstanceEditSer
         (pools) => {
           this.poolsSubject$.next(pools);
         },
-        (err) => this.errorHandler.emit(err, 'Fetching available pools')
-      )
+        (err) => this.errorHandler.emit(err, 'Fetching available pools'),
+      ),
     );
   }
 
   getAllSandboxDefinitions(
-    offsetPaginationEvent: OffsetPaginationEvent
+    offsetPaginationEvent: OffsetPaginationEvent,
   ): Observable<PaginatedResource<SandboxDefinition>> {
     this.lastPagination = offsetPaginationEvent;
     this.lastPagination.size = Number.MAX_SAFE_INTEGER;
@@ -117,14 +117,14 @@ export class AdaptiveInstanceEditConcreteService extends AdaptiveInstanceEditSer
         (sandboxDefinitions) => {
           this.sandboxDefinitionsSubject$.next(sandboxDefinitions);
         },
-        (err) => this.errorHandler.emit(err, 'Fetching available sandbox definitions')
-      )
+        (err) => this.errorHandler.emit(err, 'Fetching available sandbox definitions'),
+      ),
     );
   }
 
   private checkInstanceValidity(): void {
     this.saveDisabledSubject$.next(
-      !this.instanceValidSubject$.value || (!this.editedSnapshot.localEnvironment && !this.editedSnapshot.poolId)
+      !this.instanceValidSubject$.value || (!this.editedSnapshot.localEnvironment && !this.editedSnapshot.poolId),
     );
   }
 
@@ -143,8 +143,8 @@ export class AdaptiveInstanceEditConcreteService extends AdaptiveInstanceEditSer
           this.notificationService.emit('success', 'Adaptive instance was created');
           this.onSaved();
         },
-        (err) => this.errorHandler.emit(err, 'Creating adaptive instance')
-      )
+        (err) => this.errorHandler.emit(err, 'Creating adaptive instance'),
+      ),
     );
   }
 
@@ -165,8 +165,8 @@ export class AdaptiveInstanceEditConcreteService extends AdaptiveInstanceEditSer
         (err) => {
           this.saveDisabledSubject$.next(false);
           this.errorHandler.emit(err, 'Editing training instance');
-        }
-      )
+        },
+      ),
     );
   }
 

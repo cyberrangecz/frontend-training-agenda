@@ -16,16 +16,19 @@ export class WalkthroughWrapperComponent implements OnInit {
   levels$: Observable<Level[]>;
   destroyRef = inject(DestroyRef);
 
-  constructor(private activeRoute: ActivatedRoute, private walkthroughService: WalkthroughService) {}
+  constructor(
+    private activeRoute: ActivatedRoute,
+    private walkthroughService: WalkthroughService,
+  ) {}
 
   ngOnInit(): void {
     this.trainingInstance$ = this.activeRoute.parent.data.pipe(
       map((data) => data.trainingInstance),
-      takeUntilDestroyed(this.destroyRef)
+      takeUntilDestroyed(this.destroyRef),
     );
     this.levels$ = this.trainingInstance$.pipe(
       exhaustMap((trainingInstance) => this.walkthroughService.get(trainingInstance.trainingDefinition.id)),
-      map((trainingDefinition) => trainingDefinition.levels)
+      map((trainingDefinition) => trainingDefinition.levels),
     ) as Observable<Level[]>;
   }
 }

@@ -34,7 +34,7 @@ export class TrainingDefinitionSelectComponent implements OnInit {
     @Optional() @Inject(MAT_DIALOG_DATA) public data: TrainingDefinition,
     public dialogRef: MatDialogRef<TrainingDefinitionSelectComponent>,
     @Inject('releasedService') private releasedService: TrainingDefinitionOrganizerSelectConcreteService,
-    @Inject('unreleasedService') private unreleasedService: TrainingDefinitionOrganizerSelectConcreteService
+    @Inject('unreleasedService') private unreleasedService: TrainingDefinitionOrganizerSelectConcreteService,
   ) {
     this.selected = [this.data];
   }

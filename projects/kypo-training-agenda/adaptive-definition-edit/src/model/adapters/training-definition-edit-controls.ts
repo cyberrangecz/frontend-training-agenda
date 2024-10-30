@@ -13,7 +13,7 @@ export class TrainingDefinitionEditControls {
     service: AdaptiveDefinitionEditService,
     definitionSaveDisabled$: Observable<boolean>,
     phasesSaveDisabled$: Observable<boolean>,
-    valid$: Observable<boolean>
+    valid$: Observable<boolean>,
   ): SentinelControlItem[] {
     return this.controls(service, definitionSaveDisabled$, phasesSaveDisabled$, valid$);
   }
@@ -22,10 +22,10 @@ export class TrainingDefinitionEditControls {
     service: AdaptiveDefinitionEditService,
     definitionSaveDisabled$: Observable<boolean>,
     phasesSaveDisabled$: Observable<boolean>,
-    valid$: Observable<boolean>
+    valid$: Observable<boolean>,
   ): SentinelControlItem[] {
     const saveDisabled$: Observable<boolean> = combineLatest(phasesSaveDisabled$, definitionSaveDisabled$, valid$).pipe(
-      map((save) => (save[0] && save[1]) || !save[2])
+      map((save) => (save[0] && save[1]) || !save[2]),
     );
     return [
       new SentinelControlItem(
@@ -33,7 +33,7 @@ export class TrainingDefinitionEditControls {
         'Save',
         'primary',
         saveDisabled$,
-        defer(() => service.save())
+        defer(() => service.save()),
       ),
     ];
   }

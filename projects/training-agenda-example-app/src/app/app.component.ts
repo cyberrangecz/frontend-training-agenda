@@ -24,7 +24,7 @@ export class AppComponent {
     private activatedRoute: ActivatedRoute,
     private auth: SentinelAuthService,
     private loadingService: LoadingService,
-    @Inject(DOCUMENT) private document: Document
+    @Inject(DOCUMENT) private document: Document,
   ) {
     this.activeUser$ = this.auth.activeUser$;
     this.isLoading$ = this.loadingService.isLoading$;
@@ -32,7 +32,7 @@ export class AppComponent {
 
     this.agendaContainers$ = this.auth.activeUser$.pipe(
       filter((user) => user !== null && user !== undefined),
-      map((user) => this.buildNav(user))
+      map((user) => this.buildNav(user)),
     );
   }
 
@@ -48,7 +48,7 @@ export class AppComponent {
       }),
       filter((route) => route.outlet === 'primary'),
       map((route) => route.snapshot),
-      map((snapshot) => snapshot.data.title)
+      map((snapshot) => snapshot.data.title),
     );
   }
 
@@ -69,7 +69,7 @@ export class AppComponent {
         new AgendaContainer('Definition', [
           new Agenda('Linear', 'training-definition'),
           new Agenda('Adaptive', 'adaptive-definition'),
-        ])
+        ]),
       );
     }
     if (roles.some((role) => role.roleType === 'ROLE_TRAINING_ORGANIZER')) {
@@ -77,7 +77,7 @@ export class AppComponent {
         new AgendaContainer('Instance', [
           new Agenda('Linear', 'training-instance'),
           new Agenda('Adaptive', 'adaptive-instance'),
-        ])
+        ]),
       );
     }
     if (roles.some((role) => role.roleType === 'ROLE_TRAINING_TRAINEE')) {

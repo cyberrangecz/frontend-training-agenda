@@ -183,7 +183,7 @@ export abstract class TrainingNavigator {
   abstract toTrainingInstanceCheatingDetectionEventDetail(
     tid: number | string,
     cid: number | string,
-    eventId: number
+    eventId: number,
   ): string;
   /**
    * Returns route to adaptive instance results page

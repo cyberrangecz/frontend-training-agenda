@@ -17,6 +17,6 @@ export abstract class DetectionEventParticipantService extends OffsetPaginatedEl
    */
   abstract getAll(
     detectionEventId: number,
-    pagination: OffsetPaginationEvent
+    pagination: OffsetPaginationEvent,
   ): Observable<PaginatedResource<DetectionEventParticipant>>;
 }

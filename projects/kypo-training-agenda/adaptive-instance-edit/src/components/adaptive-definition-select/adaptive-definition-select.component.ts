@@ -37,7 +37,7 @@ export class AdaptiveDefinitionSelectComponent implements OnInit {
     public dialogRef: MatDialogRef<AdaptiveDefinitionSelectComponent>,
     private context: TrainingAgendaContext,
     @Inject('releasedService') private releasedService: AdaptiveDefinitionOrganizerSelectConcreteService,
-    @Inject('unreleasedService') private unreleasedService: AdaptiveDefinitionOrganizerSelectConcreteService
+    @Inject('unreleasedService') private unreleasedService: AdaptiveDefinitionOrganizerSelectConcreteService,
   ) {
     this.selected = [this.data];
   }

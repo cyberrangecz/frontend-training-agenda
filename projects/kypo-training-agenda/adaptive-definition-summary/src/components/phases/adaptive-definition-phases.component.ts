@@ -25,7 +25,11 @@ export class AdaptiveDefinitionPhasesDetailComponent implements OnInit {
 
   onControlsAction(control: SentinelControlItem): void {
     control.result$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((res) => {
-      res === 'expand' ? this.accordion.openAll() : this.accordion.closeAll();
+      if (res === 'expand') {
+        this.accordion.openAll();
+      } else {
+        this.accordion.closeAll();
+      }
     });
   }
 
@@ -44,14 +48,15 @@ export class AdaptiveDefinitionPhasesDetailComponent implements OnInit {
   getAdaptiveQuestionnaires(): Phase[] {
     return this.phases.filter(
       (phase: QuestionnairePhase) =>
-        phase.type === AbstractPhaseTypeEnum.Questionnaire && phase.questionnaireType === QuestionnaireTypeEnum.Adaptive
+        phase.type === AbstractPhaseTypeEnum.Questionnaire &&
+        phase.questionnaireType === QuestionnaireTypeEnum.Adaptive,
     );
   }
 
   getGeneralQuestionnaires(): Phase[] {
     return this.phases.filter(
       (phase: QuestionnairePhase) =>
-        phase.type === AbstractPhaseTypeEnum.Questionnaire && phase.questionnaireType === QuestionnaireTypeEnum.General
+        phase.type === AbstractPhaseTypeEnum.Questionnaire && phase.questionnaireType === QuestionnaireTypeEnum.General,
     );
   }
 }

@@ -1,4 +1,3 @@
-import { SentinelDateTimeFormatPipe } from '@sentinel/common/pipes';
 import { PaginatedResource } from '@sentinel/common/pagination';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { Column, SentinelTable, Row, RowAction, EditAction, DeleteAction } from '@sentinel/components/table';
@@ -7,6 +6,7 @@ import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
 import { AdaptiveInstanceRowAdapter } from './adaptive-instance-row-adapter';
 import { AdaptiveInstanceOverviewService } from '../../services/state/adaptive-instance-overview.service';
 import { DateHelper } from '@muni-kypo-crp/training-agenda/internal';
+import { DatePipe } from '@angular/common';
 
 /**
  * @dynamic
@@ -15,7 +15,7 @@ export class AdaptiveInstanceTable extends SentinelTable<AdaptiveInstanceRowAdap
   constructor(
     resource: PaginatedResource<TrainingInstance>,
     service: AdaptiveInstanceOverviewService,
-    navigator: TrainingNavigator
+    navigator: TrainingNavigator,
   ) {
     const columns = [
       new Column('title', 'Title', true),
@@ -39,10 +39,10 @@ export class AdaptiveInstanceTable extends SentinelTable<AdaptiveInstanceRowAdap
   private static createRow(
     ti: TrainingInstance,
     service: AdaptiveInstanceOverviewService,
-    navigator: TrainingNavigator
+    navigator: TrainingNavigator,
   ): Row<AdaptiveInstanceRowAdapter> {
     const adapter = ti as AdaptiveInstanceRowAdapter;
-    const datePipe = new SentinelDateTimeFormatPipe('en-EN');
+    const datePipe = new DatePipe('en-EN');
     adapter.tdTitle = adapter.trainingDefinition.title;
     adapter.startTimeFormatted = `${datePipe.transform(adapter.startTime)}`;
     adapter.endTimeFormatted = `${datePipe.transform(adapter.endTime)}`;
@@ -73,12 +73,12 @@ export class AdaptiveInstanceTable extends SentinelTable<AdaptiveInstanceRowAdap
       new EditAction(
         'Edit training instance',
         of(false),
-        defer(() => service.edit(ti.id))
+        defer(() => service.edit(ti.id)),
       ),
       new DeleteAction(
         'Delete training instance',
         of(false),
-        defer(() => service.delete(ti))
+        defer(() => service.delete(ti)),
       ),
       new RowAction(
         'get_data',
@@ -87,7 +87,7 @@ export class AdaptiveInstanceTable extends SentinelTable<AdaptiveInstanceRowAdap
         'primary',
         'Download ZIP file containing all training instance data',
         of(false),
-        defer(() => service.download(ti.id))
+        defer(() => service.download(ti.id)),
       ),
       new RowAction(
         'get_ssh_configs',
@@ -96,7 +96,7 @@ export class AdaptiveInstanceTable extends SentinelTable<AdaptiveInstanceRowAdap
         'primary',
         'Download management SSH configs',
         of(!ti.hasPool()),
-        defer(() => service.getSshAccess(ti.poolId))
+        defer(() => service.getSshAccess(ti.poolId)),
       ),
       new RowAction(
         'training_runs',
@@ -105,7 +105,7 @@ export class AdaptiveInstanceTable extends SentinelTable<AdaptiveInstanceRowAdap
         'primary',
         'Manage training runs',
         of(false),
-        defer(() => service.runs(ti.id))
+        defer(() => service.runs(ti.id)),
       ),
       new RowAction(
         'display_token',
@@ -114,7 +114,7 @@ export class AdaptiveInstanceTable extends SentinelTable<AdaptiveInstanceRowAdap
         'primary',
         'Display page containing access token',
         of(false),
-        defer(() => service.token(ti.id))
+        defer(() => service.token(ti.id)),
       ),
       new RowAction(
         'progress',
@@ -123,7 +123,7 @@ export class AdaptiveInstanceTable extends SentinelTable<AdaptiveInstanceRowAdap
         'primary',
         'Show progress of training runs',
         of(!ti.hasStarted()),
-        defer(() => service.progress(ti.id))
+        defer(() => service.progress(ti.id)),
       ),
       new RowAction(
         'results',
@@ -132,7 +132,7 @@ export class AdaptiveInstanceTable extends SentinelTable<AdaptiveInstanceRowAdap
         'primary',
         'Show results of training runs',
         of(true), //of(!ti.hasStarted()),
-        defer(() => service.results(ti.id))
+        defer(() => service.results(ti.id)),
       ),
     ];
   }

@@ -19,7 +19,10 @@ export class TrainingInstanceResultsComponent implements OnInit {
   hasReferenceSolution$: Observable<boolean>;
   destroyRef = inject(DestroyRef);
 
-  constructor(private activeRoute: ActivatedRoute, private trainingDefinitionApi: TrainingDefinitionApi) {}
+  constructor(
+    private activeRoute: ActivatedRoute,
+    private trainingDefinitionApi: TrainingDefinitionApi,
+  ) {}
 
   ngOnInit(): void {
     this.activeRoute.data
@@ -27,8 +30,8 @@ export class TrainingInstanceResultsComponent implements OnInit {
       .subscribe(
         (data) =>
           (this.hasReferenceSolution$ = this.trainingDefinitionApi.hasReferenceSolution(
-            data[TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME].trainingDefinition.id
-          ))
+            data[TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME].trainingDefinition.id,
+          )),
       );
   }
 }

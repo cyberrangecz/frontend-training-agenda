@@ -1,7 +1,7 @@
 import { asyncData } from '@sentinel/common/testing';
 import { TrainingDefinitionEditOverviewMaterialModule } from '../../../definition-edit/src/components/training-definition-edit-overview-material.module';
 import { TrainingPreviewComponent } from './training-preview.component';
-import { TestBed, ComponentFixture, async } from '@angular/core/testing';
+import { TestBed, ComponentFixture, waitForAsync } from '@angular/core/testing';
 import { Level, AssessmentLevel, InfoLevel, TrainingDefinition, TrainingLevel } from '@muni-kypo-crp/training-model';
 import { RunningTrainingRunService } from '../../../run-detail/src/services/training-run/running/running-training-run.service';
 import { ActivatedRoute } from '@angular/router';
@@ -18,7 +18,7 @@ describe('TrainingPreviewComponent', () => {
   let previewServiceSpy: jasmine.SpyObj<RunningTrainingRunService>;
   let activeRouteSpy: jasmine.SpyObj<ActivatedRoute>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     previewServiceSpy = createRunningTrainingRunServiceSpy();
     activeRouteSpy = createActivatedRouteSpy();
     activeRouteSpy.data = asyncData({ trainingDefinition: createMock() });

@@ -31,8 +31,8 @@ export class ExtendedMatchingItemsFormGroup {
                   Validators.maxLength(255),
                 ]),
                 correctOptionOrder: new UntypedFormControl(statement.correctOptionOrder),
-              })
-          )
+              }),
+          ),
         ),
         options: new UntypedFormArray(
           emi.extendedMatchingOptions.map(
@@ -41,8 +41,8 @@ export class ExtendedMatchingItemsFormGroup {
                 id: new UntypedFormControl(option.id),
                 order: new UntypedFormControl(option.order),
                 text: new UntypedFormControl(option.text, [SentinelValidators.noWhitespace, Validators.maxLength(255)]),
-              })
-          )
+              }),
+          ),
         ),
         score: new UntypedFormControl(emi.score, [
           Validators.required,
@@ -57,7 +57,7 @@ export class ExtendedMatchingItemsFormGroup {
           Validators.max(Question.MAX_QUESTION_PENALTY),
         ]),
       },
-      this.noSelectedAnswers
+      this.noSelectedAnswers,
     );
   }
 

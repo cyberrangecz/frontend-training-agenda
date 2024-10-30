@@ -1,7 +1,7 @@
 // import { PaginationService, TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
 // import { ActivatedRoute } from '@angular/router';
 // import { TrainingDefinitionEditOverviewComponent } from '@muni-kypo-crp/training-agenda/definition-edit';
-// import { ComponentFixture, TestBed, async, fakeAsync } from '@angular/core/testing';
+// import { ComponentFixture, TestBed, waitForAsync, fakewaitForAsync } from '@angular/core/testing';
 // import {
 //   createActivatedRouteSpy,
 //   createTrainingDefinitionEditServiceSpy,
@@ -23,7 +23,7 @@
 //   let editServiceSpy: jasmine.SpyObj<TrainingDefinitionEditService>;
 //   let paginationServiceSpy: jasmine.SpyObj<PaginationService>;
 
-//   beforeEach(async(() => {
+//   beforeEach(waitForAsync(() => {
 //     activatedRouteSpy = createActivatedRouteSpy();
 //     editServiceSpy = createTrainingDefinitionEditServiceSpy();
 //     context = createContext();

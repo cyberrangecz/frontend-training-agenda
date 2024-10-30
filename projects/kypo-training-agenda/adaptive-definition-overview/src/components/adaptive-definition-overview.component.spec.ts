@@ -1,6 +1,6 @@
 import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
 import { AdaptiveDefinitionOverviewComponent } from './adaptive-definition-overview.component';
-import { TestBed, async, ComponentFixture } from '@angular/core/testing';
+import { TestBed, waitForAsync, ComponentFixture } from '@angular/core/testing';
 import { TrainingDefinitionService } from '@muni-kypo-crp/training-agenda/definition-overview';
 import {
   createNavigatorSpy,
@@ -25,7 +25,7 @@ describe('AdaptiveDefinitionOverviewComponent', () => {
   let paginationServiceSpy: jasmine.SpyObj<PaginationService>;
   let adaptiveDefinitionServiceSpy: jasmine.SpyObj<TrainingDefinitionService>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     navigatorSpy = createNavigatorSpy();
     paginationServiceSpy = createPaginationServiceSpy();
     adaptiveDefinitionServiceSpy = createTrainingDefinitionServiceSpy();

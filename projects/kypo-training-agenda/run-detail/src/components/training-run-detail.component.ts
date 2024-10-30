@@ -37,7 +37,10 @@ export class TrainingRunDetailComponent implements OnInit, AfterViewInit {
   backwardMode: boolean;
   destroyRef = inject(DestroyRef);
 
-  constructor(private trainingRunService: RunningTrainingRunService, private auth: SentinelAuthService) {}
+  constructor(
+    private trainingRunService: RunningTrainingRunService,
+    private auth: SentinelAuthService,
+  ) {}
 
   ngOnInit(): void {
     this.init();
@@ -71,7 +74,7 @@ export class TrainingRunDetailComponent implements OnInit, AfterViewInit {
         if (this.isStepperDisplayed) {
           this.stepper.onActiveLevelUpdated(this.trainingRunService.getActiveLevelPosition());
         }
-      })
+      }),
     );
     this.backtrackedLevel$ = this.trainingRunService.backtrackedLevel$;
   }

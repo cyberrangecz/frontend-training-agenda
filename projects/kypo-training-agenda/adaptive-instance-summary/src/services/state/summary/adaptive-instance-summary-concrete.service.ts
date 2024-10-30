@@ -8,7 +8,10 @@ import { AdaptiveInstanceSummaryService } from './adaptive-instance-summary.serv
 
 @Injectable()
 export class AdaptiveInstanceSummaryConcreteService extends AdaptiveInstanceSummaryService {
-  constructor(private router: Router, private navigator: TrainingNavigator) {
+  constructor(
+    private router: Router,
+    private navigator: TrainingNavigator,
+  ) {
     super();
   }
 

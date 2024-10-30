@@ -35,7 +35,7 @@ export class TrainingInstanceDetectionEventComponent implements OnInit {
     private detectionEventService: DetectionEventService,
     private paginationService: PaginationService,
     private activeRoute: ActivatedRoute,
-    private navigator: TrainingNavigator
+    private navigator: TrainingNavigator,
   ) {}
 
   ngOnInit(): void {
@@ -60,9 +60,9 @@ export class TrainingInstanceDetectionEventComponent implements OnInit {
           0,
           loadEvent.pagination.size,
           loadEvent.pagination.sort,
-          loadEvent.pagination.sortDir
+          loadEvent.pagination.sortDir,
         ),
-        loadEvent.filter
+        loadEvent.filter,
       )
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe();
@@ -80,13 +80,13 @@ export class TrainingInstanceDetectionEventComponent implements OnInit {
     this.hasError$ = this.detectionEventService.hasError$;
     this.isLoading$ = this.detectionEventService.isLoading$;
     this.detectionEvents$ = this.detectionEventService.resource$.pipe(
-      map((resource) => new DetectionEventTable(resource, this.detectionEventService, this.navigator))
+      map((resource) => new DetectionEventTable(resource, this.detectionEventService, this.navigator)),
     );
     const initialPagination = new OffsetPaginationEvent(
       0,
       this.paginationService.getPagination(this.paginationId),
       this.INIT_SORT_NAME,
-      this.INIT_SORT_DIR
+      this.INIT_SORT_DIR,
     );
     this.onLoadEvent({ pagination: initialPagination });
   }

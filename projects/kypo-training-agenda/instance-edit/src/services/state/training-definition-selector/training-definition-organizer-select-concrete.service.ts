@@ -17,7 +17,7 @@ export class TrainingDefinitionOrganizerSelectConcreteService extends TrainingDe
   constructor(
     private api: TrainingDefinitionApi,
     private context: TrainingAgendaContext,
-    private errorHandler: TrainingErrorHandler
+    private errorHandler: TrainingErrorHandler,
   ) {
     super(context.config.defaultPaginationSize);
   }
@@ -29,7 +29,7 @@ export class TrainingDefinitionOrganizerSelectConcreteService extends TrainingDe
    */
   getAll(
     pagination: OffsetPaginationEvent,
-    stateFilter: string
+    stateFilter: string,
   ): Observable<PaginatedResource<TrainingDefinitionInfo>> {
     this.hasErrorSubject$.next(false);
     this.isLoadingSubject$.next(true);
@@ -43,8 +43,8 @@ export class TrainingDefinitionOrganizerSelectConcreteService extends TrainingDe
           this.hasErrorSubject$.next(true);
           this.errorHandler.emit(err, `Fetching ${stateFilter} Training Definitions`);
           this.isLoadingSubject$.next(false);
-        }
-      )
+        },
+      ),
     );
   }
 }

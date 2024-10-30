@@ -1,11 +1,11 @@
 import { PaginatedResource } from '@sentinel/common/pagination';
-import { SentinelDateTimeFormatPipe } from '@sentinel/common/pipes';
 import { TrainingInstance, TrainingRun, TrainingRunStateEnum } from '@muni-kypo-crp/training-model';
 import { Column, SentinelTable, Row, RowAction, DeleteAction } from '@sentinel/components/table';
 import { defer, of } from 'rxjs';
 import { AdaptiveRunService } from '../services/runs/adaptive-run.service';
 import { AdaptiveRunRowAdapter } from './adaptive-run-row-adapter';
 import { DateHelper } from '@muni-kypo-crp/training-agenda/internal';
+import { DatePipe } from '@angular/common';
 
 /**
  * Helper class transforming paginated resource to class for common table component
@@ -15,7 +15,7 @@ export class AdaptiveRunTable extends SentinelTable<AdaptiveRunRowAdapter> {
   constructor(
     resource: PaginatedResource<TrainingRun>,
     service: AdaptiveRunService,
-    trainingInstance: TrainingInstance
+    trainingInstance: TrainingInstance,
   ) {
     const columns = [
       new Column('playerName', 'player', false),
@@ -41,9 +41,9 @@ export class AdaptiveRunTable extends SentinelTable<AdaptiveRunRowAdapter> {
   private static createRow(
     element: TrainingRun,
     service: AdaptiveRunService,
-    instance: TrainingInstance
+    instance: TrainingInstance,
   ): Row<AdaptiveRunRowAdapter> {
-    const datePipe = new SentinelDateTimeFormatPipe('en-EN');
+    const datePipe = new DatePipe('en-EN');
     const adapter = element as AdaptiveRunRowAdapter;
     adapter.playerName = adapter.player.name;
     adapter.playerEmail = adapter.player.mail ? adapter.player.mail : '-';
@@ -61,13 +61,13 @@ export class AdaptiveRunTable extends SentinelTable<AdaptiveRunRowAdapter> {
   private static createActions(
     element: TrainingRun,
     service: AdaptiveRunService,
-    instance: TrainingInstance
+    instance: TrainingInstance,
   ): RowAction[] {
     return [
       new DeleteAction(
         'Delete training run with sandbox',
         of(false),
-        defer(() => service.delete(element, instance.localEnvironment))
+        defer(() => service.delete(element, instance.localEnvironment)),
       ),
     ];
   }

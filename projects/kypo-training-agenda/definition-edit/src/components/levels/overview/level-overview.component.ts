@@ -43,13 +43,16 @@ export class LevelOverviewComponent implements OnInit, OnChanges {
   levelMovingInProgress: boolean;
   destroyRef = inject(DestroyRef);
 
-  constructor(private dialog: MatDialog, private levelService: LevelEditService) {}
+  constructor(
+    private dialog: MatDialog,
+    private levelService: LevelEditService,
+  ) {}
 
   ngOnInit(): void {
     this.activeStep$ = this.levelService.activeStep$;
     this.stepperLevels = this.levelService.levels$.pipe(
       map((levels) => levels.map((level) => new LevelStepperAdapter(level))),
-      tap(() => this.levelsCount.emit(this.levelService.getLevelsCount()))
+      tap(() => this.levelsCount.emit(this.levelService.getLevelsCount())),
     );
 
     this.levelService.unsavedLevels$
@@ -89,7 +92,7 @@ export class LevelOverviewComponent implements OnInit, OnChanges {
         () => {
           this.levelMovingInProgress = false;
         },
-        () => (this.levelMovingInProgress = false)
+        () => (this.levelMovingInProgress = false),
       );
   }
 

@@ -4,7 +4,10 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { RunningTrainingRunService } from '../../running/running-training-run.service';
 
 export abstract class TrainingRunAccessLevelService {
-  protected constructor(protected dialog: MatDialog, protected runningTrainingRunService: RunningTrainingRunService) {}
+  protected constructor(
+    protected dialog: MatDialog,
+    protected runningTrainingRunService: RunningTrainingRunService,
+  ) {}
 
   protected isCorrectPasskeySubmittedSubject$: BehaviorSubject<boolean>;
   isCorrectPasskeySubmitted$: Observable<boolean>;

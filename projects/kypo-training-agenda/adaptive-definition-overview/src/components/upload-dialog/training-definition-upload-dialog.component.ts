@@ -18,7 +18,7 @@ export class TrainingDefinitionUploadDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<TrainingDefinitionUploadDialogComponent>,
-    private uploadProgressService: AdaptiveFileUploadProgressService
+    private uploadProgressService: AdaptiveFileUploadProgressService,
   ) {
     this.uploadInProgress$ = this.uploadProgressService.isInProgress$;
   }

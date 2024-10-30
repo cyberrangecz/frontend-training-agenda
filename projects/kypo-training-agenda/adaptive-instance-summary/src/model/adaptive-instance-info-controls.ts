@@ -15,7 +15,7 @@ export class AdaptiveInstanceInfoControls {
         'Show Progress',
         'primary',
         disabled$,
-        defer(() => of(showResultsEmitter.emit(true)))
+        defer(() => of(showResultsEmitter.emit(true))),
       ),
     ];
   }

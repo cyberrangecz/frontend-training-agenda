@@ -1,4 +1,4 @@
-import { SentinelDateTimeFormatPipe } from '@sentinel/common/pipes';
+import { DatePipe } from '@angular/common';
 import { PaginatedResource } from '@sentinel/common/pagination';
 import { TrainingRun, TrainingRunStateEnum } from '@muni-kypo-crp/training-model';
 import { Column, SentinelTable, Row, RowExpand, ExpandableSentinelTable } from '@sentinel/components/table';
@@ -31,7 +31,7 @@ export class TrainingRunTable extends ExpandableSentinelTable<TrainingRun, Train
   }
 
   private static createRow(element: TrainingRun): Row<TrainingRunRowAdapter> {
-    const datePipe = new SentinelDateTimeFormatPipe('en-EN');
+    const datePipe = new DatePipe('en-EN');
     const adapter = element as TrainingRunRowAdapter;
     adapter.playerName = adapter.player.name;
     adapter.startTimeFormatted = `${datePipe.transform(adapter.startTime)}`;
