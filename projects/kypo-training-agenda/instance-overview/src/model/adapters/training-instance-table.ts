@@ -135,7 +135,7 @@ export class TrainingInstanceTable extends SentinelTable<TrainingInstanceRowAdap
         defer(() => service.results(ti.id)),
       ),
       new RowAction(
-        'results',
+        'aggregated_results',
         'Show Aggregated Results',
         'stacked_bar_chart',
         'primary',
