@@ -92,4 +92,8 @@ export class TrainingDefinitionSelectComponent implements OnInit {
   onSelectionChange(selected: TrainingDefinitionInfo[]): void {
     this.selected = selected;
   }
+
+  trainingDefinitionIdentity(a: TrainingDefinitionInfo, b: TrainingDefinitionInfo): boolean {
+    return a.id === b.id;
+  }
 }

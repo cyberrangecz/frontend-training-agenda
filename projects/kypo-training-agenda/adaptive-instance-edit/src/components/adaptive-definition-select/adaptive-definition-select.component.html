@@ -1,28 +1,42 @@
+<ng-template #projectedElementTemplate let-element>
+  <span>{{ element.title }}</span>
+</ng-template>
+
 <div class="mat-typography content">
   <h1 mat-dialog-title>Select Adaptive Definition</h1>
   <mat-divider/>
   <div mat-dialog-content>
     <mat-progress-bar *ngIf="isLoading$ | async" mode="indeterminate"></mat-progress-bar>
-    <sentinel-list resourceName="Released Adaptive Training Definitions"
+    <h3>
+      Released Training Definitions
+    </h3>
+    <sentinel-list noDataMessage="No released Adaptive Training Definitions"
                mode="radio"
                titleMaxLength="75"
+               [identity]="trainingDefinitionIdentity"
                [maxHeight]="LIST_HEIGHT"
                [resource]="released$ | async"
                [hasError]="releasedHasError$ | async"
                [selected]="selected"
                (pageChange)="fetch($event, true)"
                (selectionChange)="onSelectionChange($event)">
+      <ng-container [sentinelListElement]="projectedElementTemplate"></ng-container>
     </sentinel-list>
     <mat-divider class="list-spacer"/>
-    <sentinel-list resourceName="Unreleased Adaptive Training Definitions"
+    <h3>
+      Unreleased Training Definitions
+    </h3>
+    <sentinel-list noDataMessage="No unreleased Adaptive Training Definitions"
                mode="radio"
                titleMaxLength="75"
+               [identity]="trainingDefinitionIdentity"
                [maxHeight]="LIST_HEIGHT"
                [resource]="unreleased$ | async"
                [hasError]="unreleasedHasError$ | async"
                [selected]="selected"
                (pageChange)="fetch($event, false)"
                (selectionChange)="onSelectionChange($event)">
+      <ng-container [sentinelListElement]="projectedElementTemplate"></ng-container>
     </sentinel-list>
   </div>
 
