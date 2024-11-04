@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angular-datetime-picker';
 import { SentinelPipesModule } from '@sentinel/common/pipes';
 import { SentinelControlsComponent } from '@sentinel/components/controls';
-import { SentinelListComponent } from '@sentinel/components/list';
+import { SentinelListComponent, SentinelListElementDirective } from '@sentinel/components/list';
 import { SentinelUserAssignComponent } from '@sentinel/components/user-assign';
 import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
 import { PoolAssignComponent } from './pool-assign/pool-assign.component';
@@ -32,6 +32,7 @@ import { SandboxDefinitionAssignComponent } from './sandbox-definition-assign/sa
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     SentinelControlsComponent,
+    SentinelListElementDirective,
   ],
   declarations: [
     AdaptiveInstanceEditOverviewComponent,

@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angular-datetime-picker';
 import { SentinelPipesModule } from '@sentinel/common/pipes';
 import { SentinelControlsComponent } from '@sentinel/components/controls';
-import { SentinelListComponent } from '@sentinel/components/list';
+import { SentinelListComponent, SentinelListElementDirective } from '@sentinel/components/list';
 import { SentinelUserAssignComponent } from '@sentinel/components/user-assign';
 import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
 import { TrainingInstanceCanDeactivate } from '../services/can-deactivate/training-instance-can-deactivate.service';
@@ -15,6 +15,8 @@ import { TrainingInstanceEditOverviewMaterialModule } from './training-instance-
 import { TrainingInstanceEditOverviewComponent } from './training-instance-edit-overview.component';
 import { TrainingInstanceEditComponent } from './training-instance-edit/training-instance-edit.component';
 import { SandboxDefinitionAssignComponent } from './sandbox-definition-assign/sandbox-definition-assign.component';
+import { MatCardTitle } from '@angular/material/card';
+import { SentinelPanelModule } from '@sentinel/components/panel';
 
 /**
  * Main module of training instance edit components and providers
@@ -32,6 +34,7 @@ import { SandboxDefinitionAssignComponent } from './sandbox-definition-assign/sa
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     SentinelControlsComponent,
+    SentinelListElementDirective,
   ],
   declarations: [
     TrainingInstanceEditOverviewComponent,
