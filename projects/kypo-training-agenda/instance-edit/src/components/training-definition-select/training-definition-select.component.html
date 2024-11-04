@@ -1,4 +1,4 @@
-<ng-template #projectedElementTemplate let-element>
+<ng-template #sentinelListElementTemplate let-element>
   <span>{{ element.title }}</span>
 </ng-template>
 
@@ -20,7 +20,7 @@
                [selected]="selected"
                (pageChange)="fetch($event, true)"
                (selectionChange)="onSelectionChange($event)">
-      <ng-container [sentinelListElement]="projectedElementTemplate"></ng-container>
+      <ng-container [sentinelListElement]="sentinelListElementTemplate"></ng-container>
     </sentinel-list>
     <mat-divider class="list-spacer"/>
     <h3>
@@ -36,7 +36,7 @@
                [selected]="selected"
                (pageChange)="fetch($event, false)"
                (selectionChange)="onSelectionChange($event)">
-      <ng-container [sentinelListElement]="projectedElementTemplate"></ng-container>
+      <ng-container [sentinelListElement]="sentinelListElementTemplate"></ng-container>
     </sentinel-list>
   </div>
 
