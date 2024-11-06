@@ -1,7 +1,7 @@
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { combineLatest, defer, Observable } from 'rxjs';
 import { TrainingInstanceEditService } from '../../services/state/edit/training-instance-edit.service';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 /**
  * @dynamic
@@ -22,8 +22,9 @@ export class TrainingInstanceEditControls {
     saveDisabled$: Observable<boolean>,
     instanceValid$: Observable<boolean>,
   ): SentinelControlItem[] {
-    const disabled$: Observable<boolean> = combineLatest(saveDisabled$, instanceValid$).pipe(
-      map((save) => save[0] || !save[1]),
+    const disabled$: Observable<boolean> = combineLatest([saveDisabled$, instanceValid$]).pipe(
+      tap(([save, valid]) => console.log('save', save, 'valid', valid)),
+      map(([save, valid]) => save || !valid),
     );
     return [
       new SentinelControlItem(

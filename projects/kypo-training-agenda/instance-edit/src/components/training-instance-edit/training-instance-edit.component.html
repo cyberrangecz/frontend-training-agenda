@@ -11,11 +11,11 @@
     </mat-form-field>
 
     <div class="panel-wrapper">
-      <div class="left-panel">
+      <div class="half-panel">
         <!-- START TIME field -->
         <mat-form-field
           class="multi-line-hint"
-          hintLabel="When trainees can access training runs (if left empty, the current time will be set as the start time)"
+          hintLabel="When trainees can access training runs - Defaults to current time"
           [owlDateTimeTrigger]="startTimePicker"
           appearance="outline"
         >
@@ -64,9 +64,44 @@
           <mat-error *ngIf="endTime.hasError('dateInPast')">End time cannot be in the past</mat-error>
           <mat-error *ngIf="endTime.hasError('required')">This field is required</mat-error>
         </mat-form-field>
+        <div class="slide-toggle-container">
+          <div class="slide-toggle-container slide-toggle-container--vertical">
+            <mat-slide-toggle
+              [matTooltip]="
+          showStepperBar
+            ? 'Show Stepper bar to allow trainees to see their progress through levels during training run.'
+            : 'Hide Stepper bar to disallow trainees to see their progress through levels during training run.'
+        "
+              formControlName="showStepperBar"
+            >
+              Show Stepper Bar
+            </mat-slide-toggle>
+            <mat-slide-toggle
+              [matTooltip]="
+            backwardMode
+              ? 'Enable Backward Mode to allow trainees move to previous accessed levels during training run.'
+              : 'Disable Backward Mode to disallow trainees move to previous accessed levels during training run.'
+          "
+              formControlName="backwardMode"
+              [checked]="showStepperBar && backwardMode"
+            >
+              Backward Mode
+            </mat-slide-toggle>
+          </div>
+          <mat-slide-toggle
+            [matTooltip]="
+              (localEnvironment.valueChanges | async)
+              ? 'Enable Local Environment to disable the pool selection.'
+              : 'Disable Local Environment to enable the pool selection.'
+          "
+            formControlName="localEnvironment"
+          >
+            Local Environment
+          </mat-slide-toggle>
+        </div>
       </div>
 
-      <div class="right-panel">
+      <div class="half-panel">
         <!-- ACCESS TOKEN filed -->
         <mat-form-field
           appearance="outline"
@@ -91,54 +126,56 @@
         </mat-form-field>
 
         <!-- TRAINING DEFINITION field-->
-        <div class="form-line">
-          <p *ngIf="trainingDefinition.value">
-            Training Definition:
-            {{ trainingDefinition.value.title | sentinelShortString: 30 }}
-          </p>
-          <p *ngIf="!trainingDefinition.value">Training Definition*</p>
-          <button (click)="selectTrainingDefinition()" [disabled]="hasStarted" mat-button color="accent">Select</button>
-        </div>
+        <mat-form-field
+          appearance="outline"
+          class="multi-line-hint"
+          (keydown.enter)="$event.preventDefault()"
+        >
+          <mat-label>Training Definition</mat-label>
+          <mat-select
+            placeholder="Training Definition"
+            formControlName="trainingDefinition"
+            hei
+            required
+          >
+            <mat-option>None</mat-option>
+            <mat-option
+              *ngFor="let trainingDefinition of trainingDefinitions" [value]="trainingDefinition.id"
+            >
+              <mat-icon>
+                {{ trainingDefinition.state === 'Released' ? 'lock' : 'lock_open' }}
+              </mat-icon>
+              {{ trainingDefinition.title.substring(3) }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="trainingDefinition.hasError('required')">This field is required</mat-error>
+        </mat-form-field>
+
+        <!-- EDIT SANDBOX DEFINITIONS -->
+        <mat-form-field appearance="outline" >
+          <mat-label>
+            {{ localEnvironment.value ? 'Sandbox Definition' : 'Pool' }}
+          </mat-label>
+          <mat-select
+            [placeholder]="localEnvironment.value ? 'Select Sandbox Definition' : 'Select Pool'"
+            [formControlName]="localEnvironment.value ? 'sandboxDefinitionId' : 'poolId'"
+            required
+          >
+            <mat-option>None</mat-option>
+            <mat-option
+              *ngFor="let value of localEnvironment.value ? sandboxDefinitions : pools" [value]="value.id"
+                        [disabled]="!localEnvironment.value && value.isLocked()"
+            >
+              {{
+                localEnvironment.value
+                  ? value.title + ' [rev: ' + value.rev + ']'
+                  : 'Pool ' + value.id + ' - ' + value.definition.title + ' [rev: ' + value.definition.rev + ']'
+              }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="trainingDefinition.hasError('required')">This field is required</mat-error>
+        </mat-form-field>
       </div>
-    </div>
-
-    <div class="slide-toggle-container">
-      <span>Local Environment</span>
-      <mat-slide-toggle
-        [matTooltip]="
-          localEnvironment
-            ? 'Enable Local Environment to disable the pool selection.'
-            : 'Disable Local Environment to enable the pool selection.'
-        "
-        formControlName="localEnvironment"
-      >
-      </mat-slide-toggle>
-    </div>
-
-    <div class="slide-toggle-container">
-      <span>Backward Mode</span>
-      <mat-slide-toggle
-        [matTooltip]="
-          backwardMode
-            ? 'Enable Backward Mode to allow trainees move to previous accessed levels during training run.'
-            : 'Disable Backward Mode to disallow trainees move to previous accessed levels during training run.'
-        "
-        formControlName="backwardMode"
-        [disabled]="!showStepperBar.value"
-      >
-      </mat-slide-toggle>
-    </div>
-    <div class="slide-toggle-container">
-      <span>Show Stepper Bar</span>
-      <mat-slide-toggle
-        [matTooltip]="
-          showStepperBar
-            ? 'Show Stepper bar to allow trainees to see their progress through levels during training run.'
-            : 'Hide Stepper bar to disallow trainees to see their progress through levels during training run.'
-        "
-        formControlName="showStepperBar"
-      >
-      </mat-slide-toggle>
     </div>
   </form>
 </div>

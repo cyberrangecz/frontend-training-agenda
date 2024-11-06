@@ -1,11 +1,11 @@
 <ng-template #sentinelListElementTemplate let-element>
-  <span>{{ element.title }}</span>
+  <span>{{ element.id + ". " + element.title }}</span>
 </ng-template>
 
 <div class="mat-typography content">
   <h1 mat-dialog-title>Select Training Definition</h1>
-  <mat-divider/>
   <div mat-dialog-content>
+    <mat-divider class="headline-spacer" />
     <mat-progress-bar *ngIf="isLoading$ | async" mode="indeterminate"></mat-progress-bar>
     <h3>
       Released Training Definitions

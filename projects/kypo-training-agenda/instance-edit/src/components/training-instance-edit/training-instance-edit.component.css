@@ -2,37 +2,44 @@ mat-form-field {
   width: 100%;
 }
 
-div .content {
+.content {
 	display: flex;
 	flex-direction: column;
   width: 100%;
 }
 
-div .panel-wrapper {
+.panel-wrapper {
 	display: flex;
 	flex-direction: row;
+  gap: 1.25rem;
 }
 
-div .left-panel {
+.half-panel {
 	display: flex;
 	flex-direction: column;
 	flex-grow: 5;
-	margin-right: 20px;
+  width: 50%;
 }
 
-div .right-panel {
-	display: flex;
-	flex-direction: column;
-	flex-grow: 5;
-	margin-left: 20px;
+.slide-toggle-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.slide-toggle-container--vertical {
+  flex-direction: column;
+}
+
+.slide-toggle-container mat-slide-toggle {
+  margin: 0.5rem;
 }
 
 .form-line {
 	display: flex;
 	flex-direction: row;
-	align-items: baseline;
-	margin: 20px 0;
 }
+
 
 .form-line p {
 	width: 100%;
@@ -40,6 +47,7 @@ div .right-panel {
 
 .form-line button {
 	margin-left: 10px;
+  height: inherit;
 }
 
 button.main {
@@ -54,25 +62,19 @@ button.main {
 	margin-bottom: 15px;
 }
 
-.slide-toggle-container {
-  display: flex;
-  justify-content: space-between;
-  width: 170px;
-}
 
-.mat-mdc-slide-toggle {
-  height: 24px;
-}
 
 @media screen and (max-width: 800px) {
-	div .panel-wrapper {
+	.panel-wrapper {
 		flex-direction: column;
 	}
-	div .left-panel {
-		margin-right: 0;
-	}
 
-	div .right-panel {
-		margin-left: 0;
-	}
+  .slide-toggle-container {
+    flex-direction: column;
+  }
+
+  .half-panel {
+    width: 100%;
+  }
+
 }

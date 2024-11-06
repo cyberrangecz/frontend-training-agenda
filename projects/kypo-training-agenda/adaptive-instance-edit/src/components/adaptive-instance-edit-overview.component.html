@@ -25,11 +25,11 @@
       [editMode]="editMode$ | async">
     </kypo-adaptive-instance-edit>
 
-    <mat-divider></mat-divider>
+    <mat-divider/>
     <!-- EDIT POOLS -->
     <div *ngIf="!(trainingInstance$ | async).localEnvironment && (trainingInstance$ | async) as trainingInstance">
       <div class="pools-header">
-        <h3>Pools</h3>
+        <h3>Pool</h3>
         <mat-icon class="header-icon">view_module</mat-icon>
       </div>
       <kypo-pool-assign [selectedPoolId]="(trainingInstance$ | async).poolId"

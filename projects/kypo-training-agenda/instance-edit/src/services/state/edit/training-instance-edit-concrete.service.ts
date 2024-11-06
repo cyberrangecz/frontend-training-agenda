@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { PoolApi, SandboxDefinitionApi, SandboxInstanceApi } from '@muni-kypo-crp/sandbox-api';
-import { TrainingInstanceApi } from '@muni-kypo-crp/training-api';
-import { TrainingInstance } from '@muni-kypo-crp/training-model';
+import { TrainingDefinitionApi, TrainingInstanceApi } from '@muni-kypo-crp/training-api';
+import { TrainingDefinitionInfo, TrainingInstance } from '@muni-kypo-crp/training-model';
 import { from, Observable } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { TrainingInstanceChangeEvent } from '../../../model/events/training-instance-change-event';
@@ -10,6 +10,7 @@ import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } 
 import { TrainingInstanceEditService } from './training-instance-edit.service';
 import { PaginatedResource, OffsetPaginationEvent } from '@sentinel/common/pagination';
 import { Pool, SandboxDefinition } from '@muni-kypo-crp/sandbox-model';
+import { SentinelFilter } from '@sentinel/common/filter';
 
 /**
  * Basic implementation of layer between component and API service.
@@ -21,7 +22,7 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
 
   constructor(
     private trainingInstanceApi: TrainingInstanceApi,
-    private sandboxInstanceApi: SandboxInstanceApi,
+    private trainingDefinitionApi: TrainingDefinitionApi,
     private poolApi: PoolApi,
     private sandboxDefinitionApi: SandboxDefinitionApi,
     private router: Router,
@@ -41,6 +42,7 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
     if (changeEvent.trainingInstance.localEnvironment) changeEvent.trainingInstance.poolId = null;
     this.editedSnapshot = changeEvent.trainingInstance;
     this.checkInstanceValidity();
+    console.log('change', changeEvent.isValid);
   }
 
   /**
@@ -88,10 +90,33 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
     this.setEditMode(trainingInstance);
     if (ti === null) {
       ti = new TrainingInstance();
+      ti.showStepperBar = true;
       ti.backwardMode = true;
       this.instanceValidSubject$.next(false);
     }
     this.trainingInstanceSubject$.next(ti);
+  }
+
+  getAllTrainingDefinitions(
+    offsetPaginationEvent: OffsetPaginationEvent,
+    stateFilter: string,
+  ): Observable<PaginatedResource<TrainingDefinitionInfo>> {
+    this.lastPagination = offsetPaginationEvent;
+    this.lastPagination.size = Number.MAX_SAFE_INTEGER;
+    return this.trainingDefinitionApi
+      .getAllForOrganizer(offsetPaginationEvent, [new SentinelFilter('state', stateFilter)])
+      .pipe(
+        tap(
+          (definitions) => {
+            if (stateFilter === 'RELEASED') {
+              this.releasedTrainingDefinitionsSubject.next(definitions);
+            } else {
+              this.unreleasedTrainingDefinitionsSubject.next(definitions);
+            }
+          },
+          (err) => this.errorHandler.emit(err, 'Fetching available training definitions'),
+        ),
+      );
   }
 
   getAllPools(offsetPaginationEvent: OffsetPaginationEvent): Observable<PaginatedResource<Pool>> {
@@ -155,6 +180,8 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
     const pagination = new OffsetPaginationEvent(0, 10, '', 'asc');
     this.saveDisabledSubject$.next(true);
     return this.trainingInstanceApi.update(this.editedSnapshot).pipe(
+      switchMap(() => this.getAllTrainingDefinitions(pagination, 'RELEASED')),
+      switchMap(() => this.getAllTrainingDefinitions(pagination, 'UNRELEASED')),
       switchMap(() => this.getAllPools(pagination)),
       switchMap(() => this.getAllSandboxDefinitions(pagination)),
       tap(

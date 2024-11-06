@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, HostListener, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, HostListener, Inject, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
 import { SentinelControlItem } from '@sentinel/components/controls';
-import { TrainingInstance } from '@muni-kypo-crp/training-model';
-import { Observable, switchMap } from 'rxjs';
-import { filter, map, take } from 'rxjs/operators';
+import { TrainingDefinitionInfo, TrainingInstance } from '@muni-kypo-crp/training-model';
+import { combineLatestWith, mergeAll, Observable, switchMap } from 'rxjs';
+import { combineLatest, filter, map, take, tap } from 'rxjs/operators';
 import { TrainingInstanceEditControls } from '../model/adapter/training-instance-edit-controls';
 import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
 import { TrainingInstanceChangeEvent } from '../model/events/training-instance-change-event';
@@ -12,7 +12,6 @@ import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
 import { TrainingInstanceEditService } from '../services/state/edit/training-instance-edit.service';
 import { TrainingInstanceEditConcreteService } from '../services/state/edit/training-instance-edit-concrete.service';
 import { OrganizersAssignService } from '../services/state/organizers-assign/organizers-assign.service';
-import { SandboxPoolListAdapter } from '../model/adapter/sandbox-pool-list-adapter';
 import { Pool, SandboxDefinition } from '@muni-kypo-crp/sandbox-model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { SentinelUserAssignService } from '@sentinel/components/user-assign';
@@ -34,10 +33,9 @@ export class TrainingInstanceEditOverviewComponent implements OnInit {
   readonly PAGE_SIZE: number = 999;
 
   trainingInstance$: Observable<TrainingInstance>;
-  pools$: Observable<SandboxPoolListAdapter[]>;
-  selectedPoolId: Observable<number>;
+  trainingDefinitions$: Observable<TrainingDefinitionInfo[]>;
+  pools$: Observable<Pool[]>;
   sandboxDefinitions$: Observable<SandboxDefinition[]>;
-  selectedSandboxDefinitionId: Observable<number>;
   hasStarted$: Observable<boolean>;
   editMode$: Observable<boolean>;
   tiTitle$: Observable<string>;
@@ -47,7 +45,6 @@ export class TrainingInstanceEditOverviewComponent implements OnInit {
   canDeactivateSandboxDefinitionAssign = true;
   canDeactivateTIEdit = true;
   defaultPaginationSize: number;
-  hasAssignedPool: boolean;
   controls: SentinelControlItem[];
   destroyRef = inject(DestroyRef);
 
@@ -68,8 +65,14 @@ export class TrainingInstanceEditOverviewComponent implements OnInit {
     this.activeRoute.data
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((data) => this.editService.set(data[TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME]));
-    this.pools$ = this.editService.pools$.pipe(map((pool) => this.mapToAdapter(pool)));
+
+    this.trainingDefinitions$ = this.editService.releasedTrainingDefinitions$.pipe(
+      combineLatestWith(this.editService.unreleasedTrainingDefinitions$),
+      map(([released, unreleased]) => [...released.elements, ...unreleased.elements]),
+    );
+    this.pools$ = this.editService.pools$.pipe(map((pools) => pools.elements));
     this.sandboxDefinitions$ = this.editService.sandboxDefinitions$.pipe(map((definitions) => definitions.elements));
+    this.refreshTrainingDefinitions();
     this.refreshPools();
     this.refreshSandboxDefinitions();
     this.controls = TrainingInstanceEditControls.create(this.editService, saveDisabled$, this.instanceValid$);
@@ -128,30 +131,18 @@ export class TrainingInstanceEditOverviewComponent implements OnInit {
   }
 
   /**
-   * Changes canDeactivate state of the component
-   * @param poolId pool ID of selected pool
-   */
-  onPoolSelectionChanged(poolId: number): void {
-    this.canDeactivatePoolAssign = false;
-    this.editService.poolSelectionChange(poolId);
-  }
-
-  /**
-   * Changes canDeactivate state of the component
-   * @param sandboxDefinitionId ID of selected sandbox definition
-   */
-  onSandboxDefinitionSelectionChanged(sandboxDefinitionId: number): void {
-    this.canDeactivateSandboxDefinitionAssign = false;
-    this.editService.sandboxDefinitionSelectionChange(sandboxDefinitionId);
-  }
-
-  /**
    * Updates state of the training instance and changes canDeactivate state of the component
    * @param $event training instance change event, containing latest update of training instance and its validity
    */
   onTrainingInstanceChanged($event: TrainingInstanceChangeEvent): void {
     this.editService.change($event);
     this.canDeactivateTIEdit = false;
+  }
+
+  private refreshTrainingDefinitions() {
+    const pagination = new OffsetPaginationEvent(0, this.PAGE_SIZE, '', 'asc');
+    this.editService.getAllTrainingDefinitions(pagination, 'RELEASED').pipe(take(1)).subscribe();
+    this.editService.getAllTrainingDefinitions(pagination, 'UNRELEASED').pipe(take(1)).subscribe();
   }
 
   private refreshPools() {
@@ -162,13 +153,5 @@ export class TrainingInstanceEditOverviewComponent implements OnInit {
   private refreshSandboxDefinitions() {
     const pagination = new OffsetPaginationEvent(0, this.PAGE_SIZE, '', 'asc');
     this.editService.getAllSandboxDefinitions(pagination).pipe(take(1)).subscribe();
-  }
-
-  private mapToAdapter(resource: PaginatedResource<Pool>): SandboxPoolListAdapter[] {
-    return resource.elements.map((pool) => {
-      const adapter = pool as SandboxPoolListAdapter;
-      adapter.title = !adapter.isLocked() ? `Pool ${adapter.id}` : `Pool ${adapter.id} (locked)`;
-      return adapter;
-    });
   }
 }

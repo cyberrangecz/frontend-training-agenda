@@ -14,8 +14,8 @@
     </mat-select>
   </mat-form-field>
   <div class="selected-pool" *ngIf="selectedPoolId">
-    <h4>Pool {{ selectedPoolId }} is currently assigned to this training instance.
+    <span>Pool {{ selectedPoolId }} is currently assigned to this training instance.
       <a mat-button color="accent" [routerLink]="this.poolDetailRoute">Show</a>
-    </h4>
+    </span>
   </div>
 </div>

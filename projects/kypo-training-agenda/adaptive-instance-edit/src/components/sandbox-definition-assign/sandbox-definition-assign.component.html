@@ -13,8 +13,8 @@
     </mat-select>
   </mat-form-field>
   <div class="selected-definition" *ngIf="selectedSandboxDefinitionId">
-    <h4>Sandbox definition {{ selectedSandboxDefinitionId }} is currently assigned to this training instance.
+    <span>Sandbox definition {{ selectedSandboxDefinitionId }} is currently assigned to this training instance.
       <a mat-button color="accent" [href]="this.sandboxDefinitionDetailRoute" target="_blank">Show</a>
-    </h4>
+    </span>
   </div>
 </div>

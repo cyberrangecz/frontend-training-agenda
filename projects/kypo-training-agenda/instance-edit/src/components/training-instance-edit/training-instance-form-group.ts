@@ -21,9 +21,24 @@ export class TrainingInstanceFormGroup {
         localEnvironment: new UntypedFormControl(trainingInstance.localEnvironment),
         backwardMode: new UntypedFormControl(trainingInstance.backwardMode),
         showStepperBar: new UntypedFormControl(trainingInstance.showStepperBar),
+        poolId: new UntypedFormControl(trainingInstance.poolId, [this.sandboxValidator]),
+        sandboxDefinitionId: new UntypedFormControl(trainingInstance.sandboxDefinitionId, [this.sandboxValidator]),
       },
       { validators: this.dateSequenceValidator },
     );
+
+    this.formGroup.get('localEnvironment').valueChanges.subscribe(() => {
+      this.onLocalEnvironmentChange();
+    });
+
+    this.formGroup.get('showStepperBar').valueChanges.subscribe((stepperbarEnabled) => {
+      if (stepperbarEnabled) {
+        this.formGroup.get('backwardMode').enable();
+      } else {
+        this.formGroup.get('backwardMode').setValue(false);
+        this.formGroup.get('backwardMode').disable();
+      }
+    });
   }
 
   disable(): void {
@@ -56,6 +71,20 @@ export class TrainingInstanceFormGroup {
   };
 
   /**
+   * Validator for pool and sandbox definition selection
+   * Verifies if either pool or sandbox definition is selected
+   * @param control form control to be validated
+   */
+  private sandboxValidator: ValidatorFn = (): ValidationErrors | null => {
+    return (
+      this.formGroup &&
+      (this.formGroup.get('poolId')?.value || this.formGroup.get('sandboxDefinitionId')?.value
+        ? null
+        : { required: true })
+    );
+  };
+
+  /**
    * Sets values from training instance to individual inputs
    * @param trainingInstance training instance which values should be set to inputs
    */
@@ -67,7 +96,14 @@ export class TrainingInstanceFormGroup {
     trainingInstance.accessToken = this.formGroup.get('accessTokenPrefix').value?.trim();
     trainingInstance.localEnvironment = this.formGroup.get('localEnvironment').value;
     trainingInstance.backwardMode = this.formGroup.get('backwardMode').value;
+    trainingInstance.sandboxDefinitionId = this.formGroup.get('sandboxDefinitionId').value;
+    trainingInstance.poolId = this.formGroup.get('poolId').value;
     trainingInstance.showStepperBar = this.formGroup.get('showStepperBar').value;
+  }
+
+  private onLocalEnvironmentChange(): void {
+    this.formGroup.get('sandboxDefinitionId').setValue(null);
+    this.formGroup.get('poolId').setValue(null);
   }
 
   private getTokenPrefix(accessToken: string): string {
