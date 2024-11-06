@@ -60,6 +60,9 @@ export class TrainingInstanceEditComponent implements OnChanges {
   get backwardMode(): AbstractControl {
     return this.trainingInstanceFormGroup.formGroup.get('backwardMode');
   }
+  get showStepperBar(): AbstractControl {
+    return this.trainingInstanceFormGroup.formGroup.get('showStepperBar');
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if ('trainingInstance' in changes) {
@@ -69,6 +72,7 @@ export class TrainingInstanceEditComponent implements OnChanges {
     if ('hasStarted' in changes && this.hasStarted) {
       this.trainingInstanceFormGroup.disable();
     }
+    this.setupStepperBarListener();
   }
 
   /**
@@ -99,5 +103,16 @@ export class TrainingInstanceEditComponent implements OnChanges {
     this.edited.emit(
       new TrainingInstanceChangeEvent(this.trainingInstance, this.trainingInstanceFormGroup.formGroup.valid),
     );
+  }
+
+  private setupStepperBarListener(): void {
+    this.showStepperBar.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((showStepperBarValue) => {
+      if (showStepperBarValue) {
+        this.backwardMode.enable();
+      } else {
+        this.backwardMode.setValue(false);
+        this.backwardMode.disable();
+      }
+    });
   }
 }
