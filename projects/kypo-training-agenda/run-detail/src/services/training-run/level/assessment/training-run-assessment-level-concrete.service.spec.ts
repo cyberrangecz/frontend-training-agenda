@@ -54,7 +54,7 @@ describe('TrainingRunAssessmentLevelConcreteService', () => {
         expect(runningTrainingRunServiceSpy.next).toHaveBeenCalledTimes(1);
         done();
       },
-      () => fail
+      () => fail,
     );
   });
 
@@ -67,7 +67,7 @@ describe('TrainingRunAssessmentLevelConcreteService', () => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         expect(errorHandlerSpy.emit).toHaveBeenCalledWith(err, jasmine.anything());
         done();
-      }
+      },
     );
   });
 

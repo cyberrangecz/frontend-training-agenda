@@ -1,12 +1,12 @@
 import { TrainingDefinitionDetailComponent } from './training-definition-detail.component';
-import { async, TestBed, ComponentFixture } from '@angular/core/testing';
+import { waitForAsync, TestBed, ComponentFixture } from '@angular/core/testing';
 import { MaterialTestingModule } from '../../../../internal/src/testing/material-testing.module';
 
 describe('TrainingDefinitionDetailComponent', () => {
   let component: TrainingDefinitionDetailComponent;
   let fixture: ComponentFixture<TrainingDefinitionDetailComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [MaterialTestingModule],
       declarations: [TrainingDefinitionDetailComponent],

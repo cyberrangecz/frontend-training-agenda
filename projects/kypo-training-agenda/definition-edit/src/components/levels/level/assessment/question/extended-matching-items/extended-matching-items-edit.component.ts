@@ -160,7 +160,7 @@ export class ExtendedMatchingItemsEditComponent implements OnChanges {
         order: new UntypedFormControl(this.statements.length),
         text: new UntypedFormControl('', SentinelValidators.noWhitespace),
         correctOptionOrder: new UntypedFormControl(),
-      })
+      }),
     );
     this.questionChanged();
   }
@@ -174,7 +174,7 @@ export class ExtendedMatchingItemsEditComponent implements OnChanges {
         id: new UntypedFormControl(null),
         order: new UntypedFormControl(this.options.length),
         text: new UntypedFormControl('', SentinelValidators.noWhitespace),
-      })
+      }),
     );
     this.columnLimitReached = this.options.length == this.OPTIONS_BOUNDS_MAXIMUM;
     this.questionChanged();

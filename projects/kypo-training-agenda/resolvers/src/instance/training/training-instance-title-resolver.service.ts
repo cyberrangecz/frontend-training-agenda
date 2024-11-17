@@ -27,7 +27,7 @@ export class TrainingInstanceTitleResolver {
       return resolved.pipe(
         take(1),
         mergeMap((ti) => (ti ? of(`Edit ${ti.title}`) : '')),
-        catchError(() => '')
+        catchError(() => ''),
       );
     }
     return '';

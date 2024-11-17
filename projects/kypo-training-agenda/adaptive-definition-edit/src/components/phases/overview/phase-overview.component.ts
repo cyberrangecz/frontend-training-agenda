@@ -56,13 +56,16 @@ export class PhaseOverviewComponent implements OnInit, OnChanges {
   questions: Map<number, AdaptiveQuestion> = new Map<number, AdaptiveQuestion>();
   destroyRef = inject(DestroyRef);
 
-  constructor(private dialog: MatDialog, private phaseService: PhaseEditService) {}
+  constructor(
+    private dialog: MatDialog,
+    private phaseService: PhaseEditService,
+  ) {}
 
   ngOnInit(): void {
     this.activeStep$ = this.phaseService.activeStep$;
     this.stepperPhases$ = this.phaseService.phases$.pipe(
       map((phases) => phases.map((phase) => new PhaseStepperAdapter(phase))),
-      tap(() => this.phasesCount.emit(this.phaseService.getPhasesCount()))
+      tap(() => this.phasesCount.emit(this.phaseService.getPhasesCount())),
     );
 
     this.updateMatrix$ = this.phaseService.updateMatrix$;
@@ -122,7 +125,7 @@ export class PhaseOverviewComponent implements OnInit, OnChanges {
       .filter(
         (phase) =>
           phase instanceof QuestionnairePhase &&
-          (phase as QuestionnairePhase).questionnaireType === QuestionnaireTypeEnum.Adaptive
+          (phase as QuestionnairePhase).questionnaireType === QuestionnaireTypeEnum.Adaptive,
       )
       .forEach((phase) => {
         newPhaseRelations.push(...(phase as QuestionnairePhase).phaseRelations);

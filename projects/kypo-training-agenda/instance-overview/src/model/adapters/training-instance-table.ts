@@ -1,4 +1,4 @@
-import { SentinelDateTimeFormatPipe } from '@sentinel/common/pipes';
+import { DatePipe } from '@angular/common';
 import { PaginatedResource } from '@sentinel/common/pagination';
 import { TrainingInstance } from '@muni-kypo-crp/training-model';
 import { Column, SentinelTable, Row, RowAction, EditAction, DeleteAction } from '@sentinel/components/table';
@@ -15,7 +15,7 @@ export class TrainingInstanceTable extends SentinelTable<TrainingInstanceRowAdap
   constructor(
     resource: PaginatedResource<TrainingInstance>,
     service: TrainingInstanceOverviewService,
-    navigator: TrainingNavigator
+    navigator: TrainingNavigator,
   ) {
     const columns = [
       new Column('title', 'Title', true),
@@ -39,10 +39,10 @@ export class TrainingInstanceTable extends SentinelTable<TrainingInstanceRowAdap
   private static createRow(
     ti: TrainingInstance,
     service: TrainingInstanceOverviewService,
-    navigator: TrainingNavigator
+    navigator: TrainingNavigator,
   ): Row<TrainingInstanceRowAdapter> {
     const adapter = ti as TrainingInstanceRowAdapter;
-    const datePipe = new SentinelDateTimeFormatPipe('en-EN');
+    const datePipe = new DatePipe('en-EN');
     adapter.tdTitle = adapter.trainingDefinition.title;
     adapter.startTimeFormatted = `${datePipe.transform(adapter.startTime)}`;
     adapter.endTimeFormatted = `${datePipe.transform(adapter.endTime)}`;
@@ -73,12 +73,12 @@ export class TrainingInstanceTable extends SentinelTable<TrainingInstanceRowAdap
       new EditAction(
         'Edit training instance',
         of(false),
-        defer(() => service.edit(ti.id))
+        defer(() => service.edit(ti.id)),
       ),
       new DeleteAction(
         'Delete training instance',
         of(false),
-        defer(() => service.delete(ti))
+        defer(() => service.delete(ti)),
       ),
       new RowAction(
         'get_data',
@@ -87,7 +87,7 @@ export class TrainingInstanceTable extends SentinelTable<TrainingInstanceRowAdap
         'primary',
         'Download ZIP file containing all training instance data',
         of(false),
-        defer(() => service.download(ti.id))
+        defer(() => service.download(ti.id)),
       ),
       new RowAction(
         'get_ssh_configs',
@@ -96,7 +96,7 @@ export class TrainingInstanceTable extends SentinelTable<TrainingInstanceRowAdap
         'primary',
         'Download management SSH configs',
         of(!ti.hasPool()),
-        defer(() => service.getSshAccess(ti.poolId))
+        defer(() => service.getSshAccess(ti.poolId)),
       ),
       new RowAction(
         'training_runs',
@@ -105,7 +105,7 @@ export class TrainingInstanceTable extends SentinelTable<TrainingInstanceRowAdap
         'primary',
         'Manage training runs',
         of(false),
-        defer(() => service.runs(ti.id))
+        defer(() => service.runs(ti.id)),
       ),
       new RowAction(
         'display_token',
@@ -114,7 +114,7 @@ export class TrainingInstanceTable extends SentinelTable<TrainingInstanceRowAdap
         'primary',
         'Display page containing access token',
         of(false),
-        defer(() => service.token(ti.id))
+        defer(() => service.token(ti.id)),
       ),
       new RowAction(
         'progress',
@@ -123,7 +123,7 @@ export class TrainingInstanceTable extends SentinelTable<TrainingInstanceRowAdap
         'primary',
         'Show progress of training runs',
         of(!ti.hasStarted()),
-        defer(() => service.progress(ti.id))
+        defer(() => service.progress(ti.id)),
       ),
       new RowAction(
         'results',
@@ -132,16 +132,16 @@ export class TrainingInstanceTable extends SentinelTable<TrainingInstanceRowAdap
         'primary',
         'Show results of training runs',
         of(!ti.hasStarted()),
-        defer(() => service.results(ti.id))
+        defer(() => service.results(ti.id)),
       ),
       new RowAction(
-        'results',
+        'aggregated_results',
         'Show Aggregated Results',
         'stacked_bar_chart',
         'primary',
         'Show aggregated results of training runs across same training instances',
         of(!ti.hasStarted()),
-        defer(() => service.aggregatedResults(ti.id))
+        defer(() => service.aggregatedResults(ti.id)),
       ),
     ];
   }

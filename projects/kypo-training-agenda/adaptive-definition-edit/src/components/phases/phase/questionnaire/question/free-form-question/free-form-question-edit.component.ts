@@ -61,7 +61,7 @@ export class FreeFormQuestionEditComponent implements OnChanges {
         text: new UntypedFormControl('new Answer', [SentinelValidators.noWhitespace, Validators.required]),
         correct: new UntypedFormControl(true),
         order: new UntypedFormControl(this.choices.length),
-      })
+      }),
     );
     this.questionChanged();
   }

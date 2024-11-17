@@ -16,7 +16,7 @@ export abstract class AccessedTrainingRunService extends OffsetPaginatedElements
    */
   abstract getAll(
     pagination: OffsetPaginationEvent,
-    filter: string
+    filter: string,
   ): Observable<PaginatedResource<AccessedTrainingRun>>;
 
   /**

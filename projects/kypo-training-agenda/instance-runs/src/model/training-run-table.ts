@@ -1,4 +1,4 @@
-import { SentinelDateTimeFormatPipe } from '@sentinel/common/pipes';
+import { DatePipe } from '@angular/common';
 import { PaginatedResource } from '@sentinel/common/pagination';
 import { TrainingInstance, TrainingRun, TrainingRunStateEnum } from '@muni-kypo-crp/training-model';
 import { Column, SentinelTable, Row, RowAction, DeleteAction } from '@sentinel/components/table';
@@ -15,7 +15,7 @@ export class TrainingRunTable extends SentinelTable<TrainingRunRowAdapter> {
   constructor(
     resource: PaginatedResource<TrainingRun>,
     service: TrainingRunService,
-    trainingInstance: TrainingInstance
+    trainingInstance: TrainingInstance,
   ) {
     const columns = [
       new Column('playerName', 'player', false),
@@ -41,9 +41,9 @@ export class TrainingRunTable extends SentinelTable<TrainingRunRowAdapter> {
   private static createRow(
     element: TrainingRun,
     service: TrainingRunService,
-    instance: TrainingInstance
+    instance: TrainingInstance,
   ): Row<TrainingRunRowAdapter> {
-    const datePipe = new SentinelDateTimeFormatPipe('en-EN');
+    const datePipe = new DatePipe('en-EN');
     const adapter = element as TrainingRunRowAdapter;
     adapter.playerName = adapter.player.name;
     adapter.playerEmail = adapter.player.mail ? adapter.player.mail : '-';
@@ -61,13 +61,13 @@ export class TrainingRunTable extends SentinelTable<TrainingRunRowAdapter> {
   private static createActions(
     element: TrainingRun,
     service: TrainingRunService,
-    instance: TrainingInstance
+    instance: TrainingInstance,
   ): RowAction[] {
     return [
       new DeleteAction(
         'Delete training run with sandbox',
         of(false),
-        defer(() => service.delete(element, instance.localEnvironment))
+        defer(() => service.delete(element, instance.localEnvironment)),
       ),
     ];
   }

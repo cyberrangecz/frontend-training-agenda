@@ -33,11 +33,11 @@ export class CheatingDetectionEditComponent {
   constructor(
     private activeRoute: ActivatedRoute,
     private paginationService: PaginationService,
-    private editService: CheatingDetectionEditService
+    private editService: CheatingDetectionEditService,
   ) {
     this.trainingInstance$ = this.activeRoute.data.pipe(
       takeUntilDestroyed(this.destroyRef),
-      map((data) => data[TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME])
+      map((data) => data[TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME]),
     );
     this.trainingInstance$.subscribe((instance) => {
       this.trainingInstanceId = instance.id;
@@ -45,7 +45,7 @@ export class CheatingDetectionEditComponent {
     this.cheatingDetection = new CheatingDetection();
     this.cheatingDetectionEditFormGroup = new CheatingDetectionEditFormGroup(
       this.cheatingDetection,
-      this.trainingInstanceId
+      this.trainingInstanceId,
     );
     this.initControls(this.editService);
     this.cheatingDetectionEditFormGroup.formGroup.valueChanges
@@ -89,7 +89,7 @@ export class CheatingDetectionEditComponent {
         command: new UntypedFormControl('', [SentinelValidators.noWhitespace, Validators.required]),
         type: new UntypedFormControl('', [Validators.required]),
         cheatingDetectionId: new UntypedFormControl(this.cheatingDetection.id),
-      })
+      }),
     );
     this.forbiddenCommandsChanged();
   }
@@ -114,8 +114,8 @@ export class CheatingDetectionEditComponent {
         'primary',
         of(this.isFormValid()),
         defer(() =>
-          editService.create(this.cheatingDetectionEditFormGroup.createCheatingDetection(), this.trainingInstanceId)
-        )
+          editService.create(this.cheatingDetectionEditFormGroup.createCheatingDetection(), this.trainingInstanceId),
+        ),
       ),
     ];
   }

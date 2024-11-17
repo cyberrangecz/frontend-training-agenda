@@ -15,7 +15,10 @@ import { AdaptiveRunService } from './adaptive-run.service';
 export class AdaptiveRunConcreteService extends AdaptiveRunService {
   private lastTrainingInstanceId: number;
 
-  constructor(private adaptiveInstanceApi: AdaptiveInstanceApi, private context: TrainingAgendaContext) {
+  constructor(
+    private adaptiveInstanceApi: AdaptiveInstanceApi,
+    private context: TrainingAgendaContext,
+  ) {
     super(context.config.defaultPaginationSize);
   }
 
@@ -30,8 +33,8 @@ export class AdaptiveRunConcreteService extends AdaptiveRunService {
         (runs) => {
           this.resourceSubject$.next(runs);
         },
-        () => this.onGetAllError()
-      )
+        () => this.onGetAllError(),
+      ),
     );
   }
 

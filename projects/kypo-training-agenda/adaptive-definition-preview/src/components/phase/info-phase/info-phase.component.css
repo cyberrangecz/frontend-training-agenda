@@ -10,6 +10,10 @@
   width: 60%;
 }
 
+sentinel-markdown-view {
+  background-color: transparent;
+}
+
 markdown {
   width: 100%;
   background-color: transparent;

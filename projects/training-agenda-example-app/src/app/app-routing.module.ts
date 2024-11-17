@@ -16,7 +16,7 @@ const routes: Routes = [
     path: 'training-definition',
     loadChildren: () =>
       import('./lazy-loaded-modules/definition/overview/training-definition-overview.module').then(
-        (m) => m.TrainingDefinitionOverviewModule
+        (m) => m.TrainingDefinitionOverviewModule,
       ),
     data: {
       breadcrumb: 'Definition',
@@ -27,7 +27,7 @@ const routes: Routes = [
     path: 'adaptive-definition',
     loadChildren: () =>
       import('./lazy-loaded-modules/adaptive-definition/overview/adaptive-definition-overview.module').then(
-        (m) => m.AdaptiveDefinitionOverviewModule
+        (m) => m.AdaptiveDefinitionOverviewModule,
       ),
     data: {
       breadcrumb: 'Definition',
@@ -38,7 +38,7 @@ const routes: Routes = [
     path: 'training-instance',
     loadChildren: () =>
       import('./lazy-loaded-modules/instance/overview/training-instance-overview.module').then(
-        (m) => m.TrainingInstanceOverviewModule
+        (m) => m.TrainingInstanceOverviewModule,
       ),
     data: {
       breadcrumb: 'Instance',
@@ -71,7 +71,7 @@ const routes: Routes = [
     path: 'adaptive-instance',
     loadChildren: () =>
       import('./lazy-loaded-modules/adaptive-instance/overview/adaptive-instance-overview.module').then(
-        (m) => m.AdaptiveInstanceOverviewModule
+        (m) => m.AdaptiveInstanceOverviewModule,
       ),
     data: {
       breadcrumb: 'Instance',
@@ -82,7 +82,7 @@ const routes: Routes = [
     path: 'training-run',
     loadChildren: () =>
       import('./lazy-loaded-modules/run/overview/training-run-overview.module').then(
-        (m) => m.TrainingRunOverviewModule
+        (m) => m.TrainingRunOverviewModule,
       ),
     data: {
       breadcrumb: 'Run',

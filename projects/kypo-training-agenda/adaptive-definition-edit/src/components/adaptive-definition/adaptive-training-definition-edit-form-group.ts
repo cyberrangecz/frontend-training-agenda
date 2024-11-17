@@ -13,7 +13,7 @@ export class AdaptiveTrainingDefinitionEditFormGroup {
       title: new UntypedFormControl(trainingDefinition.title, SentinelValidators.noWhitespace),
       description: new UntypedFormControl(trainingDefinition.description),
       prerequisites: new UntypedFormArray(
-        trainingDefinition.prerequisites.map((prereq) => new UntypedFormControl(prereq))
+        trainingDefinition.prerequisites.map((prereq) => new UntypedFormControl(prereq)),
       ),
       outcomes: new UntypedFormArray(trainingDefinition.outcomes.map((outcomes) => new UntypedFormControl(outcomes))),
       defaultContent: new UntypedFormControl(trainingDefinition.defaultContent),

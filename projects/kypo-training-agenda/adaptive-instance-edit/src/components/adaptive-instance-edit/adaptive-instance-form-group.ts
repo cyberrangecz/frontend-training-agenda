@@ -21,7 +21,7 @@ export class AdaptiveInstanceFormGroup {
         localEnvironment: new UntypedFormControl(trainingInstance.localEnvironment),
         backwardMode: new UntypedFormControl(trainingInstance.backwardMode),
       },
-      { validators: this.dateSequenceValidator }
+      { validators: this.dateSequenceValidator },
     );
   }
 

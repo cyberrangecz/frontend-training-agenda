@@ -1,4 +1,4 @@
-import { async, TestBed } from '@angular/core/testing';
+import { waitForAsync, TestBed } from '@angular/core/testing';
 import { asyncData } from '@sentinel/common/testing';
 import { OffsetPagination, PaginatedResource, OffsetPaginationEvent } from '@sentinel/common/pagination';
 import { UserApi } from '@muni-kypo-crp/training-api';
@@ -20,7 +20,7 @@ describe('AuthorsAssignService', () => {
   let service: AuthorsAssignService;
   let context: TrainingAgendaContext;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     errorHandlerSpy = createErrorHandlerSpy();
     apiSpy = createUserApiSpy();
     context = createContext();
@@ -100,7 +100,7 @@ describe('AuthorsAssignService', () => {
       () => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         done();
-      }
+      },
     );
   });
 
@@ -111,7 +111,7 @@ describe('AuthorsAssignService', () => {
       () => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         done();
-      }
+      },
     );
   });
 
@@ -122,7 +122,7 @@ describe('AuthorsAssignService', () => {
       () => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         done();
-      }
+      },
     );
   });
 
@@ -133,7 +133,7 @@ describe('AuthorsAssignService', () => {
       () => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         done();
-      }
+      },
     );
   });
 

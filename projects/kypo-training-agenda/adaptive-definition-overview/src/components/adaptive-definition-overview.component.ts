@@ -35,7 +35,7 @@ export class AdaptiveDefinitionOverviewComponent implements OnInit {
   constructor(
     private paginationService: PaginationService,
     private trainingDefinitionService: AdaptiveDefinitionService,
-    private trainingNavigator: TrainingNavigator
+    private trainingNavigator: TrainingNavigator,
   ) {}
 
   ngOnInit(): void {
@@ -57,9 +57,9 @@ export class AdaptiveDefinitionOverviewComponent implements OnInit {
           0,
           loadEvent.pagination.size,
           loadEvent.pagination.sort,
-          loadEvent.pagination.sortDir
+          loadEvent.pagination.sortDir,
         ),
-        loadEvent.filter
+        loadEvent.filter,
       )
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe();
@@ -85,13 +85,13 @@ export class AdaptiveDefinitionOverviewComponent implements OnInit {
     this.hasError$ = this.trainingDefinitionService.hasError$;
     this.isLoading$ = this.trainingDefinitionService.isLoading$;
     this.trainingDefinitions$ = this.trainingDefinitionService.resource$.pipe(
-      map((resource) => new TrainingDefinitionTable(resource, this.trainingDefinitionService, this.trainingNavigator))
+      map((resource) => new TrainingDefinitionTable(resource, this.trainingDefinitionService, this.trainingNavigator)),
     );
     const initialPagination = new OffsetPaginationEvent(
       0,
       this.paginationService.getPagination(this.paginationId),
       this.INIT_SORT_NAME,
-      this.INIT_SORT_DIR
+      this.INIT_SORT_DIR,
     );
     this.onLoadEvent({ pagination: initialPagination });
   }

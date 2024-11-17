@@ -45,7 +45,7 @@ export class AdaptiveInstanceSummaryComponent implements OnInit {
     private adaptiveInstanceSummaryService: AdaptiveInstanceSummaryService,
     private paginationService: PaginationService,
     private adaptiveRunService: AdaptiveRunService,
-    private notificationService: TrainingNotificationService
+    private notificationService: TrainingNotificationService,
   ) {}
 
   ngOnInit(): void {
@@ -53,7 +53,7 @@ export class AdaptiveInstanceSummaryComponent implements OnInit {
       map((data) => data[ADAPTIVE_INSTANCE_DATA_ATTRIBUTE_NAME]),
       tap((ti) => {
         this.initSummaryComponent(ti);
-      })
+      }),
     );
     this.initAdaptiveRunsComponent();
   }
@@ -77,10 +77,10 @@ export class AdaptiveInstanceSummaryComponent implements OnInit {
         switchMap((ti) =>
           this.adaptiveRunService.getAll(
             ti.id,
-            new OffsetPaginationEvent(0, event.pagination.size, event.pagination.sort, event.pagination.sortDir)
-          )
+            new OffsetPaginationEvent(0, event.pagination.size, event.pagination.sort, event.pagination.sortDir),
+          ),
         ),
-        takeUntilDestroyed(this.destroyRef)
+        takeUntilDestroyed(this.destroyRef),
       )
       .subscribe();
   }
@@ -90,7 +90,7 @@ export class AdaptiveInstanceSummaryComponent implements OnInit {
     this.trainingInstanceAccessTokenLink = `/${this.navigator.toAdaptiveInstanceAccessToken(trainingInstance.id)}`;
     this.trainingInstancePoolIdLink = `/${this.navigator.toPool(trainingInstance.poolId)}`;
     this.adaptiveDefinitionLink = `/${this.navigator.toAdaptiveDefinitionDetail(
-      trainingInstance.trainingDefinition.id
+      trainingInstance.trainingDefinition.id,
     )}`;
     this.hasPool = trainingInstance.hasPool();
     this.hasStarted$ = this.adaptiveInstanceSummaryService.hasStarted$;
@@ -101,17 +101,17 @@ export class AdaptiveInstanceSummaryComponent implements OnInit {
       0,
       this.paginationService.getPagination(this.paginationId),
       '',
-      'asc'
+      'asc',
     );
     this.trainingInstance$
       .pipe(
         take(1),
-        switchMap((ti) => this.adaptiveRunService.getAll(ti.id, initialPagination))
+        switchMap((ti) => this.adaptiveRunService.getAll(ti.id, initialPagination)),
       )
       .subscribe();
     this.adaptiveRuns$ = this.adaptiveRunService.resource$.pipe(
       takeUntilDestroyed(this.destroyRef),
-      map((resource) => new AdaptiveRunTable(resource))
+      map((resource) => new AdaptiveRunTable(resource)),
     );
     this.adaptiveRunsHasError$ = this.adaptiveRunService.hasError$;
   }

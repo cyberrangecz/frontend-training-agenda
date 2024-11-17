@@ -37,7 +37,7 @@ export class PoolAssignComponent implements OnChanges {
   constructor(
     private editService: AdaptiveInstanceEditService,
     private context: TrainingAgendaContext,
-    private navigator: TrainingNavigator
+    private navigator: TrainingNavigator,
   ) {
     this.PAGE_SIZE = this.context.config.defaultPaginationSize;
   }

@@ -34,7 +34,7 @@ export class TrainingDefinitionSelectComponent implements OnInit {
     @Optional() @Inject(MAT_DIALOG_DATA) public data: TrainingDefinition,
     public dialogRef: MatDialogRef<TrainingDefinitionSelectComponent>,
     @Inject('releasedService') private releasedService: TrainingDefinitionOrganizerSelectConcreteService,
-    @Inject('unreleasedService') private unreleasedService: TrainingDefinitionOrganizerSelectConcreteService
+    @Inject('unreleasedService') private unreleasedService: TrainingDefinitionOrganizerSelectConcreteService,
   ) {
     this.selected = [this.data];
   }
@@ -91,5 +91,15 @@ export class TrainingDefinitionSelectComponent implements OnInit {
    */
   onSelectionChange(selected: TrainingDefinitionInfo[]): void {
     this.selected = selected;
+  }
+
+  /**
+   * Compares two {@link TrainingDefinitionInfo} objects by their IDs
+   * @param a first {@link TrainingDefinitionInfo} object
+   * @param b second {@link TrainingDefinitionInfo} object
+   * @returns true if IDs are equal, false otherwise
+   */
+  trainingDefinitionIdentity(a: TrainingDefinitionInfo, b: TrainingDefinitionInfo): boolean {
+    return a.id === b.id;
   }
 }

@@ -15,7 +15,7 @@ export class TrainingInstanceOverviewControls {
         'Create',
         'primary',
         of(false),
-        defer(() => service.create())
+        defer(() => service.create()),
       ),
     ];
   }

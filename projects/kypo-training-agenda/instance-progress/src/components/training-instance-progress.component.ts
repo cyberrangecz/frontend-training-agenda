@@ -24,7 +24,7 @@ export class TrainingInstanceProgressComponent implements OnInit {
   ngOnInit(): void {
     this.trainingInstance$ = this.activeRoute.data.pipe(
       takeUntilDestroyed(this.destroyRef),
-      map((data) => data[TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME])
+      map((data) => data[TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME]),
     );
   }
 }

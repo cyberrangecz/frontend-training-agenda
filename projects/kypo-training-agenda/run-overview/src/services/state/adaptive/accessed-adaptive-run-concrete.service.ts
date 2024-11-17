@@ -19,7 +19,7 @@ export class AccessedAdaptiveRunConcreteService extends AccessedAdaptiveRunServi
     private router: Router,
     private context: TrainingAgendaContext,
     private navigator: TrainingNavigator,
-    private errorHandler: TrainingErrorHandler
+    private errorHandler: TrainingErrorHandler,
   ) {
     super(context.config.defaultPaginationSize);
   }
@@ -38,8 +38,8 @@ export class AccessedAdaptiveRunConcreteService extends AccessedAdaptiveRunServi
         (err) => {
           this.errorHandler.emit(err, 'Fetching adaptive runs');
           this.hasErrorSubject$.next(true);
-        }
-      )
+        },
+      ),
     );
   }
 

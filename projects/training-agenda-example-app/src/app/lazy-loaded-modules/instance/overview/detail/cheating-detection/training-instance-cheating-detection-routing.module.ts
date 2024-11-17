@@ -16,7 +16,7 @@ const routes: Routes = [
     path: CHEATING_DETECTION_CREATE_PATH,
     loadChildren: () =>
       import('./cheating-detection-create/cheating-detection-create.module').then(
-        (m) => m.CheatingDetectionCreateOverviewModule
+        (m) => m.CheatingDetectionCreateOverviewModule,
       ),
     data: {
       title: 'Create Cheating Detection',
@@ -27,7 +27,7 @@ const routes: Routes = [
     path: `:${TRAINING_INSTANCE_SELECTOR}/${CHEATING_DETECTION_EVENTS_PATH}`,
     loadChildren: () =>
       import('./detection-event/training-instance-detection-event.module').then(
-        (m) => m.TrainingInstanceDetectionEventModule
+        (m) => m.TrainingInstanceDetectionEventModule,
       ),
     data: {
       title: 'Detection Events',

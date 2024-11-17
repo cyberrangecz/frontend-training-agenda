@@ -9,7 +9,10 @@ import {
 } from '@sentinel/components/dialogs';
 
 export abstract class AdaptiveRunTrainingPhaseService {
-  protected constructor(protected dialog: MatDialog, protected runningAdaptiveRunService: RunningAdaptiveRunService) {}
+  protected constructor(
+    protected dialog: MatDialog,
+    protected runningAdaptiveRunService: RunningAdaptiveRunService,
+  ) {}
 
   protected isSolutionRevealedSubject$: BehaviorSubject<boolean>;
   isSolutionRevealed$: Observable<boolean>;

@@ -103,7 +103,7 @@ describe('TrainingInstanceEditConcreteService', () => {
         expect(res).toEqual(createDefinitionsPaginatedMock());
         done();
       },
-      () => fail
+      () => fail,
     );
   });
 
@@ -120,7 +120,7 @@ describe('TrainingInstanceEditConcreteService', () => {
         expect(res).toEqual(true);
         done();
       },
-      () => fail
+      () => fail,
     );
   });
 
@@ -133,7 +133,7 @@ describe('TrainingInstanceEditConcreteService', () => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         expect(errorHandlerSpy.emit).toHaveBeenCalledWith(err, jasmine.anything());
         done();
-      }
+      },
     );
   });
 
@@ -146,7 +146,7 @@ describe('TrainingInstanceEditConcreteService', () => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         expect(errorHandlerSpy.emit).toHaveBeenCalledWith(err, jasmine.anything());
         done();
-      }
+      },
     );
   });
 
@@ -159,7 +159,7 @@ describe('TrainingInstanceEditConcreteService', () => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
         expect(errorHandlerSpy.emit).toHaveBeenCalledWith(err, jasmine.anything());
         done();
-      }
+      },
     );
   });
 

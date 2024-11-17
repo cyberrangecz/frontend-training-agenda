@@ -1,4 +1,4 @@
-import { SentinelDateTimeFormatPipe } from '@sentinel/common/pipes';
+import { DatePipe } from '@angular/common';
 import { PaginatedResource } from '@sentinel/common/pagination';
 import { Column, SentinelTable, Row, RowAction } from '@sentinel/components/table';
 import { AbstractDetectionEvent, AbstractDetectionEventTypeEnum } from '@muni-kypo-crp/training-model';
@@ -15,7 +15,7 @@ export class DetectionEventTable extends SentinelTable<DetectionEventRowAdapter>
   constructor(
     resource: PaginatedResource<AbstractDetectionEvent>,
     service: DetectionEventService,
-    navigator: TrainingNavigator
+    navigator: TrainingNavigator,
   ) {
     const columns = [
       new Column('levelTitle', 'level title', true, 'levelTitle'),
@@ -32,9 +32,9 @@ export class DetectionEventTable extends SentinelTable<DetectionEventRowAdapter>
 
   private static createRow(
     element: AbstractDetectionEvent,
-    service: DetectionEventService
+    service: DetectionEventService,
   ): Row<DetectionEventRowAdapter> {
-    const datePipe = new SentinelDateTimeFormatPipe('en-EN');
+    const datePipe = new DatePipe('en-EN');
     const adapter = element as DetectionEventRowAdapter;
 
     adapter.detectedAtFormatted = `${datePipe.transform(adapter.detectedAt)}`;
@@ -73,7 +73,7 @@ export class DetectionEventTable extends SentinelTable<DetectionEventRowAdapter>
         'primary',
         'Show detection event detailed information',
         of(false),
-        defer(() => service.toDetectionEventDetail(de.trainingInstanceId, de.cheatingDetectionId, de.id))
+        defer(() => service.toDetectionEventDetail(de.trainingInstanceId, de.cheatingDetectionId, de.id)),
       ),
     ];
   }

@@ -22,7 +22,7 @@ export class TrainingInstanceFormGroup {
         backwardMode: new UntypedFormControl(trainingInstance.backwardMode),
         showStepperBar: new UntypedFormControl(trainingInstance.showStepperBar),
       },
-      { validators: this.dateSequenceValidator }
+      { validators: this.dateSequenceValidator },
     );
   }
 

@@ -34,7 +34,7 @@ export class TrainingDefinitionConcreteService extends TrainingDefinitionService
     private navigator: TrainingNavigator,
     private notificationService: TrainingNotificationService,
     private fileUploadProgressService: FileUploadProgressService,
-    private errorHandler: TrainingErrorHandler
+    private errorHandler: TrainingErrorHandler,
   ) {
     super(context.config.defaultPaginationSize);
   }
@@ -90,8 +90,8 @@ export class TrainingDefinitionConcreteService extends TrainingDefinitionService
   delete(trainingDefinition: TrainingDefinition): Observable<PaginatedResource<TrainingDefinition>> {
     return this.displayDialogToDelete(trainingDefinition).pipe(
       switchMap((result) =>
-        result === SentinelDialogResultEnum.CONFIRMED ? this.callApiToDelete(trainingDefinition) : EMPTY
-      )
+        result === SentinelDialogResultEnum.CONFIRMED ? this.callApiToDelete(trainingDefinition) : EMPTY,
+      ),
     );
   }
 
@@ -102,7 +102,7 @@ export class TrainingDefinitionConcreteService extends TrainingDefinitionService
    */
   clone(trainingDefinition: TrainingDefinition): Observable<PaginatedResource<TrainingDefinition>> {
     return this.displayCloneDialog(trainingDefinition).pipe(
-      switchMap((title) => (title !== undefined ? this.callApiToClone(trainingDefinition, title) : EMPTY))
+      switchMap((title) => (title !== undefined ? this.callApiToClone(trainingDefinition, title) : EMPTY)),
     );
   }
 
@@ -125,8 +125,8 @@ export class TrainingDefinitionConcreteService extends TrainingDefinitionService
   changeState(trainingDefinition: TrainingDefinition, newState: TrainingDefinitionStateEnum): Observable<any> {
     return this.displayChangeStateDialog(trainingDefinition, newState).pipe(
       switchMap((result) =>
-        result === SentinelDialogResultEnum.CONFIRMED ? this.callApiToChangeState(trainingDefinition, newState) : EMPTY
-      )
+        result === SentinelDialogResultEnum.CONFIRMED ? this.callApiToChangeState(trainingDefinition, newState) : EMPTY,
+      ),
     );
   }
 
@@ -149,15 +149,16 @@ export class TrainingDefinitionConcreteService extends TrainingDefinitionService
         (err) => {
           this.fileUploadProgressService.finish();
           this.errorHandler.emit(err, 'Uploading training definition');
-        }
+          dialogRef.close();
+        },
       ),
-      switchMap(() => this.getAll(this.lastPagination, this.lastFilters))
+      switchMap(() => this.getAll(this.lastPagination, this.lastFilters)),
     );
   }
 
   private callApiToGetAll(
     pagination: OffsetPaginationEvent,
-    filters: SentinelFilter[]
+    filters: SentinelFilter[],
   ): Observable<PaginatedResource<TrainingDefinition>> {
     return this.api.getAll(pagination, filters).pipe(
       tap(
@@ -169,8 +170,8 @@ export class TrainingDefinitionConcreteService extends TrainingDefinitionService
           this.hasErrorSubject$.next(true);
           this.isLoadingSubject$.next(false);
           this.errorHandler.emit(err, 'Fetching training definitions');
-        }
-      )
+        },
+      ),
     );
   }
 
@@ -180,7 +181,7 @@ export class TrainingDefinitionConcreteService extends TrainingDefinitionService
         'Delete Training Definition',
         `Do you want to delete training definition "${trainingDefinition.title}"?`,
         'Cancel',
-        'Delete'
+        'Delete',
       ),
     });
     return dialogRef.afterClosed();
@@ -190,9 +191,9 @@ export class TrainingDefinitionConcreteService extends TrainingDefinitionService
     return this.api.delete(trainingDefinition.id).pipe(
       tap(
         () => this.notificationService.emit('success', 'Training definition was deleted'),
-        (err) => this.errorHandler.emit(err, 'Deleting training definition')
+        (err) => this.errorHandler.emit(err, 'Deleting training definition'),
       ),
-      switchMap(() => this.getAll(this.lastPagination, this.lastFilters))
+      switchMap(() => this.getAll(this.lastPagination, this.lastFilters)),
     );
   }
 
@@ -205,27 +206,27 @@ export class TrainingDefinitionConcreteService extends TrainingDefinitionService
 
   private callApiToClone(
     trainingDefinition: TrainingDefinition,
-    title: string
+    title: string,
   ): Observable<PaginatedResource<TrainingDefinition>> {
     return this.api.clone(trainingDefinition.id, title).pipe(
       tap(
         () => this.notificationService.emit('success', 'Training definition was cloned'),
-        (err) => this.errorHandler.emit(err, 'Cloning training definition')
+        (err) => this.errorHandler.emit(err, 'Cloning training definition'),
       ),
-      switchMap(() => this.getAll(this.lastPagination, this.lastFilters))
+      switchMap(() => this.getAll(this.lastPagination, this.lastFilters)),
     );
   }
 
   private displayChangeStateDialog(
     trainingDefinition: TrainingDefinition,
-    newState: TrainingDefinitionStateEnum
+    newState: TrainingDefinitionStateEnum,
   ): Observable<SentinelDialogResultEnum> {
     const dialogRef = this.dialog.open(SentinelConfirmationDialogComponent, {
       data: new SentinelConfirmationDialogConfig(
         'Training Definition State Change',
         `Do you want to change state of training definition from "${trainingDefinition.state}" to "${newState}"?`,
         'Cancel',
-        'Change'
+        'Change',
       ),
     });
     return dialogRef.afterClosed();
@@ -233,13 +234,13 @@ export class TrainingDefinitionConcreteService extends TrainingDefinitionService
 
   private callApiToChangeState(
     trainingDefinition: TrainingDefinition,
-    newState: TrainingDefinitionStateEnum
+    newState: TrainingDefinitionStateEnum,
   ): Observable<any> {
     return this.api.changeState(trainingDefinition.id, newState).pipe(
       tap(
         () => this.onChangedState(trainingDefinition.id, newState),
-        (err) => this.errorHandler.emit(err, 'Changing training definition state')
-      )
+        (err) => this.errorHandler.emit(err, 'Changing training definition state'),
+      ),
     );
   }
 

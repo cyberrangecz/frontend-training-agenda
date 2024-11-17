@@ -31,7 +31,7 @@ export class AdaptiveInstanceProgressComponent implements OnInit {
     this.trainingInstance$ = this.activeRoute.data.pipe(
       takeUntilDestroyed(this.destroyRef),
       map((data) => data[TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME]),
-      tap(() => this.calculateVisualizationSize(window.innerWidth, window.innerHeight))
+      tap(() => this.calculateVisualizationSize(window.innerWidth, window.innerHeight)),
     );
   }
 

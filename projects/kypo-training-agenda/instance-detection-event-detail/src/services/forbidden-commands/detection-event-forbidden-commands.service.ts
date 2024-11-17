@@ -18,6 +18,6 @@ export abstract class DetectionEventForbiddenCommandsService extends OffsetPagin
    */
   abstract getAll(
     detectionEventId: number,
-    pagination: OffsetPaginationEvent
+    pagination: OffsetPaginationEvent,
   ): Observable<PaginatedResource<DetectedForbiddenCommand>>;
 }

@@ -23,7 +23,7 @@ export class RunningAdaptiveRunConcreteService extends RunningAdaptiveRunService
     private errorHandler: TrainingErrorHandler,
     private navigator: TrainingNavigator,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {
     super();
   }
@@ -81,8 +81,8 @@ export class RunningAdaptiveRunConcreteService extends RunningAdaptiveRunService
     return this.api.moveToPhase(this.trainingRunId, phaseId).pipe(
       tap(
         (level) => this.setBacktrackedPhase(level),
-        (err) => this.errorHandler.emit(err, 'Moving to next level')
-      )
+        (err) => this.errorHandler.emit(err, 'Moving to next level'),
+      ),
     );
   }
 
@@ -104,9 +104,9 @@ export class RunningAdaptiveRunConcreteService extends RunningAdaptiveRunService
     return this.api.evaluateQuestionnaire(this.trainingRunId, answers).pipe(
       tap(
         (_) => _,
-        (err) => this.errorHandler.emit(err, 'Submitting answers')
+        (err) => this.errorHandler.emit(err, 'Submitting answers'),
       ),
-      switchMap(() => this.next())
+      switchMap(() => this.next()),
     );
   }
 
@@ -118,7 +118,7 @@ export class RunningAdaptiveRunConcreteService extends RunningAdaptiveRunService
     return this.topologyService.getVMConsolesUrl(sandboxId).pipe(
       tap({
         error: (err) => this.errorHandler.emit(err, 'Obtaining console URL'),
-      })
+      }),
     );
   }
 
@@ -142,7 +142,7 @@ export class RunningAdaptiveRunConcreteService extends RunningAdaptiveRunService
         }, 5000);
         return EMPTY;
       }),
-      tap(() => this.clear())
+      tap(() => this.clear()),
     );
   }
 
@@ -160,8 +160,8 @@ export class RunningAdaptiveRunConcreteService extends RunningAdaptiveRunService
           (err) => {
             dialogRef.close();
             this.errorHandler.emit(err, 'Moving to next phase');
-          }
-        )
+          },
+        ),
       );
     } else {
       return this.api.nextPhase(this.trainingRunId).pipe(
@@ -170,8 +170,8 @@ export class RunningAdaptiveRunConcreteService extends RunningAdaptiveRunService
             this.isCurrentPhaseAnsweredSubject$.next(false);
             this.setActivePhase(phase);
           },
-          (err) => this.errorHandler.emit(err, 'Moving to next phase')
-        )
+          (err) => this.errorHandler.emit(err, 'Moving to next phase'),
+        ),
       );
     }
   }
@@ -180,7 +180,7 @@ export class RunningAdaptiveRunConcreteService extends RunningAdaptiveRunService
     return this.dialog.open(LoadingDialogComponent, {
       data: new LoadingDialogConfig(
         'Choosing a suitable task for you',
-        `Please wait while your next task is being prepared`
+        `Please wait while your next task is being prepared`,
       ),
     });
   }
@@ -189,7 +189,7 @@ export class RunningAdaptiveRunConcreteService extends RunningAdaptiveRunService
     return this.dialog.open(LoadingDialogComponent, {
       data: new LoadingDialogConfig(
         'Processing training data for visualization',
-        `Please wait while your training data are being processed`
+        `Please wait while your training data are being processed`,
       ),
     });
   }

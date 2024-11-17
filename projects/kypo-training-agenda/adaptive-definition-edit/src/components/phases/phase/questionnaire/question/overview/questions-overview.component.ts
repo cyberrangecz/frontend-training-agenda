@@ -107,7 +107,7 @@ export class QuestionsOverviewComponent implements OnInit, OnChanges {
           'Question in Relation',
           `Cannot delete question "${question.title}" with existing relation.
            Remove Question from relation(s) and delete in afterwards.`,
-          'Cancel'
+          'Cancel',
         ),
       });
     } else {
@@ -116,7 +116,7 @@ export class QuestionsOverviewComponent implements OnInit, OnChanges {
           'Delete Question',
           `Do you want to delete question "${question.title}"?`,
           'Cancel',
-          'Delete'
+          'Delete',
         ),
       });
     }
@@ -204,7 +204,7 @@ export class QuestionsOverviewComponent implements OnInit, OnChanges {
           'primary',
           of(false),
           defer(() => this.addQuestion(QuestionTypeEnum.FFQ)),
-          'edit'
+          'edit',
         ),
         new SentinelControlMenuItem(
           'add_mcq',
@@ -212,7 +212,7 @@ export class QuestionsOverviewComponent implements OnInit, OnChanges {
           'primary',
           of(false),
           defer(() => this.addQuestion(QuestionTypeEnum.MCQ)),
-          'check_circle_outline'
+          'check_circle_outline',
         ),
         new SentinelControlMenuItem(
           'add_mcq',
@@ -220,7 +220,7 @@ export class QuestionsOverviewComponent implements OnInit, OnChanges {
           'primary',
           of(false),
           defer(() => this.addQuestion(QuestionTypeEnum.RFQ)),
-          'star_half'
+          'star_half',
         ),
       ]),
       new SentinelControlItem(
@@ -230,7 +230,7 @@ export class QuestionsOverviewComponent implements OnInit, OnChanges {
         of(false),
         //deleteDisabled$,
         //this.deleteDisabledSubject$.asObservable(),
-        defer(() => this.deleteActiveQuestion())
+        defer(() => this.deleteActiveQuestion()),
       ),
     ];
   }

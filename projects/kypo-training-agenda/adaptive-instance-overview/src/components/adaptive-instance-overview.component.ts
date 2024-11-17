@@ -33,7 +33,7 @@ export class AdaptiveInstanceOverviewComponent implements OnInit {
     private service: AdaptiveInstanceOverviewService,
     private paginationService: PaginationService,
     private navigator: TrainingNavigator,
-    private notificationService: TrainingNotificationService
+    private notificationService: TrainingNotificationService,
   ) {}
 
   ngOnInit(): void {
@@ -53,9 +53,9 @@ export class AdaptiveInstanceOverviewComponent implements OnInit {
           0,
           loadEvent.pagination.size,
           loadEvent.pagination.sort,
-          loadEvent.pagination.sortDir
+          loadEvent.pagination.sortDir,
         ),
-        loadEvent.filter
+        loadEvent.filter,
       )
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe();
@@ -71,11 +71,11 @@ export class AdaptiveInstanceOverviewComponent implements OnInit {
         0,
         this.paginationService.getPagination(this.paginationId),
         this.INITIAL_SORT_NAME,
-        this.INITIAL_SORT_DIR
+        this.INITIAL_SORT_DIR,
       ),
     };
     this.instances$ = this.service.resource$.pipe(
-      map((instances) => new AdaptiveInstanceTable(instances, this.service, this.navigator))
+      map((instances) => new AdaptiveInstanceTable(instances, this.service, this.navigator)),
     );
     this.hasError$ = this.service.hasError$;
     this.onInstancesLoadEvent(initLoadEvent);

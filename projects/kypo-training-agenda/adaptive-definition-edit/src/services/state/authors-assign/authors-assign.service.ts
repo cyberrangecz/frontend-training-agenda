@@ -17,7 +17,7 @@ export class AuthorsAssignService extends SentinelUserAssignService {
   constructor(
     private userApi: UserApi,
     private context: TrainingAgendaContext,
-    private errorHandler: TrainingErrorHandler
+    private errorHandler: TrainingErrorHandler,
   ) {
     super();
   }
@@ -77,7 +77,7 @@ export class AuthorsAssignService extends SentinelUserAssignService {
   getAssigned(
     resourceId: number,
     pagination: OffsetPaginationEvent,
-    filter: string = null
+    filter: string = null,
   ): Observable<PaginatedResource<Designer>> {
     this.clearSelectedAssignedUsers();
     this.lastAssignedPagination = pagination;
@@ -94,8 +94,8 @@ export class AuthorsAssignService extends SentinelUserAssignService {
           this.errorHandler.emit(err, 'Fetching authors');
           this.isLoadingAssignedSubject.next(false);
           this.hasErrorSubject$.next(true);
-        }
-      )
+        },
+      ),
     );
   }
 
@@ -111,7 +111,7 @@ export class AuthorsAssignService extends SentinelUserAssignService {
         resourceId,
         new OffsetPaginationEvent(0, paginationSize, 'familyName', 'asc'),
         true,
-        UserNameFilters.create(filter)
+        UserNameFilters.create(filter),
       )
       .pipe(tap({ error: (err) => this.errorHandler.emit(err, 'Fetching designers') }));
   }
@@ -129,11 +129,11 @@ export class AuthorsAssignService extends SentinelUserAssignService {
         resourceId,
         additions.map((user) => user.id),
         true,
-        removals.map((user) => user.id)
+        removals.map((user) => user.id),
       )
       .pipe(
         tap({ error: (err) => this.errorHandler.emit(err, 'Updating authors') }),
-        switchMap(() => this.getAssigned(resourceId, this.lastAssignedPagination, this.lastAssignedFilter))
+        switchMap(() => this.getAssigned(resourceId, this.lastAssignedPagination, this.lastAssignedFilter)),
       );
   }
 
@@ -141,9 +141,9 @@ export class AuthorsAssignService extends SentinelUserAssignService {
     return this.userApi.updateAuthors(resourceId, userIds, true, []).pipe(
       tap(
         () => this.clearSelectedUsersToAssign(),
-        (err) => this.errorHandler.emit(err, 'Adding authors')
+        (err) => this.errorHandler.emit(err, 'Adding authors'),
       ),
-      switchMap(() => this.getAssigned(resourceId, this.lastAssignedPagination, this.lastAssignedFilter))
+      switchMap(() => this.getAssigned(resourceId, this.lastAssignedPagination, this.lastAssignedFilter)),
     );
   }
 
@@ -151,9 +151,9 @@ export class AuthorsAssignService extends SentinelUserAssignService {
     return this.userApi.updateAuthors(resourceId, [], true, usersIds).pipe(
       tap(
         () => this.clearSelectedAssignedUsers(),
-        (err) => this.errorHandler.emit(err, 'Deleting authors from training definition')
+        (err) => this.errorHandler.emit(err, 'Deleting authors from training definition'),
       ),
-      switchMap(() => this.getAssigned(resourceId, this.lastAssignedPagination, this.lastAssignedFilter))
+      switchMap(() => this.getAssigned(resourceId, this.lastAssignedPagination, this.lastAssignedFilter)),
     );
   }
 

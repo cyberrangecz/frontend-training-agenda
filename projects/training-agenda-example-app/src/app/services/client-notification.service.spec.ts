@@ -1,11 +1,11 @@
-import { async, TestBed } from '@angular/core/testing';
+import { waitForAsync, TestBed } from '@angular/core/testing';
 import { TrainingNotificationService } from '../../../../kypo-training-agenda/src/services/training-notification.service';
 import { ClientNotificationService } from './client-notification.service';
 
 describe('ClientNotificationService', () => {
   let service: ClientNotificationService;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       providers: [{ provide: TrainingNotificationService, useClass: ClientNotificationService }],
     }).compileComponents();

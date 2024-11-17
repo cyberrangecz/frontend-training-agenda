@@ -38,7 +38,10 @@ export class AdaptiveRunDetailComponent implements OnInit, AfterViewInit {
   backwardMode: boolean;
   destroyRef = inject(DestroyRef);
 
-  constructor(private trainingRunService: RunningAdaptiveRunService, private auth: SentinelAuthService) {}
+  constructor(
+    private trainingRunService: RunningAdaptiveRunService,
+    private auth: SentinelAuthService,
+  ) {}
 
   ngOnInit(): void {
     this.init();
@@ -73,7 +76,7 @@ export class AdaptiveRunDetailComponent implements OnInit, AfterViewInit {
         if (this.isStepperDisplayed) {
           this.stepper.onActivePhaseUpdated(this.trainingRunService.getActivePhasePosition());
         }
-      })
+      }),
     );
     this.backtrackedPhase$ = this.trainingRunService.backtrackedPhase$;
   }

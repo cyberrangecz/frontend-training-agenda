@@ -63,7 +63,7 @@ describe('AccessedTrainingRunConcreteService', () => {
       () => [],
       () => {
         expect(errorHandlerSpy.emit).toHaveBeenCalledTimes(1);
-      }
+      },
     );
     expect(trainingApiSpy.getAccessed).toHaveBeenCalledTimes(1);
   });

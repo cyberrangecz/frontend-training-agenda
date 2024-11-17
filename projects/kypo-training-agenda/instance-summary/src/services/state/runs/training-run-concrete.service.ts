@@ -20,7 +20,7 @@ export class TrainingRunConcreteService extends TrainingRunService {
     private trainingInstanceApi: TrainingInstanceApi,
     private context: TrainingAgendaContext,
     private trainingRunApi: TrainingRunApi,
-    private errorHandler: TrainingErrorHandler
+    private errorHandler: TrainingErrorHandler,
   ) {
     super(context.config.defaultPaginationSize);
   }
@@ -36,8 +36,8 @@ export class TrainingRunConcreteService extends TrainingRunService {
         (runs) => {
           this.resourceSubject$.next(runs);
         },
-        () => this.onGetAllError()
-      )
+        () => this.onGetAllError(),
+      ),
     );
   }
 
@@ -45,8 +45,8 @@ export class TrainingRunConcreteService extends TrainingRunService {
     return this.trainingRunApi.getInfo(trainingRunId).pipe(
       tap(
         (_) => _,
-        () => this.hasErrorSubject$.next(true)
-      )
+        () => this.hasErrorSubject$.next(true),
+      ),
     );
   }
 

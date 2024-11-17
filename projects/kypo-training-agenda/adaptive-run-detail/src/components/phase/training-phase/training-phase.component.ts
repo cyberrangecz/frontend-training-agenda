@@ -58,7 +58,7 @@ export class TrainingPhaseComponent implements OnInit, OnChanges, AfterViewInit 
   constructor(
     private trainingPhaseService: AdaptiveRunTrainingPhaseService,
     private topologyErrorService: KypoTopologyErrorService,
-    private errorHandler: TrainingErrorHandler
+    private errorHandler: TrainingErrorHandler,
   ) {}
 
   @HostListener('window:resize', ['$event'])
@@ -171,7 +171,7 @@ export class TrainingPhaseComponent implements OnInit, OnChanges, AfterViewInit 
   isWrapped(): boolean {
     if (!this.isBacktracked && this.controlsContainer) {
       const elements = Array.from(this.controlsContainer.nativeElement.childNodes).filter(
-        (elem: HTMLElement) => elem.offsetTop !== undefined
+        (elem: HTMLElement) => elem.offsetTop !== undefined,
       );
       return elements.some((elem: HTMLElement) => elem.offsetTop !== (elements[0] as HTMLElement).offsetTop);
     }

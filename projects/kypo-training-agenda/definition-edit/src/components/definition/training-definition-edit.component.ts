@@ -51,7 +51,7 @@ export class TrainingDefinitionEditComponent implements OnChanges {
     event.value['items'].forEach((item) => {
       item = item.trim();
       (this.prerequisites as UntypedFormArray).push(
-        new UntypedFormControl(item.toString().length == 1 ? item + ' ' : item)
+        new UntypedFormControl(item.toString().length == 1 ? item + ' ' : item),
       );
     });
   }
@@ -84,8 +84,8 @@ export class TrainingDefinitionEditComponent implements OnChanges {
     this.edited.emit(
       new TrainingDefinitionChangeEvent(
         this.trainingDefinition,
-        this.trainingDefinitionEditFormGroup.formGroup.valid && this.freeFormValid
-      )
+        this.trainingDefinitionEditFormGroup.formGroup.valid && this.freeFormValid,
+      ),
     );
   }
 }

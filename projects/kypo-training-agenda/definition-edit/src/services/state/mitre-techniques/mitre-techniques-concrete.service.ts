@@ -8,7 +8,10 @@ import { MitreTechniquesService } from './mitre-techniques.service';
 
 @Injectable()
 export class MitreTechniquesConcreteService extends MitreTechniquesService {
-  constructor(private api: MitreTechniquesApi, private errorHandler: TrainingErrorHandler) {
+  constructor(
+    private api: MitreTechniquesApi,
+    private errorHandler: TrainingErrorHandler,
+  ) {
     super();
   }
 
@@ -16,8 +19,8 @@ export class MitreTechniquesConcreteService extends MitreTechniquesService {
     return this.api.getMitreTechniquesList().pipe(
       tap(
         (res) => this.mitreTechniquesSubject$.next(res),
-        (err) => this.errorHandler.emit(err, 'Loading MITRE techniques list')
-      )
+        (err) => this.errorHandler.emit(err, 'Loading MITRE techniques list'),
+      ),
     );
   }
 }

@@ -20,7 +20,7 @@ export class AdaptiveInstanceDetailTitleResolver {
     return resolved.pipe(
       take(1),
       mergeMap((ti) => (ti ? of(this.resolveTitle(ti, state)) : '')),
-      catchError(() => '')
+      catchError(() => ''),
     );
   }
 

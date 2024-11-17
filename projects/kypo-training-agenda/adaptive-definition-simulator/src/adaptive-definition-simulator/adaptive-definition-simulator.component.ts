@@ -10,7 +10,10 @@ import { BasicEventInfo, SimulatorState } from '@muni-kypo-crp/adaptive-model-si
   styleUrls: ['./adaptive-definition-simulator.component.css'],
 })
 export class AdaptiveDefinitionSimulatorComponent {
-  constructor(private errorHandler: TrainingErrorHandler, private notificationService: TrainingNotificationService) {}
+  constructor(
+    private errorHandler: TrainingErrorHandler,
+    private notificationService: TrainingNotificationService,
+  ) {}
 
   handleState(event: SimulatorState) {
     if (event && event.state === EventStateTypeEnum.ERROR_EVENT) {

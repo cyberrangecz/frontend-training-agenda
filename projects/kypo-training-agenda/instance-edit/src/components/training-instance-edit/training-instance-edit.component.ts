@@ -101,7 +101,7 @@ export class TrainingInstanceEditComponent implements OnChanges {
   private onChanged() {
     this.trainingInstanceFormGroup.setValuesToTrainingInstance(this.trainingInstance);
     this.edited.emit(
-      new TrainingInstanceChangeEvent(this.trainingInstance, this.trainingInstanceFormGroup.formGroup.valid)
+      new TrainingInstanceChangeEvent(this.trainingInstance, this.trainingInstanceFormGroup.formGroup.valid),
     );
   }
 

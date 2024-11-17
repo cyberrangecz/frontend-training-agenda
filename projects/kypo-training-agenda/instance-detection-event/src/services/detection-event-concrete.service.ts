@@ -24,7 +24,7 @@ export class DetectionEventConcreteService extends DetectionEventService {
     private context: TrainingAgendaContext,
     private navigator: TrainingNavigator,
     private notificationService: TrainingNotificationService,
-    private errorHandler: TrainingErrorHandler
+    private errorHandler: TrainingErrorHandler,
   ) {
     super(context.config.defaultPaginationSize);
   }
@@ -42,7 +42,7 @@ export class DetectionEventConcreteService extends DetectionEventService {
     cheatingDetectionId: number,
     trainingInstanceId: number,
     pagination: OffsetPaginationEvent,
-    filter: string = null
+    filter: string = null,
   ): Observable<PaginatedResource<AbstractDetectionEvent>> {
     const filters = filter ? [new DetectionEventFilter(filter)] : [];
     return this.api.getAll(pagination, cheatingDetectionId, trainingInstanceId, filters).pipe(
@@ -50,8 +50,8 @@ export class DetectionEventConcreteService extends DetectionEventService {
         (events) => {
           this.resourceSubject$.next(events);
         },
-        () => this.onGetAllError()
-      )
+        () => this.onGetAllError(),
+      ),
     );
   }
 
@@ -64,16 +64,16 @@ export class DetectionEventConcreteService extends DetectionEventService {
   toDetectionEventDetail(
     trainingInstanceId: number,
     cheatingDetectionId: number,
-    detectionEventId: number
+    detectionEventId: number,
   ): Observable<any> {
     return from(
       this.router.navigate([
         this.navigator.toTrainingInstanceCheatingDetectionEventDetail(
           trainingInstanceId,
           cheatingDetectionId,
-          detectionEventId
+          detectionEventId,
         ),
-      ])
+      ]),
     );
   }
 

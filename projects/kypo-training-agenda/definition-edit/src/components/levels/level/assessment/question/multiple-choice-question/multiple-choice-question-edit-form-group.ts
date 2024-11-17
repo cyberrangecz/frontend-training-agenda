@@ -30,9 +30,9 @@ export class MultipleChoiceFormGroup {
                 text: new UntypedFormControl(choice.text, [SentinelValidators.noWhitespace, Validators.required]),
                 correct: new UntypedFormControl(choice.correct),
                 order: new UntypedFormControl(choice.order),
-              })
+              }),
           ),
-          Validators.required
+          Validators.required,
         ),
         score: new UntypedFormControl(mcq.score, [
           Validators.required,
@@ -47,7 +47,7 @@ export class MultipleChoiceFormGroup {
           Validators.max(this.maxQuestionPenalty),
         ]),
       },
-      this.noSelectedAnswers
+      this.noSelectedAnswers,
     );
   }
 

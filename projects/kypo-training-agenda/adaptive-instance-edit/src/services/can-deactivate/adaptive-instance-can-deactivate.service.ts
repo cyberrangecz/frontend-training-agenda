@@ -18,7 +18,7 @@ export class AdaptiveInstanceCanDeactivate {
   constructor(private dialog: MatDialog) {}
 
   canDeactivate(
-    component: AdaptiveInstanceEditOverviewComponent
+    component: AdaptiveInstanceEditOverviewComponent,
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     if (component.canDeactivate()) {
       return true;
@@ -29,7 +29,7 @@ export class AdaptiveInstanceCanDeactivate {
         'Unsaved Changes',
         'There are unsaved changes in training instance or organizers. Do you really want to leave?',
         'Cancel',
-        'Leave'
+        'Leave',
       ),
     });
     return dialogRef.afterClosed().pipe(map((result) => result === SentinelDialogResultEnum.CONFIRMED));

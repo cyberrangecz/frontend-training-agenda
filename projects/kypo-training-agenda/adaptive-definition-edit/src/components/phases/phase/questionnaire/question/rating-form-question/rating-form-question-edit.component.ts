@@ -72,7 +72,7 @@ export class RatingFormQuestionEditComponent implements OnChanges {
         text: new UntypedFormControl(text, [SentinelValidators.noWhitespace, Validators.required]),
         correct: new UntypedFormControl(true),
         order: new UntypedFormControl(this.choices.length),
-      })
+      }),
     );
   }
 }

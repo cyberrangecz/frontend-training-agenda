@@ -126,7 +126,7 @@ export class QuestionnairePhaseEditComponent implements OnChanges {
 
   onQuestionRemovedFromRelation(relationIndex: number, qId: number): void {
     this.phase.phaseRelations[relationIndex].questionIds = this.phase.phaseRelations[relationIndex].questionIds.filter(
-      (id) => id !== qId
+      (id) => id !== qId,
     );
     this.phase.questions.find((question) => question.id === qId).relations--;
     this.phase.questions = [].concat(this.phase.questions); // trigger change

@@ -22,7 +22,7 @@ export class CloneDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<CloneDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: TrainingDefinition
+    @Inject(MAT_DIALOG_DATA) public data: TrainingDefinition,
   ) {}
 
   get clonedDefinitionTitle(): AbstractControl {

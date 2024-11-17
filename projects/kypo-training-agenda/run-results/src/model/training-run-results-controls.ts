@@ -15,7 +15,7 @@ export class TrainingRunResultsControls {
         'MITRE ATT&CK Techniques',
         'primary',
         of(false),
-        defer(() => service.showMitreTechniques())
+        defer(() => service.showMitreTechniques()),
       ),
     ];
   }

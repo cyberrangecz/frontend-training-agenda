@@ -18,7 +18,7 @@ export class AdaptiveDefinitionResolver {
   constructor(
     private api: AdaptiveDefinitionApiService,
     private errorHandler: TrainingErrorHandler,
-    private router: Router
+    private router: Router,
   ) {}
 
   /**
@@ -28,7 +28,7 @@ export class AdaptiveDefinitionResolver {
    */
   resolve(
     route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
+    state: RouterStateSnapshot,
   ): Observable<TrainingDefinition> | Promise<TrainingDefinition> | TrainingDefinition {
     if (state.url.endsWith(`${ADAPTIVE_DEFINITION_PATH}/${TRAINING_DEFINITION_NEW_PATH}`)) {
       return null;
@@ -41,7 +41,7 @@ export class AdaptiveDefinitionResolver {
           this.errorHandler.emit(err, 'Adaptive training definition resolver');
           this.navigateToNew();
           return EMPTY;
-        })
+        }),
       );
     }
     return this.navigateToNew();
