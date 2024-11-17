@@ -19,7 +19,7 @@ export class TrainingInstanceFormGroup {
           SentinelValidators.noWhitespace,
         ]),
         localEnvironment: new UntypedFormControl(trainingInstance.localEnvironment),
-        backwardMode: new UntypedFormControl(trainingInstance.backwardMode),
+        backwardMode: new UntypedFormControl(false),
         showStepperBar: new UntypedFormControl(trainingInstance.showStepperBar),
       },
       { validators: this.dateSequenceValidator },
