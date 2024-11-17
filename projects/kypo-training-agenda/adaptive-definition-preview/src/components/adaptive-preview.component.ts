@@ -20,7 +20,6 @@ export class AdaptivePreviewComponent implements OnInit {
   constructor(private activeRoute: ActivatedRoute) {
     this.activeRoute.data.pipe(takeUntilDestroyed()).subscribe((data) => {
       this.phases = data[ADAPTIVE_DEFINITION_DATA_ATTRIBUTE_NAME].levels;
-      this.isStepperDisplayed = data[ADAPTIVE_DEFINITION_DATA_ATTRIBUTE_NAME].showStepperBar;
     });
   }
 

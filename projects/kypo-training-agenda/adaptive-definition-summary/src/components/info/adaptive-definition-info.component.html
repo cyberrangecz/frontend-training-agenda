@@ -17,18 +17,6 @@
     <div class="value-field">{{ trainingDefinition?.estimatedDuration }}</div>
   </div>
   <div class="data-field">
-    <mat-icon> more_horiz </mat-icon>
-    <div class="icon-label">Stepper</div>
-    <div class="value-field" *ngIf="trainingDefinition?.showStepperBar; else noStepper">
-      Displayed
-    </div>
-    <ng-template #noStepper>
-      <div class="value-field">
-        Hidden
-      </div>
-    </ng-template>
-  </div>
-  <div class="data-field">
     <mat-icon> outbox </mat-icon>
     <div class="icon-label">State</div>
     <div class="value-field">{{ trainingDefinition.state }}</div>

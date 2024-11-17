@@ -116,14 +116,28 @@
     </div>
 
     <div class="slide-toggle-container">
+      <span>Show Stepper Bar</span>
+      <mat-slide-toggle
+        [matTooltip]="
+          showStepperBar
+            ? 'Show Stepper bar to allow trainees to see their progress through levels during training run.'
+            : 'Hide Stepper bar to disallow trainees to see their progress through levels during training run.'
+        "
+        formControlName="showStepperBar"
+      >
+      </mat-slide-toggle>
+    </div>
+
+    <div class="slide-toggle-container">
       <span>Backward Mode</span>
       <mat-slide-toggle
         [matTooltip]="
-          backwardMode
-            ? 'Enable Backward Mode to allow trainees move to previous accessed levels during training run.'
-            : 'Disable Backward Mode to disallow trainees move to previous accessed levels during training run.'
+          backwardMode.value
+            ? 'Enable Backward Mode to allow trainees access previously completed levels during training run.'
+            : 'Disable Backward Mode to disallow trainees access previously completed levels during training run.'
         "
         formControlName="backwardMode"
+        [disabled]="!showStepperBar.value"
       >
       </mat-slide-toggle>
     </div>

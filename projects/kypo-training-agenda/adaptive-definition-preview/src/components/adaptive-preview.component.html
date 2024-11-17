@@ -2,13 +2,10 @@
     <div class="header">
       <!-- PHASE STEPPER -->
       <div class="training-run-stepper">
-        <h3 *ngIf="!isStepperDisplayed" class="message">
-          *Stepper is shown only in preview mode to allow navigation between levels. It won't be displayed in training run as requested.
-        </h3>
-        <h3 *ngIf="isStepperDisplayed" class="message">
+        <h3 class="message">
           *Use stepper to navigate between levels.
         </h3>
-  
+
         <sentinel-stepper
           [draggable]="false"
           [selectable]="true"
@@ -22,8 +19,7 @@
     <!-- CONTENT OF ACTIVE LEVEL -->
     <kypo-abstract-phase [phase]="activePhase"> </kypo-abstract-phase>
   </ng-container>
-  
+
   <ng-template #noLevels>
     <h3 class="message">There are no phases in this training definition</h3>
   </ng-template>
-  
