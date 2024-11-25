@@ -2,11 +2,17 @@ import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TrainingRunApi } from '@muni-kypo-crp/training-api';
 import { Observable } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { TrainingErrorHandler } from '@muni-kypo-crp/training-agenda';
 import { RunningTrainingRunService } from '../../running/running-training-run.service';
 import { SandboxInstanceApi } from '@muni-kypo-crp/sandbox-api';
 import { TrainingRunAccessLevelService } from './training-run-access-level.service';
+import {
+  SentinelNotification,
+  SentinelNotificationResult,
+  SentinelNotificationService,
+  SentinelNotificationTypeEnum,
+} from '@sentinel/layout/notification';
 
 @Injectable()
 /**
@@ -17,10 +23,10 @@ export class TrainingRunAccessLevelConcreteService extends TrainingRunAccessLeve
     private api: TrainingRunApi,
     private sandboxApi: SandboxInstanceApi,
     private errorHandler: TrainingErrorHandler,
-    protected dialog: MatDialog,
+    protected notificationService: SentinelNotificationService,
     protected runningTrainingRunService: RunningTrainingRunService,
   ) {
-    super(dialog, runningTrainingRunService);
+    super(notificationService, runningTrainingRunService);
   }
 
   /**
@@ -42,6 +48,9 @@ export class TrainingRunAccessLevelConcreteService extends TrainingRunAccessLeve
    * @param passkey passkey entered by trainee
    */
   submitPasskey(passkey: string): Observable<any> {
+    if (!passkey) {
+      return this.onWrongPasskeySubmitted('Passkey cannot be empty');
+    }
     this.isLoadingSubject$.next(true);
     return this.api.isCorrectPasskey(this.runningTrainingRunService.trainingRunId, passkey).pipe(
       switchMap((isCorrect) => (isCorrect ? this.onCorrectPasskeySubmitted() : this.onWrongPasskeySubmitted())),

@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { KypoTopologyGraphModule } from '@muni-kypo-crp/topology-graph';
-import { NextLevelButtonComponent } from '../next-level-button/next-level-button.component';
 import { AbstractLevelComponent } from './abstract-level.component';
 import { AssessmentLevelComponent } from './assessment-level/assessment-level.component';
 import { ExtendedMatchingItemsTraineeComponent } from './assessment-level/question/extended-matching-items/extended-matching-items-trainee.component';
@@ -14,6 +13,9 @@ import { InfoLevelComponent } from './info-level/info-level.component';
 import { LevelMaterialModule } from './level-material.module';
 import { AccessLevelComponent } from './access-level/access-level.component';
 import { MarkedOptions, SentinelMarkdownViewModule } from '@sentinel/components/markdown-view';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { AnswerFloatingFormComponent } from './answer-floating-form/answer-floating-form.component';
+import { FloatingFormHintsComponent } from './answer-floating-form/floating-form-hints/floating-form-hints.component';
 
 const markdownParserConfig = {
   markedOptions: {
@@ -39,9 +41,9 @@ const markdownParserConfig = {
     KypoTopologyGraphModule,
     FormsModule,
     LevelMaterialModule,
+    MatToolbarModule,
   ],
   declarations: [
-    NextLevelButtonComponent,
     AbstractLevelComponent,
     InfoLevelComponent,
     TrainingLevelComponent,
@@ -51,6 +53,8 @@ const markdownParserConfig = {
     FreeFormQuestionTraineeComponent,
     MultipleChoiceQuestionTraineeComponent,
     ExtendedMatchingItemsTraineeComponent,
+    AnswerFloatingFormComponent,
+    FloatingFormHintsComponent,
   ],
   exports: [
     AbstractLevelComponent,
@@ -62,6 +66,9 @@ const markdownParserConfig = {
     FreeFormQuestionTraineeComponent,
     MultipleChoiceQuestionTraineeComponent,
     ExtendedMatchingItemsTraineeComponent,
+    AnswerFloatingFormComponent,
+    FloatingFormHintsComponent,
   ],
+  providers: [],
 })
 export class LevelComponentsModule {}

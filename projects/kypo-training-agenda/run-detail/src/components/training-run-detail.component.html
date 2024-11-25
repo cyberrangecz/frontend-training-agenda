@@ -28,8 +28,7 @@
     [localEnvironment]="localEnvironment"
     [isBacktracked]="false"
     (next)="next()"
-  >
-  </kypo-abstract-level>
+  />
   <kypo-abstract-level
     *ngIf="(backtrackedLevel$ | async) && activeLevel.id !== stepper.items[stepper.activeLevelIndex].id"
     [level]="backtrackedLevel$ | async"
@@ -38,6 +37,6 @@
     [sandboxDefinitionId]="sandboxDefinitionId"
     [localEnvironment]="localEnvironment"
     [isBacktracked]="true"
-  >
-  </kypo-abstract-level>
+    (next)="this.activeStepChanged(this.stepper.activeLevelIndex + 1)"
+  />
 </ng-container>

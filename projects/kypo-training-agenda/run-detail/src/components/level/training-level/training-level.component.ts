@@ -19,7 +19,7 @@ import { Observable } from 'rxjs';
 import { delay, take } from 'rxjs/operators';
 import { HintButton } from '@muni-kypo-crp/training-agenda/internal';
 import { TrainingErrorHandler } from '@muni-kypo-crp/training-agenda';
-import { TrainingLevel } from '@muni-kypo-crp/training-model';
+import { Hint, TrainingLevel } from '@muni-kypo-crp/training-model';
 import { TrainingRunTrainingLevelService } from './../../../services/training-run/level/training/training-run-training-level.service';
 import { TrainingRunTrainingLevelConcreteService } from './../../../services/training-run/level/training/training-run-training-level-concrete.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -51,14 +51,12 @@ export class TrainingLevelComponent implements OnInit, OnChanges, AfterViewInit 
   topologyWidth: number;
   topologyHeight: number;
   isTopologyDisplayed: boolean;
-  answer: string;
   displayedHintsContent$: Observable<string>;
   isCorrectAnswerSubmitted$: Observable<boolean>;
   isSolutionRevealed$: Observable<boolean>;
   isLoading$: Observable<boolean>;
   hintsButtons$: Observable<HintButton[]>;
   displayedSolutionContent$: Observable<string>;
-  controlsWrapped: boolean;
   destroyRef = inject(DestroyRef);
 
   constructor(
@@ -70,8 +68,6 @@ export class TrainingLevelComponent implements OnInit, OnChanges, AfterViewInit 
   @HostListener('window:resize', ['$event'])
   onResize(event: any): void {
     this.calculateTopologySize();
-    this.setContentMargin();
-    this.controlsWrapped = this.isWrapped();
   }
 
   ngOnInit(): void {
@@ -82,7 +78,6 @@ export class TrainingLevelComponent implements OnInit, OnChanges, AfterViewInit 
   ngOnChanges(changes: SimpleChanges): void {
     if ('level' in changes) {
       this.initTopology();
-      this.answer = '';
       this.trainingLevelService.init(this.level, this.isLevelAnswered);
       this.displayedHintsContent$ = this.trainingLevelService.displayedHintsContent$;
       this.isCorrectAnswerSubmitted$ = this.trainingLevelService.isCorrectAnswerSubmitted$;
@@ -94,8 +89,11 @@ export class TrainingLevelComponent implements OnInit, OnChanges, AfterViewInit 
   }
 
   ngAfterViewInit(): void {
-    this.setContentMargin();
-    this.controlsWrapped = this.isWrapped();
+    this.calculateTopologySize();
+  }
+
+  onAnswerSubmitted(answer: string): void {
+    this.trainingLevelService.submitAnswer(answer).pipe(take(1)).subscribe();
   }
 
   onNext(): void {
@@ -103,12 +101,19 @@ export class TrainingLevelComponent implements OnInit, OnChanges, AfterViewInit 
   }
 
   /**
-   * Calls service to reveal hint
-   * @param hintButton hint button clicked by the user
+   * Calls service to download ssh access for user
    */
-  revealHint(hintButton: HintButton): void {
+  download(): void {
+    this.trainingLevelService.getAccessFile().pipe(take(1)).subscribe();
+  }
+
+  /**
+   * Calls service to reveal hint
+   * @param hint hint revealed by the user
+   */
+  revealHint(hint: Hint): void {
     this.trainingLevelService
-      .revealHint(hintButton.hint)
+      .revealHint(hint)
       .pipe(take(1), delay(50))
       .subscribe(() => this.scrollToBottom());
   }
@@ -123,29 +128,12 @@ export class TrainingLevelComponent implements OnInit, OnChanges, AfterViewInit 
       .subscribe(() => this.scrollToBottom());
   }
 
-  /**
-   * Calls service to check whether the answer is correct
-   */
-  submitAnswer(): void {
-    this.trainingLevelService.submitAnswer(this.answer).pipe(take(1)).subscribe();
-    this.scrollToTop();
-  }
-
-  /**
-   * Checks whether user confirmed answer input with Enter
-   * @param event keydown event
-   */
-  keyboardSubmitAnswer(event: KeyboardEvent): void {
-    if (event.key === 'Enter') {
-      this.submitAnswer();
-    }
-  }
-
-  /**
-   * Calls service to download ssh access for user
-   */
-  download(): void {
-    this.trainingLevelService.getAccessFile().pipe(take(1)).subscribe();
+  private scrollToBottom(): void {
+    window.scrollTo({
+      left: 0,
+      top: document.body.scrollHeight,
+      behavior: 'smooth',
+    });
   }
 
   private initTopology() {
@@ -165,40 +153,5 @@ export class TrainingLevelComponent implements OnInit, OnChanges, AfterViewInit 
       next: (event) => this.errorHandler.emit(event.err, event.action),
       error: (err) => this.errorHandler.emit(err, 'There is a problem with topology error handler.'),
     });
-  }
-
-  private scrollToBottom(): void {
-    window.scrollTo({
-      left: 0,
-      top: document.body.scrollHeight,
-      behavior: 'smooth',
-    });
-  }
-
-  private scrollToTop(): void {
-    window.scrollTo({
-      left: 0,
-      top: 0,
-    });
-  }
-
-  // Workaround since position:sticky is not working due to overflow in mat-content
-  private getControlsPanelOffset(): string {
-    return this.controlsPanel?.nativeElement.offsetHeight + 'px';
-  }
-
-  private setContentMargin(): void {
-    this.content.nativeElement.setAttribute('style', `margin-bottom:${this.getControlsPanelOffset()}`);
-  }
-
-  // Checks if items in control bar are wrapped based on their top offset
-  isWrapped(): boolean {
-    if (!this.isBacktracked && this.controlsContainer) {
-      const elements = Array.from(this.controlsContainer.nativeElement.childNodes).filter(
-        (elem: HTMLElement) => elem.offsetTop !== undefined,
-      );
-      return elements.some((elem: HTMLElement) => elem.offsetTop !== (elements[0] as HTMLElement).offsetTop);
-    }
-    return false;
   }
 }

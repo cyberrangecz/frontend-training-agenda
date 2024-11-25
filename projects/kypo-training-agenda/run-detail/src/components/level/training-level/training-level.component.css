@@ -1,3 +1,5 @@
+@import "../next-level-button/next-level-button.css";
+
 markdown ::ng-deep img {
   max-width: 100%;
   display: block;
@@ -24,24 +26,22 @@ kypo-topology-graph {
   border: 1px solid gainsboro;
 }
 
-mat-form-field {
-  width: 230px;
-}
-
-
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   align-content: center;
+  margin-bottom: 6rem;
 }
 
 .content {
   margin-top: 10px;
   display: flex;
-  width: 90%;
   flex-direction: row;
-}
+  width: 90%;
+  padding: 0 2rem 2rem 2rem;
+  background: var(--mat-app-background-color);
+  }
 
 .left-panel {
   width: 60%;
@@ -52,120 +52,17 @@ mat-form-field {
 
 .right-panel {
   width: 40%;
+  gap: 1rem;
   display: flex;
-  flex-direction: row;
-}
-
-.answer-input {
-  display: flex;
-  flex-direction: row;
-  align-content: baseline;
-  align-items: baseline;
-  position: relative;
-}
-
-.submit-button {
-  margin-left: 10px;
-  align-self: center;
-}
-
-.ssh-button {
-  display: flex;
-  align-items: center;
-}
-
-.hint-buttons {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-  position: relative;
-}
-
-.solution-button {
-  display: flex;
-  align-items: center;
-  position: relative;
-}
-
-.divider::after {
-  content: '';
-  position: absolute;
-  border-left: 1px solid rgba(0,0,0,.12);
-  right: -1vw;
-  height: 100%;
-}
-
-#solution {
-  margin-top: 10px;
+  flex-direction: column;
+  align-items: end;
 }
 
 h3 {
   margin: 0;
 }
 
-/* (100vw - 100%) is used to account for scrollbar */
-.controls {
-  position: fixed;
-  bottom: 0;
-  left: 140px;
-  z-index: 10;
-  width: calc(100vw - (100vw - 100%) - 16px - 140px);
-  padding: 8px;
-}
 
-button {
-  height: fit-content;
-}
-
-.controls-container {
-  height: fit-content;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 2vw;
-}
-
-.controls-container.wrapped{
-  height: fit-content;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 1vw;
-}
-
-.hint-solution {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  width: fit-content;
-  gap: 2vw;
-}
-
-.hint-solution.wrapped {
-  flex-grow: 1;
-  padding: 0.5vw 1vw 0 1vw;
-  gap: 0.5vw;
-}
-
-.answer-ssh {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  width: fit-content;
-  gap: 2vw;
-}
-
-.answer-ssh.wrapped {
-  flex-grow: 1;
-  padding: 0 1vw;
-  gap: 0.5vw;
-}
 
 .message {
   color: #999999;
@@ -185,17 +82,25 @@ button {
   }
 
   .right-panel {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
+    width: 100%;;
   }
 
+  .bottom-card {
+    bottom: 0;
+    max-width: unset;
+    width: 100%;
+  }
+
+  .input-form-field {
+    width: 100%;
+  }
 }
+
 
 /* Breakpoint based on sentinel layout (when navbar is hidden) */
 @media(max-width: 748px ) {
-  .controls {
-    left: 0;
-    width: calc(100vw - (100vw - 100%) - 16px);
+  .answer-row {
+     flex-direction: column;
+     align-items: center;
   }
 }

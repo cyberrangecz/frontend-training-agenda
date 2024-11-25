@@ -91,6 +91,12 @@ export class TrainingRunDetailComponent implements OnInit, AfterViewInit {
   }
 
   next(): void {
-    this.trainingRunService.next().pipe(take(1)).subscribe();
+    this.trainingRunService
+      .next()
+      .pipe(
+        tap((value) => console.log('next', value)),
+        take(1),
+      )
+      .subscribe();
   }
 }

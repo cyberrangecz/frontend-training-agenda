@@ -17,69 +17,36 @@
         [style.height.px]="topologyHeight"
       >
       </kypo-topology-graph>
+      <button
+        class="ssh-button"
+        *ngIf="sandboxInstanceId || sandboxDefinitionId"
+        mat-raised-button
+        [disabled]="(isLoading$ | async) || (isCorrectPasskeySubmitted$ | async)"
+        (click)="download()"
+        matTooltip="Download config for SSH client"
+      >
+        Get SSH Config
+      </button>
     </div>
   </div>
-  <div *ngIf="!isBacktracked">
-    <mat-card appearance="outlined" #controls class="controls">
-      <div #controlsContainer [ngClass]="!controlsWrapped ? 'controls-container' : 'controls-container wrapped'">
-        <div [ngClass]="!controlsWrapped ? 'passkey-ssh' : 'passkey-ssh wrapped'">
-          <!-- PASSKEY field-->
-          <div class="passkey-input" [ngClass]="{ divider: !controlsWrapped && (sandboxInstanceId || sandboxDefinitionId) }">
-            <div *ngIf="isCorrectPasskeySubmitted$ | async; else passkeyInput">
-              <kypo-next-level-button [isLast]="isLast" (next)="onNext()"> </kypo-next-level-button>
-            </div>
-            <ng-template #passkeyInput>
-              <form autocomplete="off">
-                <mat-form-field shouldLabelFloat="false" appearance="outline" (keydown.enter)="$event.preventDefault()">
-                  <mat-label>Passkey</mat-label>
-                  <input
-                    matInput
-                    placeholder="Passkey"
-                    autocomplete="off"
-                    (keydown)="keyboardSubmitPasskey($event)"
-                    [disabled]="isCorrectPasskeySubmitted$ | async"
-                    [(ngModel)]="passkey"
-                    [ngModelOptions]="{ standalone: true }"
-                  />
-                  <button
-                    *ngIf="passkey"
-                    matSuffix
-                    mat-icon-button
-                    aria-label="Clear"
-                    [disabled]="isCorrectPasskeySubmitted$ | async"
-                    (click)="passkey = ''"
-                  >
-                    <mat-icon>close</mat-icon>
-                  </button>
-                </mat-form-field>
-              </form>
-              <button
-                mat-raised-button
-                class="submit-button"
-                color="primary"
-                [disabled]="isCorrectPasskeySubmitted$ | async"
-                (click)="submitPasskey()"
-              >
-                Submit
-              </button>
-            </ng-template>
-          </div>
-          <!-- GET SSH ACCESS BUTTON-->
-          <div class="ssh-button" *ngIf="sandboxInstanceId || sandboxDefinitionId">
-            <button
-              mat-raised-button
-              color="primary"
-              [disabled]="(isLoading$ | async) || (isCorrectPasskeySubmitted$ | async)"
-              (click)="download()"
-              matTooltip="Download config for SSH client"
-            >
-              Get SSH Config
-            </button>
-          </div>
-        </div>
-      </div>
-    </mat-card>
-  </div>
+  @if ((isCorrectPasskeySubmitted$ | async) || isBacktracked) {
+      <!-- avoid showing next, when next level is already loading -->
+      @if (!(isLoading$ | async)){
+      <button
+        class="next-button"
+        mat-raised-button
+        (click)="onNext()"
+      >
+        {{ isLast && !isBacktracked ?  "Finish" : "Next" }}
+      </button>
+    }
+  } @else {
+    <kypo-answer-floating-form
+      placeholder="Passkey"
+      [buttonLabel]="isLast ? 'Finish' : 'Submit'"
+      (onSubmit)="submitPasskey($event)"
+    />
+  }
 </div>
 
 <ng-template #topologyPlaceholder>

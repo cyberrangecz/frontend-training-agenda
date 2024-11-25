@@ -12,6 +12,3 @@
   width: 80%;
 }
 
-::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
-  padding: 8px;
-}

@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
@@ -33,7 +32,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 /**
  * Component to display training run's level of type ACCESS. Only displays markdown and allows user to continue immediately.
  */
-export class AccessLevelComponent implements OnInit, OnChanges, AfterViewInit {
+export class AccessLevelComponent implements OnInit, OnChanges {
   @Input() level: AccessLevel;
   @Input() isLast: boolean;
   @Input() isLevelAnswered: boolean;
@@ -50,10 +49,8 @@ export class AccessLevelComponent implements OnInit, OnChanges, AfterViewInit {
   topologyWidth: number;
   topologyHeight: number;
   isTopologyDisplayed: boolean;
-  passkey: string;
   isCorrectPasskeySubmitted$: Observable<boolean>;
   isLoading$: Observable<boolean>;
-  controlsWrapped: boolean;
   destroyRef = inject(DestroyRef);
 
   constructor(
@@ -65,8 +62,6 @@ export class AccessLevelComponent implements OnInit, OnChanges, AfterViewInit {
   @HostListener('window:resize', ['$event'])
   onResize(event: any): void {
     this.calculateTopologySize();
-    this.setContentMargin();
-    this.controlsWrapped = this.isWrapped();
   }
 
   ngOnInit(): void {
@@ -77,16 +72,10 @@ export class AccessLevelComponent implements OnInit, OnChanges, AfterViewInit {
   ngOnChanges(changes: SimpleChanges): void {
     if ('level' in changes) {
       this.initTopology();
-      this.passkey = '';
       this.accessLevelService.init(this.isLevelAnswered);
       this.isCorrectPasskeySubmitted$ = this.accessLevelService.isCorrectPasskeySubmitted$;
       this.isLoading$ = this.accessLevelService.isLoading$;
     }
-  }
-
-  ngAfterViewInit(): void {
-    this.setContentMargin();
-    this.controlsWrapped = this.isWrapped();
   }
 
   onNext(): void {
@@ -96,19 +85,9 @@ export class AccessLevelComponent implements OnInit, OnChanges, AfterViewInit {
   /**
    * Calls service to check whether the passkey is correct
    */
-  submitPasskey(): void {
-    this.accessLevelService.submitPasskey(this.passkey).pipe(take(1)).subscribe();
+  submitPasskey(passkey: string): void {
+    this.accessLevelService.submitPasskey(passkey).pipe(take(1)).subscribe();
     this.scrollToTop();
-  }
-
-  /**
-   * Checks whether user confirmed passkey input with Enter
-   * @param event keydown event
-   */
-  keyboardSubmitPasskey(event: KeyboardEvent): void {
-    if (event.key === 'Enter') {
-      this.submitPasskey();
-    }
   }
 
   /**
@@ -142,22 +121,5 @@ export class AccessLevelComponent implements OnInit, OnChanges, AfterViewInit {
       left: 0,
       top: 0,
     });
-  }
-
-  private setContentMargin(): void {
-    this.content.nativeElement.setAttribute('style', `margin-bottom:${this.getControlsPanelOffset()}`);
-  }
-
-  // Workaround since position:sticky is not working due to overflow in mat-content
-  private getControlsPanelOffset(): string {
-    return this.controlsPanel?.nativeElement.offsetHeight + 'px';
-  }
-
-  // Checks if items in control bar are wrapped based on their top offset
-  isWrapped(): boolean {
-    const elements = Array.from(this.controlsContainer.nativeElement.childNodes).filter(
-      (elem: HTMLElement) => elem.offsetTop !== undefined,
-    );
-    return elements.some((elem: HTMLElement) => elem.offsetTop !== (elements[0] as HTMLElement).offsetTop);
   }
 }

@@ -31,7 +31,7 @@ import { TrainingRunAssessmentLevelConcreteService } from '../../../services/tra
 })
 /**
  * Component that displays assessment level in a trainees training run. If the questions are type of test, trainee needs
- * to answer all of the questions before he can continue to the next level. If it questionnaire type, trainee can skip
+ * to answer all the questions before he can continue to the next level. If the type is questionnaire, trainee can skip
  * answering the questions.
  */
 export class AssessmentLevelComponent implements OnInit, OnChanges, AfterViewInit {

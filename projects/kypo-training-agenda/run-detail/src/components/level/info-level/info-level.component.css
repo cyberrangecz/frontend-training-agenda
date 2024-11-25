@@ -1,8 +1,11 @@
+@import "../next-level-button/next-level-button.css";
+
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   align-content: center;
+  margin-bottom: 6rem;
 }
 .content {
   margin-top: 10px;
@@ -31,7 +34,7 @@ markdown ::ng-deep pre {
 }
 
 /* (100vw - 100%) is used to account for scrollbar */
-.controls {
+.bottom-card {
   position: fixed;
   bottom: 0;
   left: 140px;
@@ -40,10 +43,8 @@ markdown ::ng-deep pre {
   padding: 8px;
 }
 
-.controls-container {
-  display: flex;
-  width: 80%;
-  flex-direction: row-reverse;
+.next-button {
+  margin-top: 2rem;
 }
 
 @media screen and (max-width: 800px) {
