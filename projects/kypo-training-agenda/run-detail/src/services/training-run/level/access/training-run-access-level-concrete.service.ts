@@ -1,18 +1,12 @@
 import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { TrainingRunApi } from '@muni-kypo-crp/training-api';
 import { Observable } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { switchMap, tap } from 'rxjs/operators';
 import { TrainingErrorHandler } from '@muni-kypo-crp/training-agenda';
 import { RunningTrainingRunService } from '../../running/running-training-run.service';
 import { SandboxInstanceApi } from '@muni-kypo-crp/sandbox-api';
 import { TrainingRunAccessLevelService } from './training-run-access-level.service';
-import {
-  SentinelNotification,
-  SentinelNotificationResult,
-  SentinelNotificationService,
-  SentinelNotificationTypeEnum,
-} from '@sentinel/layout/notification';
+import { SentinelNotificationService } from '@sentinel/layout/notification';
 
 @Injectable()
 /**

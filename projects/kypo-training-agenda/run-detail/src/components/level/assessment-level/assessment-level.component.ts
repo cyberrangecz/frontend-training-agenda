@@ -14,9 +14,7 @@ import {
   ViewChild,
   ViewChildren,
 } from '@angular/core';
-import { AssessmentTypeEnum } from '@muni-kypo-crp/training-model';
-import { AssessmentLevel } from '@muni-kypo-crp/training-model';
-import { Question } from '@muni-kypo-crp/training-model';
+import { AssessmentLevel, AssessmentTypeEnum, Question } from '@muni-kypo-crp/training-model';
 import { take } from 'rxjs/operators';
 import { TraineeQuestionComponent } from './question/trainee-question.component';
 import { TrainingRunAssessmentLevelService } from '../../../services/training-run/level/assessment/training-run-assessment-level.service';
