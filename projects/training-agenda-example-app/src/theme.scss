@@ -9,9 +9,9 @@
 
 $kypo-theme: sentinel-variables.$sentinel-theme;
 
-
 :root {
   @include mat.core();
+
   @include mat.color-variants-backwards-compatibility($kypo-theme);
   @include mat.all-component-themes($kypo-theme);
   @include mat.system-level-colors($kypo-theme);
