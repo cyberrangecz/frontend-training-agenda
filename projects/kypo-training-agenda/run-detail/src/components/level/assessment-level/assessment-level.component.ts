@@ -32,15 +32,13 @@ import { TrainingRunAssessmentLevelConcreteService } from '../../../services/tra
  * to answer all the questions before he can continue to the next level. If the type is questionnaire, trainee can skip
  * answering the questions.
  */
-export class AssessmentLevelComponent implements OnInit, OnChanges, AfterViewInit {
+export class AssessmentLevelComponent implements OnInit, OnChanges {
   @Input() level: AssessmentLevel;
   @Input() isLast: boolean;
   @Input() isLevelAnswered: boolean;
   @Input() isBacktracked: boolean;
   @Output() next: EventEmitter<void> = new EventEmitter();
   @ViewChildren(TraineeQuestionComponent) questionComponents: QueryList<TraineeQuestionComponent>;
-  @ViewChild('controls', { read: ElementRef }) controlsPanel: ElementRef;
-  @ViewChild('content', { read: ElementRef, static: false }) content: ElementRef;
 
   canSubmit: boolean;
 
@@ -54,15 +52,6 @@ export class AssessmentLevelComponent implements OnInit, OnChanges, AfterViewIni
     if ('level' in changes) {
       this.initCanSubmit();
     }
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event) {
-    this.setContentMargin();
-  }
-
-  ngAfterViewInit(): void {
-    this.setContentMargin();
   }
 
   /**
@@ -110,14 +99,5 @@ export class AssessmentLevelComponent implements OnInit, OnChanges, AfterViewIni
       }
     }
     this.canSubmit = true;
-  }
-
-  private setContentMargin(): void {
-    this.content.nativeElement.setAttribute('style', `margin-bottom:${this.getControlsPanelOffset()}`);
-  }
-
-  // Workaround since position:sticky is not working due to overflow in mat-content
-  private getControlsPanelOffset(): string {
-    return this.controlsPanel?.nativeElement.offsetHeight + 'px';
   }
 }

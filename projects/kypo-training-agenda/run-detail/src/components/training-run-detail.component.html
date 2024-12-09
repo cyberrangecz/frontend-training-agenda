@@ -1,6 +1,6 @@
 <div class="header">
   <!-- LEVEL STEPPER -->
-  <div class="training-run-stepper" *ngIf="isStepperDisplayed && stepper?.items">
+  <div class="training-run-stepper round-scrollbar" *ngIf="isStepperDisplayed && stepper?.items">
     <sentinel-stepper
       [draggable]="false"
       [selectable]="backwardMode"
@@ -10,9 +10,9 @@
     >
     </sentinel-stepper>
   </div>
-  <div class="right-panel">
-    <sentinel-user-card [user]="user$ | async"></sentinel-user-card>
-    <kypo-training-timer *ngIf="isTimerDisplayed && startTime" [startTime]="startTime"></kypo-training-timer>
+  <div class="right-panel {{!(isStepperDisplayed && stepper?.items) ? 'right-panel--row-layout' : ''}}">
+    <sentinel-user-card [user]="user$ | async"/>
+    <kypo-training-timer *ngIf="isTimerDisplayed && startTime" [startTime]="startTime"/>
   </div>
 </div>
 

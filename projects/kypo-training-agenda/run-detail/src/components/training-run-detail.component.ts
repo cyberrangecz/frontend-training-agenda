@@ -84,7 +84,7 @@ export class TrainingRunDetailComponent implements OnInit, AfterViewInit {
    * @param index of desired level
    */
   activeStepChanged(index: number): void {
-    if (this.stepper.activeLevelIndex !== index) {
+    if (this.stepper.activeLevelIndex !== index && index >= 0 && index < this.levels.length) {
       this.trainingRunService.moveToLevel(this.levels[index].id).pipe(take(1)).subscribe();
       this.stepper.onActiveLevelUpdated(index);
     }

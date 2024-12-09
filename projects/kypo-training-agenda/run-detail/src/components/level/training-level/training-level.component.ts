@@ -14,7 +14,7 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { KypoTopologyErrorService } from '@muni-kypo-crp/topology-graph';
+import { KypoTopologyErrorService, KypoTopologyGraphComponent } from '@muni-kypo-crp/topology-graph';
 import { Observable } from 'rxjs';
 import { delay, take } from 'rxjs/operators';
 import { HintButton } from '@muni-kypo-crp/training-agenda/internal';
@@ -43,14 +43,10 @@ export class TrainingLevelComponent implements OnInit, OnChanges, AfterViewInit 
   @Input() sandboxInstanceId: string;
   @Input() sandboxDefinitionId: number;
   @Output() next: EventEmitter<void> = new EventEmitter();
-  @ViewChild('rightPanel', { static: true }) rightPanelDiv: ElementRef;
-  @ViewChild('content', { read: ElementRef, static: false }) content: ElementRef;
-  @ViewChild('controls', { read: ElementRef }) controlsPanel: ElementRef;
-  @ViewChild('controlsContainer', { static: false, read: ElementRef }) controlsContainer: ElementRef;
+  @ViewChild('topology') topology: ElementRef<HTMLDivElement>;
 
   topologyWidth: number;
   topologyHeight: number;
-  isTopologyDisplayed: boolean;
   displayedHintsContent$: Observable<string>;
   isCorrectAnswerSubmitted$: Observable<boolean>;
   isSolutionRevealed$: Observable<boolean>;
@@ -71,13 +67,12 @@ export class TrainingLevelComponent implements OnInit, OnChanges, AfterViewInit 
   }
 
   ngOnInit(): void {
-    this.initTopology();
     this.subscribeToTopologyErrorHandler();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if ('level' in changes) {
-      this.initTopology();
+      this.calculateTopologySize();
       this.trainingLevelService.init(this.level, this.isLevelAnswered);
       this.displayedHintsContent$ = this.trainingLevelService.displayedHintsContent$;
       this.isCorrectAnswerSubmitted$ = this.trainingLevelService.isCorrectAnswerSubmitted$;
@@ -136,16 +131,12 @@ export class TrainingLevelComponent implements OnInit, OnChanges, AfterViewInit 
     });
   }
 
-  private initTopology() {
-    this.isTopologyDisplayed =
-      (this.sandboxInstanceId === null || this.sandboxInstanceId === undefined) &&
-      (this.sandboxDefinitionId === null || this.sandboxDefinitionId === undefined);
-    this.calculateTopologySize();
-  }
-
   private calculateTopologySize() {
-    this.topologyWidth = this.rightPanelDiv.nativeElement.getBoundingClientRect().width;
-    this.topologyHeight = this.topologyWidth;
+    if (!this.topology) {
+      return;
+    }
+    this.topologyWidth = this.topology.nativeElement.getBoundingClientRect().width;
+    this.topologyHeight = this.topology.nativeElement.getBoundingClientRect().height + 32; //32 for ssh access button
   }
 
   private subscribeToTopologyErrorHandler() {

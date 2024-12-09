@@ -1,80 +1,72 @@
 <div class="container">
-  <div #content class="content" >
-    <div class="left-panel">
-      <div class="level-content">
-        <sentinel-markdown-view [markdown]="level?.content"></sentinel-markdown-view>
-        <div class="hint-content">
-          <sentinel-markdown-view *ngIf="displayedHintsContent$ | async as hintsContent" [markdown]="hintsContent">
-          </sentinel-markdown-view>
-        </div>
-        <div *ngIf="displayedSolutionContent$ | async as solutionContent" class="solution-content">
-          <h2><span class="solution-color"> Solution: </span></h2>
-          <sentinel-markdown-view [markdown]="solutionContent"> </sentinel-markdown-view>
-        </div>
-      </div>
+  <div class="level-content">
+<!-- LEVEL TEXT CONTENT -->
+    <div class="left-panel round-scrollbar window-height-bound">
+      <sentinel-markdown-view [markdown]="level?.content"/>
+      @if (displayedHintsContent$ | async) {
+        <sentinel-markdown-view [markdown]="displayedHintsContent$ | async"/>
+      }
+      @if (displayedSolutionContent$ | async){
+        <h2><span class="solution-color"> Solution: </span></h2>
+        <sentinel-markdown-view [markdown]="displayedSolutionContent$ | async"/>
+      }
     </div>
-    <div class="right-panel" #rightPanel>
-      <!-- TOPOLOGY COMPONENT-->
-      <kypo-topology-graph
-        *ngIf="!isTopologyDisplayed; else topologyPlaceholder"
-        [width]="topologyWidth"
-        [height]="topologyHeight"
-        [sandboxUuid]="sandboxInstanceId"
-        [sandboxDefinitionId]="sandboxDefinitionId"
-        [style.width.px]="topologyWidth"
-        [style.height.px]="topologyHeight"
-      >
-      </kypo-topology-graph>
-      <button
-        *ngIf="sandboxInstanceId || sandboxDefinitionId"
-        mat-raised-button
-        [disabled]="(isLoading$ | async) || (isCorrectAnswerSubmitted$ | async)"
-        (click)="download()"
-        matTooltip="Download config for SSH client"
-      >
-        Get SSH Config
-      </button>
+<!-- TOPOLOGY COMPONENT -->
+    <div class="right-panel">
+      @if (this.sandboxInstanceId || this.sandboxDefinitionId) {
+        <div #topology class="topology-container window-height-bound">
+          <kypo-topology-graph
+            class="topology"
+            [width]="topologyWidth"
+            [height]="topologyHeight"
+            [sandboxUuid]="sandboxInstanceId"
+            [sandboxDefinitionId]="sandboxDefinitionId"
+          />
+        </div>
+       @if (this.sandboxInstanceId){
+            <button
+              mat-raised-button
+              [disabled]="(isLoading$ | async)"
+              (click)="download()"
+              matTooltip="Download config for SSH client"
+              class="ssh-button">
+              Get SSH Config
+            </button>
+       }
+      } @else {
+        <div class="topology-placeholder">
+          <h3 class="placeholder-message">*Topology not available</h3>
+          <img
+              src="assets/kypo-training-agenda/topology-placeholder.png"
+              alt="Topology placeholder"
+              class="topology-placeholder__image"
+            />
+        </div>
+      }
     </div>
   </div>
-
-  @if ((isCorrectAnswerSubmitted$ | async) || isBacktracked) {
-    <!-- avoid showing next, when next level is already loading -->
-    @if (!(isLoading$ | async)){
-      <button
-        class="next-button"
-        mat-raised-button
-        (click)="onNext()">
-        {{ isLast && !isBacktracked ?  "Finish" : "Next" }}
-      </button>
+<!-- BOTTOM CONTROLS -->
+  @if (!(isLoading$ | async)){
+    @if ((isCorrectAnswerSubmitted$ | async) || isBacktracked) {
+        <button
+          class="next-button"
+          mat-raised-button
+          (click)="onNext()">
+          {{ isLast && !isBacktracked ?  "Finish" : "Next" }}
+        </button>
+    } @else {
+        <kypo-floating-answer-form
+          (onSubmit)="onAnswerSubmitted($event)"
+          [buttonLabel]="isLast ? 'Finish' : 'Submit'"
+        >
+          <kypo-answer-form-hints
+            [hintsButtons$]="hintsButtons$"
+            [isSolutionRevealed$]="isSolutionRevealed$"
+            [isLoading$]="isLoading$"
+            (onHintRevealed)="revealHint($event)"
+            (onSolutionRevealed)="revealSolution()"
+            />
+        </kypo-floating-answer-form>
     }
-  } @else {
-    <kypo-answer-floating-form
-      (onSubmit)="onAnswerSubmitted($event)"
-      [buttonLabel]="isLast ? 'Finish' : 'Submit'"
-    >
-      <kypo-floating-form-hints
-        [level]="level"
-        [hintsButtons$]="hintsButtons$"
-        [isSolutionRevealed$]="isSolutionRevealed$"
-        [isLoading$]="isLoading$"
-        (onHintRevealed)="revealHint($event)"
-        (onSolutionRevealed)="revealSolution()"
-        />
-    </kypo-answer-floating-form>
   }
-
 </div>
-
-<ng-template #topologyPlaceholder>
-  <div class="container">
-    <div class="topology-placeholder" [style.width.px]="topologyWidth" [style.height.px]="topologyHeight">
-      <img
-        src="assets/kypo-training-agenda/topology-placeholder.png"
-        alt="Topology placeholder"
-        [width]="topologyWidth"
-        [height]="topologyHeight"
-      />
-    </div>
-    <h3 class="message">*This is just a template topology</h3>
-  </div>
-</ng-template>

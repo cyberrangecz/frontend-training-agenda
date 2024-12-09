@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
@@ -32,7 +33,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 /**
  * Component to display training run's level of type ACCESS. Only displays markdown and allows user to continue immediately.
  */
-export class AccessLevelComponent implements OnInit, OnChanges {
+export class AccessLevelComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() level: AccessLevel;
   @Input() isLast: boolean;
   @Input() isLevelAnswered: boolean;
@@ -41,14 +42,10 @@ export class AccessLevelComponent implements OnInit, OnChanges {
   @Input() sandboxDefinitionId: number;
   @Input() localEnvironment: boolean;
   @Output() next: EventEmitter<void> = new EventEmitter();
-  @ViewChild('rightPanel', { static: true }) rightPanelDiv: ElementRef;
-  @ViewChild('controls', { read: ElementRef }) controlsPanel: ElementRef;
-  @ViewChild('controlsContainer', { static: false, read: ElementRef }) controlsContainer: ElementRef;
-  @ViewChild('content', { read: ElementRef, static: false }) content: ElementRef;
+  @ViewChild('topology') topology: ElementRef<HTMLDivElement>;
 
   topologyWidth: number;
   topologyHeight: number;
-  isTopologyDisplayed: boolean;
   isCorrectPasskeySubmitted$: Observable<boolean>;
   isLoading$: Observable<boolean>;
   destroyRef = inject(DestroyRef);
@@ -65,17 +62,20 @@ export class AccessLevelComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.initTopology();
     this.subscribeToTopologyErrorHandler();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if ('level' in changes) {
-      this.initTopology();
+      this.calculateTopologySize();
       this.accessLevelService.init(this.isLevelAnswered);
       this.isCorrectPasskeySubmitted$ = this.accessLevelService.isCorrectPasskeySubmitted$;
       this.isLoading$ = this.accessLevelService.isLoading$;
     }
+  }
+
+  ngAfterViewInit(): void {
+    this.calculateTopologySize();
   }
 
   onNext(): void {
@@ -85,9 +85,8 @@ export class AccessLevelComponent implements OnInit, OnChanges {
   /**
    * Calls service to check whether the passkey is correct
    */
-  submitPasskey(passkey: string): void {
-    this.accessLevelService.submitPasskey(passkey).pipe(take(1)).subscribe();
-    this.scrollToTop();
+  onAnswerSubmitted(answer: string): void {
+    this.accessLevelService.submitPasskey(answer).pipe(take(1)).subscribe();
   }
 
   /**
@@ -97,29 +96,18 @@ export class AccessLevelComponent implements OnInit, OnChanges {
     this.accessLevelService.getAccessFile().pipe(take(1)).subscribe();
   }
 
-  private initTopology() {
-    this.isTopologyDisplayed =
-      (this.sandboxInstanceId === null || this.sandboxInstanceId === undefined) &&
-      (this.sandboxDefinitionId === null || this.sandboxDefinitionId === undefined);
-    this.calculateTopologySize();
-  }
-
   private calculateTopologySize() {
-    this.topologyWidth = this.rightPanelDiv.nativeElement.getBoundingClientRect().width;
-    this.topologyHeight = this.topologyWidth;
+    if (!this.topology) {
+      return;
+    }
+    this.topologyWidth = this.topology.nativeElement.getBoundingClientRect().width;
+    this.topologyHeight = this.topology.nativeElement.getBoundingClientRect().height + 32; //32 for ssh access button
   }
 
   private subscribeToTopologyErrorHandler() {
     this.topologyErrorService.error$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (event) => this.errorHandler.emit(event.err, event.action),
       error: (err) => this.errorHandler.emit(err, 'There is a problem with topology error handler.'),
-    });
-  }
-
-  private scrollToTop(): void {
-    window.scrollTo({
-      left: 0,
-      top: 0,
     });
   }
 }

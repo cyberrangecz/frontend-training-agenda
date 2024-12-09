@@ -1,4 +1,6 @@
-<h1>{{ level?.title }}</h1>
+<h1
+  class="level-title"
+>{{ level?.title }}</h1>
 <ng-container [ngSwitch]="level?.type">
   <kypo-assessment-level *ngSwitchCase="levelTypes.Assessment"
                          [level]="level"

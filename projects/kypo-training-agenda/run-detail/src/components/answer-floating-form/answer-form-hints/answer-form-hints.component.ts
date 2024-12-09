@@ -4,12 +4,11 @@ import { HintButton } from '@muni-kypo-crp/training-agenda/internal';
 import { Hint, TrainingLevel } from '@muni-kypo-crp/training-model';
 
 @Component({
-  selector: 'kypo-floating-form-hints',
-  templateUrl: './floating-form-hints.component.html',
-  styleUrl: './floating-form-hints.component.css',
+  selector: 'kypo-answer-form-hints',
+  templateUrl: './answer-form-hints.component.html',
+  styleUrl: './answer-form-hints.component.css',
 })
-export class FloatingFormHintsComponent {
-  @Input({ required: true }) level: TrainingLevel;
+export class AnswerFormHintsComponent {
   @Input({ required: true }) isSolutionRevealed$: Observable<boolean>;
   @Input({ required: true }) hintsButtons$: Observable<HintButton[]>;
   @Input({ required: true }) isLoading$: Observable<boolean>;

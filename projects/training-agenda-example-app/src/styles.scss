@@ -44,6 +44,10 @@ body {
 
 }
 
+sentinel-error {
+  margin: 1rem;
+}
+
 mat-expansion-panel {
   padding: 1rem 0 !important;
   margin-bottom: 1.5rem !important;
@@ -115,4 +119,25 @@ sentinel-nav a {
   background: radial-gradient(circle at 100% 100%, mat.get-theme-color(theme.$kypo-theme, "primary", 50) 25%, transparent 75%);
   border-radius: 0 0 0.75rem 0;
   overflow: hidden;
+}
+
+
+/* Make markdown consistent across browsers */
+sentinel-markdown-view {
+  background-color: transparent;
+}
+
+markdown ::ng-deep img {
+  max-width: 100%;
+  display: block;
+  margin: 0 auto;
+}
+
+markdown ::ng-deep pre {
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
+
+markdown ::ng-deep {
+  background-color: transparent;
 }

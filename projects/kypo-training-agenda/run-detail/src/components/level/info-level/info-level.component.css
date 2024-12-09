@@ -1,4 +1,4 @@
-@import "../next-level-button/next-level-button.css";
+@import "../../next-level-button/next-level-button.css";
 
 .container {
   display: flex;
@@ -31,16 +31,6 @@ markdown ::ng-deep img {
 markdown ::ng-deep pre {
   white-space: pre-wrap;
   overflow-wrap: break-word;
-}
-
-/* (100vw - 100%) is used to account for scrollbar */
-.bottom-card {
-  position: fixed;
-  bottom: 0;
-  left: 140px;
-  z-index: 10;
-  width: calc(100vw - (100vw - 100%) - 16px - 140px);
-  padding: 8px;
 }
 
 .next-button {

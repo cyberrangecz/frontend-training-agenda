@@ -1,4 +1,4 @@
-@import "../next-level-button/next-level-button.css";
+@import "../../next-level-button/next-level-button.css";
 
 markdown ::ng-deep pre {
   white-space: pre-wrap;
@@ -26,7 +26,7 @@ markdown ::ng-deep img {
   align-content: center;
 }
 
-.content {
+.level-content {
   margin-top: 10px;
   width: 60%;
   margin-bottom: 6rem;
@@ -48,18 +48,8 @@ mat-divider {
   margin-bottom: 20px;
 }
 
-/* (100vw - 100%) is used to account for scrollbar */
-.bottom-card {
-  position: fixed;
-  bottom: 0;
-  left: 140px;
-  z-index: 10;
-  width: calc(100vw - (100vw - 100%) - 16px - 140px);
-  padding: 8px;
-}
-
 @media screen and (max-width: 1500px) {
-  .content {
+  .level-content {
     width: 90%;
   }
 }

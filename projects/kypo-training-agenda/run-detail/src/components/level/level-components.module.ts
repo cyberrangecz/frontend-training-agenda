@@ -14,8 +14,8 @@ import { LevelMaterialModule } from './level-material.module';
 import { AccessLevelComponent } from './access-level/access-level.component';
 import { MarkedOptions, SentinelMarkdownViewModule } from '@sentinel/components/markdown-view';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { AnswerFloatingFormComponent } from './answer-floating-form/answer-floating-form.component';
-import { FloatingFormHintsComponent } from './answer-floating-form/floating-form-hints/floating-form-hints.component';
+import { FloatingAnswerFormComponent } from '../answer-floating-form/floating-answer-form.component';
+import { AnswerFormHintsComponent } from '../answer-floating-form/answer-form-hints/answer-form-hints.component';
 
 const markdownParserConfig = {
   markedOptions: {
@@ -53,8 +53,8 @@ const markdownParserConfig = {
     FreeFormQuestionTraineeComponent,
     MultipleChoiceQuestionTraineeComponent,
     ExtendedMatchingItemsTraineeComponent,
-    AnswerFloatingFormComponent,
-    FloatingFormHintsComponent,
+    FloatingAnswerFormComponent,
+    AnswerFormHintsComponent,
   ],
   exports: [
     AbstractLevelComponent,
@@ -66,8 +66,8 @@ const markdownParserConfig = {
     FreeFormQuestionTraineeComponent,
     MultipleChoiceQuestionTraineeComponent,
     ExtendedMatchingItemsTraineeComponent,
-    AnswerFloatingFormComponent,
-    FloatingFormHintsComponent,
+    FloatingAnswerFormComponent,
+    AnswerFormHintsComponent,
   ],
   providers: [],
 })

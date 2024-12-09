@@ -1,3 +1,4 @@
+18.2.0 Rework training run detail.
 18.1.0 Move stepper bar from training definition to instance.
 18.0.3 Fix definition upload button handling of invalid files.
 18.0.2 Fix Sentinel lists elements not being displayed.
