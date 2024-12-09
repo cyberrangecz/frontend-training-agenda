@@ -52,17 +52,16 @@
         {{ isLast && !isBacktracked ?  "Finish" : "Next" }}
       </button>
     } @else {
-      <kypo-floating-answer-form
+      <kypo-adaptive-floating-answer-form
         (answerSubmit)="onAnswerSubmitted($event)"
         [buttonLabel]="isLast ? 'Finish' : 'Submit'"
       >
-        <kypo-answer-form-hints
-          [hintsButtons$]="of([])"
+        <kypo-adaptive-answer-form-hints
           [isSolutionRevealed$]="isSolutionRevealed$"
           [isLoading$]="isLoading$"
           (solutionRevealed)="revealSolution()"
         />
-      </kypo-floating-answer-form>
+      </kypo-adaptive-floating-answer-form>
     }
   }
 </div>
