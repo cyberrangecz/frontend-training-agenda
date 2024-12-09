@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
@@ -30,7 +29,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [{ provide: AdaptiveRunAccessPhaseService, useClass: AdaptiveRunAccessPhaseConcreteService }],
 })
-export class AccessPhaseComponent implements OnInit, OnChanges, AfterViewInit {
+export class AccessPhaseComponent implements OnInit, OnChanges {
   @Input() phase: AccessPhase;
   @Input() isLast: boolean;
   @Input() isPhaseAnswered: boolean;
@@ -39,19 +38,15 @@ export class AccessPhaseComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() sandboxDefinitionId: number;
   @Input() localEnvironment: boolean;
   @Output() next: EventEmitter<void> = new EventEmitter();
-  @ViewChild('rightPanel', { static: true }) rightPanelDiv: ElementRef;
-  @ViewChild('content', { read: ElementRef, static: false }) content: ElementRef;
-  @ViewChild('controls', { read: ElementRef }) controlsPanel: ElementRef;
-  @ViewChild('controlsContainer', { static: false, read: ElementRef }) controlsContainer: ElementRef;
+  @ViewChild('topology') topology: ElementRef<HTMLDivElement>;
 
   topologyWidth: number;
   topologyHeight: number;
-  isTopologyDisplayed: boolean;
-  passkey: string;
   isCorrectPasskeySubmitted$: Observable<boolean>;
   isLoading$: Observable<boolean>;
-  controlsWrapped: boolean;
   destroyRef = inject(DestroyRef);
+
+  protected readonly String = String;
 
   constructor(
     private accessPhaseService: AdaptiveRunAccessPhaseService,
@@ -62,47 +57,27 @@ export class AccessPhaseComponent implements OnInit, OnChanges, AfterViewInit {
   @HostListener('window:resize', ['$event'])
   onResize(event: any): void {
     this.calculateTopologySize();
-    this.setContentMargin();
-    this.controlsWrapped = this.isWrapped();
   }
 
   ngOnInit(): void {
-    this.initTopology();
     this.subscribeToTopologyErrorHandler();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if ('phase' in changes) {
-      this.passkey = '';
-      this.initTopology();
+      this.calculateTopologySize();
       this.accessPhaseService.init(this.isPhaseAnswered);
       this.isCorrectPasskeySubmitted$ = this.accessPhaseService.isCorrectPasskeySubmitted$;
       this.isLoading$ = this.accessPhaseService.isLoading$;
     }
   }
 
-  ngAfterViewInit(): void {
-    this.setContentMargin();
-    this.controlsWrapped = this.isWrapped();
-  }
-
   onNext(): void {
     this.next.emit();
   }
 
-  submitPasskey(): void {
-    this.accessPhaseService.submitPasskey(this.passkey).pipe(take(1)).subscribe();
-    this.scrollToTop();
-  }
-
-  /**
-   * Checks whether user confirmed passkey input with Enter
-   * @param event keydown event
-   */
-  keyboardSubmitPasskey(event: KeyboardEvent): void {
-    if (event.key === 'Enter') {
-      this.submitPasskey();
-    }
+  onAnswerSubmitted(passkey: string): void {
+    this.accessPhaseService.submitPasskey(passkey).pipe(take(1)).subscribe();
   }
 
   download(): void {
@@ -110,15 +85,11 @@ export class AccessPhaseComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   private calculateTopologySize() {
-    this.topologyWidth = this.rightPanelDiv.nativeElement.getBoundingClientRect().width;
-    this.topologyHeight = this.topologyWidth;
-  }
-
-  private initTopology() {
-    this.isTopologyDisplayed =
-      (this.sandboxInstanceId === null || this.sandboxInstanceId === undefined) &&
-      (this.sandboxDefinitionId === null || this.sandboxDefinitionId === undefined);
-    this.calculateTopologySize();
+    if (!this.topology) {
+      return;
+    }
+    this.topologyWidth = this.topology.nativeElement.getBoundingClientRect().width;
+    this.topologyHeight = this.topology.nativeElement.getBoundingClientRect().height + 32; //32 for ssh access button
   }
 
   private subscribeToTopologyErrorHandler() {
@@ -126,29 +97,5 @@ export class AccessPhaseComponent implements OnInit, OnChanges, AfterViewInit {
       next: (event) => this.errorHandler.emit(event.err, event.action),
       error: (err) => this.errorHandler.emit(err, 'There is a problem with topology error handler.'),
     });
-  }
-
-  private scrollToTop(): void {
-    window.scrollTo({
-      left: 0,
-      top: 0,
-    });
-  }
-
-  // Workaround since position:sticky is not working due to overflow in mat-content
-  private getControlsPanelOffset(): string {
-    return this.controlsPanel?.nativeElement.offsetHeight + 'px';
-  }
-
-  private setContentMargin(): void {
-    this.content.nativeElement.setAttribute('style', `margin-bottom:${this.getControlsPanelOffset()}`);
-  }
-
-  // Checks if items in control bar are wrapped based on their top offset
-  isWrapped(): boolean {
-    const elements = Array.from(this.controlsContainer.nativeElement.childNodes).filter(
-      (elem: HTMLElement) => elem.offsetTop !== undefined,
-    );
-    return elements.some((elem: HTMLElement) => elem.offsetTop !== (elements[0] as HTMLElement).offsetTop);
   }
 }

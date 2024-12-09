@@ -23,6 +23,15 @@ export class TrainingTimerComponent implements OnChanges {
     }
   }
 
+  // Date pipe would overflow on hours > 24
+  formatTime(time: number): string {
+    const totalSeconds = Math.floor(time / 1000);
+    const seconds = totalSeconds % 60;
+    const minutes = Math.floor(totalSeconds / 60) % 60;
+    const hours = Math.floor(totalSeconds / 3600);
+    return `${hours}:${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+  }
+
   private startCounter() {
     const period = 1000;
     this.timeElapsed = timer(0, period).pipe(

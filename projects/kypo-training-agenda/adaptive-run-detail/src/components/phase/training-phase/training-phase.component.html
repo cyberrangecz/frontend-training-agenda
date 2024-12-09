@@ -1,115 +1,68 @@
 <div class="container">
-  <div #content class="content">
-    <div class="left-panel">
-      <div #levelContent #solution class="level-content">
-        <sentinel-markdown-view [markdown]="phase.currentTask.content"></sentinel-markdown-view>
-        <div *ngIf="displayedSolutionContent$ | async as solutionContent" class="solution-content">
-          <h2><span> Solution: </span></h2>
-          <sentinel-markdown-view [markdown]="solutionContent"> </sentinel-markdown-view>
-        </div>
-      </div>
+  <div class="level-content">
+<!-- LEVEL TEXT CONTENT -->
+    <div class="left-panel round-scrollbar window-height-bound">
+      <sentinel-markdown-view [markdown]="phase.currentTask.content"/>
+      @if (displayedSolutionContent$ | async){
+        <h2><span class="solution-color"> Solution: </span></h2>
+        <sentinel-markdown-view [markdown]="displayedSolutionContent$ | async"/>
+      }
     </div>
-    <div class="right-panel" #rightPanel>
-      <!-- TOPOLOGY COMPONENT-->
-      <kypo-topology-graph
-        *ngIf="!isTopologyDisplayed; else topologyPlaceholder"
-        [width]="topologyWidth"
-        [height]="topologyHeight"
-        [sandboxUuid]="sandboxInstanceId"
-        [sandboxDefinitionId]="sandboxDefinitionId"
-        [style.width.px]="topologyWidth"
-        [style.height.px]="topologyHeight"
+<!-- TOPOLOGY COMPONENT -->
+    <div class="right-panel">
+      @if (this.sandboxInstanceId || this.sandboxDefinitionId) {
+        <div #topology class="topology-container window-height-bound">
+          <kypo-topology-graph
+            class="topology"
+            [width]="topologyWidth"
+            [height]="topologyHeight"
+            [sandboxUuid]="sandboxInstanceId"
+            [sandboxDefinitionId]="sandboxDefinitionId"
+          />
+        </div>
+        @if (this.sandboxInstanceId){
+          <button
+            mat-raised-button
+            [disabled]="(isLoading$ | async)"
+            (click)="download()"
+            matTooltip="Download config for SSH client"
+            class="ssh-button">
+            Get SSH Config
+          </button>
+        }
+      } @else {
+        <div class="topology-placeholder">
+          <h3 class="placeholder-message">*Topology not available</h3>
+          <img
+            src="assets/kypo-training-agenda/topology-placeholder.png"
+            alt="Topology placeholder"
+            class="topology-placeholder__image"
+          />
+        </div>
+      }
+    </div>
+  </div>
+<!-- BOTTOM CONTROLS -->
+  @if (!(isLoading$ | async)){
+    @if ((isCorrectAnswerSubmitted$ | async) || isBacktracked) {
+      <button
+        class="next-button"
+        mat-raised-button
+        (click)="onNext()">
+        {{ isLast && !isBacktracked ?  "Finish" : "Next" }}
+      </button>
+    } @else {
+      <kypo-floating-answer-form
+        (onSubmit)="onAnswerSubmitted($event)"
+        [buttonLabel]="isLast ? 'Finish' : 'Submit'"
       >
-      </kypo-topology-graph>
-    </div>
-  </div>
-  <div *ngIf="!isBacktracked">
-    <mat-card appearance="outlined" #controls class="controls">
-      <div #controlsContainer [ngClass]="!controlsWrapped ? 'controls-container' : 'controls-container wrapped'">
-        <div [ngClass]="!controlsWrapped ? 'solution' : 'solution wrapped'">
-          <!-- SOLUTION BUTTON-->
-          <div class="solution-button" [ngClass]="{ divider: !controlsWrapped }">
-            <button
-              mat-raised-button
-              color="warn"
-              [disabled]="(isSolutionRevealed$ | async) || (isCorrectAnswerSubmitted$ | async) || (isLoading$ | async)"
-              (click)="revealSolution()"
-              matTooltip="Display solution"
-            >
-              Reveal Solution
-            </button>
-          </div>
-        </div>
-        <div [ngClass]="!controlsWrapped ? 'answer-ssh' : 'answer-ssh wrapped'">
-          <!-- ANSWER field-->
-          <div class="answer-input" [ngClass]="{ divider: !controlsWrapped && sandboxInstanceId }">
-            <div *ngIf="(isCorrectAnswerSubmitted$ | async) && (isLoading$ | async) !== true; else answerInput">
-              <kypo-next-phase-button [isLast]="isLast" (next)="onNext()"> </kypo-next-phase-button>
-            </div>
-            <ng-template #answerInput>
-              <form autocomplete="off">
-                <mat-form-field shouldLabelFloat="false" appearance="outline" (keydown.enter)="$event.preventDefault()">
-                  <mat-label>Answer</mat-label>
-                  <input
-                    matInput
-                    placeholder="Answer"
-                    autocomplete="off"
-                    (keydown)="keyboardSubmitAnswer($event)"
-                    [disabled]="isCorrectAnswerSubmitted$ | async"
-                    [(ngModel)]="answer"
-                    [ngModelOptions]="{ standalone: true }"
-                  />
-                  <button
-                    *ngIf="answer"
-                    matSuffix
-                    mat-icon-button
-                    aria-label="Clear"
-                    [disabled]="isCorrectAnswerSubmitted$ | async"
-                    (click)="answer = ''"
-                  >
-                    <mat-icon>close</mat-icon>
-                  </button>
-                </mat-form-field>
-              </form>
-              <button
-                mat-raised-button
-                class="submit-button"
-                color="primary"
-                [disabled]="isCorrectAnswerSubmitted$ | async"
-                (click)="submitAnswer()"
-              >
-                Submit
-              </button>
-            </ng-template>
-          </div>
-          <!-- GET SSH ACCESS BUTTON-->
-          <div class="ssh-button" *ngIf="sandboxInstanceId">
-            <button
-              mat-raised-button
-              color="primary"
-              [disabled]="(isLoading$ | async) || (isCorrectAnswerSubmitted$ | async)"
-              (click)="download()"
-              matTooltip="Download config for SSH client"
-            >
-              Get SSH Config
-            </button>
-          </div>
-        </div>
-      </div>
-    </mat-card>
-  </div>
+        <kypo-answer-form-hints
+          [hintsButtons$]="of([])"
+          [isSolutionRevealed$]="isSolutionRevealed$"
+          [isLoading$]="isLoading$"
+          (onSolutionRevealed)="revealSolution()"
+        />
+      </kypo-floating-answer-form>
+    }
+  }
 </div>
-
-<ng-template #topologyPlaceholder>
-  <div class="container">
-    <div class="topology-placeholder" [style.width.px]="topologyWidth" [style.height.px]="topologyHeight">
-      <img
-        src="assets/kypo-training-agenda/topology-placeholder.png"
-        alt="Topology placeholder"
-        [width]="topologyWidth"
-        [height]="topologyHeight"
-      />
-    </div>
-    <h3 class="message">*This is just a template topology</h3>
-  </div>
-</ng-template>

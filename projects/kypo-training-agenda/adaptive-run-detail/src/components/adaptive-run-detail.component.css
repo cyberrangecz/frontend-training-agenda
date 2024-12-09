@@ -4,11 +4,11 @@
   align-items: center;
   width: 100%;
   margin-bottom: 10px;
-  justify-content: flex-end;
 }
 
-.training-run-stepper, .training-run-preview-stepper {
+.training-run-stepper {
   width: 100%;
+  overflow: auto;
 }
 
 .right-panel {
@@ -18,16 +18,38 @@
   align-self: flex-end;
 }
 
+.right-panel--row-layout {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .message {
   color: #999999;
 }
 
+
 @media screen and (max-width: 1400px) {
   .header {
-    flex-wrap: wrap;
+    justify-self: center ;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
   }
- }
 
-::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
-  padding: 8px;
+  .right-panel {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
 }
+
+/* Breakpoint based on sentinel layout (when navbar is hidden) */
+@media(max-width: 748px ) {
+  .header {
+    width: 95dvw;
+  }
+}
+

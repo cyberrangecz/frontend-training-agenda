@@ -15,7 +15,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { TrainingPhase } from '@muni-kypo-crp/training-model';
-import { Observable } from 'rxjs';
+import { noop, Observable, of } from 'rxjs';
 import { KypoTopologyErrorService } from '@muni-kypo-crp/topology-graph';
 import { TrainingErrorHandler } from '@muni-kypo-crp/training-agenda';
 import { delay, take } from 'rxjs/operators';
@@ -38,21 +38,14 @@ export class TrainingPhaseComponent implements OnInit, OnChanges, AfterViewInit 
   @Input() sandboxInstanceId: string;
   @Input() sandboxDefinitionId: number;
   @Output() next: EventEmitter<void> = new EventEmitter();
-  @ViewChild('rightPanel', { static: true }) rightPanelDiv: ElementRef;
-  @ViewChild('content', { read: ElementRef, static: false }) content: ElementRef;
-  @ViewChild('controls', { read: ElementRef }) controlsPanel: ElementRef;
-  @ViewChild('controlsContainer', { static: false, read: ElementRef }) controlsContainer: ElementRef;
+  @ViewChild('topology') topology: ElementRef<HTMLDivElement>;
 
   topologyWidth: number;
   topologyHeight: number;
-  isTopologyDisplayed: boolean;
-  answer: string;
   isCorrectAnswerSubmitted$: Observable<boolean>;
   isSolutionRevealed$: Observable<boolean>;
   isLoading$: Observable<boolean>;
   displayedSolutionContent$: Observable<string>;
-  calculating = false;
-  controlsWrapped: boolean;
   destroyRef = inject(DestroyRef);
 
   constructor(
@@ -64,19 +57,15 @@ export class TrainingPhaseComponent implements OnInit, OnChanges, AfterViewInit 
   @HostListener('window:resize', ['$event'])
   onResize(event: any): void {
     this.calculateTopologySize();
-    this.setContentMargin();
-    this.controlsWrapped = this.isWrapped();
   }
 
   ngOnInit(): void {
-    this.initTopology();
     this.subscribeToTopologyErrorHandler();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if ('phase' in changes) {
-      this.answer = '';
-      this.initTopology();
+      this.calculateTopologySize();
       this.trainingPhaseService.init(this.phase, this.isPhaseAnswered);
       this.isCorrectAnswerSubmitted$ = this.trainingPhaseService.isCorrectAnswerSubmitted$;
       this.isSolutionRevealed$ = this.trainingPhaseService.isSolutionRevealed$;
@@ -86,8 +75,7 @@ export class TrainingPhaseComponent implements OnInit, OnChanges, AfterViewInit 
   }
 
   ngAfterViewInit(): void {
-    this.setContentMargin();
-    this.controlsWrapped = this.isWrapped();
+    this.calculateTopologySize();
   }
 
   onNext(): void {
@@ -101,23 +89,8 @@ export class TrainingPhaseComponent implements OnInit, OnChanges, AfterViewInit 
       .subscribe(() => this.scrollToBottom());
   }
 
-  submitAnswer(): void {
-    this.calculating = true;
-    this.trainingPhaseService
-      .submitAnswer(this.answer)
-      .pipe(take(1))
-      .subscribe(() => (this.calculating = false));
-    this.scrollToTop();
-  }
-
-  /**
-   * Checks whether user confirmed answer input with Enter
-   * @param event keydown event
-   */
-  keyboardSubmitAnswer(event: KeyboardEvent): void {
-    if (event.key === 'Enter') {
-      this.submitAnswer();
-    }
+  onAnswerSubmitted(answer: string): void {
+    this.trainingPhaseService.submitAnswer(answer).pipe(take(1)).subscribe();
   }
 
   download(): void {
@@ -125,15 +98,11 @@ export class TrainingPhaseComponent implements OnInit, OnChanges, AfterViewInit 
   }
 
   private calculateTopologySize() {
-    this.topologyWidth = this.rightPanelDiv.nativeElement.getBoundingClientRect().width;
-    this.topologyHeight = this.topologyWidth;
-  }
-
-  private initTopology() {
-    this.isTopologyDisplayed =
-      (this.sandboxInstanceId === null || this.sandboxInstanceId === undefined) &&
-      (this.sandboxDefinitionId === null || this.sandboxDefinitionId === undefined);
-    this.calculateTopologySize();
+    if (!this.topology) {
+      return;
+    }
+    this.topologyWidth = this.topology.nativeElement.getBoundingClientRect().width;
+    this.topologyHeight = this.topology.nativeElement.getBoundingClientRect().height + 32;
   }
 
   private subscribeToTopologyErrorHandler() {
@@ -151,30 +120,6 @@ export class TrainingPhaseComponent implements OnInit, OnChanges, AfterViewInit 
     });
   }
 
-  private scrollToTop(): void {
-    window.scrollTo({
-      left: 0,
-      top: 0,
-    });
-  }
-
-  // Workaround since position:sticky is not working due to overflow in mat-content
-  private getControlsPanelOffset(): string {
-    return this.controlsPanel?.nativeElement.offsetHeight + 'px';
-  }
-
-  private setContentMargin(): void {
-    this.content.nativeElement.setAttribute('style', `margin-bottom:${this.getControlsPanelOffset()}`);
-  }
-
-  // Checks if items in control bar are wrapped based on their top offset
-  isWrapped(): boolean {
-    if (!this.isBacktracked && this.controlsContainer) {
-      const elements = Array.from(this.controlsContainer.nativeElement.childNodes).filter(
-        (elem: HTMLElement) => elem.offsetTop !== undefined,
-      );
-      return elements.some((elem: HTMLElement) => elem.offsetTop !== (elements[0] as HTMLElement).offsetTop);
-    }
-    return false;
-  }
+  protected readonly of = of;
+  protected readonly noop = noop;
 }

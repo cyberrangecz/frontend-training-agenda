@@ -1,4 +1,6 @@
-<h1>{{ phase?.title }}</h1>
+<h1
+  class="phase-title"
+>{{ phase?.title }}</h1>
 <ng-container [ngSwitch]="phase?.type">
   <kypo-questionnaire-phase *ngSwitchCase="phaseTypes.Questionnaire"
                             [phase]="phase"
@@ -20,7 +22,6 @@
                    [phase]="phase"
                    [isLast]="isLast"
                    [isBacktracked]="isBacktracked"
-                   [isLoading]="isLoading"
                    (next)="onNext()">
   </kypo-info-phase>
   <kypo-access-phase *ngSwitchCase="phaseTypes.Access"

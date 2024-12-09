@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { KypoTopologyGraphModule } from '@muni-kypo-crp/topology-graph';
 import { PhaseMaterialModule } from './phase-material.module';
-import { NextPhaseButtonComponent } from '../next-phase-button/next-phase-button.component';
 import { AbstractPhaseComponent } from './abstract-phase.component';
 import { InfoPhaseComponent } from './info-phase/info-phase.component';
 import { QuestionnairePhaseComponent } from './questionnaire-phase/questionnaire-phase.component';
@@ -11,6 +10,9 @@ import { TrainingPhaseComponent } from './training-phase/training-phase.componen
 import { AccessPhaseComponent } from './access-phase/access-phase.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MarkedOptions, SentinelMarkdownViewModule } from '@sentinel/components/markdown-view';
+import { LevelComponentsModule } from '../../../../run-detail/src/components/level/level-components.module';
+import { AdaptiveFloatingAnswerFormComponent } from '../answer-floating-form/adaptive-floating-answer-form.component';
+import { AdaptiveAnswerFormHintsComponent } from '../answer-floating-form/answer-form-hints/adaptive-answer-form-hints.component';
 
 const markdownParserConfig = {
   markedOptions: {
@@ -37,14 +39,16 @@ const markdownParserConfig = {
     FormsModule,
     PhaseMaterialModule,
     MatTabsModule,
+    LevelComponentsModule,
   ],
   declarations: [
-    NextPhaseButtonComponent,
     AbstractPhaseComponent,
     InfoPhaseComponent,
     TrainingPhaseComponent,
     AccessPhaseComponent,
     QuestionnairePhaseComponent,
+    AdaptiveAnswerFormHintsComponent,
+    AdaptiveFloatingAnswerFormComponent,
   ],
   exports: [
     AbstractPhaseComponent,
@@ -52,6 +56,8 @@ const markdownParserConfig = {
     TrainingPhaseComponent,
     AccessPhaseComponent,
     QuestionnairePhaseComponent,
+    AdaptiveAnswerFormHintsComponent,
+    AdaptiveFloatingAnswerFormComponent,
   ],
 })
 export class PhaseComponentsModule {}

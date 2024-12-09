@@ -1,5 +1,5 @@
 <div class="container">
-  <div #content class="content">
+  <div class="level-content">
     <div class="questions" *ngFor="let question of phase.questions; index as i">
       <h2>{{ i + 1 }}. {{ question.text }}</h2>
 
@@ -52,14 +52,21 @@
       </ng-container>
     </div>
   </div>
-  <div *ngIf="!isBacktracked">
-    <mat-card appearance="outlined" #controls class="controls">
-      <div class="controls-container">
-        <button *ngIf="!isPhaseAnswered" [disabled]="!canSubmit || isLoading" mat-raised-button color="primary" (click)="submit()">
-          Submit
-        </button>
-        <kypo-next-phase-button *ngIf="isPhaseAnswered" [isLast]="isLast" (next)="onNext()"></kypo-next-phase-button>
-      </div>
-    </mat-card>
-  </div>
+  <!-- Differentiate submit action by different button style -->
+  @if (isBacktracked){
+    <button
+      class="next-button"
+      mat-raised-button
+      (click)="onNext()">
+      Next
+    </button>
+  } @else {
+    <button
+      class="next-button"
+      mat-flat-button
+      (click)="submit()"
+      [disabled]="!canSubmit">
+      {{ isLast ? "Finish" : "Submit" }}
+    </button>
+  }
 </div>
