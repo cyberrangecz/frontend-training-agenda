@@ -36,11 +36,11 @@ export abstract class TrainingRunAccessLevelService {
     return this.runningTrainingRunService.next();
   }
 
-  protected onWrongPasskeySubmitted(additionalData: string = 'The provided passkey is not correct'): Observable<any> {
+  protected onWrongPasskeySubmitted(text: string = 'The provided passkey is not correct.'): Observable<any> {
     const notification: SentinelNotification = {
       type: SentinelNotificationTypeEnum.Error,
       title: 'Incorrect passkey',
-      additionalInfo: [additionalData],
+      additionalInfo: [text],
     };
     return this.notificationService
       .emit(notification)
