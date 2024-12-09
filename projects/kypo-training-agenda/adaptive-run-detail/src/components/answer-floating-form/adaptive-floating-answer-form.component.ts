@@ -9,7 +9,7 @@ export class AdaptiveFloatingAnswerFormComponent implements OnChanges {
   @Input() placeholder: string = 'Answer';
   @Input() buttonLabel: string = 'Submit';
 
-  @Output() onSubmit: EventEmitter<string> = new EventEmitter();
+  @Output() answerSubmit: EventEmitter<string> = new EventEmitter();
 
   answer: string;
 
@@ -25,7 +25,7 @@ export class AdaptiveFloatingAnswerFormComponent implements OnChanges {
    * Calls service to check whether the answer is correct
    */
   submitAnswer(): void {
-    this.onSubmit.emit(this.answer);
+    this.answerSubmit.emit(this.answer);
     this.scrollToTop();
   }
 

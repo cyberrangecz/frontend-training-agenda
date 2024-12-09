@@ -40,7 +40,7 @@
   </div>
   @if ((isCorrectPasskeySubmitted$ | async) || isBacktracked) {
       <!-- avoid showing next, when next level is already loading -->
-      @if (!(isLoading$ | async)){
+      @if ((isLoading$ | async) === false){
       <button
         class="next-button"
         mat-raised-button
@@ -53,7 +53,7 @@
     <kypo-floating-answer-form
       placeholder="Passkey"
       [buttonLabel]="isLast ? 'Finish' : 'Submit'"
-      (onSubmit)="onAnswerSubmitted($event)"
+      (answerSubmit)="onAnswerSubmitted($event)"
     />
   }
 </div>

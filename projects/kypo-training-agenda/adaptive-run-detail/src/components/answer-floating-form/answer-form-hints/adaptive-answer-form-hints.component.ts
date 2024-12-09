@@ -13,21 +13,21 @@ export class AdaptiveAnswerFormHintsComponent {
   @Input({ required: true }) hintsButtons$: Observable<HintButton[]>;
   @Input({ required: true }) isLoading$: Observable<boolean>;
 
-  @Output() onHintRevealed: EventEmitter<Hint> = new EventEmitter();
-  @Output() onSolutionRevealed: EventEmitter<void> = new EventEmitter();
+  @Output() hintRevealed: EventEmitter<Hint> = new EventEmitter();
+  @Output() solutionRevealed: EventEmitter<void> = new EventEmitter();
 
   /**
    * Calls service to reveal hint
    * @param hintButton hint button clicked by the user
    */
   emitHintRevealed(hintButton: HintButton): void {
-    this.onHintRevealed.emit(hintButton.hint);
+    this.hintRevealed.emit(hintButton.hint);
   }
 
   /**
    * Calls service to reveal solution
    */
   emitSolutionRevealed(): void {
-    this.onSolutionRevealed.emit();
+    this.solutionRevealed.emit();
   }
 }

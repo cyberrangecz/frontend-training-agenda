@@ -46,7 +46,7 @@
     </div>
   </div>
 <!-- BOTTOM CONTROLS -->
-  @if (!(isLoading$ | async)){
+  @if ((isLoading$ | async) === false){
     @if ((isCorrectAnswerSubmitted$ | async) || isBacktracked) {
         <button
           class="next-button"
@@ -56,15 +56,15 @@
         </button>
     } @else {
         <kypo-floating-answer-form
-          (onSubmit)="onAnswerSubmitted($event)"
+          (answerSubmit)="onAnswerSubmitted($event)"
           [buttonLabel]="isLast ? 'Finish' : 'Submit'"
         >
           <kypo-answer-form-hints
             [hintsButtons$]="hintsButtons$"
             [isSolutionRevealed$]="isSolutionRevealed$"
             [isLoading$]="isLoading$"
-            (onHintRevealed)="revealHint($event)"
-            (onSolutionRevealed)="revealSolution()"
+            (hintRevealed)="revealHint($event)"
+            (solutionRevealed)="revealSolution()"
             />
         </kypo-floating-answer-form>
     }
