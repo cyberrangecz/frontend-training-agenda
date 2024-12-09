@@ -14,7 +14,7 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { KypoTopologyErrorService, KypoTopologyGraphComponent } from '@muni-kypo-crp/topology-graph';
+import { KypoTopologyErrorService } from '@muni-kypo-crp/topology-graph';
 import { Observable } from 'rxjs';
 import { delay, take } from 'rxjs/operators';
 import { HintButton } from '@muni-kypo-crp/training-agenda/internal';

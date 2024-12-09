@@ -1,16 +1,12 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
   EventEmitter,
-  HostListener,
   Input,
   OnChanges,
   OnInit,
   Output,
   SimpleChanges,
-  ViewChild,
 } from '@angular/core';
 import { take } from 'rxjs/operators';
 import {

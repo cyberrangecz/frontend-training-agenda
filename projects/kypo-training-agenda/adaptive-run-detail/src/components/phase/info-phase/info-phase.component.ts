@@ -1,15 +1,5 @@
-import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  EventEmitter,
-  HostListener,
-  Input,
-  Output,
-  ViewChild,
-} from '@angular/core';
-import { InfoLevel, InfoPhase } from '@muni-kypo-crp/training-model';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { InfoPhase } from '@muni-kypo-crp/training-model';
 
 @Component({
   selector: 'kypo-info-phase',

@@ -1,17 +1,13 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
   EventEmitter,
-  HostListener,
   Input,
   OnChanges,
   OnInit,
   Output,
   QueryList,
   SimpleChanges,
-  ViewChild,
   ViewChildren,
 } from '@angular/core';
 import { AssessmentLevel, AssessmentTypeEnum, Question } from '@muni-kypo-crp/training-model';

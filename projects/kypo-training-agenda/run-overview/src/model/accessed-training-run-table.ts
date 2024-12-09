@@ -2,7 +2,6 @@ import { PaginatedResource } from '@sentinel/common/pagination';
 import {
   AccessedTrainingRun,
   TraineeAccessTrainingRunActionEnum,
-  TrainingInstance,
   TrainingRunTypeEnum,
 } from '@muni-kypo-crp/training-model';
 import { Column, Row, RowAction, SentinelTable } from '@sentinel/components/table';
