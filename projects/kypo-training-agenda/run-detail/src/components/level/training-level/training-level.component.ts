@@ -15,8 +15,8 @@ import {
   ViewChild,
 } from '@angular/core';
 import { KypoTopologyErrorService } from '@muni-kypo-crp/topology-graph';
-import { Observable } from 'rxjs';
-import { delay, take } from 'rxjs/operators';
+import { BehaviorSubject, buffer, Observable, skipWhile, timer } from 'rxjs';
+import { delay, map, take } from 'rxjs/operators';
 import { HintButton } from '@muni-kypo-crp/training-agenda/internal';
 import { TrainingErrorHandler } from '@muni-kypo-crp/training-agenda';
 import { Hint, TrainingLevel } from '@muni-kypo-crp/training-model';
@@ -43,10 +43,15 @@ export class TrainingLevelComponent implements OnInit, OnChanges, AfterViewInit 
   @Input() sandboxInstanceId: string;
   @Input() sandboxDefinitionId: number;
   @Output() next: EventEmitter<void> = new EventEmitter();
-  @ViewChild('topology') topology: ElementRef<HTMLDivElement>;
 
-  topologyWidth: number;
-  topologyHeight: number;
+  @ViewChild('topologyContainer') topology: ElementRef<HTMLDivElement>;
+  @ViewChild('leftPanel') leftPanel: ElementRef<HTMLDivElement>;
+  @ViewChild('rightPanel') rightPanel: ElementRef<HTMLDivElement>;
+
+  private dragChange = new BehaviorSubject(0);
+
+  topologyWidth: BehaviorSubject<number> = new BehaviorSubject(undefined);
+  topologyHeight: BehaviorSubject<number> = new BehaviorSubject(undefined);
   displayedHintsContent$: Observable<string>;
   isCorrectAnswerSubmitted$: Observable<boolean>;
   isSolutionRevealed$: Observable<boolean>;
@@ -54,6 +59,8 @@ export class TrainingLevelComponent implements OnInit, OnChanges, AfterViewInit 
   hintsButtons$: Observable<HintButton[]>;
   displayedSolutionContent$: Observable<string>;
   destroyRef = inject(DestroyRef);
+
+  windowWidth: number = window.innerWidth;
 
   constructor(
     private trainingLevelService: TrainingRunTrainingLevelService,
@@ -63,7 +70,26 @@ export class TrainingLevelComponent implements OnInit, OnChanges, AfterViewInit 
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any): void {
+    this.recalculateDividerPosition(event.target.innerWidth);
     this.calculateTopologySize();
+    this.windowWidth = event.target.innerWidth;
+  }
+
+  recalculateDividerPosition(newWidth: number): void {
+    if (newWidth < 1400) {
+      this.leftPanel.nativeElement.removeAttribute('style');
+      this.rightPanel.nativeElement.removeAttribute('style');
+      return;
+    }
+    if (this.leftPanel.nativeElement.hasAttribute('style') && this.rightPanel.nativeElement.hasAttribute('style')) {
+      const widthDifference = newWidth - this.windowWidth;
+      const leftPanelWidth = this.leftPanel.nativeElement.offsetWidth;
+      const rightPanelWidth = this.rightPanel.nativeElement.offsetWidth;
+      const leftPanelNewWidth = leftPanelWidth + widthDifference / 2;
+      const rightPanelNewWidth = rightPanelWidth - widthDifference / 2;
+      this.leftPanel.nativeElement.style.width = `${leftPanelNewWidth}px`;
+      this.rightPanel.nativeElement.style.width = `${rightPanelNewWidth}px`;
+    }
   }
 
   ngOnInit(): void {
@@ -135,8 +161,8 @@ export class TrainingLevelComponent implements OnInit, OnChanges, AfterViewInit 
     if (!this.topology) {
       return;
     }
-    this.topologyWidth = this.topology.nativeElement.getBoundingClientRect().width;
-    this.topologyHeight = this.topology.nativeElement.getBoundingClientRect().height + 32; //32 for ssh access button
+    this.topologyWidth.next(this.topology.nativeElement.getBoundingClientRect().width);
+    this.topologyHeight.next(this.topology.nativeElement.getBoundingClientRect().height + 32); //32 for ssh access button
   }
 
   private subscribeToTopologyErrorHandler() {
@@ -144,5 +170,41 @@ export class TrainingLevelComponent implements OnInit, OnChanges, AfterViewInit 
       next: (event) => this.errorHandler.emit(event.err, event.action),
       error: (err) => this.errorHandler.emit(err, 'There is a problem with topology error handler.'),
     });
+  }
+
+  private resizePanels(delta: number, context: TrainingLevelComponent): void {
+    const leftPanelNewWidth = context.leftPanel.nativeElement.offsetWidth + delta - 16;
+    const rightPanelNewWidth = context.rightPanel.nativeElement.offsetWidth - delta;
+    context.leftPanel.nativeElement.style.width = `${leftPanelNewWidth}px`;
+    context.rightPanel.nativeElement.style.width = `${rightPanelNewWidth}px`;
+    this.calculateTopologySize();
+  }
+
+  mouseDown(event: MouseEvent): void {
+    const subscription = this.dragChange
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        skipWhile((change) => change === 0),
+        buffer(timer(0, 50)),
+        map((changes) => changes.reduce((acc, change) => acc + change, 0)),
+      )
+      .subscribe({
+        next: (value) => this.resizePanels(value, this),
+      });
+
+    const mouseUp = (event: MouseEvent) => {
+      document.removeEventListener('mousemove', mouseMove);
+      document.removeEventListener('mouseup', mouseUp);
+      subscription.unsubscribe();
+    };
+
+    const mouseMove = (event: MouseEvent) => {
+      this.dragChange.next(event.movementX);
+    };
+
+    document.addEventListener('mouseup', mouseUp);
+    document.addEventListener('mousemove', mouseMove);
+    event.preventDefault();
+    event.stopPropagation();
   }
 }

@@ -1,7 +1,9 @@
 <div class="container">
   <div class="level-content">
 <!-- LEVEL TEXT CONTENT -->
-    <div class="left-panel round-scrollbar window-height-bound">
+    <div #leftPanel
+      class="left-panel round-scrollbar window-height-bound"
+    >
       <sentinel-markdown-view [markdown]="level?.content"/>
       @if (displayedHintsContent$ | async) {
         <sentinel-markdown-view [markdown]="displayedHintsContent$ | async"/>
@@ -11,19 +13,26 @@
         <sentinel-markdown-view [markdown]="displayedSolutionContent$ | async"/>
       }
     </div>
+    <mat-divider
+      vertical
+      class="vertical-drag-handle"
+      (mousedown)="mouseDown($event)"
+    />
 <!-- TOPOLOGY COMPONENT -->
-    <div class="right-panel">
+    <div
+      #rightPanel
+      class="right-panel"
+    >
       @if (this.sandboxInstanceId || this.sandboxDefinitionId) {
-        <div #topology class="topology-container window-height-bound">
+        <div #topologyContainer class="topology-container window-height-bound">
           <kypo-topology-graph
             class="topology"
-            [width]="topologyWidth"
-            [height]="topologyHeight"
+            [width]="topologyWidth | async"
+            [height]="topologyHeight | async"
             [sandboxUuid]="sandboxInstanceId"
             [sandboxDefinitionId]="sandboxDefinitionId"
           />
         </div>
-       @if (this.sandboxInstanceId){
             <button
               mat-raised-button
               [disabled]="(isLoading$ | async)"
@@ -32,11 +41,11 @@
               class="ssh-button">
               Get SSH Config
             </button>
-       }
       } @else {
         <div class="topology-placeholder">
           <h3 class="placeholder-message">*Topology not available</h3>
           <img
+              draggable="false"
               src="assets/kypo-training-agenda/topology-placeholder.png"
               alt="Topology placeholder"
               class="topology-placeholder__image"

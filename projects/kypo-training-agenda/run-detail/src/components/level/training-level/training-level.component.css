@@ -12,34 +12,43 @@
   display: flex;
   flex-direction: row;
   width: 90%;
+  max-width: 90%;
   padding: 0 2rem 0 2rem;
   height: fit-content;
 }
 
 .window-height-bound {
   max-height: calc(100vh - 38rem);
+  height: calc(100vh - 38rem);
 }
 
+.vertical-drag-handle{
+  z-index: 1000;
+  cursor: w-resize;
+  width: 2px;
+  border-width: 2px;
+  border-radius: 1px;
+  margin-right: 1rem;
+  margin-left: 0.5rem;
+}
 
 /* Text */
 
 .left-panel {
-  width: 60%;
   display: flex;
   flex-direction: column;
-  margin-right: 2rem;
-  padding: 0 1rem 2rem 6rem;
-  margin-top: -1rem;
   overflow-y: auto;
-  margin-bottom: 3rem;
   scroll-behavior: smooth;
+  margin-left: 3rem;
+  padding-right: 1rem;
+  min-width: 20%;
+  width: 60%;
 }
 
 
 /* Topology */
 
 .right-panel {
-  width: 40%;
   height: fit-content;
   min-height: 275px;
   display: flex;
@@ -47,6 +56,8 @@
   align-items: flex-end;
   justify-content: flex-start;
   position: relative;
+  min-width: 20%;
+  width: 40%;
 }
 
 .topology-container {
@@ -61,6 +72,7 @@
 }
 
 .topology {
+  width: 100%;
   border-radius: 0.5rem;
 }
 
@@ -114,8 +126,7 @@ kypo-topology-graph {
 
   .left-panel {
     width: 100%;
-    display: flex;
-    flex-direction: column;
+    height: fit-content;
     margin-right: 0;
     overflow-y: hidden;
     padding: 0;
