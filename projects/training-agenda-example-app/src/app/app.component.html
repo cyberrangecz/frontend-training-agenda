@@ -5,6 +5,11 @@
                   [notificationsRoute]="notificationRoute"
                   (login)="onLogin()"
                   (logout)="onLogout()">
+  <div role="toolbar">
+    @if (activeUser$ | async){
+      <span class="username">{{(activeUser$ | async).nameWithAcademicTitles}}</span>
+    }
+  </div>
   <h1 *ngIf="title$ | async as title">{{ title }}</h1>
   <router-outlet></router-outlet>
 </sentinel-layout1>
