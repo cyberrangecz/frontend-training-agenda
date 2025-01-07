@@ -18,8 +18,8 @@
 }
 
 .window-height-bound {
-  max-height: calc(100vh - 38rem);
-  height: calc(100vh - 38rem);
+  max-height: calc(100vh - 32rem);
+  height: calc(100vh - 32rem);
 }
 
 .vertical-drag-handle{
@@ -56,24 +56,26 @@
   align-items: flex-end;
   justify-content: flex-start;
   position: relative;
-  min-width: 20%;
   width: 40%;
+  min-width: 510px;
 }
 
 .topology-container {
   width: 100%;
   min-height: 275px;
   padding-bottom: -2rem;
-  aspect-ratio: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
+  min-width: fit-content;
 }
 
 .topology {
-  width: 100%;
+  padding: 0.25rem;
   border-radius: 0.5rem;
+  border: 1px solid gainsboro;
+  z-index: 10000;
 }
 
 kypo-topology-graph {

@@ -15,8 +15,8 @@ import {
   ViewChild,
 } from '@angular/core';
 import { KypoTopologyErrorService } from '@muni-kypo-crp/topology-graph';
-import { BehaviorSubject, buffer, Observable, skipWhile, timer } from 'rxjs';
-import { delay, map, take } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { delay, filter, map, take, tap } from 'rxjs/operators';
 import { HintButton } from '@muni-kypo-crp/training-agenda/internal';
 import { TrainingErrorHandler } from '@muni-kypo-crp/training-agenda';
 import { Hint, TrainingLevel } from '@muni-kypo-crp/training-model';
@@ -48,7 +48,9 @@ export class TrainingLevelComponent implements OnInit, OnChanges, AfterViewInit 
   @ViewChild('leftPanel') leftPanel: ElementRef<HTMLDivElement>;
   @ViewChild('rightPanel') rightPanel: ElementRef<HTMLDivElement>;
 
-  private dragChange = new BehaviorSubject(0);
+  private dragBehaviourSubject: BehaviorSubject<number> = new BehaviorSubject(0);
+  private dragBufferedBehaviourSubject: BehaviorSubject<number> = new BehaviorSubject(0);
+  private dragAccumulator = 0;
 
   topologyWidth: BehaviorSubject<number> = new BehaviorSubject(undefined);
   topologyHeight: BehaviorSubject<number> = new BehaviorSubject(undefined);
@@ -60,35 +62,71 @@ export class TrainingLevelComponent implements OnInit, OnChanges, AfterViewInit 
   displayedSolutionContent$: Observable<string>;
   destroyRef = inject(DestroyRef);
 
-  windowWidth: number = window.innerWidth;
+  private windowWidth = window.innerWidth;
 
   constructor(
     private trainingLevelService: TrainingRunTrainingLevelService,
     private topologyErrorService: KypoTopologyErrorService,
     private errorHandler: TrainingErrorHandler,
-  ) {}
+  ) {
+    this.dragBehaviourSubject
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        tap((value) => {
+          this.dragAccumulator += value;
+        }),
+        filter(() => Math.abs(this.dragBufferedBehaviourSubject.value - this.dragAccumulator) > 20),
+        map(() => this.dragAccumulator),
+      )
+      .subscribe((value) => {
+        this.dragAccumulator = 0;
+        this.dragBufferedBehaviourSubject.next(value);
+      });
+  }
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any): void {
-    this.recalculateDividerPosition(event.target.innerWidth);
     this.calculateTopologySize();
-    this.windowWidth = event.target.innerWidth;
-  }
-
-  recalculateDividerPosition(newWidth: number): void {
-    if (newWidth < 1400) {
+    if (event.target.innerWidth < 1400) {
       this.leftPanel.nativeElement.removeAttribute('style');
       this.rightPanel.nativeElement.removeAttribute('style');
       return;
     }
+    if (Math.abs(event.target.innerWidth - this.windowWidth) > 20) {
+      this.recalculateDividerPosition(event.target.innerWidth - this.windowWidth);
+      this.saveDividerPosition();
+      this.windowWidth = event.target.innerWidth;
+    }
+  }
+
+  private recalculateDividerPosition(widthDifference: number): void {
     if (this.leftPanel.nativeElement.hasAttribute('style') && this.rightPanel.nativeElement.hasAttribute('style')) {
-      const widthDifference = newWidth - this.windowWidth;
       const leftPanelWidth = this.leftPanel.nativeElement.offsetWidth;
       const rightPanelWidth = this.rightPanel.nativeElement.offsetWidth;
       const leftPanelNewWidth = leftPanelWidth + widthDifference / 2;
-      const rightPanelNewWidth = rightPanelWidth - widthDifference / 2;
+      const rightPanelNewWidth = rightPanelWidth + widthDifference / 2;
       this.leftPanel.nativeElement.style.width = `${leftPanelNewWidth}px`;
       this.rightPanel.nativeElement.style.width = `${rightPanelNewWidth}px`;
+    }
+  }
+
+  private saveDividerPosition(): void {
+    const data = {
+      leftPanelWidth: this.leftPanel.nativeElement.offsetWidth,
+      rightPanelWidth: this.rightPanel.nativeElement.offsetWidth,
+      windowWidth: window.innerWidth,
+    };
+    localStorage.setItem('dividerPosition', JSON.stringify(data));
+  }
+
+  private loadDividerPosition(): void {
+    const data = localStorage.getItem('dividerPosition');
+    if (data) {
+      const parsedData = JSON.parse(data);
+      const windowWidthDifference = window.innerWidth - parsedData.windowWidth;
+      this.leftPanel.nativeElement.style.width = `${parsedData.leftPanelWidth + windowWidthDifference / 2}px`;
+      this.rightPanel.nativeElement.style.width = `${parsedData.rightPanelWidth + windowWidthDifference / 2}px`;
+      this.recalculateDividerPosition(window.innerWidth - parsedData.windowWidth);
     }
   }
 
@@ -110,6 +148,7 @@ export class TrainingLevelComponent implements OnInit, OnChanges, AfterViewInit 
   }
 
   ngAfterViewInit(): void {
+    this.loadDividerPosition();
     this.calculateTopologySize();
   }
 
@@ -161,8 +200,8 @@ export class TrainingLevelComponent implements OnInit, OnChanges, AfterViewInit 
     if (!this.topology) {
       return;
     }
-    this.topologyWidth.next(this.topology.nativeElement.getBoundingClientRect().width);
-    this.topologyHeight.next(this.topology.nativeElement.getBoundingClientRect().height + 32); //32 for ssh access button
+    this.topologyWidth.next(this.rightPanel.nativeElement.getBoundingClientRect().width);
+    this.topologyHeight.next(this.rightPanel.nativeElement.getBoundingClientRect().height + 32); //32 for ssh access button
   }
 
   private subscribeToTopologyErrorHandler() {
@@ -177,20 +216,14 @@ export class TrainingLevelComponent implements OnInit, OnChanges, AfterViewInit 
     const rightPanelNewWidth = context.rightPanel.nativeElement.offsetWidth - delta;
     context.leftPanel.nativeElement.style.width = `${leftPanelNewWidth}px`;
     context.rightPanel.nativeElement.style.width = `${rightPanelNewWidth}px`;
+    this.saveDividerPosition();
     this.calculateTopologySize();
   }
 
   mouseDown(event: MouseEvent): void {
-    const subscription = this.dragChange
-      .pipe(
-        takeUntilDestroyed(this.destroyRef),
-        skipWhile((change) => change === 0),
-        buffer(timer(0, 50)),
-        map((changes) => changes.reduce((acc, change) => acc + change, 0)),
-      )
-      .subscribe({
-        next: (value) => this.resizePanels(value, this),
-      });
+    const subscription = this.dragBufferedBehaviourSubject.subscribe({
+      next: (value) => this.resizePanels(value, this),
+    });
 
     const mouseUp = (event: MouseEvent) => {
       document.removeEventListener('mousemove', mouseMove);
@@ -199,7 +232,7 @@ export class TrainingLevelComponent implements OnInit, OnChanges, AfterViewInit 
     };
 
     const mouseMove = (event: MouseEvent) => {
-      this.dragChange.next(event.movementX);
+      this.dragBehaviourSubject.next(event.movementX);
     };
 
     document.addEventListener('mouseup', mouseUp);
