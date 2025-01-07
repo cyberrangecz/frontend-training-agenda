@@ -10,6 +10,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { TrainingTimerComponent } from './training-timer/training-timer.component';
+import { AsyncPipe } from '@angular/common';
 
 /**
  * Material component imports for training run level module
@@ -28,6 +30,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatProgressSpinnerModule,
     MatCardModule,
     MatDividerModule,
+    AsyncPipe,
   ],
   exports: [
     MatButtonModule,
@@ -42,6 +45,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatProgressSpinnerModule,
     MatCardModule,
     MatDividerModule,
+    TrainingTimerComponent,
   ],
+  declarations: [TrainingTimerComponent],
 })
 export class LevelMaterialModule {}

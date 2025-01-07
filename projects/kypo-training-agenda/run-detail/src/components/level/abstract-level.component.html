@@ -1,6 +1,9 @@
-<h1
+<div class="level-header">
+  <h1
   class="level-title"
->{{ level?.title }}</h1>
+  >{{ level?.title }}</h1>
+  <kypo-training-timer class="timer" *ngIf="startTime" [startTime]="startTime"/>
+</div>
 <ng-container [ngSwitch]="level?.type">
   <kypo-assessment-level *ngSwitchCase="levelTypes.Assessment"
                          [level]="level"

@@ -28,7 +28,6 @@ export class TrainingRunDetailComponent implements OnInit, AfterViewInit {
   stepper: TrainingRunStepper;
 
   isStepperDisplayed: boolean;
-  isTimerDisplayed: boolean;
   startTime: Date;
   isLast: boolean;
   sandboxInstanceId: string;
@@ -56,7 +55,6 @@ export class TrainingRunDetailComponent implements OnInit, AfterViewInit {
     this.user$ = this.auth.activeUser$;
     this.levels = this.trainingRunService.getLevels();
     this.startTime = this.trainingRunService.getStartTime();
-    this.isTimerDisplayed = true;
     this.isStepperDisplayed = this.trainingRunService.getIsStepperDisplayed();
     this.sandboxInstanceId = this.trainingRunService.sandboxInstanceId;
     this.sandboxDefinitionId = this.trainingRunService.sandboxDefinitionId;

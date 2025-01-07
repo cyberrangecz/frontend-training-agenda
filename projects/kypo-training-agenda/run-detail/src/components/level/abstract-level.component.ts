@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AbstractLevelTypeEnum } from '@muni-kypo-crp/training-model';
 import { Level } from '@muni-kypo-crp/training-model';
 
@@ -14,6 +14,7 @@ import { Level } from '@muni-kypo-crp/training-model';
 })
 export class AbstractLevelComponent {
   @Input() level: Level;
+  @Input() startTime: Date;
   @Input() isLast: boolean;
   @Input() isLevelAnswered: boolean;
   @Input() isBacktracked: boolean;
