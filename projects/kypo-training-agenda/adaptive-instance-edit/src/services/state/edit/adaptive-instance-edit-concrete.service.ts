@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { PoolApi, SandboxDefinitionApi, SandboxInstanceApi } from '@muni-kypo-crp/sandbox-api';
-import { TrainingInstance } from '@muni-kypo-crp/training-model';
+import { PoolApi, SandboxDefinitionApi } from '@muni-kypo-crp/sandbox-api';
+import { AdaptiveDefinitionApiService, AdaptiveInstanceApi } from '@muni-kypo-crp/training-api';
+import { TrainingDefinitionInfo, TrainingInstance } from '@muni-kypo-crp/training-model';
 import { from, Observable } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } from '@muni-kypo-crp/training-agenda';
-import { AdaptiveInstanceEditService } from './adaptive-instance-edit.service';
 import { AdaptiveInstanceChangeEvent } from '../../../models/events/adaptive-instance-change-event';
-import { AdaptiveInstanceApi } from '@muni-kypo-crp/training-api';
-import { PaginatedResource, OffsetPaginationEvent } from '@sentinel/common/pagination';
+import { AdaptiveInstanceEditService } from './adaptive-instance-edit.service';
+import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
 import { Pool, SandboxDefinition } from '@muni-kypo-crp/sandbox-model';
+import { SentinelFilter } from '@sentinel/common/filter';
 
 /**
  * Basic implementation of layer between component and API service.
@@ -21,9 +22,9 @@ export class AdaptiveInstanceEditConcreteService extends AdaptiveInstanceEditSer
 
   constructor(
     private trainingInstanceApi: AdaptiveInstanceApi,
+    private trainingDefinitionApi: AdaptiveDefinitionApiService,
     private poolApi: PoolApi,
     private sandboxDefinitionApi: SandboxDefinitionApi,
-    private sandboxInstanceApi: SandboxInstanceApi,
     private router: Router,
     private navigator: TrainingNavigator,
     private errorHandler: TrainingErrorHandler,
@@ -88,10 +89,33 @@ export class AdaptiveInstanceEditConcreteService extends AdaptiveInstanceEditSer
     this.setEditMode(trainingInstance);
     if (ti === null) {
       ti = new TrainingInstance();
+      ti.showStepperBar = true;
       ti.backwardMode = true;
       this.instanceValidSubject$.next(false);
     }
     this.trainingInstanceSubject$.next(ti);
+  }
+
+  getAllTrainingDefinitions(
+    offsetPaginationEvent: OffsetPaginationEvent,
+    stateFilter: string,
+  ): Observable<PaginatedResource<TrainingDefinitionInfo>> {
+    this.lastPagination = offsetPaginationEvent;
+    this.lastPagination.size = Number.MAX_SAFE_INTEGER;
+    return this.trainingDefinitionApi
+      .getAllForOrganizer(offsetPaginationEvent, [new SentinelFilter('state', stateFilter)])
+      .pipe(
+        tap(
+          (definitions) => {
+            if (stateFilter === 'RELEASED') {
+              this.releasedTrainingDefinitionsSubject.next(definitions);
+            } else {
+              this.unreleasedTrainingDefinitionsSubject.next(definitions);
+            }
+          },
+          (err) => this.errorHandler.emit(err, 'Fetching available training definitions'),
+        ),
+      );
   }
 
   getAllPools(offsetPaginationEvent: OffsetPaginationEvent): Observable<PaginatedResource<Pool>> {
@@ -155,6 +179,8 @@ export class AdaptiveInstanceEditConcreteService extends AdaptiveInstanceEditSer
     const pagination = new OffsetPaginationEvent(0, 10, '', 'asc');
     this.saveDisabledSubject$.next(true);
     return this.trainingInstanceApi.update(this.editedSnapshot).pipe(
+      switchMap(() => this.getAllTrainingDefinitions(pagination, 'RELEASED')),
+      switchMap(() => this.getAllTrainingDefinitions(pagination, 'UNRELEASED')),
       switchMap(() => this.getAllPools(pagination)),
       switchMap(() => this.getAllSandboxDefinitions(pagination)),
       tap(

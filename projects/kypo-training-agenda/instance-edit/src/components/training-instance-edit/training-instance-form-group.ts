@@ -21,10 +21,12 @@ export class TrainingInstanceFormGroup {
         localEnvironment: new UntypedFormControl(trainingInstance.localEnvironment),
         backwardMode: new UntypedFormControl(trainingInstance.backwardMode),
         showStepperBar: new UntypedFormControl(trainingInstance.showStepperBar),
-        poolId: new UntypedFormControl(trainingInstance.poolId, [this.sandboxValidator]),
-        sandboxDefinitionId: new UntypedFormControl(trainingInstance.sandboxDefinitionId, [this.sandboxValidator]),
+        poolId: new UntypedFormControl(trainingInstance.poolId),
+        sandboxDefinitionId: new UntypedFormControl(trainingInstance.sandboxDefinitionId),
       },
-      { validators: this.dateSequenceValidator },
+      {
+        validators: [this.dateSequenceValidator, this.sandboxValidator],
+      },
     );
 
     this.formGroup.get('localEnvironment').valueChanges.subscribe(() => {
@@ -42,6 +44,9 @@ export class TrainingInstanceFormGroup {
   }
 
   disable(): void {
+    this.formGroup.get('showStepperBar').disable({ emitEvent: false });
+    this.formGroup.get('backwardMode').disable({ emitEvent: false });
+    this.formGroup.get('localEnvironment').disable({ emitEvent: false });
     this.formGroup.disable({ emitEvent: false });
     this.formGroup.get('title').enable({ emitEvent: false });
     const isExpired = this.formGroup.get('endTime').value
@@ -72,16 +77,15 @@ export class TrainingInstanceFormGroup {
 
   /**
    * Validator for pool and sandbox definition selection
-   * Verifies if either pool or sandbox definition is selected
+   * Verifies if either pool or sandbox definition is selected respectively to local environment
    * @param control form control to be validated
    */
-  private sandboxValidator: ValidatorFn = (): ValidationErrors | null => {
-    return (
-      this.formGroup &&
-      (this.formGroup.get('poolId')?.value || this.formGroup.get('sandboxDefinitionId')?.value
-        ? null
-        : { required: true })
-    );
+  private sandboxValidator: ValidatorFn = (control: UntypedFormGroup): ValidationErrors | null => {
+    const localEnvironment = control.get('localEnvironment').value;
+    if (!!localEnvironment) {
+      return !!control.get('sandboxDefinitionId').value ? null : { sandboxDefinitionRequired: true };
+    }
+    return !!control.get('poolId').value || !!control.get('sandboxDefinitionId').value ? null : { poolRequired: true };
   };
 
   /**

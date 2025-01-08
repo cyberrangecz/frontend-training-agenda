@@ -2,81 +2,102 @@ mat-form-field {
   width: 100%;
 }
 
-div .content {
-	display: flex;
-	flex-direction: column;
+.content {
+  display: flex;
+  flex-direction: column;
   width: 100%;
 }
 
-div .panel-wrapper {
-	display: flex;
-	flex-direction: row;
+.panel-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 1.25rem;
 }
 
-div .left-panel {
-	display: flex;
-	flex-direction: column;
-	flex-grow: 5;
-	margin-right: 20px;
-}
-
-div .right-panel {
-	display: flex;
-	flex-direction: column;
-	flex-grow: 5;
-	margin-left: 20px;
-}
-
-.form-line {
-	display: flex;
-	flex-direction: row;
-	align-items: baseline;
-	margin: 20px 0;
-}
-
-.form-line p {
-	width: 100%;
-}
-
-.form-line button {
-	margin-left: 10px;
-}
-
-button.main {
-	margin-top: 15px;
-}
-
-.spacer {
-	flex: 1 1 auto;
-}
-
-.multi-line-hint {
-	margin-bottom: 15px;
+.half-panel {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 5;
+  width: 50%;
 }
 
 .slide-toggle-container {
+  margin-top: 0.25rem;
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
-  width: 170px;
 }
 
-.slide-toggle-container span {
-  margin-right: 15px;
+.slide-toggle-container--vertical {
+  flex-direction: column;
 }
 
-.mat-mdc-slide-toggle {
-  height: 24px;
+.slide-toggle-container mat-slide-toggle {
+  margin: 0.5rem;
+  height: fit-content;
 }
+
+/* Override needed to increase combobox options height */
+::ng-deep div[role=listbox] {
+  max-height: 24rem;
+}
+
+.form-line {
+  display: flex;
+  flex-direction: row;
+}
+
+.form-line p {
+  width: 100%;
+}
+
+.form-line button {
+  margin-left: 10px;
+  height: inherit;
+}
+
+button.main {
+  margin-top: 15px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.multi-line-hint {
+  margin-bottom: 15px;
+}
+
+.subtext-link {
+  width: fit-content;
+}
+
+.training-definition-select--margin {
+  margin-bottom: 40px;
+}
+
+.resource-select__bottom_text{
+  padding: 0 1rem;
+  font-size: 12px;
+  margin-bottom: 15px;
+}
+
+.resource-select__bottom_text--error {
+  color: var(--app-error-40);
+}
+
 
 @media screen and (max-width: 800px) {
-	div .panel-wrapper {
-		flex-direction: column;
-	}
-	div .left-panel {
-		margin-right: 0;
-	}
+  .panel-wrapper {
+    flex-direction: column;
+  }
 
-	div .right-panel {
-		margin-left: 0;
-	}
+  .slide-toggle-container {
+    flex-direction: column;
+  }
+
+  .half-panel {
+    width: 100%;
+  }
+
 }

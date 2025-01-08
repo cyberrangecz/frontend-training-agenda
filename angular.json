@@ -65,9 +65,9 @@
             ],
             "styles": [
               "node_modules/@muni-kypo-crp/overview-visualization/styles.css",
-              "projects/training-agenda-example-app/src/variables.scss",
               "projects/training-agenda-example-app/src/theme.scss",
-              "projects/training-agenda-example-app/src/styles.scss"
+              "projects/training-agenda-example-app/src/styles.scss",
+              "projects/training-agenda-example-app/src/variables.scss"
             ],
             "scripts": [],
             "vendorChunk": true,

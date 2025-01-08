@@ -66,7 +66,6 @@ export class CheatingDetectionEditFormGroup {
     cheatingDetection.executedBy = '';
     cheatingDetection.trainingInstanceId = this.trainingInstanceId;
     cheatingDetection.forbiddenCommands = this.formGroup.get('forbiddenCommands').value;
-    console.log(cheatingDetection);
     return cheatingDetection;
   }
 }

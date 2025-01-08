@@ -5,7 +5,7 @@ import { TrainingInstance } from '@muni-kypo-crp/training-model';
 /**
  * Training instance edit form group control
  */
-export class AdaptiveInstanceFormGroup {
+export class TrainingInstanceFormGroup {
   formGroup: UntypedFormGroup;
 
   constructor(trainingInstance: TrainingInstance) {
@@ -20,12 +20,33 @@ export class AdaptiveInstanceFormGroup {
         ]),
         localEnvironment: new UntypedFormControl(trainingInstance.localEnvironment),
         backwardMode: new UntypedFormControl(trainingInstance.backwardMode),
+        showStepperBar: new UntypedFormControl(trainingInstance.showStepperBar),
+        poolId: new UntypedFormControl(trainingInstance.poolId),
+        sandboxDefinitionId: new UntypedFormControl(trainingInstance.sandboxDefinitionId),
       },
-      { validators: this.dateSequenceValidator },
+      {
+        validators: [this.dateSequenceValidator, this.sandboxValidator],
+      },
     );
+
+    this.formGroup.get('localEnvironment').valueChanges.subscribe(() => {
+      this.onLocalEnvironmentChange();
+    });
+
+    this.formGroup.get('showStepperBar').valueChanges.subscribe((stepperbarEnabled) => {
+      if (stepperbarEnabled) {
+        this.formGroup.get('backwardMode').enable();
+      } else {
+        this.formGroup.get('backwardMode').setValue(false);
+        this.formGroup.get('backwardMode').disable();
+      }
+    });
   }
 
   disable(): void {
+    this.formGroup.get('showStepperBar').disable({ emitEvent: false });
+    this.formGroup.get('backwardMode').disable({ emitEvent: false });
+    this.formGroup.get('localEnvironment').disable({ emitEvent: false });
     this.formGroup.disable({ emitEvent: false });
     this.formGroup.get('title').enable({ emitEvent: false });
     const isExpired = this.formGroup.get('endTime').value
@@ -41,7 +62,7 @@ export class AdaptiveInstanceFormGroup {
     const startTime = control.get('startTime').value ? control.get('startTime').value : Date.now();
     const endTime = control.get('endTime').value;
     if (startTime && endTime && startTime.valueOf() > endTime.valueOf()) {
-      error = { startTimeAfterEndTime: true };
+      error = { c: true };
     }
     return error ? error : null;
   };
@@ -52,6 +73,19 @@ export class AdaptiveInstanceFormGroup {
       error = { dateInPast: true };
     }
     return error ? error : null;
+  };
+
+  /**
+   * Validator for pool and sandbox definition selection
+   * Verifies if either pool or sandbox definition is selected respectively to local environment
+   * @param control form control to be validated
+   */
+  private sandboxValidator: ValidatorFn = (control: UntypedFormGroup): ValidationErrors | null => {
+    const localEnvironment = control.get('localEnvironment').value;
+    if (!!localEnvironment) {
+      return !!control.get('sandboxDefinitionId').value ? null : { sandboxDefinitionRequired: true };
+    }
+    return !!control.get('poolId').value || !!control.get('sandboxDefinitionId').value ? null : { poolRequired: true };
   };
 
   /**
@@ -66,6 +100,14 @@ export class AdaptiveInstanceFormGroup {
     trainingInstance.accessToken = this.formGroup.get('accessTokenPrefix').value?.trim();
     trainingInstance.localEnvironment = this.formGroup.get('localEnvironment').value;
     trainingInstance.backwardMode = this.formGroup.get('backwardMode').value;
+    trainingInstance.sandboxDefinitionId = this.formGroup.get('sandboxDefinitionId').value;
+    trainingInstance.poolId = this.formGroup.get('poolId').value;
+    trainingInstance.showStepperBar = this.formGroup.get('showStepperBar').value;
+  }
+
+  private onLocalEnvironmentChange(): void {
+    this.formGroup.get('sandboxDefinitionId').setValue(null);
+    this.formGroup.get('poolId').setValue(null);
   }
 
   private getTokenPrefix(accessToken: string): string {

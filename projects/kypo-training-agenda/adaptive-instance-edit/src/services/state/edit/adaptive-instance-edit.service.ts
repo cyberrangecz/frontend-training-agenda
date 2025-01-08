@@ -1,9 +1,9 @@
-import { TrainingInstance } from '@muni-kypo-crp/training-model';
+import { TrainingDefinitionInfo, TrainingInstance } from '@muni-kypo-crp/training-model';
 import { BehaviorSubject, Observable, timer } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
 import { AdaptiveInstanceChangeEvent } from '../../../models/events/adaptive-instance-change-event';
 import { Pool, SandboxDefinition } from '@muni-kypo-crp/sandbox-model';
-import { PaginatedResource, OffsetPaginationEvent, OffsetPagination } from '@sentinel/common/pagination';
+import { OffsetPagination, OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
 
 /**
  * Layer between component and API service. Implement concrete service by extending this class.
@@ -19,6 +19,18 @@ export abstract class AdaptiveInstanceEditService {
   trainingInstance$: Observable<TrainingInstance> = this.trainingInstanceSubject$
     .asObservable()
     .pipe(filter((ti) => ti !== undefined && ti !== null));
+
+  protected releasedTrainingDefinitionsSubject: BehaviorSubject<PaginatedResource<TrainingDefinitionInfo>> =
+    new BehaviorSubject(this.initTrainingDefinitions(999));
+
+  releasedTrainingDefinitions$: Observable<PaginatedResource<TrainingDefinitionInfo>> =
+    this.releasedTrainingDefinitionsSubject.asObservable();
+
+  protected unreleasedTrainingDefinitionsSubject: BehaviorSubject<PaginatedResource<TrainingDefinitionInfo>> =
+    new BehaviorSubject(this.initTrainingDefinitions(999));
+
+  unreleasedTrainingDefinitions$: Observable<PaginatedResource<TrainingDefinitionInfo>> =
+    this.unreleasedTrainingDefinitionsSubject.asObservable();
 
   protected poolsSubject$: BehaviorSubject<PaginatedResource<Pool>> = new BehaviorSubject(this.initPools(999));
 
@@ -90,11 +102,20 @@ export abstract class AdaptiveInstanceEditService {
    */
   abstract sandboxDefinitionSelectionChange(sandboxDefinitionId: number): void;
 
+  abstract getAllTrainingDefinitions(
+    OffsetPaginationEvent: OffsetPaginationEvent,
+    stateFilter: string,
+  ): Observable<PaginatedResource<TrainingDefinitionInfo>>;
+
   abstract getAllPools(OffsetPaginationEvent: OffsetPaginationEvent): Observable<PaginatedResource<Pool>>;
 
   abstract getAllSandboxDefinitions(
     OffsetPaginationEvent: OffsetPaginationEvent,
   ): Observable<PaginatedResource<SandboxDefinition>>;
+
+  protected initTrainingDefinitions(pageSize: number): PaginatedResource<TrainingDefinitionInfo> {
+    return new PaginatedResource([], new OffsetPagination(0, 0, pageSize, 0, 0));
+  }
 
   protected initPools(pageSize: number): PaginatedResource<Pool> {
     return new PaginatedResource([], new OffsetPagination(0, 0, pageSize, 0, 0));

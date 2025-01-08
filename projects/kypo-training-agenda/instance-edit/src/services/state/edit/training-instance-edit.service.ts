@@ -1,9 +1,9 @@
-import { TrainingDefinition, TrainingDefinitionInfo, TrainingInstance } from '@muni-kypo-crp/training-model';
+import { TrainingDefinitionInfo, TrainingInstance } from '@muni-kypo-crp/training-model';
 import { BehaviorSubject, Observable, timer } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
 import { TrainingInstanceChangeEvent } from '../../../model/events/training-instance-change-event';
 import { Pool, SandboxDefinition } from '@muni-kypo-crp/sandbox-model';
-import { PaginatedResource, OffsetPaginationEvent, OffsetPagination } from '@sentinel/common/pagination';
+import { OffsetPagination, OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
 
 /**
  * Layer between component and API service. Implement concrete service by extending this class.

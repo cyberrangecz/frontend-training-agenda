@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, HostListener, Inject, inject, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
+import { ChangeDetectionStrategy, Component, DestroyRef, HostListener, inject, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { OffsetPaginationEvent } from '@sentinel/common/pagination';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { TrainingDefinitionInfo, TrainingInstance } from '@muni-kypo-crp/training-model';
-import { combineLatestWith, mergeAll, Observable, switchMap } from 'rxjs';
-import { combineLatest, filter, map, take, tap } from 'rxjs/operators';
+import { combineLatestWith, Observable, switchMap } from 'rxjs';
+import { filter, map, take } from 'rxjs/operators';
 import { TrainingInstanceEditControls } from '../model/adapter/training-instance-edit-controls';
 import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
 import { TrainingInstanceChangeEvent } from '../model/events/training-instance-change-event';
@@ -41,15 +41,12 @@ export class TrainingInstanceEditOverviewComponent implements OnInit {
   tiTitle$: Observable<string>;
   instanceValid$: Observable<boolean>;
   canDeactivateOrganizers = true;
-  canDeactivatePoolAssign = true;
-  canDeactivateSandboxDefinitionAssign = true;
   canDeactivateTIEdit = true;
   defaultPaginationSize: number;
   controls: SentinelControlItem[];
   destroyRef = inject(DestroyRef);
 
   constructor(
-    private router: Router,
     private activeRoute: ActivatedRoute,
     private paginationService: PaginationService,
     private editService: TrainingInstanceEditService,
@@ -104,8 +101,6 @@ export class TrainingInstanceEditOverviewComponent implements OnInit {
 
   onControlsAction(control: SentinelControlItem): void {
     this.canDeactivateTIEdit = true;
-    this.canDeactivatePoolAssign = true;
-    this.canDeactivateSandboxDefinitionAssign = true;
     control.result$.pipe(take(1)).subscribe();
   }
 
@@ -114,12 +109,7 @@ export class TrainingInstanceEditOverviewComponent implements OnInit {
    * @returns true if saved all his changes, false otherwise
    */
   canDeactivate(): boolean {
-    return (
-      this.canDeactivateTIEdit &&
-      this.canDeactivateOrganizers &&
-      this.canDeactivatePoolAssign &&
-      this.canDeactivateSandboxDefinitionAssign
-    );
+    return this.canDeactivateTIEdit && this.canDeactivateOrganizers;
   }
 
   /**

@@ -22,6 +22,7 @@ mat-form-field {
 }
 
 .slide-toggle-container {
+  margin-top: 0.25rem;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -33,13 +34,18 @@ mat-form-field {
 
 .slide-toggle-container mat-slide-toggle {
   margin: 0.5rem;
+  height: fit-content;
+}
+
+/* Override needed to increase combobox options height */
+::ng-deep div[role=listbox] {
+  max-height: 24rem;
 }
 
 .form-line {
 	display: flex;
 	flex-direction: row;
 }
-
 
 .form-line p {
 	width: 100%;
@@ -62,6 +68,23 @@ button.main {
 	margin-bottom: 15px;
 }
 
+.subtext-link {
+  width: fit-content;
+}
+
+.training-definition-select--margin {
+  margin-bottom: 40px;
+}
+
+.resource-select__bottom_text{
+  padding: 0 1rem;
+  font-size: 12px;
+  margin-bottom: 15px;
+}
+
+.resource-select__bottom_text--error {
+  color: var(--app-error-40);
+}
 
 
 @media screen and (max-width: 800px) {

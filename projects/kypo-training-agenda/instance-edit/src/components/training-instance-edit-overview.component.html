@@ -9,7 +9,7 @@
       </ng-template>
       <mat-panel-description>
         <span class="spacer"></span>
-        <div class="panel-description-error" *ngIf="!(canDeactivateTIEdit && canDeactivatePoolAssign)">
+        <div class="panel-description-error" *ngIf="!canDeactivateTIEdit">
           <mat-icon color="warn">warning</mat-icon>
           <mat-error>Changes are not saved</mat-error>
         </div>
