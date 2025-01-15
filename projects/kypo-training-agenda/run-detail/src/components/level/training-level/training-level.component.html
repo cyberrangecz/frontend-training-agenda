@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="level-content">
+  <div #levelContent class="level-content">
 <!-- LEVEL TEXT CONTENT -->
     <div #leftPanel
       class="left-panel round-scrollbar window-height-bound"
@@ -24,7 +24,7 @@
       class="right-panel"
     >
       @if (this.sandboxInstanceId || this.sandboxDefinitionId) {
-        <div #topologyContainer class="topology-container window-height-bound">
+        <div class="topology-container window-height-bound">
           <kypo-topology-graph
             class="topology"
             [width]="topologyWidth | async"

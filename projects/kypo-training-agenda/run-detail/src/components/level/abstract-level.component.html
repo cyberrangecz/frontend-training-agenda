@@ -2,7 +2,9 @@
   <h1
   class="level-title"
   >{{ level?.title }}</h1>
-  <kypo-training-timer class="timer" *ngIf="startTime" [startTime]="startTime"/>
+  <kypo-training-timer
+    matTooltip="Time since the start of the run"
+    class="timer" *ngIf="startTime" [startTime]="startTime"/>
 </div>
 <ng-container [ngSwitch]="level?.type">
   <kypo-assessment-level *ngSwitchCase="levelTypes.Assessment"

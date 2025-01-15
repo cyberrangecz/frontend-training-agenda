@@ -1,4 +1,4 @@
-@import "../../next-level-button/next-level-button.css";
+@import "../next-level-button/next-level-button.css";
 
 .container {
   display: flex;
@@ -40,7 +40,7 @@
   overflow-y: auto;
   scroll-behavior: smooth;
   margin-left: 3rem;
-  padding-right: 1rem;
+  margin-right: 1rem;
   min-width: 20%;
   width: 60%;
 }
@@ -66,7 +66,7 @@
   padding-bottom: -2rem;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
   min-width: fit-content;
 }
@@ -75,7 +75,6 @@
   padding: 0.25rem;
   border-radius: 0.5rem;
   border: 1px solid gainsboro;
-  z-index: 10000;
 }
 
 kypo-topology-graph {
