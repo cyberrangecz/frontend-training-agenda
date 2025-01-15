@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export abstract class TopologyShareService {
+export abstract class TopologySizeSynchronizerService {
   /**
    * Notify everyone that the topology size has changed
    *

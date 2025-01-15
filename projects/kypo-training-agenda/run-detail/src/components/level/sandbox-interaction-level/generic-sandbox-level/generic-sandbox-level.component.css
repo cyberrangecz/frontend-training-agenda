@@ -1,4 +1,4 @@
-@import "../next-level-button/next-level-button.css";
+@import "../../next-level-button/next-level-button.css";
 
 .container {
   display: flex;
@@ -22,93 +22,29 @@
   height: calc(100vh - 32rem);
 }
 
-.vertical-drag-handle{
-  z-index: 1000;
-  cursor: w-resize;
-  width: 2px;
-  border-width: 2px;
-  border-radius: 1px;
-  margin-right: 1rem;
-  margin-left: 0.5rem;
-}
-
 /* Text */
-
 .left-panel {
   display: flex;
   flex-direction: column;
   overflow-y: auto;
   scroll-behavior: smooth;
   margin-left: 3rem;
-  margin-right: 1rem;
-  min-width: 20%;
-  width: 60%;
+  padding-right: 1rem;
+  width: 100%;
 }
 
 
 /* Topology */
-
 .right-panel {
-  height: fit-content;
   min-height: 275px;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   justify-content: flex-start;
   position: relative;
-  width: 40%;
-  min-width: 510px;
-}
-
-.topology-container {
   width: 100%;
-  min-height: 275px;
-  padding-bottom: -2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-width: fit-content;
 }
 
-.topology {
-  padding: 0.25rem;
-  border-radius: 0.5rem;
-  border: 1px solid gainsboro;
-}
-
-kypo-topology-graph {
-  border: 1px solid gainsboro;
-}
-
-.topology-placeholder {
-  border: 1px solid gainsboro;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-}
-
-.topology-placeholder__image {
-  width: 100%;
-  height: 100%;
-}
-
-.placeholder-message {
-  color: #999999;
-  padding-left: 5px;
-  margin-bottom: -2rem !important;
-  z-index: 1;
-}
-
-.ssh-button {
-  position: absolute;
-  bottom: -0.5rem;
-  right: 1rem;
-  z-index: 1;
-}
 
 /* Breakpoint for wrapping avatar */
 @media screen and (max-width: 1400px) {

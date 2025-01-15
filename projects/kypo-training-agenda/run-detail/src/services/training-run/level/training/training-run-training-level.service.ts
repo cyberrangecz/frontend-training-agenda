@@ -152,8 +152,8 @@ export abstract class TrainingRunTrainingLevelService {
       additionalInfo: [
         'You have submitted an incorrect answer.',
         this.isSolutionRevealedSubject$.getValue() || answerCheck.remainingAttempts <= 0
-          ? `You have ${answerCheck.remainingAttempts} remaining attempts.`
-          : 'Please insert the answer according to revealed solution.',
+          ? 'Please insert the answer according to revealed solution.'
+          : `You have ${answerCheck.remainingAttempts} remaining attempts.`,
       ],
     };
     return this.notificationService

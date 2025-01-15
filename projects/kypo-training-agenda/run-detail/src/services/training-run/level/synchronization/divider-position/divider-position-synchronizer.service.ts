@@ -16,4 +16,9 @@ export abstract class DividerPositionSynchronizerService {
    * Get observable of the divider position
    */
   public abstract getDividerPosition$(): Observable<number>;
+
+  /**
+   * Get the current divider position
+   */
+  public abstract getDividerPosition(): number;
 }
