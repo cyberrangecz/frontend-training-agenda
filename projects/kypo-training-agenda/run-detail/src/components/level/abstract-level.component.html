@@ -4,6 +4,7 @@
   >{{ level?.title }}</h1>
   <kypo-training-timer
     matTooltip="Time since the start of the run"
+    matTooltipPosition="above"
     class="timer" *ngIf="startTime" [startTime]="startTime"/>
 </div>
 <ng-container [ngSwitch]="level?.type">

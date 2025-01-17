@@ -3,6 +3,7 @@
     class="phase-title"
   >{{ phase?.title }}</h1>
   <kypo-training-timer
+    matTooltipPosition="above"
     matTooltip="Time since the start of the run"
     class="timer" *ngIf="startTime" [startTime]="startTime"/>
 </div>

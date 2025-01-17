@@ -93,4 +93,6 @@ export class GenericSandboxPhaseComponent implements AfterViewInit, OnChanges {
       this.rightPanel.nativeElement.getBoundingClientRect().height,
     ]);
   }
+
+  protected readonly window = window;
 }

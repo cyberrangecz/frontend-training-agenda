@@ -3,16 +3,21 @@
       'content-height-with-stepper' :
       'content-height-without-stepper'}}"
   >
-    <kypo-split-container
-      class="split-container"
-      [leftPanelContent]="leftPanelContent"
-      [rightPanelContent]="rightPanelContent"
-      [leftPanelMinWidth]="'20%'"
-      [rightPanelMinWidth]="'510px'"
-      [defaultRatio]="0.6"
-      [dividerPositionSynchronizer]="dividerPositionSynchronizer"
-      (rightPanelWidth)="emitTopologySizeChange()"
-    />
+    @if(window.innerWidth > 1400){
+      <kypo-split-container
+        class="split-container"
+        [leftPanelContent]="leftPanelContent"
+        [rightPanelContent]="rightPanelContent"
+        [leftPanelMinWidth]="'20%'"
+        [rightPanelMinWidth]="'510px'"
+        [defaultRatio]="0.6"
+        [dividerPositionSynchronizer]="dividerPositionSynchronizer"
+        (rightPanelWidth)="emitTopologySizeChange()"
+      />
+    } @else {
+      <ng-container [ngTemplateOutlet]="leftPanelContent"/>
+      <ng-container [ngTemplateOutlet]="rightPanelContent"/>
+    }
   </div>
   @if ((isLoading | async) === false){
     @if ((isCorrectAnswerSubmitted$ | async) || isBacktracked) {

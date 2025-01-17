@@ -71,20 +71,23 @@
     height: auto;
   }
 
-  .right-panel {
-    width: 100%;
+  .content-height-with-stepper, .content-height-without-stepper {
+    max-height: unset;
   }
 
   .left-panel {
-    width: 100%;
-    height: fit-content;
-    margin-right: 0;
-    overflow-y: hidden;
     padding: 0;
+    margin: 0;
   }
 
-  .content-height-with-stepper, .content-height-without-stepper {
-    max-height: unset;
+  .right-panel {
+    aspect-ratio: 1.25;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .right-panel {
+    aspect-ratio: 1;
   }
 }
 
@@ -99,11 +102,13 @@
   }
 
   .left-panel {
-    width: 100%;
     padding: 0;
+    margin: 0;
   }
 
   .right-panel {
-    width: 100%;
+    padding: 0;
+    margin: 0;
+    aspect-ratio: 0.75;
   }
 }
