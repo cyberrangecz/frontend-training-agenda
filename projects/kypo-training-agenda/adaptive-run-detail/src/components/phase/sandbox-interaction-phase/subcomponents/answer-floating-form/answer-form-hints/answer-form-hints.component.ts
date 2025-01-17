@@ -2,11 +2,11 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'kypo-adaptive-answer-form-hints',
-  templateUrl: './adaptive-answer-form-hints.component.html',
-  styleUrl: './adaptive-answer-form-hints.component.css',
+  selector: 'kypo-answer-form-hints',
+  templateUrl: './answer-form-hints.component.html',
+  styleUrl: './answer-form-hints.component.css',
 })
-export class AdaptiveAnswerFormHintsComponent {
+export class AnswerFormHintsComponent {
   @Input({ required: true }) isSolutionRevealed$: Observable<boolean>;
   @Input({ required: true }) isLoading$: Observable<boolean>;
 

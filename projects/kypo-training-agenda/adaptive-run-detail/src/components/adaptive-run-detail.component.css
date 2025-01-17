@@ -11,24 +11,6 @@
   overflow: auto;
 }
 
-.right-panel {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  align-self: flex-end;
-}
-
-.right-panel--row-layout {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.message {
-  color: #999999;
-}
-
 
 @media screen and (max-width: 1400px) {
   .header {

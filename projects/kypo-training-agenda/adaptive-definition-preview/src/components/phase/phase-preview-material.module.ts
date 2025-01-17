@@ -42,4 +42,4 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatCardModule,
   ],
 })
-export class PhaseMaterialModule {}
+export class PhasePreviewMaterialModule {}

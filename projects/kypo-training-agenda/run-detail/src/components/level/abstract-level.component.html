@@ -19,6 +19,7 @@
                    [isLast]=isLast
                    [isLevelAnswered]="isLevelAnswered"
                    [isBacktracked]="isBacktracked"
+                   [isStepperDisplayed]="isStepperDisplayed"
                    [sandboxInstanceId]="sandboxInstanceId"
                    [sandboxDefinitionId]="sandboxDefinitionId"
                    (next)="onNext()">
@@ -32,6 +33,7 @@
   <kypo-access-level *ngSwitchCase="levelTypes.Access"
                    [level]="level"
                    [isBacktracked]="isBacktracked"
+                   [isStepperDisplayed]="isStepperDisplayed"
                    [sandboxInstanceId]="sandboxInstanceId"
                    [sandboxDefinitionId]="sandboxDefinitionId"
                    [localEnvironment]="localEnvironment"

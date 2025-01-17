@@ -6,12 +6,20 @@ import { PhaseMaterialModule } from './phase-material.module';
 import { AbstractPhaseComponent } from './abstract-phase.component';
 import { InfoPhaseComponent } from './info-phase/info-phase.component';
 import { QuestionnairePhaseComponent } from './questionnaire-phase/questionnaire-phase.component';
-import { TrainingPhaseComponent } from './training-phase/training-phase.component';
-import { AccessPhaseComponent } from './access-phase/access-phase.component';
+import { TrainingPhaseComponent } from './sandbox-interaction-phase/training-phase/training-phase.component';
+import { AccessPhaseComponent } from './sandbox-interaction-phase/access-phase/access-phase.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MarkedOptions, SentinelMarkdownViewModule } from '@sentinel/components/markdown-view';
-import { AdaptiveFloatingAnswerFormComponent } from '../answer-floating-form/adaptive-floating-answer-form.component';
-import { AdaptiveAnswerFormHintsComponent } from '../answer-floating-form/answer-form-hints/adaptive-answer-form-hints.component';
+import { GenericSandboxPhaseComponent } from './sandbox-interaction-phase/generic-sandbox-phase/generic-sandbox-phase.component';
+import { FloatingAnswerFormComponent } from './sandbox-interaction-phase/subcomponents/answer-floating-form/floating-answer-form.component';
+import { AnswerFormHintsComponent } from './sandbox-interaction-phase/subcomponents/answer-floating-form/answer-form-hints/answer-form-hints.component';
+import { SplitContainerComponent } from './sandbox-interaction-phase/subcomponents/split-container/split-container.component';
+import { TopologyWrapperComponent } from './sandbox-interaction-phase/subcomponents/topology-wrapper/topology-wrapper.component';
+import { TrainingTimerComponent } from './training-timer/training-timer.component';
+import { DividerPositionSynchronizerService } from '../../services/adaptive-run/synchronization/divider-position/divider-position-synchronizer.service';
+import { PersistentDividerPositionSynchronizerService } from '../../services/adaptive-run/synchronization/divider-position/persistent-divider-position-synchronizer.service';
+import { TopologySizeSynchronizerService } from '../../services/adaptive-run/synchronization/topology-size/topology-size-synchronizer.service';
+import { TopologySizeSynchronizerConcreteService } from '../../services/adaptive-run/synchronization/topology-size/topology-size-synchronizer-concrete.service';
 
 const markdownParserConfig = {
   markedOptions: {
@@ -44,18 +52,25 @@ const markdownParserConfig = {
     InfoPhaseComponent,
     TrainingPhaseComponent,
     AccessPhaseComponent,
+    GenericSandboxPhaseComponent,
     QuestionnairePhaseComponent,
-    AdaptiveAnswerFormHintsComponent,
-    AdaptiveFloatingAnswerFormComponent,
+    FloatingAnswerFormComponent,
+    TopologyWrapperComponent,
+    AnswerFormHintsComponent,
+    SplitContainerComponent,
+    TrainingTimerComponent,
   ],
   exports: [
     AbstractPhaseComponent,
     InfoPhaseComponent,
     TrainingPhaseComponent,
     AccessPhaseComponent,
+    GenericSandboxPhaseComponent,
     QuestionnairePhaseComponent,
-    AdaptiveAnswerFormHintsComponent,
-    AdaptiveFloatingAnswerFormComponent,
+  ],
+  providers: [
+    { provide: DividerPositionSynchronizerService, useClass: PersistentDividerPositionSynchronizerService },
+    { provide: TopologySizeSynchronizerService, useClass: TopologySizeSynchronizerConcreteService },
   ],
 })
 export class PhaseComponentsModule {}

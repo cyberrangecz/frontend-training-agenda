@@ -11,7 +11,7 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { delay, take } from 'rxjs/operators';
 import { HintButton } from '@muni-kypo-crp/training-agenda/internal';
 import { Hint, TrainingLevel } from '@muni-kypo-crp/training-model';
@@ -30,18 +30,17 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
  * before he can continue to the next level. User can optionally take hints.
  */
 export class TrainingLevelComponent implements OnChanges {
-  @Input() level: TrainingLevel;
+  @Input({ required: true }) level: TrainingLevel;
   @Input() isLast: boolean;
   @Input() isLevelAnswered: boolean;
   @Input() isBacktracked: boolean;
+  @Input() isStepperDisplayed: boolean;
   @Input() sandboxInstanceId: string;
   @Input() sandboxDefinitionId: number;
   @Output() next: EventEmitter<void> = new EventEmitter();
 
   @ViewChild('rightPanel') rightPanel: ElementRef<HTMLDivElement>;
 
-  topologyWidth: BehaviorSubject<number> = new BehaviorSubject(undefined);
-  topologyHeight: BehaviorSubject<number> = new BehaviorSubject(undefined);
   displayedHintsContent$: Observable<string>;
   isCorrectAnswerSubmitted$: Observable<boolean>;
   isSolutionRevealed$: Observable<boolean>;

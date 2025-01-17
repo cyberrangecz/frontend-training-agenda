@@ -11,31 +11,31 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { AccessLevel } from '@muni-kypo-crp/training-model';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { AccessPhase } from '@muni-kypo-crp/training-model';
+import { Observable, of } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { TrainingRunAccessLevelService } from '../../../../services/training-run/level/access/training-run-access-level.service';
-import { TrainingRunAccessLevelConcreteService } from '../../../../services/training-run/level/access/training-run-access-level-concrete.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { AdaptiveRunAccessPhaseService } from '../../../../services/adaptive-run/access-phase/adaptive-run-access-phase.service';
+import { AdaptiveRunAccessPhaseConcreteService } from '../../../../services/adaptive-run/access-phase/adaptive-run-access-phase-concrete.service';
 
 @Component({
-  selector: 'kypo-access-level',
-  templateUrl: './access-level.component.html',
+  selector: 'kypo-access-phase',
+  templateUrl: './access-phase.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [{ provide: TrainingRunAccessLevelService, useClass: TrainingRunAccessLevelConcreteService }],
+  providers: [{ provide: AdaptiveRunAccessPhaseService, useClass: AdaptiveRunAccessPhaseConcreteService }],
 })
 /**
  * Component to display training run's level of type ACCESS. Only displays markdown and allows user to continue immediately.
  */
-export class AccessLevelComponent implements OnChanges {
-  @Input({ required: true }) level: AccessLevel;
+export class AccessPhaseComponent implements OnChanges {
+  @Input({ required: true }) phase: AccessPhase;
   @Input() isLast: boolean;
-  @Input() isLevelAnswered: boolean;
+  @Input() isPhaseAnswered: boolean;
   @Input() isBacktracked: boolean;
   @Input() isStepperDisplayed: boolean;
+  @Input() localEnvironment: boolean;
   @Input() sandboxInstanceId: string;
   @Input() sandboxDefinitionId: number;
-  @Input() localEnvironment: boolean;
   @Output() next: EventEmitter<void> = new EventEmitter();
 
   @ViewChild('rightPanel') rightPanel: ElementRef<HTMLDivElement>;
@@ -44,13 +44,13 @@ export class AccessLevelComponent implements OnChanges {
   isLoading$: Observable<boolean>;
   destroyRef = inject(DestroyRef);
 
-  constructor(protected accessLevelService: TrainingRunAccessLevelService) {}
+  constructor(protected accessPhaseService: AdaptiveRunAccessPhaseService) {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    if ('level' in changes) {
-      this.accessLevelService.init(this.isLevelAnswered);
-      this.isCorrectPasskeySubmitted$ = this.accessLevelService.isCorrectPasskeySubmitted$;
-      this.isLoading$ = this.accessLevelService.isLoading$;
+    if ('phase' in changes) {
+      this.accessPhaseService.init(this.isPhaseAnswered);
+      this.isCorrectPasskeySubmitted$ = this.accessPhaseService.isCorrectPasskeySubmitted$;
+      this.isLoading$ = this.accessPhaseService.isLoading$;
     }
   }
 
@@ -65,14 +65,14 @@ export class AccessLevelComponent implements OnChanges {
    * Calls service to check whether the passkey is correct
    */
   onAnswerSubmitted(answer: string): void {
-    this.accessLevelService.submitPasskey(answer).pipe(take(1)).subscribe();
+    this.accessPhaseService.submitPasskey(answer).pipe(take(1)).subscribe();
   }
 
   /**
    * Calls service to download access configuration file
    */
   onAccessFileRequested(): void {
-    this.accessLevelService.getAccessFile().pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
+    this.accessPhaseService.getAccessFile().pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
   }
 
   protected readonly of = of;

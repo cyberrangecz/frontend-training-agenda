@@ -1,4 +1,20 @@
+.phase-header {
+  display: flex;
+  flex-direction: row;
+  justify-items: stretch;
+  align-items: stretch;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.timer {
+  text-align: right;
+  width: 15rem;
+}
+
 .phase-title {
+  margin-left: 15rem !important;
+  width: 100%;
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 2rem !important;
 }

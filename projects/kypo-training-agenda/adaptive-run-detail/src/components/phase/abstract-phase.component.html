@@ -1,8 +1,14 @@
-<h1
-  class="phase-title"
->{{ phase?.title }}</h1>
+<div class="phase-header">
+  <h1
+    class="phase-title"
+  >{{ phase?.title }}</h1>
+  <kypo-training-timer
+    matTooltip="Time since the start of the run"
+    class="timer" *ngIf="startTime" [startTime]="startTime"/>
+</div>
 <ng-container [ngSwitch]="phase?.type">
-  <kypo-questionnaire-phase *ngSwitchCase="phaseTypes.Questionnaire"
+  <kypo-questionnaire-phase
+    *ngSwitchCase="phaseTypes.Questionnaire"
                             [phase]="phase"
                             [isBacktracked]="isBacktracked"
                             [isLast]=isLast
@@ -13,6 +19,7 @@
                        [phase]="phase"
                        [isLast]=isLast
                        [isBacktracked]="isBacktracked"
+                       [isStepperDisplayed]="isStepperDisplayed"
                        [sandboxInstanceId]="sandboxInstanceId"
                        [sandboxDefinitionId]="sandboxDefinitionId"
                        [isPhaseAnswered]="isPhaseAnswered"
@@ -28,6 +35,7 @@
                      [phase]="phase"
                      [isLast]=isLast
                      [isBacktracked]="isBacktracked"
+                     [isStepperDisplayed]="isStepperDisplayed"
                      [sandboxInstanceId]="sandboxInstanceId"
                      [sandboxDefinitionId]="sandboxDefinitionId"
                      [localEnvironment]="localEnvironment"

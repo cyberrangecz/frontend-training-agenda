@@ -10,10 +10,6 @@
     >
     </sentinel-stepper>
   </div>
-  <div class="right-panel {{!(isStepperDisplayed && stepper?.items) ? 'right-panel--row-layout' : ''}}">
-    <sentinel-user-card [user]="user$ | async"/>
-    <kypo-training-timer *ngIf="isTimerDisplayed && startTime" [startTime]="startTime"/>
-  </div>
 </div>
 
 <ng-container *ngIf="activePhase$ | async as activePhase">
@@ -28,6 +24,8 @@
     [sandboxDefinitionId]="sandboxDefinitionId"
     [localEnvironment]="localEnvironment"
     [isBacktracked]="false"
+    [isStepperDisplayed]="isStepperDisplayed"
+    [startTime]="startTime"
     (next)="next()"
   >
   </kypo-abstract-phase>
@@ -40,6 +38,8 @@
     [sandboxDefinitionId]="sandboxDefinitionId"
     [localEnvironment]="localEnvironment"
     [isBacktracked]="true"
+    [isStepperDisplayed]="isStepperDisplayed"
+    [startTime]="startTime"
     (next)="this.activeStepChanged(this.stepper.activePhaseIndex + 1)"
   >
   </kypo-abstract-phase>

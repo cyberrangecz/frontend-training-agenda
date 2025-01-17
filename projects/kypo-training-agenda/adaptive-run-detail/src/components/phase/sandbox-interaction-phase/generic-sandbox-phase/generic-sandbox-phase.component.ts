@@ -13,31 +13,30 @@ import {
   TemplateRef,
   ViewChild,
 } from '@angular/core';
-import { AnswerFormHintsComponent } from '../subcomponents/answer-floating-form/answer-form-hints/answer-form-hints.component';
 import { Observable, of } from 'rxjs';
-import { DividerPositionSynchronizerService } from '../../../../services/training-run/level/synchronization/divider-position/divider-position-synchronizer.service';
-import { TopologySizeSynchronizerService } from '../../../../services/training-run/level/synchronization/topology-size/topology-size-synchronizer.service';
+import { DividerPositionSynchronizerService } from '../../../../services/adaptive-run/synchronization/divider-position/divider-position-synchronizer.service';
+import { TopologySizeSynchronizerService } from '../../../../services/adaptive-run/synchronization/topology-size/topology-size-synchronizer.service';
+import { AnswerFormHintsComponent } from '../../../../../../run-detail/src/components/level/sandbox-interaction-level/subcomponents/answer-floating-form/answer-form-hints/answer-form-hints.component';
 
 @Component({
-  selector: 'kypo-generic-sandbox-level',
-  templateUrl: './generic-sandbox-level.component.html',
-  styleUrl: './generic-sandbox-level.component.css',
+  selector: 'kypo-generic-sandbox-phase',
+  templateUrl: './generic-sandbox-phase.component.html',
+  styleUrl: './generic-sandbox-phase.component.css',
 })
-export class GenericSandboxLevelComponent implements AfterViewInit, OnChanges {
+export class GenericSandboxPhaseComponent implements AfterViewInit, OnChanges {
   @Input({ required: true }) levelContent: string;
 
   @Input() isLast: boolean;
   @Input() isBacktracked: boolean;
   @Input() isStepperDisplayed: boolean;
   @Input() isLoading: Observable<boolean> = of(false);
-  @Input() isCorrectAnswerSubmitted$: Observable<boolean> = of(false);
   @Input() isSolutionRevealed$: Observable<boolean> = of(false);
+  @Input() isCorrectAnswerSubmitted$: Observable<boolean> = of(false);
 
   @Input() sandboxInstanceId: string;
   @Input() sandboxDefinitionId: number;
 
   @Input() displayedSolutionContent$: Observable<string> = of();
-  @Input() displayedHintsContent$: Observable<string> = of();
   @Input() hints!: TemplateRef<AnswerFormHintsComponent>;
 
   @Output() getAccessFile: EventEmitter<void> = new EventEmitter();

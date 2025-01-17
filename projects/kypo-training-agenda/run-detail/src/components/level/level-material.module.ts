@@ -10,9 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { TrainingTimerComponent } from './training-timer/training-timer.component';
 import { AsyncPipe, NgTemplateOutlet } from '@angular/common';
-import { SplitContainerComponent } from './sandbox-interaction-level/subcomponents/split-container/split-container.component';
 
 /**
  * Material component imports for training run level module
@@ -47,9 +45,6 @@ import { SplitContainerComponent } from './sandbox-interaction-level/subcomponen
     MatProgressSpinnerModule,
     MatCardModule,
     MatDividerModule,
-    TrainingTimerComponent,
-    SplitContainerComponent,
   ],
-  declarations: [TrainingTimerComponent, SplitContainerComponent],
 })
 export class LevelMaterialModule {}

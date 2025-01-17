@@ -18,6 +18,12 @@ import { FloatingAnswerFormComponent } from './sandbox-interaction-level/subcomp
 import { AnswerFormHintsComponent } from './sandbox-interaction-level/subcomponents/answer-floating-form/answer-form-hints/answer-form-hints.component';
 import { TopologyWrapperComponent } from './sandbox-interaction-level/subcomponents/topology-wrapper/topology-wrapper.component';
 import { GenericSandboxLevelComponent } from './sandbox-interaction-level/generic-sandbox-level/generic-sandbox-level.component';
+import { SplitContainerComponent } from './sandbox-interaction-level/subcomponents/split-container/split-container.component';
+import { TrainingTimerComponent } from './training-timer/training-timer.component';
+import { DividerPositionSynchronizerService } from '../../services/training-run/level/synchronization/divider-position/divider-position-synchronizer.service';
+import { PersistentDividerPositionSynchronizerService } from '../../services/training-run/level/synchronization/divider-position/persistent-divider-position-synchronizer.service';
+import { TopologySizeSynchronizerService } from '../../services/training-run/level/synchronization/topology-size/topology-size-synchronizer.service';
+import { TopologySizeSynchronizerConcreteService } from '../../services/training-run/level/synchronization/topology-size/topology-size-synchronizer-concrete.service';
 
 const markdownParserConfig = {
   markedOptions: {
@@ -44,7 +50,6 @@ const markdownParserConfig = {
     FormsModule,
     LevelMaterialModule,
     MatToolbarModule,
-    TopologyWrapperComponent,
   ],
   declarations: [
     AbstractLevelComponent,
@@ -58,7 +63,10 @@ const markdownParserConfig = {
     ExtendedMatchingItemsTraineeComponent,
     FloatingAnswerFormComponent,
     AnswerFormHintsComponent,
+    SplitContainerComponent,
     GenericSandboxLevelComponent,
+    TopologyWrapperComponent,
+    TrainingTimerComponent,
   ],
   exports: [
     AbstractLevelComponent,
@@ -70,9 +78,10 @@ const markdownParserConfig = {
     FreeFormQuestionTraineeComponent,
     MultipleChoiceQuestionTraineeComponent,
     ExtendedMatchingItemsTraineeComponent,
-    FloatingAnswerFormComponent,
-    AnswerFormHintsComponent,
   ],
-  providers: [],
+  providers: [
+    { provide: DividerPositionSynchronizerService, useClass: PersistentDividerPositionSynchronizerService },
+    { provide: TopologySizeSynchronizerService, useClass: TopologySizeSynchronizerConcreteService },
+  ],
 })
 export class LevelComponentsModule {}

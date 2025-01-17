@@ -17,9 +17,21 @@
   height: fit-content;
 }
 
-.window-height-bound {
+.content-height-with-stepper {
   max-height: calc(100vh - 32rem);
   height: calc(100vh - 32rem);
+}
+
+.content-height-without-stepper {
+  max-height: calc(100vh - 32rem + 90px);
+  height: calc(100vh - 32rem + 90px);
+}
+
+.split-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
 }
 
 /* Text */
@@ -31,6 +43,7 @@
   margin-left: 3rem;
   padding-right: 1rem;
   width: 100%;
+  height: 100%;
 }
 
 
@@ -43,6 +56,7 @@
   justify-content: flex-start;
   position: relative;
   width: 100%;
+  height: 100%;
 }
 
 
@@ -69,7 +83,7 @@
     padding: 0;
   }
 
-  .window-height-bound {
+  .content-height-with-stepper, .content-height-without-stepper {
     max-height: unset;
   }
 }

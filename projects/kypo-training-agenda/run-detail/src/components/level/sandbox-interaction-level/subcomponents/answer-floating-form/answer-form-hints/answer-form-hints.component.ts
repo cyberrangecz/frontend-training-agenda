@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HintButton } from '@muni-kypo-crp/training-agenda/internal';
-import { Hint, TrainingLevel } from '@muni-kypo-crp/training-model';
+import { Hint } from '@muni-kypo-crp/training-model';
 
 @Component({
   selector: 'kypo-answer-form-hints',

@@ -12,99 +12,51 @@
   display: flex;
   flex-direction: row;
   width: 90%;
+  max-width: 90%;
   padding: 0 2rem 0 2rem;
   height: fit-content;
 }
 
-.window-height-bound {
-  max-height: calc(100vh - 38rem);
+.content-height-with-stepper {
+  max-height: calc(100vh - 32rem);
+  height: calc(100vh - 32rem);
 }
 
+.content-height-without-stepper {
+  max-height: calc(100vh - 32rem + 90px);
+  height: calc(100vh - 32rem + 90px);
+}
+
+.split-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+}
 
 /* Text */
-
 .left-panel {
-  width: 60%;
   display: flex;
   flex-direction: column;
-  margin-right: 2rem;
-  padding: 0 1rem 2rem 6rem;
-  margin-top: -1rem;
   overflow-y: auto;
-  margin-bottom: 3rem;
   scroll-behavior: smooth;
+  margin-left: 3rem;
+  padding-right: 1rem;
+  width: 100%;
+  height: 100%;
 }
 
-markdown ::ng-deep img {
-  max-width: 100%;
-  display: block;
-  margin: 0 auto;
-}
-
-markdown ::ng-deep pre {
-  white-space: pre-wrap;
-  overflow-wrap: break-word;
-}
 
 /* Topology */
-
 .right-panel {
-  width: 40%;
-  height: fit-content;
   min-height: 275px;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   justify-content: flex-start;
   position: relative;
-}
-
-.topology-container {
-  width: 100%;
-  min-height: 275px;
-  padding-bottom: -2rem;
-  aspect-ratio: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.topology {
-  border-radius: 0.5rem;
-}
-
-kypo-topology-graph {
-  border: 1px solid gainsboro;
-}
-
-.topology-placeholder {
-  border: 1px solid gainsboro;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-}
-
-.topology-placeholder__image {
   width: 100%;
   height: 100%;
-}
-
-.placeholder-message {
-  color: #999999;
-  padding-left: 5px;
-  margin-bottom: -2rem !important;
-  z-index: 1;
-}
-
-.ssh-button {
-  position: absolute;
-  bottom: -0.5rem;
-  right: 1rem;
-  z-index: 1;
 }
 
 
@@ -125,14 +77,13 @@ kypo-topology-graph {
 
   .left-panel {
     width: 100%;
-    display: flex;
-    flex-direction: column;
+    height: fit-content;
     margin-right: 0;
     overflow-y: hidden;
     padding: 0;
   }
 
-  .window-height-bound {
+  .content-height-with-stepper, .content-height-without-stepper {
     max-height: unset;
   }
 }

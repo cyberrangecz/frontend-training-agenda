@@ -5,7 +5,6 @@ import { SentinelPipesModule } from '@sentinel/common/pipes';
 import { SentinelStepperModule } from '@sentinel/components/stepper';
 import { AdaptiveRunDetailMaterialModule } from './adaptive-run-detail-material.module';
 import { AdaptiveRunDetailComponent } from './adaptive-run-detail.component';
-import { TrainingTimerComponent } from './training-timer/training-timer.component';
 import { PhaseComponentsModule } from './phase/phase-components.module';
 import { SentinelUserCardModule } from '@sentinel/layout/user-card';
 
@@ -22,7 +21,7 @@ import { SentinelUserCardModule } from '@sentinel/layout/user-card';
     SentinelStepperModule,
     SentinelUserCardModule,
   ],
-  declarations: [AdaptiveRunDetailComponent, TrainingTimerComponent],
-  exports: [AdaptiveRunDetailComponent, TrainingTimerComponent],
+  declarations: [AdaptiveRunDetailComponent],
+  exports: [AdaptiveRunDetailComponent],
 })
 export class AdaptiveRunDetailComponentsModule {}

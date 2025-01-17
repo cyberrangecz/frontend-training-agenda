@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { AbstractLevelTypeEnum } from '@muni-kypo-crp/training-model';
-import { Level } from '@muni-kypo-crp/training-model';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { AbstractLevelTypeEnum, Level } from '@muni-kypo-crp/training-model';
 
 /**
  * Component to display one level in a training run. Serves mainly as a wrapper which determines the type of the training
@@ -18,6 +17,7 @@ export class AbstractLevelComponent {
   @Input() isLast: boolean;
   @Input() isLevelAnswered: boolean;
   @Input() isBacktracked: boolean;
+  @Input() isStepperDisplayed: boolean;
   @Input() sandboxInstanceId: string;
   @Input() sandboxDefinitionId: number;
   @Input() localEnvironment: boolean;

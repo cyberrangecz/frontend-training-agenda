@@ -1,10 +1,10 @@
 import { Component, DestroyRef, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
-import { TopologySizeSynchronizerService } from '../../../../../services/training-run/level/synchronization/topology-size/topology-size-synchronizer.service';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { KypoTopologyErrorService } from '@muni-kypo-crp/topology-graph';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TrainingErrorHandler } from '@muni-kypo-crp/training-agenda';
+import { TopologySizeSynchronizerService } from '../../../../../services/adaptive-run/synchronization/topology-size/topology-size-synchronizer.service';
 
 class DefaultTopologyShareService extends TopologySizeSynchronizerService {
   private topologySizeSubject: BehaviorSubject<[number, number]>;
@@ -31,7 +31,9 @@ export class TopologyWrapperComponent implements OnInit {
   @Input() loading: Observable<boolean> = of(false);
   @Input() sandboxInstanceId!: string;
   @Input() sandboxDefinitionId!: number;
-  @Input() topologySizeSynchronizationService: TopologySizeSynchronizerService = new DefaultTopologyShareService();
+  @Input() topologySizeSynchronizationService: TopologySizeSynchronizerService = new DefaultTopologyShareService([
+    50, 50,
+  ]);
   @Output() getAccessFile = new EventEmitter<void>();
 
   destroyRef = inject(DestroyRef);

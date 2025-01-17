@@ -1,7 +1,8 @@
 <div class="container">
   <div class="level-content {{isStepperDisplayed ?
       'content-height-with-stepper' :
-      'content-height-without-stepper'}}">
+      'content-height-without-stepper'}}"
+  >
     <kypo-split-container
       class="split-container"
       [leftPanelContent]="leftPanelContent"
@@ -37,9 +38,6 @@
 <ng-template #leftPanelContent>
   <div class="left-panel round-scrollbar">
     <sentinel-markdown-view [markdown]="levelContent"/>
-    @if (displayedHintsContent$ | async) {
-      <sentinel-markdown-view [markdown]="displayedHintsContent$ | async"/>
-    }
     @if (displayedSolutionContent$ | async){
       <h2><span class="solution-color"> Solution: </span></h2>
       <sentinel-markdown-view [markdown]="displayedSolutionContent$ | async"/>

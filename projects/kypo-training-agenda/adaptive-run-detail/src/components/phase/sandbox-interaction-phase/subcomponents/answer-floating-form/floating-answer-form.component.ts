@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 
 @Component({
-  selector: 'kypo-adaptive-floating-answer-form',
-  templateUrl: './adaptive-floating-answer-form.component.html',
-  styleUrl: './adaptive-floating-answer-form.component.css',
+  selector: 'kypo-floating-answer-form',
+  templateUrl: './floating-answer-form.component.html',
+  styleUrl: './floating-answer-form.component.css',
 })
-export class AdaptiveFloatingAnswerFormComponent implements OnChanges {
+export class FloatingAnswerFormComponent implements OnChanges {
   @Input() placeholder: string = 'Answer';
   @Input() buttonLabel: string = 'Submit';
 
