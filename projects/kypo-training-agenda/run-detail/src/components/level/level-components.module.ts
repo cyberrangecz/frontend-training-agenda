@@ -46,9 +46,9 @@ const markdownParserConfig = {
   imports: [
     CommonModule,
     SentinelMarkdownViewModule.forRoot(markdownParserConfig),
+    LevelMaterialModule,
     KypoTopologyGraphModule,
     FormsModule,
-    LevelMaterialModule,
     MatToolbarModule,
   ],
   declarations: [

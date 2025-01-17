@@ -62,4 +62,4 @@ const markdownParserConfig = {
     ExtendedMatchingItemsTraineeComponent,
   ],
 })
-export class LevelComponentsModule {}
+export class LevelComponentsPreviewModule {}

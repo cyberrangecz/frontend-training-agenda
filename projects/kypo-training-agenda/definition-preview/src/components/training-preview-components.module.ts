@@ -8,13 +8,13 @@ import {
 import { TrainingRunDetailComponentsModule } from '@muni-kypo-crp/training-agenda/run-detail';
 import { TrainingPreviewComponent } from './training-preview.component';
 import { SentinelStepperModule } from '@sentinel/components/stepper';
-import { LevelComponentsModule } from './level/level-components.module';
+import { LevelComponentsPreviewModule } from './level/level-components-preview.module';
 
 /**
  * Module containing components and providers for previewing training run (without allocating sandbox and backend communication)
  */
 @NgModule({
-  imports: [CommonModule, TrainingRunDetailComponentsModule, SentinelStepperModule, LevelComponentsModule],
+  imports: [CommonModule, TrainingRunDetailComponentsModule, SentinelStepperModule, LevelComponentsPreviewModule],
   declarations: [TrainingPreviewComponent],
   providers: [TrainingDefinitionResolver, TrainingDefinitionBreadcrumbResolver],
 })

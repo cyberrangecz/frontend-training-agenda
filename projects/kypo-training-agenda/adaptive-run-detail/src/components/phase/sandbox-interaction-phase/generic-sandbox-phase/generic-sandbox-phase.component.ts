@@ -16,7 +16,7 @@ import {
 import { Observable, of } from 'rxjs';
 import { DividerPositionSynchronizerService } from '../../../../services/adaptive-run/synchronization/divider-position/divider-position-synchronizer.service';
 import { TopologySizeSynchronizerService } from '../../../../services/adaptive-run/synchronization/topology-size/topology-size-synchronizer.service';
-import { AnswerFormHintsComponent } from '../../../../../../run-detail/src/components/level/sandbox-interaction-level/subcomponents/answer-floating-form/answer-form-hints/answer-form-hints.component';
+import { AnswerFormHintsComponent } from '../subcomponents/answer-floating-form/answer-form-hints/answer-form-hints.component';
 
 @Component({
   selector: 'kypo-generic-sandbox-phase',
