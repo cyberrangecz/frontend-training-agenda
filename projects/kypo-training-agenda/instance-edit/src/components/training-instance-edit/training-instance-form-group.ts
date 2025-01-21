@@ -82,10 +82,10 @@ export class TrainingInstanceFormGroup {
    */
   private sandboxValidator: ValidatorFn = (control: UntypedFormGroup): ValidationErrors | null => {
     const localEnvironment = control.get('localEnvironment').value;
-    if (!!localEnvironment) {
-      return !!control.get('sandboxDefinitionId').value ? null : { sandboxDefinitionRequired: true };
+    if (localEnvironment) {
+      return control.get('sandboxDefinitionId').value ? null : { sandboxDefinitionRequired: true };
     }
-    return !!control.get('poolId').value || !!control.get('sandboxDefinitionId').value ? null : { poolRequired: true };
+    return control.get('poolId').value || control.get('sandboxDefinitionId').value ? null : { poolRequired: true };
   };
 
   /**

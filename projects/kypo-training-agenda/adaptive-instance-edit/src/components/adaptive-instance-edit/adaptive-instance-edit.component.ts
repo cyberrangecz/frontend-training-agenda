@@ -95,9 +95,12 @@ export class AdaptiveInstanceEditComponent implements OnChanges, AfterViewInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => this.changeValidity(this.isTrainingDefinitionError(), this.trainingDefinitionSelect));
     this.trainingInstanceFormGroup.formGroup.statusChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
-      this.sandboxDefinitionSelect &&
+      if (this.sandboxDefinitionSelect) {
         this.changeValidity(this.isSandboxDefinitionIdError(), this.sandboxDefinitionSelect);
-      this.poolSelect && this.changeValidity(this.isPoolIdError(), this.poolSelect);
+      }
+      if (this.poolSelect) {
+        this.changeValidity(this.isPoolIdError(), this.poolSelect);
+      }
     });
   }
 

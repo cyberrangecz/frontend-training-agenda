@@ -127,7 +127,9 @@
         <!-- TRAINING DEFINITION field-->
         <sentinel-resource-selector
             #trainingDefinitionSelect
-            class="{{isTrainingDefinitionError() ? 'resource-select--error' : trainingDefinition.value ? '' : 'training-definition-select--margin '}}"
+            class="{{isTrainingDefinitionError() ?
+                      'resource-select--error' :
+                      trainingDefinition.value ? '' : 'training-definition-select--margin '}}"
             [disabled]="editMode"
             [appearance]="'outline'"
             label="Training Definition"
