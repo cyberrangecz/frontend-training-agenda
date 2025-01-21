@@ -1,11 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { PaginatedResource, OffsetPagination } from '@sentinel/common/pagination';
+import { OffsetPagination, PaginatedResource } from '@sentinel/common/pagination';
 import { asyncData } from '@sentinel/common/testing';
 import { PoolApi, SandboxDefinitionApi, SandboxInstanceApi } from '@muni-kypo-crp/sandbox-api';
-import { TrainingInstanceApi } from '@muni-kypo-crp/training-api';
-import { TrainingInstance } from '@muni-kypo-crp/training-model';
+import { TrainingDefinitionApi, TrainingInstanceApi } from '@muni-kypo-crp/training-api';
+import { TrainingDefinition, TrainingInstance } from '@muni-kypo-crp/training-model';
 import { throwError } from 'rxjs';
 import { TrainingInstanceChangeEvent } from '../../../model/events/training-instance-change-event';
 import {
@@ -17,6 +17,7 @@ import {
   createRouterSpy,
   createSandboxDefinitionApiSpy,
   createSandboxInstanceApiSpy,
+  createTrainingDefinitionApiSpy,
   createTrainingInstanceApiSpy,
 } from '../../../../../internal/src/testing/testing-commons.spec';
 import { TrainingErrorHandler } from '../../../../../src/services/training-error.handler.service';
@@ -29,6 +30,7 @@ import { Pool, SandboxDefinition } from '@muni-kypo-crp/sandbox-model';
 describe('TrainingInstanceEditConcreteService', () => {
   let errorHandlerSpy: jasmine.SpyObj<TrainingErrorHandler>;
   let trainingInstanceApiSpy: jasmine.SpyObj<TrainingInstanceApi>;
+  let trainingDefinitionApiSpy: jasmine.SpyObj<TrainingDefinitionApi>;
   let poolApiSpy: jasmine.SpyObj<PoolApi>;
   let sandboxDefinitionApiSpy: jasmine.SpyObj<SandboxDefinitionApi>;
   let sandboxInstanceApiSpy: jasmine.SpyObj<SandboxInstanceApi>;
@@ -42,6 +44,7 @@ describe('TrainingInstanceEditConcreteService', () => {
     errorHandlerSpy = createErrorHandlerSpy();
     notificationSpy = createNotificationSpy();
     trainingInstanceApiSpy = createTrainingInstanceApiSpy();
+    trainingDefinitionApiSpy = createTrainingDefinitionApiSpy();
     poolApiSpy = createPoolApiSpy();
     sandboxInstanceApiSpy = createSandboxInstanceApiSpy();
     sandboxDefinitionApiSpy = createSandboxDefinitionApiSpy();
@@ -55,6 +58,7 @@ describe('TrainingInstanceEditConcreteService', () => {
         { provide: TrainingInstanceApi, useValue: trainingInstanceApiSpy },
         { provide: SandboxInstanceApi, useValue: sandboxInstanceApiSpy },
         { provide: PoolApi, useValue: poolApiSpy },
+        { provide: TrainingDefinitionApi, useValue: trainingDefinitionApiSpy },
         { provide: SandboxDefinitionApi, useValue: sandboxDefinitionApiSpy },
         { provide: Router, useValue: routerSpy },
         { provide: TrainingErrorHandler, useValue: errorHandlerSpy },
@@ -91,7 +95,8 @@ describe('TrainingInstanceEditConcreteService', () => {
 
   it('should save existing training instance', (done) => {
     trainingInstanceApiSpy.update.and.returnValue(asyncData(''));
-    sandboxDefinitionApiSpy.getAll.and.returnValue(asyncData(createDefinitionsPaginatedMock()));
+    sandboxDefinitionApiSpy.getAll.and.returnValue(asyncData(createSandboxDefinitionsPaginatedMock()));
+    trainingDefinitionApiSpy.getAllForOrganizer.and.returnValue(asyncData(createTrainingDefinitionsPaginatedMock()));
     poolApiSpy.getPools.and.returnValue(asyncData(createPoolsPaginatedMock()));
     service.set(createMock());
     service.change(new TrainingInstanceChangeEvent(createMock(), true));
@@ -100,7 +105,7 @@ describe('TrainingInstanceEditConcreteService', () => {
         expect(trainingInstanceApiSpy.update).toHaveBeenCalledTimes(1);
         expect(notificationSpy.emit).toHaveBeenCalledTimes(1);
         expect(notificationSpy.emit).toHaveBeenCalledWith('success', jasmine.anything());
-        expect(res).toEqual(createDefinitionsPaginatedMock());
+        expect(res).toEqual(createSandboxDefinitionsPaginatedMock());
         done();
       },
       () => fail,
@@ -183,12 +188,19 @@ describe('TrainingInstanceEditConcreteService', () => {
     return new PaginatedResource([pool1, pool2], new OffsetPagination(1, 2, 2, 2, 1));
   }
 
-  function createDefinitionsPaginatedMock(): PaginatedResource<SandboxDefinition> {
+  function createSandboxDefinitionsPaginatedMock(): PaginatedResource<SandboxDefinition> {
     const sandboxDefinition = new SandboxDefinition();
     sandboxDefinition.id = 0;
     sandboxDefinition.rev = 'master';
     sandboxDefinition.url = 'http://example.com';
     sandboxDefinition.title = 'title';
     return new PaginatedResource([sandboxDefinition, sandboxDefinition], new OffsetPagination(1, 2, 2, 2, 1));
+  }
+
+  function createTrainingDefinitionsPaginatedMock(): PaginatedResource<TrainingDefinition> {
+    const trainingDefinition = new TrainingDefinition();
+    trainingDefinition.id = 0;
+    trainingDefinition.title = 'title';
+    return new PaginatedResource([trainingDefinition, trainingDefinition], new OffsetPagination(1, 2, 2, 2, 1));
   }
 });
