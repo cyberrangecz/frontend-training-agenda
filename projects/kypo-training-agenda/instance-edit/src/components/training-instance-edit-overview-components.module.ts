@@ -9,14 +9,10 @@ import { SentinelListComponent, SentinelListElementDirective } from '@sentinel/c
 import { SentinelUserAssignComponent } from '@sentinel/components/user-assign';
 import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
 import { TrainingInstanceCanDeactivate } from '../services/can-deactivate/training-instance-can-deactivate.service';
-import { PoolAssignComponent } from './pool-assign/pool-assign.component';
-import { TrainingDefinitionSelectComponent } from './training-definition-select/training-definition-select.component';
 import { TrainingInstanceEditOverviewMaterialModule } from './training-instance-edit-overview-material.module';
 import { TrainingInstanceEditOverviewComponent } from './training-instance-edit-overview.component';
 import { TrainingInstanceEditComponent } from './training-instance-edit/training-instance-edit.component';
-import { SandboxDefinitionAssignComponent } from './sandbox-definition-assign/sandbox-definition-assign.component';
-import { MatCardTitle } from '@angular/material/card';
-import { SentinelPanelModule } from '@sentinel/components/panel';
+import { SentinelResourceSelectorModule } from '@sentinel/components/resource-selector';
 
 /**
  * Main module of training instance edit components and providers
@@ -35,14 +31,9 @@ import { SentinelPanelModule } from '@sentinel/components/panel';
     OwlNativeDateTimeModule,
     SentinelControlsComponent,
     SentinelListElementDirective,
+    SentinelResourceSelectorModule,
   ],
-  declarations: [
-    TrainingInstanceEditOverviewComponent,
-    TrainingInstanceEditComponent,
-    TrainingDefinitionSelectComponent,
-    PoolAssignComponent,
-    SandboxDefinitionAssignComponent,
-  ],
+  declarations: [TrainingInstanceEditOverviewComponent, TrainingInstanceEditComponent],
   providers: [TrainingInstanceCanDeactivate],
 })
 export class TrainingInstanceEditOverviewComponentsModule {

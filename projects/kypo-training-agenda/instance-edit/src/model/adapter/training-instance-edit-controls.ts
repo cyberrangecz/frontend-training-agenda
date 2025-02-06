@@ -22,8 +22,8 @@ export class TrainingInstanceEditControls {
     saveDisabled$: Observable<boolean>,
     instanceValid$: Observable<boolean>,
   ): SentinelControlItem[] {
-    const disabled$: Observable<boolean> = combineLatest(saveDisabled$, instanceValid$).pipe(
-      map((save) => save[0] || !save[1]),
+    const disabled$: Observable<boolean> = combineLatest([saveDisabled$, instanceValid$]).pipe(
+      map(([save, valid]) => save || !valid),
     );
     return [
       new SentinelControlItem(

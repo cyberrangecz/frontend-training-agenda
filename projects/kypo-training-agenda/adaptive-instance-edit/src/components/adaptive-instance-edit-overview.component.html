@@ -1,13 +1,12 @@
-<mat-expansion-panel [expanded]=true>
+<mat-expansion-panel [expanded]="true">
   <mat-expansion-panel-header>
     <mat-panel-title>
       <span *ngIf="(editMode$ | async) else newTrainingTitle">Edit Adaptive Training Instance</span>
       <ng-template #newTrainingTitle>Create Adaptive Training Instance</ng-template>
     </mat-panel-title>
     <mat-panel-description>
-      <span>{{ tiTitle$ | async }}</span>
       <span class="spacer"></span>
-      <div class="panel-description-error" *ngIf="!(canDeactivateTIEdit && canDeactivatePoolAssign)">
+      <div class="panel-description-error" *ngIf="!canDeactivateTIEdit">
         <mat-icon color="warn">warning</mat-icon>
         <mat-error>Changes are not saved</mat-error>
       </div>
@@ -21,35 +20,12 @@
     <kypo-adaptive-instance-edit
       (edited)="onTrainingInstanceChanged($event)"
       [hasStarted]="hasStarted$ | async"
+      [trainingDefinitions]="trainingDefinitions$ | async"
+      [pools]="pools$ | async"
+      [sandboxDefinitions]="sandboxDefinitions$ | async"
       [trainingInstance]="trainingInstance$ | async"
       [editMode]="editMode$ | async">
     </kypo-adaptive-instance-edit>
-
-    <mat-divider></mat-divider>
-    <!-- EDIT POOLS -->
-    <div *ngIf="!(trainingInstance$ | async).localEnvironment && (trainingInstance$ | async) as trainingInstance">
-      <div class="pools-header">
-        <h3>Pools</h3>
-        <mat-icon class="header-icon">view_module</mat-icon>
-      </div>
-      <kypo-pool-assign [selectedPoolId]="(trainingInstance$ | async).poolId"
-                        [pools]="pools$ | async"
-                        [hasStarted] = "hasStarted$ | async"
-                        [trainingInstanceId]="(trainingInstance$ | async).id"
-                        (selectionChanged)="onPoolSelectionChanged($event)">
-      </kypo-pool-assign>
-    </div>
-    <!-- EDIT SANDBOX DEFINITIONS -->
-    <div *ngIf="(trainingInstance$ | async).localEnvironment && (trainingInstance$ | async) as trainingInstance">
-      <div class="sandbox-definitions-header">
-        <h3>Sandbox Definitions</h3>
-        <mat-icon class="header-icon">view_module</mat-icon>
-      </div>
-      <kypo-sandbox-definition-assign [selectedSandboxDefinitionId]="(trainingInstance$ | async).sandboxDefinitionId"
-                                      [sandboxDefinitions]="sandboxDefinitions$ | async"
-                                      (selectionChanged)="onSandboxDefinitionSelectionChanged($event)">
-      </kypo-sandbox-definition-assign>
-    </div>
   </ng-template>
 </mat-expansion-panel>
 

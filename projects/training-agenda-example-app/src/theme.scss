@@ -5,7 +5,6 @@
 @use '@sentinel/layout/sidebar-mixin' as sentinel-layout-sidebar;
 @use '@sentinel/components/theming' as sentinel-components ;
 @use '@sentinel/components/typography' as sentinel-typography ;
-@use 'variables'as kypo-variables;
 
 $kypo-theme: sentinel-variables.$sentinel-theme;
 
