@@ -1,0 +1,33 @@
+@if (this.sandboxInstanceId || this.sandboxDefinitionId) {
+  <div class="topology-container"
+       [style.height.px]="getHeight$() | async"
+  >
+    <kypo-topology-graph
+      class="topology"
+      [width]="getWidth$() | async"
+      [height]="getHeight$() | async"
+      [sandboxUuid]="sandboxInstanceId"
+      [sandboxDefinitionId]="sandboxDefinitionId"
+    />
+  </div>
+  @if (this.sandboxInstanceId && this.getAccessFile) {
+    <button
+      mat-raised-button
+      [disabled]="loading | async"
+      (click)="this.getAccessFile.emit()"
+      matTooltip="Download config for SSH client"
+      class="ssh-button">
+      Get SSH Config
+    </button>
+  }
+} @else {
+  <div class="topology-placeholder">
+    <h3 class="placeholder-message">*Topology not available</h3>
+    <img
+      draggable="false"
+      src="assets/kypo-training-agenda/topology-placeholder.png"
+      alt="Topology placeholder"
+      class="topology-placeholder__image"
+    />
+  </div>
+}

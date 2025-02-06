@@ -86,7 +86,7 @@ export class AdaptiveRunDetailComponent implements OnInit, AfterViewInit {
    * @param index of desired level
    */
   activeStepChanged(index: number): void {
-    if (this.stepper.activePhaseIndex !== index) {
+    if (this.stepper.activePhaseIndex !== index && index >= 0 && index < this.phases.length) {
       this.trainingRunService.moveToPhase(this.phases[index].id).pipe(take(1)).subscribe();
       this.stepper.onActivePhaseUpdated(index);
     }

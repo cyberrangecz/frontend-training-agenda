@@ -55,7 +55,7 @@ export class MultipleChoiceQuestionTraineeComponent {
   }
 
   checkedAsAnswered(option: QuestionChoice): boolean {
-    return this.question.userAnswers.findIndex((answer: string) => answer === option.text) != -1 ? true : false;
+    return this.question.userAnswers.findIndex((answer: string) => answer === option.text) != -1;
   }
 
   /**

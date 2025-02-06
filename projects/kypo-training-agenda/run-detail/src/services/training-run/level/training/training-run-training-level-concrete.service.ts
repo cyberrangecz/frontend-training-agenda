@@ -9,6 +9,7 @@ import { TrainingErrorHandler } from '@muni-kypo-crp/training-agenda';
 import { TrainingRunTrainingLevelService } from './training-run-training-level.service';
 import { RunningTrainingRunService } from '../../running/running-training-run.service';
 import { SandboxInstanceApi } from '@muni-kypo-crp/sandbox-api';
+import { SentinelNotificationService } from '@sentinel/layout/notification';
 
 @Injectable()
 /**
@@ -19,10 +20,11 @@ export class TrainingRunTrainingLevelConcreteService extends TrainingRunTraining
     private api: TrainingRunApi,
     private sandboxApi: SandboxInstanceApi,
     private errorHandler: TrainingErrorHandler,
-    protected dialog: MatDialog,
+    notificationService: SentinelNotificationService,
+    dialog: MatDialog,
     protected runningTrainingRunService: RunningTrainingRunService,
   ) {
-    super(dialog, runningTrainingRunService);
+    super(dialog, notificationService, runningTrainingRunService);
   }
 
   /**
@@ -44,6 +46,9 @@ export class TrainingRunTrainingLevelConcreteService extends TrainingRunTraining
    * @param answer answer entered by trainee
    */
   submitAnswer(answer: string): Observable<any> {
+    if (!answer) {
+      return this.displayEmptyAnswerDialog();
+    }
     this.isLoadingSubject$.next(true);
     return this.api.isCorrectAnswer(this.runningTrainingRunService.trainingRunId, answer).pipe(
       switchMap((answerCheckResult) =>

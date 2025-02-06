@@ -1,11 +1,10 @@
-import { AfterViewInit, Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Agenda, AgendaContainer } from '@sentinel/layout';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { SentinelAuthService, User } from '@sentinel/auth';
 import { LoadingService } from './services/loading.service';
-import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -24,7 +23,6 @@ export class AppComponent {
     private activatedRoute: ActivatedRoute,
     private auth: SentinelAuthService,
     private loadingService: LoadingService,
-    @Inject(DOCUMENT) private document: Document,
   ) {
     this.activeUser$ = this.auth.activeUser$;
     this.isLoading$ = this.loadingService.isLoading$;

@@ -8,6 +8,7 @@ import { RunningAdaptiveRunService } from '../running/running-adaptive-run.servi
 import { EMPTY, Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { SentinelDialogResultEnum } from '@sentinel/components/dialogs';
+import { SentinelNotificationService } from '@sentinel/layout/notification';
 
 @Injectable()
 export class AdaptiveRunTrainingPhaseConcreteService extends AdaptiveRunTrainingPhaseService {
@@ -15,10 +16,11 @@ export class AdaptiveRunTrainingPhaseConcreteService extends AdaptiveRunTraining
     private api: AdaptiveRunApi,
     private sandboxApi: SandboxInstanceApi,
     private errorHandler: TrainingErrorHandler,
-    protected dialog: MatDialog,
-    protected runningAdaptiveRunService: RunningAdaptiveRunService,
+    notificationService: SentinelNotificationService,
+    dialog: MatDialog,
+    runningAdaptiveRunService: RunningAdaptiveRunService,
   ) {
-    super(dialog, runningAdaptiveRunService);
+    super(dialog, notificationService, runningAdaptiveRunService);
   }
 
   getAccessFile(): Observable<any> {
@@ -33,6 +35,9 @@ export class AdaptiveRunTrainingPhaseConcreteService extends AdaptiveRunTraining
   }
 
   submitAnswer(answer: string): Observable<any> {
+    if (!answer) {
+      return this.displayEmptyAnswerDialog();
+    }
     this.isLoadingSubject$.next(true);
     return this.api.isCorrectAnswer(this.runningAdaptiveRunService.trainingRunId, answer).pipe(
       switchMap((answerCheckResult) =>

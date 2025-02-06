@@ -1,12 +1,11 @@
 <div class="container">
-  <div #content class="content">
-    <sentinel-markdown-view [markdown]="level.content"></sentinel-markdown-view>
+  <div class="content">
+    <sentinel-markdown-view [markdown]="level.content"/>
   </div>
-  <div *ngIf="!isBacktracked">
-    <mat-card appearance="outlined" #controls class="controls">
-      <div class="controls-container">
-        <kypo-next-level-button [isLast]="isLast" (next)="onNext()"> </kypo-next-level-button>
-      </div>
-    </mat-card>
-  </div>
+  <button
+    class="next-button"
+    mat-raised-button
+    (click)="onNext()">
+    {{ isLast && !isBacktracked ?  "Finish" : "Next" }}
+  </button>
 </div>

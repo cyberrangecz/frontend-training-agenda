@@ -7,10 +7,18 @@ import {
   SentinelConfirmationDialogConfig,
   SentinelDialogResultEnum,
 } from '@sentinel/components/dialogs';
+import {
+  SentinelNotification,
+  SentinelNotificationResult,
+  SentinelNotificationService,
+  SentinelNotificationTypeEnum,
+} from '@sentinel/layout/notification';
+import { map } from 'rxjs/operators';
 
 export abstract class AdaptiveRunTrainingPhaseService {
   protected constructor(
     protected dialog: MatDialog,
+    protected notificationService: SentinelNotificationService,
     protected runningAdaptiveRunService: RunningAdaptiveRunService,
   ) {}
 
@@ -73,17 +81,31 @@ export abstract class AdaptiveRunTrainingPhaseService {
     return this.displayWrongAnswerDialog(answerCheck);
   }
 
-  protected displayWrongAnswerDialog(answerCheck: LevelAnswerCheck): Observable<SentinelDialogResultEnum> {
-    let dialogMessage = 'You have submitted incorrect answer.\n';
-    dialogMessage +=
-      !this.isSolutionRevealedSubject$.getValue() && answerCheck.remainingAttempts > 0
-        ? `You have ${answerCheck.remainingAttempts} remaining attempts.`
-        : 'Please insert the answer according to revealed solution.';
+  protected displayEmptyAnswerDialog(): Observable<any> {
+    const notification: SentinelNotification = {
+      type: SentinelNotificationTypeEnum.Error,
+      title: 'Incorrect passkey',
+      additionalInfo: ['Answer cannot be empty.'],
+    };
+    return this.notificationService
+      .emit(notification)
+      .pipe(map((result) => result === SentinelNotificationResult.CONFIRMED));
+  }
 
-    const dialogRef = this.dialog.open(SentinelConfirmationDialogComponent, {
-      data: new SentinelConfirmationDialogConfig('Incorrect Answer', dialogMessage, '', 'OK'),
-    });
-    return dialogRef.afterClosed();
+  protected displayWrongAnswerDialog(answerCheck: LevelAnswerCheck): Observable<any> {
+    const notification: SentinelNotification = {
+      type: SentinelNotificationTypeEnum.Error,
+      title: 'Incorrect passkey',
+      additionalInfo: [
+        'You have submitted an incorrect answer.',
+        this.isSolutionRevealedSubject$.getValue() || answerCheck.remainingAttempts <= 0
+          ? 'Please insert the answer according to revealed solution.'
+          : `You have ${answerCheck.remainingAttempts} remaining attempts.`,
+      ],
+    };
+    return this.notificationService
+      .emit(notification)
+      .pipe(map((result) => result === SentinelNotificationResult.CONFIRMED));
   }
 
   protected displayRevealSolutionDialog(): Observable<SentinelDialogResultEnum> {

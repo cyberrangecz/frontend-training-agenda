@@ -149,6 +149,7 @@ export class TrainingDefinitionConcreteService extends TrainingDefinitionService
         (err) => {
           this.fileUploadProgressService.finish();
           this.errorHandler.emit(err, 'Uploading training definition');
+          dialogRef.close();
         },
       ),
       switchMap(() => this.getAll(this.lastPagination, this.lastFilters)),
