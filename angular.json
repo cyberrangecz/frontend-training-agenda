@@ -1,181 +1,181 @@
 {
-  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1,
-  "newProjectRoot": "projects",
-  "projects": {
-    "kypo-training-agenda": {
-      "projectType": "library",
-      "root": "projects/kypo-training-agenda",
-      "sourceRoot": "projects/kypo-training-agenda",
-      "prefix": "kypo",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "tsConfig": "projects/kypo-training-agenda/tsconfig.lib.json",
-            "project": "projects/kypo-training-agenda/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/kypo-training-agenda/tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/kypo-training-agenda/test.ts",
-            "tsConfig": "projects/kypo-training-agenda/tsconfig.spec.json",
-            "karmaConfig": "projects/kypo-training-agenda/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": [
-              "projects/kypo-training-agenda/**/*.ts",
-              "projects/kypo-training-agenda/**/*.component.html"
-            ]
-          }
-        }
-      }
-    },
-    "training-agenda-example-app": {
-      "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": {
-          "style": "scss"
-        }
-      },
-      "root": "projects/training-agenda-example-app",
-      "sourceRoot": "projects/training-agenda-example-app/src",
-      "prefix": "app",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:browser",
-          "options": {
-            "outputPath": "dist/training-agenda-example-app",
-            "index": "projects/training-agenda-example-app/src/index.html",
-            "main": "projects/training-agenda-example-app/src/main.ts",
-            "polyfills": "projects/training-agenda-example-app/src/polyfills.ts",
-            "tsConfig": "projects/training-agenda-example-app/tsconfig.app.json",
-            "assets": [
-              "projects/training-agenda-example-app/src/favicon.ico",
-              "projects/training-agenda-example-app/src/assets"
-            ],
-            "styles": [
-              "node_modules/@muni-kypo-crp/overview-visualization/styles.css",
-              "projects/training-agenda-example-app/src/theme.scss",
-              "projects/training-agenda-example-app/src/styles.scss",
-              "projects/training-agenda-example-app/src/variables.scss"
-            ],
-            "scripts": [],
-            "vendorChunk": true,
-            "extractLicenses": false,
-            "buildOptimizer": false,
-            "sourceMap": true,
-            "optimization": false,
-            "namedChunks": true
-          },
-          "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "projects/training-agenda-example-app/src/environments/environment.ts",
-                  "with": "projects/training-agenda-example-app/src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
+    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+    "version": 1,
+    "newProjectRoot": "projects",
+    "projects": {
+        "kypo-training-agenda": {
+            "projectType": "library",
+            "root": "projects/kypo-training-agenda",
+            "sourceRoot": "projects/kypo-training-agenda",
+            "prefix": "kypo",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:ng-packagr",
+                    "options": {
+                        "tsConfig": "projects/kypo-training-agenda/tsconfig.lib.json",
+                        "project": "projects/kypo-training-agenda/ng-package.json"
+                    },
+                    "configurations": {
+                        "production": {
+                            "tsConfig": "projects/kypo-training-agenda/tsconfig.lib.prod.json"
+                        }
+                    }
                 },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "main": "projects/kypo-training-agenda/test.ts",
+                        "tsConfig": "projects/kypo-training-agenda/tsconfig.spec.json",
+                        "karmaConfig": "projects/kypo-training-agenda/karma.conf.js"
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-eslint/builder:lint",
+                    "options": {
+                        "lintFilePatterns": [
+                            "projects/kypo-training-agenda/**/*.ts",
+                            "projects/kypo-training-agenda/**/*.component.html"
+                        ]
+                    }
                 }
-              ]
             }
-          },
-          "defaultConfiguration": ""
         },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "buildTarget": "training-agenda-example-app:build"
-          },
-          "configurations": {
-            "production": {
-              "buildTarget": "training-agenda-example-app:build:production"
+        "training-agenda-example-app": {
+            "projectType": "application",
+            "schematics": {
+                "@schematics/angular:component": {
+                    "style": "scss"
+                }
+            },
+            "root": "projects/training-agenda-example-app",
+            "sourceRoot": "projects/training-agenda-example-app/src",
+            "prefix": "app",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:browser",
+                    "options": {
+                        "outputPath": "dist/training-agenda-example-app",
+                        "index": "projects/training-agenda-example-app/src/index.html",
+                        "main": "projects/training-agenda-example-app/src/main.ts",
+                        "polyfills": "projects/training-agenda-example-app/src/polyfills.ts",
+                        "tsConfig": "projects/training-agenda-example-app/tsconfig.app.json",
+                        "assets": [
+                            "projects/training-agenda-example-app/src/favicon.ico",
+                            "projects/training-agenda-example-app/src/assets"
+                        ],
+                        "styles": [
+                            "node_modules/@cyberrangecz-platform/overview-visualization/styles.css",
+                            "projects/training-agenda-example-app/src/theme.scss",
+                            "projects/training-agenda-example-app/src/styles.scss",
+                            "projects/training-agenda-example-app/src/variables.scss"
+                        ],
+                        "scripts": [],
+                        "vendorChunk": true,
+                        "extractLicenses": false,
+                        "buildOptimizer": false,
+                        "sourceMap": true,
+                        "optimization": false,
+                        "namedChunks": true
+                    },
+                    "configurations": {
+                        "production": {
+                            "fileReplacements": [
+                                {
+                                    "replace": "projects/training-agenda-example-app/src/environments/environment.ts",
+                                    "with": "projects/training-agenda-example-app/src/environments/environment.prod.ts"
+                                }
+                            ],
+                            "optimization": true,
+                            "outputHashing": "all",
+                            "sourceMap": false,
+                            "namedChunks": false,
+                            "extractLicenses": true,
+                            "vendorChunk": false,
+                            "buildOptimizer": true,
+                            "budgets": [
+                                {
+                                    "type": "initial",
+                                    "maximumWarning": "2mb",
+                                    "maximumError": "5mb"
+                                },
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "6kb",
+                                    "maximumError": "10kb"
+                                }
+                            ]
+                        }
+                    },
+                    "defaultConfiguration": ""
+                },
+                "serve": {
+                    "builder": "@angular-devkit/build-angular:dev-server",
+                    "options": {
+                        "buildTarget": "training-agenda-example-app:build"
+                    },
+                    "configurations": {
+                        "production": {
+                            "buildTarget": "training-agenda-example-app:build:production"
+                        }
+                    }
+                },
+                "extract-i18n": {
+                    "builder": "@angular-devkit/build-angular:extract-i18n",
+                    "options": {
+                        "buildTarget": "training-agenda-example-app:build"
+                    }
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "main": "projects/training-agenda-example-app/src/test.ts",
+                        "polyfills": "projects/training-agenda-example-app/src/polyfills.ts",
+                        "tsConfig": "projects/training-agenda-example-app/tsconfig.spec.json",
+                        "karmaConfig": "projects/training-agenda-example-app/karma.conf.js",
+                        "assets": [
+                            "projects/training-agenda-example-app/src/favicon.ico",
+                            "projects/training-agenda-example-app/src/assets"
+                        ],
+                        "styles": [
+                            "projects/training-agenda-example-app/src/styles.scss"
+                        ],
+                        "scripts": []
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-eslint/builder:lint",
+                    "options": {
+                        "lintFilePatterns": [
+                            "projects/training-agenda-example-app/**/*.ts",
+                            "projects/training-agenda-example-app/**/*.component.html"
+                        ]
+                    }
+                },
+                "e2e": {
+                    "builder": "@nrwl/cypress:cypress",
+                    "options": {
+                        "cypressConfig": "e2e/cypress.json",
+                        "tsConfig": "e2e/tsconfig.e2e.json",
+                        "devServerTarget": "training-agenda-example-app:serve:development"
+                    },
+                    "configurations": {
+                        "production": {
+                            "devServerTarget": "training-agenda-example-app:serve:production"
+                        }
+                    }
+                }
             }
-          }
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "buildTarget": "training-agenda-example-app:build"
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/training-agenda-example-app/src/test.ts",
-            "polyfills": "projects/training-agenda-example-app/src/polyfills.ts",
-            "tsConfig": "projects/training-agenda-example-app/tsconfig.spec.json",
-            "karmaConfig": "projects/training-agenda-example-app/karma.conf.js",
-            "assets": [
-              "projects/training-agenda-example-app/src/favicon.ico",
-              "projects/training-agenda-example-app/src/assets"
-            ],
-            "styles": [
-              "projects/training-agenda-example-app/src/styles.scss"
-            ],
-            "scripts": []
-          }
-        },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": [
-              "projects/training-agenda-example-app/**/*.ts",
-              "projects/training-agenda-example-app/**/*.component.html"
-            ]
-          }
-        },
-        "e2e": {
-          "builder": "@nrwl/cypress:cypress",
-          "options": {
-            "cypressConfig": "e2e/cypress.json",
-            "tsConfig": "e2e/tsconfig.e2e.json",
-            "devServerTarget": "training-agenda-example-app:serve:development"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "training-agenda-example-app:serve:production"
-            }
-          }
         }
-      }
-    }
-  },
-  "cli": {
-    "analytics": false
-  },
-  "schematics": {
-    "@angular-eslint/schematics:application": {
-      "setParserOptionsProject": true
     },
-    "@angular-eslint/schematics:library": {
-      "setParserOptionsProject": true
+    "cli": {
+        "analytics": false
+    },
+    "schematics": {
+        "@angular-eslint/schematics:application": {
+            "setParserOptionsProject": true
+        },
+        "@angular-eslint/schematics:library": {
+            "setParserOptionsProject": true
+        }
     }
-  }
 }

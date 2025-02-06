@@ -3,7 +3,7 @@ import {
   AccessedTrainingRun,
   TraineeAccessTrainingRunActionEnum,
   TrainingRunTypeEnum,
-} from '@muni-kypo-crp/training-model';
+} from '@cyberrangecz-platform/training-model';
 import { Column, Row, RowAction, SentinelTable } from '@sentinel/components/table';
 import { defer, EMPTY, of } from 'rxjs';
 import { AccessedTrainingRunService } from '../services/state/training/accessed-training-run.service';

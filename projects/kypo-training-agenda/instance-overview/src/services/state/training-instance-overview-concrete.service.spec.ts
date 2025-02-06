@@ -2,11 +2,11 @@ import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { asyncData } from '@sentinel/common/testing';
-import { PaginatedResource, OffsetPagination, OffsetPaginationEvent } from '@sentinel/common/pagination';
-import { PoolApi } from '@muni-kypo-crp/sandbox-api';
-import { Pool, SandboxInstance } from '@muni-kypo-crp/sandbox-model';
-import { TrainingInstanceApi } from '@muni-kypo-crp/training-api';
-import { TrainingInstance } from '@muni-kypo-crp/training-model';
+import { OffsetPagination, OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
+import { PoolApi } from '@cyberrangecz-platform/sandbox-api';
+import { Pool, SandboxInstance } from '@cyberrangecz-platform/sandbox-model';
+import { TrainingInstanceApi } from '@cyberrangecz-platform/training-api';
+import { TrainingInstance } from '@cyberrangecz-platform/training-model';
 import { of, throwError } from 'rxjs';
 import {
   createContext,
@@ -126,7 +126,10 @@ describe('TrainingInstanceOverviewConcreteService', () => {
   it('should delete training instance', (done) => {
     trainingInstanceApiSpy.delete.and.returnValue(asyncData(null));
     trainingInstanceApiSpy.getAll.and.returnValue(asyncData(createInstancesPaginatedMock()));
-    const dialogRefSpyObj = jasmine.createSpyObj({ afterClosed: of(SentinelDialogResultEnum.CONFIRMED), close: null });
+    const dialogRefSpyObj = jasmine.createSpyObj({
+      afterClosed: of(SentinelDialogResultEnum.CONFIRMED),
+      close: null,
+    });
     dialogSpy.open.and.returnValue(dialogRefSpyObj);
     service.delete(createInstancesMock()[1]).subscribe(
       (res) => {
@@ -143,7 +146,10 @@ describe('TrainingInstanceOverviewConcreteService', () => {
   it('should emit error when  delete training instance fails', (done) => {
     trainingInstanceApiSpy.delete.and.returnValue(throwError(null));
     trainingInstanceApiSpy.getAll.and.returnValue(asyncData(createInstancesPaginatedMock()));
-    const dialogRefSpyObj = jasmine.createSpyObj({ afterClosed: of(SentinelDialogResultEnum.CONFIRMED), close: null });
+    const dialogRefSpyObj = jasmine.createSpyObj({
+      afterClosed: of(SentinelDialogResultEnum.CONFIRMED),
+      close: null,
+    });
     dialogSpy.open.and.returnValue(dialogRefSpyObj);
     service.delete(createInstancesMock()[1]).subscribe(
       () => fail,

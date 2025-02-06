@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { CheatingDetectionStateEnum } from '@muni-kypo-crp/training-model';
+import { CheatingDetectionStateEnum } from '@cyberrangecz-platform/training-model';
 import { SelectedStage } from '../../model/selected-stage';
 
 @Component({

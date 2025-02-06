@@ -4,11 +4,10 @@ import {
   SentinelConfirmationDialogConfig,
   SentinelDialogResultEnum,
 } from '@sentinel/components/dialogs';
-import { PhaseAnswerCheck, LevelAnswerCheck, TrainingLevel } from '@muni-kypo-crp/training-model';
-import { Hint } from '@muni-kypo-crp/training-model';
+import { Hint, LevelAnswerCheck, PhaseAnswerCheck, TrainingLevel } from '@cyberrangecz-platform/training-model';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { RunningTrainingRunService } from '../../running/running-training-run.service';
-import { HintButton } from '@muni-kypo-crp/training-agenda/internal';
+import { HintButton } from '@cyberrangecz-platform/training-agenda/internal';
 import {
   SentinelNotification,
   SentinelNotificationResult,

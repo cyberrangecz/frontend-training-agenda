@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { AbstractLevelTypeEnum, Level } from '@muni-kypo-crp/training-model';
+import { AbstractLevelTypeEnum, Level } from '@cyberrangecz-platform/training-model';
 
 @Component({
   selector: 'kypo-level-detail',

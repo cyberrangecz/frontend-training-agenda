@@ -1,6 +1,6 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
+import { TrainingAgendaConfig } from '@cyberrangecz-platform/training-agenda';
 import { AdaptiveDefintionSummaryMaterialModule } from './adaptive-definition-summary-material.module';
 import { RouterModule } from '@angular/router';
 import { AdaptiveDefinitionInfoComponent } from './info/adaptive-definition-info.component';

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Router } from '@angular/router';
-import { TrainingRunApi } from '@muni-kypo-crp/training-api';
-import { TrainingRun } from '@muni-kypo-crp/training-model';
+import { TrainingRunApi } from '@cyberrangecz-platform/training-api';
+import { TrainingRun } from '@cyberrangecz-platform/training-model';
 import { EMPTY, Observable, of } from 'rxjs';
 import { catchError, mergeMap, take } from 'rxjs/operators';
-import { TrainingErrorHandler, TrainingNavigator, TRAINING_RUN_SELECTOR } from '@muni-kypo-crp/training-agenda';
+import { TRAINING_RUN_SELECTOR, TrainingErrorHandler, TrainingNavigator } from '@cyberrangecz-platform/training-agenda';
 
 @Injectable()
 export class TrainingRunResultsResolver {

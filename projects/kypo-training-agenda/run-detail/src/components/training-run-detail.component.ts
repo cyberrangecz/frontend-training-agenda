@@ -1,8 +1,8 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
-import { Level } from '@muni-kypo-crp/training-model';
+import { Level } from '@cyberrangecz-platform/training-model';
 import { Observable } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
-import { LevelStepperAdapter } from '@muni-kypo-crp/training-agenda/internal';
+import { LevelStepperAdapter } from '@cyberrangecz-platform/training-agenda/internal';
 import { TrainingRunStepper } from '../model/training-run-stepper';
 import { SentinelUser } from '@sentinel/layout';
 import { SentinelAuthService } from '@sentinel/auth';

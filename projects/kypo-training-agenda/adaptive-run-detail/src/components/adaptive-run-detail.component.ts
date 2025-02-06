@@ -1,11 +1,11 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
-import { Phase } from '@muni-kypo-crp/training-model';
+import { Phase } from '@cyberrangecz-platform/training-model';
 import { Observable } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { AdaptiveRunStepper } from '../model/adaptive-run-stepper';
 import { SentinelUser } from '@sentinel/layout';
 import { SentinelAuthService } from '@sentinel/auth';
-import { PhaseStepperAdapter } from '@muni-kypo-crp/training-agenda/internal';
+import { PhaseStepperAdapter } from '@cyberrangecz-platform/training-agenda/internal';
 import { RunningAdaptiveRunService } from '../services/adaptive-run/running/running-adaptive-run.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 

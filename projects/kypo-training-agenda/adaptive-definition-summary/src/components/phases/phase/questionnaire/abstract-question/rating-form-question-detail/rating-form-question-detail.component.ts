@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { AdaptiveQuestion, QuestionnaireTypeEnum } from '@muni-kypo-crp/training-model';
+import { AdaptiveQuestion, QuestionnaireTypeEnum } from '@cyberrangecz-platform/training-model';
 
 @Component({
   selector: 'kypo-rating-form-question-detail',

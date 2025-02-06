@@ -10,7 +10,7 @@ import {
   QuestionnaireTypeEnum,
   Task,
   TrainingPhase,
-} from '@muni-kypo-crp/training-model';
+} from '@cyberrangecz-platform/training-model';
 
 export abstract class PhaseEditService {
   protected trainingDefinitionId: number;
@@ -87,9 +87,14 @@ export abstract class PhaseEditService {
   abstract move(fromIndex: number, toIndex: number): void;
 
   abstract addTask(): Observable<Task>;
+
   abstract cloneTask(): Observable<Task>;
+
   abstract deleteTask(): Observable<any>;
+
   abstract onActiveTaskChanged(task: Task): void;
+
   abstract setActiveTask(index: number): void;
+
   abstract moveTasks(fromIndex: number, toIndex: number): void;
 }

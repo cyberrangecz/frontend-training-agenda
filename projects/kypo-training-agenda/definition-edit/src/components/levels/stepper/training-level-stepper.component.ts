@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SentinelStepper, StepperStateChange, StepStateEnum } from '@sentinel/components/stepper';
-import { LevelStepperAdapter } from '@muni-kypo-crp/training-agenda/internal';
+import { LevelStepperAdapter } from '@cyberrangecz-platform/training-agenda/internal';
 import { LevelMoveEvent } from '../../../model/events/level-move-event';
 
 /**

@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {
-  TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME,
   ACCESS_TOKEN_PATH,
-  PROGRESS_PATH,
   CHEATING_DETECTION_PATH,
+  PROGRESS_PATH,
   RESULTS_PATH,
-  SUMMARY_PATH,
   RUNS_PATH,
-} from '@muni-kypo-crp/training-agenda';
+  SUMMARY_PATH,
+  TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME,
+} from '@cyberrangecz-platform/training-agenda';
 import {
   TrainingInstanceDetailBreadcrumbResolver,
   TrainingInstanceDetailTitleResolver,
   TrainingInstanceResolver,
-} from '@muni-kypo-crp/training-agenda/resolvers';
+} from '@cyberrangecz-platform/training-agenda/resolvers';
 
 const routes: Routes = [
   {

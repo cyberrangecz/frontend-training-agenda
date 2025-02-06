@@ -3,7 +3,7 @@ import {
   FreeFormQuestion,
   MultipleChoiceQuestion,
   Question,
-} from '@muni-kypo-crp/training-model';
+} from '@cyberrangecz-platform/training-model';
 import { StepItem, StepStateEnum } from '@sentinel/components/stepper';
 
 export class QuestionStepperAdapter implements StepItem {

@@ -1,17 +1,17 @@
 .content {
-  display: flex;
-  flex-direction: column;
-  margin: 20px;
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
 }
 
 sentinel-markdown-editor {
-  height: 40vh;
+    height: 40vh;
 }
 
 @media screen and (max-width: 800px) {
-  div .content {
-    width: 100%;
-  }
+    div .content {
+        width: 100%;
+    }
 }
 
 

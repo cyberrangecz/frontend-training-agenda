@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
+import { TrainingAgendaConfig } from '@cyberrangecz-platform/training-agenda';
 
 @Injectable()
 export class TrainingAgendaContext {

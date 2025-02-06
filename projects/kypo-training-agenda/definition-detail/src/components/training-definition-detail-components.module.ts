@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
+import { TrainingAgendaConfig } from '@cyberrangecz-platform/training-agenda';
 import {
   TrainingDefinitionDetailBreadcrumbResolver,
   TrainingDefinitionDetailTitleResolver,
   TrainingDefinitionResolver,
-} from '@muni-kypo-crp/training-agenda/resolvers';
+} from '@cyberrangecz-platform/training-agenda/resolvers';
 
 /**
  * Module containing components and providers for training definition detail agenda

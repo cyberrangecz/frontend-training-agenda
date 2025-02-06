@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { MitreTechniquesApi } from '@muni-kypo-crp/training-api';
+import { MitreTechniquesApi } from '@cyberrangecz-platform/training-api';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { TrainingErrorHandler } from '@muni-kypo-crp/training-agenda';
+import { TrainingErrorHandler } from '@cyberrangecz-platform/training-agenda';
 import { MitreTechniquesOverviewService } from './mitre-techniques.service';
 
 @Injectable()

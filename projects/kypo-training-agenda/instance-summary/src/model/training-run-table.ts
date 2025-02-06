@@ -1,9 +1,9 @@
 import { DatePipe } from '@angular/common';
 import { PaginatedResource } from '@sentinel/common/pagination';
-import { TrainingRun, TrainingRunStateEnum } from '@muni-kypo-crp/training-model';
-import { Column, SentinelTable, Row, RowExpand, ExpandableSentinelTable } from '@sentinel/components/table';
+import { TrainingRun, TrainingRunStateEnum } from '@cyberrangecz-platform/training-model';
+import { Column, ExpandableSentinelTable, Row, RowExpand } from '@sentinel/components/table';
 import { TrainingRunRowAdapter } from './training-run-row-adapter';
-import { DateHelper } from '@muni-kypo-crp/training-agenda/internal';
+import { DateHelper } from '@cyberrangecz-platform/training-agenda/internal';
 import { TrainingRunInfoComponent } from '../components/runs/detail/training-run-info.component';
 
 /**

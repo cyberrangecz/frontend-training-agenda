@@ -1,3 +1,3 @@
-import { AccessedTrainingRun } from '@muni-kypo-crp/training-model';
+import { AccessedTrainingRun } from '@cyberrangecz-platform/training-model';
 
 export class AccessedTrainingRunRowAdapter extends AccessedTrainingRun {}

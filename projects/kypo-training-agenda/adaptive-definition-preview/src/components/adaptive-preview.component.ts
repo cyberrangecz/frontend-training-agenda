@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Phase } from '@muni-kypo-crp/training-model';
-import { ADAPTIVE_DEFINITION_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
-import { PhaseStepperAdapter } from '@muni-kypo-crp/training-agenda/internal';
+import { Phase } from '@cyberrangecz-platform/training-model';
+import { ADAPTIVE_DEFINITION_DATA_ATTRIBUTE_NAME } from '@cyberrangecz-platform/training-agenda';
+import { PhaseStepperAdapter } from '@cyberrangecz-platform/training-agenda/internal';
 import { AdaptivePreviewStepper } from '../model/adaptive-preview-stepper';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 

@@ -1,9 +1,7 @@
-import { Level } from '@muni-kypo-crp/training-model';
-import { AccessTrainingRunInfo } from '@muni-kypo-crp/training-model';
-import { BehaviorSubject } from 'rxjs';
-import { Observable } from 'rxjs';
+import { AccessTrainingRunInfo, Level } from '@cyberrangecz-platform/training-model';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { skipWhile } from 'rxjs/operators';
-import { ConsoleUrl } from '@muni-kypo-crp/topology-graph';
+import { ConsoleUrl } from '@cyberrangecz-platform/topology-graph';
 
 export abstract class RunningTrainingRunService {
   sandboxInstanceId: string;

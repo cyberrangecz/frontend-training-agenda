@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { SentinelStepperModule } from '@sentinel/components/stepper';
-import { KypoTopologyGraphConfig } from '@muni-kypo-crp/topology-graph';
-import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
+import { KypoTopologyGraphConfig } from '@cyberrangecz-platform/topology-graph';
+import { TrainingAgendaConfig } from '@cyberrangecz-platform/training-agenda';
 import { TrainingRunLevelsDeactivateGuard } from '../services/can-deactivate/training-run-levels-can-deactivate.service';
 import { TrainingRunDetailComponentsModule } from './training-run-detail-components.module';
 

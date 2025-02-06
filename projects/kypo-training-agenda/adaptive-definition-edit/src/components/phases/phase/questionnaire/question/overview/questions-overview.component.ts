@@ -9,8 +9,8 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { AdaptiveQuestion, QuestionTypeEnum } from '@muni-kypo-crp/training-model';
-import { AdaptiveQuestionStepperAdapter } from '@muni-kypo-crp/training-agenda/internal';
+import { AdaptiveQuestion, QuestionTypeEnum } from '@cyberrangecz-platform/training-model';
+import { AdaptiveQuestionStepperAdapter } from '@cyberrangecz-platform/training-agenda/internal';
 import { SentinelStepper, StepStateEnum } from '@sentinel/components/stepper';
 import {
   SentinelControlItem,
@@ -18,7 +18,6 @@ import {
   SentinelExpandableControlItem,
 } from '@sentinel/components/controls';
 import { defer, EMPTY, Observable, of } from 'rxjs';
-import { takeWhile } from 'rxjs/operators';
 import { QuestionChangeEvent } from '../../../../../../model/events/question-change-event';
 import { MatDialog } from '@angular/material/dialog';
 import {

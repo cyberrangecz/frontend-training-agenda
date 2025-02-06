@@ -12,15 +12,15 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { TrainingDefinitionInfo, TrainingInstance } from '@muni-kypo-crp/training-model';
+import { TrainingDefinitionInfo, TrainingInstance } from '@cyberrangecz-platform/training-model';
 import { TrainingInstanceChangeEvent } from '../../model/events/training-instance-change-event';
 import { TrainingInstanceFormGroup } from './training-instance-form-group';
 import { AbstractControl } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Pool, SandboxDefinition } from '@muni-kypo-crp/sandbox-model';
+import { Pool, SandboxDefinition } from '@cyberrangecz-platform/sandbox-model';
 import { BehaviorSubject, combineLatestWith, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
+import { TrainingNavigator } from '@cyberrangecz-platform/training-agenda';
 
 /**
  * Component for creating new or editing existing training instance
@@ -62,30 +62,39 @@ export class TrainingInstanceEditComponent implements OnChanges, AfterViewInit {
   get startTime(): AbstractControl {
     return this.trainingInstanceFormGroup.formGroup.get('startTime');
   }
+
   get endTime(): AbstractControl {
     return this.trainingInstanceFormGroup.formGroup.get('endTime');
   }
+
   get title(): AbstractControl {
     return this.trainingInstanceFormGroup.formGroup.get('title');
   }
+
   get trainingDefinition(): AbstractControl {
     return this.trainingInstanceFormGroup.formGroup.get('trainingDefinition');
   }
+
   get accessTokenPrefix(): AbstractControl {
     return this.trainingInstanceFormGroup.formGroup.get('accessTokenPrefix');
   }
+
   get localEnvironment(): AbstractControl {
     return this.trainingInstanceFormGroup.formGroup.get('localEnvironment');
   }
+
   get backwardMode(): AbstractControl {
     return this.trainingInstanceFormGroup.formGroup.get('backwardMode');
   }
+
   get showStepperBar(): AbstractControl {
     return this.trainingInstanceFormGroup.formGroup.get('showStepperBar');
   }
+
   get poolId(): AbstractControl {
     return this.trainingInstanceFormGroup.formGroup.get('poolId');
   }
+
   get sandboxDefinitionId(): AbstractControl {
     return this.trainingInstanceFormGroup.formGroup.get('sandboxDefinitionId');
   }

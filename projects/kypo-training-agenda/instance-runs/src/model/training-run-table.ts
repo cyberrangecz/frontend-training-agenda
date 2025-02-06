@@ -1,11 +1,11 @@
 import { DatePipe } from '@angular/common';
 import { PaginatedResource } from '@sentinel/common/pagination';
-import { TrainingInstance, TrainingRun, TrainingRunStateEnum } from '@muni-kypo-crp/training-model';
-import { Column, SentinelTable, Row, RowAction, DeleteAction } from '@sentinel/components/table';
+import { TrainingInstance, TrainingRun, TrainingRunStateEnum } from '@cyberrangecz-platform/training-model';
+import { Column, DeleteAction, Row, RowAction, SentinelTable } from '@sentinel/components/table';
 import { defer, of } from 'rxjs';
 import { TrainingRunService } from '../services/runs/training-run.service';
 import { TrainingRunRowAdapter } from './training-run-row-adapter';
-import { DateHelper } from '@muni-kypo-crp/training-agenda/internal';
+import { DateHelper } from '@cyberrangecz-platform/training-agenda/internal';
 
 /**
  * Helper class transforming paginated resource to class for common table component

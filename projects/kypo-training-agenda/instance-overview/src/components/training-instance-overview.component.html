@@ -1,65 +1,67 @@
 <div class="content">
-  <sentinel-controls [controls]="controls" (itemClicked)="onControlAction($event)"></sentinel-controls>
-  <sentinel-table
-    [defaultSortName]="INITIAL_SORT_NAME"
-    [defaultSortDirection]="INITIAL_SORT_DIR"
-    [data]="instances$ | async"
-    [hasError]="hasError$ | async"
-    [titlecasedActions]="false"
-    [displayedActionsCount]="9"
-    (rowAction)="onInstanceAction($event)"
-    (tableLoad)="onInstancesLoadEvent($event)"
-  >
-    <ng-container *sentinelRow="'accessToken'; template: accessToken"></ng-container>
-    <ng-container *sentinelRow="'poolSize'; template: poolSize"></ng-container>
-  </sentinel-table>
+    <sentinel-controls [controls]="controls" (itemClicked)="onControlAction($event)"></sentinel-controls>
+    <sentinel-table
+        [defaultSortName]="INITIAL_SORT_NAME"
+        [defaultSortDirection]="INITIAL_SORT_DIR"
+        [data]="instances$ | async"
+        [hasError]="hasError$ | async"
+        [titlecasedActions]="false"
+        [displayedActionsCount]="9"
+        (rowAction)="onInstanceAction($event)"
+        (tableLoad)="onInstancesLoadEvent($event)"
+    >
+        <ng-container *sentinelRow="'accessToken'; template: accessToken"></ng-container>
+        <ng-container *sentinelRow="'poolSize'; template: poolSize"></ng-container>
+    </sentinel-table>
 </div>
 
 <ng-template #accessToken let-row>
-  <div *ngIf="row.element.poolSize | async as poolSize; else loading"
-       class="access-token-container"
-       matTooltip="{{ getAccessTokenTooltip(poolSize[1], row.element.localEnvironment, poolSize[0]) }}"
-  >
-    <button
-      mat-button
-      color="primary"
-      class="token-button"
-      [disabled]="!row.element.localEnvironment && (poolSize[1]==='0' || poolSize[1]==='')"
-      [cdkCopyToClipboard]="row.element.accessToken"
-      (click)="onCopyToken()"
+    <div *ngIf="row.element.poolSize | async as poolSize; else loading"
+         class="access-token-container"
+         matTooltip="{{ getAccessTokenTooltip(poolSize[1], row.element.localEnvironment, poolSize[0]) }}"
     >
-      {{ row.element.accessToken }}
-    </button>
+        <button
+            mat-button
+            color="primary"
+            class="token-button"
+            [disabled]="!row.element.localEnvironment && (poolSize[1]==='0' || poolSize[1]==='')"
+            [cdkCopyToClipboard]="row.element.accessToken"
+            (click)="onCopyToken()"
+        >
+            {{ row.element.accessToken }}
+        </button>
 
-    <div *ngIf="!row.element.localEnvironment && poolSize[0] === '-'">
-      <mat-icon color="warn">error</mat-icon>
-    </div>
+        <div *ngIf="!row.element.localEnvironment && poolSize[0] === '-'">
+            <mat-icon color="warn">error</mat-icon>
+        </div>
 
-    <div *ngIf="!row.element.localEnvironment && poolSize[1] === '0'">
-      <mat-icon class="warning">warning</mat-icon>
+        <div *ngIf="!row.element.localEnvironment && poolSize[1] === '0'">
+            <mat-icon class="warning">warning</mat-icon>
+        </div>
     </div>
-  </div>
-  <ng-template #loading>
-    <mat-progress-spinner color="accent" mode="indeterminate" [diameter]="20"> </mat-progress-spinner>
-  </ng-template>
+    <ng-template #loading>
+        <mat-progress-spinner color="accent" mode="indeterminate" [diameter]="20"></mat-progress-spinner>
+    </ng-template>
 </ng-template>
 
 <ng-template #poolSize let-row>
-  <div *ngIf="row.element.poolSize | async as poolSize; else loading">
-    <div *ngIf="poolSize[0] !== '-' else errorState">
-      <span>{{ poolSize[0] }}</span>
-      <span *ngIf="poolSize[1]"
-      > (<span [ngClass]="{ 'warn': poolSize[1] === 0 }">{{ poolSize[1] }}  free</span>)</span
-      >
+    <div *ngIf="row.element.poolSize | async as poolSize; else loading">
+        <div *ngIf="poolSize[0] !== '-' else errorState">
+            <span>{{ poolSize[0] }}</span>
+            <span *ngIf="poolSize[1]"
+            > (<span [ngClass]="{ 'warn': poolSize[1] === 0 }">{{ poolSize[1] }}  free</span>)</span
+            >
+        </div>
+        <div *ngIf="row.element.poolTitle === 'Local'">
+            <span>{{ poolSize[0] }}</span>
+        </div>
+        <ng-template #errorState>
+            <mat-icon *ngIf="row.element.poolTitle !== 'Local'" class="warn"
+                      [matTooltip]="'Given pool does not exist.'">warning
+            </mat-icon>
+        </ng-template>
     </div>
-    <div *ngIf="row.element.poolTitle === 'Local'">
-      <span>{{poolSize[0]}}</span>
-    </div>
-    <ng-template #errorState>
-      <mat-icon *ngIf="row.element.poolTitle !== 'Local'" class="warn" [matTooltip]="'Given pool does not exist.'">warning</mat-icon>
+    <ng-template #loading>
+        <mat-progress-spinner color="accent" mode="indeterminate" [diameter]="20"></mat-progress-spinner>
     </ng-template>
-  </div>
-  <ng-template #loading>
-    <mat-progress-spinner color="accent" mode="indeterminate" [diameter]="20"> </mat-progress-spinner>
-  </ng-template>
 </ng-template>

@@ -7,8 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { SentinelValidators } from '@sentinel/common';
-import { Question } from '@muni-kypo-crp/training-model';
-import { FreeFormQuestion } from '@muni-kypo-crp/training-model';
+import { FreeFormQuestion, Question } from '@cyberrangecz-platform/training-model';
 
 /**
  * Form control for free form question component

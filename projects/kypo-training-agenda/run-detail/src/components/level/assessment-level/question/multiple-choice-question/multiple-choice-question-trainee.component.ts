@@ -1,8 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { Question } from '@muni-kypo-crp/training-model';
-import { MultipleChoiceQuestion } from '@muni-kypo-crp/training-model';
-import { QuestionChoice } from '@muni-kypo-crp/training-model/lib/questions/question-choice';
+import { MultipleChoiceQuestion, Question } from '@cyberrangecz-platform/training-model';
+import { QuestionChoice } from '@cyberrangecz-platform/training-model/lib/questions/question-choice';
 
 @Component({
   selector: 'kypo-trainee-multiple-choice-question',

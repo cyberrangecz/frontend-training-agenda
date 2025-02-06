@@ -9,10 +9,9 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { takeWhile } from 'rxjs/operators';
 import { AccessPhaseEditFormGroup } from './access-phase-edit-form-group';
 import { AbstractControl } from '@angular/forms';
-import { AccessPhase } from '@muni-kypo-crp/training-model';
+import { AccessPhase } from '@cyberrangecz-platform/training-model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
@@ -34,12 +33,15 @@ export class AccessPhaseEditComponent implements OnChanges {
   get title(): AbstractControl {
     return this.phaseConfigFormGroup.formGroup.get('title');
   }
+
   get passkey(): AbstractControl {
     return this.phaseConfigFormGroup.formGroup.get('passkey');
   }
+
   get cloudContent(): AbstractControl {
     return this.phaseConfigFormGroup.formGroup.get('cloudContent');
   }
+
   get localContent(): AbstractControl {
     return this.phaseConfigFormGroup.formGroup.get('localContent');
   }

@@ -4,7 +4,7 @@
  * Subscribe to levels$, activeStep$ and activeLevelCanBeSaved$ to receive latest data updates.
  */
 import { BehaviorSubject, Observable } from 'rxjs';
-import { MitreTechnique } from '@muni-kypo-crp/training-model';
+import { MitreTechnique } from '@cyberrangecz-platform/training-model';
 
 export abstract class MitreTechniquesService {
   protected mitreTechniquesSubject$: BehaviorSubject<MitreTechnique[]> = new BehaviorSubject([]);

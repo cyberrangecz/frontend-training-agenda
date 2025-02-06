@@ -10,8 +10,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { TrainingDefinition } from '@muni-kypo-crp/training-model';
-import { TrainingInstance } from '@muni-kypo-crp/training-model';
+import { TrainingDefinition, TrainingInstance } from '@cyberrangecz-platform/training-model';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';

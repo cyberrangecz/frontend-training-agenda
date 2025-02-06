@@ -12,11 +12,11 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SentinelControlItem } from '@sentinel/components/controls';
-import { Level, MitreTechnique, TrainingDefinition } from '@muni-kypo-crp/training-model';
+import { Level, MitreTechnique, TrainingDefinition } from '@cyberrangecz-platform/training-model';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { LevelOverviewControls } from '../../../model/adapters/level-overview-controls';
-import { LevelStepperAdapter } from '@muni-kypo-crp/training-agenda/internal';
+import { LevelStepperAdapter } from '@cyberrangecz-platform/training-agenda/internal';
 import { LevelMoveEvent } from '../../../model/events/level-move-event';
 import { LevelEditService } from '../../../services/state/level/level-edit.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';

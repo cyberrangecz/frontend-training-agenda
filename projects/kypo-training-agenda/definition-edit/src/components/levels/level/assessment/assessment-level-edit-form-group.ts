@@ -1,7 +1,6 @@
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { SentinelValidators } from '@sentinel/common';
-import { AssessmentTypeEnum } from '@muni-kypo-crp/training-model';
-import { AssessmentLevel } from '@muni-kypo-crp/training-model';
+import { AssessmentLevel, AssessmentTypeEnum } from '@cyberrangecz-platform/training-model';
 
 /**
  * Form control class for assessment level edit component
@@ -24,6 +23,7 @@ export class AssessmentLevelEditFormGroup {
       ]),
     });
   }
+
   /**
    * Sets inserted form values from inputs to assessment level
    * @param level level which values should be filled

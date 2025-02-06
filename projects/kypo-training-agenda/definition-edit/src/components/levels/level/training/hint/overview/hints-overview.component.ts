@@ -18,7 +18,7 @@ import {
   SentinelDialogResultEnum,
 } from '@sentinel/components/dialogs';
 import { SentinelControlItem } from '@sentinel/components/controls';
-import { Hint } from '@muni-kypo-crp/training-model';
+import { Hint } from '@cyberrangecz-platform/training-model';
 import { SentinelStepper, StepStateEnum } from '@sentinel/components/stepper';
 import { BehaviorSubject, defer, EMPTY, Observable, of } from 'rxjs';
 import { HintStepperAdapter } from '../../../../../../model/adapters/hint-stepper-adapter';

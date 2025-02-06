@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { OffsetPaginatedElementsService } from '@sentinel/common';
-import { PaginatedResource, OffsetPaginationEvent } from '@sentinel/common/pagination';
-import { TrainingRun } from '@muni-kypo-crp/training-model';
+import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
+import { TrainingRun } from '@cyberrangecz-platform/training-model';
 import { Observable } from 'rxjs';
 
 /**

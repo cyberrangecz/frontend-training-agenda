@@ -1,12 +1,18 @@
 import { RouterModule, Routes } from '@angular/router';
-import { PROGRESS_PATH, RUNS_PATH, SUMMARY_PATH } from '@muni-kypo-crp/training-agenda';
-import { NgModule } from '@angular/core';
-import { ACCESS_TOKEN_PATH, ADAPTIVE_INSTANCE_DATA_ATTRIBUTE_NAME, RESULTS_PATH } from '@muni-kypo-crp/training-agenda';
 import {
-  AdaptiveInstanceResolver,
-  AdaptiveInstanceDetailTitleResolver,
+  ACCESS_TOKEN_PATH,
+  ADAPTIVE_INSTANCE_DATA_ATTRIBUTE_NAME,
+  PROGRESS_PATH,
+  RESULTS_PATH,
+  RUNS_PATH,
+  SUMMARY_PATH,
+} from '@cyberrangecz-platform/training-agenda';
+import { NgModule } from '@angular/core';
+import {
   AdaptiveInstanceDetailBreadcrumbResolver,
-} from '@muni-kypo-crp/training-agenda/resolvers';
+  AdaptiveInstanceDetailTitleResolver,
+  AdaptiveInstanceResolver,
+} from '@cyberrangecz-platform/training-agenda/resolvers';
 
 const routes: Routes = [
   {

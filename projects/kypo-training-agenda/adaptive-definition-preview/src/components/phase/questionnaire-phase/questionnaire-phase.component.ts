@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { QuestionAnswer, QuestionnairePhase, QuestionTypeEnum } from '@muni-kypo-crp/training-model';
+import { QuestionAnswer, QuestionnairePhase, QuestionTypeEnum } from '@cyberrangecz-platform/training-model';
 
 @Component({
   selector: 'kypo-questionnaire-phase',

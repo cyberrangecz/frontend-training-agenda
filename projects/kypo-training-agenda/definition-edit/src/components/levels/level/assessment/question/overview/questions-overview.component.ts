@@ -21,14 +21,16 @@ import {
   SentinelControlMenuItem,
   SentinelExpandableControlItem,
 } from '@sentinel/components/controls';
-import { ExtendedMatchingItems } from '@muni-kypo-crp/training-model';
-import { Question } from '@muni-kypo-crp/training-model';
-import { MultipleChoiceQuestion } from '@muni-kypo-crp/training-model';
-import { FreeFormQuestion } from '@muni-kypo-crp/training-model';
+import {
+  ExtendedMatchingItems,
+  FreeFormQuestion,
+  MultipleChoiceQuestion,
+  Question,
+} from '@cyberrangecz-platform/training-model';
 import { defer, EMPTY, Observable, of } from 'rxjs';
 import { QuestionChangeEvent } from '../../../../../../model/events/question-change-event';
 import { SentinelStepper, StepStateEnum } from '@sentinel/components/stepper';
-import { QuestionStepperAdapter } from '@muni-kypo-crp/training-agenda/internal';
+import { QuestionStepperAdapter } from '@cyberrangecz-platform/training-agenda/internal';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**

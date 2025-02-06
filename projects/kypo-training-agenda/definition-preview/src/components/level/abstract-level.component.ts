@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { AbstractLevelTypeEnum } from '@muni-kypo-crp/training-model';
-import { Level } from '@muni-kypo-crp/training-model';
+import { AbstractLevelTypeEnum, Level } from '@cyberrangecz-platform/training-model';
 
 /**
  * Component to display one level in a training run. Serves mainly as a wrapper which determines the type of the training

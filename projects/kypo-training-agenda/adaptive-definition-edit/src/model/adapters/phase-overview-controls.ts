@@ -5,7 +5,7 @@ import {
 } from '@sentinel/components/controls';
 import { defer, Observable, of } from 'rxjs';
 import { PhaseEditService } from '../../services/state/phase/phase-edit.service';
-import { AbstractPhaseTypeEnum, QuestionnaireTypeEnum } from '@muni-kypo-crp/training-model';
+import { AbstractPhaseTypeEnum, QuestionnaireTypeEnum } from '@cyberrangecz-platform/training-model';
 
 /**
  * @dynamic

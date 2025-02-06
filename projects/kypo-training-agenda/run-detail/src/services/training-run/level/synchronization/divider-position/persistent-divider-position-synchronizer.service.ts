@@ -1,4 +1,4 @@
-import { DestroyRef, inject, Injectable, Optional } from '@angular/core';
+import { DestroyRef, inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, startWith } from 'rxjs';
 import { DividerPositionSynchronizerService } from './divider-position-synchronizer.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';

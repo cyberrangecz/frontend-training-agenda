@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { AbstractLevelTypeEnum, MitreTechnique } from '@muni-kypo-crp/training-model';
-import { Level } from '@muni-kypo-crp/training-model';
+import { AbstractLevelTypeEnum, Level, MitreTechnique } from '@cyberrangecz-platform/training-model';
 
 /**
  * Main component of level edit. Resolves which component should be display based on level type

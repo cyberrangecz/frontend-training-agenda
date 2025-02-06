@@ -8,12 +8,12 @@
                     [displayedActionsCount]="4"
                     (tableLoad)="onLoadEvent($event)"
                     (rowAction)="onTableAction($event)">
-                    <ng-container *sentinelRow="'stages'; template: stagesTemplate"></ng-container>
+        <ng-container *sentinelRow="'stages'; template: stagesTemplate"></ng-container>
     </sentinel-table>
 
-  <ng-template #stagesTemplate let-row>
-    <kypo-stage-overview [stages]="row.element.stages"
-                         [unitId]="row.element.unitId">
-    </kypo-stage-overview>
-  </ng-template>
+    <ng-template #stagesTemplate let-row>
+        <kypo-stage-overview [stages]="row.element.stages"
+                             [unitId]="row.element.unitId">
+        </kypo-stage-overview>
+    </ng-template>
 </div>

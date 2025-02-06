@@ -1,8 +1,8 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdaptiveDefinitionSimulatorComponent } from './adaptive-definition-simulator.component';
-import { InstanceModelSimulatorModule } from '@muni-kypo-crp/adaptive-model-simulator/instance-model-simulator';
-import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
+import { InstanceModelSimulatorModule } from '@cyberrangecz-platform/adaptive-model-simulator/instance-model-simulator';
+import { TrainingAgendaConfig } from '@cyberrangecz-platform/training-agenda';
 
 @NgModule({
   imports: [CommonModule, InstanceModelSimulatorModule],

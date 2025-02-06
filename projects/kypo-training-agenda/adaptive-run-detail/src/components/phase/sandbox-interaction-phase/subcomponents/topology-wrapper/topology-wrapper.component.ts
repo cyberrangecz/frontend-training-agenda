@@ -1,9 +1,9 @@
 import { Component, DestroyRef, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { KypoTopologyErrorService } from '@muni-kypo-crp/topology-graph';
+import { KypoTopologyErrorService } from '@cyberrangecz-platform/topology-graph';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { TrainingErrorHandler } from '@muni-kypo-crp/training-agenda';
+import { TrainingErrorHandler } from '@cyberrangecz-platform/training-agenda';
 import { TopologySizeSynchronizerService } from '../../../../../services/adaptive-run/synchronization/topology-size/topology-size-synchronizer.service';
 
 class DefaultTopologyShareService extends TopologySizeSynchronizerService {
@@ -13,6 +13,7 @@ class DefaultTopologyShareService extends TopologySizeSynchronizerService {
     super();
     this.topologySizeSubject = new BehaviorSubject(initialSize);
   }
+
   emitTopologySizeChange(topologySize: [number, number]): void {
     this.topologySizeSubject.next(topologySize);
   }

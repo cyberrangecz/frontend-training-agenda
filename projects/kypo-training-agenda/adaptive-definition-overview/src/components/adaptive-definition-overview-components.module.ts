@@ -5,8 +5,8 @@ import { ngfModule } from 'angular-file';
 import { SentinelPipesModule } from '@sentinel/common/pipes';
 import { SentinelControlsComponent } from '@sentinel/components/controls';
 import { SentinelTableModule } from '@sentinel/components/table';
-import { TrainingAgendaConfig, TrainingDefaultNavigator, TrainingNavigator } from '@muni-kypo-crp/training-agenda';
-import { TrainingAgendaContext, PaginationService } from '@muni-kypo-crp/training-agenda/internal';
+import { TrainingAgendaConfig, TrainingDefaultNavigator, TrainingNavigator } from '@cyberrangecz-platform/training-agenda';
+import { PaginationService, TrainingAgendaContext } from '@cyberrangecz-platform/training-agenda/internal';
 import { AdaptiveFileUploadProgressService } from '../services/file-upload/adaptive-file-upload-progress.service';
 import { AdaptiveDefinitionConcreteService } from '../services/state/adaptive-definition.concrete.service';
 import { AdaptiveDefinitionService } from '../services/state/adaptive-definition.service';
@@ -18,7 +18,7 @@ import {
   AdaptiveDefinitionBreadcrumbResolver,
   AdaptiveDefinitionResolver,
   AdaptiveDefinitionTitleResolver,
-} from '@muni-kypo-crp/training-agenda/resolvers';
+} from '@cyberrangecz-platform/training-agenda/resolvers';
 
 /**
  * Module containing components and providers for training definition overview.

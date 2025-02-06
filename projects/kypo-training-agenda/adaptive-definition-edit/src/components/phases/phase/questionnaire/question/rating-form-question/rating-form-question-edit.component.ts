@@ -1,9 +1,8 @@
 import { Component, DestroyRef, EventEmitter, inject, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { AdaptiveQuestion, QuestionnaireTypeEnum } from '@muni-kypo-crp/training-model';
+import { AdaptiveQuestion, QuestionnaireTypeEnum } from '@cyberrangecz-platform/training-model';
 import { QuestionFormGroup } from '../question-form-group';
 import { AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { SentinelValidators } from '@sentinel/common';
-import { takeWhile } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
@@ -30,6 +29,7 @@ export class RatingFormQuestionEditComponent implements OnChanges {
   get title(): AbstractControl {
     return this.ratingFormFormGroup.questionFormGroup.get('title');
   }
+
   get choices(): UntypedFormArray {
     return this.ratingFormFormGroup.questionFormGroup.get('choices') as UntypedFormArray;
   }
@@ -44,6 +44,7 @@ export class RatingFormQuestionEditComponent implements OnChanges {
         .subscribe(() => this.questionChanged());
     }
   }
+
   ratingLevelChanged(ratingLevel: number): void {
     const currentChoiceNum = this.choices.length;
     if (currentChoiceNum < ratingLevel) {

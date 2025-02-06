@@ -6,7 +6,7 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { AdaptiveQuestion, QuestionnaireTypeEnum } from '@muni-kypo-crp/training-model';
+import { AdaptiveQuestion, QuestionnaireTypeEnum } from '@cyberrangecz-platform/training-model';
 import { SentinelValidators } from '@sentinel/common';
 
 export class QuestionFormGroup {

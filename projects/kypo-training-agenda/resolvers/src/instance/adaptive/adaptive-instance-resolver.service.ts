@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
-import { TrainingInstance } from '@muni-kypo-crp/training-model';
+import { TrainingInstance } from '@cyberrangecz-platform/training-model';
 import { EMPTY, Observable, of } from 'rxjs';
 import { catchError, mergeMap, take } from 'rxjs/operators';
 import {
-  TrainingErrorHandler,
-  TrainingNavigator,
-  TRAINING_INSTANCE_NEW_PATH,
   ADAPTIVE_INSTANCE_PATH,
   ADAPTIVE_INSTANCE_SELECTOR,
-} from '@muni-kypo-crp/training-agenda';
-import { AdaptiveInstanceApi } from '@muni-kypo-crp/training-api';
+  TRAINING_INSTANCE_NEW_PATH,
+  TrainingErrorHandler,
+  TrainingNavigator,
+} from '@cyberrangecz-platform/training-agenda';
+import { AdaptiveInstanceApi } from '@cyberrangecz-platform/training-api';
 
 /**
  * Router data provider

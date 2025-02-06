@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Level } from '@muni-kypo-crp/training-model';
-import { LevelStepperAdapter } from '@muni-kypo-crp/training-agenda/internal';
+import { Level } from '@cyberrangecz-platform/training-model';
+import { LevelStepperAdapter } from '@cyberrangecz-platform/training-agenda/internal';
 import { ActivatedRoute } from '@angular/router';
 import { TrainingPreviewStepper } from '../model/training-preview-stepper';
-import { TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
+import { TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME } from '@cyberrangecz-platform/training-agenda';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**

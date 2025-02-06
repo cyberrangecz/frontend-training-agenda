@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {
-  TrainingInstanceEditOverviewComponent,
   TrainingInstanceCanDeactivate,
-} from '@muni-kypo-crp/training-agenda/instance-edit';
+  TrainingInstanceEditOverviewComponent,
+} from '@cyberrangecz-platform/training-agenda/instance-edit';
 
 const routes: Routes = [
   {

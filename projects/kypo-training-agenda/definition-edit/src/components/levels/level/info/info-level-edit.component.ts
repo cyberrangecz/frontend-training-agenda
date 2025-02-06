@@ -9,7 +9,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { InfoLevel } from '@muni-kypo-crp/training-model';
+import { InfoLevel } from '@cyberrangecz-platform/training-model';
 import { InfoLevelEditFormGroup } from './info-level-edit-form-group';
 import { AbstractControl } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -33,6 +33,7 @@ export class InfoLevelEditComponent implements OnChanges {
   get title(): AbstractControl {
     return this.infoLevelConfigFormGroup.formGroup.get('title');
   }
+
   get content(): AbstractControl {
     return this.infoLevelConfigFormGroup.formGroup.get('content');
   }

@@ -8,10 +8,12 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { Question } from '@muni-kypo-crp/training-model';
-import { ExtendedMatchingItems } from '@muni-kypo-crp/training-model';
-import { FreeFormQuestion } from '@muni-kypo-crp/training-model';
-import { MultipleChoiceQuestion } from '@muni-kypo-crp/training-model';
+import {
+  ExtendedMatchingItems,
+  FreeFormQuestion,
+  MultipleChoiceQuestion,
+  Question,
+} from '@cyberrangecz-platform/training-model';
 import { ExtendedMatchingItemsTraineeComponent } from './extended-matching-items/extended-matching-items-trainee.component';
 import { FreeFormQuestionTraineeComponent } from './free-form-question/free-form-question-trainee.component';
 import { MultipleChoiceQuestionTraineeComponent } from './multiple-choice-question/multiple-choice-question-trainee.component';
@@ -83,6 +85,7 @@ export class TraineeQuestionComponent implements OnChanges {
     this.question = event.question;
     this.contentChanged.emit(event.index);
   }
+
   /**
    * Resolves type of question to create appropriate child component
    */

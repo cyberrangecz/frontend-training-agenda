@@ -10,7 +10,7 @@ import {
   SimpleChanges,
   ViewChildren,
 } from '@angular/core';
-import { AssessmentLevel, AssessmentTypeEnum, Question } from '@muni-kypo-crp/training-model';
+import { AssessmentLevel, AssessmentTypeEnum, Question } from '@cyberrangecz-platform/training-model';
 import { take } from 'rxjs/operators';
 import { TraineeQuestionComponent } from './question/trainee-question.component';
 import { TrainingRunAssessmentLevelService } from '../../../services/training-run/level/assessment/training-run-assessment-level.service';

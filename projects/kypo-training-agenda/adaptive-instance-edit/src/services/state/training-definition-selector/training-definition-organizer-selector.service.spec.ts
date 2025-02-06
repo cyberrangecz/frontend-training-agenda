@@ -1,8 +1,8 @@
-import { waitForAsync, TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { asyncData } from '@sentinel/common/testing';
-import { PaginatedResource, OffsetPagination, OffsetPaginationEvent } from '@sentinel/common/pagination';
-import { AdaptiveDefinitionApiService } from '@muni-kypo-crp/training-api';
-import { TrainingDefinitionInfo } from '@muni-kypo-crp/training-model';
+import { OffsetPagination, OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
+import { AdaptiveDefinitionApiService } from '@cyberrangecz-platform/training-api';
+import { TrainingDefinitionInfo } from '@cyberrangecz-platform/training-model';
 import { throwError } from 'rxjs';
 import { skip, take } from 'rxjs/operators';
 import {

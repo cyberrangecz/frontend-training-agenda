@@ -1,9 +1,8 @@
-import { waitForAsync, TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { MatDialog } from '@angular/material/dialog';
-import { OffsetPaginationEvent, OffsetPagination, PaginatedResource } from '@sentinel/common/pagination';
-import { SandboxInstanceApi } from '@muni-kypo-crp/sandbox-api';
-import { SandboxAllocationUnitsApi } from '@muni-kypo-crp/sandbox-api';
-import { TrainingInstanceApi, TrainingRunApi } from '@muni-kypo-crp/training-api';
+import { OffsetPagination, OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
+import { SandboxAllocationUnitsApi, SandboxInstanceApi } from '@cyberrangecz-platform/sandbox-api';
+import { TrainingInstanceApi, TrainingRunApi } from '@cyberrangecz-platform/training-api';
 import { throwError } from 'rxjs';
 import { skip } from 'rxjs/operators';
 import {
@@ -11,8 +10,8 @@ import {
   createDialogSpy,
   createErrorHandlerSpy,
   createNotificationSpy,
-  createSauApi,
   createSandboxInstanceApiSpy,
+  createSauApi,
   createTrainingInstanceApiSpy,
   createTrainingRunApiSpy,
 } from '../../../../../internal/src/testing/testing-commons.spec';

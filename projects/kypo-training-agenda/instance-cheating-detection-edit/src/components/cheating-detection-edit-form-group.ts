@@ -1,5 +1,5 @@
 import { UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { CheatingDetection, CheatingDetectionStateEnum } from '@muni-kypo-crp/training-model';
+import { CheatingDetection, CheatingDetectionStateEnum } from '@cyberrangecz-platform/training-model';
 import { SentinelValidators } from '@sentinel/common';
 
 /**
@@ -37,6 +37,7 @@ export class CheatingDetectionEditFormGroup {
     });
     this.trainingInstanceId = trainingInstanceId;
   }
+
   /**
    * Sets values from form to training definition object
    */

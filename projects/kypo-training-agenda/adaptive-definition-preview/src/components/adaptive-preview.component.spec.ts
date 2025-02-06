@@ -1,18 +1,18 @@
 import { asyncData } from '@sentinel/common/testing';
 import { TrainingDefinitionEditOverviewMaterialModule } from '../../../definition-edit/src/components/training-definition-edit-overview-material.module';
 import { AdaptivePreviewComponent } from './adaptive-preview.component';
-import { TestBed, ComponentFixture, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {
-  TrainingDefinition,
-  Phase,
-  TrainingPhase,
-  InfoPhase,
-  QuestionnairePhase,
   AccessPhase,
-} from '@muni-kypo-crp/training-model';
+  InfoPhase,
+  Phase,
+  QuestionnairePhase,
+  TrainingDefinition,
+  TrainingPhase,
+} from '@cyberrangecz-platform/training-model';
 import { ActivatedRoute } from '@angular/router';
 import { createActivatedRouteSpy } from '../../../internal/src/testing/testing-commons.spec';
-import { AdaptiveDefinitionApiService } from '@muni-kypo-crp/training-api';
+import { AdaptiveDefinitionApiService } from '@cyberrangecz-platform/training-api';
 
 describe('TrainingPreviewComponent', () => {
   let component: AdaptivePreviewComponent;

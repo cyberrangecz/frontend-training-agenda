@@ -1,7 +1,7 @@
 import { BehaviorSubject, Observable } from 'rxjs';
 import { skipWhile } from 'rxjs/operators';
-import { AccessTrainingRunInfo, Phase, QuestionAnswer } from '@muni-kypo-crp/training-model';
-import { ConsoleUrl } from '@muni-kypo-crp/topology-graph';
+import { AccessTrainingRunInfo, Phase, QuestionAnswer } from '@cyberrangecz-platform/training-model';
+import { ConsoleUrl } from '@cyberrangecz-platform/topology-graph';
 
 export abstract class RunningAdaptiveRunService {
   sandboxInstanceId: string;
@@ -23,18 +23,32 @@ export abstract class RunningAdaptiveRunService {
   isCurrentPhaseAnswered$: Observable<boolean> = this.isCurrentPhaseAnsweredSubject$.asObservable();
 
   abstract init(adaptiveRunInfo: AccessTrainingRunInfo): void;
+
   abstract getPhases(): Phase[];
+
   abstract getActivePhase(): Phase;
+
   abstract getActivePhasePosition(): number;
+
   abstract getBacktrackedPhase(): Phase;
+
   abstract getBacktrackedPhasePosition(): number;
+
   abstract getStartTime(): Date;
+
   abstract getIsStepperDisplayed(): boolean;
+
   abstract getBackwardMode(): boolean;
+
   abstract next(): Observable<any>;
+
   abstract moveToPhase(phaseId: number): Observable<Phase>;
+
   abstract isLast(): boolean;
+
   abstract clear(): void;
+
   abstract submitQuestionnaire(answers: QuestionAnswer[]): Observable<any>;
+
   abstract loadConsoles(sandboxId: string): Observable<ConsoleUrl[]>;
 }

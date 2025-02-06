@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
-import { ADAPTIVE_RUN_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
+import { ADAPTIVE_RUN_DATA_ATTRIBUTE_NAME } from '@cyberrangecz-platform/training-agenda';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { TrainingRunResultsControls } from '../model/training-run-results-controls';
 import { MitreTechniquesOverviewService } from '../service/mitre-techniques.service';

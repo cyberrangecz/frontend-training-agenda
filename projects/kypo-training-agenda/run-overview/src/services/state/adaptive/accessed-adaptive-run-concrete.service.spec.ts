@@ -2,7 +2,7 @@ import { TestBed, waitForAsync } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { OffsetPaginationEvent } from '@sentinel/common/pagination';
-import { AdaptiveRunApi } from '@muni-kypo-crp/training-api';
+import { AdaptiveRunApi } from '@cyberrangecz-platform/training-api';
 import { throwError } from 'rxjs';
 import { skip, take } from 'rxjs/operators';
 import {

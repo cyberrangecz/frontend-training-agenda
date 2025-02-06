@@ -9,8 +9,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { Hint, MitreTechnique, TrainingLevel } from '@muni-kypo-crp/training-model';
-import { takeWhile } from 'rxjs/operators';
+import { Hint, MitreTechnique, TrainingLevel } from '@cyberrangecz-platform/training-model';
 import { TrainingLevelEditFormGroup } from './training-level-edit-form-group';
 import { AbstractControl } from '@angular/forms';
 import { SentinelControlItem } from '@sentinel/components/controls';
@@ -36,42 +35,55 @@ export class TrainingLevelEditComponent implements OnChanges {
   get title(): AbstractControl {
     return this.trainingLevelConfigFormGroup.formGroup.get('title');
   }
+
   get content(): AbstractControl {
     return this.trainingLevelConfigFormGroup.formGroup.get('content');
   }
+
   get solution(): AbstractControl {
     return this.trainingLevelConfigFormGroup.formGroup.get('solution');
   }
+
   get maxScore(): AbstractControl {
     return this.trainingLevelConfigFormGroup.formGroup.get('maxScore');
   }
+
   get solutionPenalized(): AbstractControl {
     return this.trainingLevelConfigFormGroup.formGroup.get('solutionPenalized');
   }
+
   get incorrectAnswerLimit(): AbstractControl {
     return this.trainingLevelConfigFormGroup.formGroup.get('incorrectAnswerLimit');
   }
+
   get variantAnswers(): AbstractControl {
     return this.trainingLevelConfigFormGroup.formGroup.get('variantAnswers');
   }
+
   get answer(): AbstractControl {
     return this.trainingLevelConfigFormGroup.formGroup.get('answer');
   }
+
   get answerVariableName(): AbstractControl {
     return this.trainingLevelConfigFormGroup.formGroup.get('answerVariableName');
   }
+
   get estimatedDuration(): AbstractControl {
     return this.trainingLevelConfigFormGroup.formGroup.get('estimatedDuration');
   }
+
   get minimalPossibleSolveTime(): AbstractControl {
     return this.trainingLevelConfigFormGroup.formGroup.get('minimalPossibleSolveTime');
   }
+
   get referenceSolution(): AbstractControl {
     return this.trainingLevelConfigFormGroup.formGroup.get('referenceSolution');
   }
+
   get hints(): AbstractControl {
     return this.trainingLevelConfigFormGroup.formGroup.get('hints');
   }
+
   get commandsRequired(): AbstractControl {
     return this.trainingLevelConfigFormGroup.formGroup.get('commandsRequired');
   }

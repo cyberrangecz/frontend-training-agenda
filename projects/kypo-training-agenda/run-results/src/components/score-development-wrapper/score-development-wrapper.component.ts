@@ -1,11 +1,11 @@
 import { Component, DestroyRef, HostListener, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { TrainingRun } from '@muni-kypo-crp/training-model';
+import { TrainingRun } from '@cyberrangecz-platform/training-model';
 import { map, Observable } from 'rxjs';
-import { VisualizationInfo } from '@muni-kypo-crp/training-agenda/internal';
-import { KypoTraineeModeInfo } from '@muni-kypo-crp/overview-visualization';
-import { TRAINING_RUN_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
-import { TrainingDefinitionApi } from '@muni-kypo-crp/training-api';
+import { VisualizationInfo } from '@cyberrangecz-platform/training-agenda/internal';
+import { KypoTraineeModeInfo } from '@cyberrangecz-platform/overview-visualization';
+import { TRAINING_RUN_DATA_ATTRIBUTE_NAME } from '@cyberrangecz-platform/training-agenda';
+import { TrainingDefinitionApi } from '@cyberrangecz-platform/training-api';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({

@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, HostListener, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { TrainingInstance } from '@muni-kypo-crp/training-model';
+import { TrainingInstance } from '@cyberrangecz-platform/training-model';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
+import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME } from '@cyberrangecz-platform/training-agenda';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**

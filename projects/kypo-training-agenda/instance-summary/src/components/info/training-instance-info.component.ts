@@ -10,11 +10,10 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { TrainingDefinition } from '@muni-kypo-crp/training-model';
-import { TrainingInstance } from '@muni-kypo-crp/training-model';
+import { TrainingDefinition, TrainingInstance } from '@cyberrangecz-platform/training-model';
 import { Observable } from 'rxjs';
 import { SentinelControlItem } from '@sentinel/components/controls';
-import { map, takeWhile } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { TrainingInstanceInfoControls } from '../../model/training-instance-info-controls';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 

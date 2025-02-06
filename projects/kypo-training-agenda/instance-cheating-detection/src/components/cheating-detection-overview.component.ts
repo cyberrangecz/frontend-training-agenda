@@ -3,13 +3,13 @@ import { OffsetPaginationEvent } from '@sentinel/common/pagination';
 import { Observable } from 'rxjs';
 import { SentinelTable, TableActionEvent, TableLoadEvent } from '@sentinel/components/table';
 import { SentinelControlItem } from '@sentinel/components/controls';
-import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
+import { PaginationService } from '@cyberrangecz-platform/training-agenda/internal';
 import { map, take } from 'rxjs/operators';
-import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME, TrainingNavigator } from '@muni-kypo-crp/training-agenda';
+import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME, TrainingNavigator } from '@cyberrangecz-platform/training-agenda';
 import { CheatingDetectionOverviewControls } from '../model/cheating-detection-overview-controls';
 import { CheatingDetectionService } from '../services/cheating-detection.service';
 import { CheatingDetectionTable } from '../model/cheating-detection-table';
-import { CheatingDetection, TrainingInstance } from '@muni-kypo-crp/training-model';
+import { CheatingDetection, TrainingInstance } from '@cyberrangecz-platform/training-model';
 import { ActivatedRoute } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 

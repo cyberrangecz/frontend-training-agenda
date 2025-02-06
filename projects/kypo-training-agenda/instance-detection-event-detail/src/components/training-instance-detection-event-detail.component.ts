@@ -12,12 +12,12 @@ import {
   MinimalSolveTimeDetectionEvent,
   NoCommandsDetectionEvent,
   TimeProximityDetectionEvent,
-} from '@muni-kypo-crp/training-model';
+} from '@cyberrangecz-platform/training-model';
 import { Observable } from 'rxjs';
 import { SentinelTable, TableActionEvent, TableLoadEvent } from '@sentinel/components/table';
 import { map, take } from 'rxjs/operators';
-import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
-import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
+import { PaginationService } from '@cyberrangecz-platform/training-agenda/internal';
+import { TrainingNavigator } from '@cyberrangecz-platform/training-agenda';
 import { DetectionEventParticipantTable } from '../model/detection-event-participant-table';
 import { DetectionEventParticipantService } from '../services/participant/detection-event-participant.service';
 import { DetectionEventService } from '../services/detection-event/detection-event.service';
@@ -111,10 +111,12 @@ export class TrainingInstanceDetectionEventDetailComponent implements OnInit {
         this.eventTypeFormatted = 'Undefined';
     }
   }
+
   detectionRunTime(): string {
     const datePipe = new DatePipe('en-EN');
     return `${datePipe.transform(this.detectionRunAt)}`;
   }
+
   /**
    * Resolves type of emitted event and calls appropriate handler
    * @param event action event emitted from table component
@@ -130,6 +132,7 @@ export class TrainingInstanceDetectionEventDetailComponent implements OnInit {
   isNotForbidden(event: AbstractDetectionEvent): boolean {
     return event.detectionEventType !== AbstractDetectionEventTypeEnum.Forbidden_commands;
   }
+
   private initParticipantsTable() {
     this.participantTableHasError$ = this.detectionEventParticipantService.hasError$;
     this.participantTableIsLoading$ = this.detectionEventParticipantService.isLoading$;

@@ -3,27 +3,27 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import {
   AssessmentVisualizationConfig,
   KypoAssessmentsResultsVisualizationModule,
-} from '@muni-kypo-crp/assessment-visualization';
-import { HurdlingVisualizationConfig, KypoTrainingsHurdlingVizLibModule } from '@muni-kypo-crp/hurdling-visualization';
+} from '@cyberrangecz-platform/assessment-visualization';
+import { HurdlingVisualizationConfig, KypoTrainingsHurdlingVizLibModule } from '@cyberrangecz-platform/hurdling-visualization';
 import {
   KypoTrainingsVisualizationOverviewLibModule,
   VisualizationOverviewConfig,
-} from '@muni-kypo-crp/overview-visualization';
-import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
+} from '@cyberrangecz-platform/overview-visualization';
+import { TrainingAgendaConfig } from '@cyberrangecz-platform/training-agenda';
 import { TrainingInstanceResultsMaterialModule } from './training-instance-results-material.module';
 import { TrainingInstanceResultsComponent } from './training-instance-results.component';
-import { DashboardModule } from '@muni-kypo-crp/visualization-dashboard/dashboard';
-import { TimelineModule } from '@muni-kypo-crp/command-visualizations/timeline';
-import { MistakeModule } from '@muni-kypo-crp/command-visualizations/mistake';
+import { DashboardModule } from '@cyberrangecz-platform/visualization-dashboard/dashboard';
+import { TimelineModule } from '@cyberrangecz-platform/command-visualizations/timeline';
+import { MistakeModule } from '@cyberrangecz-platform/command-visualizations/mistake';
 import { TrainingInstanceResultsRoutingModule } from './training-instance-results-routing.module';
 import { DashboardWrapperComponent } from './dashboard-wrapper/dashboard-wrapper.component';
 import { CommandTimelineWrapperComponent } from './command-timeline-wrapper/command-timeline-wrapper.component';
 import { AssessmentWrapperComponent } from './assessment-wrapper/assessment-wrapper.component';
 import { CommandAnalysisWrapperComponent } from './command-analysis-wrapper/command-analysis-wrapper.component';
 import { AggregatedDashboardWrapperComponent } from './aggregated-dashboard-wrapper/aggregated-dashboard-wrapper.component';
-import { StatisticalVisualizationModule } from '@muni-kypo-crp/statistical-visualizations/statistical-viz';
+import { StatisticalVisualizationModule } from '@cyberrangecz-platform/statistical-visualizations/statistical-viz';
 import { WalkthroughWrapperComponent } from './walkthrough-wrapper/walkthrough-wrapper.component';
-import { KypoWalkthroughVisualizationModule } from '@muni-kypo-crp/walkthrough-visualization';
+import { KypoWalkthroughVisualizationModule } from '@cyberrangecz-platform/walkthrough-visualization';
 import { WalkthroughService } from './walkthrough-wrapper/services/walkthrough.service';
 
 /**

@@ -1,4 +1,4 @@
-import { AbstractDetectionEvent } from '@muni-kypo-crp/training-model';
+import { AbstractDetectionEvent } from '@cyberrangecz-platform/training-model';
 
 /**
  * Class representing row of cheating detection table

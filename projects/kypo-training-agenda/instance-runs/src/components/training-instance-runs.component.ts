@@ -2,14 +2,14 @@ import { ChangeDetectionStrategy, Component, DestroyRef, inject, Input, OnInit }
 import { ActivatedRoute } from '@angular/router';
 import { OffsetPaginationEvent } from '@sentinel/common/pagination';
 import { SentinelControlItem } from '@sentinel/components/controls';
-import { TrainingInstance, TrainingRun } from '@muni-kypo-crp/training-model';
+import { TrainingInstance, TrainingRun } from '@cyberrangecz-platform/training-model';
 import { SentinelTable, TableActionEvent, TableLoadEvent } from '@sentinel/components/table';
 import { Observable } from 'rxjs';
-import { map, switchMap, take, takeWhile, tap } from 'rxjs/operators';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 import { TrainingRunTable } from '../model/training-run-table';
-import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
+import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME } from '@cyberrangecz-platform/training-agenda';
 import { TrainingRunService } from '../services/runs/training-run.service';
-import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
+import { PaginationService } from '@cyberrangecz-platform/training-agenda/internal';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**

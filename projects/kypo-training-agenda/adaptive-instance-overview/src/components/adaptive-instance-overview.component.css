@@ -7,18 +7,18 @@
 }
 
 .access-token-container {
-  display: flex;
-  align-items: flex-end;
+    display: flex;
+    align-items: flex-end;
 }
 
 .access-token-container mat-icon {
-  margin-left: 5px;
+    margin-left: 5px;
 }
 
 .access-token-container mat-icon.warning {
-  color: orange;
+    color: orange;
 }
 
 ::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
-  padding: 8px;
+    padding: 8px;
 }

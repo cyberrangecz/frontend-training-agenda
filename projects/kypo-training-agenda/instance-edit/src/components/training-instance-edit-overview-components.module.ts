@@ -7,7 +7,7 @@ import { SentinelPipesModule } from '@sentinel/common/pipes';
 import { SentinelControlsComponent } from '@sentinel/components/controls';
 import { SentinelListComponent, SentinelListElementDirective } from '@sentinel/components/list';
 import { SentinelUserAssignComponent } from '@sentinel/components/user-assign';
-import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
+import { TrainingAgendaConfig } from '@cyberrangecz-platform/training-agenda';
 import { TrainingInstanceCanDeactivate } from '../services/can-deactivate/training-instance-can-deactivate.service';
 import { TrainingInstanceEditOverviewMaterialModule } from './training-instance-edit-overview-material.module';
 import { TrainingInstanceEditOverviewComponent } from './training-instance-edit-overview.component';

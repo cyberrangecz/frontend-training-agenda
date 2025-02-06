@@ -1,4 +1,4 @@
-import { TrainingDefinition, TrainingRun } from '@muni-kypo-crp/training-model';
+import { TrainingDefinition, TrainingRun } from '@cyberrangecz-platform/training-model';
 
 /**
  * Class representing row of training run table

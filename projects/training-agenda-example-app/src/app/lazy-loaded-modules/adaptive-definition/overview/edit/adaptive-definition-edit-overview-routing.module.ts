@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {
-  AdaptiveDefinitionEditOverviewComponent,
   AdaptiveDefinitionCanDeactivate,
-} from '@muni-kypo-crp/training-agenda/adaptive-definition-edit';
-import { ADAPTIVE_DEFINITION_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
+  AdaptiveDefinitionEditOverviewComponent,
+} from '@cyberrangecz-platform/training-agenda/adaptive-definition-edit';
+import { ADAPTIVE_DEFINITION_DATA_ATTRIBUTE_NAME } from '@cyberrangecz-platform/training-agenda';
 import {
-  AdaptiveDefinitionResolver,
   AdaptiveDefinitionBreadcrumbResolver,
+  AdaptiveDefinitionResolver,
   AdaptiveDefinitionTitleResolver,
-} from '@muni-kypo-crp/training-agenda/resolvers';
+} from '@cyberrangecz-platform/training-agenda/resolvers';
 
 const routes: Routes = [
   {

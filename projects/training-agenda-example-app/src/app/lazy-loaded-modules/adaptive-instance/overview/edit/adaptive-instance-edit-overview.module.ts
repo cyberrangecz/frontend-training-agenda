@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AdaptiveInstanceEditOverviewComponentsModule } from '@muni-kypo-crp/training-agenda/adaptive-instance-edit';
+import { AdaptiveInstanceEditOverviewComponentsModule } from '@cyberrangecz-platform/training-agenda/adaptive-instance-edit';
 import { environment } from '../../../../../environments/environment';
 import { AdaptiveInstanceEditOverviewRoutingModule } from './adaptive-instance-edit-overview-routing.module';
 

@@ -9,10 +9,9 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { takeWhile } from 'rxjs/operators';
 import { InfoPhaseEditFormGroup } from './info-phase-edit-form-group';
 import { AbstractControl } from '@angular/forms';
-import { InfoPhase } from '@muni-kypo-crp/training-model';
+import { InfoPhase } from '@cyberrangecz-platform/training-model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
@@ -34,6 +33,7 @@ export class InfoPhaseEditComponent implements OnChanges {
   get title(): AbstractControl {
     return this.phaseConfigFormGroup.formGroup.get('title');
   }
+
   get content(): AbstractControl {
     return this.phaseConfigFormGroup.formGroup.get('content');
   }

@@ -7,16 +7,15 @@ import {
   SentinelDialogResultEnum,
 } from '@sentinel/components/dialogs';
 import { SentinelFilter } from '@sentinel/common/filter';
-import { PaginatedResource, OffsetPaginationEvent } from '@sentinel/common/pagination';
-import { TrainingDefinitionApi } from '@muni-kypo-crp/training-api';
-import { TrainingDefinition } from '@muni-kypo-crp/training-model';
-import { TrainingDefinitionStateEnum } from '@muni-kypo-crp/training-model';
+import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
+import { TrainingDefinitionApi } from '@cyberrangecz-platform/training-api';
+import { TrainingDefinition, TrainingDefinitionStateEnum } from '@cyberrangecz-platform/training-model';
 import { EMPTY, from, Observable } from 'rxjs';
 import { map, switchMap, take, tap } from 'rxjs/operators';
 import { CloneDialogComponent } from '../../components/clone-dialog/clone-dialog.component';
 import { TrainingDefinitionUploadDialogComponent } from '../../components/upload-dialog/training-definition-upload-dialog.component';
-import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } from '@muni-kypo-crp/training-agenda';
-import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
+import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } from '@cyberrangecz-platform/training-agenda';
+import { TrainingAgendaContext } from '@cyberrangecz-platform/training-agenda/internal';
 import { FileUploadProgressService } from '../file-upload/file-upload-progress.service';
 import { TrainingDefinitionService } from './training-definition.service';
 

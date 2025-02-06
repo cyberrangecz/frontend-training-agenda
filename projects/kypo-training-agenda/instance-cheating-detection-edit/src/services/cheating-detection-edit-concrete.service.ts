@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { CheatingDetectionApi } from '@muni-kypo-crp/training-api';
-import { CheatingDetection } from '@muni-kypo-crp/training-model';
+import { CheatingDetectionApi } from '@cyberrangecz-platform/training-api';
+import { CheatingDetection } from '@cyberrangecz-platform/training-model';
 import { Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
-import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } from '@muni-kypo-crp/training-agenda';
+import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } from '@cyberrangecz-platform/training-agenda';
 import { CheatingDetectionEditService } from './cheating-detection-edit.service';
 
 @Injectable()

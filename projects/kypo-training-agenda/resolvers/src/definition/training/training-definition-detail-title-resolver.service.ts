@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { TrainingDefinition } from '@muni-kypo-crp/training-model';
+import { TrainingDefinition } from '@cyberrangecz-platform/training-model';
 import { Observable, of } from 'rxjs';
 import { catchError, mergeMap, take } from 'rxjs/operators';
-import { SUMMARY_PATH } from '@muni-kypo-crp/training-agenda';
+import { SUMMARY_PATH } from '@cyberrangecz-platform/training-agenda';
 import { TrainingDefinitionResolver } from './training-definition-resolver.service';
 
 @Injectable()

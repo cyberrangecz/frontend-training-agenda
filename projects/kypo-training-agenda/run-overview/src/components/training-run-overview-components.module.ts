@@ -4,18 +4,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { SentinelPipesModule } from '@sentinel/common/pipes';
 import { SentinelTableModule } from '@sentinel/components/table';
-import { TrainingAgendaConfig, TrainingDefaultNavigator, TrainingNavigator } from '@muni-kypo-crp/training-agenda';
-import { PaginationService, TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
+import { TrainingAgendaConfig, TrainingDefaultNavigator, TrainingNavigator } from '@cyberrangecz-platform/training-agenda';
+import { LoadingDialogModule, PaginationService, TrainingAgendaContext } from '@cyberrangecz-platform/training-agenda/internal';
 import {
-  RunningAdaptiveRunService,
   RunningAdaptiveRunConcreteService,
-} from '@muni-kypo-crp/training-agenda/adaptive-run-detail';
+  RunningAdaptiveRunService,
+} from '@cyberrangecz-platform/training-agenda/adaptive-run-detail';
 import {
-  AccessTrainingRunResolver,
   AccessAdaptiveRunResolver,
-  TrainingRunResultsResolver,
+  AccessTrainingRunResolver,
   AdaptiveRunResultsResolver,
-} from '@muni-kypo-crp/training-agenda/resolvers';
+  TrainingRunResultsResolver,
+} from '@cyberrangecz-platform/training-agenda/resolvers';
 import { AccessedTrainingRunConcreteService } from '../services/state/training/accessed-training-run-concrete.service';
 import { AccessedTrainingRunService } from '../services/state/training/accessed-training-run.service';
 import { AccessTrainingRunComponent } from './access/access-training-run.component';
@@ -25,13 +25,12 @@ import { AccessedAdaptiveRunService } from '../services/state/adaptive/accessed-
 import { AccessedAdaptiveRunConcreteService } from '../services/state/adaptive/accessed-adaptive-run-concrete.service';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDialogModule } from '@angular/material/dialog';
-import { LoadingDialogModule } from '@muni-kypo-crp/training-agenda/internal';
-import { TopologyApiModule } from '@muni-kypo-crp/topology-graph';
+import { TopologyApiModule } from '@cyberrangecz-platform/topology-graph';
 import { SentinelControlsComponent } from '@sentinel/components/controls';
 import {
   RunningTrainingRunConcreteService,
   RunningTrainingRunService,
-} from '@muni-kypo-crp/training-agenda/run-detail';
+} from '@cyberrangecz-platform/training-agenda/run-detail';
 
 /**
  * Main module for trainee agenda. Contains components and top level routing

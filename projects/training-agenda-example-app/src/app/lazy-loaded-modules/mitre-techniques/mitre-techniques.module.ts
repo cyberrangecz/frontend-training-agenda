@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MitreTechniquesComponentsModule } from '@muni-kypo-crp/training-agenda/mitre-techniques';
-import { KypoTrainingApiModule } from '@muni-kypo-crp/training-api';
+import { MitreTechniquesComponentsModule } from '@cyberrangecz-platform/training-agenda/mitre-techniques';
+import { KypoTrainingApiModule } from '@cyberrangecz-platform/training-api';
 import { environment } from '../../../environments/environment';
 import { SharedProvidersModule } from '../shared-providers.module';
 import { MitreTechniquesRoutingModule } from './mitre-techniques-routing.module';

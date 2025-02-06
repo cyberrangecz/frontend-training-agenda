@@ -1,30 +1,31 @@
 <div class="container">
-  <div class="level-content">
-    <sentinel-markdown-view [markdown]="level.instructions"></sentinel-markdown-view>
-    <!-- QUESTIONS -->
-    <div class="questions">
-      <div *ngFor="let question of level.questions; index as i" class="question">
-        <mat-divider></mat-divider>
-        <kypo-trainee-question [question]="question" [index]="i + 1" (contentChanged)="onContentChanged()" [isBacktracked]="isBacktracked">
-        </kypo-trainee-question>
-      </div>
+    <div class="level-content">
+        <sentinel-markdown-view [markdown]="level.instructions"></sentinel-markdown-view>
+        <!-- QUESTIONS -->
+        <div class="questions">
+            <div *ngFor="let question of level.questions; index as i" class="question">
+                <mat-divider></mat-divider>
+                <kypo-trainee-question [question]="question" [index]="i + 1" (contentChanged)="onContentChanged()"
+                                       [isBacktracked]="isBacktracked">
+                </kypo-trainee-question>
+            </div>
+        </div>
     </div>
-  </div>
-  <!-- Differentiate submit action by different button style -->
-  @if (isBacktracked){
-    <button
-      class="next-button"
-      mat-raised-button
-      (click)="onNext()">
-      Next
-    </button>
-  } @else {
-    <button
-      class="next-button"
-      mat-flat-button
-      (click)="submit()"
-      [disabled]="!canSubmit">
-      {{ isLast ? "Finish" : "Submit" }}
-    </button>
-  }
+    <!-- Differentiate submit action by different button style -->
+    @if (isBacktracked) {
+        <button
+            class="next-button"
+            mat-raised-button
+            (click)="onNext()">
+            Next
+        </button>
+    } @else {
+        <button
+            class="next-button"
+            mat-flat-button
+            (click)="submit()"
+            [disabled]="!canSubmit">
+            {{ isLast ? "Finish" : "Submit" }}
+        </button>
+    }
 </div>

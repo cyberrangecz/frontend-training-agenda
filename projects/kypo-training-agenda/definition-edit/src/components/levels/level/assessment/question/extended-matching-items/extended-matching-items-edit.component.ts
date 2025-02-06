@@ -11,9 +11,7 @@ import {
 } from '@angular/core';
 import { AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { SentinelValidators } from '@sentinel/common';
-import { Question } from '@muni-kypo-crp/training-model';
-import { ExtendedMatchingItems } from '@muni-kypo-crp/training-model';
-import { takeWhile } from 'rxjs/operators';
+import { ExtendedMatchingItems, Question } from '@cyberrangecz-platform/training-model';
 import { ExtendedMatchingItemsFormGroup } from './extended-matching-items-form-group';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
@@ -42,15 +40,19 @@ export class ExtendedMatchingItemsEditComponent implements OnChanges {
   get title(): AbstractControl {
     return this.extendedMatchingQuestionFormGroup.formGroup.get('title');
   }
+
   get options(): UntypedFormArray {
     return this.extendedMatchingQuestionFormGroup.formGroup.get('options') as UntypedFormArray;
   }
+
   get statements(): UntypedFormArray {
     return this.extendedMatchingQuestionFormGroup.formGroup.get('statements') as UntypedFormArray;
   }
+
   get score(): AbstractControl {
     return this.extendedMatchingQuestionFormGroup.formGroup.get('score');
   }
+
   get penalty(): AbstractControl {
     return this.extendedMatchingQuestionFormGroup.formGroup.get('penalty');
   }

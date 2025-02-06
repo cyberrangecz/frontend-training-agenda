@@ -1,5 +1,4 @@
-import { Level } from '@muni-kypo-crp/training-model';
-import { AbstractLevelTypeEnum } from '@muni-kypo-crp/training-model';
+import { AbstractLevelTypeEnum, Level } from '@cyberrangecz-platform/training-model';
 import { StepItem, StepStateEnum } from '@sentinel/components/stepper';
 
 export class LevelStepperAdapter implements StepItem {

@@ -1,15 +1,15 @@
 import { asyncData } from '@sentinel/common/testing';
 import { TrainingDefinitionEditOverviewMaterialModule } from '../../../definition-edit/src/components/training-definition-edit-overview-material.module';
 import { TrainingPreviewComponent } from './training-preview.component';
-import { TestBed, ComponentFixture, waitForAsync } from '@angular/core/testing';
-import { Level, AssessmentLevel, InfoLevel, TrainingDefinition, TrainingLevel } from '@muni-kypo-crp/training-model';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { AssessmentLevel, InfoLevel, Level, TrainingDefinition, TrainingLevel } from '@cyberrangecz-platform/training-model';
 import { RunningTrainingRunService } from '../../../run-detail/src/services/training-run/running/running-training-run.service';
 import { ActivatedRoute } from '@angular/router';
 import {
   createActivatedRouteSpy,
   createRunningTrainingRunServiceSpy,
 } from '../../../internal/src/testing/testing-commons.spec';
-import { TrainingDefinitionApi } from '@muni-kypo-crp/training-api';
+import { TrainingDefinitionApi } from '@cyberrangecz-platform/training-api';
 
 describe('TrainingPreviewComponent', () => {
   let component: TrainingPreviewComponent;

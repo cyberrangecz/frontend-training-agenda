@@ -14,8 +14,8 @@ import {
   MitreTechnique,
   Phase,
   TrainingPhase,
-} from '@muni-kypo-crp/training-model';
-import { PhaseRelation } from '@muni-kypo-crp/training-model/lib/phase/questionnaire-phase/phase-relation';
+} from '@cyberrangecz-platform/training-model';
+import { PhaseRelation } from '@cyberrangecz-platform/training-model/lib/phase/questionnaire-phase/phase-relation';
 
 /**
  * Main component of phases edit. Resolves which component should be display based on phases type

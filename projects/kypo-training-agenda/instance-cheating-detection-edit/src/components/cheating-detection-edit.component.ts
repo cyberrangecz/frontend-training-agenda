@@ -4,12 +4,12 @@ import { AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup
 import { CheatingDetectionEditFormGroup } from './cheating-detection-edit-form-group';
 import { CheatingDetectionEditService } from '../services/cheating-detection-edit.service';
 import { ActivatedRoute } from '@angular/router';
-import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
-import { CheatingDetection, TrainingInstance } from '@muni-kypo-crp/training-model';
+import { PaginationService } from '@cyberrangecz-platform/training-agenda/internal';
+import { CheatingDetection, TrainingInstance } from '@cyberrangecz-platform/training-model';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { map, take } from 'rxjs/operators';
 import { defer, Observable, of } from 'rxjs';
-import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
+import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME } from '@cyberrangecz-platform/training-agenda';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
@@ -60,6 +60,7 @@ export class CheatingDetectionEditComponent {
   ifNotAPG() {
     return !this.isAPG;
   }
+
   get forbiddenCommandsMethod(): AbstractControl {
     return this.cheatingDetectionEditFormGroup.formGroup.get('forbiddenCommandsDetection');
   }
@@ -79,6 +80,7 @@ export class CheatingDetectionEditComponent {
       .forEach((choice) => choice.get('order').setValue(choice.get('order').value - 1));
     this.forbiddenCommandsChanged();
   }
+
   get timeProximityMethod(): AbstractControl {
     return this.cheatingDetectionEditFormGroup.formGroup.get('timeProximityDetection');
   }
@@ -98,6 +100,7 @@ export class CheatingDetectionEditComponent {
     this.forbiddenCommands.controls[i].get('type').setValue(value);
     this.forbiddenCommandsChanged();
   }
+
   forbiddenCommandsChanged(): void {
     this.cheatingDetectionEditFormGroup.formGroup.markAsDirty();
   }

@@ -4,7 +4,7 @@ import {
   TRAINING_RUN_RESULTS_COMMAND_ANALYSIS_PATH,
   TRAINING_RUN_RESULTS_COMMAND_TIMELINE_PATH,
   TRAINING_RUN_RESULTS_SCORE_DEVELOPMENT_PATH,
-} from '@muni-kypo-crp/training-agenda';
+} from '@cyberrangecz-platform/training-agenda';
 
 import { CommandTimelineWrapperComponent } from './command-timeline-wrapper/command-timeline-wrapper.component';
 import { CommandAnalysisWrapperComponent } from './command-analysis-wrapper/command-analysis-wrapper.component';

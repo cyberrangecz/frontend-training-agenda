@@ -1,5 +1,5 @@
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { AccessPhase } from '@muni-kypo-crp/training-model';
+import { AccessPhase } from '@cyberrangecz-platform/training-model';
 import { SentinelValidators } from '@sentinel/common';
 
 /**

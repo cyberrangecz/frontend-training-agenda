@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { InfoLevel } from '@muni-kypo-crp/training-model';
+import { InfoLevel } from '@cyberrangecz-platform/training-model';
 
 @Component({
   selector: 'kypo-info-level',

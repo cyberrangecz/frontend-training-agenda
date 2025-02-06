@@ -9,7 +9,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { AccessLevel } from '@muni-kypo-crp/training-model';
+import { AccessLevel } from '@cyberrangecz-platform/training-model';
 import { AccessLevelEditFormGroup } from './access-level-edit-form-group';
 import { AbstractControl } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -33,12 +33,15 @@ export class AccessLevelEditComponent implements OnChanges {
   get title(): AbstractControl {
     return this.accessLevelConfigFormGroup.formGroup.get('title');
   }
+
   get passkey(): AbstractControl {
     return this.accessLevelConfigFormGroup.formGroup.get('passkey');
   }
+
   get cloudContent(): AbstractControl {
     return this.accessLevelConfigFormGroup.formGroup.get('cloudContent');
   }
+
   get localContent(): AbstractControl {
     return this.accessLevelConfigFormGroup.formGroup.get('localContent');
   }

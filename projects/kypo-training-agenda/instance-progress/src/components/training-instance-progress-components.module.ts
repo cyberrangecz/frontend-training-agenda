@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { HurdlingVisualizationConfig, KypoTrainingsHurdlingVizLibModule } from '@muni-kypo-crp/hurdling-visualization';
-import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
+import { HurdlingVisualizationConfig, KypoTrainingsHurdlingVizLibModule } from '@cyberrangecz-platform/hurdling-visualization';
+import { TrainingAgendaConfig } from '@cyberrangecz-platform/training-agenda';
 import { TrainingInstanceProgressMaterialModule } from './training-instance-progress-material.module';
 import { TrainingInstanceProgressComponent } from './training-instance-progress.component';
 import { MatIconModule } from '@angular/material/icon';
-import { TimelineModule } from '@muni-kypo-crp/command-visualizations/timeline';
+import { TimelineModule } from '@cyberrangecz-platform/command-visualizations/timeline';
 import { MatTabsModule } from '@angular/material/tabs';
 
 /**

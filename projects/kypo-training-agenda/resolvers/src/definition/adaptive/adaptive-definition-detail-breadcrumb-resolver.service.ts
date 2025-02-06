@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import { SUMMARY_PATH } from '@muni-kypo-crp/training-agenda';
+import { SUMMARY_PATH } from '@cyberrangecz-platform/training-agenda';
 
 /**
  * Router breadcrumb title resolver

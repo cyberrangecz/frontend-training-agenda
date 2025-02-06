@@ -10,9 +10,8 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { TrainingPhaseEditFormGroup } from './training-phase-edit-form-group';
-import { takeWhile } from 'rxjs/operators';
 import { AbstractControl, UntypedFormArray } from '@angular/forms';
-import { AdaptiveQuestion, MitreTechnique, TrainingPhase } from '@muni-kypo-crp/training-model';
+import { AdaptiveQuestion, MitreTechnique, TrainingPhase } from '@cyberrangecz-platform/training-model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({

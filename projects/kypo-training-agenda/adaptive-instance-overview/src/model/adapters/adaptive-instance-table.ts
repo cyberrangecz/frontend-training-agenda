@@ -1,11 +1,11 @@
 import { PaginatedResource } from '@sentinel/common/pagination';
-import { TrainingInstance } from '@muni-kypo-crp/training-model';
-import { Column, SentinelTable, Row, RowAction, EditAction, DeleteAction } from '@sentinel/components/table';
+import { TrainingInstance } from '@cyberrangecz-platform/training-model';
+import { Column, DeleteAction, EditAction, Row, RowAction, SentinelTable } from '@sentinel/components/table';
 import { combineLatest, defer, of } from 'rxjs';
-import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
+import { TrainingNavigator } from '@cyberrangecz-platform/training-agenda';
 import { AdaptiveInstanceRowAdapter } from './adaptive-instance-row-adapter';
 import { AdaptiveInstanceOverviewService } from '../../services/state/adaptive-instance-overview.service';
-import { DateHelper } from '@muni-kypo-crp/training-agenda/internal';
+import { DateHelper } from '@cyberrangecz-platform/training-agenda/internal';
 import { DatePipe } from '@angular/common';
 
 /**

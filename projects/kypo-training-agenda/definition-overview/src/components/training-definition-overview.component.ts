@@ -1,14 +1,14 @@
 import { Component, DestroyRef, inject, Input, OnInit } from '@angular/core';
 import { OffsetPaginationEvent } from '@sentinel/common/pagination';
 import { SentinelControlItem } from '@sentinel/components/controls';
-import { TrainingDefinition } from '@muni-kypo-crp/training-model';
-import { SentinelTable, TableLoadEvent, TableActionEvent } from '@sentinel/components/table';
+import { TrainingDefinition } from '@cyberrangecz-platform/training-model';
+import { SentinelTable, TableActionEvent, TableLoadEvent } from '@sentinel/components/table';
 import { Observable } from 'rxjs';
-import { map, take, takeWhile } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { TrainingDefinitionOverviewControls } from '../model/training-definition-overview-controls';
 import { TrainingDefinitionTable } from '../model/training-definition-table';
-import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
-import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
+import { PaginationService } from '@cyberrangecz-platform/training-agenda/internal';
+import { TrainingNavigator } from '@cyberrangecz-platform/training-agenda';
 import { TrainingDefinitionService } from '../services/state/training-definition.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 

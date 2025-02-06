@@ -11,8 +11,7 @@ import {
 } from '@angular/core';
 import { AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { SentinelValidators } from '@sentinel/common';
-import { Question } from '@muni-kypo-crp/training-model';
-import { FreeFormQuestion } from '@muni-kypo-crp/training-model';
+import { FreeFormQuestion, Question } from '@cyberrangecz-platform/training-model';
 import { FreeFormQuestionFormGroup } from './free-form-question-form-group';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
@@ -41,12 +40,15 @@ export class FreeFormQuestionEditComponent implements OnChanges {
   get title(): AbstractControl {
     return this.freeFormQuestionFormGroup.freeFormQuestionFormGroup.get('title');
   }
+
   get score(): AbstractControl {
     return this.freeFormQuestionFormGroup.freeFormQuestionFormGroup.get('score');
   }
+
   get penalty(): AbstractControl {
     return this.freeFormQuestionFormGroup.freeFormQuestionFormGroup.get('penalty');
   }
+
   get choices(): UntypedFormArray {
     return this.freeFormQuestionFormGroup.freeFormQuestionFormGroup.get('choices') as UntypedFormArray;
   }

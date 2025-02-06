@@ -1,5 +1,5 @@
 import { SentinelStepper, StepStateEnum } from '@sentinel/components/stepper';
-import { PhaseStepperAdapter } from '@muni-kypo-crp/training-agenda/internal';
+import { PhaseStepperAdapter } from '@cyberrangecz-platform/training-agenda/internal';
 
 /**
  * Adaptive run phases adapter to kypo stepper component

@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SentinelPipesModule } from '@sentinel/common/pipes';
 import { SentinelControlsComponent } from '@sentinel/components/controls';
 import { SentinelUserAssignComponent } from '@sentinel/components/user-assign';
-import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
+import { TrainingAgendaConfig } from '@cyberrangecz-platform/training-agenda';
 import { AdaptiveDefinitionCanDeactivate } from '../services/can-deactivate/adaptive-definition-can-deactivate.service';
 import { AdaptiveTrainingDefinitionEditComponent } from './adaptive-definition/adaptive-training-definition-edit.component';
 import { AdaptiveDefinitionEditOverviewMaterialModule } from './adaptive-definition-edit-overview-material.module';
@@ -12,12 +12,13 @@ import { AdaptiveDefinitionEditOverviewComponent } from './adaptive-definition-e
 import { SentinelFreeFormComponent } from '@sentinel/components/free-form';
 import { PhaseOverviewComponentsModule } from './phases/phase-overview-components.module';
 import {
-  AdaptiveDefinitionResolver,
   AdaptiveDefinitionBreadcrumbResolver,
+  AdaptiveDefinitionResolver,
   AdaptiveDefinitionTitleResolver,
-} from '@muni-kypo-crp/training-agenda/resolvers';
+} from '@cyberrangecz-platform/training-agenda/resolvers';
 import { ModelSimulatorComponent } from './model-simulator/model-simulator.component';
-import { ModelSimulatorModule } from '@muni-kypo-crp/adaptive-model-simulator/model-simulator';
+import { ModelSimulatorModule } from '@cyberrangecz-platform/adaptive-model-simulator/model-simulator';
+
 /**
  * Module containing components and providers of training definition detail/edt/new actions.
  */

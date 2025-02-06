@@ -37,6 +37,7 @@ export class AccessTrainingRunComponent implements OnInit {
   get accessTokenPrefix(): AbstractControl {
     return this.traineeAccessTrainingFormGroup.formGroup.get('accessTokenPrefix');
   }
+
   get accessTokenPin(): AbstractControl {
     return this.traineeAccessTrainingFormGroup.formGroup.get('accessTokenPin');
   }

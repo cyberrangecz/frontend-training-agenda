@@ -13,8 +13,8 @@ import {
 } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { delay, take } from 'rxjs/operators';
-import { HintButton } from '@muni-kypo-crp/training-agenda/internal';
-import { Hint, TrainingLevel } from '@muni-kypo-crp/training-model';
+import { HintButton } from '@cyberrangecz-platform/training-agenda/internal';
+import { Hint, TrainingLevel } from '@cyberrangecz-platform/training-model';
 import { TrainingRunTrainingLevelService } from '../../../../services/training-run/level/training/training-run-training-level.service';
 import { TrainingRunTrainingLevelConcreteService } from '../../../../services/training-run/level/training/training-run-training-level-concrete.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';

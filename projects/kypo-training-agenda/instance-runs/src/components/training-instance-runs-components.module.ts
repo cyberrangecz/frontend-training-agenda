@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { SentinelPipesModule } from '@sentinel/common/pipes';
 import { SentinelControlsComponent } from '@sentinel/components/controls';
 import { SentinelTableModule } from '@sentinel/components/table';
-import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
+import { TrainingAgendaConfig } from '@cyberrangecz-platform/training-agenda';
 import { TrainingRunConcreteService } from '../services/runs/training-run-concrete.service';
 import { TrainingRunService } from '../services/runs/training-run.service';
 import { TrainingRunOverviewComponent } from './training-run-overview/training-run-overview.component';

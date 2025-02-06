@@ -1,5 +1,5 @@
 import { Column, Row, SentinelTable } from '@sentinel/components/table';
-import { TrainingRunInfo } from '@muni-kypo-crp/training-model';
+import { TrainingRunInfo } from '@cyberrangecz-platform/training-model';
 
 /**
  * @dynamic

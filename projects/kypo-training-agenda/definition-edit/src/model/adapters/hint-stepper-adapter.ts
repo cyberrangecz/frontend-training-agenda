@@ -1,4 +1,4 @@
-import { Hint } from '@muni-kypo-crp/training-model';
+import { Hint } from '@cyberrangecz-platform/training-model';
 import { StepItem, StepStateEnum } from '@sentinel/components/stepper';
 
 export class HintStepperAdapter implements StepItem {

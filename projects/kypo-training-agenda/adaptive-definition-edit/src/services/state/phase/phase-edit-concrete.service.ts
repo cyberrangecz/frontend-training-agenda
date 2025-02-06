@@ -8,7 +8,7 @@ import {
 import { EMPTY, Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { PhaseEditService } from './phase-edit.service';
-import { AdaptiveDefinitionApiService } from '@muni-kypo-crp/training-api';
+import { AdaptiveDefinitionApiService } from '@cyberrangecz-platform/training-api';
 import {
   AbstractPhaseTypeEnum,
   AccessPhase,
@@ -18,8 +18,8 @@ import {
   QuestionnaireTypeEnum,
   Task,
   TrainingPhase,
-} from '@muni-kypo-crp/training-model';
-import { TrainingErrorHandler, TrainingNotificationService } from '@muni-kypo-crp/training-agenda';
+} from '@cyberrangecz-platform/training-model';
+import { TrainingErrorHandler, TrainingNotificationService } from '@cyberrangecz-platform/training-agenda';
 
 @Injectable()
 export class PhaseEditConcreteService extends PhaseEditService {

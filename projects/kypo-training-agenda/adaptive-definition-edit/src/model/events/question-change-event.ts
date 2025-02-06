@@ -1,4 +1,4 @@
-import { AdaptiveQuestion } from '@muni-kypo-crp/training-model';
+import { AdaptiveQuestion } from '@cyberrangecz-platform/training-model';
 
 /**
  * Event representing change of edited question

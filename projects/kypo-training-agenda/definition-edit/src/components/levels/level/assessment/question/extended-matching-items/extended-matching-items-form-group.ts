@@ -7,8 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { SentinelValidators } from '@sentinel/common';
-import { Question } from '@muni-kypo-crp/training-model';
-import { ExtendedMatchingItems } from '@muni-kypo-crp/training-model';
+import { ExtendedMatchingItems, Question } from '@cyberrangecz-platform/training-model';
 
 /**
  * Form control group for form in EMI edit component

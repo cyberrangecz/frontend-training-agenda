@@ -1,8 +1,8 @@
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { asyncData } from '@sentinel/common/testing';
-import { TrainingDefinitionApi } from '@muni-kypo-crp/training-api';
-import { TrainingDefinition, TrainingDefinitionStateEnum } from '@muni-kypo-crp/training-model';
+import { TrainingDefinitionApi } from '@cyberrangecz-platform/training-api';
+import { TrainingDefinition, TrainingDefinitionStateEnum } from '@cyberrangecz-platform/training-model';
 import { throwError } from 'rxjs';
 import { TrainingDefinitionChangeEvent } from '../../../model/events/training-definition-change-event';
 import {

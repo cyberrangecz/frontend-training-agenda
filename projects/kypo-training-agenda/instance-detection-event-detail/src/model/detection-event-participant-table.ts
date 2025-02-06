@@ -1,6 +1,6 @@
 import { PaginatedResource } from '@sentinel/common/pagination';
-import { Column, SentinelTable, Row } from '@sentinel/components/table';
-import { DetectionEventParticipant } from '@muni-kypo-crp/training-model';
+import { Column, Row, SentinelTable } from '@sentinel/components/table';
+import { DetectionEventParticipant } from '@cyberrangecz-platform/training-model';
 import { DetectionEventParticipantRowAdapter } from './detection-event-participant-row-adapter';
 import { DatePipe } from '@angular/common';
 

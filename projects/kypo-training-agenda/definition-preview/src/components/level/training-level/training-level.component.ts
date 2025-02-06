@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, ElementRef, HostListener, Input, ViewChild } from '@angular/core';
-import { TrainingLevel } from '@muni-kypo-crp/training-model';
+import { TrainingLevel } from '@cyberrangecz-platform/training-model';
 
 @Component({
   selector: 'kypo-training-level',

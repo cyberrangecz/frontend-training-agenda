@@ -1,20 +1,20 @@
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
-  SandboxAllocationUnitsApi,
-  SandboxInstanceApi,
   PoolApi,
+  SandboxAllocationUnitsApi,
   SandboxDefinitionApi,
-} from '@muni-kypo-crp/sandbox-api';
+  SandboxInstanceApi,
+} from '@cyberrangecz-platform/sandbox-api';
 import {
-  TrainingDefinitionApi,
-  TrainingRunApi,
-  TrainingInstanceApi,
-  UserApi,
+  AdaptiveDefinitionApiService,
   AdaptiveInstanceApi,
   AdaptiveRunApi,
-  AdaptiveDefinitionApiService,
-} from '@muni-kypo-crp/training-api';
+  TrainingDefinitionApi,
+  TrainingInstanceApi,
+  TrainingRunApi,
+  UserApi,
+} from '@cyberrangecz-platform/training-api';
 import { TrainingAgendaConfig } from '../../../src/model/training-agenda-config';
 import { TrainingErrorHandler } from '../../../src/services/training-error.handler.service';
 import { TrainingNavigator } from '../../../src/services/training-navigator.service';
@@ -28,7 +28,7 @@ import { SentinelAuthService } from '@sentinel/auth';
 import { AdaptiveFileUploadProgressService } from '../../../adaptive-definition-overview/src/services/file-upload/adaptive-file-upload-progress.service';
 import { PaginationService } from '../services/pagination.service';
 import { LevelEditService } from '../../../definition-edit/src/services/state/level/level-edit.service';
-import { TopologyApi } from '@muni-kypo-crp/topology-graph';
+import { TopologyApi } from '@cyberrangecz-platform/topology-graph';
 import { RunningAdaptiveRunService } from '../../../adaptive-run-detail/src/services/adaptive-run/running/running-adaptive-run.service';
 
 export function createErrorHandlerSpy(): jasmine.SpyObj<TrainingErrorHandler> {

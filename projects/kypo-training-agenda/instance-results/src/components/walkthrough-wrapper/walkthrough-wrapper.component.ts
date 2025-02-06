@@ -1,7 +1,7 @@
 import { Component, DestroyRef, inject, OnInit } from '@angular/core';
-import { Level, TrainingInstance } from '@muni-kypo-crp/training-model';
+import { Level, TrainingInstance } from '@cyberrangecz-platform/training-model';
 import { ActivatedRoute } from '@angular/router';
-import { exhaustMap, Observable, takeWhile } from 'rxjs';
+import { exhaustMap, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { WalkthroughService } from './services/walkthrough.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';

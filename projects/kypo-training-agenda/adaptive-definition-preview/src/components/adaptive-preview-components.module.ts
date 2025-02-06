@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
+import { TrainingAgendaConfig } from '@cyberrangecz-platform/training-agenda';
 import {
   AdaptiveDefinitionBreadcrumbResolver,
   AdaptiveDefinitionResolver,
-} from '@muni-kypo-crp/training-agenda/resolvers';
+} from '@cyberrangecz-platform/training-agenda/resolvers';
 
 import { AdaptivePreviewComponent } from './adaptive-preview.component';
-import { AdaptiveRunDetailComponentsModule } from '@muni-kypo-crp/training-agenda/adaptive-run-detail';
+import { AdaptiveRunDetailComponentsModule } from '@cyberrangecz-platform/training-agenda/adaptive-run-detail';
 import { SentinelStepperModule } from '@sentinel/components/stepper';
 import { PhaseComponentsPreviewModule } from './phase/phase-components-preview.module';
 

@@ -10,7 +10,7 @@ import {
 import { SentinelStepper, StepperStateChange, StepStateEnum } from '@sentinel/components/stepper';
 import { MatDialog } from '@angular/material/dialog';
 import { PhaseMoveEvent } from '../../../../../../model/events/phase-move-event';
-import { PhaseStepperAdapter } from '@muni-kypo-crp/training-agenda/internal';
+import { PhaseStepperAdapter } from '@cyberrangecz-platform/training-agenda/internal';
 
 @Component({
   selector: 'kypo-task-stepper',

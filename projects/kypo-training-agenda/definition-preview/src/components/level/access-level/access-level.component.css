@@ -1,171 +1,171 @@
 markdown ::ng-deep img {
-  max-width: 100%;
-  display: block;
-  margin: 0 auto;
+    max-width: 100%;
+    display: block;
+    margin: 0 auto;
 }
 
 markdown ::ng-deep pre {
-  white-space: pre-wrap;
-  overflow-wrap: break-word;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
 }
 
 markdown ::ng-deep {
-  background-color: transparent;
+    background-color: transparent;
 }
 
 /* removes padding and margin from the bottom of the form field to reduce bottom bar height */
 /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
 ::ng-deep .mat-form-field-wrapper {
-  padding: 0;
-  margin: 0;
+    padding: 0;
+    margin: 0;
 }
 
 kypo-topology-graph {
-  border: 1px solid gainsboro;
+    border: 1px solid gainsboro;
 }
 
 .topology-placeholder {
-  border: 1px solid gainsboro;
+    border: 1px solid gainsboro;
 }
 
 mat-form-field {
-  width: 230px;
+    width: 230px;
 }
 
 
 .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  align-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
 }
 
 .content {
-  margin-top: 10px;
-  display: flex;
-  width: 90%;
-  flex-direction: row;
+    margin-top: 10px;
+    display: flex;
+    width: 90%;
+    flex-direction: row;
 }
 
 .left-panel {
-  width: 60%;
-  display: flex;
-  flex-direction: column;
-  margin-right: 30px;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    margin-right: 30px;
 }
 
 .right-panel {
-  width: 40%;
-  display: flex;
-  flex-direction: row;
+    width: 40%;
+    display: flex;
+    flex-direction: row;
 }
 
 .passkey-input {
-  display: flex;
-  flex-direction: row;
-  align-content: baseline;
-  align-items: baseline;
-  position: relative;
+    display: flex;
+    flex-direction: row;
+    align-content: baseline;
+    align-items: baseline;
+    position: relative;
 }
 
 .submit-button {
-  margin-left: 10px;
-  align-self: center;
+    margin-left: 10px;
+    align-self: center;
 }
 
 .ssh-button {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .divider::after {
-  content: '';
-  position: absolute;
-  border-left: 1px solid rgba(0,0,0,.12);
-  right: -1vw;
-  height: 100%;
+    content: '';
+    position: absolute;
+    border-left: 1px solid rgba(0, 0, 0, .12);
+    right: -1vw;
+    height: 100%;
 }
 
 h3 {
-  margin: 0;
+    margin: 0;
 }
 
 /* (100vw - 100%) is used to account for scrollbar */
 .bottom-card {
-  position: fixed;
-  bottom: 0;
-  left: 140px;
-  z-index: 10;
-  width: calc(100vw - (100vw - 100%) - 16px - 140px);
-  padding: 8px;
+    position: fixed;
+    bottom: 0;
+    left: 140px;
+    z-index: 10;
+    width: calc(100vw - (100vw - 100%) - 16px - 140px);
+    padding: 8px;
 }
 
 button {
-  height: fit-content;
+    height: fit-content;
 }
 
 .controls-container {
-  height: fit-content;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 2vw;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2vw;
 }
 
-.controls-container.wrapped{
-  height: fit-content;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 1vw;
+.controls-container.wrapped {
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1vw;
 }
 
 .passkey-ssh {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  width: fit-content;
-  gap: 2vw;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: fit-content;
+    gap: 2vw;
 }
 
 .passkey-ssh.wrapped {
-  flex-grow: 1;
-  padding: 0 1vw;
-  gap: 0.5vw;
+    flex-grow: 1;
+    padding: 0 1vw;
+    gap: 0.5vw;
 }
 
 .message {
-  color: #999999;
-  padding-left: 5px;
+    color: #999999;
+    padding-left: 5px;
 }
 
 @media screen and (max-width: 1500px) {
-  .content {
-    flex-direction: column;
-  }
+    .content {
+        flex-direction: column;
+    }
 
-  .left-panel {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    margin-right: 0;
-  }
+    .left-panel {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        margin-right: 0;
+    }
 
-  .right-panel {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-  }
+    .right-panel {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+    }
 
 }
 
 /* Breakpoint based on sentinel layout (when navbar is hidden) */
-@media(max-width: 748px ) {
-  .bottom-card {
-    left: 0;
-    width: calc(100vw - (100vw - 100%) - 16px);
-  }
+@media (max-width: 748px ) {
+    .bottom-card {
+        left: 0;
+        width: calc(100vw - (100vw - 100%) - 16px);
+    }
 }

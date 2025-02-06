@@ -1,7 +1,6 @@
 import { OffsetPaginatedElementsService } from '@sentinel/common';
 import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
-import { TrainingDefinitionStateEnum } from '@muni-kypo-crp/training-model';
-import { TrainingDefinition } from '@muni-kypo-crp/training-model';
+import { TrainingDefinition, TrainingDefinitionStateEnum } from '@cyberrangecz-platform/training-model';
 import { Observable } from 'rxjs';
 
 /**

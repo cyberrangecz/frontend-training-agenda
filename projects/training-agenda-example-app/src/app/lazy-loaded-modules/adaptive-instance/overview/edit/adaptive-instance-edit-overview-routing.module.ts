@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {
-  AdaptiveInstanceEditOverviewComponent,
   AdaptiveInstanceCanDeactivate,
-} from '@muni-kypo-crp/training-agenda/adaptive-instance-edit';
+  AdaptiveInstanceEditOverviewComponent,
+} from '@cyberrangecz-platform/training-agenda/adaptive-instance-edit';
 
 const routes: Routes = [
   {

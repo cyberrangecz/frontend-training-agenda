@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { from, Observable } from 'rxjs';
-import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
+import { TrainingNavigator } from '@cyberrangecz-platform/training-agenda';
 import { MitreTechniquesOverviewService } from './mitre-techniques.service';
 import { Router } from '@angular/router';
 

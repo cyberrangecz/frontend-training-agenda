@@ -11,8 +11,7 @@ import {
 } from '@angular/core';
 import { AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { SentinelValidators } from '@sentinel/common';
-import { Question } from '@muni-kypo-crp/training-model';
-import { MultipleChoiceQuestion } from '@muni-kypo-crp/training-model';
+import { MultipleChoiceQuestion, Question } from '@cyberrangecz-platform/training-model';
 import { MultipleChoiceFormGroup } from './multiple-choice-question-edit-form-group';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
@@ -39,12 +38,15 @@ export class MultipleChoiceQuestionEditComponent implements OnChanges {
   get title(): AbstractControl {
     return this.multipleChoicesFormGroup.formGroup.get('title');
   }
+
   get choices(): UntypedFormArray {
     return this.multipleChoicesFormGroup.formGroup.get('choices') as UntypedFormArray;
   }
+
   get score(): AbstractControl {
     return this.multipleChoicesFormGroup.formGroup.get('score');
   }
+
   get penalty(): AbstractControl {
     return this.multipleChoicesFormGroup.formGroup.get('penalty');
   }

@@ -1,4 +1,4 @@
-import { CheatingDetection } from '@muni-kypo-crp/training-model';
+import { CheatingDetection } from '@cyberrangecz-platform/training-model';
 import { Observable } from 'rxjs';
 
 /**

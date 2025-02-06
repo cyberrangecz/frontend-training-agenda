@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { TrainingDefinition } from '@muni-kypo-crp/training-model';
+import { TrainingDefinition } from '@cyberrangecz-platform/training-model';
 import { EMPTY, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {
-  TRAINING_DEFINITION_EDIT_PATH,
-  TRAINING_DEFINITION_NEW_PATH,
   ADAPTIVE_DEFINITION_SELECTOR,
   SIMULATOR_PATH,
-} from '@muni-kypo-crp/training-agenda';
+  TRAINING_DEFINITION_EDIT_PATH,
+  TRAINING_DEFINITION_NEW_PATH,
+} from '@cyberrangecz-platform/training-agenda';
 import { AdaptiveDefinitionResolver } from './adaptive-definition-resolver.service';
 
 /**

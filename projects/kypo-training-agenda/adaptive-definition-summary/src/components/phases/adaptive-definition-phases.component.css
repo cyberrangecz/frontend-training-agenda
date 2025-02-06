@@ -1,39 +1,39 @@
 .phases-detail-header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin: 1% 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 1% 0;
 }
 
 .phase-icon {
-  margin-right: 5px;
-  align-self: center;
+    margin-right: 5px;
+    align-self: center;
 }
 
 .phases-overview {
-  color: gray;
-  display: flex;
-  flex-direction: row;
-  gap: 40px;
-  height: fit-content;
+    color: gray;
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    height: fit-content;
 }
 
 .phase-count {
-  font-weight: bold;
-  font-size: larger;
-  align-self: center;
+    font-weight: bold;
+    font-size: larger;
+    align-self: center;
 }
 
 .phase-type {
-  display: inline-flex;
-  flex-direction: row;
+    display: inline-flex;
+    flex-direction: row;
 }
 
 mat-icon {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { KypoAdaptiveVisualizationLibModule } from '@muni-kypo-crp/adaptive-visualization';
-import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
+import { KypoAdaptiveVisualizationLibModule } from '@cyberrangecz-platform/adaptive-visualization';
+import { TrainingAgendaConfig } from '@cyberrangecz-platform/training-agenda';
 import { AdaptiveInstanceResultsMaterialModule } from './adaptive-instance-results-material.module';
 import { AdaptiveInstanceResultsComponent } from './adaptive-instance-results.component';
 

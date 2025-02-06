@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { MultipleChoiceQuestion } from '@muni-kypo-crp/training-model';
+import { MultipleChoiceQuestion } from '@cyberrangecz-platform/training-model';
 
 @Component({
   selector: 'kypo-multiple-choice-question-detail',

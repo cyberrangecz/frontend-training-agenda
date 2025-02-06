@@ -11,8 +11,8 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { AccessLevel } from '@muni-kypo-crp/training-model';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { AccessLevel } from '@cyberrangecz-platform/training-model';
+import { Observable, of } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { TrainingRunAccessLevelService } from '../../../../services/training-run/level/access/training-run-access-level.service';
 import { TrainingRunAccessLevelConcreteService } from '../../../../services/training-run/level/access/training-run-access-level-concrete.service';

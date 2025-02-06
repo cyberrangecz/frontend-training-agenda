@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { KypoTopologyGraphModule } from '@muni-kypo-crp/topology-graph';
+import { KypoTopologyGraphModule } from '@cyberrangecz-platform/topology-graph';
 import { PhasePreviewMaterialModule } from './phase-preview-material.module';
 import { AbstractPhaseComponent } from './abstract-phase.component';
 import { InfoPhaseComponent } from './info-phase/info-phase.component';

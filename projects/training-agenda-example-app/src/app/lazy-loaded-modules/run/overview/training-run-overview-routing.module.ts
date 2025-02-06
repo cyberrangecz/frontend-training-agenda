@@ -1,27 +1,27 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TrainingRunOverviewComponent } from '@muni-kypo-crp/training-agenda/run-overview';
+import { TrainingRunOverviewComponent } from '@cyberrangecz-platform/training-agenda/run-overview';
 import {
-  ADAPTIVE_RUN_PATH,
   ADAPTIVE_RUN_ACCESS_INFO_DATA_ATTRIBUTE_NAME,
+  ADAPTIVE_RUN_DATA_ATTRIBUTE_NAME,
+  ADAPTIVE_RUN_PATH,
+  ADAPTIVE_RUN_RESULTS_PATH,
+  ADAPTIVE_RUN_SELECTOR,
+  MITRE_TECHNIQUES_PATH,
   TRAINING_RUN_ACCESS_INFO_DATA_ATTRIBUTE_NAME,
-  TRAINING_RUN_DATA_ATTRIBUTE_NAME,
   TRAINING_RUN_ACCESS_PATH,
   TRAINING_RUN_ACCESS_SELECTOR,
+  TRAINING_RUN_DATA_ATTRIBUTE_NAME,
   TRAINING_RUN_RESULTS_PATH,
   TRAINING_RUN_RESUME_PATH,
   TRAINING_RUN_SELECTOR,
-  ADAPTIVE_RUN_DATA_ATTRIBUTE_NAME,
-  ADAPTIVE_RUN_SELECTOR,
-  ADAPTIVE_RUN_RESULTS_PATH,
-  MITRE_TECHNIQUES_PATH,
-} from '@muni-kypo-crp/training-agenda';
+} from '@cyberrangecz-platform/training-agenda';
 import {
   AccessAdaptiveRunResolver,
   AccessTrainingRunResolver,
   AdaptiveRunResultsResolver,
   TrainingRunResultsResolver,
-} from '@muni-kypo-crp/training-agenda/resolvers';
+} from '@cyberrangecz-platform/training-agenda/resolvers';
 
 const routes: Routes = [
   {

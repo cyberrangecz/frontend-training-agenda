@@ -1,5 +1,5 @@
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { Task } from '@muni-kypo-crp/training-model';
+import { Task } from '@cyberrangecz-platform/training-model';
 
 export class TaskEditFormGroup {
   formGroup: UntypedFormGroup;

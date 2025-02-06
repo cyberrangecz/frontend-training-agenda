@@ -1,8 +1,8 @@
 import { SentinelFreeFormComponent } from '@sentinel/components/free-form';
 import { TrainingDefinitionEditComponent } from './training-definition-edit.component';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { SimpleChanges, SimpleChange } from '@angular/core';
-import { TrainingDefinition, Level, AssessmentLevel, InfoLevel, TrainingLevel } from '@muni-kypo-crp/training-model';
+import { SimpleChange, SimpleChanges } from '@angular/core';
+import { AssessmentLevel, InfoLevel, Level, TrainingDefinition, TrainingLevel } from '@cyberrangecz-platform/training-model';
 import { TrainingDefinitionChangeEvent } from '../../model/events/training-definition-change-event';
 import { MaterialTestingModule } from '../../../../internal/src/testing/material-testing.module';
 import { UntypedFormArray, UntypedFormControl, UntypedFormGroup } from '@angular/forms';

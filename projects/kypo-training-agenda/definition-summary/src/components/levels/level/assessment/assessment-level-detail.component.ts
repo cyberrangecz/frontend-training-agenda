@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { AssessmentLevel } from '@muni-kypo-crp/training-model';
-import { AssessmentTypeEnum } from '@muni-kypo-crp/training-model';
+import { AssessmentLevel, AssessmentTypeEnum } from '@cyberrangecz-platform/training-model';
 
 @Component({
   selector: 'kypo-assessment-level-detail',

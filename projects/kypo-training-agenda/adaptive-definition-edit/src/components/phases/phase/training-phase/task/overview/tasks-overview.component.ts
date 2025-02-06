@@ -3,11 +3,11 @@ import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '
 import { MatDialog } from '@angular/material/dialog';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { defer, Observable, of } from 'rxjs';
-import { map, takeWhile } from 'rxjs/operators';
-import { PhaseStepperAdapter } from '@muni-kypo-crp/training-agenda/internal';
+import { map } from 'rxjs/operators';
+import { PhaseStepperAdapter } from '@cyberrangecz-platform/training-agenda/internal';
 import { PhaseEditService } from '../../../../../../services/state/phase/phase-edit.service';
 import { PhaseMoveEvent } from '../../../../../../model/events/phase-move-event';
-import { Task } from '@muni-kypo-crp/training-model';
+import { Task } from '@cyberrangecz-platform/training-model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**

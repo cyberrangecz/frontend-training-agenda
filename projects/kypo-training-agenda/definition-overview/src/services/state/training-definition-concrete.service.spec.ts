@@ -4,9 +4,9 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { SentinelDialogResultEnum } from '@sentinel/components/dialogs';
 import { asyncData } from '@sentinel/common/testing';
 import { SentinelFilter } from '@sentinel/common/filter';
-import { PaginatedResource, OffsetPagination, OffsetPaginationEvent } from '@sentinel/common/pagination';
-import { TrainingDefinitionApi } from '@muni-kypo-crp/training-api';
-import { TrainingDefinition, TrainingDefinitionStateEnum } from '@muni-kypo-crp/training-model';
+import { OffsetPagination, OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
+import { TrainingDefinitionApi } from '@cyberrangecz-platform/training-api';
+import { TrainingDefinition, TrainingDefinitionStateEnum } from '@cyberrangecz-platform/training-model';
 import { of, throwError } from 'rxjs';
 import {
   createContext,
@@ -16,10 +16,8 @@ import {
   createNotificationSpy,
   createTrainingDefinitionApiSpy,
 } from '../../../../internal/src/testing/testing-commons.spec';
-import { TrainingErrorHandler } from '@muni-kypo-crp/training-agenda';
-import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
-import { TrainingNotificationService } from '@muni-kypo-crp/training-agenda';
-import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
+import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } from '@cyberrangecz-platform/training-agenda';
+import { TrainingAgendaContext } from '@cyberrangecz-platform/training-agenda/internal';
 import { FileUploadProgressService } from '../file-upload/file-upload-progress.service';
 import { TrainingDefinitionConcreteService } from './training-definition.concrete.service';
 
@@ -124,7 +122,10 @@ describe('TrainingDefinitionConcreteService', () => {
   it('should delete level', (done) => {
     apiSpy.delete.and.returnValue(asyncData(null));
     apiSpy.getAll.and.returnValue(asyncData(createPaginatedMock()));
-    const dialogRefSpyObj = jasmine.createSpyObj({ afterClosed: of(SentinelDialogResultEnum.CONFIRMED), close: null });
+    const dialogRefSpyObj = jasmine.createSpyObj({
+      afterClosed: of(SentinelDialogResultEnum.CONFIRMED),
+      close: null,
+    });
     dialogSpy.open.and.returnValue(dialogRefSpyObj);
     service.delete(createMock()[1]).subscribe(
       (res) => {
@@ -141,7 +142,10 @@ describe('TrainingDefinitionConcreteService', () => {
   it('should emit error when delete level fails', (done) => {
     apiSpy.delete.and.returnValue(throwError(null));
     apiSpy.getAll.and.returnValue(asyncData(createPaginatedMock()));
-    const dialogRefSpyObj = jasmine.createSpyObj({ afterClosed: of(SentinelDialogResultEnum.CONFIRMED), close: null });
+    const dialogRefSpyObj = jasmine.createSpyObj({
+      afterClosed: of(SentinelDialogResultEnum.CONFIRMED),
+      close: null,
+    });
     dialogSpy.open.and.returnValue(dialogRefSpyObj);
     service.delete(createMock()[1]).subscribe(
       () => fail,
@@ -206,7 +210,10 @@ describe('TrainingDefinitionConcreteService', () => {
   it('should change state of training definition', (done) => {
     apiSpy.changeState.and.returnValue(asyncData(1));
     const trainingDefinition = createMock()[1];
-    const dialogRefSpyObj = jasmine.createSpyObj({ afterClosed: of(SentinelDialogResultEnum.CONFIRMED), close: null });
+    const dialogRefSpyObj = jasmine.createSpyObj({
+      afterClosed: of(SentinelDialogResultEnum.CONFIRMED),
+      close: null,
+    });
     dialogSpy.open.and.returnValue(dialogRefSpyObj);
     service.changeState(trainingDefinition, TrainingDefinitionStateEnum.Archived).subscribe(
       (res) => {
@@ -222,7 +229,10 @@ describe('TrainingDefinitionConcreteService', () => {
   it('should emit error when change state of training definition fails', (done) => {
     apiSpy.changeState.and.returnValue(throwError(null));
     const trainingDefinition = createMock()[1];
-    const dialogRefSpyObj = jasmine.createSpyObj({ afterClosed: of(SentinelDialogResultEnum.CONFIRMED), close: null });
+    const dialogRefSpyObj = jasmine.createSpyObj({
+      afterClosed: of(SentinelDialogResultEnum.CONFIRMED),
+      close: null,
+    });
     dialogSpy.open.and.returnValue(dialogRefSpyObj);
     service.changeState(trainingDefinition, TrainingDefinitionStateEnum.Archived).subscribe(
       () => fail,

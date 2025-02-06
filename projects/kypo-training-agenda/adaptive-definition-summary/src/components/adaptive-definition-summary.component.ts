@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ADAPTIVE_DEFINITION_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
-import { TrainingDefinition } from '@muni-kypo-crp/training-model';
+import { ADAPTIVE_DEFINITION_DATA_ATTRIBUTE_NAME } from '@cyberrangecz-platform/training-agenda';
+import { TrainingDefinition } from '@cyberrangecz-platform/training-model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

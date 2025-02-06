@@ -1,6 +1,6 @@
 import { PaginatedResource } from '@sentinel/common/pagination';
-import { Column, SentinelTable, Row } from '@sentinel/components/table';
-import { DetectedForbiddenCommand, DetectedForbiddenCommandTypeEnum } from '@muni-kypo-crp/training-model';
+import { Column, Row, SentinelTable } from '@sentinel/components/table';
+import { DetectedForbiddenCommand, DetectedForbiddenCommandTypeEnum } from '@cyberrangecz-platform/training-model';
 import { DatePipe } from '@angular/common';
 import { DetectionEventForbiddenCommandsRowAdapter } from './detection-event-forbidden-commands-row-adapter';
 
@@ -29,6 +29,7 @@ export class DetectionEventForbiddenCommandsTable extends SentinelTable<Detectio
 
     return new Row(adapter);
   }
+
   private static evaluateCommandTypeString(type: DetectedForbiddenCommandTypeEnum): string {
     switch (type) {
       case DetectedForbiddenCommandTypeEnum.Bash:

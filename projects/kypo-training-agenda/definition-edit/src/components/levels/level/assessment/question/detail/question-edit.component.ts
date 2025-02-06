@@ -7,10 +7,12 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { Question } from '@muni-kypo-crp/training-model';
-import { ExtendedMatchingItems } from '@muni-kypo-crp/training-model';
-import { FreeFormQuestion } from '@muni-kypo-crp/training-model';
-import { MultipleChoiceQuestion } from '@muni-kypo-crp/training-model';
+import {
+  ExtendedMatchingItems,
+  FreeFormQuestion,
+  MultipleChoiceQuestion,
+  Question,
+} from '@cyberrangecz-platform/training-model';
 import { QuestionChangeEvent } from '../../../../../../model/events/question-change-event';
 
 /**

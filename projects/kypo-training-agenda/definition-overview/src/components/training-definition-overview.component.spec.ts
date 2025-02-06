@@ -1,20 +1,20 @@
-import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
+import { PaginationService } from '@cyberrangecz-platform/training-agenda/internal';
 import { TrainingDefinitionOverviewComponent } from './training-definition-overview.component';
-import { TestBed, ComponentFixture, waitForAsync } from '@angular/core/testing';
-import { TrainingDefinitionService } from '@muni-kypo-crp/training-agenda/definition-overview';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { TrainingDefinitionService } from '@cyberrangecz-platform/training-agenda/definition-overview';
 import {
   createNavigatorSpy,
   createPaginationServiceSpy,
   createTrainingDefinitionServiceSpy,
 } from '../../../internal/src/testing/testing-commons.spec';
-import { Level, AssessmentLevel, InfoLevel, TrainingDefinition, TrainingLevel } from '@muni-kypo-crp/training-model';
+import { AssessmentLevel, InfoLevel, Level, TrainingDefinition, TrainingLevel } from '@cyberrangecz-platform/training-model';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { asyncData } from '@sentinel/common/testing';
-import { PaginatedResource, OffsetPagination, OffsetPaginationEvent } from '@sentinel/common/pagination';
-import { TableLoadEvent, SentinelTableModule } from '@sentinel/components/table';
+import { OffsetPagination, OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
+import { SentinelTableModule, TableLoadEvent } from '@sentinel/components/table';
 import { SentinelControlsComponent } from '@sentinel/components/controls';
 import { MaterialTestingModule } from '../../../internal/src/testing/material-testing.module';
-import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
+import { TrainingNavigator } from '@cyberrangecz-platform/training-agenda';
 
 describe('TrainingDefinitionOverviewComponent', () => {
   let component: TrainingDefinitionOverviewComponent;

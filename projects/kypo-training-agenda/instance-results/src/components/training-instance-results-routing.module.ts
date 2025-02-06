@@ -7,7 +7,7 @@ import {
   TRAINING_RUN_RESULTS_COMMAND_TIMELINE_PATH,
   TRAINING_RUN_RESULTS_DASHBOARD_PATH,
   TRAINING_RUN_RESULTS_WALKTHROUGH_PATH,
-} from '@muni-kypo-crp/training-agenda';
+} from '@cyberrangecz-platform/training-agenda';
 import { AssessmentWrapperComponent } from './assessment-wrapper/assessment-wrapper.component';
 import { DashboardWrapperComponent } from './dashboard-wrapper/dashboard-wrapper.component';
 import { TrainingInstanceResultsComponent } from './training-instance-results.component';

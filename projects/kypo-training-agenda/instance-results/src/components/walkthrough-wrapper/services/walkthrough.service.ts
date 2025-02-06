@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { TrainingDefinition } from '@muni-kypo-crp/training-model';
-import { TrainingDefinitionApi } from '@muni-kypo-crp/training-api';
+import { TrainingDefinition } from '@cyberrangecz-platform/training-model';
+import { TrainingDefinitionApi } from '@cyberrangecz-platform/training-api';
 
 @Injectable()
 export class WalkthroughService {

@@ -3,7 +3,6 @@ import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { SentinelAuthGuardWithLogin, SentinelNegativeAuthGuard } from '@sentinel/auth/guards';
 import { SentinelAuthProviderListComponent } from '@sentinel/auth/components';
-import { TrainingInstanceDetectionEventModule } from './lazy-loaded-modules/instance/overview/detail/cheating-detection/detection-event/training-instance-detection-event.module';
 
 const routes: Routes = [
   {

@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { TrainingDefinition } from '@muni-kypo-crp/training-model';
+import { TrainingDefinition } from '@cyberrangecz-platform/training-model';
 import { Observable, of } from 'rxjs';
 import { catchError, mergeMap, take } from 'rxjs/operators';
 import {
-  TRAINING_DEFINITION_NEW_PATH,
   ADAPTIVE_DEFINITION_PATH,
   ADAPTIVE_DEFINITION_SELECTOR,
-} from '@muni-kypo-crp/training-agenda';
+  TRAINING_DEFINITION_NEW_PATH,
+} from '@cyberrangecz-platform/training-agenda';
 import { AdaptiveDefinitionResolver } from './adaptive-definition-resolver.service';
 
 @Injectable()

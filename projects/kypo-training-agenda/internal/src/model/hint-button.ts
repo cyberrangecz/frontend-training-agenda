@@ -1,7 +1,7 @@
 /**
  * Class representing hint button in a training level.
  */
-import { Hint } from '@muni-kypo-crp/training-model';
+import { Hint } from '@cyberrangecz-platform/training-model';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 export class HintButton {

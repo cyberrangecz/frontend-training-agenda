@@ -1,16 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { TrainingRunApi } from '@muni-kypo-crp/training-api';
-import { AccessTrainingRunInfo } from '@muni-kypo-crp/training-model';
-import { Level } from '@muni-kypo-crp/training-model';
-import { Observable } from 'rxjs';
+import { TrainingRunApi } from '@cyberrangecz-platform/training-api';
+import { AccessTrainingRunInfo, Level } from '@cyberrangecz-platform/training-model';
+import { EMPTY, Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
-import { TrainingErrorHandler, TrainingNavigator } from '@muni-kypo-crp/training-agenda';
+import { TrainingErrorHandler, TrainingNavigator } from '@cyberrangecz-platform/training-agenda';
 import { RunningTrainingRunService } from './running-training-run.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { LoadingDialogComponent, LoadingDialogConfig } from '@muni-kypo-crp/training-agenda/internal';
-import { EMPTY } from 'rxjs';
-import { ConsoleUrl, TopologyApi } from '@muni-kypo-crp/topology-graph';
+import { LoadingDialogComponent, LoadingDialogConfig } from '@cyberrangecz-platform/training-agenda/internal';
+import { ConsoleUrl, TopologyApi } from '@cyberrangecz-platform/topology-graph';
 
 /**
  * Main service for running training training. Holds levels and its state. Handles user general training run user actions and events.
@@ -70,6 +68,7 @@ export class RunningTrainingRunConcreteService extends RunningTrainingRunService
   getIsStepperDisplayed(): boolean {
     return this.isStepperDisplayed;
   }
+
   /**
    * Sends request to move to next level. If response is successful, the next level in order is set as active
    */

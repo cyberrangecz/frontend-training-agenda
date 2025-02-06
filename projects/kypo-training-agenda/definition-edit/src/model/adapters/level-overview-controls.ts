@@ -3,7 +3,7 @@ import {
   SentinelControlMenuItem,
   SentinelExpandableControlItem,
 } from '@sentinel/components/controls';
-import { AbstractLevelTypeEnum } from '@muni-kypo-crp/training-model';
+import { AbstractLevelTypeEnum } from '@cyberrangecz-platform/training-model';
 import { defer, Observable, of } from 'rxjs';
 import { LevelEditService } from '../../services/state/level/level-edit.service';
 

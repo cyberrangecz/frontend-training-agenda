@@ -1,7 +1,7 @@
 import { MatDialog } from '@angular/material/dialog';
 import { RunningAdaptiveRunService } from '../running/running-adaptive-run.service';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { PhaseAnswerCheck, LevelAnswerCheck, TrainingPhase } from '@muni-kypo-crp/training-model';
+import { LevelAnswerCheck, PhaseAnswerCheck, TrainingPhase } from '@cyberrangecz-platform/training-model';
 import {
   SentinelConfirmationDialogComponent,
   SentinelConfirmationDialogConfig,
@@ -35,7 +35,9 @@ export abstract class AdaptiveRunTrainingPhaseService {
   isLoading$: Observable<boolean>;
 
   abstract submitAnswer(Answer: string): Observable<any>;
+
   abstract revealSolution(): Observable<string>;
+
   abstract getAccessFile(): Observable<boolean>;
 
   init(phase: TrainingPhase, isPhaseAnswered: boolean): void {

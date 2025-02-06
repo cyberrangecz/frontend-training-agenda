@@ -10,7 +10,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { AbstractControl, Validators } from '@angular/forms';
-import { Hint } from '@muni-kypo-crp/training-model';
+import { Hint } from '@cyberrangecz-platform/training-model';
 import { HintEditFormGroup } from './hint-edit-form-group';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
@@ -37,9 +37,11 @@ export class HintDetailEditComponent implements OnChanges {
   get title(): AbstractControl {
     return this.hintConfigurationFormGroup.formGroup.get('title');
   }
+
   get content(): AbstractControl {
     return this.hintConfigurationFormGroup.formGroup.get('content');
   }
+
   get hintPenalty(): AbstractControl {
     return this.hintConfigurationFormGroup.formGroup.get('hintPenalty');
   }

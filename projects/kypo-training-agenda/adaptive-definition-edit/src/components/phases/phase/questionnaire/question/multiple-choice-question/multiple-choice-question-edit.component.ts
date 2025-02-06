@@ -1,9 +1,8 @@
 import { Component, DestroyRef, EventEmitter, inject, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { AdaptiveQuestion, QuestionnaireTypeEnum } from '@muni-kypo-crp/training-model';
+import { AdaptiveQuestion, QuestionnaireTypeEnum } from '@cyberrangecz-platform/training-model';
 import { SentinelValidators } from '@sentinel/common';
 import { AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { QuestionFormGroup } from '../question-form-group';
-import { takeWhile } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
@@ -38,6 +37,7 @@ export class MultipleChoiceQuestionEditComponent implements OnChanges {
   get title(): AbstractControl {
     return this.multipleChoicesFormGroup.questionFormGroup.get('title');
   }
+
   get choices(): UntypedFormArray {
     return this.multipleChoicesFormGroup.questionFormGroup.get('choices') as UntypedFormArray;
   }

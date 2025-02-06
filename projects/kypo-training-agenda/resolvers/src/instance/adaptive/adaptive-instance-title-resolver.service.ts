@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { TrainingInstance } from '@muni-kypo-crp/training-model';
+import { TrainingInstance } from '@cyberrangecz-platform/training-model';
 import { Observable, of } from 'rxjs';
 import { catchError, mergeMap, take } from 'rxjs/operators';
 import {
   ADAPTIVE_INSTANCE_PATH,
-  TRAINING_INSTANCE_NEW_PATH,
   ADAPTIVE_INSTANCE_SELECTOR,
-} from '@muni-kypo-crp/training-agenda';
+  TRAINING_INSTANCE_NEW_PATH,
+} from '@cyberrangecz-platform/training-agenda';
 import { AdaptiveInstanceResolver } from './adaptive-instance-resolver.service';
 
 @Injectable()

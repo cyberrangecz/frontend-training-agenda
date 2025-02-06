@@ -1,6 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { TrainingPhase } from '@muni-kypo-crp/training-model';
+import { TrainingPhase } from '@cyberrangecz-platform/training-model';
 
 @Component({
   selector: 'kypo-training-phase-detail',

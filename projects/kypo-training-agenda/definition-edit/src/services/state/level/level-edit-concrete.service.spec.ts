@@ -3,8 +3,8 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SentinelDialogResultEnum } from '@sentinel/components/dialogs';
 import { asyncData } from '@sentinel/common/testing';
-import { TrainingDefinitionApi } from '@muni-kypo-crp/training-api';
-import { AbstractLevelTypeEnum, AssessmentLevel, InfoLevel, TrainingLevel } from '@muni-kypo-crp/training-model';
+import { TrainingDefinitionApi } from '@cyberrangecz-platform/training-api';
+import { AbstractLevelTypeEnum, AssessmentLevel, InfoLevel, TrainingLevel } from '@cyberrangecz-platform/training-model';
 import { of, throwError } from 'rxjs';
 
 import {
@@ -213,7 +213,10 @@ describe('LevelEditConcreteService', () => {
 
   it('should delete selected level', (done) => {
     apiSpy.deleteLevel.and.returnValue(asyncData(createMock()));
-    const dialogRefSpyObj = jasmine.createSpyObj({ afterClosed: of(SentinelDialogResultEnum.CONFIRMED), close: null });
+    const dialogRefSpyObj = jasmine.createSpyObj({
+      afterClosed: of(SentinelDialogResultEnum.CONFIRMED),
+      close: null,
+    });
     dialogSpy.open.and.returnValue(dialogRefSpyObj);
     service.set(1, createMock());
     service.setActiveLevel(1);
@@ -228,7 +231,10 @@ describe('LevelEditConcreteService', () => {
 
   it('should emit error when deleting selected level fails', (done) => {
     apiSpy.deleteLevel.and.returnValue(throwError(null));
-    const dialogRefSpyObj = jasmine.createSpyObj({ afterClosed: of(SentinelDialogResultEnum.CONFIRMED), close: null });
+    const dialogRefSpyObj = jasmine.createSpyObj({
+      afterClosed: of(SentinelDialogResultEnum.CONFIRMED),
+      close: null,
+    });
     dialogSpy.open.and.returnValue(dialogRefSpyObj);
     service.set(1, createMock());
     service.setActiveLevel(1);

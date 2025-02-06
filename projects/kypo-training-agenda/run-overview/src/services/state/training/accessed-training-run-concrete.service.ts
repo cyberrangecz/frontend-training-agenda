@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { AdaptiveRunApi, TrainingRunApi } from '@muni-kypo-crp/training-api';
-import { AccessedTrainingRun } from '@muni-kypo-crp/training-model';
+import { AdaptiveRunApi, TrainingRunApi } from '@cyberrangecz-platform/training-api';
+import { AccessedTrainingRun } from '@cyberrangecz-platform/training-model';
 import { from, Observable } from 'rxjs';
 import { concatMap, map, tap } from 'rxjs/operators';
-import { TrainingErrorHandler, TrainingNavigator } from '@muni-kypo-crp/training-agenda';
-import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
+import { TrainingErrorHandler, TrainingNavigator } from '@cyberrangecz-platform/training-agenda';
+import { TrainingAgendaContext } from '@cyberrangecz-platform/training-agenda/internal';
 import { AccessedTrainingRunService } from './accessed-training-run.service';
 import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
 import { SentinelFilter } from '@sentinel/common/filter';

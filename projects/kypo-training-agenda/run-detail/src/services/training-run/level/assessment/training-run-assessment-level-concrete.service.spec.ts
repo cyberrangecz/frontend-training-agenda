@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { asyncData } from '@sentinel/common/testing';
-import { TrainingRunApi } from '@muni-kypo-crp/training-api';
-import { Question } from '@muni-kypo-crp/training-model';
+import { TrainingRunApi } from '@cyberrangecz-platform/training-api';
+import { Question } from '@cyberrangecz-platform/training-model';
 import { throwError } from 'rxjs';
 import {
   createContext,

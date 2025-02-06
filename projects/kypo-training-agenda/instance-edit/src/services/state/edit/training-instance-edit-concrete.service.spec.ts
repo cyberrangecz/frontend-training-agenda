@@ -3,9 +3,9 @@ import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { OffsetPagination, PaginatedResource } from '@sentinel/common/pagination';
 import { asyncData } from '@sentinel/common/testing';
-import { PoolApi, SandboxDefinitionApi, SandboxInstanceApi } from '@muni-kypo-crp/sandbox-api';
-import { TrainingDefinitionApi, TrainingInstanceApi } from '@muni-kypo-crp/training-api';
-import { TrainingDefinition, TrainingInstance } from '@muni-kypo-crp/training-model';
+import { PoolApi, SandboxDefinitionApi, SandboxInstanceApi } from '@cyberrangecz-platform/sandbox-api';
+import { TrainingDefinitionApi, TrainingInstanceApi } from '@cyberrangecz-platform/training-api';
+import { TrainingDefinition, TrainingInstance } from '@cyberrangecz-platform/training-model';
 import { throwError } from 'rxjs';
 import { TrainingInstanceChangeEvent } from '../../../model/events/training-instance-change-event';
 import {
@@ -25,7 +25,7 @@ import { TrainingNavigator } from '../../../../../src/services/training-navigato
 import { TrainingNotificationService } from '../../../../../src/services/training-notification.service';
 import { TrainingAgendaContext } from '../../../../../internal/src/services/context/training-agenda-context.service';
 import { TrainingInstanceEditConcreteService } from './training-instance-edit-concrete.service';
-import { Pool, SandboxDefinition } from '@muni-kypo-crp/sandbox-model';
+import { Pool, SandboxDefinition } from '@cyberrangecz-platform/sandbox-model';
 
 describe('TrainingInstanceEditConcreteService', () => {
   let errorHandlerSpy: jasmine.SpyObj<TrainingErrorHandler>;

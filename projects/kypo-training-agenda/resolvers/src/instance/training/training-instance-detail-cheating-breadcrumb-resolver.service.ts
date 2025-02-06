@@ -5,7 +5,7 @@ import {
   CHEATING_DETECTION_CREATE_PATH,
   CHEATING_DETECTION_EVENT_DETAIL_PATH,
   CHEATING_DETECTION_EVENTS_PATH,
-} from '@muni-kypo-crp/training-agenda';
+} from '@cyberrangecz-platform/training-agenda';
 
 /**
  * Router breadcrumb title resolver

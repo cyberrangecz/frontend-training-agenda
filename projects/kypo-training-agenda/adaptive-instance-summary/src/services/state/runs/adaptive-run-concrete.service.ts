@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { PaginatedResource, OffsetPaginationEvent } from '@sentinel/common/pagination';
-import { AdaptiveInstanceApi } from '@muni-kypo-crp/training-api';
-import { TrainingRun } from '@muni-kypo-crp/training-model';
+import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
+import { AdaptiveInstanceApi } from '@cyberrangecz-platform/training-api';
+import { TrainingRun } from '@cyberrangecz-platform/training-model';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
+import { TrainingAgendaContext } from '@cyberrangecz-platform/training-agenda/internal';
 import { AdaptiveRunService } from './adaptive-run.service';
 
 /**

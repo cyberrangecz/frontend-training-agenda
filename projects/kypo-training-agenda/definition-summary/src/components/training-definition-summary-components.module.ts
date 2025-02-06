@@ -1,7 +1,7 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TrainingDefinitionSummaryComponent } from './training-definition-summary.component';
-import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
+import { TrainingAgendaConfig } from '@cyberrangecz-platform/training-agenda';
 import { TrainingDefintionSummaryMaterialModule } from './training-definition-summary-material.module';
 import { RouterModule } from '@angular/router';
 import { AssessmentLevelDetailComponent } from './levels/level/assessment/assessment-level-detail.component';

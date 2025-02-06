@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { AdaptiveQuestion, QuestionTypeEnum } from '@muni-kypo-crp/training-model';
+import { AdaptiveQuestion, QuestionTypeEnum } from '@cyberrangecz-platform/training-model';
 
 /**
  * Main hint edit component. Contains stepper to navigate through existing hints and controls to create new hints

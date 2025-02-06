@@ -1,23 +1,23 @@
 {
-  "extends": "../../tsconfig.json",
-  "compilerOptions": {
-    "outDir": "../../out-tsc/app",
-    "types": [],
-    "baseUrl": "./",
-    "paths": {
-      "@muni-kypo-crp/training-agenda": [
-        "../kypo-training-agenda/src/public_api.ts"
-      ],
-      "@muni-kypo-crp/training-agenda/*": [
-        "../kypo-training-agenda/*/src/public_api.ts"
-      ]
-    }
-  },
-  "files": [
-    "src/main.ts",
-    "src/polyfills.ts"
-  ],
-  "include": [
-    "src/**/*.d.ts"
-  ]
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "outDir": "../../out-tsc/app",
+        "types": [],
+        "baseUrl": "./",
+        "paths": {
+            "@cyberrangecz-platform/training-agenda": [
+                "../kypo-training-agenda/src/public_api.ts"
+            ],
+            "@cyberrangecz-platform/training-agenda/*": [
+                "../kypo-training-agenda/*/src/public_api.ts"
+            ]
+        }
+    },
+    "files": [
+        "src/main.ts",
+        "src/polyfills.ts"
+    ],
+    "include": [
+        "src/**/*.d.ts"
+    ]
 }

@@ -1,49 +1,49 @@
 h3 {
-  margin: 0px;
-  place-self: center;
+    margin: 0px;
+    place-self: center;
 }
 
 .key-field {
-  color: gray;
-  margin-right: 6px;
-  margin-left: 10px;
+    color: gray;
+    margin-right: 6px;
+    margin-left: 10px;
 }
 
 .data-field {
-  display: flex;
-  flex-direction: row;
+    display: flex;
+    flex-direction: row;
 }
 
 .hints-container {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .hint-container {
-  margin-bottom: 5px;
+    margin-bottom: 5px;
 }
 
 h4 {
-  margin: 0;
+    margin: 0;
 }
 
 markdown ::ng-deep p {
-  margin: 0;
+    margin: 0;
 }
 
 .level-type {
-  vertical-align: bottom;
+    vertical-align: bottom;
 }
 
 mat-icon {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 mat-expansion-panel-header {
-  padding-left: 0;
+    padding-left: 0;
 }

@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { TrainingDefinition } from '@muni-kypo-crp/training-model';
-import { takeWhile } from 'rxjs/operators';
+import { TrainingDefinition } from '@cyberrangecz-platform/training-model';
 import { CloneDialogFormGroup } from './clone-dialog-form-group';
 import { AbstractControl } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';

@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { take, takeWhile } from 'rxjs/operators';
-import { TRAINING_RUN_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
-import { TrainingDefinitionApi } from '@muni-kypo-crp/training-api';
+import { take } from 'rxjs/operators';
+import { TRAINING_RUN_DATA_ATTRIBUTE_NAME } from '@cyberrangecz-platform/training-agenda';
+import { TrainingDefinitionApi } from '@cyberrangecz-platform/training-api';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { MitreTechniquesOverviewService } from '../service/mitre-techniques.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';

@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { AdaptiveVisualizationConfig, KypoAdaptiveVisualizationLibModule } from '@muni-kypo-crp/adaptive-visualization';
-import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
+import { AdaptiveVisualizationConfig, KypoAdaptiveVisualizationLibModule } from '@cyberrangecz-platform/adaptive-visualization';
+import { TrainingAgendaConfig } from '@cyberrangecz-platform/training-agenda';
 import { AdaptiveInstanceProgressMaterialModule } from './adaptive-instance-progress-material.module';
 import { AdaptiveInstanceProgressComponent } from './adaptive-instance-progress.component';
-import { TimelineModule } from '@muni-kypo-crp/command-visualizations/timeline';
+import { TimelineModule } from '@cyberrangecz-platform/command-visualizations/timeline';
 
 /**
  * Module containing components and providers for training instance progress page

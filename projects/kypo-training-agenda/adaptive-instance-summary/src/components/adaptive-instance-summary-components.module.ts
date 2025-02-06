@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { SentinelPipesModule } from '@sentinel/common/pipes';
 import { SentinelControlsComponent } from '@sentinel/components/controls';
 import { SentinelTableModule } from '@sentinel/components/table';
-import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
+import { TrainingAgendaConfig } from '@cyberrangecz-platform/training-agenda';
 import { AdaptiveInstanceSummaryConcreteService } from '../services/state/summary/adaptive-instance-summary-concrete.service';
 import { AdaptiveInstanceSummaryService } from '../services/state/summary/adaptive-instance-summary.service';
 import { AdaptiveInstanceInfoComponent } from './info/adaptive-instance-info.component';

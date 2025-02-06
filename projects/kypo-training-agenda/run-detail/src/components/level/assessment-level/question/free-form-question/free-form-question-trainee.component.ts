@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Question } from '@muni-kypo-crp/training-model';
-import { FreeFormQuestion } from '@muni-kypo-crp/training-model';
+import { FreeFormQuestion, Question } from '@cyberrangecz-platform/training-model';
 
 @Component({
   selector: 'kypo-trainee-free-form-question',

@@ -1,18 +1,17 @@
 import { PaginatedResource } from '@sentinel/common/pagination';
-import { TrainingDefinitionStateEnum } from '@muni-kypo-crp/training-model';
-import { TrainingDefinition } from '@muni-kypo-crp/training-model';
+import { TrainingDefinition, TrainingDefinitionStateEnum } from '@cyberrangecz-platform/training-model';
 import {
   Column,
-  SentinelTable,
+  DeleteAction,
+  DownloadAction,
+  EditAction,
   Row,
   RowAction,
-  DeleteAction,
-  EditAction,
-  DownloadAction,
+  SentinelTable,
 } from '@sentinel/components/table';
 import { defer, of } from 'rxjs';
 import { AdaptiveDefinitionService } from '../services/state/adaptive-definition.service';
-import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
+import { TrainingNavigator } from '@cyberrangecz-platform/training-agenda';
 import { TrainingDefinitionRowAdapter } from './training-definition-row-adapter';
 import { DatePipe } from '@angular/common';
 

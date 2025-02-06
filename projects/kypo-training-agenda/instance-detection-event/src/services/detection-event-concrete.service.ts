@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { DetectionEventApi } from '@muni-kypo-crp/training-api';
+import { DetectionEventApi } from '@cyberrangecz-platform/training-api';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
-import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } from '@muni-kypo-crp/training-agenda';
+import { TrainingAgendaContext } from '@cyberrangecz-platform/training-agenda/internal';
+import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } from '@cyberrangecz-platform/training-agenda';
 import { DetectionEventService } from './detection-event.service';
 import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
 import { from, Observable } from 'rxjs';
-import { AbstractDetectionEvent } from '@muni-kypo-crp/training-model';
+import { AbstractDetectionEvent } from '@cyberrangecz-platform/training-model';
 import { tap } from 'rxjs/operators';
 import { DetectionEventFilter } from '../model/detection-event-filter';
 

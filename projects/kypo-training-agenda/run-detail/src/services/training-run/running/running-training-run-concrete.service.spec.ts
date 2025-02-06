@@ -2,8 +2,8 @@ import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { asyncData } from '@sentinel/common/testing';
-import { TrainingRunApi } from '@muni-kypo-crp/training-api';
-import { AccessTrainingRunInfo, Level } from '@muni-kypo-crp/training-model';
+import { TrainingRunApi } from '@cyberrangecz-platform/training-api';
+import { AccessTrainingRunInfo, Level } from '@cyberrangecz-platform/training-model';
 import { throwError } from 'rxjs';
 import {
   createContext,
@@ -19,7 +19,7 @@ import { TrainingNavigator } from '../../../../../src/services/training-navigato
 import { TrainingAgendaContext } from '../../../../../internal/src/services/context/training-agenda-context.service';
 import { RunningTrainingRunConcreteService } from './running-training-run-concrete.service';
 import { MatDialog } from '@angular/material/dialog';
-import { TopologyApi } from '@muni-kypo-crp/topology-graph';
+import { TopologyApi } from '@cyberrangecz-platform/topology-graph';
 
 describe('RunningTrainingRunConcreteService', () => {
   let errorHandlerSpy: jasmine.SpyObj<TrainingErrorHandler>;

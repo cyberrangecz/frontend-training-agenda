@@ -1,20 +1,19 @@
-import { waitForAsync, TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { MatDialog } from '@angular/material/dialog';
-import { OffsetPaginationEvent, OffsetPagination, PaginatedResource } from '@sentinel/common/pagination';
-import { SandboxInstanceApi } from '@muni-kypo-crp/sandbox-api';
-import { SandboxAllocationUnitsApi } from '@muni-kypo-crp/sandbox-api';
-import { AdaptiveInstanceApi, AdaptiveRunApi } from '@muni-kypo-crp/training-api';
+import { OffsetPagination, OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
+import { SandboxAllocationUnitsApi, SandboxInstanceApi } from '@cyberrangecz-platform/sandbox-api';
+import { AdaptiveInstanceApi, AdaptiveRunApi } from '@cyberrangecz-platform/training-api';
 import { throwError } from 'rxjs';
 import { skip } from 'rxjs/operators';
 import {
+  createAdaptiveInstanceApiSpy,
+  createAdaptiveRunApiSpy,
   createContext,
   createDialogSpy,
   createErrorHandlerSpy,
   createNotificationSpy,
-  createSauApi,
   createSandboxInstanceApiSpy,
-  createAdaptiveInstanceApiSpy,
-  createAdaptiveRunApiSpy,
+  createSauApi,
 } from '../../../../../internal/src/testing/testing-commons.spec';
 import { TrainingErrorHandler } from '../../../../../src/services/training-error.handler.service';
 import { TrainingNotificationService } from '../../../../../src/services/training-notification.service';

@@ -1,7 +1,7 @@
-import { waitForAsync, TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { asyncData } from '@sentinel/common/testing';
-import { TrainingInstance } from '@muni-kypo-crp/training-model';
+import { TrainingInstance } from '@cyberrangecz-platform/training-model';
 import {
   createContext,
   createNavigatorSpy,

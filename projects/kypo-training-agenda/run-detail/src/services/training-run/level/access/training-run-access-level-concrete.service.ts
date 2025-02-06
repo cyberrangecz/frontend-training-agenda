@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { TrainingRunApi } from '@muni-kypo-crp/training-api';
+import { TrainingRunApi } from '@cyberrangecz-platform/training-api';
 import { Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
-import { TrainingErrorHandler } from '@muni-kypo-crp/training-agenda';
+import { TrainingErrorHandler } from '@cyberrangecz-platform/training-agenda';
 import { RunningTrainingRunService } from '../../running/running-training-run.service';
-import { SandboxInstanceApi } from '@muni-kypo-crp/sandbox-api';
+import { SandboxInstanceApi } from '@cyberrangecz-platform/sandbox-api';
 import { TrainingRunAccessLevelService } from './training-run-access-level.service';
 import { SentinelNotificationService } from '@sentinel/layout/notification';
 

@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-
+import { TrainingErrorHandler, TrainingNotificationService } from '@cyberrangecz-platform/training-agenda';
+import { BasicEventInfo, SimulatorState } from '@cyberrangecz-platform/adaptive-model-simulator/instance-model-simulator';
 import EventStateTypeEnum = BasicEventInfo.EventStateTypeEnum;
-import { TrainingErrorHandler, TrainingNotificationService } from '@muni-kypo-crp/training-agenda';
-import { BasicEventInfo, SimulatorState } from '@muni-kypo-crp/adaptive-model-simulator/instance-model-simulator';
 
 @Component({
   selector: 'kypo-adaptive-definition-simulator',

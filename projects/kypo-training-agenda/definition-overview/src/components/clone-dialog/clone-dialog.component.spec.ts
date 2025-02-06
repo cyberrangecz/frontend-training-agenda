@@ -1,8 +1,8 @@
 import { CloneDialogComponent } from './clone-dialog.component';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TrainingDefinitionEditOverviewMaterialModule } from '../../../../definition-edit/src/components/training-definition-edit-overview-material.module';
-import { TrainingDefinition, Level, AssessmentLevel, InfoLevel, TrainingLevel } from '@muni-kypo-crp/training-model';
+import { AssessmentLevel, InfoLevel, Level, TrainingDefinition, TrainingLevel } from '@cyberrangecz-platform/training-model';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SentinelPipesModule } from '@sentinel/common/pipes';
 import { createDialogRefSpy } from '../../../../internal/src/testing/testing-commons.spec';

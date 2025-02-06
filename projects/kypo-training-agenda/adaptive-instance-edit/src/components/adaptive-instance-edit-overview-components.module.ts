@@ -7,7 +7,7 @@ import { SentinelPipesModule } from '@sentinel/common/pipes';
 import { SentinelControlsComponent } from '@sentinel/components/controls';
 import { SentinelListComponent, SentinelListElementDirective } from '@sentinel/components/list';
 import { SentinelUserAssignComponent } from '@sentinel/components/user-assign';
-import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
+import { TrainingAgendaConfig } from '@cyberrangecz-platform/training-agenda';
 import { AdaptiveInstanceEditComponent } from './adaptive-instance-edit/adaptive-instance-edit.component';
 import { AdaptiveInstanceEditOverviewMaterialModule } from './adaptive-instance-edit-overview-material.module';
 import { AdaptiveInstanceEditOverviewComponent } from './adaptive-instance-edit-overview.component';

@@ -11,8 +11,7 @@ import {
 } from '@angular/core';
 import { TaskEditFormGroup } from './task-edit-form-group';
 import { AbstractControl } from '@angular/forms';
-import { takeWhile } from 'rxjs/operators';
-import { Task } from '@muni-kypo-crp/training-model';
+import { Task } from '@cyberrangecz-platform/training-model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
@@ -31,15 +30,19 @@ export class TaskEditComponent implements OnChanges {
   get title(): AbstractControl {
     return this.taskConfigFormGroup.formGroup.get('title');
   }
+
   get answer(): AbstractControl {
     return this.taskConfigFormGroup.formGroup.get('answer');
   }
+
   get solution(): AbstractControl {
     return this.taskConfigFormGroup.formGroup.get('solution');
   }
+
   get content(): AbstractControl {
     return this.taskConfigFormGroup.formGroup.get('content');
   }
+
   get incorrectAnswerLimit(): AbstractControl {
     return this.taskConfigFormGroup.formGroup.get('incorrectAnswerLimit');
   }

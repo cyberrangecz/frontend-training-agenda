@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { environment } from '../../../../../../environments/environment';
 import { AdaptiveAccessTokenDetailRoutingModule } from './adaptive-access-token-detail-routing.module';
-import { AccessTokenDetailComponentsModule } from '@muni-kypo-crp/training-agenda/instance-access-token';
+import { AccessTokenDetailComponentsModule } from '@cyberrangecz-platform/training-agenda/instance-access-token';
 
 @NgModule({
   imports: [

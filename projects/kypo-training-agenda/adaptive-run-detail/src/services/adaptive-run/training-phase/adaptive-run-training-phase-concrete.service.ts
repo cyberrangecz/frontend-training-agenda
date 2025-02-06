@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AdaptiveRunTrainingPhaseService } from './adaptive-run-training-phase.service';
-import { AdaptiveRunApi } from '@muni-kypo-crp/training-api';
-import { SandboxInstanceApi } from '@muni-kypo-crp/sandbox-api';
+import { AdaptiveRunApi } from '@cyberrangecz-platform/training-api';
+import { SandboxInstanceApi } from '@cyberrangecz-platform/sandbox-api';
 import { MatDialog } from '@angular/material/dialog';
-import { TrainingErrorHandler } from '@muni-kypo-crp/training-agenda';
+import { TrainingErrorHandler } from '@cyberrangecz-platform/training-agenda';
 import { RunningAdaptiveRunService } from '../running/running-adaptive-run.service';
 import { EMPTY, Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';

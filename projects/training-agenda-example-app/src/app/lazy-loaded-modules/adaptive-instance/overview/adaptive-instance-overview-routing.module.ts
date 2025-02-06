@@ -1,17 +1,17 @@
 import { RouterModule, Routes } from '@angular/router';
-import { AdaptiveInstanceOverviewComponent } from '@muni-kypo-crp/training-agenda/adaptive-instance-overview';
+import { AdaptiveInstanceOverviewComponent } from '@cyberrangecz-platform/training-agenda/adaptive-instance-overview';
 import {
   ADAPTIVE_INSTANCE_DATA_ATTRIBUTE_NAME,
-  TRAINING_INSTANCE_EDIT_PATH,
   ADAPTIVE_INSTANCE_SELECTOR,
   TRAINING_INSTANCE_DETAIL_PATH,
+  TRAINING_INSTANCE_EDIT_PATH,
   TRAINING_INSTANCE_NEW_PATH,
-} from '@muni-kypo-crp/training-agenda';
+} from '@cyberrangecz-platform/training-agenda';
 import {
   AdaptiveInstanceBreadcrumbResolver,
   AdaptiveInstanceResolver,
   AdaptiveInstanceTitleResolver,
-} from '@muni-kypo-crp/training-agenda/resolvers';
+} from '@cyberrangecz-platform/training-agenda/resolvers';
 import { NgModule } from '@angular/core';
 
 const routes: Routes = [

@@ -1,4 +1,4 @@
-import { Question } from '@muni-kypo-crp/training-model';
+import { Question } from '@cyberrangecz-platform/training-model';
 
 /**
  * Event representing change of edited question

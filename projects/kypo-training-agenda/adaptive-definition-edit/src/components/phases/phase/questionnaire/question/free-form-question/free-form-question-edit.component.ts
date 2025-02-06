@@ -9,10 +9,9 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { AdaptiveQuestion, QuestionnaireTypeEnum } from '@muni-kypo-crp/training-model';
+import { AdaptiveQuestion, QuestionnaireTypeEnum } from '@cyberrangecz-platform/training-model';
 import { QuestionFormGroup } from '../question-form-group';
 import { AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { takeWhile } from 'rxjs/operators';
 import { SentinelValidators } from '@sentinel/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 

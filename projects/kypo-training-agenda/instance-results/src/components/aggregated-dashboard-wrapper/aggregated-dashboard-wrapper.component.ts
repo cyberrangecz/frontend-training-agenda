@@ -1,8 +1,8 @@
 import { Component, DestroyRef, inject, OnInit } from '@angular/core';
-import { TrainingInstance } from '@muni-kypo-crp/training-model';
+import { TrainingInstance } from '@cyberrangecz-platform/training-model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, takeWhile } from 'rxjs';
-import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
+import { Observable } from 'rxjs';
+import { TrainingNavigator } from '@cyberrangecz-platform/training-agenda';
 import { map } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 

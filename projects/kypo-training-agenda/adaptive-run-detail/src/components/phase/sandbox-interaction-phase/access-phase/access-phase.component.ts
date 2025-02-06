@@ -11,7 +11,7 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { AccessPhase } from '@muni-kypo-crp/training-model';
+import { AccessPhase } from '@cyberrangecz-platform/training-model';
 import { Observable, of } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';

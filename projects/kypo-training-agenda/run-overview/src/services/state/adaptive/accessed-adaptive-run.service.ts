@@ -1,6 +1,6 @@
 import { OffsetPaginatedElementsService } from '@sentinel/common';
 import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
-import { AccessedTrainingRun } from '@muni-kypo-crp/training-model';
+import { AccessedTrainingRun } from '@cyberrangecz-platform/training-model';
 import { Observable } from 'rxjs';
 
 /**

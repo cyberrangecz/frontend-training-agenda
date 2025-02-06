@@ -1,3 +1,3 @@
 describe('training-agenda', () => {
-  beforeEach(() => cy.visit('/'));
+    beforeEach(() => cy.visit('/'));
 });

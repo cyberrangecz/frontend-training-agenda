@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { ExtendedMatchingItems } from '@muni-kypo-crp/training-model';
+import { ExtendedMatchingItems } from '@cyberrangecz-platform/training-model';
 
 @Component({
   selector: 'kypo-trainee-extended-matching-items',

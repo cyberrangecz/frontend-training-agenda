@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { PaginatedResource, OffsetPaginationEvent } from '@sentinel/common/pagination';
-import { TrainingInstanceApi, TrainingRunApi } from '@muni-kypo-crp/training-api';
-import { TrainingRun, TrainingRunInfo } from '@muni-kypo-crp/training-model';
+import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
+import { TrainingInstanceApi, TrainingRunApi } from '@cyberrangecz-platform/training-api';
+import { TrainingRun, TrainingRunInfo } from '@cyberrangecz-platform/training-model';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
+import { TrainingAgendaContext } from '@cyberrangecz-platform/training-agenda/internal';
 import { TrainingRunService } from './training-run.service';
-import { TrainingErrorHandler } from '@muni-kypo-crp/training-agenda';
+import { TrainingErrorHandler } from '@cyberrangecz-platform/training-agenda';
 
 /**
  * Basic implementation of layer between component and API service.

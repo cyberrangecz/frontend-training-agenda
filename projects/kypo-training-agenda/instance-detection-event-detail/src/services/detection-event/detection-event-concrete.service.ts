@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DetectionEventApi } from '@muni-kypo-crp/training-api';
+import { DetectionEventApi } from '@cyberrangecz-platform/training-api';
 import { DetectionEventService } from './detection-event.service';
 import { Observable } from 'rxjs';
 import {
@@ -10,7 +10,7 @@ import {
   MinimalSolveTimeDetectionEvent,
   NoCommandsDetectionEvent,
   TimeProximityDetectionEvent,
-} from '@muni-kypo-crp/training-model';
+} from '@cyberrangecz-platform/training-model';
 
 /**
  * Basic implementation of a layer between a component and an API services.
@@ -37,6 +37,7 @@ export class DetectionEventConcreteService extends DetectionEventService {
   public getAnswerSimilarityEventById(eventId: number): Observable<AnswerSimilarityDetectionEvent> {
     return this.api.getAnswerSimilarityEventById(eventId);
   }
+
   /**
    * Sends http request to find detection event of type location similarity by its id
    * @param eventId the event id
@@ -44,6 +45,7 @@ export class DetectionEventConcreteService extends DetectionEventService {
   public getLocationSimilarityEventById(eventId: number): Observable<LocationSimilarityDetectionEvent> {
     return this.api.getLocationSimilarityEventById(eventId);
   }
+
   /**
    * Sends http request to find detection event of type time proximity by its id
    * @param eventId the event id
@@ -51,6 +53,7 @@ export class DetectionEventConcreteService extends DetectionEventService {
   public getTimeProximityEventById(eventId: number): Observable<TimeProximityDetectionEvent> {
     return this.api.getTimeProximityEventById(eventId);
   }
+
   /**
    * Sends http request to find detection event of type minimal solve time by its id
    * @param eventId the event id
@@ -58,6 +61,7 @@ export class DetectionEventConcreteService extends DetectionEventService {
   public getMinimalSolveTimeEventById(eventId: number): Observable<MinimalSolveTimeDetectionEvent> {
     return this.api.getMinimalSolveTimeEventById(eventId);
   }
+
   /**
    * Sends http request to find detection event of type no commands by its id
    * @param eventId the event id

@@ -1,4 +1,4 @@
-import { TrainingDefinition } from '@muni-kypo-crp/training-model';
+import { TrainingDefinition } from '@cyberrangecz-platform/training-model';
 
 /**
  * Event representing training definition change (edit)

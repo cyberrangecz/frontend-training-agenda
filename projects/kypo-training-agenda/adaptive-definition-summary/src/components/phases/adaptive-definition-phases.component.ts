@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, Input, OnInit, ViewChild } from '@angular/core';
-import { AbstractPhaseTypeEnum, Phase, QuestionnairePhase, QuestionnaireTypeEnum } from '@muni-kypo-crp/training-model';
+import { AbstractPhaseTypeEnum, Phase, QuestionnairePhase, QuestionnaireTypeEnum } from '@cyberrangecz-platform/training-model';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { PhaseDetailExpandControls } from '../../model/phase-detail-expand-controls';
 import { MatAccordion } from '@angular/material/expansion';

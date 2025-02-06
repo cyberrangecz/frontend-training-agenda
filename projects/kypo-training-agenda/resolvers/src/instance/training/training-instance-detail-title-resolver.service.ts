@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { TrainingInstance } from '@muni-kypo-crp/training-model';
+import { TrainingInstance } from '@cyberrangecz-platform/training-model';
 import { Observable, of } from 'rxjs';
 import { catchError, mergeMap, take } from 'rxjs/operators';
 import {
   ACCESS_TOKEN_PATH,
+  CHEATING_DETECTION_PATH,
   PROGRESS_PATH,
   RESULTS_PATH,
   RUNS_PATH,
   SUMMARY_PATH,
-  CHEATING_DETECTION_PATH,
-} from '@muni-kypo-crp/training-agenda';
+} from '@cyberrangecz-platform/training-agenda';
 import { TrainingInstanceResolver } from './training-instance-resolver.service';
 
 @Injectable()

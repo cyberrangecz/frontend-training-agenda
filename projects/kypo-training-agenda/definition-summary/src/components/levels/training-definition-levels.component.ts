@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, Input, OnInit, ViewChild } from '@angular/core';
-import { AbstractLevelTypeEnum, Level } from '@muni-kypo-crp/training-model';
+import { AbstractLevelTypeEnum, Level } from '@cyberrangecz-platform/training-model';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { LevelDetailExpandControls } from '../../model/level-detail-expand-controls';
 import { MatAccordion } from '@angular/material/expansion';

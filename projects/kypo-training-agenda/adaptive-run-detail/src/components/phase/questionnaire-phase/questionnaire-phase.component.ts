@@ -15,7 +15,7 @@ import {
   QuestionAnswer,
   QuestionnairePhase,
   QuestionTypeEnum,
-} from '@muni-kypo-crp/training-model';
+} from '@cyberrangecz-platform/training-model';
 import { RunningAdaptiveRunService } from './../../../services/adaptive-run/running/running-adaptive-run.service';
 
 @Component({

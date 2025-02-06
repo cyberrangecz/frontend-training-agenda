@@ -5,15 +5,15 @@ import {
   SentinelConfirmationDialogConfig,
   SentinelDialogResultEnum,
 } from '@sentinel/components/dialogs';
-import { PaginatedResource, OffsetPaginationEvent } from '@sentinel/common/pagination';
-import { SandboxAllocationUnitsApi, SandboxInstanceApi } from '@muni-kypo-crp/sandbox-api';
-import { SandboxInstance } from '@muni-kypo-crp/sandbox-model';
-import { AdaptiveInstanceApi, AdaptiveRunApi } from '@muni-kypo-crp/training-api';
-import { TrainingRun } from '@muni-kypo-crp/training-model';
+import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
+import { SandboxAllocationUnitsApi, SandboxInstanceApi } from '@cyberrangecz-platform/sandbox-api';
+import { SandboxInstance } from '@cyberrangecz-platform/sandbox-model';
+import { AdaptiveInstanceApi, AdaptiveRunApi } from '@cyberrangecz-platform/training-api';
+import { TrainingRun } from '@cyberrangecz-platform/training-model';
 import { EMPTY, Observable, of } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
-import { TrainingNotificationService, TrainingErrorHandler } from '@muni-kypo-crp/training-agenda';
-import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
+import { TrainingErrorHandler, TrainingNotificationService } from '@cyberrangecz-platform/training-agenda';
+import { TrainingAgendaContext } from '@cyberrangecz-platform/training-agenda/internal';
 import { AdaptiveRunService } from './adaptive-run.service';
 
 /**

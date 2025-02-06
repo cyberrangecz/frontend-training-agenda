@@ -1,7 +1,7 @@
 <h1>{{ phase?.title }}</h1>
 <ng-container [ngSwitch]="phase?.type">
-  <kypo-questionnaire-phase *ngSwitchCase="phaseTypes.Questionnaire" [phase]="phase"> </kypo-questionnaire-phase>
-  <kypo-training-phase *ngSwitchCase="phaseTypes.Training" [phase]="phase"> </kypo-training-phase>
-  <kypo-info-phase *ngSwitchCase="phaseTypes.Info" [phase]="phase"> </kypo-info-phase>
-  <kypo-access-phase *ngSwitchCase="phaseTypes.Access" [phase]="phase"> </kypo-access-phase>
+    <kypo-questionnaire-phase *ngSwitchCase="phaseTypes.Questionnaire" [phase]="phase"></kypo-questionnaire-phase>
+    <kypo-training-phase *ngSwitchCase="phaseTypes.Training" [phase]="phase"></kypo-training-phase>
+    <kypo-info-phase *ngSwitchCase="phaseTypes.Info" [phase]="phase"></kypo-info-phase>
+    <kypo-access-phase *ngSwitchCase="phaseTypes.Access" [phase]="phase"></kypo-access-phase>
 </ng-container>

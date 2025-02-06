@@ -7,8 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { SentinelValidators } from '@sentinel/common';
-import { Question } from '@muni-kypo-crp/training-model';
-import { MultipleChoiceQuestion } from '@muni-kypo-crp/training-model';
+import { MultipleChoiceQuestion, Question } from '@cyberrangecz-platform/training-model';
 
 /**
  * Form control class for form in mcq edit component

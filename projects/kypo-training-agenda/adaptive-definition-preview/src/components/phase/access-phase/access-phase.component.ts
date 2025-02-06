@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, ElementRef, HostListener, Input, ViewChild } from '@angular/core';
-import { AccessPhase } from '@muni-kypo-crp/training-model';
+import { AccessPhase } from '@cyberrangecz-platform/training-model';
 
 @Component({
   selector: 'kypo-access-phase',

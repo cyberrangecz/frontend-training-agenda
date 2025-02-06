@@ -1,9 +1,9 @@
 import { DatePipe } from '@angular/common';
 import { PaginatedResource } from '@sentinel/common/pagination';
-import { Column, SentinelTable, Row, RowAction, DeleteAction } from '@sentinel/components/table';
-import { CheatingDetection, CheatingDetectionStateEnum } from '@muni-kypo-crp/training-model';
+import { Column, DeleteAction, Row, RowAction, SentinelTable } from '@sentinel/components/table';
+import { CheatingDetection, CheatingDetectionStateEnum } from '@cyberrangecz-platform/training-model';
 import { CheatingDetectionRowAdapter } from './cheating-detection-row-adapter';
-import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
+import { TrainingNavigator } from '@cyberrangecz-platform/training-agenda';
 import { CheatingDetectionService } from '../services/cheating-detection.service';
 import { defer, of } from 'rxjs';
 

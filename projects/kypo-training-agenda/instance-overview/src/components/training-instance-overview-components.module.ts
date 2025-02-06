@@ -3,13 +3,13 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SentinelControlsComponent } from '@sentinel/components/controls';
 import { SentinelTableModule } from '@sentinel/components/table';
-import { TrainingAgendaConfig, TrainingDefaultNavigator, TrainingNavigator } from '@muni-kypo-crp/training-agenda';
-import { TrainingAgendaContext, PaginationService } from '@muni-kypo-crp/training-agenda/internal';
+import { TrainingAgendaConfig, TrainingDefaultNavigator, TrainingNavigator } from '@cyberrangecz-platform/training-agenda';
+import { PaginationService, TrainingAgendaContext } from '@cyberrangecz-platform/training-agenda/internal';
 import {
   TrainingInstanceBreadcrumbResolver,
   TrainingInstanceResolver,
   TrainingInstanceTitleResolver,
-} from '@muni-kypo-crp/training-agenda/resolvers';
+} from '@cyberrangecz-platform/training-agenda/resolvers';
 import { TrainingInstanceOverviewConcreteService } from '../services/state/training-instance-overview-concrete.service';
 import { TrainingInstanceOverviewService } from '../services/state/training-instance-overview.service';
 import { TrainingInstanceOverviewComponent } from './training-instance-overview.component';

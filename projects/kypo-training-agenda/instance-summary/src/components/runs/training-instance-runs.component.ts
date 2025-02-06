@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { TrainingRun } from '@muni-kypo-crp/training-model';
-import { TableLoadEvent, SentinelTable, TableActionEvent } from '@sentinel/components/table';
+import { TrainingRun } from '@cyberrangecz-platform/training-model';
+import { SentinelTable, TableActionEvent, TableLoadEvent } from '@sentinel/components/table';
 
 @Component({
   selector: 'kypo-training-instance-runs',

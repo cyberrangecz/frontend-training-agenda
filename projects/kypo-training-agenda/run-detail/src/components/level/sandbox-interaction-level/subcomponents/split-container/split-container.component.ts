@@ -7,19 +7,16 @@ import {
   HostListener,
   inject,
   Input,
-  OnInit,
   Output,
   TemplateRef,
   ViewChild,
 } from '@angular/core';
-import { MatDivider } from '@angular/material/divider';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { filter, map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { thresholdBuffer } from '../../../../../logic/tresholdBufferPipe';
 import { sum } from 'd3';
 import { DividerPositionSynchronizerService } from '../../../../../services/training-run/level/synchronization/divider-position/divider-position-synchronizer.service';
-import { PersistentDividerPositionSynchronizerService } from '../../../../../services/training-run/level/synchronization/divider-position/persistent-divider-position-synchronizer.service';
 
 class DefaultDividerPositionSynchronizerService extends DividerPositionSynchronizerService {
   private splitViewDimensionsSubject: BehaviorSubject<number>;

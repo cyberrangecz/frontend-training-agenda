@@ -1,5 +1,5 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
-import { TrainingRun, TrainingRunInfo } from '@muni-kypo-crp/training-model';
+import { TrainingRun, TrainingRunInfo } from '@cyberrangecz-platform/training-model';
 import { TrainingRunConcreteService } from '../../../services/state/runs/training-run-concrete.service';
 import { TrainingRunService } from '../../../services/state/runs/training-run.service';
 import { SentinelTable, TableLoadEvent } from '@sentinel/components/table';

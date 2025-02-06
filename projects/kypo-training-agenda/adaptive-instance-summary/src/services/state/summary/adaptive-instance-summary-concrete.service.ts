@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { TrainingInstance } from '@muni-kypo-crp/training-model';
+import { TrainingInstance } from '@cyberrangecz-platform/training-model';
 import { from, Observable, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
+import { TrainingNavigator } from '@cyberrangecz-platform/training-agenda';
 import { AdaptiveInstanceSummaryService } from './adaptive-instance-summary.service';
 
 @Injectable()

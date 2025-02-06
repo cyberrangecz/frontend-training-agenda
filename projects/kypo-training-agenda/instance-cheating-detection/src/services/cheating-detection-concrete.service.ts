@@ -6,13 +6,13 @@ import {
   SentinelConfirmationDialogConfig,
   SentinelDialogResultEnum,
 } from '@sentinel/components/dialogs';
-import { PaginatedResource, OffsetPaginationEvent } from '@sentinel/common/pagination';
-import { CheatingDetectionApi } from '@muni-kypo-crp/training-api';
-import { CheatingDetection } from '@muni-kypo-crp/training-model';
+import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
+import { CheatingDetectionApi } from '@cyberrangecz-platform/training-api';
+import { CheatingDetection } from '@cyberrangecz-platform/training-model';
 import { EMPTY, from, Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
-import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } from '@muni-kypo-crp/training-agenda';
-import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
+import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } from '@cyberrangecz-platform/training-agenda';
+import { TrainingAgendaContext } from '@cyberrangecz-platform/training-agenda/internal';
 import { CheatingDetectionService } from './cheating-detection.service';
 
 /**
@@ -142,6 +142,7 @@ export class CheatingDetectionConcreteService extends CheatingDetectionService {
       ),
     );
   }
+
   private onGetAllError() {
     this.hasErrorSubject$.next(true);
   }

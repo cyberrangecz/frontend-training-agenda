@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { TrainingRun } from '@muni-kypo-crp/training-model';
+import { TrainingRun } from '@cyberrangecz-platform/training-model';
 import { OffsetPaginatedElementsPollingService } from '@sentinel/common';
-import { PaginatedResource, OffsetPaginationEvent } from '@sentinel/common/pagination';
+import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
 import { Observable } from 'rxjs';
 
 /**
@@ -14,6 +14,7 @@ export abstract class TrainingRunService extends OffsetPaginatedElementsPollingS
   protected constructor(defaultPaginationSize: number, pollPeriod: number) {
     super(defaultPaginationSize, pollPeriod);
   }
+
   /**
    * @param trainingInstanceId id of associated training instance
    * @param pagination requested pagination

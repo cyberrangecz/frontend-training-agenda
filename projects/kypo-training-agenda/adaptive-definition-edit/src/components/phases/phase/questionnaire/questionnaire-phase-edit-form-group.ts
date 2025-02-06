@@ -1,5 +1,5 @@
-import { UntypedFormArray, UntypedFormControl, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { AdaptiveQuestion, PhaseRelation, QuestionnairePhase } from '@muni-kypo-crp/training-model';
+import { UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { AdaptiveQuestion, PhaseRelation, QuestionnairePhase } from '@cyberrangecz-platform/training-model';
 
 /**
  * @dynamic

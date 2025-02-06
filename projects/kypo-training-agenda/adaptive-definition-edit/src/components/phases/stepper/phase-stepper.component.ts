@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SentinelStepper, StepperStateChange, StepStateEnum } from '@sentinel/components/stepper';
-import { PhaseStepperAdapter } from '@muni-kypo-crp/training-agenda/internal';
+import { PhaseStepperAdapter } from '@cyberrangecz-platform/training-agenda/internal';
 import { PhaseMoveEvent } from '../../../model/events/phase-move-event';
 
 /**

@@ -1,7 +1,7 @@
-import { waitForAsync, TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { asyncData } from '@sentinel/common/testing';
-import { OffsetPaginationEvent, PaginatedResource, OffsetPagination } from '@sentinel/common/pagination';
-import { UserApi } from '@muni-kypo-crp/training-api';
+import { OffsetPagination, OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
+import { UserApi } from '@cyberrangecz-platform/training-api';
 import { throwError } from 'rxjs';
 import { skip, take } from 'rxjs/operators';
 import {
@@ -12,7 +12,7 @@ import {
 import { TrainingErrorHandler } from '../../../../../src/services/training-error.handler.service';
 import { TrainingAgendaContext } from '../../../../../internal/src/services/context/training-agenda-context.service';
 import { OrganizersAssignService } from './organizers-assign.service';
-import { Organizer } from '@muni-kypo-crp/training-model';
+import { Organizer } from '@cyberrangecz-platform/training-model';
 
 describe('OrganizersAssignService', () => {
   let errorHandlerSpy: jasmine.SpyObj<TrainingErrorHandler>;

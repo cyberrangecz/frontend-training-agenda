@@ -1,18 +1,18 @@
 import { OffsetPaginationEvent } from '@sentinel/common/pagination';
 import { ChangeDetectionStrategy, Component, DestroyRef, HostListener, inject, OnInit } from '@angular/core';
 import { combineLatestWith, Observable, switchMap } from 'rxjs';
-import { TrainingDefinitionInfo, TrainingInstance } from '@muni-kypo-crp/training-model';
+import { TrainingDefinitionInfo, TrainingInstance } from '@cyberrangecz-platform/training-model';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { ActivatedRoute } from '@angular/router';
 import { filter, map, take } from 'rxjs/operators';
 import { AdaptiveInstanceEditService } from '../services/state/edit/adaptive-instance-edit.service';
-import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
+import { PaginationService } from '@cyberrangecz-platform/training-agenda/internal';
 import { AdaptiveInstanceEditControls } from '../models/adapter/adaptive-instance-edit-controls';
-import { ADAPTIVE_INSTANCE_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
+import { ADAPTIVE_INSTANCE_DATA_ATTRIBUTE_NAME } from '@cyberrangecz-platform/training-agenda';
 import { AdaptiveInstanceChangeEvent } from '../models/events/adaptive-instance-change-event';
 import { AdaptiveInstanceEditConcreteService } from '../services/state/edit/adaptive-instance-edit-concrete.service';
 import { OrganizersAssignService } from '../services/state/organizers-assign/organizers-assign.service';
-import { Pool, SandboxDefinition } from '@muni-kypo-crp/sandbox-model';
+import { Pool, SandboxDefinition } from '@cyberrangecz-platform/sandbox-model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { SentinelUserAssignService } from '@sentinel/components/user-assign';
 

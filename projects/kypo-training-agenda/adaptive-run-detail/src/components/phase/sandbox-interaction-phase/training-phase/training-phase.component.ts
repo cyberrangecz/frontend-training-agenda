@@ -11,10 +11,9 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { delay, take } from 'rxjs/operators';
-import { HintButton } from '@muni-kypo-crp/training-agenda/internal';
-import { TrainingPhase } from '@muni-kypo-crp/training-model';
+import { TrainingPhase } from '@cyberrangecz-platform/training-model';
 import { AdaptiveRunTrainingPhaseService } from './../../../../services/adaptive-run/training-phase/adaptive-run-training-phase.service';
 import { AdaptiveRunTrainingPhaseConcreteService } from '../../../../services/adaptive-run/training-phase/adaptive-run-training-phase-concrete.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';

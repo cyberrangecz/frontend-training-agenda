@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { RunningAdaptiveRunService } from './running-adaptive-run.service';
 import { EMPTY, Observable } from 'rxjs';
-import { AbstractPhaseTypeEnum, AccessTrainingRunInfo, Phase, QuestionAnswer } from '@muni-kypo-crp/training-model';
-import { AdaptiveRunApi } from '@muni-kypo-crp/training-api';
+import { AbstractPhaseTypeEnum, AccessTrainingRunInfo, Phase, QuestionAnswer } from '@cyberrangecz-platform/training-model';
+import { AdaptiveRunApi } from '@cyberrangecz-platform/training-api';
 import { Router } from '@angular/router';
-import { TrainingErrorHandler, TrainingNavigator } from '@muni-kypo-crp/training-agenda';
+import { TrainingErrorHandler, TrainingNavigator } from '@cyberrangecz-platform/training-agenda';
 import { switchMap, tap } from 'rxjs/operators';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { ConsoleUrl, TopologyApi } from '@muni-kypo-crp/topology-graph';
-import { LoadingDialogComponent, LoadingDialogConfig } from '@muni-kypo-crp/training-agenda/internal';
+import { ConsoleUrl, TopologyApi } from '@cyberrangecz-platform/topology-graph';
+import { LoadingDialogComponent, LoadingDialogConfig } from '@cyberrangecz-platform/training-agenda/internal';
 
 @Injectable()
 export class RunningAdaptiveRunConcreteService extends RunningAdaptiveRunService {

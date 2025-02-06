@@ -1,9 +1,9 @@
 import { DatePipe } from '@angular/common';
 import { PaginatedResource } from '@sentinel/common/pagination';
-import { Column, SentinelTable, Row, RowAction } from '@sentinel/components/table';
-import { AbstractDetectionEvent, AbstractDetectionEventTypeEnum } from '@muni-kypo-crp/training-model';
+import { Column, Row, RowAction, SentinelTable } from '@sentinel/components/table';
+import { AbstractDetectionEvent, AbstractDetectionEventTypeEnum } from '@cyberrangecz-platform/training-model';
 import { DetectionEventRowAdapter } from './detection-event-row-adapter';
-import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
+import { TrainingNavigator } from '@cyberrangecz-platform/training-agenda';
 import { defer, of } from 'rxjs';
 import { DetectionEventService } from '../services/detection-event.service';
 
@@ -60,6 +60,7 @@ export class DetectionEventTable extends SentinelTable<DetectionEventRowAdapter>
         return 'Undefined';
     }
   }
+
   private static createActions(de: AbstractDetectionEvent, service: DetectionEventService): RowAction[] {
     return [...this.createStateActions(de, service)];
   }

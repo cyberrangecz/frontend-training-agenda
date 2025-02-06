@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { SentinelFilter } from '@sentinel/common/filter';
-import { PaginatedResource, OffsetPaginationEvent } from '@sentinel/common/pagination';
-import { TrainingDefinitionApi } from '@muni-kypo-crp/training-api';
-import { TrainingDefinitionInfo } from '@muni-kypo-crp/training-model';
+import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
+import { TrainingDefinitionApi } from '@cyberrangecz-platform/training-api';
+import { TrainingDefinitionInfo } from '@cyberrangecz-platform/training-model';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { TrainingErrorHandler } from '@muni-kypo-crp/training-agenda';
-import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
+import { TrainingErrorHandler } from '@cyberrangecz-platform/training-agenda';
+import { TrainingAgendaContext } from '@cyberrangecz-platform/training-agenda/internal';
 import { TrainingDefinitionOrganizerSelectService } from './training-definition-organizer-select.service';
 
 /**

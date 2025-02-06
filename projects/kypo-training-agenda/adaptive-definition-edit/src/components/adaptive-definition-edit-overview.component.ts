@@ -1,14 +1,14 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, HostListener, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SentinelControlItem } from '@sentinel/components/controls';
-import { MitreTechnique, Phase, TrainingDefinition } from '@muni-kypo-crp/training-model';
+import { MitreTechnique, Phase, TrainingDefinition } from '@cyberrangecz-platform/training-model';
 import { combineLatest, Observable, switchMap } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
 import { TrainingDefinitionEditControls } from '../model/adapters/training-definition-edit-controls';
 import { TrainingDefinitionChangeEvent } from '../model/events/training-definition-change-event';
-import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
+import { PaginationService } from '@cyberrangecz-platform/training-agenda/internal';
 import { AdaptiveDefinitionEditService } from '../services/state/edit/adaptive-definition-edit.service';
-import { ADAPTIVE_DEFINITION_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
+import { ADAPTIVE_DEFINITION_DATA_ATTRIBUTE_NAME } from '@cyberrangecz-platform/training-agenda';
 import { AdaptiveDefinitionEditConcreteService } from '../services/state/edit/adaptive-definition-edit-concrete.service';
 import { AuthorsAssignService } from '../services/state/authors-assign/authors-assign.service';
 import { PhaseEditService } from '../services/state/phase/phase-edit.service';

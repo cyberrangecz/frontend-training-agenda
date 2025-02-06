@@ -1,5 +1,5 @@
 import { TrainingDefinitionDetailComponent } from './training-definition-detail.component';
-import { waitForAsync, TestBed, ComponentFixture } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MaterialTestingModule } from '../../../../internal/src/testing/material-testing.module';
 
 describe('TrainingDefinitionDetailComponent', () => {

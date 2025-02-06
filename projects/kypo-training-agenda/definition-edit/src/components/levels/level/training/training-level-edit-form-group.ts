@@ -1,6 +1,6 @@
 import { UntypedFormControl, UntypedFormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { SentinelValidators } from '@sentinel/common';
-import { ReferenceSolutionNode, TrainingLevel } from '@muni-kypo-crp/training-model';
+import { ReferenceSolutionNode, TrainingLevel } from '@cyberrangecz-platform/training-model';
 
 export const MAX_SCORE = 100;
 export const INCORRECT_ANSWER_LIMIT = 100;
@@ -35,10 +35,13 @@ export class TrainingLevelEditFormGroup {
         SentinelValidators.noWhitespace,
         Validators.maxLength(MAX_ANSWER),
       ]),
-      answerVariableName: new UntypedFormControl({ value: level.answerVariableName, disabled: !level.variantAnswers }, [
-        SentinelValidators.noWhitespace,
-        Validators.maxLength(MAX_ANSWER),
-      ]),
+      answerVariableName: new UntypedFormControl(
+        {
+          value: level.answerVariableName,
+          disabled: !level.variantAnswers,
+        },
+        [SentinelValidators.noWhitespace, Validators.maxLength(MAX_ANSWER)],
+      ),
       estimatedDuration: new UntypedFormControl(level.estimatedDuration, [
         Validators.pattern('^[0-9]*$'),
         Validators.min(1),

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { AdaptiveInstanceDetailComponentsModule } from '@muni-kypo-crp/training-agenda/instance-detail';
+import { AdaptiveInstanceDetailComponentsModule } from '@cyberrangecz-platform/training-agenda/instance-detail';
 import { environment } from '../../../../../environments/environment';
 import { AdaptiveInstanceDetailRoutingModule } from './adaptive-instance-detail-routing.module';
 

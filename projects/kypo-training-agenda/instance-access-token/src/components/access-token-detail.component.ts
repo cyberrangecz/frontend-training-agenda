@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { TrainingInstance } from '@muni-kypo-crp/training-model';
+import { TrainingInstance } from '@cyberrangecz-platform/training-model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME } from '@muni-kypo-crp/training-agenda';
+import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME } from '@cyberrangecz-platform/training-agenda';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
@@ -17,6 +17,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class AccessTokenDetailComponent {
   trainingInstance$: Observable<TrainingInstance>;
+
   constructor(private activeRoute: ActivatedRoute) {
     this.trainingInstance$ = this.activeRoute.data.pipe(
       takeUntilDestroyed(),

@@ -1,20 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TrainingDefinitionOverviewComponent } from '@muni-kypo-crp/training-agenda/definition-overview';
+import { TrainingDefinitionOverviewComponent } from '@cyberrangecz-platform/training-agenda/definition-overview';
 import {
+  TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME,
+  TRAINING_DEFINITION_DETAIL_PATH,
   TRAINING_DEFINITION_EDIT_PATH,
   TRAINING_DEFINITION_NEW_PATH,
   TRAINING_DEFINITION_PREVIEW_PATH,
   TRAINING_DEFINITION_SELECTOR,
-  TRAINING_DEFINITION_DETAIL_PATH,
-  TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME,
-  MITRE_TECHNIQUES_PATH,
-} from '@muni-kypo-crp/training-agenda';
+} from '@cyberrangecz-platform/training-agenda';
 import {
   TrainingDefinitionBreadcrumbResolver,
   TrainingDefinitionResolver,
   TrainingDefinitionTitleResolver,
-} from '@muni-kypo-crp/training-agenda/resolvers';
+} from '@cyberrangecz-platform/training-agenda/resolvers';
 
 const routes: Routes = [
   {

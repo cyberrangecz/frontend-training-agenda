@@ -1,12 +1,12 @@
 import { DatePipe } from '@angular/common';
 import { PaginatedResource } from '@sentinel/common/pagination';
-import { TrainingInstance } from '@muni-kypo-crp/training-model';
-import { Column, SentinelTable, Row, RowAction, EditAction, DeleteAction } from '@sentinel/components/table';
+import { TrainingInstance } from '@cyberrangecz-platform/training-model';
+import { Column, DeleteAction, EditAction, Row, RowAction, SentinelTable } from '@sentinel/components/table';
 import { combineLatest, defer, of } from 'rxjs';
-import { TrainingNavigator } from '@muni-kypo-crp/training-agenda';
+import { TrainingNavigator } from '@cyberrangecz-platform/training-agenda';
 import { TrainingInstanceOverviewService } from '../../services/state/training-instance-overview.service';
 import { TrainingInstanceRowAdapter } from './training-instance-row-adapter';
-import { DateHelper } from '@muni-kypo-crp/training-agenda/internal';
+import { DateHelper } from '@cyberrangecz-platform/training-agenda/internal';
 
 /**
  * @dynamic

@@ -28,13 +28,13 @@ To use the library you need to have installed:
 
 To use the training agenda in your Angular application follow these steps:
 
-1. Run `npm install @muni-kypo-crp/training-agenda`
+1. Run `npm install @cyberrangecz-platform/training-agenda`
 1. Install all peer dependencies
 1. Create config class extending `TrainingAgendaConfig` from the library. Config contains following options:
-    +   pollingPeriod
-    +   defaultPaginationSize
-    +   visualizationConfig
-    +   kypoTopologyConfig
+    + pollingPeriod
+    + defaultPaginationSize
+    + visualizationConfig
+    + kypoTopologyConfig
 1. Import specific modules containing components (for example `TrainingDefinitionOverviewComponentsModule`) and provide config through `.forRoot()` method.
 1. If you do not override the services, you will also need to provide API service. See [kypo-training-api library](https://gitlab.ics.muni.cz/kypo-crp/frontend-angular/apis/kypo-training-api).
 1. You need to provide implementation of abstract services `ClientErrorHandlerService` and `ClientNotificationService` for error handling and notification displaying.

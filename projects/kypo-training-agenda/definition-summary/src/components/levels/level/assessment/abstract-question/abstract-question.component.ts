@@ -4,7 +4,7 @@ import {
   FreeFormQuestion,
   MultipleChoiceQuestion,
   Question,
-} from '@muni-kypo-crp/training-model';
+} from '@cyberrangecz-platform/training-model';
 
 @Component({
   selector: 'kypo-question-detail',

@@ -1,30 +1,30 @@
 <div class="container" *ngIf="(visualizationInfo$ | async) as vizInfo">
-  <div class="left-panel">
-    <kypo-viz-overview-table
-      [trainingDefinitionId]="vizInfo.trainingDefinitionId"
-      [standalone]="true"
-      [trainingInstanceId]="vizInfo.trainingInstanceId"
-      [traineeModeInfo]="traineeModeInfo$ | async"
-    >
-    </kypo-viz-overview-table>
-    <kypo-viz-overview-timeline
-      [size]="vizSize"
-      [standalone]="false"
-      [traineeModeInfo]="traineeModeInfo$ | async"
-      [trainingDefinitionId]="vizInfo.trainingDefinitionId"
-      [trainingInstanceId]="vizInfo.trainingInstanceId"
-    >
-    </kypo-viz-overview-timeline>
-  </div>
-  <div class="middle-panel">
-    <kypo-viz-overview-clustering
-      [size]="vizSize"
-      [standalone]="false"
-      [traineeModeInfo]="traineeModeInfo$ | async"
-      [trainingDefinitionId]="vizInfo.trainingDefinitionId"
-      [trainingInstanceId]="vizInfo.trainingInstanceId"
-    >
-    </kypo-viz-overview-clustering>
-  </div>
-  <div class="right-panel"></div>
+    <div class="left-panel">
+        <kypo-viz-overview-table
+            [trainingDefinitionId]="vizInfo.trainingDefinitionId"
+            [standalone]="true"
+            [trainingInstanceId]="vizInfo.trainingInstanceId"
+            [traineeModeInfo]="traineeModeInfo$ | async"
+        >
+        </kypo-viz-overview-table>
+        <kypo-viz-overview-timeline
+            [size]="vizSize"
+            [standalone]="false"
+            [traineeModeInfo]="traineeModeInfo$ | async"
+            [trainingDefinitionId]="vizInfo.trainingDefinitionId"
+            [trainingInstanceId]="vizInfo.trainingInstanceId"
+        >
+        </kypo-viz-overview-timeline>
+    </div>
+    <div class="middle-panel">
+        <kypo-viz-overview-clustering
+            [size]="vizSize"
+            [standalone]="false"
+            [traineeModeInfo]="traineeModeInfo$ | async"
+            [trainingDefinitionId]="vizInfo.trainingDefinitionId"
+            [trainingInstanceId]="vizInfo.trainingInstanceId"
+        >
+        </kypo-viz-overview-clustering>
+    </div>
+    <div class="right-panel"></div>
 </div>

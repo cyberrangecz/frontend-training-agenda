@@ -22,12 +22,12 @@ import {
   QuestionnaireTypeEnum,
   TrainingDefinition,
   TrainingPhase,
-} from '@muni-kypo-crp/training-model';
-import { PhaseStepperAdapter } from '@muni-kypo-crp/training-agenda/internal';
+} from '@cyberrangecz-platform/training-model';
+import { PhaseStepperAdapter } from '@cyberrangecz-platform/training-agenda/internal';
 import { PhaseEditService } from '../../../services/state/phase/phase-edit.service';
 import { PhaseMoveEvent } from '../../../model/events/phase-move-event';
 import { PhaseOverviewControls } from '../../../model/adapters/phase-overview-controls';
-import { PhaseRelation } from '@muni-kypo-crp/training-model/lib/phase/questionnaire-phase/phase-relation';
+import { PhaseRelation } from '@cyberrangecz-platform/training-model/lib/phase/questionnaire-phase/phase-relation';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**

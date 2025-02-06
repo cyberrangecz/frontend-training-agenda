@@ -19,7 +19,7 @@ import {
   QuestionnaireTypeEnum,
   QuestionTypeEnum,
   TrainingPhase,
-} from '@muni-kypo-crp/training-model';
+} from '@cyberrangecz-platform/training-model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({

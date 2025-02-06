@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { PoolApi, SandboxDefinitionApi } from '@muni-kypo-crp/sandbox-api';
-import { TrainingDefinitionApi, TrainingInstanceApi } from '@muni-kypo-crp/training-api';
-import { TrainingDefinitionInfo, TrainingInstance } from '@muni-kypo-crp/training-model';
+import { PoolApi, SandboxDefinitionApi } from '@cyberrangecz-platform/sandbox-api';
+import { TrainingDefinitionApi, TrainingInstanceApi } from '@cyberrangecz-platform/training-api';
+import { TrainingDefinitionInfo, TrainingInstance } from '@cyberrangecz-platform/training-model';
 import { from, Observable } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { TrainingInstanceChangeEvent } from '../../../model/events/training-instance-change-event';
-import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } from '@muni-kypo-crp/training-agenda';
+import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } from '@cyberrangecz-platform/training-agenda';
 import { TrainingInstanceEditService } from './training-instance-edit.service';
 import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
-import { Pool, SandboxDefinition } from '@muni-kypo-crp/sandbox-model';
+import { Pool, SandboxDefinition } from '@cyberrangecz-platform/sandbox-model';
 import { SentinelFilter } from '@sentinel/common/filter';
 
 /**

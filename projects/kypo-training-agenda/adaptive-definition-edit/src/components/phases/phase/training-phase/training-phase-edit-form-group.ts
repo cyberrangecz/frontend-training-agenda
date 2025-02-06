@@ -1,5 +1,5 @@
 import { UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { DecisionMatrixRow, TrainingPhase } from '@muni-kypo-crp/training-model';
+import { DecisionMatrixRow, TrainingPhase } from '@cyberrangecz-platform/training-model';
 
 export class TrainingPhaseEditFormGroup {
   formGroup: UntypedFormGroup;

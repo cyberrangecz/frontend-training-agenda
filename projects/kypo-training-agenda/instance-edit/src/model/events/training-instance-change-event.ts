@@ -1,4 +1,4 @@
-import { TrainingInstance } from '@muni-kypo-crp/training-model';
+import { TrainingInstance } from '@cyberrangecz-platform/training-model';
 
 /**
  * Event representing training instance change (edit)

@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { DetectionEventApi } from '@muni-kypo-crp/training-api';
+import { DetectionEventApi } from '@cyberrangecz-platform/training-api';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
+import { TrainingAgendaContext } from '@cyberrangecz-platform/training-agenda/internal';
 import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
 import { Observable } from 'rxjs';
-import { DetectionEventParticipant } from '@muni-kypo-crp/training-model';
+import { DetectionEventParticipant } from '@cyberrangecz-platform/training-model';
 import { tap } from 'rxjs/operators';
 import { DetectionEventParticipantService } from './detection-event-participant.service';
 

@@ -3,8 +3,8 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import {
   AdaptiveTransitionVisualizationConfig,
   KypoAdaptiveTransitionVisualizationModule,
-} from '@muni-kypo-crp/adaptive-transition-visualization';
-import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
+} from '@cyberrangecz-platform/adaptive-transition-visualization';
+import { TrainingAgendaConfig } from '@cyberrangecz-platform/training-agenda';
 import { SentinelControlsComponent } from '@sentinel/components/controls';
 import { MitreTechniquesOverviewConcreteService } from '../service/mitre-techniques-concrete.service';
 import { MitreTechniquesOverviewService } from '../service/mitre-techniques.service';

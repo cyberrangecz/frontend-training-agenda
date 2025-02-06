@@ -3,12 +3,12 @@ import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import {
   ACCESS_TOKEN_PATH,
+  CHEATING_DETECTION_PATH,
   PROGRESS_PATH,
   RESULTS_PATH,
-  CHEATING_DETECTION_PATH,
   RUNS_PATH,
   SUMMARY_PATH,
-} from '@muni-kypo-crp/training-agenda';
+} from '@cyberrangecz-platform/training-agenda';
 
 /**
  * Router breadcrumb title resolver

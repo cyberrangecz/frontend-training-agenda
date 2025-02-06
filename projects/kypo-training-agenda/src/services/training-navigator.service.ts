@@ -57,6 +57,7 @@ export abstract class TrainingNavigator {
    * @param id id of the training definition
    */
   abstract toAdaptiveDefinitionEdit(id: number | string): string;
+
   /**
    * Returns route to new training definition page
    */
@@ -185,6 +186,7 @@ export abstract class TrainingNavigator {
     cid: number | string,
     eventId: number,
   ): string;
+
   /**
    * Returns route to adaptive instance results page
    * @param id id of the adaptive instance

@@ -1,5 +1,5 @@
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { InfoPhase } from '@muni-kypo-crp/training-model';
+import { InfoPhase } from '@cyberrangecz-platform/training-model';
 
 /**
  * Form control class for info-phase-training-phase phases edit component

@@ -12,6 +12,7 @@ export class ExpectedCommandsSelectComponent {
   @Output() expectedCommandsChange: EventEmitter<string[]> = new EventEmitter();
 
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
+
   add(event: MatChipInputEvent) {
     const value = (event.value || '').trim();
     if (value) {

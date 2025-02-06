@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Router } from '@angular/router';
-import { AdaptiveRunApi } from '@muni-kypo-crp/training-api';
-import { AccessTrainingRunInfo } from '@muni-kypo-crp/training-model';
+import { AdaptiveRunApi } from '@cyberrangecz-platform/training-api';
+import { AccessTrainingRunInfo } from '@cyberrangecz-platform/training-model';
 import { EMPTY, Observable, of } from 'rxjs';
 import { catchError, mergeMap, take, tap } from 'rxjs/operators';
 import {
-  TrainingErrorHandler,
-  TrainingNavigator,
   TRAINING_RUN_ACCESS_SELECTOR,
   TRAINING_RUN_SELECTOR,
-} from '@muni-kypo-crp/training-agenda';
-import { RunningAdaptiveRunService } from '@muni-kypo-crp/training-agenda/adaptive-run-detail';
+  TrainingErrorHandler,
+  TrainingNavigator,
+} from '@cyberrangecz-platform/training-agenda';
+import { RunningAdaptiveRunService } from '@cyberrangecz-platform/training-agenda/adaptive-run-detail';
 
 @Injectable()
 export class AccessAdaptiveRunResolver {

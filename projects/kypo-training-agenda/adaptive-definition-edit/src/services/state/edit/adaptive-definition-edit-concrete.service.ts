@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { AdaptiveDefinitionApiService } from '@muni-kypo-crp/training-api';
-import { TrainingDefinition } from '@muni-kypo-crp/training-model';
+import { AdaptiveDefinitionApiService } from '@cyberrangecz-platform/training-api';
+import { TrainingDefinition } from '@cyberrangecz-platform/training-model';
 import { concat, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { TrainingDefinitionChangeEvent } from '../../../model/events/training-definition-change-event';
-import { TrainingNotificationService, TrainingNavigator, TrainingErrorHandler } from '@muni-kypo-crp/training-agenda';
+import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } from '@cyberrangecz-platform/training-agenda';
 import { AdaptiveDefinitionEditService } from './adaptive-definition-edit.service';
 import { PhaseEditService } from '../phase/phase-edit.service';
 

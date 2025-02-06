@@ -9,8 +9,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { AssessmentLevel } from '@muni-kypo-crp/training-model';
-import { Question } from '@muni-kypo-crp/training-model';
+import { AssessmentLevel, Question } from '@cyberrangecz-platform/training-model';
 import { AssessmentLevelEditFormGroup } from './assessment-level-edit-form-group';
 import { AbstractControl } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -33,15 +32,19 @@ export class AssessmentLevelEditComponent implements OnChanges {
   get title(): AbstractControl {
     return this.assessmentFormGroup.formGroup.get('title');
   }
+
   get instructions(): AbstractControl {
     return this.assessmentFormGroup.formGroup.get('instructions');
   }
+
   get isTest(): AbstractControl {
     return this.assessmentFormGroup.formGroup.get('isTest');
   }
+
   get estimatedDuration(): AbstractControl {
     return this.assessmentFormGroup.formGroup.get('estimatedDuration');
   }
+
   get minimalPossibleSolveTime(): AbstractControl {
     return this.assessmentFormGroup.formGroup.get('minimalPossibleSolveTime');
   }

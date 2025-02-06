@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { AdaptiveFileUploadProgressService } from './adaptive-file-upload-progress.service';
+
 describe('FileUploadProgressService', () => {
   let service: AdaptiveFileUploadProgressService;
 

@@ -1,13 +1,13 @@
 import { OffsetPaginationEvent } from '@sentinel/common/pagination';
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { TableLoadEvent, SentinelTable, TableActionEvent } from '@sentinel/components/table';
-import { TrainingInstance } from '@muni-kypo-crp/training-model';
+import { SentinelTable, TableActionEvent, TableLoadEvent } from '@sentinel/components/table';
+import { TrainingInstance } from '@cyberrangecz-platform/training-model';
 import { SentinelControlItem } from '@sentinel/components/controls';
-import { map, take, takeWhile } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { AdaptiveInstanceOverviewService } from '../services/state/adaptive-instance-overview.service';
-import { TrainingNavigator, TrainingNotificationService } from '@muni-kypo-crp/training-agenda';
-import { PaginationService } from '@muni-kypo-crp/training-agenda/internal';
+import { TrainingNavigator, TrainingNotificationService } from '@cyberrangecz-platform/training-agenda';
+import { PaginationService } from '@cyberrangecz-platform/training-agenda/internal';
 import { AdaptiveInstanceOverviewControls } from '../model/adapters/adaptive-instance-overview-controls';
 import { AdaptiveInstanceTable } from '../model/adapters/adaptive-instance-table';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';

@@ -1,7 +1,6 @@
 import { Component, DestroyRef, EventEmitter, inject, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
-import { TrainingDefinition } from '@muni-kypo-crp/training-model';
-import { takeWhile } from 'rxjs/operators';
+import { TrainingDefinition } from '@cyberrangecz-platform/training-model';
 import { TrainingDefinitionChangeEvent } from '../../model/events/training-definition-change-event';
 import { AdaptiveTrainingDefinitionEditFormGroup } from './adaptive-training-definition-edit-form-group';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -25,15 +24,19 @@ export class AdaptiveTrainingDefinitionEditComponent implements OnChanges {
   get title(): AbstractControl {
     return this.trainingDefinitionEditFormGroup.formGroup.get('title');
   }
+
   get description(): AbstractControl {
     return this.trainingDefinitionEditFormGroup.formGroup.get('description');
   }
+
   get showProgress(): AbstractControl {
     return this.trainingDefinitionEditFormGroup.formGroup.get('showProgress');
   }
+
   get outcomes(): UntypedFormArray {
     return this.trainingDefinitionEditFormGroup.formGroup.get('outcomes') as UntypedFormArray;
   }
+
   get prerequisites(): UntypedFormArray {
     return this.trainingDefinitionEditFormGroup.formGroup.get('prerequisites') as UntypedFormArray;
   }

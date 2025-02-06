@@ -1,6 +1,6 @@
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { SentinelValidators } from '@sentinel/common';
-import { InfoLevel } from '@muni-kypo-crp/training-model';
+import { InfoLevel } from '@cyberrangecz-platform/training-model';
 
 /**
  * Form control class for info level edit component

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FreeFormQuestion } from '@muni-kypo-crp/training-model';
+import { FreeFormQuestion } from '@cyberrangecz-platform/training-model';
 
 @Component({
   selector: 'kypo-free-form-question-detail',

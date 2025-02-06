@@ -3,12 +3,12 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import {
   KypoTrainingsVisualizationOverviewLibModule,
   VisualizationOverviewConfig,
-} from '@muni-kypo-crp/overview-visualization';
-import { TrainingAgendaConfig } from '@muni-kypo-crp/training-agenda';
+} from '@cyberrangecz-platform/overview-visualization';
+import { TrainingAgendaConfig } from '@cyberrangecz-platform/training-agenda';
 import { TrainingRunResultsMaterialModule } from './training-run-results-material.module';
 import { TrainingRunResultsComponent } from './training-run-results.component';
-import { TimelineModule } from '@muni-kypo-crp/command-visualizations/timeline';
-import { MistakeModule } from '@muni-kypo-crp/command-visualizations/mistake';
+import { TimelineModule } from '@cyberrangecz-platform/command-visualizations/timeline';
+import { MistakeModule } from '@cyberrangecz-platform/command-visualizations/mistake';
 import { MitreTechniquesOverviewService } from '../service/mitre-techniques.service';
 import { MitreTechniquesOverviewConcreteService } from '../service/mitre-techniques-concrete.service';
 import { TrainingRunResultsRoutingModule } from './training-run-results-routing.module';

@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
-import { PoolApi } from '@muni-kypo-crp/sandbox-api';
-import { TrainingInstanceApi } from '@muni-kypo-crp/training-api';
-import { TrainingInstance } from '@muni-kypo-crp/training-model';
+import { PoolApi } from '@cyberrangecz-platform/sandbox-api';
+import { TrainingInstanceApi } from '@cyberrangecz-platform/training-api';
+import { TrainingInstance } from '@cyberrangecz-platform/training-model';
 import { EMPTY, Observable, of } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { TrainingInstanceFilter } from '../../model/adapters/training-instance-filter';
-import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } from '@muni-kypo-crp/training-agenda';
-import { TrainingAgendaContext } from '@muni-kypo-crp/training-agenda/internal';
+import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } from '@cyberrangecz-platform/training-agenda';
+import { TrainingAgendaContext } from '@cyberrangecz-platform/training-agenda/internal';
 import { TrainingInstanceOverviewService } from './training-instance-overview.service';
 import {
   SentinelConfirmationDialogComponent,

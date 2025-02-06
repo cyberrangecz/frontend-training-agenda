@@ -5,14 +5,18 @@ import {
   SentinelConfirmationDialogConfig,
   SentinelDialogResultEnum,
 } from '@sentinel/components/dialogs';
-import { TrainingDefinitionApi } from '@muni-kypo-crp/training-api';
-import { AccessLevel, Level, TrainingLevel } from '@muni-kypo-crp/training-model';
-import { AssessmentLevel } from '@muni-kypo-crp/training-model';
-import { InfoLevel } from '@muni-kypo-crp/training-model';
-import { AbstractLevelTypeEnum } from '@muni-kypo-crp/training-model';
+import { TrainingDefinitionApi } from '@cyberrangecz-platform/training-api';
+import {
+  AbstractLevelTypeEnum,
+  AccessLevel,
+  AssessmentLevel,
+  InfoLevel,
+  Level,
+  TrainingLevel,
+} from '@cyberrangecz-platform/training-model';
 import { EMPTY, Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
-import { TrainingErrorHandler, TrainingNotificationService } from '@muni-kypo-crp/training-agenda';
+import { TrainingErrorHandler, TrainingNotificationService } from '@cyberrangecz-platform/training-agenda';
 import { LevelEditService } from './level-edit.service';
 
 /**
@@ -66,6 +70,7 @@ export class LevelEditConcreteService extends LevelEditService {
   getSelected(): Level {
     return this.levelsSubject$.getValue()[this.activeStepSubject$.getValue()];
   }
+
   navigateToLastLevel(): void {
     this.setActiveLevel(this.levelsSubject$.getValue().length - 1);
   }
