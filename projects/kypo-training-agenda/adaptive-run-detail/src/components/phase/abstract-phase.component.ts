@@ -20,7 +20,9 @@ export class AbstractPhaseComponent {
   @Input() sandboxInstanceId: string;
   @Input() sandboxDefinitionId: number;
   @Input() localEnvironment: boolean;
+  @Input() startTime: Date;
 
+  @Input() isStepperDisplayed!: boolean;
   @Output() next: EventEmitter<void> = new EventEmitter();
   phaseTypes = AbstractPhaseTypeEnum;
 

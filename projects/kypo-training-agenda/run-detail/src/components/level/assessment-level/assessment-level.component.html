@@ -1,5 +1,5 @@
 <div class="container">
-  <div #content class="content">
+  <div class="level-content">
     <sentinel-markdown-view [markdown]="level.instructions"></sentinel-markdown-view>
     <!-- QUESTIONS -->
     <div class="questions">
@@ -10,14 +10,21 @@
       </div>
     </div>
   </div>
-  <div *ngIf="!isBacktracked">
-    <mat-card appearance="outlined" #controls class="controls">
-      <div class="controls-container">
-        <button *ngIf="!isLevelAnswered" mat-raised-button color="primary" (click)="submit()" [disabled]="!canSubmit">
-          Submit
-        </button>
-        <kypo-next-level-button *ngIf="isLevelAnswered" [isLast]="isLast" (next)="onNext()"> </kypo-next-level-button>
-      </div>
-    </mat-card>
-  </div>
+  <!-- Differentiate submit action by different button style -->
+  @if (isBacktracked){
+    <button
+      class="next-button"
+      mat-raised-button
+      (click)="onNext()">
+      Next
+    </button>
+  } @else {
+    <button
+      class="next-button"
+      mat-flat-button
+      (click)="submit()"
+      [disabled]="!canSubmit">
+      {{ isLast ? "Finish" : "Submit" }}
+    </button>
+  }
 </div>

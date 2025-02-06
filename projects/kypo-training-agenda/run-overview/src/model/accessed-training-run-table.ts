@@ -2,7 +2,6 @@ import { PaginatedResource } from '@sentinel/common/pagination';
 import {
   AccessedTrainingRun,
   TraineeAccessTrainingRunActionEnum,
-  TrainingInstance,
   TrainingRunTypeEnum,
 } from '@muni-kypo-crp/training-model';
 import { Column, Row, RowAction, SentinelTable } from '@sentinel/components/table';
@@ -22,7 +21,16 @@ export class AccessedTrainingRunTable extends SentinelTable<AccessedTrainingRunR
       new Column('completedLevels', 'Completed Levels', false),
     ];
 
-    const rows = resource.elements.map((element) => AccessedTrainingRunTable.createRow(element, service));
+    const sortByInstanceDateAndState = (a: AccessedTrainingRun, b: AccessedTrainingRun): number => {
+      if (a.action !== b.action) {
+        return a.action === TraineeAccessTrainingRunActionEnum.Resume ? -1 : 1;
+      }
+      return b.trainingInstanceStartTime.getTime() - a.trainingInstanceStartTime.getTime();
+    };
+
+    const rows = resource.elements
+      .sort(sortByInstanceDateAndState)
+      .map((element) => AccessedTrainingRunTable.createRow(element, service));
     super(rows, columns);
     this.pagination = resource.pagination;
     this.filterable = false;

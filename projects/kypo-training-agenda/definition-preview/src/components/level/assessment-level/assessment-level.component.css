@@ -38,8 +38,8 @@ mat-divider {
 }
 
 /* (100vw - 100%) is used to account for scrollbar */
-.controls {
-  position: fixed; 
+.bottom-card {
+  position: fixed;
   bottom: 0;
   left: 140px;
   z-index: 10;

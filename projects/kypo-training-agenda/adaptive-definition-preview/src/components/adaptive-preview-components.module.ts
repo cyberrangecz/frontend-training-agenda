@@ -9,13 +9,13 @@ import {
 import { AdaptivePreviewComponent } from './adaptive-preview.component';
 import { AdaptiveRunDetailComponentsModule } from '@muni-kypo-crp/training-agenda/adaptive-run-detail';
 import { SentinelStepperModule } from '@sentinel/components/stepper';
-import { PhaseComponentsModule } from './phase/phase-components.module';
+import { PhaseComponentsPreviewModule } from './phase/phase-components-preview.module';
 
 /**
  * Module containing components and providers for previewing training run (without allocating sandbox and backend communication)
  */
 @NgModule({
-  imports: [CommonModule, AdaptiveRunDetailComponentsModule, SentinelStepperModule, PhaseComponentsModule],
+  imports: [CommonModule, AdaptiveRunDetailComponentsModule, SentinelStepperModule, PhaseComponentsPreviewModule],
   declarations: [AdaptivePreviewComponent],
   providers: [AdaptiveDefinitionResolver, AdaptiveDefinitionBreadcrumbResolver],
 })

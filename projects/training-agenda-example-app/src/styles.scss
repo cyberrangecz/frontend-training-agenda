@@ -1,5 +1,6 @@
+@use '@angular/material' as mat;
+@use "theme";
 @import "@danielmoncada/angular-datetime-picker/assets/style/picker.min.css";
-
 
 html {
   height:100vh;
@@ -10,32 +11,133 @@ body {
   min-height:100vh;
 }
 
-:root .mat-typography h1 {
-  font-size: 2.25rem;
-  font-weight: 500;
-  line-height: 1.2;
+.mdc-label {
+  font-size: 1rem;
+}
+:root {
+  .mat-typography h1 {
+    font-size: 2.25rem;
+    font-weight: 500;
+    line-height: 1.2;
+  }
+
+  .mat-typography h2 {
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
+  .mat-typography h3 {
+    font-size: 1.5rem;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
+  .mat-typography h4 {
+    font-size: 1.25rem;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
+  // increase table row size
+  --mat-table-row-item-container-height: 3.5rem;
+
 }
 
-:root .mat-typography h2 {
-  font-size: 1.75rem;
-  font-weight: 400;
-  line-height: 1.2;
+sentinel-error {
+  margin: 1rem;
 }
 
-:root .mat-typography h3 {
-  font-size: 1.5rem;
-  font-weight: 400;
-  line-height: 1.2;
+mat-expansion-panel {
+  padding: 1rem 0 !important;
+  margin-bottom: 1.5rem !important;
+  border-radius: 24px !important;
 }
 
-:root .mat-typography h4 {
-  font-size: 1.25rem;
-  font-weight: 400;
-  line-height: 1.2;
+mat-panel-title {
+  @extend h3;
+  margin-bottom: 0 !important;
+}
+
+mat-expansion-panel-header {
+  padding: 1rem 2rem !important;
+  margin: -1rem 0 !important;
 }
 
 kypo-auth-provider-picker {
   width: 500px;
   display: block;
   margin: 10% auto;
+}
+
+:root .mat-mdc-dialog-title {
+  font-size: 2rem !important;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+sentinel-nav a {
+  width: 100%;
+}
+
+::-webkit-scrollbar {
+  width: 0.6em;
+  height: 0.6rem;
+}
+
+::-webkit-scrollbar-track {
+  background-color: mat.get-theme-color(theme.$kypo-theme, "primary", 80);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: mat.get-theme-color(theme.$kypo-theme, "primary", 10);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: mat.get-theme-color(theme.$kypo-theme, "primary", 25);
+}
+
+/*
+ * Apply 'round-scrollbar' to any component
+ * you want to have round ends on scrollbar
+ */
+.round-scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 1rem;
+}
+
+.round-scrollbar::-webkit-scrollbar-track {
+  border-radius: 1rem;
+}
+
+/*
+ * Apply 'highlighted-resizer' to any component
+ * you want to have blue gradient highly visible handle
+ * You might need to override border radius to
+ * fit parent radius
+ */
+.highlighted-resizer::-webkit-resizer {
+  background: radial-gradient(circle at 100% 100%, mat.get-theme-color(theme.$kypo-theme, "primary", 50) 25%, transparent 75%);
+  border-radius: 0 0 0.75rem 0;
+  overflow: hidden;
+}
+
+
+/* Make markdown consistent across browsers */
+sentinel-markdown-view {
+  background-color: transparent;
+}
+
+markdown ::ng-deep img {
+  max-width: 100%;
+  display: block;
+  margin: 0 auto;
+}
+
+markdown ::ng-deep pre {
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
+
+markdown ::ng-deep {
+  background-color: transparent;
 }

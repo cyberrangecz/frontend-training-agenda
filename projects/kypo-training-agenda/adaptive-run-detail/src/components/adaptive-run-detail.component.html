@@ -1,6 +1,6 @@
 <div class="header">
   <!-- PHASE STEPPER -->
-  <div class="training-run-stepper" *ngIf="isStepperDisplayed && stepper?.items" class="training-run-stepper">
+  <div class="training-run-stepper round-scrollbar"  *ngIf="isStepperDisplayed && stepper?.items">
     <sentinel-stepper
       [draggable]="false"
       [selectable]="backwardMode"
@@ -10,11 +10,8 @@
     >
     </sentinel-stepper>
   </div>
-  <div class="right-panel">
-    <sentinel-user-card [user]="user$ | async"></sentinel-user-card>
-    <kypo-training-timer *ngIf="isTimerDisplayed && startTime" [startTime]="startTime"></kypo-training-timer>
-  </div>
 </div>
+
 <ng-container *ngIf="activePhase$ | async as activePhase">
   <!-- CONTENT OF ACTIVE PHASE -->
   <kypo-abstract-phase
@@ -27,6 +24,8 @@
     [sandboxDefinitionId]="sandboxDefinitionId"
     [localEnvironment]="localEnvironment"
     [isBacktracked]="false"
+    [isStepperDisplayed]="isStepperDisplayed"
+    [startTime]="startTime"
     (next)="next()"
   >
   </kypo-abstract-phase>
@@ -39,6 +38,9 @@
     [sandboxDefinitionId]="sandboxDefinitionId"
     [localEnvironment]="localEnvironment"
     [isBacktracked]="true"
+    [isStepperDisplayed]="isStepperDisplayed"
+    [startTime]="startTime"
+    (next)="this.activeStepChanged(this.stepper.activePhaseIndex + 1)"
   >
   </kypo-abstract-phase>
 </ng-container>

@@ -91,7 +91,7 @@ h3 {
 }
 
 /* (100vw - 100%) is used to account for scrollbar */
-.controls {
+.bottom-card {
   position: fixed;
   bottom: 0;
   left: 140px;
@@ -164,7 +164,7 @@ button {
 
 /* Breakpoint based on sentinel layout (when navbar is hidden) */
 @media(max-width: 748px ) {
-  .controls {
+  .bottom-card {
     left: 0;
     width: calc(100vw - (100vw - 100%) - 16px);
   }

@@ -6,7 +6,6 @@ import { SentinelStepperModule } from '@sentinel/components/stepper';
 import { LevelComponentsModule } from './level/level-components.module';
 import { TrainingRunDetailMaterialModule } from './training-run-detail-material.module';
 import { TrainingRunDetailComponent } from './training-run-detail.component';
-import { TrainingTimerComponent } from './training-timer/training-timer.component';
 import { SentinelUserCardModule } from '@sentinel/layout/user-card';
 
 /**
@@ -22,7 +21,7 @@ import { SentinelUserCardModule } from '@sentinel/layout/user-card';
     SentinelStepperModule,
     SentinelUserCardModule,
   ],
-  declarations: [TrainingRunDetailComponent, TrainingTimerComponent],
-  exports: [TrainingRunDetailComponent, TrainingTimerComponent],
+  declarations: [TrainingRunDetailComponent],
+  exports: [TrainingRunDetailComponent],
 })
 export class TrainingRunDetailComponentsModule {}

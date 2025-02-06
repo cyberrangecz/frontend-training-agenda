@@ -1,11 +1,16 @@
-import { MatDialog } from '@angular/material/dialog';
-import { SentinelConfirmationDialogComponent, SentinelConfirmationDialogConfig } from '@sentinel/components/dialogs';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { RunningTrainingRunService } from '../../running/running-training-run.service';
+import {
+  SentinelNotification,
+  SentinelNotificationResult,
+  SentinelNotificationService,
+  SentinelNotificationTypeEnum,
+} from '@sentinel/layout/notification';
+import { map } from 'rxjs/operators';
 
 export abstract class TrainingRunAccessLevelService {
   protected constructor(
-    protected dialog: MatDialog,
+    protected notificationService: SentinelNotificationService,
     protected runningTrainingRunService: RunningTrainingRunService,
   ) {}
 
@@ -31,11 +36,14 @@ export abstract class TrainingRunAccessLevelService {
     return this.runningTrainingRunService.next();
   }
 
-  protected onWrongPasskeySubmitted(): Observable<any> {
-    const dialogMessage = 'You have submitted incorrect passkey.\n';
-    const dialogRef = this.dialog.open(SentinelConfirmationDialogComponent, {
-      data: new SentinelConfirmationDialogConfig('Incorrect Passkey', dialogMessage, '', 'OK'),
-    });
-    return dialogRef.afterClosed();
+  protected onWrongPasskeySubmitted(text: string = 'The provided passkey is not correct.'): Observable<any> {
+    const notification: SentinelNotification = {
+      type: SentinelNotificationTypeEnum.Error,
+      title: 'Incorrect passkey',
+      additionalInfo: [text],
+    };
+    return this.notificationService
+      .emit(notification)
+      .pipe(map((result) => result === SentinelNotificationResult.CONFIRMED));
   }
 }
