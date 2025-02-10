@@ -6,10 +6,10 @@
         "baseUrl": "./",
         "paths": {
             "@cyberrangecz-platform/training-agenda": [
-                "../kypo-training-agenda/src/public_api.ts"
+                "../training-agenda/src/public_api.ts"
             ],
             "@cyberrangecz-platform/training-agenda/*": [
-                "../kypo-training-agenda/*/src/public_api.ts"
+                "../training-agenda/*/src/public_api.ts"
             ]
         }
     },

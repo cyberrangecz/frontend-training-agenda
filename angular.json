@@ -3,38 +3,38 @@
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
-        "kypo-training-agenda": {
+        "training-agenda": {
             "projectType": "library",
-            "root": "projects/kypo-training-agenda",
-            "sourceRoot": "projects/kypo-training-agenda",
-            "prefix": "kypo",
+            "root": "projects/training-agenda",
+            "sourceRoot": "projects/training-agenda",
+            "prefix": "crczp",
             "architect": {
                 "build": {
                     "builder": "@angular-devkit/build-angular:ng-packagr",
                     "options": {
-                        "tsConfig": "projects/kypo-training-agenda/tsconfig.lib.json",
-                        "project": "projects/kypo-training-agenda/ng-package.json"
+                        "tsConfig": "projects/training-agenda/tsconfig.lib.json",
+                        "project": "projects/training-agenda/ng-package.json"
                     },
                     "configurations": {
                         "production": {
-                            "tsConfig": "projects/kypo-training-agenda/tsconfig.lib.prod.json"
+                            "tsConfig": "projects/training-agenda/tsconfig.lib.prod.json"
                         }
                     }
                 },
                 "test": {
                     "builder": "@angular-devkit/build-angular:karma",
                     "options": {
-                        "main": "projects/kypo-training-agenda/test.ts",
-                        "tsConfig": "projects/kypo-training-agenda/tsconfig.spec.json",
-                        "karmaConfig": "projects/kypo-training-agenda/karma.conf.js"
+                        "main": "projects/training-agenda/test.ts",
+                        "tsConfig": "projects/training-agenda/tsconfig.spec.json",
+                        "karmaConfig": "projects/training-agenda/karma.conf.js"
                     }
                 },
                 "lint": {
                     "builder": "@angular-eslint/builder:lint",
                     "options": {
                         "lintFilePatterns": [
-                            "projects/kypo-training-agenda/**/*.ts",
-                            "projects/kypo-training-agenda/**/*.component.html"
+                            "projects/training-agenda/**/*.ts",
+                            "projects/training-agenda/**/*.component.html"
                         ]
                     }
                 }

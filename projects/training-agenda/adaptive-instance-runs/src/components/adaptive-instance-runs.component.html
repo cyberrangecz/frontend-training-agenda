@@ -1,0 +1,10 @@
+<div *ngIf="trainingInstance$ | async as trainingInstance">
+    <mat-card appearance="outlined">
+        <crczp-adaptive-run-overview
+            [adaptiveRuns]="trainingRuns$ | async"
+            [hasError]="trainingRunsHasError$ | async"
+            (tableAction)="onTrainingRunsTableAction($event)"
+        >
+        </crczp-adaptive-run-overview>
+    </mat-card>
+</div>

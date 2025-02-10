@@ -7,19 +7,19 @@ export const baseURL = 'https://172.19.0.22';
 // Frontend url
 export const homeURL = 'https://localhost:4200';
 // trainings service url
-export const trainingURL = baseURL + '/kypo-rest-training/api/v1/';
+export const trainingURL = baseURL + '/training/api/v1/';
 // adaptive trainings service url
-export const adaptiveTrainingURL = baseURL + '/kypo-adaptive-training/api/v1/';
+export const adaptiveTrainingURL = baseURL + '/adaptive-training/api/v1/';
 
-export const feedbackURL = baseURL + '/kypo-training-feedback/api/v1/';
+export const feedbackURL = baseURL + '/training-feedback/api/v1/';
 // sandboxes service url
-export const sandboxesURL = baseURL + '/kypo-sandbox-service/api/v1/';
+export const sandboxesURL = baseURL + '/sandbox-service/api/v1/';
 
-export const userAngGroupURL = baseURL + '/kypo-rest-user-and-group/api/v1/';
+export const userAngGroupURL = baseURL + '/user-and-group/api/v1/';
 
-export const mitreTechniquesURL = baseURL + '/kypo-mitre-technique-service/api/v1/';
+export const mitreTechniquesURL = baseURL + '/mitre-technique-service/api/v1/';
 
-export const kypoTopologyConfig = {
+export const topologyConfig = {
   topologyRestUrl: sandboxesURL,
   decoratorsRestUrl: '', // OBSOLETE
   defaultDecoratorRefreshPeriodInSeconds: 3, // OBSOLETE
@@ -46,7 +46,7 @@ export const environment = {
     pollingPeriod: 5000,
     defaultPaginationSize: 10,
     visualizationConfig,
-    kypoTopologyConfig,
+    topologyConfig,
   },
 
   trainingApiConfig: {

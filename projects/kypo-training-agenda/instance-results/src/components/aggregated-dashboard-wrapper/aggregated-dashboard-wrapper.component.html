@@ -1,7 +1,0 @@
-<div class="container" *ngIf="(trainingInstance$ | async) as trainingInstance">
-    <kypo-statistical-visualization
-        [trainingInstanceId]="trainingInstance.id"
-        [trainingDefinitionId]="trainingInstance?.trainingDefinition?.id"
-        (openDetailView)="redirectToDetailView($event)">
-    </kypo-statistical-visualization>
-</div>

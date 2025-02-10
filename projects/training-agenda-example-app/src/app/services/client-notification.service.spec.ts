@@ -1,5 +1,5 @@
 import { TestBed, waitForAsync } from '@angular/core/testing';
-import { TrainingNotificationService } from '../../../../kypo-training-agenda/src/services/training-notification.service';
+import { TrainingNotificationService } from '../../../../training-agenda/src/services/training-notification.service';
 import { ClientNotificationService } from './client-notification.service';
 
 describe('ClientNotificationService', () => {

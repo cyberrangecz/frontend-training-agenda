@@ -65,7 +65,7 @@ mat-expansion-panel-header {
     margin: -1rem 0 !important;
 }
 
-kypo-auth-provider-picker {
+crczp-login {
     width: 500px;
     display: block;
     margin: 10% auto;
@@ -87,15 +87,15 @@ sentinel-nav a {
 }
 
 ::-webkit-scrollbar-track {
-    background-color: mat.get-theme-color(theme.$kypo-theme, "primary", 80);
+    background-color: mat.get-theme-color(theme.$crczp-theme, "primary", 80);
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: mat.get-theme-color(theme.$kypo-theme, "primary", 10);
+    background-color: mat.get-theme-color(theme.$crczp-theme, "primary", 10);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background-color: mat.get-theme-color(theme.$kypo-theme, "primary", 25);
+    background-color: mat.get-theme-color(theme.$crczp-theme, "primary", 25);
 }
 
 /*
@@ -117,7 +117,7 @@ sentinel-nav a {
  * fit parent radius
  */
 .highlighted-resizer::-webkit-resizer {
-    background: radial-gradient(circle at 100% 100%, mat.get-theme-color(theme.$kypo-theme, "primary", 50) 25%, transparent 75%);
+    background: radial-gradient(circle at 100% 100%, mat.get-theme-color(theme.$crczp-theme, "primary", 50) 25%, transparent 75%);
     border-radius: 0 0 0.75rem 0;
     overflow: hidden;
 }

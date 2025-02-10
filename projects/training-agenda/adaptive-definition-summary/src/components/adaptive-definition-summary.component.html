@@ -1,0 +1,12 @@
+<div *ngIf="adaptiveDefinition$ | async as adaptiveDefinition">
+    <mat-card appearance="outlined" class="overview-container">
+        <mat-card-content>
+            <crczp-adaptive-definition-info [trainingDefinition]="adaptiveDefinition"></crczp-adaptive-definition-info>
+        </mat-card-content>
+    </mat-card>
+    <mat-card appearance="outlined">
+        <mat-card-content class="levels-container">
+            <crczp-adaptive-definition-phases [phases]="adaptiveDefinition.levels"></crczp-adaptive-definition-phases>
+        </mat-card-content>
+    </mat-card>
+</div>
