@@ -20,7 +20,7 @@
     <ng-template matExpansionPanelContent>
         <sentinel-controls [controls]="controls" (itemClicked)="onControlsAction($event)">
         </sentinel-controls>
-        <mat-divider></mat-divider>
+        <mat-divider/>
         <crczp-training-instance-edit
             (edited)="onTrainingInstanceChanged($event)"
             [hasStarted]="hasStarted$ | async"

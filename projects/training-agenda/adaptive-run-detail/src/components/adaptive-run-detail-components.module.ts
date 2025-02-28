@@ -12,16 +12,16 @@ import { SentinelUserCardModule } from '@sentinel/layout/user-card';
  * Contains all components of adaptive run detail
  */
 @NgModule({
-  imports: [
-    CommonModule,
-    AdaptiveRunDetailMaterialModule,
-    PhaseComponentsModule,
-    RouterModule,
-    SentinelPipesModule,
-    SentinelStepperModule,
-    SentinelUserCardModule,
-  ],
-  declarations: [AdaptiveRunDetailComponent],
-  exports: [AdaptiveRunDetailComponent],
+    imports: [
+        CommonModule,
+        AdaptiveRunDetailMaterialModule,
+        PhaseComponentsModule,
+        RouterModule,
+        SentinelPipesModule,
+        SentinelStepperModule,
+        SentinelUserCardModule,
+    ],
+    declarations: [AdaptiveRunDetailComponent],
+    exports: [AdaptiveRunDetailComponent],
 })
 export class AdaptiveRunDetailComponentsModule {}

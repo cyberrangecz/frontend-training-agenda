@@ -1,5 +1,5 @@
 <div class="content">
-    <sentinel-controls [controls]="controls" (itemClicked)="onControlAction($event)"></sentinel-controls>
+    <sentinel-controls [controls]="controls" (itemClicked)="onControlAction($event)"/>
     <sentinel-table
         [defaultSortName]="INITIAL_SORT_NAME"
         [defaultSortDirection]="INITIAL_SORT_DIR"
@@ -10,8 +10,8 @@
         (rowAction)="onInstanceAction($event)"
         (tableLoad)="onInstancesLoadEvent($event)"
     >
-        <ng-container *sentinelRow="'accessToken'; template: accessToken"></ng-container>
-        <ng-container *sentinelRow="'poolSize'; template: poolSize"></ng-container>
+        <ng-container *sentinelRow="'accessToken'; template: accessToken"/>
+        <ng-container *sentinelRow="'poolSize'; template: poolSize"/>
     </sentinel-table>
 </div>
 
@@ -40,7 +40,7 @@
         </div>
     </div>
     <ng-template #loading>
-        <mat-progress-spinner color="accent" mode="indeterminate" [diameter]="20"></mat-progress-spinner>
+        <mat-progress-spinner color="accent" mode="indeterminate" [diameter]="20"/>
     </ng-template>
 </ng-template>
 
@@ -62,6 +62,6 @@
         </ng-template>
     </div>
     <ng-template #loading>
-        <mat-progress-spinner color="accent" mode="indeterminate" [diameter]="20"></mat-progress-spinner>
+        <mat-progress-spinner color="accent" mode="indeterminate" [diameter]="20"/>
     </ng-template>
 </ng-template>

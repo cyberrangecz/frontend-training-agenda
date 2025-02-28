@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
  * Material components import for training run results module
  */
 @NgModule({
-  imports: [MatButtonModule, MatProgressSpinnerModule, MatTabsModule, MatIconModule],
-  exports: [MatButtonModule, MatProgressSpinnerModule, MatTabsModule, MatIconModule],
+    imports: [MatButtonModule, MatProgressSpinnerModule, MatTabsModule, MatIconModule],
+    exports: [MatButtonModule, MatProgressSpinnerModule, MatTabsModule, MatIconModule],
 })
 export class TrainingRunResultsMaterialModule {}

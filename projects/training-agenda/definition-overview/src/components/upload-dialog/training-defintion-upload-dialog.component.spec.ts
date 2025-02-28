@@ -6,57 +6,57 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { asyncData } from '@sentinel/common/testing';
 import { SentinelPipesModule } from '@sentinel/common/pipes';
 import {
-  createDialogRefSpy,
-  createFileUploadProgressServiceSpy,
+    createDialogRefSpy,
+    createFileUploadProgressServiceSpy,
 } from '../../../../internal/src/testing/testing-commons.spec';
 import { FileUploadProgressService } from '../../services/file-upload/file-upload-progress.service';
 import { MaterialTestingModule } from '../../../../internal/src/testing/material-testing.module';
 
 describe('TrainingDefinitionUploadDialogComponent', () => {
-  let component: TrainingDefinitionUploadDialogComponent;
-  let fixture: ComponentFixture<TrainingDefinitionUploadDialogComponent>;
+    let component: TrainingDefinitionUploadDialogComponent;
+    let fixture: ComponentFixture<TrainingDefinitionUploadDialogComponent>;
 
-  let matDialogRefSpy: jasmine.SpyObj<MatDialogRef<TrainingDefinitionUploadDialogComponent>>;
-  let uploadProgressService: jasmine.SpyObj<FileUploadProgressService>;
+    let matDialogRefSpy: jasmine.SpyObj<MatDialogRef<TrainingDefinitionUploadDialogComponent>>;
+    let uploadProgressService: jasmine.SpyObj<FileUploadProgressService>;
 
-  beforeEach(waitForAsync(() => {
-    matDialogRefSpy = createDialogRefSpy();
-    uploadProgressService = createFileUploadProgressServiceSpy();
-    uploadProgressService.isInProgress$ = asyncData(false);
-    TestBed.configureTestingModule({
-      imports: [MaterialTestingModule, SentinelPipesModule, BrowserAnimationsModule, ngfModule],
-      declarations: [TrainingDefinitionUploadDialogComponent],
-      providers: [
-        { provide: MatDialogRef, useValue: matDialogRefSpy },
-        { provide: FileUploadProgressService, useValue: uploadProgressService },
-      ],
-    }).compileComponents();
-  }));
+    beforeEach(waitForAsync(() => {
+        matDialogRefSpy = createDialogRefSpy();
+        uploadProgressService = createFileUploadProgressServiceSpy();
+        uploadProgressService.isInProgress$ = asyncData(false);
+        TestBed.configureTestingModule({
+            imports: [MaterialTestingModule, SentinelPipesModule, BrowserAnimationsModule, ngfModule],
+            declarations: [TrainingDefinitionUploadDialogComponent],
+            providers: [
+                { provide: MatDialogRef, useValue: matDialogRefSpy },
+                { provide: FileUploadProgressService, useValue: uploadProgressService },
+            ],
+        }).compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(TrainingDefinitionUploadDialogComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(TrainingDefinitionUploadDialogComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 
-  it('should close dialog with no result', () => {
-    component.cancel();
-    expect(matDialogRefSpy.close).toHaveBeenCalledTimes(1);
-  });
+    it('should close dialog with no result', () => {
+        component.cancel();
+        expect(matDialogRefSpy.close).toHaveBeenCalledTimes(1);
+    });
 
-  it('should emit upload event', () => {
-    spyOn(component.onUpload$, 'emit');
-    component.upload();
-    expect(component.onUpload$.emit).toHaveBeenCalledTimes(1);
-  });
+    it('should emit upload event', () => {
+        spyOn(component.onUpload$, 'emit');
+        component.upload();
+        expect(component.onUpload$.emit).toHaveBeenCalledTimes(1);
+    });
 
-  it('should clear file', () => {
-    component.selectedFile = new File([], '');
-    component.clearFile();
-    expect(component.selectedFile).toBeFalsy();
-  });
+    it('should clear file', () => {
+        component.selectedFile = new File([], '');
+        component.clearFile();
+        expect(component.selectedFile).toBeFalsy();
+    });
 });

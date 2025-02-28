@@ -7,9 +7,11 @@
                                 (keydown.enter)="$event.preventDefault()">
                     <mat-label>Title</mat-label>
                     <input matInput placeholder="Title" formControlName="title" required>
-                    <button *ngIf="title.value" matSuffix mat-icon-button
-                            aria-label="Clear" (click)="title.setValue('');
-            title.markAsDirty();">
+                    <button *ngIf="title.value"
+                            matSuffix
+                            mat-icon-button
+                            aria-label="Clear"
+                            (click)="title.setValue('');title.markAsDirty();">
                         <mat-icon>close</mat-icon>
                     </button>
                     <mat-error *ngIf="title.hasError('whitespace')">Title cannot be empty</mat-error>
@@ -22,9 +24,11 @@
                     <mat-label>Description</mat-label>
                     <textarea matInput placeholder="Description"
                               formControlName="description"></textarea>
-                    <button *ngIf="description.value" matSuffix mat-icon-button
-                            aria-label="Clear" (click)="description.setValue('');
-            description.markAsDirty();">
+                    <button *ngIf="description.value"
+                            matSuffix
+                            mat-icon-button
+                            aria-label="Clear"
+                            (click)="description.setValue('');description.markAsDirty();">
                         <mat-icon>close</mat-icon>
                     </button>
                 </mat-form-field>

@@ -24,57 +24,57 @@ import { ExpectedCommandsSelectComponent } from './training/expected-commands/ex
 import { MarkedOptions, SentinelMarkdownViewModule } from '@sentinel/components/markdown-view';
 
 const markdownConfig = {
-  markdownParser: {
-    markedOptions: {
-      provide: MarkedOptions,
-      useValue: {
-        gfm: true,
-        tables: true,
-        breaks: false,
-        pedantic: false,
-        smartLists: true,
-        smartypants: false,
-      },
+    markdownParser: {
+        markedOptions: {
+            provide: MarkedOptions,
+            useValue: {
+                gfm: true,
+                tables: true,
+                breaks: false,
+                pedantic: false,
+                smartLists: true,
+                smartypants: false,
+            },
+        },
     },
-  },
-  markdownEditor: {
-    fileUploadRestUrl: '',
-  },
+    markdownEditor: {
+        fileUploadRestUrl: '',
+    },
 };
 
 /**
  * Module containing components and providers related to level edit/detail
  */
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    SentinelFreeFormComponent,
-    SentinelMarkdownEditorModule.forRoot(markdownConfig),
-    SentinelStepperModule,
-    LevelEditMaterialModule,
-    MatSlideToggleModule,
-    ReactiveFormsModule,
-    SentinelControlsComponent,
-    SentinelMarkdownViewModule,
-  ],
-  exports: [AbstractLevelEditComponent],
-  declarations: [
-    AccessLevelEditComponent,
-    TrainingLevelEditComponent,
-    InfoLevelEditComponent,
-    AssessmentLevelEditComponent,
-    AbstractLevelEditComponent,
-    HintsOverviewComponent,
-    HintDetailEditComponent,
-    QuestionsOverviewComponent,
-    QuestionEditComponent,
-    FreeFormQuestionEditComponent,
-    MultipleChoiceQuestionEditComponent,
-    ExtendedMatchingItemsEditComponent,
-    MitreTechniqueSelectComponent,
-    ExpectedCommandsSelectComponent,
-  ],
-  providers: [],
+    imports: [
+        CommonModule,
+        FormsModule,
+        SentinelFreeFormComponent,
+        SentinelMarkdownEditorModule.forRoot(markdownConfig),
+        SentinelStepperModule,
+        LevelEditMaterialModule,
+        MatSlideToggleModule,
+        ReactiveFormsModule,
+        SentinelControlsComponent,
+        SentinelMarkdownViewModule,
+    ],
+    exports: [AbstractLevelEditComponent],
+    declarations: [
+        AccessLevelEditComponent,
+        TrainingLevelEditComponent,
+        InfoLevelEditComponent,
+        AssessmentLevelEditComponent,
+        AbstractLevelEditComponent,
+        HintsOverviewComponent,
+        HintDetailEditComponent,
+        QuestionsOverviewComponent,
+        QuestionEditComponent,
+        FreeFormQuestionEditComponent,
+        MultipleChoiceQuestionEditComponent,
+        ExtendedMatchingItemsEditComponent,
+        MitreTechniqueSelectComponent,
+        ExpectedCommandsSelectComponent,
+    ],
+    providers: [],
 })
 export class LevelEditComponentsModule {}

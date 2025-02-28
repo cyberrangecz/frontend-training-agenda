@@ -3,16 +3,16 @@ import { TrainingNotificationService } from '../../../../training-agenda/src/ser
 import { ClientNotificationService } from './client-notification.service';
 
 describe('ClientNotificationService', () => {
-  let service: ClientNotificationService;
+    let service: ClientNotificationService;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      providers: [{ provide: TrainingNotificationService, useClass: ClientNotificationService }],
-    }).compileComponents();
-    service = TestBed.inject(TrainingNotificationService);
-  }));
+    beforeEach(waitForAsync(() => {
+        TestBed.configureTestingModule({
+            providers: [{ provide: TrainingNotificationService, useClass: ClientNotificationService }],
+        }).compileComponents();
+        service = TestBed.inject(TrainingNotificationService);
+    }));
 
-  it('should create', () => {
-    expect(service).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(service).toBeTruthy();
+    });
 });

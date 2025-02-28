@@ -1,5 +1,5 @@
 <div>
-    <sentinel-controls [controls]="topControls" (itemClicked)="onControlsAction($event)"></sentinel-controls>
+    <sentinel-controls [controls]="topControls" (itemClicked)="onControlsAction($event)"/>
     <sentinel-table [defaultSortDirection]="INIT_SORT_DIR"
                     [defaultSortName]="INIT_SORT_NAME"
                     [data]="cheatingDetections$ | async"
@@ -8,7 +8,7 @@
                     [displayedActionsCount]="4"
                     (tableLoad)="onLoadEvent($event)"
                     (rowAction)="onTableAction($event)">
-        <ng-container *sentinelRow="'stages'; template: stagesTemplate"></ng-container>
+        <ng-container *sentinelRow="'stages'; template: stagesTemplate"/>
     </sentinel-table>
 
     <ng-template #stagesTemplate let-row>

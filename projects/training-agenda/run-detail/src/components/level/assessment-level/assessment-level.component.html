@@ -1,10 +1,10 @@
 <div class="container">
     <div class="level-content">
-        <sentinel-markdown-view [markdown]="level.instructions"></sentinel-markdown-view>
+        <sentinel-markdown-view [markdown]="level.instructions"/>
         <!-- QUESTIONS -->
         <div class="questions">
             <div *ngFor="let question of level.questions; index as i" class="question">
-                <mat-divider></mat-divider>
+                <mat-divider/>
                 <crczp-trainee-question [question]="question" [index]="i + 1" (contentChanged)="onContentChanged()"
                                        [isBacktracked]="isBacktracked">
                 </crczp-trainee-question>

@@ -8,7 +8,7 @@
                 [sentinel-markdown-file-upload]="false"
                 (contentChange)="title.setValue($event)"
                 [content]="title.value"
-            ></sentinel-markdown-editor>
+            />
             <mat-error *ngIf="title.hasError('whitespace')">Title cannot be empty</mat-error>
         </div>
 

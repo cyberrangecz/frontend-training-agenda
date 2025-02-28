@@ -11,23 +11,23 @@ import { MatTooltipModule } from '@angular/material/tooltip';
  * Material components for training definition summary module
  */
 @NgModule({
-  imports: [
-    MatTableModule,
-    MatCardModule,
-    MatButtonModule,
-    MatIconModule,
-    MatDividerModule,
-    MatExpansionModule,
-    MatTooltipModule,
-  ],
-  exports: [
-    MatTableModule,
-    MatCardModule,
-    MatButtonModule,
-    MatIconModule,
-    MatDividerModule,
-    MatExpansionModule,
-    MatTooltipModule,
-  ],
+    imports: [
+        MatTableModule,
+        MatCardModule,
+        MatButtonModule,
+        MatIconModule,
+        MatDividerModule,
+        MatExpansionModule,
+        MatTooltipModule,
+    ],
+    exports: [
+        MatTableModule,
+        MatCardModule,
+        MatButtonModule,
+        MatIconModule,
+        MatDividerModule,
+        MatExpansionModule,
+        MatTooltipModule,
+    ],
 })
 export class AdaptiveDefintionSummaryMaterialModule {}

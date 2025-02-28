@@ -1,4 +1,4 @@
-<sentinel-controls [controls]="controls" (itemClicked)="onControlsAction($event)"></sentinel-controls>
+<sentinel-controls [controls]="controls" (itemClicked)="onControlsAction($event)"/>
 <form [formGroup]="cheatingDetectionEditFormGroup.formGroup">
     <div class="form-container">
         <mat-expansion-panel [expanded]="true">
@@ -78,7 +78,7 @@
             </div>
         </mat-expansion-panel>
 
-        <mat-divider></mat-divider>
+        <mat-divider/>
 
         <mat-expansion-panel class="time-proximity-panel"
                              (keydown.enter)="$event.preventDefault()"
@@ -104,7 +104,7 @@
 
         </mat-expansion-panel>
 
-        <mat-divider></mat-divider>
+        <mat-divider/>
         <mat-expansion-panel class="forbidden-commands-expansion"
                              (keydown.enter)="$event.preventDefault()"
                              [disabled]=!forbiddenCommandsMethod.value
@@ -169,9 +169,9 @@
                                     <mat-icon>remove_circle</mat-icon>
                                 </button>
                             </div>
-                            <mat-divider></mat-divider>
+                            <mat-divider/>
                         </div>
-                        <mat-divider></mat-divider>
+                        <mat-divider/>
                         <mat-error *ngIf="forbiddenCommands.hasError('required')">Choices cannot be empty</mat-error>
                     </div>
                 </div>

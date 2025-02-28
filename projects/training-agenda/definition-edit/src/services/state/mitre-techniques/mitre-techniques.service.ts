@@ -4,11 +4,11 @@
  * Subscribe to levels$, activeStep$ and activeLevelCanBeSaved$ to receive latest data updates.
  */
 import { BehaviorSubject, Observable } from 'rxjs';
-import { MitreTechnique } from '@cyberrangecz-platform/training-model';
+import { MitreTechnique } from '@crczp/training-model';
 
 export abstract class MitreTechniquesService {
-  protected mitreTechniquesSubject$: BehaviorSubject<MitreTechnique[]> = new BehaviorSubject([]);
-  mitreTechniques$ = this.mitreTechniquesSubject$.asObservable();
+    protected mitreTechniquesSubject$: BehaviorSubject<MitreTechnique[]> = new BehaviorSubject([]);
+    mitreTechniques$ = this.mitreTechniquesSubject$.asObservable();
 
-  abstract getAll(): Observable<any>;
+    abstract getAll(): Observable<any>;
 }

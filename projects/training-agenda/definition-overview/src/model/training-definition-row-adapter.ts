@@ -1,5 +1,5 @@
-import { TrainingDefinition } from '@cyberrangecz-platform/training-model';
+import { TrainingDefinition } from '@crczp/training-model';
 
 export class TrainingDefinitionRowAdapter extends TrainingDefinition {
-  createdAtFormatted: string;
+    createdAtFormatted: string;
 }

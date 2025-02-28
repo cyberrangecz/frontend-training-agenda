@@ -19,7 +19,7 @@
     <sentinel-controls [controls]="controls"
                        (itemClicked)="onControlAction($event)">
     </sentinel-controls>
-    <mat-divider></mat-divider>
+    <mat-divider/>
 
     <!--     HINT stepper-->
     <div *ngIf="stepperHints.items && stepperHints.items.length > 0 else noHints" class="hint-stepper">
@@ -31,15 +31,14 @@
                           (selectedStepSwapped)="onActiveHintChanged($event)">
         </sentinel-stepper>
         <div>
-            <mat-divider></mat-divider>
+            <mat-divider/>
             <ng-template>Hint {{ selectedStep + 1 }}</ng-template>
             <div class="step-content">
                 <crczp-hint-edit [hint]="stepperHints.items[selectedStep].hint"
                                 (hintChange)="onHintsChanged($event)"
                                 [levelMaxScore]="levelMaxScore"
                                 [hintsPenaltySum]="penaltySum"
-                                [order]="selectedStep">
-                </crczp-hint-edit>
+                                [order]="selectedStep"/>
             </div>
         </div>
     </div>

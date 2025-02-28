@@ -1,6 +1,6 @@
 <div *ngIf="trainingDefinition.id; else trainingDefinitionNotCreated">
-    <sentinel-controls [controls]="controls" (itemClicked)="onControlAction($event)"></sentinel-controls>
-    <mat-divider></mat-divider>
+    <sentinel-controls [controls]="controls" (itemClicked)="onControlAction($event)"/>
+    <mat-divider/>
     <div *ngIf="(stepperLevels | async).length > 0; else noLevels">
         <crczp-levels-stepper
             [activeStep]="activeStep$ | async"
@@ -10,13 +10,12 @@
             (activeStepChange)="onActiveLevelChange($event)"
         >
         </crczp-levels-stepper>
-        <mat-divider></mat-divider>
+        <mat-divider/>
         <crczp-level-edit
             [level]="(stepperLevels | async)[activeStep$ | async].level"
             [mitreTechniquesList]="mitreTechniquesList"
             (levelChange)="onActiveLevelChanged($event)"
-        >
-        </crczp-level-edit>
+        />
     </div>
 
     <ng-template #noLevels>

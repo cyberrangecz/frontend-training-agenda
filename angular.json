@@ -60,14 +60,19 @@
                         "polyfills": "projects/training-agenda-example-app/src/polyfills.ts",
                         "tsConfig": "projects/training-agenda-example-app/tsconfig.app.json",
                         "assets": [
-                            "projects/training-agenda-example-app/src/favicon.ico",
-                            "projects/training-agenda-example-app/src/assets"
+                            {
+                                "glob": "**/*",
+                                "input": "node_modules/@crczp/theme/assets",
+                                "output": "assets/"
+                            },
+                            {
+                                "glob": "**/*",
+                                "input": "projects/training-agenda-example-app/src/assets",
+                                "output": "assets/"
+                            }
                         ],
                         "styles": [
-                            "node_modules/@cyberrangecz-platform/overview-visualization/styles.css",
-                            "projects/training-agenda-example-app/src/theme.scss",
-                            "projects/training-agenda-example-app/src/styles.scss",
-                            "projects/training-agenda-example-app/src/variables.scss"
+                            "node_modules/@crczp/theme/theming/apply-all.scss"
                         ],
                         "scripts": [],
                         "vendorChunk": true,
@@ -133,11 +138,19 @@
                         "tsConfig": "projects/training-agenda-example-app/tsconfig.spec.json",
                         "karmaConfig": "projects/training-agenda-example-app/karma.conf.js",
                         "assets": [
-                            "projects/training-agenda-example-app/src/favicon.ico",
-                            "projects/training-agenda-example-app/src/assets"
+                            {
+                                "glob": "**/*",
+                                "input": "node_modules/@crczp/theme/assets",
+                                "output": "assets/"
+                            },
+                            {
+                                "glob": "**/*",
+                                "input": "projects/training-agenda-example-app/src/assets",
+                                "output": "assets/"
+                            }
                         ],
                         "styles": [
-                            "projects/training-agenda-example-app/src/styles.scss"
+                            "node_modules/@crczp/theme/theming/apply-all.scss"
                         ],
                         "scripts": []
                     }

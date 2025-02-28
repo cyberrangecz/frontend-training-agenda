@@ -1,7 +1,7 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TrainingDefinitionSummaryComponent } from './training-definition-summary.component';
-import { TrainingAgendaConfig } from '@cyberrangecz-platform/training-agenda';
+import { TrainingAgendaConfig } from '@crczp/training-agenda';
 import { TrainingDefintionSummaryMaterialModule } from './training-definition-summary-material.module';
 import { RouterModule } from '@angular/router';
 import { AssessmentLevelDetailComponent } from './levels/level/assessment/assessment-level-detail.component';
@@ -19,47 +19,47 @@ import { AccessLevelDetailComponent } from './levels/level/access/access-level-d
 import { MarkedOptions, SentinelMarkdownViewModule } from '@sentinel/components/markdown-view';
 
 const markdownParserConfig = {
-  markedOptions: {
-    provide: MarkedOptions,
-    useValue: {
-      gfm: true,
-      tables: true,
-      breaks: false,
-      pedantic: false,
-      smartLists: true,
-      smartypants: false,
+    markedOptions: {
+        provide: MarkedOptions,
+        useValue: {
+            gfm: true,
+            tables: true,
+            breaks: false,
+            pedantic: false,
+            smartLists: true,
+            smartypants: false,
+        },
     },
-  },
 };
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule,
-    TrainingDefintionSummaryMaterialModule,
-    SentinelMarkdownViewModule.forRoot(markdownParserConfig),
-    SentinelControlsComponent,
-  ],
-  declarations: [
-    TrainingDefinitionSummaryComponent,
-    TrainingDefinitionInfoComponent,
-    TrainingDefinitionLevelsDetailComponent,
-    InfoLevelDetailComponent,
-    TrainingLevelDetailComponent,
-    AssessmentLevelDetailComponent,
-    AbstractLevelDetailComponent,
-    ExtendedMatchingQuestionDetailComponent,
-    FreeFormQuestionDetailComponent,
-    MultipleChoiceQuestionDetailComponent,
-    AbstractQuestionComponent,
-    AccessLevelDetailComponent,
-  ],
+    imports: [
+        CommonModule,
+        RouterModule,
+        TrainingDefintionSummaryMaterialModule,
+        SentinelMarkdownViewModule.forRoot(markdownParserConfig),
+        SentinelControlsComponent,
+    ],
+    declarations: [
+        TrainingDefinitionSummaryComponent,
+        TrainingDefinitionInfoComponent,
+        TrainingDefinitionLevelsDetailComponent,
+        InfoLevelDetailComponent,
+        TrainingLevelDetailComponent,
+        AssessmentLevelDetailComponent,
+        AbstractLevelDetailComponent,
+        ExtendedMatchingQuestionDetailComponent,
+        FreeFormQuestionDetailComponent,
+        MultipleChoiceQuestionDetailComponent,
+        AbstractQuestionComponent,
+        AccessLevelDetailComponent,
+    ],
 })
 export class TrainingDefinitionSummaryComponentsModule {
-  static forRoot(config: TrainingAgendaConfig): ModuleWithProviders<TrainingDefinitionSummaryComponentsModule> {
-    return {
-      ngModule: TrainingDefinitionSummaryComponentsModule,
-      providers: [{ provide: TrainingAgendaConfig, useValue: config }],
-    };
-  }
+    static forRoot(config: TrainingAgendaConfig): ModuleWithProviders<TrainingDefinitionSummaryComponentsModule> {
+        return {
+            ngModule: TrainingDefinitionSummaryComponentsModule,
+            providers: [{ provide: TrainingAgendaConfig, useValue: config }],
+        };
+    }
 }

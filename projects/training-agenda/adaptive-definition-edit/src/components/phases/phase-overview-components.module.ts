@@ -13,17 +13,17 @@ import { PhaseEditComponentsModule } from './phase/phase-edit-components.module'
  * Module containing component and providers for training-training-phase definition levels' overview
  */
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    SentinelPipesModule,
-    PhaseEditComponentsModule,
-    ReactiveFormsModule,
-    SentinelStepperModule,
-    MatDividerModule,
-    SentinelControlsComponent,
-  ],
-  declarations: [PhaseStepperComponent, PhaseOverviewComponent],
-  exports: [PhaseOverviewComponent],
+    imports: [
+        CommonModule,
+        FormsModule,
+        SentinelPipesModule,
+        PhaseEditComponentsModule,
+        ReactiveFormsModule,
+        SentinelStepperModule,
+        MatDividerModule,
+        SentinelControlsComponent,
+    ],
+    declarations: [PhaseStepperComponent, PhaseOverviewComponent],
+    exports: [PhaseOverviewComponent],
 })
 export class PhaseOverviewComponentsModule {}

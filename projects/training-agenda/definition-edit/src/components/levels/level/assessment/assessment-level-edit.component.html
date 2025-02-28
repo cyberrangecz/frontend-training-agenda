@@ -55,7 +55,7 @@
                 <sentinel-markdown-editor class="mrkdwn-content"
                                           [sentinel-markdown-file-upload]="false"
                                           (contentChange)="instructions.setValue($event)"
-                                          [content]="instructions.value"></sentinel-markdown-editor>
+                                          [content]="instructions.value"/>
             </div>
             <div class="right-panel">
                 <div class="test-toggle-wrapper">
@@ -71,6 +71,6 @@
 
         <!-- QUESTIONS component -->
         <crczp-question-overview (questionsChange)="onQuestionsChanged($event)" [assessmentOrder]='level.order'
-                                [questions]="level.questions" [isTest]="isTest.value"></crczp-question-overview>
+                                [questions]="level.questions" [isTest]="isTest.value"/>
     </form>
 </div>

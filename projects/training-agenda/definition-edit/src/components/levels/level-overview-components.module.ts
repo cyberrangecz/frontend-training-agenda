@@ -15,19 +15,19 @@ import { TrainingDefinitionEditOverviewMaterialModule } from '../training-defini
  * Module containing component and providers for training definition levels' overview
  */
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    SentinelPipesModule,
-    LevelEditComponentsModule,
-    ReactiveFormsModule,
-    SentinelStepperModule,
-    MatDividerModule,
-    SentinelControlsComponent,
-    TrainingDefinitionEditOverviewMaterialModule,
-    ngfModule,
-  ],
-  declarations: [TrainingLevelStepperComponent, LevelOverviewComponent],
-  exports: [LevelOverviewComponent],
+    imports: [
+        CommonModule,
+        FormsModule,
+        SentinelPipesModule,
+        LevelEditComponentsModule,
+        ReactiveFormsModule,
+        SentinelStepperModule,
+        MatDividerModule,
+        SentinelControlsComponent,
+        TrainingDefinitionEditOverviewMaterialModule,
+        ngfModule,
+    ],
+    declarations: [TrainingLevelStepperComponent, LevelOverviewComponent],
+    exports: [LevelOverviewComponent],
 })
 export class LevelOverviewComponentsModule {}

@@ -5,9 +5,8 @@
             Participants' Transitions Between Phases
         </ng-template>
         <ng-template matTabContent>
-            <crczp-sankey-visualization-lib
-                [trainingInstanceId]="trainingInstance?.id">
-            <crczp-sankey-visualization-lib>
+            <crczp-sankey-visualization
+                [trainingInstanceId]="trainingInstance?.id"/>
         </ng-template>
     </mat-tab>
 
@@ -22,8 +21,7 @@
                 [isStandalone]="true"
                 [isForbidden]="false"
                 [isAdaptive]="true"
-            >
-            </crczp-timeline>
+            />
         </ng-template>
     </mat-tab>
 </mat-tab-group>

@@ -6,27 +6,27 @@ import { filter } from 'rxjs/operators';
 import { unique } from '../../../../../logic/unique';
 
 @Injectable({
-  providedIn: 'root',
+    providedIn: 'root',
 })
 export class TopologySizeSynchronizerConcreteService extends TopologySizeSynchronizerService {
-  private topologySizeObservable = new BehaviorSubject(undefined);
+    private topologySizeObservable = new BehaviorSubject(undefined);
 
-  private readonly destroyRef = inject(DestroyRef);
+    private readonly destroyRef = inject(DestroyRef);
 
-  constructor() {
-    super();
-  }
+    constructor() {
+        super();
+    }
 
-  public emitTopologySizeChange(topologySize: [number, number]): void {
-    this.topologySizeObservable.next(topologySize);
-  }
+    public emitTopologySizeChange(topologySize: [number, number]): void {
+        this.topologySizeObservable.next(topologySize);
+    }
 
-  public getTopologySize$(): Observable<[number, number]> {
-    return this.topologySizeObservable.pipe(
-      takeUntilDestroyed(this.destroyRef),
-      startWith(this.topologySizeObservable.value),
-      filter((topologySize) => !!topologySize),
-      unique((a, b) => a[0] === b[0] && a[1] === b[1]),
-    );
-  }
+    public getTopologySize$(): Observable<[number, number]> {
+        return this.topologySizeObservable.pipe(
+            takeUntilDestroyed(this.destroyRef),
+            startWith(this.topologySizeObservable.value),
+            filter((topologySize) => !!topologySize),
+            unique((a, b) => a[0] === b[0] && a[1] === b[1]),
+        );
+    }
 }

@@ -12,25 +12,25 @@ import { MatTooltipModule } from '@angular/material/tooltip';
  * Material components for training instance summary module
  */
 @NgModule({
-  imports: [
-    MatExpansionModule,
-    MatTableModule,
-    MatCardModule,
-    MatButtonModule,
-    MatIconModule,
-    MatDividerModule,
-    MatTooltipModule,
-    ClipboardModule,
-  ],
-  exports: [
-    MatExpansionModule,
-    MatTableModule,
-    MatCardModule,
-    MatButtonModule,
-    MatIconModule,
-    MatDividerModule,
-    MatTooltipModule,
-    ClipboardModule,
-  ],
+    imports: [
+        MatExpansionModule,
+        MatTableModule,
+        MatCardModule,
+        MatButtonModule,
+        MatIconModule,
+        MatDividerModule,
+        MatTooltipModule,
+        ClipboardModule,
+    ],
+    exports: [
+        MatExpansionModule,
+        MatTableModule,
+        MatCardModule,
+        MatButtonModule,
+        MatIconModule,
+        MatDividerModule,
+        MatTooltipModule,
+        ClipboardModule,
+    ],
 })
 export class AdaptiveInstanceSummaryMaterialModule {}

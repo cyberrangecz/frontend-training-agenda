@@ -1,6 +1,6 @@
-// import { PaginationService, TrainingAgendaContext } from '@cyberrangecz-platform/training-agenda/internal';
+// import { PaginationService, TrainingAgendaContext } from '@crczp/training-agenda/internal';
 // import { ActivatedRoute } from '@angular/router';
-// import { TrainingDefinitionEditOverviewComponent } from '@cyberrangecz-platform/training-agenda/definition-edit';
+// import { TrainingDefinitionEditOverviewComponent } from '@crczp/training-agenda/definition-edit';
 // import { ComponentFixture, TestBed, waitForAsync, fakewaitForAsync } from '@angular/core/testing';
 // import {
 //   createActivatedRouteSpy,
@@ -8,8 +8,8 @@
 //   createPaginationServiceSpy,
 //   createContext,
 // } from '../../../internal/src/testing/testing-commons.spec';
-// import { TrainingDefinitionEditService } from '@cyberrangecz-platform/training-agenda/definition-edit';
-// import { TrainingDefinition, Level, AssessmentLevel, InfoLevel, TrainingLevel } from '@cyberrangecz-platform/training-model';
+// import { TrainingDefinitionEditService } from '@crczp/training-agenda/definition-edit';
+// import { TrainingDefinition, Level, AssessmentLevel, InfoLevel, TrainingLevel } from '@crczp/training-model';
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // import { asyncData } from '@sentinel/common';
 // import { MaterialTestingModule } from '../../../internal/src/testing/material-testing.module';

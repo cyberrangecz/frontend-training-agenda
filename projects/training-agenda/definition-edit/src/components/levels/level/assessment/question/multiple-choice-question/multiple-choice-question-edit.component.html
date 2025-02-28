@@ -7,7 +7,7 @@
                 [sentinel-markdown-file-upload]="false"
                 (contentChange)="title.setValue($event)"
                 [content]="title.value"
-            ></sentinel-markdown-editor>
+            />
             <mat-error *ngIf="title.hasError('whitespace')">Title cannot be empty</mat-error>
         </div>
 
@@ -69,8 +69,7 @@
         <div formArrayName="choices">
             <div *ngFor="let choicesGroup of choices.controls; index as i" [formGroupName]="i">
                 <!-- CHOICES field -->
-                <mat-checkbox *ngIf="isTest" class="option-checkbox" matTooltip="Correct" formControlName="correct">
-                </mat-checkbox>
+                <mat-checkbox *ngIf="isTest" class="option-checkbox" matTooltip="Correct" formControlName="correct"/>
                 <mat-form-field appearance="outline">
                     <mat-label>Option {{ i + 1 }}</mat-label>
                     <input matInput placeholder="Option Text" formControlName="text" required/>

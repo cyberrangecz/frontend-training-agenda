@@ -12,25 +12,25 @@ import { MatRippleModule } from '@angular/material/core';
  * Material components for training instance summary module
  */
 @NgModule({
-  imports: [
-    MatExpansionModule,
-    MatTableModule,
-    MatCardModule,
-    MatButtonModule,
-    MatIconModule,
-    MatDividerModule,
-    MatTooltipModule,
-    MatRippleModule,
-  ],
-  exports: [
-    MatExpansionModule,
-    MatTableModule,
-    MatCardModule,
-    MatButtonModule,
-    MatIconModule,
-    MatDividerModule,
-    MatTooltipModule,
-    MatRippleModule,
-  ],
+    imports: [
+        MatExpansionModule,
+        MatTableModule,
+        MatCardModule,
+        MatButtonModule,
+        MatIconModule,
+        MatDividerModule,
+        MatTooltipModule,
+        MatRippleModule,
+    ],
+    exports: [
+        MatExpansionModule,
+        MatTableModule,
+        MatCardModule,
+        MatButtonModule,
+        MatIconModule,
+        MatDividerModule,
+        MatTooltipModule,
+        MatRippleModule,
+    ],
 })
 export class AdaptiveInstanceSummaryMaterialModule {}

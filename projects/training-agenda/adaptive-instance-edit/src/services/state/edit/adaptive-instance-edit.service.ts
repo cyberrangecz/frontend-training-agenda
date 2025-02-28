@@ -1,8 +1,8 @@
-import { TrainingDefinitionInfo, TrainingInstance } from '@cyberrangecz-platform/training-model';
+import { TrainingDefinitionInfo, TrainingInstance } from '@crczp/training-model';
 import { BehaviorSubject, Observable, timer } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
 import { AdaptiveInstanceChangeEvent } from '../../../models/events/adaptive-instance-change-event';
-import { Pool, SandboxDefinition } from '@cyberrangecz-platform/sandbox-model';
+import { Pool, SandboxDefinition } from '@crczp/sandbox-model';
 import { OffsetPagination, OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
 
 /**
@@ -11,117 +11,117 @@ import { OffsetPagination, OffsetPaginationEvent, PaginatedResource } from '@sen
  * Subscribe to trainingInstance$ to receive latest data updates.
  */
 export abstract class AdaptiveInstanceEditService {
-  protected trainingInstanceSubject$: BehaviorSubject<TrainingInstance> = new BehaviorSubject(undefined);
+    protected trainingInstanceSubject$: BehaviorSubject<TrainingInstance> = new BehaviorSubject(undefined);
 
-  /**
-   * Currently edited training instance
-   */
-  trainingInstance$: Observable<TrainingInstance> = this.trainingInstanceSubject$
-    .asObservable()
-    .pipe(filter((ti) => ti !== undefined && ti !== null));
+    /**
+     * Currently edited training instance
+     */
+    trainingInstance$: Observable<TrainingInstance> = this.trainingInstanceSubject$
+        .asObservable()
+        .pipe(filter((ti) => ti !== undefined && ti !== null));
 
-  protected releasedTrainingDefinitionsSubject: BehaviorSubject<PaginatedResource<TrainingDefinitionInfo>> =
-    new BehaviorSubject(this.initTrainingDefinitions(999));
+    protected releasedTrainingDefinitionsSubject: BehaviorSubject<PaginatedResource<TrainingDefinitionInfo>> =
+        new BehaviorSubject(this.initTrainingDefinitions(999));
 
-  releasedTrainingDefinitions$: Observable<PaginatedResource<TrainingDefinitionInfo>> =
-    this.releasedTrainingDefinitionsSubject.asObservable();
+    releasedTrainingDefinitions$: Observable<PaginatedResource<TrainingDefinitionInfo>> =
+        this.releasedTrainingDefinitionsSubject.asObservable();
 
-  protected unreleasedTrainingDefinitionsSubject: BehaviorSubject<PaginatedResource<TrainingDefinitionInfo>> =
-    new BehaviorSubject(this.initTrainingDefinitions(999));
+    protected unreleasedTrainingDefinitionsSubject: BehaviorSubject<PaginatedResource<TrainingDefinitionInfo>> =
+        new BehaviorSubject(this.initTrainingDefinitions(999));
 
-  unreleasedTrainingDefinitions$: Observable<PaginatedResource<TrainingDefinitionInfo>> =
-    this.unreleasedTrainingDefinitionsSubject.asObservable();
+    unreleasedTrainingDefinitions$: Observable<PaginatedResource<TrainingDefinitionInfo>> =
+        this.unreleasedTrainingDefinitionsSubject.asObservable();
 
-  protected poolsSubject$: BehaviorSubject<PaginatedResource<Pool>> = new BehaviorSubject(this.initPools(999));
+    protected poolsSubject$: BehaviorSubject<PaginatedResource<Pool>> = new BehaviorSubject(this.initPools(999));
 
-  pools$: Observable<PaginatedResource<Pool>> = this.poolsSubject$.asObservable();
+    pools$: Observable<PaginatedResource<Pool>> = this.poolsSubject$.asObservable();
 
-  protected sandboxDefinitionsSubject$: BehaviorSubject<PaginatedResource<SandboxDefinition>> = new BehaviorSubject(
-    this.initSandboxDefinitions(999),
-  );
-
-  sandboxDefinitions$: Observable<PaginatedResource<SandboxDefinition>> =
-    this.sandboxDefinitionsSubject$.asObservable();
-
-  /**
-   * Current mode (edit - true or create - false)
-   */
-  protected editModeSubject$: BehaviorSubject<boolean> = new BehaviorSubject(false);
-
-  editMode$: Observable<boolean> = this.editModeSubject$.asObservable();
-
-  protected instanceValidSubject$: BehaviorSubject<boolean> = new BehaviorSubject(true);
-
-  /**
-   * True if it training instance is in valid state, false otherwise
-   */
-  instanceValid$ = this.instanceValidSubject$.asObservable();
-
-  hasStarted$: Observable<boolean>;
-
-  protected saveDisabledSubject$: BehaviorSubject<boolean> = new BehaviorSubject(true);
-
-  /**
-   * True if it is possible to save edited training instance in its current state, false otherwise
-   */
-  saveDisabled$: Observable<boolean> = this.saveDisabledSubject$.asObservable();
-
-  protected constructor() {
-    this.hasStarted$ = timer(1).pipe(
-      switchMap(() => this.trainingInstance$),
-      map((ti) => ti?.hasStarted()),
+    protected sandboxDefinitionsSubject$: BehaviorSubject<PaginatedResource<SandboxDefinition>> = new BehaviorSubject(
+        this.initSandboxDefinitions(999),
     );
-  }
 
-  /**
-   * Sets training instance as currently edited
-   * @param trainingInstance to set as currently edited
-   */
-  abstract set(trainingInstance: TrainingInstance): void;
+    sandboxDefinitions$: Observable<PaginatedResource<SandboxDefinition>> =
+        this.sandboxDefinitionsSubject$.asObservable();
 
-  /**
-   * Saves changes in currently edited training instance
-   */
-  abstract save(): Observable<any>;
+    /**
+     * Current mode (edit - true or create - false)
+     */
+    protected editModeSubject$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-  /**
-   * Handles changes of edited training instance
-   * @param changeEvent training instance object and its validity
-   */
-  abstract change(changeEvent: AdaptiveInstanceChangeEvent): void;
+    editMode$: Observable<boolean> = this.editModeSubject$.asObservable();
 
-  /**
-   * Handles change of pool selection
-   * @param poolId pool ID of selected pool
-   */
-  abstract poolSelectionChange(poolId: number): void;
+    protected instanceValidSubject$: BehaviorSubject<boolean> = new BehaviorSubject(true);
 
-  /**
-   * Handles change of sandbox definition selection
-   * @param sandboxDefinitionId ID of selected sandbox definition
-   */
-  abstract sandboxDefinitionSelectionChange(sandboxDefinitionId: number): void;
+    /**
+     * True if it training instance is in valid state, false otherwise
+     */
+    instanceValid$ = this.instanceValidSubject$.asObservable();
 
-  abstract getAllTrainingDefinitions(
-    OffsetPaginationEvent: OffsetPaginationEvent,
-    stateFilter: string,
-  ): Observable<PaginatedResource<TrainingDefinitionInfo>>;
+    hasStarted$: Observable<boolean>;
 
-  abstract getAllPools(OffsetPaginationEvent: OffsetPaginationEvent): Observable<PaginatedResource<Pool>>;
+    protected saveDisabledSubject$: BehaviorSubject<boolean> = new BehaviorSubject(true);
 
-  abstract getAllSandboxDefinitions(
-    OffsetPaginationEvent: OffsetPaginationEvent,
-  ): Observable<PaginatedResource<SandboxDefinition>>;
+    /**
+     * True if it is possible to save edited training instance in its current state, false otherwise
+     */
+    saveDisabled$: Observable<boolean> = this.saveDisabledSubject$.asObservable();
 
-  protected initTrainingDefinitions(pageSize: number): PaginatedResource<TrainingDefinitionInfo> {
-    return new PaginatedResource([], new OffsetPagination(0, 0, pageSize, 0, 0));
-  }
+    protected constructor() {
+        this.hasStarted$ = timer(1).pipe(
+            switchMap(() => this.trainingInstance$),
+            map((ti) => ti?.hasStarted()),
+        );
+    }
 
-  protected initPools(pageSize: number): PaginatedResource<Pool> {
-    return new PaginatedResource([], new OffsetPagination(0, 0, pageSize, 0, 0));
-  }
+    /**
+     * Sets training instance as currently edited
+     * @param trainingInstance to set as currently edited
+     */
+    abstract set(trainingInstance: TrainingInstance): void;
 
-  protected initSandboxDefinitions(pageSize: number): PaginatedResource<SandboxDefinition> {
-    return new PaginatedResource([], new OffsetPagination(0, 0, pageSize, 0, 0));
-  }
+    /**
+     * Saves changes in currently edited training instance
+     */
+    abstract save(): Observable<any>;
+
+    /**
+     * Handles changes of edited training instance
+     * @param changeEvent training instance object and its validity
+     */
+    abstract change(changeEvent: AdaptiveInstanceChangeEvent): void;
+
+    /**
+     * Handles change of pool selection
+     * @param poolId pool ID of selected pool
+     */
+    abstract poolSelectionChange(poolId: number): void;
+
+    /**
+     * Handles change of sandbox definition selection
+     * @param sandboxDefinitionId ID of selected sandbox definition
+     */
+    abstract sandboxDefinitionSelectionChange(sandboxDefinitionId: number): void;
+
+    abstract getAllTrainingDefinitions(
+        OffsetPaginationEvent: OffsetPaginationEvent,
+        stateFilter: string,
+    ): Observable<PaginatedResource<TrainingDefinitionInfo>>;
+
+    abstract getAllPools(OffsetPaginationEvent: OffsetPaginationEvent): Observable<PaginatedResource<Pool>>;
+
+    abstract getAllSandboxDefinitions(
+        OffsetPaginationEvent: OffsetPaginationEvent,
+    ): Observable<PaginatedResource<SandboxDefinition>>;
+
+    protected initTrainingDefinitions(pageSize: number): PaginatedResource<TrainingDefinitionInfo> {
+        return new PaginatedResource([], new OffsetPagination(0, 0, pageSize, 0, 0));
+    }
+
+    protected initPools(pageSize: number): PaginatedResource<Pool> {
+        return new PaginatedResource([], new OffsetPagination(0, 0, pageSize, 0, 0));
+    }
+
+    protected initSandboxDefinitions(pageSize: number): PaginatedResource<SandboxDefinition> {
+        return new PaginatedResource([], new OffsetPagination(0, 0, pageSize, 0, 0));
+    }
 }

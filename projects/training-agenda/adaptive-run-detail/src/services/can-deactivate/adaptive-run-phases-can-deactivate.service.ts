@@ -5,10 +5,10 @@ import { RunningAdaptiveRunService } from '../adaptive-run/running/running-adapt
 
 @Injectable()
 export class AdaptiveRunPhasesDeactivateGuard {
-  constructor(private activeAdaptiveRunLevelService: RunningAdaptiveRunService) {}
+    constructor(private activeAdaptiveRunLevelService: RunningAdaptiveRunService) {}
 
-  canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
-    this.activeAdaptiveRunLevelService.clear();
-    return true;
-  }
+    canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
+        this.activeAdaptiveRunLevelService.clear();
+        return true;
+    }
 }

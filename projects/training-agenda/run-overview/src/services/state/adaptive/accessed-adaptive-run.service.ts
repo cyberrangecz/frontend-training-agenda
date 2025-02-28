@@ -1,6 +1,6 @@
 import { OffsetPaginatedElementsService } from '@sentinel/common';
 import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
-import { AccessedTrainingRun } from '@cyberrangecz-platform/training-model';
+import { AccessedTrainingRun } from '@crczp/training-model';
 import { Observable } from 'rxjs';
 
 /**
@@ -9,19 +9,19 @@ import { Observable } from 'rxjs';
  * You can use get methods to get paginated resources and other actions to modify data.
  */
 export abstract class AccessedAdaptiveRunService extends OffsetPaginatedElementsService<AccessedTrainingRun> {
-  /**
-   * Requests paginated data
-   * @param pagination requested pagination info
-   */
-  abstract getAll(pagination: OffsetPaginationEvent): Observable<PaginatedResource<AccessedTrainingRun>>;
+    /**
+     * Requests paginated data
+     * @param pagination requested pagination info
+     */
+    abstract getAll(pagination: OffsetPaginationEvent): Observable<PaginatedResource<AccessedTrainingRun>>;
 
-  /**
-   * Resume in already started adaptive run
-   * @param trainingRunId id of adaptive run to resume
-   */
-  abstract resume(trainingRunId: number): Observable<any>;
+    /**
+     * Resume in already started adaptive run
+     * @param trainingRunId id of adaptive run to resume
+     */
+    abstract resume(trainingRunId: number): Observable<any>;
 
-  abstract results(trainingRunId: number): Observable<any>;
+    abstract results(trainingRunId: number): Observable<any>;
 
-  abstract access(token: string): Observable<any>;
+    abstract access(token: string): Observable<any>;
 }

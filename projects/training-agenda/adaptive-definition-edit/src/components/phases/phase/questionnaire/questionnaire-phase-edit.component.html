@@ -33,7 +33,7 @@
         </crczp-adaptive-questions-overview>
 
         <div *ngIf="phase.questionnaireType === questionnaireTypes.Adaptive">
-            <mat-divider></mat-divider>
+            <mat-divider/>
             <mat-expansion-panel>
                 <mat-expansion-panel-header>
                     <mat-panel-title>Question-Phase Relations</mat-panel-title>
@@ -41,7 +41,7 @@
                 <ng-template matExpansionPanelContent>
                     <div formArrayName="phaseRelations">
                         <div *ngFor="let relationGroup of phaseRelations.controls; index as k;" [formGroupName]="k">
-                            <mat-divider class='bold-mat-divider'></mat-divider>
+                            <mat-divider class='bold-mat-divider'/>
                             <div class="question-container">
                                 <h1>{{ getTrainingPhaseTitle(phaseRelations.at(k).value.phaseId) }}</h1>
                                 <div class="question-options">
@@ -65,7 +65,7 @@
                                     <button mat-flat-button color="warn" (click)="deleteRelation(k)">Remove</button>
                                 </div>
                             </div>
-                            <mat-divider></mat-divider>
+                            <mat-divider/>
                             <div class="relation-fields">
                                 <div>
                                     <p>Questions: </p>

@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
  * Module containing imports and providers for training run levels
  */
 @NgModule({
-  imports: [CommonModule, FormsModule],
-  declarations: [],
+    imports: [CommonModule, FormsModule],
+    declarations: [],
 })
 export class LevelModule {}

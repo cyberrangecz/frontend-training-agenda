@@ -6,17 +6,17 @@ import { AdaptiveInstanceOverviewService } from '../../services/state/adaptive-i
  * @dynamic
  */
 export class AdaptiveInstanceOverviewControls {
-  static CREATE_ACTION_ID = 'add';
+    static CREATE_ACTION_ID = 'add';
 
-  static create(service: AdaptiveInstanceOverviewService): SentinelControlItem[] {
-    return [
-      new SentinelControlItem(
-        this.CREATE_ACTION_ID,
-        'Create',
-        'primary',
-        of(false),
-        defer(() => service.create()),
-      ),
-    ];
-  }
+    static create(service: AdaptiveInstanceOverviewService): SentinelControlItem[] {
+        return [
+            new SentinelControlItem(
+                this.CREATE_ACTION_ID,
+                'Create',
+                'primary',
+                of(false),
+                defer(() => service.create()),
+            ),
+        ];
+    }
 }

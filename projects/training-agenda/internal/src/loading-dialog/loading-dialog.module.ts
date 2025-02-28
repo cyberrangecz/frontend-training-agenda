@@ -6,8 +6,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { LoadingDialogComponent } from './loading-dialog.component';
 
 @NgModule({
-  declarations: [LoadingDialogComponent, TitleCaseExceptPipe],
-  exports: [LoadingDialogComponent, TitleCaseExceptPipe],
-  imports: [CommonModule, MatProgressSpinnerModule, MatDialogModule],
+    declarations: [LoadingDialogComponent, TitleCaseExceptPipe],
+    exports: [LoadingDialogComponent, TitleCaseExceptPipe],
+    imports: [CommonModule, MatProgressSpinnerModule, MatDialogModule],
 })
 export class LoadingDialogModule {}

@@ -18,7 +18,7 @@
     <sentinel-controls [controls]="controls"
                        (itemClicked)="onControlAction($event)">
     </sentinel-controls>
-    <mat-divider></mat-divider>
+    <mat-divider/>
 
     <div *ngIf="(stepperTasks | async).length > 0 else noTasks">
         <crczp-task-stepper [activeStep]="activeStep$ | async"
@@ -27,7 +27,7 @@
                            (activeStepChange)="onActiveTaskChanged($event)">
 
         </crczp-task-stepper>
-        <mat-divider></mat-divider>
+        <mat-divider/>
         <!--    <ng-template>Task {{ selectedStep + 1 }}</ng-template>-->
         <div class="step-content">
             <crczp-task-configuration [task]="(stepperTasks | async)[activeStep$ | async].phase"

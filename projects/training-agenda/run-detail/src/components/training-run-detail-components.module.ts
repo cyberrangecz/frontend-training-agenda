@@ -12,16 +12,16 @@ import { SentinelUserCardModule } from '@sentinel/layout/user-card';
  * Contains all components of training run detail
  */
 @NgModule({
-  imports: [
-    CommonModule,
-    TrainingRunDetailMaterialModule,
-    LevelComponentsModule,
-    RouterModule,
-    SentinelPipesModule,
-    SentinelStepperModule,
-    SentinelUserCardModule,
-  ],
-  declarations: [TrainingRunDetailComponent],
-  exports: [TrainingRunDetailComponent],
+    imports: [
+        CommonModule,
+        TrainingRunDetailMaterialModule,
+        LevelComponentsModule,
+        RouterModule,
+        SentinelPipesModule,
+        SentinelStepperModule,
+        SentinelUserCardModule,
+    ],
+    declarations: [TrainingRunDetailComponent],
+    exports: [TrainingRunDetailComponent],
 })
 export class TrainingRunDetailComponentsModule {}

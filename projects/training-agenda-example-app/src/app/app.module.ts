@@ -14,22 +14,22 @@ import { LoadingService } from './services/loading.service';
 import { LoadingInterceptor } from './services/loading-interceptor';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    SentinelLayout1Module,
-    SentinelConfirmationDialogComponent,
-    HttpClientModule,
-    SentinelAuthModule.forRoot(environment.authConfig),
-  ],
-  providers: [
-    SentinelAuthGuardWithLogin,
-    SentinelNegativeAuthGuard,
-    LoadingService,
-    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
-  ],
-  bootstrap: [AppComponent],
+    declarations: [AppComponent, HomeComponent],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        SentinelLayout1Module,
+        SentinelConfirmationDialogComponent,
+        HttpClientModule,
+        SentinelAuthModule.forRoot(environment.authConfig),
+    ],
+    providers: [
+        SentinelAuthGuardWithLogin,
+        SentinelNegativeAuthGuard,
+        LoadingService,
+        { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
+    ],
+    bootstrap: [AppComponent],
 })
 export class AppModule {}

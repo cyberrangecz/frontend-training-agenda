@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { OffsetPaginatedElementsService } from '@sentinel/common';
 import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
-import { TrainingRun } from '@cyberrangecz-platform/training-model';
+import { TrainingRun } from '@crczp/training-model';
 import { Observable } from 'rxjs';
 
 /**
@@ -11,16 +11,16 @@ import { Observable } from 'rxjs';
  */
 @Injectable()
 export abstract class AdaptiveRunService extends OffsetPaginatedElementsService<TrainingRun> {
-  protected constructor(defaultPaginationSize: number) {
-    super(defaultPaginationSize);
-  }
+    protected constructor(defaultPaginationSize: number) {
+        super(defaultPaginationSize);
+    }
 
-  /**
-   * @param trainingInstanceId id of associated adaptive instance
-   * @param pagination requested pagination
-   */
-  abstract getAll(
-    trainingInstanceId: number,
-    pagination: OffsetPaginationEvent,
-  ): Observable<PaginatedResource<TrainingRun>>;
+    /**
+     * @param trainingInstanceId id of associated adaptive instance
+     * @param pagination requested pagination
+     */
+    abstract getAll(
+        trainingInstanceId: number,
+        pagination: OffsetPaginationEvent,
+    ): Observable<PaginatedResource<TrainingRun>>;
 }

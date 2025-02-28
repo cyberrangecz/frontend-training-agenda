@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { OffsetPaginatedElementsService } from '@sentinel/common';
 import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
-import { TrainingRun, TrainingRunInfo } from '@cyberrangecz-platform/training-model';
+import { TrainingRun, TrainingRunInfo } from '@crczp/training-model';
 import { Observable } from 'rxjs';
 
 /**
@@ -11,24 +11,24 @@ import { Observable } from 'rxjs';
  */
 @Injectable()
 export abstract class TrainingRunService extends OffsetPaginatedElementsService<TrainingRun> {
-  protected constructor(defaultPaginationSize: number) {
-    super(defaultPaginationSize);
-  }
+    protected constructor(defaultPaginationSize: number) {
+        super(defaultPaginationSize);
+    }
 
-  /**
-   * @param trainingInstanceId id of associated training instance
-   * @param pagination requested pagination
-   */
-  abstract getAll(
-    trainingInstanceId: number,
-    pagination: OffsetPaginationEvent,
-  ): Observable<PaginatedResource<TrainingRun>>;
+    /**
+     * @param trainingInstanceId id of associated training instance
+     * @param pagination requested pagination
+     */
+    abstract getAll(
+        trainingInstanceId: number,
+        pagination: OffsetPaginationEvent,
+    ): Observable<PaginatedResource<TrainingRun>>;
 
-  abstract getInfo(trainingRunId: number): Observable<TrainingRunInfo[]>;
+    abstract getInfo(trainingRunId: number): Observable<TrainingRunInfo[]>;
 
-  /**
-   * Get all scores from a specific training instance
-   * @param trainingInstanceId id of training instance
-   */
-  abstract exportScore(trainingInstanceId: number): Observable<any>;
+    /**
+     * Get all scores from a specific training instance
+     * @param trainingInstanceId id of training instance
+     */
+    abstract exportScore(trainingInstanceId: number): Observable<any>;
 }

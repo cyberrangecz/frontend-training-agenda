@@ -6,7 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
  * Material components for training instance cheating detection edit module
  */
 @NgModule({
-  imports: [MatCardModule, MatIconModule],
-  exports: [MatCardModule, MatIconModule],
+    imports: [MatCardModule, MatIconModule],
+    exports: [MatCardModule, MatIconModule],
 })
 export class TrainingInstanceDetectionEventDetailMaterialModule {}

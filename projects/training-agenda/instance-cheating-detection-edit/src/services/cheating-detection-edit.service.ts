@@ -1,4 +1,4 @@
-import { CheatingDetection } from '@cyberrangecz-platform/training-model';
+import { CheatingDetection } from '@crczp/training-model';
 import { Observable } from 'rxjs';
 
 /**
@@ -8,10 +8,10 @@ import { Observable } from 'rxjs';
  * Subscribe to trainingDefinitions$ to receive latest data updates.
  */
 export abstract class CheatingDetectionEditService {
-  /**
-   * Makes an API call to create a cheating detection object in the database.
-   * @param cheatingDetection the cheating detection object
-   * @param trainingInstanceId training instance id
-   */
-  abstract create(cheatingDetection: CheatingDetection, trainingInstanceId: number): Observable<any>;
+    /**
+     * Makes an API call to create a cheating detection object in the database.
+     * @param cheatingDetection the cheating detection object
+     * @param trainingInstanceId training instance id
+     */
+    abstract create(cheatingDetection: CheatingDetection, trainingInstanceId: number): Observable<any>;
 }

@@ -33,7 +33,7 @@
                             (change)="onMCQChecked($event, i, choice.text)"
                             [required]="question.answerRequired"
                             [checked]="checkedAsAnswered(question, choice)"
-                        ></mat-checkbox>
+                        />
                         <p class="mcq-answer">{{ choice.text }}</p>
                     </div>
                 </div>
@@ -45,8 +45,7 @@
                             (change)="onRFQChecked($event, i, choice.text)"
                             [required]="question.answerRequired"
                             [checked]="checkedAsAnswered(question, choice)"
-                        >
-                        </mat-checkbox>
+                        />
                         <p>{{ choice.text }}</p>
                     </div>
                 </div>

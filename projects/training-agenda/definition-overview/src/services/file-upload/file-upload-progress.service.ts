@@ -6,23 +6,23 @@ import { BehaviorSubject, Observable } from 'rxjs';
  */
 @Injectable()
 export class FileUploadProgressService {
-  private isInProgressSubject$: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  /**
-   * True if file upload is in progress, false otherwise
-   */
-  isInProgress$: Observable<boolean> = this.isInProgressSubject$.asObservable();
+    private isInProgressSubject$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+    /**
+     * True if file upload is in progress, false otherwise
+     */
+    isInProgress$: Observable<boolean> = this.isInProgressSubject$.asObservable();
 
-  /**
-   * Starts file upload
-   */
-  start(): void {
-    this.isInProgressSubject$.next(true);
-  }
+    /**
+     * Starts file upload
+     */
+    start(): void {
+        this.isInProgressSubject$.next(true);
+    }
 
-  /**
-   * Finishes file upload
-   */
-  finish(): void {
-    this.isInProgressSubject$.next(false);
-  }
+    /**
+     * Finishes file upload
+     */
+    finish(): void {
+        this.isInProgressSubject$.next(false);
+    }
 }

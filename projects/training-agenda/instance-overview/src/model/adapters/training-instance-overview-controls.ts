@@ -6,17 +6,17 @@ import { TrainingInstanceOverviewService } from '../../services/state/training-i
  * @dynamic
  */
 export class TrainingInstanceOverviewControls {
-  static CREATE_ACTION_ID = 'add';
+    static CREATE_ACTION_ID = 'add';
 
-  static create(service: TrainingInstanceOverviewService): SentinelControlItem[] {
-    return [
-      new SentinelControlItem(
-        this.CREATE_ACTION_ID,
-        'Create',
-        'primary',
-        of(false),
-        defer(() => service.create()),
-      ),
-    ];
-  }
+    static create(service: TrainingInstanceOverviewService): SentinelControlItem[] {
+        return [
+            new SentinelControlItem(
+                this.CREATE_ACTION_ID,
+                'Create',
+                'primary',
+                of(false),
+                defer(() => service.create()),
+            ),
+        ];
+    }
 }

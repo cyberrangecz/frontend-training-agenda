@@ -1,14 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { TrainingInstanceSummaryComponentsModule } from '@cyberrangecz-platform/training-agenda/instance-summary';
+import { TrainingInstanceSummaryComponentsModule } from '@crczp/training-agenda/instance-summary';
 import { environment } from '../../../../../../environments/environment';
 import { TrainingInstanceSummaryRoutingModule } from './training-instance-summary-routing.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    TrainingInstanceSummaryComponentsModule.forRoot(environment.trainingAgendaConfig),
-    TrainingInstanceSummaryRoutingModule,
-  ],
+    imports: [
+        CommonModule,
+        TrainingInstanceSummaryComponentsModule.forRoot(environment.trainingAgendaConfig),
+        TrainingInstanceSummaryRoutingModule,
+    ],
 })
 export class TrainingInstanceSummaryModule {}

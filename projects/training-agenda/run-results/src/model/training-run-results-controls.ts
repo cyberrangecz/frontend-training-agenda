@@ -6,17 +6,17 @@ import { MitreTechniquesOverviewService } from '../service/mitre-techniques.serv
  * @dynamic
  */
 export class TrainingRunResultsControls {
-  static readonly MITRE_ACTION_ID = 'mitre';
+    static readonly MITRE_ACTION_ID = 'mitre';
 
-  static createControls(service: MitreTechniquesOverviewService): SentinelControlItem[] {
-    return [
-      new SentinelControlItem(
-        this.MITRE_ACTION_ID,
-        'MITRE ATT&CK Techniques',
-        'primary',
-        of(false),
-        defer(() => service.showMitreTechniques()),
-      ),
-    ];
-  }
+    static createControls(service: MitreTechniquesOverviewService): SentinelControlItem[] {
+        return [
+            new SentinelControlItem(
+                this.MITRE_ACTION_ID,
+                'MITRE ATT&CK Techniques',
+                'primary',
+                of(false),
+                defer(() => service.showMitreTechniques()),
+            ),
+        ];
+    }
 }

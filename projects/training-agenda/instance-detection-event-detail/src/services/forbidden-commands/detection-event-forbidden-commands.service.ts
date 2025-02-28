@@ -1,6 +1,6 @@
 import { OffsetPaginatedElementsService } from '@sentinel/common';
 import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
-import { DetectedForbiddenCommand } from '@cyberrangecz-platform/training-model';
+import { DetectedForbiddenCommand } from '@crczp/training-model';
 import { Observable } from 'rxjs';
 
 /**
@@ -10,14 +10,14 @@ import { Observable } from 'rxjs';
  * Subscribe to detectionEvents$ to receive latest data updates.
  */
 export abstract class DetectionEventForbiddenCommandsService extends OffsetPaginatedElementsService<DetectedForbiddenCommand> {
-  /**
-   * Gets all detection event detected forbidden commands with passed pagination and filter and updates related
-   * observables or handles an error
-   * @param detectionEventId the detection event id
-   * @param pagination requested pagination
-   */
-  abstract getAll(
-    detectionEventId: number,
-    pagination: OffsetPaginationEvent,
-  ): Observable<PaginatedResource<DetectedForbiddenCommand>>;
+    /**
+     * Gets all detection event detected forbidden commands with passed pagination and filter and updates related
+     * observables or handles an error
+     * @param detectionEventId the detection event id
+     * @param pagination requested pagination
+     */
+    abstract getAll(
+        detectionEventId: number,
+        pagination: OffsetPaginationEvent,
+    ): Observable<PaginatedResource<DetectedForbiddenCommand>>;
 }

@@ -22,7 +22,7 @@ You can modify the behaviour of components by implementing abstract service clas
 
 To use the training agenda in your Angular application follow these steps:
 
-1. Run `npm install @cyberrangecz-platform/training-agenda`
+1. Run `npm install @crczp/training-agenda`
 1. Install all peer dependencies
 1. Create config class extending `TrainingAgendaConfig` from the library. Config contains following options:
     + pollingPeriod
@@ -30,7 +30,7 @@ To use the training agenda in your Angular application follow these steps:
     + visualizationConfig
     + topologyConfig
 1. Import specific modules containing components (for example `TrainingDefinitionOverviewComponentsModule`) and provide config through `.forRoot()` method.
-1. If you do not override the services, you will also need to provide API service. See [Training api](LINK-HERE).
+1. If you do not override the services, you will also need to provide API service. See [Training api](https://github.com/cyberrangecz/frontend-training-api).
 1. You need to provide implementation of abstract services `ClientErrorHandlerService` and `ClientNotificationService` for error handling and notification displaying.
 1. Optionally, you can override `TrainingNavigator` service to provide custom navigation if you do not want to use default routes.
 1. Optionally, cou can override and provide own implementation of services

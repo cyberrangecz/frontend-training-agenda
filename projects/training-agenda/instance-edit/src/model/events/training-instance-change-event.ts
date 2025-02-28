@@ -1,14 +1,14 @@
-import { TrainingInstance } from '@cyberrangecz-platform/training-model';
+import { TrainingInstance } from '@crczp/training-model';
 
 /**
  * Event representing training instance change (edit)
  */
 export class TrainingInstanceChangeEvent {
-  trainingInstance: TrainingInstance;
-  isValid: boolean;
+    trainingInstance: TrainingInstance;
+    isValid: boolean;
 
-  constructor(trainingInstance: TrainingInstance, isValid: boolean) {
-    this.trainingInstance = trainingInstance;
-    this.isValid = isValid;
-  }
+    constructor(trainingInstance: TrainingInstance, isValid: boolean) {
+        this.trainingInstance = trainingInstance;
+        this.isValid = isValid;
+    }
 }

@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AdaptiveRunDetailGameModule } from '@cyberrangecz-platform/training-agenda/adaptive-run-detail';
+import { AdaptiveRunDetailGameModule } from '@crczp/training-agenda/adaptive-run-detail';
 import { environment } from '../../../../../../environments/environment';
 import { AdaptiveRunDetailRoutingModule } from './adaptive-run-detail-routing.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    AdaptiveRunDetailGameModule.forRoot(environment.trainingAgendaConfig),
-    AdaptiveRunDetailRoutingModule,
-  ],
+    imports: [
+        CommonModule,
+        AdaptiveRunDetailGameModule.forRoot(environment.trainingAgendaConfig),
+        AdaptiveRunDetailRoutingModule,
+    ],
 })
 export class AdaptiveRunDetailModule {}

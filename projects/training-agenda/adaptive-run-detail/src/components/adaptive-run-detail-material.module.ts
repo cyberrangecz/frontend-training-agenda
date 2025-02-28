@@ -10,7 +10,21 @@ import { MatDialogModule } from '@angular/material/dialog';
  * Material component imports for training run detail module
  */
 @NgModule({
-  imports: [MatStepperModule, MatButtonModule, MatIconModule, MatCardModule, MatProgressSpinnerModule, MatDialogModule],
-  exports: [MatStepperModule, MatButtonModule, MatIconModule, MatCardModule, MatProgressSpinnerModule, MatDialogModule],
+    imports: [
+        MatStepperModule,
+        MatButtonModule,
+        MatIconModule,
+        MatCardModule,
+        MatProgressSpinnerModule,
+        MatDialogModule,
+    ],
+    exports: [
+        MatStepperModule,
+        MatButtonModule,
+        MatIconModule,
+        MatCardModule,
+        MatProgressSpinnerModule,
+        MatDialogModule,
+    ],
 })
 export class AdaptiveRunDetailMaterialModule {}

@@ -5,8 +5,8 @@ import { ngfModule } from 'angular-file';
 import { SentinelPipesModule } from '@sentinel/common/pipes';
 import { SentinelControlsComponent } from '@sentinel/components/controls';
 import { SentinelTableModule } from '@sentinel/components/table';
-import { TrainingAgendaConfig, TrainingDefaultNavigator, TrainingNavigator } from '@cyberrangecz-platform/training-agenda';
-import { PaginationService, TrainingAgendaContext } from '@cyberrangecz-platform/training-agenda/internal';
+import { TrainingAgendaConfig, TrainingDefaultNavigator, TrainingNavigator } from '@crczp/training-agenda';
+import { PaginationService, TrainingAgendaContext } from '@crczp/training-agenda/internal';
 import { AdaptiveFileUploadProgressService } from '../services/file-upload/adaptive-file-upload-progress.service';
 import { AdaptiveDefinitionConcreteService } from '../services/state/adaptive-definition.concrete.service';
 import { AdaptiveDefinitionService } from '../services/state/adaptive-definition.service';
@@ -15,42 +15,42 @@ import { AdaptiveDefinitionOverviewMaterialModule } from './adaptive-definition-
 import { AdaptiveDefinitionOverviewComponent } from './adaptive-definition-overview.component';
 import { TrainingDefinitionUploadDialogComponent } from './upload-dialog/training-definition-upload-dialog.component';
 import {
-  AdaptiveDefinitionBreadcrumbResolver,
-  AdaptiveDefinitionResolver,
-  AdaptiveDefinitionTitleResolver,
-} from '@cyberrangecz-platform/training-agenda/resolvers';
+    AdaptiveDefinitionBreadcrumbResolver,
+    AdaptiveDefinitionResolver,
+    AdaptiveDefinitionTitleResolver,
+} from '@crczp/training-agenda/resolvers';
 
 /**
  * Module containing components and providers for training definition overview.
  */
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    ngfModule,
-    SentinelPipesModule,
-    AdaptiveDefinitionOverviewMaterialModule,
-    ReactiveFormsModule,
-    SentinelTableModule,
-    SentinelControlsComponent,
-  ],
-  declarations: [AdaptiveDefinitionOverviewComponent, TrainingDefinitionUploadDialogComponent, CloneDialogComponent],
-  providers: [
-    AdaptiveFileUploadProgressService,
-    PaginationService,
-    TrainingAgendaContext,
-    AdaptiveDefinitionResolver,
-    AdaptiveDefinitionBreadcrumbResolver,
-    AdaptiveDefinitionTitleResolver,
-    { provide: TrainingNavigator, useClass: TrainingDefaultNavigator },
-    { provide: AdaptiveDefinitionService, useClass: AdaptiveDefinitionConcreteService },
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        ngfModule,
+        SentinelPipesModule,
+        AdaptiveDefinitionOverviewMaterialModule,
+        ReactiveFormsModule,
+        SentinelTableModule,
+        SentinelControlsComponent,
+    ],
+    declarations: [AdaptiveDefinitionOverviewComponent, TrainingDefinitionUploadDialogComponent, CloneDialogComponent],
+    providers: [
+        AdaptiveFileUploadProgressService,
+        PaginationService,
+        TrainingAgendaContext,
+        AdaptiveDefinitionResolver,
+        AdaptiveDefinitionBreadcrumbResolver,
+        AdaptiveDefinitionTitleResolver,
+        { provide: TrainingNavigator, useClass: TrainingDefaultNavigator },
+        { provide: AdaptiveDefinitionService, useClass: AdaptiveDefinitionConcreteService },
+    ],
 })
 export class AdaptiveDefinitionOverviewComponentsModule {
-  static forRoot(config: TrainingAgendaConfig): ModuleWithProviders<AdaptiveDefinitionOverviewComponentsModule> {
-    return {
-      ngModule: AdaptiveDefinitionOverviewComponentsModule,
-      providers: [{ provide: TrainingAgendaConfig, useValue: config }],
-    };
-  }
+    static forRoot(config: TrainingAgendaConfig): ModuleWithProviders<AdaptiveDefinitionOverviewComponentsModule> {
+        return {
+            ngModule: AdaptiveDefinitionOverviewComponentsModule,
+            providers: [{ provide: TrainingAgendaConfig, useValue: config }],
+        };
+    }
 }

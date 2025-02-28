@@ -1,8 +1,8 @@
 <div class="content">
     <!--TITLE-->
     <h2>
-        <sentinel-markdown-view [markdown]="'Question ' + index.toString() + ':'"></sentinel-markdown-view>
-        <sentinel-markdown-view [markdown]="question.title"></sentinel-markdown-view>
+        <sentinel-markdown-view [markdown]="'Question ' + index.toString() + ':'"/>
+        <sentinel-markdown-view [markdown]="question.title"/>
     </h2>
     <p class="required-note" *ngIf="question.required && !isBacktracked">Answer required</p>
 
@@ -26,7 +26,7 @@
                         [value]="{ x: i, y: j }"
                         [checked]="statement.correctOptionOrder === j"
                         (change)="onAnswerChanged(i, j)"
-                    ></mat-radio-button>
+                    />
                 </td>
             </mat-radio-group>
         </tr>

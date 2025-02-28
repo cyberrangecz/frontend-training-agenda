@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TopologyGraphModule } from '@cyberrangecz-platform/topology-graph';
+import { TopologyGraphModule } from '@crczp/topology-graph';
 import { AbstractLevelComponent } from './abstract-level.component';
 import { AssessmentLevelComponent } from './assessment-level/assessment-level.component';
 import { ExtendedMatchingItemsTraineeComponent } from './assessment-level/question/extended-matching-items/extended-matching-items-trainee.component';
@@ -26,62 +26,62 @@ import { TopologySizeSynchronizerService } from '../../services/training-run/lev
 import { TopologySizeSynchronizerConcreteService } from '../../services/training-run/level/synchronization/topology-size/topology-size-synchronizer-concrete.service';
 
 const markdownParserConfig = {
-  markedOptions: {
-    provide: MarkedOptions,
-    useValue: {
-      gfm: true,
-      tables: true,
-      breaks: false,
-      pedantic: false,
-      smartLists: true,
-      smartypants: false,
+    markedOptions: {
+        provide: MarkedOptions,
+        useValue: {
+            gfm: true,
+            tables: true,
+            breaks: false,
+            pedantic: false,
+            smartLists: true,
+            smartypants: false,
+        },
     },
-  },
 };
 
 /**
  * Module containing training run level component declarations and necessary imports for the components
  */
 @NgModule({
-  imports: [
-    CommonModule,
-    SentinelMarkdownViewModule.forRoot(markdownParserConfig),
-    LevelMaterialModule,
-    TopologyGraphModule,
-    FormsModule,
-    MatToolbarModule,
-  ],
-  declarations: [
-    AbstractLevelComponent,
-    InfoLevelComponent,
-    TrainingLevelComponent,
-    AccessLevelComponent,
-    AssessmentLevelComponent,
-    TraineeQuestionComponent,
-    FreeFormQuestionTraineeComponent,
-    MultipleChoiceQuestionTraineeComponent,
-    ExtendedMatchingItemsTraineeComponent,
-    FloatingAnswerFormComponent,
-    AnswerFormHintsComponent,
-    SplitContainerComponent,
-    GenericSandboxLevelComponent,
-    TopologyWrapperComponent,
-    TrainingTimerComponent,
-  ],
-  exports: [
-    AbstractLevelComponent,
-    InfoLevelComponent,
-    TrainingLevelComponent,
-    AccessLevelComponent,
-    AssessmentLevelComponent,
-    TraineeQuestionComponent,
-    FreeFormQuestionTraineeComponent,
-    MultipleChoiceQuestionTraineeComponent,
-    ExtendedMatchingItemsTraineeComponent,
-  ],
-  providers: [
-    { provide: DividerPositionSynchronizerService, useClass: PersistentDividerPositionSynchronizerService },
-    { provide: TopologySizeSynchronizerService, useClass: TopologySizeSynchronizerConcreteService },
-  ],
+    imports: [
+        CommonModule,
+        SentinelMarkdownViewModule.forRoot(markdownParserConfig),
+        LevelMaterialModule,
+        TopologyGraphModule,
+        FormsModule,
+        MatToolbarModule,
+    ],
+    declarations: [
+        AbstractLevelComponent,
+        InfoLevelComponent,
+        TrainingLevelComponent,
+        AccessLevelComponent,
+        AssessmentLevelComponent,
+        TraineeQuestionComponent,
+        FreeFormQuestionTraineeComponent,
+        MultipleChoiceQuestionTraineeComponent,
+        ExtendedMatchingItemsTraineeComponent,
+        FloatingAnswerFormComponent,
+        AnswerFormHintsComponent,
+        SplitContainerComponent,
+        GenericSandboxLevelComponent,
+        TopologyWrapperComponent,
+        TrainingTimerComponent,
+    ],
+    exports: [
+        AbstractLevelComponent,
+        InfoLevelComponent,
+        TrainingLevelComponent,
+        AccessLevelComponent,
+        AssessmentLevelComponent,
+        TraineeQuestionComponent,
+        FreeFormQuestionTraineeComponent,
+        MultipleChoiceQuestionTraineeComponent,
+        ExtendedMatchingItemsTraineeComponent,
+    ],
+    providers: [
+        { provide: DividerPositionSynchronizerService, useClass: PersistentDividerPositionSynchronizerService },
+        { provide: TopologySizeSynchronizerService, useClass: TopologySizeSynchronizerConcreteService },
+    ],
 })
 export class LevelComponentsModule {}

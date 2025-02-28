@@ -38,7 +38,7 @@
             <h3>Content</h3>
             <sentinel-markdown-editor (contentChange)="content.setValue($event)"
                                       class="mrkdwn-content" [sentinel-markdown-file-upload]="false"
-                                      [content]="content.value"></sentinel-markdown-editor>
+                                      [content]="content.value"/>
             <mat-error *ngIf="content.hasError('whitespace')">Content cannot be empty</mat-error>
         </div>
     </form>

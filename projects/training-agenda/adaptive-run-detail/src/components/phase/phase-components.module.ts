@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TopologyGraphModule } from '@cyberrangecz-platform/topology-graph';
+import { TopologyGraphModule } from '@crczp/topology-graph';
 import { PhaseMaterialModule } from './phase-material.module';
 import { AbstractPhaseComponent } from './abstract-phase.component';
 import { InfoPhaseComponent } from './info-phase/info-phase.component';
@@ -22,55 +22,55 @@ import { TopologySizeSynchronizerService } from '../../services/adaptive-run/syn
 import { TopologySizeSynchronizerConcreteService } from '../../services/adaptive-run/synchronization/topology-size/topology-size-synchronizer-concrete.service';
 
 const markdownParserConfig = {
-  markedOptions: {
-    provide: MarkedOptions,
-    useValue: {
-      gfm: true,
-      tables: true,
-      breaks: false,
-      pedantic: false,
-      smartLists: true,
-      smartypants: false,
+    markedOptions: {
+        provide: MarkedOptions,
+        useValue: {
+            gfm: true,
+            tables: true,
+            breaks: false,
+            pedantic: false,
+            smartLists: true,
+            smartypants: false,
+        },
     },
-  },
 };
 
 /**
  * Module containing training run level component declarations and necessary imports for the components
  */
 @NgModule({
-  imports: [
-    CommonModule,
-    SentinelMarkdownViewModule.forRoot(markdownParserConfig),
-    TopologyGraphModule,
-    FormsModule,
-    PhaseMaterialModule,
-    MatTabsModule,
-  ],
-  declarations: [
-    AbstractPhaseComponent,
-    InfoPhaseComponent,
-    TrainingPhaseComponent,
-    AccessPhaseComponent,
-    GenericSandboxPhaseComponent,
-    QuestionnairePhaseComponent,
-    FloatingAnswerFormComponent,
-    TopologyWrapperComponent,
-    AnswerFormHintsComponent,
-    SplitContainerComponent,
-    TrainingTimerComponent,
-  ],
-  exports: [
-    AbstractPhaseComponent,
-    InfoPhaseComponent,
-    TrainingPhaseComponent,
-    AccessPhaseComponent,
-    GenericSandboxPhaseComponent,
-    QuestionnairePhaseComponent,
-  ],
-  providers: [
-    { provide: DividerPositionSynchronizerService, useClass: PersistentDividerPositionSynchronizerService },
-    { provide: TopologySizeSynchronizerService, useClass: TopologySizeSynchronizerConcreteService },
-  ],
+    imports: [
+        CommonModule,
+        SentinelMarkdownViewModule.forRoot(markdownParserConfig),
+        TopologyGraphModule,
+        FormsModule,
+        PhaseMaterialModule,
+        MatTabsModule,
+    ],
+    declarations: [
+        AbstractPhaseComponent,
+        InfoPhaseComponent,
+        TrainingPhaseComponent,
+        AccessPhaseComponent,
+        GenericSandboxPhaseComponent,
+        QuestionnairePhaseComponent,
+        FloatingAnswerFormComponent,
+        TopologyWrapperComponent,
+        AnswerFormHintsComponent,
+        SplitContainerComponent,
+        TrainingTimerComponent,
+    ],
+    exports: [
+        AbstractPhaseComponent,
+        InfoPhaseComponent,
+        TrainingPhaseComponent,
+        AccessPhaseComponent,
+        GenericSandboxPhaseComponent,
+        QuestionnairePhaseComponent,
+    ],
+    providers: [
+        { provide: DividerPositionSynchronizerService, useClass: PersistentDividerPositionSynchronizerService },
+        { provide: TopologySizeSynchronizerService, useClass: TopologySizeSynchronizerConcreteService },
+    ],
 })
 export class PhaseComponentsModule {}

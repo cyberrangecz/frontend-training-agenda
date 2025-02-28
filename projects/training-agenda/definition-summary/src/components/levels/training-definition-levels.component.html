@@ -18,11 +18,11 @@
             <div class="level-count"> {{ getAssessmentLevels()?.length }}</div>
         </div>
     </div>
-    <sentinel-controls [controls]="controls" (itemClicked)="onControlsAction($event)"></sentinel-controls>
+    <sentinel-controls [controls]="controls" (itemClicked)="onControlsAction($event)"/>
 </div>
 <mat-accordion class="example-headers-align" multi>
     <div *ngFor="let level of levels; last as isLast">
-        <crczp-level-detail [level]="level"></crczp-level-detail>
-        <mat-divider *ngIf="!isLast" [inset]="true"></mat-divider>
+        <crczp-level-detail [level]="level"/>
+        <mat-divider *ngIf="!isLast" [inset]="true"/>
     </div>
 </mat-accordion>

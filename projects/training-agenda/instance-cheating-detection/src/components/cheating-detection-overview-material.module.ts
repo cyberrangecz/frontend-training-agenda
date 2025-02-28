@@ -7,7 +7,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
  * Material components imports for cheating detection overview
  */
 @NgModule({
-  imports: [MatRippleModule, MatTooltipModule, MatIconModule],
-  exports: [MatRippleModule, MatTooltipModule, MatIconModule],
+    imports: [MatRippleModule, MatTooltipModule, MatIconModule],
+    exports: [MatRippleModule, MatTooltipModule, MatIconModule],
 })
 export class CheatingDetectionOverviewMaterialModule {}

@@ -13,27 +13,27 @@ import { MatListModule } from '@angular/material/list';
  * Material components for training instance summary module
  */
 @NgModule({
-  imports: [
-    MatExpansionModule,
-    MatTableModule,
-    MatCardModule,
-    MatButtonModule,
-    MatIconModule,
-    MatDividerModule,
-    MatTooltipModule,
-    ClipboardModule,
-    MatListModule,
-  ],
-  exports: [
-    MatExpansionModule,
-    MatTableModule,
-    MatCardModule,
-    MatButtonModule,
-    MatIconModule,
-    MatDividerModule,
-    MatTooltipModule,
-    ClipboardModule,
-    MatListModule,
-  ],
+    imports: [
+        MatExpansionModule,
+        MatTableModule,
+        MatCardModule,
+        MatButtonModule,
+        MatIconModule,
+        MatDividerModule,
+        MatTooltipModule,
+        ClipboardModule,
+        MatListModule,
+    ],
+    exports: [
+        MatExpansionModule,
+        MatTableModule,
+        MatCardModule,
+        MatButtonModule,
+        MatIconModule,
+        MatDividerModule,
+        MatTooltipModule,
+        ClipboardModule,
+        MatListModule,
+    ],
 })
 export class TrainingInstanceSummaryMaterialModule {}

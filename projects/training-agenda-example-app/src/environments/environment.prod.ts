@@ -12,14 +12,14 @@ export const topologyConfig = {
     guacamoleConfig: {
         url: API_URL + '/guacamole/',
         username: 'guacuser',
-        password: 'guacuser'
-    }
+        password: 'guacuser',
+    },
 };
 
 export const visualizationConfig = {
     trainingBasePath: API_URL + '/training/api/v1/',
     adaptiveBasePath: API_URL + '/adaptive-training/api/v1/',
-    feedbackBasePath: API_URL + '/training-feedback/api/v1/'
+    feedbackBasePath: API_URL + '/training-feedback/api/v1/',
 };
 
 export const environment = {
@@ -28,17 +28,17 @@ export const environment = {
         pollingPeriod: 5000,
         defaultPaginationSize: 10,
         visualizationConfig,
-        topologyConfig
+        topologyConfig,
     },
 
     trainingApiConfig: {
         trainingBasePath: API_URL + '/training/api/v1/',
         adaptiveBasePath: API_URL + '/adaptive-training/api/v1/',
-        mitreTechniqueBasePath: API_URL + '/mitre-technique-service/api/v1/'
+        mitreTechniqueBasePath: API_URL + '/mitre-technique-service/api/v1/',
     },
 
     sandboxApiConfig: {
-        sandboxRestBasePath: API_URL + '/sandbox-service/api/v1/'
+        sandboxRestBasePath: API_URL + '/sandbox-service/api/v1/',
     },
 
     authConfig: {
@@ -46,7 +46,7 @@ export const environment = {
         guardLoginPageRedirect: 'login', // Redirect to login page if user is not logged in
         interceptorAllowedUrls: [API_URL, OIDC_URL],
         authorizationStrategyConfig: {
-            authorizationUrl: API_URL + '/user-and-group/api/v1/users/info'
+            authorizationUrl: API_URL + '/user-and-group/api/v1/users/info',
         },
         providers: [
             {
@@ -62,9 +62,9 @@ export const environment = {
                     scope: 'openid email profile offline_access',
                     logoutUrl: OIDC_URL + '/keycloak/realms/CRCZP/protocol/openid-connect/logout',
                     silentRefreshRedirectUri: HOME_URL + '/silent-refresh.html',
-                    postLogoutRedirectUri: HOME_URL + '/logout-confirmed'
-                }
-            }
-        ]
-    }
+                    postLogoutRedirectUri: HOME_URL + '/logout-confirmed',
+                },
+            },
+        ],
+    },
 };

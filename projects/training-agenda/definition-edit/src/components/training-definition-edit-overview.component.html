@@ -18,14 +18,13 @@
         <sentinel-controls [controls]="controls"
                            (itemClicked)="onControlsAction($event)">
         </sentinel-controls>
-        <mat-divider></mat-divider>
+        <mat-divider/>
         <!-- EDIT TRAINING DEFINITION -->
         <crczp-training-definition-edit
             (edited)="onTrainingDefinitionChanged($event)"
-            [trainingDefinition]="trainingDefinition$ | async">
-        </crczp-training-definition-edit>
+            [trainingDefinition]="trainingDefinition$ | async"/>
 
-        <mat-divider></mat-divider>
+        <mat-divider/>
         <!-- EDIT LEVELS -->
         <div>
             <div class="levels-header">
@@ -39,8 +38,7 @@
                                  [editMode]="editMode$ | async"
                                  [mitreTechniquesList]="mitreTechniques$ | async"
                                  (levelsCount)="onLevelsCountChanged($event)"
-                                 (unsavedLevels)="onUnsavedLevelsChanged($event)">
-            </crczp-level-overview>
+                                 (unsavedLevels)="onUnsavedLevelsChanged($event)"/>
         </div>
     </ng-template>
 </mat-expansion-panel>

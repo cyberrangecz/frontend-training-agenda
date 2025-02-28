@@ -14,16 +14,15 @@
         </mat-panel-description>
     </mat-expansion-panel-header>
     <ng-template matExpansionPanelContent>
-        <sentinel-controls [controls]="controls" (itemClicked)="onControlsAction($event)"></sentinel-controls>
-        <mat-divider></mat-divider>
+        <sentinel-controls [controls]="controls" (itemClicked)="onControlsAction($event)"/>
+        <mat-divider/>
         <!-- EDIT ADAPTIVE TRAINING DEFINITION -->
         <crczp-adaptive-definition-edit
             (edited)="onTrainingDefinitionChanged($event)"
             [trainingDefinition]="trainingDefinition$ | async"
-        >
-        </crczp-adaptive-definition-edit>
+        />
 
-        <mat-divider></mat-divider>
+        <mat-divider/>
         <!-- EDIT PHASES -->
         <div>
             <div class="phases-header">
@@ -42,7 +41,7 @@
             </crczp-phase-overview>
         </div>
 
-        <mat-divider></mat-divider>
+        <mat-divider/>
         <!-- MODEL SIMULATOR -->
         <div *ngIf="(trainingPhasesCount$ | async) as trainingPhasesCount">
             <div class="phases-header">
@@ -52,7 +51,7 @@
                 >
                 <mat-icon>timeline</mat-icon>
             </div>
-            <crczp-model-simulator [phases]="phases$ | async"></crczp-model-simulator>
+            <crczp-model-simulator [phases]="phases$ | async"/>
         </div>
     </ng-template>
 </mat-expansion-panel>

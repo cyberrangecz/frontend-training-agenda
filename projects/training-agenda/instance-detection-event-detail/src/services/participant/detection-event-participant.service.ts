@@ -1,6 +1,6 @@
 import { OffsetPaginatedElementsService } from '@sentinel/common';
 import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
-import { DetectionEventParticipant } from '@cyberrangecz-platform/training-model';
+import { DetectionEventParticipant } from '@crczp/training-model';
 import { Observable } from 'rxjs';
 
 /**
@@ -10,13 +10,13 @@ import { Observable } from 'rxjs';
  * Subscribe to detectionEvents$ to receive latest data updates.
  */
 export abstract class DetectionEventParticipantService extends OffsetPaginatedElementsService<DetectionEventParticipant> {
-  /**
-   * Gets all detection event participants with passed pagination and filter and updates related observables or handles an error
-   * @param detectionEventId the detection event id
-   * @param pagination requested pagination
-   */
-  abstract getAll(
-    detectionEventId: number,
-    pagination: OffsetPaginationEvent,
-  ): Observable<PaginatedResource<DetectionEventParticipant>>;
+    /**
+     * Gets all detection event participants with passed pagination and filter and updates related observables or handles an error
+     * @param detectionEventId the detection event id
+     * @param pagination requested pagination
+     */
+    abstract getAll(
+        detectionEventId: number,
+        pagination: OffsetPaginationEvent,
+    ): Observable<PaginatedResource<DetectionEventParticipant>>;
 }

@@ -162,19 +162,19 @@
                 </mat-form-field>
             </div>
         </div>
-        <crczp-tasks-overview></crczp-tasks-overview>
+        <crczp-tasks-overview/>
 
-        <crczp-related-questions [relatedQuestions]="relatedQuestions"></crczp-related-questions>
+        <crczp-related-questions [relatedQuestions]="relatedQuestions"/>
 
         <crczp-mitre-technique-select
             [mitreTechniques]="phase.mitreTechniques"
             [mitreTechniquesList]="mitreTechniquesList"
             (mitreTechniquesChange)="mitreTechniquesChanged($event)"
-        ></crczp-mitre-technique-select>
+        />
 
         <crczp-expected-commands-select
             [expectedCommands]="phase.expectedCommands"
             (expectedCommandsChange)="expectedCommandsChanged($event)"
-        ></crczp-expected-commands-select>
+        />
     </form>
 </div>

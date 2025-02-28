@@ -7,7 +7,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
  * Material components import for adaptive run results module
  */
 @NgModule({
-  imports: [MatButtonModule, MatProgressSpinnerModule, MatCardModule],
-  exports: [MatButtonModule, MatProgressSpinnerModule, MatCardModule],
+    imports: [MatButtonModule, MatProgressSpinnerModule, MatCardModule],
+    exports: [MatButtonModule, MatProgressSpinnerModule, MatCardModule],
 })
 export class AdaptiveRunResultsMaterialModule {}

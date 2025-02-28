@@ -14,12 +14,12 @@
             </div>
         </mat-panel-description>
     </mat-expansion-panel-header>
-    <sentinel-controls [controls]="controls" (itemClicked)="onControlAction($event)"></sentinel-controls>
+    <sentinel-controls [controls]="controls" (itemClicked)="onControlAction($event)"/>
 
     <ng-template matExpansionPanelContent>
         <div>
             <div *ngIf="questions && questions.length > 0 else noQuestions">
-                <mat-divider></mat-divider>
+                <mat-divider/>
                 <sentinel-stepper [selectable]="true"
                                   [stepperItems]="stepperQuestions"
                                   [activeIndex]="selectedStep"
@@ -27,7 +27,7 @@
                                   (indexSelected)="onActiveQuestionChanged($event)"
                                   (selectedStepSwapped)="onActiveQuestionChanged($event)">
                 </sentinel-stepper>
-                <mat-divider id="stepper-divider"></mat-divider>
+                <mat-divider id="stepper-divider"/>
                 <crczp-adaptive-question-edit [question]="stepperQuestions.items[selectedStep].question"
                                              [questionnaireType]="questionnaireType"
                                              [index]="selectedStep"

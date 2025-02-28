@@ -11,23 +11,23 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
  * Material components for training instance cheating detection edit module
  */
 @NgModule({
-  imports: [
-    MatCheckboxModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatDividerModule,
-    MatTooltipModule,
-    MatInputModule,
-    MatSlideToggleModule,
-  ],
-  exports: [
-    MatCheckboxModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatDividerModule,
-    MatTooltipModule,
-    MatInputModule,
-    MatSlideToggleModule,
-  ],
+    imports: [
+        MatCheckboxModule,
+        MatFormFieldModule,
+        MatIconModule,
+        MatDividerModule,
+        MatTooltipModule,
+        MatInputModule,
+        MatSlideToggleModule,
+    ],
+    exports: [
+        MatCheckboxModule,
+        MatFormFieldModule,
+        MatIconModule,
+        MatDividerModule,
+        MatTooltipModule,
+        MatInputModule,
+        MatSlideToggleModule,
+    ],
 })
 export class CheatingDetectionEditMaterialModule {}

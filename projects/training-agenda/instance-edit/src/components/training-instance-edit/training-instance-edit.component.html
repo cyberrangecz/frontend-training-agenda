@@ -29,7 +29,7 @@
                             formControlName="startTime"
                             [owlDateTime]="startTimePicker"
                         />
-                        <owl-date-time #startTimePicker [startAt]="startTime.value"></owl-date-time>
+                        <owl-date-time #startTimePicker [startAt]="startTime.value"/>
                     </div>
                     <mat-error *ngIf="trainingInstanceFormGroup.formGroup.hasError('startTimeAfterEndTime')">
                         Start time must be before end time
@@ -57,7 +57,7 @@
                             [owlDateTime]="endTimePicker"
                         />
                         <owl-date-time #endTimePicker
-                                       [startAt]="endTime.value ? endTime.value : startTime.value"></owl-date-time>
+                                       [startAt]="endTime.value ? endTime.value : startTime.value"/>
                     </div>
                     <mat-error *ngIf="trainingInstanceFormGroup.formGroup.hasError('startTimeAfterEndTime')">
                         Start time must be before end time
@@ -144,8 +144,8 @@
                     (singleSelectionChange)="trainingDefinition.setValue($event)"
                     [formGroupName]="'trainingDefinition'"
                     (click)="trainingDefinition.markAsTouched(); revalidate();">
-                    <ng-container [sentinelSelectorSelectedElement]="selectedTrainingDefinition"></ng-container>
-                    <ng-container [sentinelSelectorElement]="trainingDefinitionListElement"></ng-container>
+                    <ng-container [sentinelSelectorSelectedElement]="selectedTrainingDefinition"/>
+                    <ng-container [sentinelSelectorElement]="trainingDefinitionListElement"/>
                 </sentinel-resource-selector>
                 @if (isTrainingDefinitionError()) {
                     <span class="resource-select__bottom_text resource-select__bottom_text--error">
@@ -191,8 +191,8 @@
                         (click)="sandboxDefinitionId.markAsTouched(); revalidate();"
                         formGroupName="sandboxDefinitionId"
                     >
-                        <ng-container [sentinelSelectorSelectedElement]="sandboxDefinitionTemplate"></ng-container>
-                        <ng-container [sentinelSelectorElement]="sandboxDefinitionTemplate"></ng-container>
+                        <ng-container [sentinelSelectorSelectedElement]="sandboxDefinitionTemplate"/>
+                        <ng-container [sentinelSelectorElement]="sandboxDefinitionTemplate"/>
                     </sentinel-resource-selector>
                 } @else {
                     <sentinel-resource-selector
@@ -212,8 +212,8 @@
                         (click)="poolId.markAsTouched(); revalidate();"
                         formGroupName="poolId"
                     >
-                        <ng-container [sentinelSelectorSelectedElement]="poolTemplate"></ng-container>
-                        <ng-container [sentinelSelectorElement]="poolTemplate"></ng-container>
+                        <ng-container [sentinelSelectorSelectedElement]="poolTemplate"/>
+                        <ng-container [sentinelSelectorElement]="poolTemplate"/>
                     </sentinel-resource-selector>
                 }
                 @if (isSandboxDefinitionIdError() || isPoolIdError()) {

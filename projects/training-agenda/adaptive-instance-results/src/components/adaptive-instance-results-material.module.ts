@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
  * Material components imports for training instance results module
  */
 @NgModule({
-  imports: [],
-  exports: [],
+    imports: [],
+    exports: [],
 })
 export class AdaptiveInstanceResultsMaterialModule {}

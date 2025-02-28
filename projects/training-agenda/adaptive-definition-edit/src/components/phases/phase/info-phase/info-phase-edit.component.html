@@ -16,7 +16,7 @@
         <h3>Content</h3>
         <sentinel-markdown-editor [sentinel-markdown-file-upload]="false"
                                   (contentChange)="this.content.setValue($event);"
-                                  [content]="content.value"></sentinel-markdown-editor>
+                                  [content]="content.value"/>
         <mat-error *ngIf="content.hasError('required')">Content cannot be empty</mat-error>
     </form>
 </div>

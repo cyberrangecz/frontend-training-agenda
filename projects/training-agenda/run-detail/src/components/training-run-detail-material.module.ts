@@ -9,7 +9,7 @@ import { MatStepperModule } from '@angular/material/stepper';
  * Material component imports for training run detail module
  */
 @NgModule({
-  imports: [MatStepperModule, MatButtonModule, MatIconModule, MatCardModule, MatProgressSpinnerModule],
-  exports: [MatStepperModule, MatButtonModule, MatIconModule, MatCardModule, MatProgressSpinnerModule],
+    imports: [MatStepperModule, MatButtonModule, MatIconModule, MatCardModule, MatProgressSpinnerModule],
+    exports: [MatStepperModule, MatButtonModule, MatIconModule, MatCardModule, MatProgressSpinnerModule],
 })
 export class TrainingRunDetailMaterialModule {}

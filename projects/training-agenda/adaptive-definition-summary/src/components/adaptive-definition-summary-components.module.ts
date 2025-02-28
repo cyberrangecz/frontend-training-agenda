@@ -1,6 +1,6 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TrainingAgendaConfig } from '@cyberrangecz-platform/training-agenda';
+import { TrainingAgendaConfig } from '@crczp/training-agenda';
 import { AdaptiveDefintionSummaryMaterialModule } from './adaptive-definition-summary-material.module';
 import { RouterModule } from '@angular/router';
 import { AdaptiveDefinitionInfoComponent } from './info/adaptive-definition-info.component';
@@ -19,47 +19,47 @@ import { AccessPhaseDetailComponent } from './phases/phase/access/access-phase-d
 import { MarkedOptions, SentinelMarkdownViewModule } from '@sentinel/components/markdown-view';
 
 const markdownParserConfig = {
-  markedOptions: {
-    provide: MarkedOptions,
-    useValue: {
-      gfm: true,
-      tables: true,
-      breaks: false,
-      pedantic: false,
-      smartLists: true,
-      smartypants: false,
+    markedOptions: {
+        provide: MarkedOptions,
+        useValue: {
+            gfm: true,
+            tables: true,
+            breaks: false,
+            pedantic: false,
+            smartLists: true,
+            smartypants: false,
+        },
     },
-  },
 };
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule,
-    AdaptiveDefintionSummaryMaterialModule,
-    SentinelMarkdownViewModule.forRoot(markdownParserConfig),
-    SentinelControlsComponent,
-  ],
-  declarations: [
-    AdaptiveDefinitionSummaryComponent,
-    AdaptiveDefinitionInfoComponent,
-    AdaptiveDefinitionPhasesDetailComponent,
-    InfoPhaseDetailComponent,
-    AbstractPhaseDetailComponent,
-    TrainingPhaseDetailComponent,
-    QuestionnairePhaseDetailComponent,
-    AbstractQuestionComponent,
-    FreeFormQuestionDetailComponent,
-    MultipleChoiceQuestionDetailComponent,
-    RatingFormQuestionDetailComponent,
-    AccessPhaseDetailComponent,
-  ],
+    imports: [
+        CommonModule,
+        RouterModule,
+        AdaptiveDefintionSummaryMaterialModule,
+        SentinelMarkdownViewModule.forRoot(markdownParserConfig),
+        SentinelControlsComponent,
+    ],
+    declarations: [
+        AdaptiveDefinitionSummaryComponent,
+        AdaptiveDefinitionInfoComponent,
+        AdaptiveDefinitionPhasesDetailComponent,
+        InfoPhaseDetailComponent,
+        AbstractPhaseDetailComponent,
+        TrainingPhaseDetailComponent,
+        QuestionnairePhaseDetailComponent,
+        AbstractQuestionComponent,
+        FreeFormQuestionDetailComponent,
+        MultipleChoiceQuestionDetailComponent,
+        RatingFormQuestionDetailComponent,
+        AccessPhaseDetailComponent,
+    ],
 })
 export class AdaptiveDefinitionSummaryComponentsModule {
-  static forRoot(config: TrainingAgendaConfig): ModuleWithProviders<AdaptiveDefinitionSummaryComponentsModule> {
-    return {
-      ngModule: AdaptiveDefinitionSummaryComponentsModule,
-      providers: [{ provide: TrainingAgendaConfig, useValue: config }],
-    };
-  }
+    static forRoot(config: TrainingAgendaConfig): ModuleWithProviders<AdaptiveDefinitionSummaryComponentsModule> {
+        return {
+            ngModule: AdaptiveDefinitionSummaryComponentsModule,
+            providers: [{ provide: TrainingAgendaConfig, useValue: config }],
+        };
+    }
 }

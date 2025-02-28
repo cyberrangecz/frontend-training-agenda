@@ -30,62 +30,62 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MarkedOptions, SentinelMarkdownViewModule } from '@sentinel/components/markdown-view';
 
 const markdownConfig = {
-  markdownParser: {
-    markedOptions: {
-      provide: MarkedOptions,
-      useValue: {
-        gfm: true,
-        tables: true,
-        breaks: false,
-        pedantic: false,
-        smartLists: true,
-        smartypants: false,
-      },
+    markdownParser: {
+        markedOptions: {
+            provide: MarkedOptions,
+            useValue: {
+                gfm: true,
+                tables: true,
+                breaks: false,
+                pedantic: false,
+                smartLists: true,
+                smartypants: false,
+            },
+        },
     },
-  },
-  markdownEditor: {
-    fileUploadRestUrl: '',
-  },
+    markdownEditor: {
+        fileUploadRestUrl: '',
+    },
 };
 
 /**
  * Module containing components and providers related to phases edit/detail
  */
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    SentinelFreeFormComponent,
-    SentinelMarkdownEditorModule.forRoot(markdownConfig),
-    SentinelStepperModule,
-    PhaseEditMaterialModule,
-    MatSlideToggleModule,
-    ReactiveFormsModule,
-    SentinelControlsComponent,
-    MatSelectModule,
-    MatTableModule,
-    MatDialogModule,
-    MatAutocompleteModule,
-    SentinelMarkdownViewModule,
-  ],
-  exports: [AbstractPhaseEditComponent],
-  declarations: [
-    InfoPhaseEditComponent,
-    AbstractPhaseEditComponent,
-    TaskEditComponent,
-    TrainingPhaseEditComponent,
-    AccessPhaseEditComponent,
-    TasksOverviewComponent,
-    TaskStepperComponent,
-    RelatedQuestionsComponent,
-    QuestionnairePhaseEditComponent,
-    QuestionEditComponent,
-    QuestionsOverviewComponent,
-    FreeFormQuestionEditComponent,
-    MultipleChoiceQuestionEditComponent,
-    RatingFormQuestionEditComponent,
-    MitreTechniqueSelectComponent,
-    ExpectedCommandsSelectComponent,
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        SentinelFreeFormComponent,
+        SentinelMarkdownEditorModule.forRoot(markdownConfig),
+        SentinelStepperModule,
+        PhaseEditMaterialModule,
+        MatSlideToggleModule,
+        ReactiveFormsModule,
+        SentinelControlsComponent,
+        MatSelectModule,
+        MatTableModule,
+        MatDialogModule,
+        MatAutocompleteModule,
+        SentinelMarkdownViewModule,
+    ],
+    exports: [AbstractPhaseEditComponent],
+    declarations: [
+        InfoPhaseEditComponent,
+        AbstractPhaseEditComponent,
+        TaskEditComponent,
+        TrainingPhaseEditComponent,
+        AccessPhaseEditComponent,
+        TasksOverviewComponent,
+        TaskStepperComponent,
+        RelatedQuestionsComponent,
+        QuestionnairePhaseEditComponent,
+        QuestionEditComponent,
+        QuestionsOverviewComponent,
+        FreeFormQuestionEditComponent,
+        MultipleChoiceQuestionEditComponent,
+        RatingFormQuestionEditComponent,
+        MitreTechniqueSelectComponent,
+        ExpectedCommandsSelectComponent,
+    ],
 })
 export class PhaseEditComponentsModule {}

@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
 
 export abstract class MitreTechniquesOverviewService {
-  abstract showMitreTechniques(): Observable<any>;
+    abstract showMitreTechniques(): Observable<any>;
 }

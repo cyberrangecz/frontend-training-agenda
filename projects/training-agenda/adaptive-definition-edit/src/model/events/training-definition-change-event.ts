@@ -1,14 +1,14 @@
-import { TrainingDefinition } from '@cyberrangecz-platform/training-model';
+import { TrainingDefinition } from '@crczp/training-model';
 
 /**
  * Event representing training definition change (edit)
  */
 export class TrainingDefinitionChangeEvent {
-  trainingDefinition: TrainingDefinition;
-  isValid: boolean;
+    trainingDefinition: TrainingDefinition;
+    isValid: boolean;
 
-  constructor(trainingDefinition: TrainingDefinition, isValid: boolean) {
-    this.trainingDefinition = trainingDefinition;
-    this.isValid = isValid;
-  }
+    constructor(trainingDefinition: TrainingDefinition, isValid: boolean) {
+        this.trainingDefinition = trainingDefinition;
+        this.isValid = isValid;
+    }
 }

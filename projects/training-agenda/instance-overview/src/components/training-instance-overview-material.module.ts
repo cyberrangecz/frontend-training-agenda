@@ -9,7 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
  * Material components for training instance overview module
  */
 @NgModule({
-  imports: [MatIconModule, MatButtonModule, ClipboardModule, MatTooltipModule, MatProgressSpinnerModule],
-  exports: [MatIconModule, MatButtonModule, ClipboardModule, MatTooltipModule, MatProgressSpinnerModule],
+    imports: [MatIconModule, MatButtonModule, ClipboardModule, MatTooltipModule, MatProgressSpinnerModule],
+    exports: [MatIconModule, MatButtonModule, ClipboardModule, MatTooltipModule, MatProgressSpinnerModule],
 })
 export class TrainingInstanceOverviewMaterialModule {}

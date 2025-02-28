@@ -54,7 +54,7 @@
         </div>
         <sentinel-markdown-editor [sentinel-markdown-file-upload]="false"
                                   (contentChange)="this.cloudContent.setValue($event);"
-                                  [content]="cloudContent.value"></sentinel-markdown-editor>
+                                  [content]="cloudContent.value"/>
         <mat-error *ngIf="cloudContent.hasError('whitespace')">Cloud Content cannot be empty</mat-error>
 
         <!-- LOCAL CONTENT filed -->
@@ -89,7 +89,7 @@
         </div>
         <sentinel-markdown-editor [sentinel-markdown-file-upload]="false"
                                   (contentChange)="this.localContent.setValue($event);"
-                                  [content]="localContent.value"></sentinel-markdown-editor>
+                                  [content]="localContent.value"/>
         <mat-error *ngIf="localContent.hasError('whitespace')">Local Content cannot be empty</mat-error>
     </form>
 </div>

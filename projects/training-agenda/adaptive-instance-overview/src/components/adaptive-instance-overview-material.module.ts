@@ -9,7 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
  * Material components for adaptive instance overview module
  */
 @NgModule({
-  imports: [MatButtonModule, ClipboardModule, MatTooltipModule, MatProgressSpinnerModule, MatIconModule],
-  exports: [MatButtonModule, ClipboardModule, MatTooltipModule, MatProgressSpinnerModule, MatIconModule],
+    imports: [MatButtonModule, ClipboardModule, MatTooltipModule, MatProgressSpinnerModule, MatIconModule],
+    exports: [MatButtonModule, ClipboardModule, MatTooltipModule, MatProgressSpinnerModule, MatIconModule],
 })
 export class AdaptiveInstanceOverviewMaterialModule {}

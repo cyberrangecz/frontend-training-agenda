@@ -1,36 +1,81 @@
-# TrainingAgenda
+# CyberRangeᶜᶻ Platform Training Agenda
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.2.
+Training Agenda is a library containing components and services to design, organize and play training.
+It is developed as a frontend of [Training service](https://github.com/cyberrangecz/backend-training)
 
-## Code scaffolding
+The library follows smart-dumb architecture. Smart components are exported from the library, and you can use them at your will. The project contains example implementation with lazy loading modules which you can use as an inspiration.
+You can modify the behaviour of components by implementing abstract service class and injecting it through Angular dependency injection.
 
-Run `ng generate component component-name --project training-agenda` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project training-agenda`.
-> Note: Don't forget to add `--project training-agenda` or else it will be added to the default project in your `angular.json` file.
+## Features
 
-## Build
+* Components and services for designing training definitions
+* Components and services for designing training levels
+* Components and services for organizing training instances
+* Components and services for previewing and playing training runs
+* Visualizations of training runs
+* Default routing (overridable)
+* Errors, notifications, and navigation services
+* CanDeactivate interface on all main components
+* Resolvers for all main components
 
-Run `ng build training-agenda` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Usage
 
-## Publishing
+To use the training agenda in your Angular application follow these steps:
 
-After building your library with `ng build training-agenda`, go to the dist folder `cd dist/training-agenda` and run `npm publish`.
+1. Run `npm install @crczp/training-agenda`
+1. Install all peer dependencies
+1. Create config class extending `TrainingAgendaConfig` from the library. Config contains following options:
+    + pollingPeriod
+    + defaultPaginationSize
+    + visualizationConfig
+    + topologyConfig
+1. Import specific modules containing components (for example `TrainingDefinitionOverviewComponentsModule`) and provide config through `.forRoot()` method.
+1. If you do not override the services, you will also need to provide API service. See [Training api](https://github.com/cyberrangecz/frontend-training-api).
+1. You need to provide implementation of abstract services `ClientErrorHandlerService` and `ClientNotificationService` for error handling and notification displaying.
+1. Optionally, you can override `TrainingNavigator` service to provide custom navigation if you do not want to use default routes.
+1. Optionally, cou can override and provide own implementation of services
 
-## Running unit tests
+For example, you would add `TrainingDefinitionOverviewComponent` like this:
 
-Run `ng test training-agenda` to execute the unit tests via [Karma](https://karma-runner.github.io).
+1. Create feature module `TrainingDefinitionOverviewModule` containing all necessary imports and providers
 
-## Further help
+```
+@NgModule({
+  imports: [
+    CommonModule,
+    TrainingDefinitionOverviewRoutingModule,
+    TrainingDefinitionOverviewComponentsModule.forRoot(agendaConfig),
+    TrainingApiModule.forRoot(apiConfig),
+  ],
+  providers: [
+    { provide: TrainingErrorHandler, useClass: ClientErrorHandlerService },
+    { provide: TrainingNotificationService, useClass: ClientNotificationService },
+  ],
+})
+export class TrainingDefinitionOverviewModule {}
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+1. Create routing module importing the `TrainingDefinitionOverviewModule`
 
-## Example
+```
+const routes: Routes = [
+  {
+    path: '',
+    component: TrainingDefinitionOverviewComponent,
+  },
+];
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
+})
+export class TrainingDefinitionOverviewRoutingModule {}
+```
 
-To see the library in work and to see example setup, you can run the example app.
-To run the example you need to run [Training Service](https://github.com/cyberrangecz/backend-training) or have access to a running instance and provide the URL to the service in when importing API module.
+1. Lazy load the module in the parent routing module
 
-Alternatively, you can run a json-server, which provides an example mocked DB with necessary endpoints. It is located in the [Training portal](LINK-HERE) project and can be run via `npm run api`.
-
-1. Clone this repository
-1. Run `npm install`
-1. Run `ng serve --ssl`
-1. See the app at `https://localhost:4200`
+```
+  {
+    path: TRAINING_DEFINITION_PATH,
+    loadChildren: () => import('./lazy-loaded-modules/definition/overview/training-definition-overview.module).then((m) => m.TrainingDefinitionOverviewModule)
+  }
+```

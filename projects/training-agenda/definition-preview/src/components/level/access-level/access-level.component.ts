@@ -1,27 +1,27 @@
 import { ChangeDetectionStrategy, Component, ElementRef, HostListener, Input, ViewChild } from '@angular/core';
-import { AccessLevel } from '@cyberrangecz-platform/training-model';
+import { AccessLevel } from '@crczp/training-model';
 
 @Component({
-  selector: 'crczp-access-level',
-  templateUrl: './access-level.component.html',
-  styleUrls: ['./access-level.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'crczp-access-level',
+    templateUrl: './access-level.component.html',
+    styleUrls: ['./access-level.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AccessLevelComponent {
-  @Input() level: AccessLevel;
+    @Input() level: AccessLevel;
 
-  @ViewChild('rightPanel', { static: true }) rightPanelDiv: ElementRef;
+    @ViewChild('rightPanel', { static: true }) rightPanelDiv: ElementRef;
 
-  topologyWidth: number;
-  topologyHeight: number;
+    topologyWidth: number;
+    topologyHeight: number;
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event: any): void {
-    this.calculateTopologySize();
-  }
+    @HostListener('window:resize', ['$event'])
+    onResize(event: any): void {
+        this.calculateTopologySize();
+    }
 
-  calculateTopologySize() {
-    this.topologyWidth = this.rightPanelDiv.nativeElement.getBoundingClientRect().width;
-    this.topologyHeight = this.topologyWidth;
-  }
+    calculateTopologySize() {
+        this.topologyWidth = this.rightPanelDiv.nativeElement.getBoundingClientRect().width;
+        this.topologyHeight = this.topologyWidth;
+    }
 }

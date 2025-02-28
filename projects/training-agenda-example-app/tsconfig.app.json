@@ -5,10 +5,10 @@
         "types": [],
         "baseUrl": "./",
         "paths": {
-            "@cyberrangecz-platform/training-agenda": [
+            "@crczp/training-agenda": [
                 "../training-agenda/src/public_api.ts"
             ],
-            "@cyberrangecz-platform/training-agenda/*": [
+            "@crczp/training-agenda/*": [
                 "../training-agenda/*/src/public_api.ts"
             ]
         }

@@ -13,8 +13,7 @@
                            [isLevelAnswered]="isLevelAnswered"
                            [isBacktracked]="isBacktracked"
                            [isLast]=isLast
-                           (next)="onNext()">
-    </crczp-assessment-level>
+                           (next)="onNext()"/>
     <crczp-training-level *ngSwitchCase="levelTypes.Training"
                          [level]="level"
                          [isLast]=isLast
@@ -23,14 +22,12 @@
                          [isStepperDisplayed]="isStepperDisplayed"
                          [sandboxInstanceId]="sandboxInstanceId"
                          [sandboxDefinitionId]="sandboxDefinitionId"
-                         (next)="onNext()">
-    </crczp-training-level>
+                         (next)="onNext()"/>
     <crczp-info-level *ngSwitchCase="levelTypes.Info"
                      [level]="level"
                      [isBacktracked]="isBacktracked"
                      [isLast]="isLast"
-                     (next)="onNext()">
-    </crczp-info-level>
+                     (next)="onNext()"/>
     <crczp-access-level *ngSwitchCase="levelTypes.Access"
                        [level]="level"
                        [isBacktracked]="isBacktracked"
@@ -40,8 +37,7 @@
                        [localEnvironment]="localEnvironment"
                        [isLast]="isLast"
                        [isLevelAnswered]="isLevelAnswered"
-                       (next)="onNext()">
-    </crczp-access-level>
+                       (next)="onNext()"/>
 </ng-container>
 
 

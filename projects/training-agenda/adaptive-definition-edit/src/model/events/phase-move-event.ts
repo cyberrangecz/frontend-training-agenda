@@ -4,9 +4,9 @@ import { StepperStateChange } from '@sentinel/components/stepper';
  * Event representing change of position of a phases in phases stepper
  */
 export class PhaseMoveEvent {
-  stepperState: StepperStateChange;
+    stepperState: StepperStateChange;
 
-  constructor(stepperStateChange: StepperStateChange) {
-    this.stepperState = stepperStateChange;
-  }
+    constructor(stepperStateChange: StepperStateChange) {
+        this.stepperState = stepperStateChange;
+    }
 }

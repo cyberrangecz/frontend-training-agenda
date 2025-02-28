@@ -1,14 +1,14 @@
-import { AdaptiveQuestion } from '@cyberrangecz-platform/training-model';
+import { AdaptiveQuestion } from '@crczp/training-model';
 
 /**
  * Event representing change of edited question
  */
 export class QuestionChangeEvent {
-  question: AdaptiveQuestion;
-  index: number;
+    question: AdaptiveQuestion;
+    index: number;
 
-  constructor(question: AdaptiveQuestion, index: number) {
-    this.question = question;
-    this.index = index;
-  }
+    constructor(question: AdaptiveQuestion, index: number) {
+        this.question = question;
+        this.index = index;
+    }
 }

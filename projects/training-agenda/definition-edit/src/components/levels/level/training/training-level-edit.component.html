@@ -64,7 +64,7 @@
                     [sentinel-markdown-file-upload]="false"
                     (contentChange)="content.setValue($event)"
                     [content]="content.value"
-                ></sentinel-markdown-editor>
+                />
                 <mat-error *ngIf="content.hasError('whitespace')">Content cannot be empty</mat-error>
                 <!--SOLUTION field -->
                 <h3>Solution</h3>
@@ -86,7 +86,7 @@
                     [sentinel-markdown-file-upload]="false"
                     (contentChange)="solution.setValue($event)"
                     [content]="solution.value"
-                ></sentinel-markdown-editor>
+                />
                 <mat-error *ngIf="solution.hasError('whitespace')">Solution cannot be empty</mat-error>
             </div>
 
@@ -223,11 +223,11 @@
             [mitreTechniques]="level.mitreTechniques"
             [mitreTechniquesList]="mitreTechniquesList"
             (mitreTechniquesChange)="mitreTechniquesChanged($event)"
-        ></crczp-mitre-technique-select>
+        />
 
         <crczp-expected-commands-select
             [expectedCommands]="level.expectedCommands"
             (expectedCommandsChange)="expectedCommandsChanged($event)"
-        ></crczp-expected-commands-select>
+        />
     </form>
 </div>

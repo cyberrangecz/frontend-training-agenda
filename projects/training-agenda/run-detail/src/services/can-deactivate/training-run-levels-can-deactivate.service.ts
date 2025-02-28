@@ -5,10 +5,10 @@ import { RunningTrainingRunService } from '../training-run/running/running-train
 
 @Injectable()
 export class TrainingRunLevelsDeactivateGuard {
-  constructor(private activeTrainingRunLevelService: RunningTrainingRunService) {}
+    constructor(private activeTrainingRunLevelService: RunningTrainingRunService) {}
 
-  canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
-    this.activeTrainingRunLevelService.clear();
-    return true;
-  }
+    canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
+        this.activeTrainingRunLevelService.clear();
+        return true;
+    }
 }

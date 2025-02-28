@@ -6,17 +6,17 @@ import { AccessedTrainingRunService } from '../services/state/training/accessed-
  * @dynamic
  */
 export class AccessedTrainingRunControls {
-  static readonly MITRE_ACTION_ID = 'mitre';
+    static readonly MITRE_ACTION_ID = 'mitre';
 
-  static create(service: AccessedTrainingRunService): SentinelControlItem[] {
-    return [
-      new SentinelControlItem(
-        this.MITRE_ACTION_ID,
-        'MITRE ATT&CK Techniques',
-        'primary',
-        of(false),
-        defer(() => service.showMitreTechniques()),
-      ),
-    ];
-  }
+    static create(service: AccessedTrainingRunService): SentinelControlItem[] {
+        return [
+            new SentinelControlItem(
+                this.MITRE_ACTION_ID,
+                'MITRE ATT&CK Techniques',
+                'primary',
+                of(false),
+                defer(() => service.showMitreTechniques()),
+            ),
+        ];
+    }
 }
