@@ -17,7 +17,7 @@
         "@crczp/d3-service": "^0.0.3",
         "@crczp/hurdling-visualization": "^0.0.2",
         "@crczp/sandbox-api": "^0.0.3",
-        "@crczp/sandbox-model": "^0.0.2",
+        "@crczp/sandbox-model": "^0.0.3",
         "@crczp/topology-graph": "^0.0.2",
         "@crczp/training-api": "^0.0.2",
         "@crczp/training-model": "^0.0.2",
@@ -26,7 +26,7 @@
         "@crczp/clustering-visualization": "^0.0.2",
         "@crczp/topology-graph-model": "^0.0.2",
         "@crczp/visualization-dashboard": "^0.0.3",
-        "@crczp/walkthrough-visualization": "^0.0.2",
+        "@crczp/walkthrough-visualization": "^0.0.2"
     },
     "dependencies": {
         "tslib": "^2.7.0"

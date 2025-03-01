@@ -1,23 +1,19 @@
-@if (this.sandboxInstanceId || this.sandboxDefinitionId) {
-    <div class="topology-container"
-         [style.height.px]="getHeight$() | async"
-    >
+@if (this.sandboxInstanceId && this.sandboxDefinitionId) {
+    <div class="topology-container">
         <crczp-topology-graph
             class="topology"
             [sandboxUuid]="sandboxInstanceId"
             [sandboxDefinitionId]="sandboxDefinitionId"
         />
     </div>
-    @if (this.sandboxInstanceId && this.getAccessFile) {
-        <button
-            mat-raised-button
-            [disabled]="loading | async"
-            (click)="this.getAccessFile.emit()"
-            matTooltip="Download config for SSH client"
-            class="ssh-button">
-            Get SSH Config
-        </button>
-    }
+    <button
+        mat-raised-button
+        [disabled]="loading | async"
+        (click)="this.getAccessFile.emit()"
+        matTooltip="Download config for SSH client"
+        class="ssh-button">
+        Get SSH Config
+    </button>
 } @else {
     <div class="topology-placeholder">
         <h3 class="placeholder-message">*Topology not available</h3>

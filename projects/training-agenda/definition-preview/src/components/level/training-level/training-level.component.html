@@ -18,15 +18,12 @@
                 </div>
             </div>
         </div>
-        <div class="right-panel" #rightPanel>
+        <div class="right-panel">
             <div class="container">
-                <div class="topology-placeholder" [style.width.px]="topologyWidth" [style.height.px]="topologyHeight">
+                <div class="topology-placeholder">
                     <img
                         src="assets/training-agenda/topology-placeholder.png"
                         alt="Topology placeholder"
-                        (load)="calculateTopologySize()"
-                        [width]="topologyWidth"
-                        [height]="topologyHeight"
                     />
                 </div>
                 <h3 class="message">*This is just a template topology</h3>

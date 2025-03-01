@@ -15,6 +15,7 @@
     overflow-x: hidden;
     resize: horizontal;
     transform: translateX(-50%);
+    background: var(--neutral-100);
 
     /* soften the appearance when unloading and loading level */
     opacity: 1;

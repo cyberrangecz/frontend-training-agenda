@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, HostListener, Input, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { TrainingLevel } from '@crczp/training-model';
 
 @Component({
@@ -13,19 +13,4 @@ import { TrainingLevel } from '@crczp/training-model';
  */
 export class TrainingLevelComponent {
     @Input() level: TrainingLevel;
-
-    @ViewChild('rightPanel', { static: true }) rightPanelDiv: ElementRef;
-
-    topologyWidth: number;
-    topologyHeight: number;
-
-    @HostListener('window:resize', ['$event'])
-    onResize(event: any): void {
-        this.calculateTopologySize();
-    }
-
-    calculateTopologySize() {
-        this.topologyWidth = this.rightPanelDiv.nativeElement.getBoundingClientRect().width;
-        this.topologyHeight = this.topologyWidth;
-    }
 }

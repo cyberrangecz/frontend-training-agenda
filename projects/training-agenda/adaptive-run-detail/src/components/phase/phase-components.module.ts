@@ -18,8 +18,6 @@ import { TopologyWrapperComponent } from './sandbox-interaction-phase/subcompone
 import { TrainingTimerComponent } from './training-timer/training-timer.component';
 import { DividerPositionSynchronizerService } from '../../services/adaptive-run/synchronization/divider-position/divider-position-synchronizer.service';
 import { PersistentDividerPositionSynchronizerService } from '../../services/adaptive-run/synchronization/divider-position/persistent-divider-position-synchronizer.service';
-import { TopologySizeSynchronizerService } from '../../services/adaptive-run/synchronization/topology-size/topology-size-synchronizer.service';
-import { TopologySizeSynchronizerConcreteService } from '../../services/adaptive-run/synchronization/topology-size/topology-size-synchronizer-concrete.service';
 
 const markdownParserConfig = {
     markedOptions: {
@@ -70,7 +68,6 @@ const markdownParserConfig = {
     ],
     providers: [
         { provide: DividerPositionSynchronizerService, useClass: PersistentDividerPositionSynchronizerService },
-        { provide: TopologySizeSynchronizerService, useClass: TopologySizeSynchronizerConcreteService },
     ],
 })
 export class PhaseComponentsModule {}

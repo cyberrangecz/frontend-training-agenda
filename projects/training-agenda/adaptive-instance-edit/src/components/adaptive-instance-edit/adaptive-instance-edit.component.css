@@ -83,7 +83,7 @@ button.main {
 }
 
 .resource-select__bottom_text--error {
-    color: var(--app-error-40);
+    color: var(--error-40);
 }
 
 

@@ -11,13 +11,11 @@
                 [rightPanelMinWidth]="'510px'"
                 [defaultRatio]="0.6"
                 [dividerPositionSynchronizer]="dividerPositionSynchronizer"
-                (rightPanelWidth)="emitTopologySizeChange()"
             />
         } @else {
             <ng-container [ngTemplateOutlet]="leftPanelContent"/>
             <ng-container [ngTemplateOutlet]="rightPanelContent"/>
         }
-
     </div>
     @if ((isLoading | async) === false) {
         @if ((isCorrectAnswerSubmitted$ | async) || isBacktracked) {
@@ -54,13 +52,12 @@
 </ng-template>
 
 <ng-template #rightPanelContent>
-    <div #rightPanel class="right-panel">
+    <div class="right-panel">
         <crczp-topology-wrapper
             class="topology-wrapper"
             [loading]="isLoading"
             [sandboxInstanceId]="sandboxInstanceId"
             [sandboxDefinitionId]="sandboxDefinitionId"
-            [topologySizeSynchronizationService]="topologySizeSynchronizer"
             (getAccessFile)="getAccessFile.emit($event)"
         />
     </div>

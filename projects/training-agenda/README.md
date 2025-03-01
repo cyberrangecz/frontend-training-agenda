@@ -23,17 +23,17 @@ You can modify the behaviour of components by implementing abstract service clas
 To use the training agenda in your Angular application follow these steps:
 
 1. Run `npm install @crczp/training-agenda`
-1. Install all peer dependencies
-1. Create config class extending `TrainingAgendaConfig` from the library. Config contains following options:
+2. Install all peer dependencies
+3. Create config class extending `TrainingAgendaConfig` from the library. Config contains following options:
     + pollingPeriod
     + defaultPaginationSize
     + visualizationConfig
     + topologyConfig
-1. Import specific modules containing components (for example `TrainingDefinitionOverviewComponentsModule`) and provide config through `.forRoot()` method.
-1. If you do not override the services, you will also need to provide API service. See [Training api](https://github.com/cyberrangecz/frontend-training-api).
-1. You need to provide implementation of abstract services `ClientErrorHandlerService` and `ClientNotificationService` for error handling and notification displaying.
-1. Optionally, you can override `TrainingNavigator` service to provide custom navigation if you do not want to use default routes.
-1. Optionally, cou can override and provide own implementation of services
+4. Import specific modules containing components (for example `TrainingDefinitionOverviewComponentsModule`) and provide config through `.forRoot()` method.
+5. If you do not override the services, you will also need to provide API service. See [Training api](https://github.com/cyberrangecz/frontend-training-api).
+6. You need to provide implementation of abstract services `ClientErrorHandlerService` and `ClientNotificationService` for error handling and notification displaying.
+7. Optionally, you can override `TrainingNavigator` service to provide custom navigation if you do not want to use default routes.
+8. Optionally, cou can override and provide own implementation of services
 
 For example, you would add `TrainingDefinitionOverviewComponent` like this:
 

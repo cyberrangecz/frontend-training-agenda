@@ -22,8 +22,6 @@ import { SplitContainerComponent } from './sandbox-interaction-level/subcomponen
 import { TrainingTimerComponent } from './training-timer/training-timer.component';
 import { DividerPositionSynchronizerService } from '../../services/training-run/level/synchronization/divider-position/divider-position-synchronizer.service';
 import { PersistentDividerPositionSynchronizerService } from '../../services/training-run/level/synchronization/divider-position/persistent-divider-position-synchronizer.service';
-import { TopologySizeSynchronizerService } from '../../services/training-run/level/synchronization/topology-size/topology-size-synchronizer.service';
-import { TopologySizeSynchronizerConcreteService } from '../../services/training-run/level/synchronization/topology-size/topology-size-synchronizer-concrete.service';
 
 const markdownParserConfig = {
     markedOptions: {
@@ -81,7 +79,6 @@ const markdownParserConfig = {
     ],
     providers: [
         { provide: DividerPositionSynchronizerService, useClass: PersistentDividerPositionSynchronizerService },
-        { provide: TopologySizeSynchronizerService, useClass: TopologySizeSynchronizerConcreteService },
     ],
 })
 export class LevelComponentsModule {}
