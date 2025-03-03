@@ -23,6 +23,17 @@ const routes: Routes = [
         },
     },
     {
+        path: 'coop-definition',
+        loadChildren: () =>
+            import('./lazy-loaded-modules/definition/overview/training-definition-overview-coop.module').then(
+                (m) => m.TrainingDefinitionOverviewCoopModule,
+            ),
+        data: {
+            breadcrumb: 'Definition',
+            title: 'Coop Training Definition Overview',
+        },
+    },
+    {
         path: 'adaptive-definition',
         loadChildren: () =>
             import('./lazy-loaded-modules/adaptive-definition/overview/adaptive-definition-overview.module').then(
@@ -42,6 +53,17 @@ const routes: Routes = [
         data: {
             breadcrumb: 'Instance',
             title: 'Linear Training Instance Overview',
+        },
+    },
+    {
+        path: 'coop-instance',
+        loadChildren: () =>
+            import('./lazy-loaded-modules/instance/overview/training-instance-overview-coop.module').then(
+                (m) => m.TrainingInstanceOverviewCoopModule,
+            ),
+        data: {
+            breadcrumb: 'Instance',
+            title: 'Coop Training Instance Overview',
         },
     },
     {
