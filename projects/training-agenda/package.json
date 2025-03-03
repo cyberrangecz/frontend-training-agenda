@@ -1,6 +1,6 @@
 {
     "name": "@crczp/training-agenda",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "license": "MIT",
     "peerDependencies": {
         "@angular/common": "^18.2.13",
@@ -17,7 +17,7 @@
         "@crczp/d3-service": "^0.0.3",
         "@crczp/hurdling-visualization": "^0.0.2",
         "@crczp/sandbox-api": "^0.0.3",
-        "@crczp/sandbox-model": "^0.0.3",
+        "@crczp/sandbox-model": "^0.0.2",
         "@crczp/topology-graph": "^0.0.3",
         "@crczp/training-api": "^0.0.2",
         "@crczp/training-model": "^0.0.2",
