@@ -8,7 +8,6 @@ import { SentinelPipesModule } from '@sentinel/common/pipes';
 import { TrainingAgendaConfig, TrainingDefaultNavigator, TrainingNavigator } from '@crczp/training-agenda';
 import { PaginationService, TrainingAgendaContext } from '@crczp/training-agenda/internal';
 import { FileUploadProgressService } from '../services/file-upload/file-upload-progress.service';
-import { TrainingDefinitionConcreteService } from '../services/state/training-definition.concrete.service';
 import { TrainingDefinitionService } from '../services/state/training-definition.service';
 import { CloneDialogComponent } from './clone-dialog/clone-dialog.component';
 import { TrainingDefinitionDetailComponent } from './detail/training-definition-detail.component';
@@ -20,6 +19,7 @@ import {
     TrainingDefinitionResolver,
     TrainingDefinitionTitleResolver,
 } from '@crczp/training-agenda/resolvers';
+import { TrainingDefinitionConcreteService } from '../services/state/training-definition.concrete.service';
 
 /**
  * Module containing components and providers for training definition overview.
@@ -52,10 +52,12 @@ import {
         { provide: TrainingDefinitionService, useClass: TrainingDefinitionConcreteService },
     ],
 })
-export class TrainingDefinitionOverviewComponentsModule {
-    static forRoot(config: TrainingAgendaConfig): ModuleWithProviders<TrainingDefinitionOverviewComponentsModule> {
+export class TrainingDefinitionOverviewLinearComponentsModule {
+    static forRoot(
+        config: TrainingAgendaConfig,
+    ): ModuleWithProviders<TrainingDefinitionOverviewLinearComponentsModule> {
         return {
-            ngModule: TrainingDefinitionOverviewComponentsModule,
+            ngModule: TrainingDefinitionOverviewLinearComponentsModule,
             providers: [{ provide: TrainingAgendaConfig, useValue: config }],
         };
     }
