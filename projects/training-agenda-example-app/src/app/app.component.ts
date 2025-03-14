@@ -61,30 +61,31 @@ export class AppComponent {
     buildNav(user: User): AgendaContainer[] {
         const containers: AgendaContainer[] = [];
         const agendas = [];
-        const roles = user.roles;
-        if (this.hasRole(user, 'ROLE_TRAINING_DESIGNER') || this.hasRole(user, 'ROLE_ADAPTIVE_DESIGNER')) {
+        const rolesDictionary = this.buildRolesDictionary(user);
+
+        if (rolesDictionary['ROLE_TRAINING_DESIGNER'] || rolesDictionary['ROLE_ADAPTIVE_DESIGNER']) {
             const container = new AgendaContainer('Definition', []);
-            if (this.hasRole(user, 'ROLE_TRAINING_DESIGNER')) {
+            if (rolesDictionary['ROLE_TRAINING_DESIGNER']) {
                 container.children.push(new Agenda('Linear', 'training-definition'));
             }
-            if (this.hasRole(user, 'ROLE_ADAPTIVE_TRAINING_DESIGNER')) {
+            if (rolesDictionary['ROLE_ADAPTIVE_TRAINING_DESIGNER']) {
                 container.children.push(new Agenda('Adaptive', 'adaptive-definition'));
             }
             agendas.push(container);
         }
 
-        if (roles.some((role) => role.roleType === 'ROLE_TRAINING_ORGANIZER')) {
+        if (rolesDictionary['ROLE_TRAINING_ORGANIZER'] || rolesDictionary['ROLE_ADAPTIVE_TRAINING_ORGANIZER']) {
             const container = new AgendaContainer('Instance', []);
-            if (this.hasRole(user, 'ROLE_TRAINING_ORGANIZER')) {
+            if (rolesDictionary['ROLE_TRAINING_ORGANIZER']) {
                 container.children.push(new Agenda('Linear', 'training-instance'));
             }
-            if (this.hasRole(user, 'ROLE_ADAPTIVE_TRAINING_ORGANIZER')) {
+            if (rolesDictionary['ROLE_ADAPTIVE_TRAINING_ORGANIZER']) {
                 container.children.push(new Agenda('Adaptive', 'adaptive-instance'));
             }
             agendas.push(container);
         }
 
-        if (roles.some((role) => role.roleType === 'ROLE_TRAINING_TRAINEE')) {
+        if (rolesDictionary['ROLE_TRAINING_TRAINEE']) {
             agendas.push(new Agenda('Run', 'training-run'));
         }
         if (agendas.length > 0) {
@@ -93,7 +94,13 @@ export class AppComponent {
         return containers;
     }
 
-    private hasRole(user: User, roleType: string): boolean {
-        return user.roles.some((role) => role.roleType === roleType);
+    private buildRolesDictionary(user: User): { [key: string]: true } {
+        return user.roles.reduce(
+            (acc, role) => {
+                acc[role.roleType] = true;
+                return acc;
+            },
+            {} as { [key: string]: true },
+        );
     }
 }
