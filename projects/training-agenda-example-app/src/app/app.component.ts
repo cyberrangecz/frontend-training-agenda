@@ -61,29 +61,46 @@ export class AppComponent {
     buildNav(user: User): AgendaContainer[] {
         const containers: AgendaContainer[] = [];
         const agendas = [];
-        const roles = user.roles;
-        if (roles.some((role) => role.roleType === 'ROLE_TRAINING_DESIGNER')) {
-            agendas.push(
-                new AgendaContainer('Definition', [
-                    new Agenda('Linear', 'training-definition'),
-                    new Agenda('Adaptive', 'adaptive-definition'),
-                ]),
-            );
+        const rolesDictionary = this.buildRolesDictionary(user);
+
+        if (rolesDictionary['ROLE_TRAINING_DESIGNER'] || rolesDictionary['ROLE_ADAPTIVE_DESIGNER']) {
+            const container = new AgendaContainer('Definition', []);
+            if (rolesDictionary['ROLE_TRAINING_DESIGNER']) {
+                container.children.push(new Agenda('Linear', 'training-definition'));
+            }
+            if (rolesDictionary['ROLE_ADAPTIVE_TRAINING_DESIGNER']) {
+                container.children.push(new Agenda('Adaptive', 'adaptive-definition'));
+            }
+            agendas.push(container);
         }
-        if (roles.some((role) => role.roleType === 'ROLE_TRAINING_ORGANIZER')) {
-            agendas.push(
-                new AgendaContainer('Instance', [
-                    new Agenda('Linear', 'training-instance'),
-                    new Agenda('Adaptive', 'adaptive-instance'),
-                ]),
-            );
+
+        if (rolesDictionary['ROLE_TRAINING_ORGANIZER'] || rolesDictionary['ROLE_ADAPTIVE_TRAINING_ORGANIZER']) {
+            const container = new AgendaContainer('Instance', []);
+            if (rolesDictionary['ROLE_TRAINING_ORGANIZER']) {
+                container.children.push(new Agenda('Linear', 'training-instance'));
+            }
+            if (rolesDictionary['ROLE_ADAPTIVE_TRAINING_ORGANIZER']) {
+                container.children.push(new Agenda('Adaptive', 'adaptive-instance'));
+            }
+            agendas.push(container);
         }
-        if (roles.some((role) => role.roleType === 'ROLE_TRAINING_TRAINEE')) {
+
+        if (rolesDictionary['ROLE_TRAINING_TRAINEE']) {
             agendas.push(new Agenda('Run', 'training-run'));
         }
         if (agendas.length > 0) {
             containers.push(new AgendaContainer('Trainings', agendas));
         }
         return containers;
+    }
+
+    private buildRolesDictionary(user: User): { [key: string]: true } {
+        return user.roles.reduce(
+            (acc, role) => {
+                acc[role.roleType] = true;
+                return acc;
+            },
+            {} as { [key: string]: true },
+        );
     }
 }
