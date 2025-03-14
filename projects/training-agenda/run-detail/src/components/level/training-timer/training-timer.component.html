@@ -1,2 +1,6 @@
 <!-- Default system timezone overwritten because it is a timer, we always want to start from zero -->
-<h1 class="clock">{{ formatTime(timeElapsed | async) }}</h1>
+<div class="timer-container">
+    <h1
+        class="clock"
+    >{{ formatTime(timeElapsed | async) }}</h1>
+</div>
