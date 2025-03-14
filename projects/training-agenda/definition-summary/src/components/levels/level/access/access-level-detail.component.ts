@@ -5,7 +5,7 @@ import { AccessLevel } from '@crczp/training-model';
 @Component({
     selector: 'crczp-access-level-detail',
     templateUrl: './access-level-detail.component.html',
-    styleUrls: ['./access-level-detail.component.css'],
+    styleUrls: ['./../level-summary-common.css'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     animations: [
         trigger('bodyExpansion', [

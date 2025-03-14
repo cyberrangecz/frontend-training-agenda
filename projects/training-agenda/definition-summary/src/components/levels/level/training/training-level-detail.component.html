@@ -1,4 +1,4 @@
-<mat-expansion-panel class="mat-elevation-z0">
+<mat-expansion-panel class="mat-elevation-z0 panel-align">
     <mat-expansion-panel-header>
         <mat-panel-title>
             <h3>
@@ -26,20 +26,16 @@
             <div>{{ level.answer }}</div>
         </div>
     </ng-template>
-    <div class="data-field">
+    <div class="data-field markdown-data">
         <div class="key-field">Content:</div>
-        <div>
-            <sentinel-markdown-view [markdown]="level?.content"/>
-        </div>
+        <sentinel-markdown-view [markdown]="level?.content"/>
     </div>
-    <div class="data-field">
+    <div class="data-field markdown-data">
         <div class="key-field">Solution:</div>
-        <div>
-            <sentinel-markdown-view [markdown]="level?.solution"/>
-        </div>
+        <sentinel-markdown-view [markdown]="level?.solution"/>
     </div>
 
-    <div class="data-field">
+    <div class="data-field markdown-data">
         <div class="key-field">Hints:</div>
         <div class="hints-container">
             <div *ngFor="let hint of level?.hints" class="hint-container">
@@ -47,11 +43,9 @@
                     <h4>{{ hint?.title }}</h4>
                 </div>
                 <div>
-                    <div class="data-field">
+                    <div class="data-field markdown-data">
                         <div class="key-field">Content:</div>
-                        <div>
                             <sentinel-markdown-view [markdown]="hint?.content"/>
-                        </div>
                     </div>
                     <div class="data-field">
                         <div class="key-field">Penalty:</div>

@@ -1,3 +1,5 @@
+@import "../../../level-summary-common.css";
+
 .question-matrix-header-container {
     display: flex;
     flex-direction: row;
@@ -14,34 +16,10 @@
     gap: 20px;
 }
 
-.key-field {
-    color: gray;
-    margin-right: 6px;
-    margin-left: 10px;
-}
-
-.data-field {
-    display: flex;
-    flex-direction: row;
-}
-
-h4 {
-    margin: 0;
-}
-
 .correct-choice {
     text-align: center;
 }
 
 .question-type {
     vertical-align: bottom;
-}
-
-mat-icon {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
 }

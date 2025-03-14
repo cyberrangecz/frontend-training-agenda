@@ -1,3 +1,5 @@
+@import "../../../level-summary-common.css";
+
 .question-matrix-header-container {
     display: flex;
     flex-direction: row;
@@ -24,32 +26,6 @@ tr:last-of-type {
     border-bottom: 0px;
 }
 
-.key-field {
-    color: gray;
-    margin-right: 6px;
-    margin-left: 10px;
-    word-break: normal;
-}
-
-.data-field {
-    display: flex;
-    flex-direction: row;
-    word-break: break-word;
-}
-
-h4 {
-    margin: 0;
-}
-
 .question-type {
     vertical-align: bottom;
-}
-
-mat-icon {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
 }

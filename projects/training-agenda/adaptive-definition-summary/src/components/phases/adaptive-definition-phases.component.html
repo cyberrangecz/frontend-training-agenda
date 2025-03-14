@@ -27,6 +27,6 @@
 <mat-accordion class="example-headers-align" multi>
     <div *ngFor="let phase of phases; last as isLast">
         <crczp-phase-detail [phase]="phase"/>
-        <mat-divider *ngIf="!isLast" [inset]="true"/>
+        <mat-divider *ngIf="!isLast"/>
     </div>
 </mat-accordion>
