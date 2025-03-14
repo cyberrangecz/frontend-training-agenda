@@ -1,4 +1,4 @@
-<mat-expansion-panel class="mat-elevation-z0">
+<mat-expansion-panel class="mat-elevation-z0 panel-align">
     <mat-expansion-panel-header>
         <mat-panel-title>
             <h3>
@@ -43,17 +43,13 @@
                         <div class="key-field">Answer:</div>
                         <div>{{ task?.answer }}</div>
                     </div>
-                    <div class="data-field">
+                    <div class="data-field  markdown-data">
                         <div class="key-field">Content:</div>
-                        <div>
-                            <sentinel-markdown-view [markdown]="task?.content"/>
-                        </div>
+                        <sentinel-markdown-view [markdown]="task?.content" />
                     </div>
-                    <div class="data-field">
+                    <div class="data-field  markdown-data">
                         <div class="key-field">Solution:</div>
-                        <div>
-                            <sentinel-markdown-view [markdown]="task?.solution"/>
-                        </div>
+                        <sentinel-markdown-view [markdown]="task?.solution" />
                     </div>
                     <div class="data-field">
                         <div class="key-field">Modify Sandbox:</div>

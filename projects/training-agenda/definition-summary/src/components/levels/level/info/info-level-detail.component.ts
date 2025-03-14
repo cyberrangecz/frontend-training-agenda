@@ -4,7 +4,7 @@ import { InfoLevel } from '@crczp/training-model';
 @Component({
     selector: 'crczp-info-level-detail',
     templateUrl: './info-level-detail.component.html',
-    styleUrls: ['./info-level-detail.component.css'],
+    styleUrls: ['./../level-summary-common.css'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InfoLevelDetailComponent {

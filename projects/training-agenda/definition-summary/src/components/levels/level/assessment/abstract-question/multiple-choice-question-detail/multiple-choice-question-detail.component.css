@@ -1,13 +1,4 @@
-.key-field {
-    color: gray;
-    margin-right: 6px;
-    margin-left: 10px;
-}
-
-.data-field {
-    display: flex;
-    flex-direction: row;
-}
+@import "../../../level-summary-common.css";
 
 .value-field {
     display: flex;
@@ -17,10 +8,6 @@
 .choice {
     display: flex;
     flex-direction: row;
-}
-
-h4 {
-    margin: 0;
 }
 
 .correct-choice {
@@ -35,13 +22,4 @@ h4 {
 
 .question-type {
     vertical-align: bottom;
-}
-
-mat-icon {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
 }
