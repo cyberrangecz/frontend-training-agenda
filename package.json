@@ -9,7 +9,7 @@
         "lint": "ng lint && npm run prettier-check",
         "e2e": "ng e2e",
         "ci-test": "ng test --browsers ChromeHeadless --watch=false",
-        "prettier-check": "exit 0 || prettier --check \"projects/**/*.ts\"",
+        "prettier-check": "prettier --check \"projects/**/*.ts\"",
         "prettier-fix": "prettier --write \"./projects/**/*.ts\"",
         "build-example-app": "ng build training-agenda-example-app --configuration production",
         "build-library": "ng build training-agenda --configuration production",
