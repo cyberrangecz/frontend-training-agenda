@@ -1,0 +1,28 @@
+<mat-card class="team-card"
+          [appearance]="appearance"
+          disabled
+>
+  <mat-card-header>
+    <app-mat-card-notch-title class="title-overlap">{{ team.name }}</app-mat-card-notch-title>
+  </mat-card-header>
+  <mat-card-content>
+    <ng-template [ngTemplateOutlet]="template || defaultTemplate"
+                 [ngTemplateOutletContext]="{$implicit: team }"/>
+  </mat-card-content>
+</mat-card>
+
+<ng-template #playerViewTeplate let-player>
+  <app-player-view
+    [player]="player">
+  </app-player-view>
+</ng-template>
+
+<ng-template #defaultTemplate let-team>
+  <div class="team-card__players">
+    <app-grid-list
+      [items]="team.members"
+      [template]="playerViewTeplate"
+      [trackBy]="playerTrackBy"
+    />
+</div>
+</ng-template>

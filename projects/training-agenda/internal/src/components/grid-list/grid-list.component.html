@@ -1,0 +1,7 @@
+<div class="grid-list" #gridList>
+  @for (item of items; track trackBy(item)) {
+    <ng-container
+      [ngTemplateOutlet]="template"
+      [ngTemplateOutletContext]="{$implicit: item}"/>
+  }
+</div>

@@ -1,0 +1,24 @@
+<app-grid-list
+  (mouseup)="selectionList.confirmMultipleSelection()"
+  (mouseleave)="selectionList.cancelMultipleSelection()"
+  [items]="items.sort(compareFunction)"
+  [template]="selectionElement"
+  [trackBy]="idFunction"
+  [gridTemplate]="gridTemplate"
+  [gridGap]="gridGap"
+/>
+
+<ng-template #selectionElement let-item>
+  <span
+    class="click-wrapper"
+    (click)="selectionList.setSelected(item, !selectionList.isSelected(item))"
+    (mousedown)="selectionList.intervalSelectionSetStart(item)"
+    (mouseenter)="selectionList.intervalSelectionSetEnd(item)"
+  >
+     <ng-container
+       [ngTemplateOutlet]="template"
+       [ngTemplateOutletContext]="{$implicit: item}"
+     />
+  </span>
+
+</ng-template>

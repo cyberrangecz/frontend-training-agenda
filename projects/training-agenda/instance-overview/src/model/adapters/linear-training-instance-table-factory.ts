@@ -11,13 +11,29 @@ import { DateHelper } from '@crczp/training-agenda/internal';
 /**
  * @dynamic
  */
-export class TrainingInstanceTable extends SentinelTable<TrainingInstanceRowAdapter> {
+export class LinearTrainingInstanceTableFactory {
     constructor(
-        resource: PaginatedResource<TrainingInstance>,
-        service: TrainingInstanceOverviewService,
-        navigator: TrainingNavigator,
-    ) {
-        const columns = [
+        private resource: PaginatedResource<TrainingInstance>,
+        protected service: TrainingInstanceOverviewService,
+        private navigator: TrainingNavigator,
+    ) {}
+
+    public createTable(): SentinelTable<TrainingInstanceRowAdapter> {
+        const rows = this.resource.elements.map((element) => this.createRow(element, this.service, this.navigator));
+        const columns = this.createColumns();
+        return new (class extends SentinelTable<TrainingInstanceRowAdapter> {
+            constructor(resource: PaginatedResource<TrainingInstance>) {
+                super(rows, columns);
+                this.pagination = resource.pagination;
+                this.filterLabel = 'Filter by title';
+                this.filterable = true;
+                this.selectable = false;
+            }
+        })(this.resource);
+    }
+
+    protected createColumns() {
+        return [
             new Column('title', 'Title', true),
             new Column('startTimeFormatted', 'Start Time', true, 'startTime'),
             new Column('endTimeFormatted', 'End Time', true, 'endTime'),
@@ -28,15 +44,9 @@ export class TrainingInstanceTable extends SentinelTable<TrainingInstanceRowAdap
             new Column('poolSize', 'Pool Size', false),
             new Column('accessToken', 'Access Token', true, 'accessToken'),
         ];
-        const rows = resource.elements.map((element) => TrainingInstanceTable.createRow(element, service, navigator));
-        super(rows, columns);
-        this.pagination = resource.pagination;
-        this.filterLabel = 'Filter by title';
-        this.filterable = true;
-        this.selectable = false;
     }
 
-    private static createRow(
+    protected createRow(
         ti: TrainingInstance,
         service: TrainingInstanceOverviewService,
         navigator: TrainingNavigator,
@@ -71,7 +81,7 @@ export class TrainingInstanceTable extends SentinelTable<TrainingInstanceRowAdap
         return row;
     }
 
-    private static createActions(ti: TrainingInstance, service: TrainingInstanceOverviewService): RowAction[] {
+    protected createActions(ti: TrainingInstance, service: TrainingInstanceOverviewService): RowAction[] {
         return [
             new EditAction(
                 'Edit training instance',

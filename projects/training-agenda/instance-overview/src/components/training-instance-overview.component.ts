@@ -1,16 +1,15 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, Input } from '@angular/core';
-import { OffsetPaginationEvent } from '@sentinel/common/pagination';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, Input, TemplateRef } from '@angular/core';
+import { OffsetPaginationEvent, SortDir } from '@sentinel/common/pagination';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { TrainingInstance } from '@crczp/training-model';
 import { SentinelTable, TableActionEvent, TableLoadEvent } from '@sentinel/components/table';
 import { Observable } from 'rxjs';
-import { map, take } from 'rxjs/operators';
-import { TrainingInstanceOverviewControls } from '../model/adapters/training-instance-overview-controls';
-import { TrainingInstanceTable } from '../model/adapters/training-instance-table';
-import { TrainingNavigator, TrainingNotificationService } from '@crczp/training-agenda';
+import { take } from 'rxjs/operators';
+import { TrainingNotificationService } from '@crczp/training-agenda';
 import { TrainingInstanceOverviewService } from '../services/state/training-instance-overview.service';
 import { PaginationService } from '@crczp/training-agenda/internal';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { TrainingInstanceRowAdapter } from '../model/adapters/training-instance-row-adapter';
 
 /**
  * Main component of organizer overview.
@@ -23,8 +22,13 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class TrainingInstanceOverviewComponent {
     @Input() paginationId = 'training-instance-overview';
-    readonly INITIAL_SORT_NAME = 'startTime';
-    readonly INITIAL_SORT_DIR = 'desc';
+    @Input() tableSupplier: <T extends TrainingInstanceRowAdapter>() => Observable<SentinelTable<T>>;
+    @Input() controlsSupplier: () => SentinelControlItem[];
+
+    @Input() initialSortName = 'startTime';
+    @Input() initialSortDirection: SortDir = 'desc';
+
+    @Input() sentinelRowTemplates: { name: string; template: TemplateRef<{ $implicit: Element }> }[] = [];
 
     instances$: Observable<SentinelTable<TrainingInstance>>;
     hasError$: Observable<boolean>;
@@ -35,10 +39,9 @@ export class TrainingInstanceOverviewComponent {
     constructor(
         private service: TrainingInstanceOverviewService,
         private paginationService: PaginationService,
-        private navigator: TrainingNavigator,
         private notificationService: TrainingNotificationService,
     ) {
-        this.controls = TrainingInstanceOverviewControls.create(this.service);
+        this.controls = this.controlsSupplier();
         this.initTable();
     }
 
@@ -71,13 +74,11 @@ export class TrainingInstanceOverviewComponent {
             pagination: new OffsetPaginationEvent(
                 0,
                 this.paginationService.getPagination(this.paginationId),
-                this.INITIAL_SORT_NAME,
-                this.INITIAL_SORT_DIR,
+                this.initialSortName,
+                this.initialSortDirection,
             ),
         };
-        this.instances$ = this.service.resource$.pipe(
-            map((instances) => new TrainingInstanceTable(instances, this.service, this.navigator)),
-        );
+        this.instances$ = this.tableSupplier();
         this.hasError$ = this.service.hasError$;
         this.onInstancesLoadEvent(initLoadEvent);
     }
@@ -99,4 +100,6 @@ export class TrainingInstanceOverviewComponent {
         }
         return 'Click to copy access token';
     }
+
+    protected readonly name = name;
 }

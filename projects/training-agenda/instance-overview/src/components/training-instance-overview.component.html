@@ -1,8 +1,8 @@
 <div class="content">
     <sentinel-controls [controls]="controls" (itemClicked)="onControlAction($event)"/>
     <sentinel-table
-        [defaultSortName]="INITIAL_SORT_NAME"
-        [defaultSortDirection]="INITIAL_SORT_DIR"
+        [defaultSortName]="initialSortName"
+        [defaultSortDirection]="initialSortDirection"
         [data]="instances$ | async"
         [hasError]="hasError$ | async"
         [titlecasedActions]="false"
@@ -12,6 +12,9 @@
     >
         <ng-container *sentinelRow="'accessToken'; template: accessToken"/>
         <ng-container *sentinelRow="'poolSize'; template: poolSize"/>
+        @for (sentinelRow of sentinelRowTemplates; track sentinelRow.name) {
+            <ng-container *sentinelRow="sentinelRow.name; template: sentinelRow.template"/>
+        }
     </sentinel-table>
 </div>
 

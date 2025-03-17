@@ -22,7 +22,7 @@ import { TrainingErrorHandler } from '../../../../src/services/training-error.ha
 import { TrainingNavigator } from '../../../../src/services/training-navigator.service';
 import { TrainingNotificationService } from '../../../../src/services/training-notification.service';
 import { TrainingAgendaContext } from '../../../../internal/src/services/context/training-agenda-context.service';
-import { TrainingInstanceOverviewConcreteService } from './training-instance-overview-concrete.service';
+import { LinearTrainingInstanceOverviewConcreteService } from './linear-training-instance-overview-concrete.service';
 import { SentinelDialogResultEnum } from '@sentinel/components/dialogs';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -31,7 +31,7 @@ describe('TrainingInstanceOverviewConcreteService', () => {
     let trainingInstanceApiSpy: jasmine.SpyObj<TrainingInstanceApi>;
     let dialogSpy: jasmine.SpyObj<MatDialog>;
     let poolApiSpy: jasmine.SpyObj<PoolApi>;
-    let service: TrainingInstanceOverviewConcreteService;
+    let service: LinearTrainingInstanceOverviewConcreteService;
     let navigatorSpy: jasmine.SpyObj<TrainingNavigator>;
     let routerSpy: jasmine.SpyObj<Router>;
     let notificationSpy: jasmine.SpyObj<TrainingNotificationService>;
@@ -49,7 +49,7 @@ describe('TrainingInstanceOverviewConcreteService', () => {
 
         TestBed.configureTestingModule({
             providers: [
-                TrainingInstanceOverviewConcreteService,
+                LinearTrainingInstanceOverviewConcreteService,
                 { provide: MatDialog, useValue: dialogSpy },
                 { provide: TrainingInstanceApi, useValue: trainingInstanceApiSpy },
                 { provide: PoolApi, useValue: poolApiSpy },
@@ -61,7 +61,7 @@ describe('TrainingInstanceOverviewConcreteService', () => {
             ],
             imports: [RouterTestingModule],
         });
-        service = TestBed.inject(TrainingInstanceOverviewConcreteService);
+        service = TestBed.inject(LinearTrainingInstanceOverviewConcreteService);
     });
 
     it('should be created', () => {

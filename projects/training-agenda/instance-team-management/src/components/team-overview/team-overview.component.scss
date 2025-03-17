@@ -1,0 +1,37 @@
+.team-card {
+  margin-top: 2rem;
+}
+
+.players-grid {
+  display: grid;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.player-align-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.player-view:hover {
+  background-color: color-mix(in srgb, var(--primary-50) 20%, transparent);
+}
+
+.player-view--selected:hover {
+  box-shadow: 0 0 3px 2px var(--primary-50);
+}
+
+.player-view--selected {
+  box-shadow: 0 0 3px 2px var(--primary-50);
+  background-color: color-mix(in srgb, var(--primary-70) 20%, transparent);
+}
+
+.player-view--deselection {
+  background-color: color-mix(in srgb, var(--tertiary-70) 20%, transparent);
+}
+
+.player-view--deselection:hover {
+  background-color: color-mix(in srgb, var(--tertiary-50) 20%, transparent);
+}

@@ -18,19 +18,19 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 
 @Injectable()
-export class TrainingInstanceOverviewConcreteService extends TrainingInstanceOverviewService {
+export class LinearTrainingInstanceOverviewConcreteService extends TrainingInstanceOverviewService {
     private lastPagination: OffsetPaginationEvent;
     private lastFilter: string;
 
     constructor(
-        private trainingInstanceApi: TrainingInstanceApi,
-        private dialog: MatDialog,
-        private poolApi: PoolApi,
-        private router: Router,
-        private navigator: TrainingNavigator,
-        private context: TrainingAgendaContext,
-        private notificationService: TrainingNotificationService,
-        private errorHandler: TrainingErrorHandler,
+        protected trainingInstanceApi: TrainingInstanceApi,
+        protected dialog: MatDialog,
+        protected poolApi: PoolApi,
+        protected router: Router,
+        protected navigator: TrainingNavigator,
+        context: TrainingAgendaContext,
+        protected notificationService: TrainingNotificationService,
+        protected errorHandler: TrainingErrorHandler,
     ) {
         super(context.config.defaultPaginationSize);
     }

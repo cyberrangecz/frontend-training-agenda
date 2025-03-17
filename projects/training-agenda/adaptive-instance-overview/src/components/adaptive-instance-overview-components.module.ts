@@ -38,6 +38,7 @@ import { AdaptiveInstanceOverviewMaterialModule } from './adaptive-instance-over
         { provide: TrainingNavigator, useClass: TrainingDefaultNavigator },
         { provide: AdaptiveInstanceOverviewService, useClass: AdaptiveInstanceOverviewConcreteService },
     ],
+    exports: [AdaptiveInstanceOverviewComponent],
 })
 export class AdaptiveInstanceOverviewComponentsModule {
     static forRoot(config: TrainingAgendaConfig): ModuleWithProviders<AdaptiveInstanceOverviewComponentsModule> {

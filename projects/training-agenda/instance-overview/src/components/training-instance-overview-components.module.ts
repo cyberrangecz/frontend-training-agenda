@@ -10,10 +10,12 @@ import {
     TrainingInstanceResolver,
     TrainingInstanceTitleResolver,
 } from '@crczp/training-agenda/resolvers';
-import { TrainingInstanceOverviewConcreteService } from '../services/state/training-instance-overview-concrete.service';
+import { LinearTrainingInstanceOverviewConcreteService } from '../services/state/linear-training-instance-overview-concrete.service';
 import { TrainingInstanceOverviewService } from '../services/state/training-instance-overview.service';
 import { TrainingInstanceOverviewComponent } from './training-instance-overview.component';
 import { TrainingInstanceOverviewMaterialModule } from './training-instance-overview-material.module';
+import { LinearTrainingInstanceOverviewComponent } from './linear-training-instance-overview/linear-training-instance-overview.component';
+import { CoopTrainingInstanceOverviewComponent } from './coop-training-instance-overview/linear-training-instance-overview.component';
 
 /**
  * Main module of training instance agenda. Contains components and providers for displaying table of training instance
@@ -28,7 +30,11 @@ import { TrainingInstanceOverviewMaterialModule } from './training-instance-over
         SentinelControlsComponent,
         TrainingInstanceOverviewMaterialModule,
     ],
-    declarations: [TrainingInstanceOverviewComponent],
+    declarations: [
+        TrainingInstanceOverviewComponent,
+        LinearTrainingInstanceOverviewComponent,
+        CoopTrainingInstanceOverviewComponent,
+    ],
     providers: [
         PaginationService,
         TrainingAgendaContext,
@@ -36,8 +42,9 @@ import { TrainingInstanceOverviewMaterialModule } from './training-instance-over
         TrainingInstanceTitleResolver,
         TrainingInstanceBreadcrumbResolver,
         { provide: TrainingNavigator, useClass: TrainingDefaultNavigator },
-        { provide: TrainingInstanceOverviewService, useClass: TrainingInstanceOverviewConcreteService },
+        { provide: TrainingInstanceOverviewService, useClass: LinearTrainingInstanceOverviewConcreteService },
     ],
+    exports: [TrainingInstanceOverviewComponent],
 })
 export class TrainingInstanceOverviewComponentsModule {
     static forRoot(config: TrainingAgendaConfig): ModuleWithProviders<TrainingInstanceOverviewComponentsModule> {
