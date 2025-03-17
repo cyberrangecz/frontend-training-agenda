@@ -124,4 +124,10 @@ export abstract class AdaptiveInstanceEditService {
     protected initSandboxDefinitions(pageSize: number): PaginatedResource<SandboxDefinition> {
         return new PaginatedResource([], new OffsetPagination(0, 0, pageSize, 0, 0));
     }
+
+    /**
+     * Check whether to give the user the option to
+     * create local environment training instance
+     */
+    abstract isLocalEnvironmentAllowed(): boolean;
 }

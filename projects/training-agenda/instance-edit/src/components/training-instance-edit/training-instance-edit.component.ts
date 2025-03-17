@@ -38,6 +38,7 @@ export class TrainingInstanceEditComponent implements OnChanges, AfterViewInit {
     @Input() trainingDefinitions: TrainingDefinitionInfo[];
     @Input() pools: Pool[];
     @Input() sandboxDefinitions: SandboxDefinition[];
+    @Input() localEnvironmentAllowed: boolean;
 
     @Output() edited: EventEmitter<TrainingInstanceChangeEvent> = new EventEmitter();
 

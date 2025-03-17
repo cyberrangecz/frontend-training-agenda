@@ -89,14 +89,16 @@
                             Backward Mode
                         </mat-slide-toggle>
                     </div>
-                    <mat-slide-toggle
-                        [matTooltip]="
-                (localEnvironment.valueChanges | async)
-                ? 'Enable Local Environment to disable the pool selection.'
-                : 'Disable Local Environment to enable the pool selection.'"
-                        formControlName="localEnvironment">
-                        Local Environment
-                    </mat-slide-toggle>
+                    @if (localEnvironmentAllowed) {
+                        <mat-slide-toggle
+                            [matTooltip]="
+                                (localEnvironment.valueChanges | async)
+                                ? 'Enable Local Environment to disable the pool selection.'
+                                : 'Disable Local Environment to enable the pool selection.'"
+                            formControlName="localEnvironment">
+                            Local Environment
+                        </mat-slide-toggle>
+                    }
                 </div>
             </div>
 

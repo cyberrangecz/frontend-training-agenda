@@ -31,6 +31,7 @@ export const environment = {
     trainingAgendaConfig: {
         pollingPeriod: 5000,
         defaultPaginationSize: 10,
+        localModeAllowed: false,
         visualizationConfig,
         topologyConfig,
     },
