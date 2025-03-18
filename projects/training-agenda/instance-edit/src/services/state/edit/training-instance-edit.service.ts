@@ -113,6 +113,12 @@ export abstract class TrainingInstanceEditService {
         OffsetPaginationEvent: OffsetPaginationEvent,
     ): Observable<PaginatedResource<SandboxDefinition>>;
 
+    /**
+     * Check whether to give the user the option to
+     * create local environment training instance
+     */
+    abstract isLocalEnvironmentAllowed(): boolean;
+
     protected initTrainingDefinitions(pageSize: number): PaginatedResource<TrainingDefinitionInfo> {
         return new PaginatedResource([], new OffsetPagination(0, 0, pageSize, 0, 0));
     }

@@ -146,4 +146,8 @@ export class TrainingInstanceEditOverviewComponent implements OnInit {
         const pagination = new OffsetPaginationEvent(0, this.PAGE_SIZE, '', 'asc');
         this.editService.getAllSandboxDefinitions(pagination).pipe(take(1)).subscribe();
     }
+
+    isLocalEnvironmentAllowed(): boolean {
+        return this.editService.isLocalEnvironmentAllowed();
+    }
 }

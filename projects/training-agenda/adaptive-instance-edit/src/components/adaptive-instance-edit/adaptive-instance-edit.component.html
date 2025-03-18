@@ -3,7 +3,7 @@
         <!--TITLE field-->
         <mat-form-field appearance="outline" (keydown.enter)="$event.preventDefault()">
             <mat-label>Title</mat-label>
-            <input matInput placeholder="Title" formControlName="title" required/>
+            <input matInput placeholder="Title" formControlName="title" required />
             <button *ngIf="title.value" matSuffix mat-icon-button aria-label="Clear" (click)="title.setValue('')">
                 <mat-icon>close</mat-icon>
             </button>
@@ -29,7 +29,7 @@
                             formControlName="startTime"
                             [owlDateTime]="startTimePicker"
                         />
-                        <owl-date-time #startTimePicker [startAt]="startTime.value"/>
+                        <owl-date-time #startTimePicker [startAt]="startTime.value" />
                     </div>
                     <mat-error *ngIf="trainingInstanceFormGroup.formGroup.hasError('startTimeAfterEndTime')">
                         Start time must be before end time
@@ -57,7 +57,7 @@
                             [owlDateTime]="endTimePicker"
                         />
                         <owl-date-time #endTimePicker
-                                       [startAt]="endTime.value ? endTime.value : startTime.value"/>
+                                       [startAt]="endTime.value ? endTime.value : startTime.value" />
                     </div>
                     <mat-error *ngIf="trainingInstanceFormGroup.formGroup.hasError('startTimeAfterEndTime')">
                         Start time must be before end time
@@ -90,14 +90,16 @@
                             Backward Mode
                         </mat-slide-toggle>
                     </div>
-                    <mat-slide-toggle
-                        [matTooltip]="
-                (localEnvironment.valueChanges | async)
-                ? 'Enable Local Environment to disable the pool selection.'
-                : 'Disable Local Environment to enable the pool selection.'"
-                        formControlName="localEnvironment">
-                        Local Environment
-                    </mat-slide-toggle>
+                    @if (localEnvironmentAllowed) {
+                        <mat-slide-toggle
+                            [matTooltip]="
+                                        (localEnvironment.valueChanges | async)
+                                        ? 'Enable Local Environment to disable the pool selection.'
+                                        : 'Disable Local Environment to enable the pool selection.'"
+                            formControlName="localEnvironment">
+                            Local Environment
+                        </mat-slide-toggle>
+                    }
                 </div>
             </div>
 
@@ -109,7 +111,7 @@
                     (keydown.enter)="$event.preventDefault()"
                 >
                     <mat-label>Access Token Prefix</mat-label>
-                    <input matInput placeholder="Access Token" formControlName="accessTokenPrefix" required/>
+                    <input matInput placeholder="Access Token" formControlName="accessTokenPrefix" required />
                     <button
                         *ngIf="accessTokenPrefix.value"
                         matSuffix
@@ -145,8 +147,8 @@
                     (singleSelectionChange)="trainingDefinition.setValue($event)"
                     [formGroupName]="'trainingDefinition'"
                     (click)="trainingDefinition.markAsTouched(); revalidate();">
-                    <ng-container [sentinelSelectorSelectedElement]="selectedTrainingDefinition"/>
-                    <ng-container [sentinelSelectorElement]="trainingDefinitionListElement"/>
+                    <ng-container [sentinelSelectorSelectedElement]="selectedTrainingDefinition" />
+                    <ng-container [sentinelSelectorElement]="trainingDefinitionListElement" />
                 </sentinel-resource-selector>
                 @if (isTrainingDefinitionError()) {
                     <span class="resource-select__bottom_text resource-select__bottom_text--error">
@@ -192,8 +194,8 @@
                         (click)="sandboxDefinitionId.markAsTouched(); revalidate();"
                         formGroupName="sandboxDefinitionId"
                     >
-                        <ng-container [sentinelSelectorSelectedElement]="sandboxDefinitionTemplate"/>
-                        <ng-container [sentinelSelectorElement]="sandboxDefinitionTemplate"/>
+                        <ng-container [sentinelSelectorSelectedElement]="sandboxDefinitionTemplate" />
+                        <ng-container [sentinelSelectorElement]="sandboxDefinitionTemplate" />
                     </sentinel-resource-selector>
                 } @else {
                     <sentinel-resource-selector
@@ -213,8 +215,8 @@
                         (click)="poolId.markAsTouched(); revalidate();"
                         formGroupName="poolId"
                     >
-                        <ng-container [sentinelSelectorSelectedElement]="poolTemplate"/>
-                        <ng-container [sentinelSelectorElement]="poolTemplate"/>
+                        <ng-container [sentinelSelectorSelectedElement]="poolTemplate" />
+                        <ng-container [sentinelSelectorElement]="poolTemplate" />
                     </sentinel-resource-selector>
                 }
                 @if (isSandboxDefinitionIdError() || isPoolIdError()) {

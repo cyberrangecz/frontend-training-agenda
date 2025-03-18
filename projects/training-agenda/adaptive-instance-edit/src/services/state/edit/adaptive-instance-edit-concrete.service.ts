@@ -5,7 +5,12 @@ import { AdaptiveDefinitionApiService, AdaptiveInstanceApi } from '@crczp/traini
 import { TrainingDefinitionInfo, TrainingInstance } from '@crczp/training-model';
 import { from, Observable } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
-import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } from '@crczp/training-agenda';
+import {
+    TrainingAgendaConfig,
+    TrainingErrorHandler,
+    TrainingNavigator,
+    TrainingNotificationService,
+} from '@crczp/training-agenda';
 import { AdaptiveInstanceChangeEvent } from '../../../models/events/adaptive-instance-change-event';
 import { AdaptiveInstanceEditService } from './adaptive-instance-edit.service';
 import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
@@ -29,6 +34,7 @@ export class AdaptiveInstanceEditConcreteService extends AdaptiveInstanceEditSer
         private navigator: TrainingNavigator,
         private errorHandler: TrainingErrorHandler,
         private notificationService: TrainingNotificationService,
+        private config: TrainingAgendaConfig,
     ) {
         super();
     }
@@ -144,6 +150,10 @@ export class AdaptiveInstanceEditConcreteService extends AdaptiveInstanceEditSer
                 (err) => this.errorHandler.emit(err, 'Fetching available sandbox definitions'),
             ),
         );
+    }
+
+    isLocalEnvironmentAllowed(): boolean {
+        return !!this.config.localModeAllowed;
     }
 
     private checkInstanceValidity(): void {

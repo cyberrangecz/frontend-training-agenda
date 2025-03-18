@@ -24,7 +24,8 @@
             [pools]="pools$ | async"
             [sandboxDefinitions]="sandboxDefinitions$ | async"
             [trainingInstance]="trainingInstance$ | async"
-            [editMode]="editMode$ | async">
+            [editMode]="editMode$ | async"
+            [localEnvironmentAllowed]="isLocalEnvironmentAllowed()">
         </crczp-adaptive-instance-edit>
     </ng-template>
 </mat-expansion-panel>
