@@ -42,16 +42,6 @@ export class TrainingInstanceInfoControls {
                 }),
             ),
             new SentinelControlItem(
-                this.RESULTS_AGGREGATED_ID,
-                'Show Aggregated Results',
-                'primary',
-                disabled$,
-                defer(() => {
-                    showAggregatedResults.emit(false);
-                    return EMPTY;
-                }),
-            ),
-            new SentinelControlItem(
                 this.CHEATING_DETECTION_ID,
                 'Cheating Detection',
                 'primary',

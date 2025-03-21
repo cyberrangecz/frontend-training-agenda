@@ -128,15 +128,6 @@ export class AdaptiveInstanceTable extends SentinelTable<AdaptiveInstanceRowAdap
                 of(!ti.hasStarted()),
                 defer(() => service.progress(ti.id)),
             ),
-            new RowAction(
-                'results',
-                'Show Results',
-                'assessment',
-                'primary',
-                'Show results of training runs',
-                of(true), //of(!ti.hasStarted()),
-                defer(() => service.results(ti.id)),
-            ),
         ];
     }
 }
