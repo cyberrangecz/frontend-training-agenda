@@ -8,7 +8,7 @@ import { TrainingAgendaContext } from '@crczp/training-agenda/internal';
 import { TrainingInstanceOverviewService } from './training-instance-overview.service';
 import { MatDialog } from '@angular/material/dialog';
 import { LinearTrainingInstanceOverviewConcreteService } from './linear-training-instance-overview-concrete.service';
-import { CoopTrainingNavigator } from '../../../../src/services/coop-training-navigator.service';
+import { CoopTrainingNavigator } from '@crczp/training-agenda';
 import { TrainingInstance } from '@crczp/training-model';
 
 export abstract class CoopTrainingInstanceOverviewService extends TrainingInstanceOverviewService {

@@ -21,14 +21,14 @@ export class AdaptiveInstanceSummaryConcreteService extends AdaptiveInstanceSumm
     }
 
     showProgress(): Observable<any> {
-        return from(this.router.navigate([this.navigator.toAdaptiveInstanceProgress(this.trainingInstance.id)]));
+        return from(this.router.navigate([this.navigator.toTrainingInstanceProgress(this.trainingInstance.id)]));
     }
 
     showResults(): Observable<any> {
-        return from(this.router.navigate([this.navigator.toAdaptiveInstanceResults(this.trainingInstance.id)]));
+        return from(this.router.navigate([this.navigator.toTrainingInstanceResults(this.trainingInstance.id)]));
     }
 
     showToken(): Observable<any> {
-        return from(this.router.navigate([this.navigator.toAdaptiveInstanceAccessToken(this.trainingInstance.id)]));
+        return from(this.router.navigate([this.navigator.toTrainingInstanceAccessToken(this.trainingInstance.id)]));
     }
 }

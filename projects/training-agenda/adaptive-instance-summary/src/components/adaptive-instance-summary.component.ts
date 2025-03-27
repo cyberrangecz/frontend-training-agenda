@@ -92,9 +92,9 @@ export class AdaptiveInstanceSummaryComponent implements OnInit {
 
     private initSummaryComponent(trainingInstance: TrainingInstance) {
         this.adaptiveInstanceSummaryService.init(trainingInstance);
-        this.trainingInstanceAccessTokenLink = `/${this.navigator.toAdaptiveInstanceAccessToken(trainingInstance.id)}`;
+        this.trainingInstanceAccessTokenLink = `/${this.navigator.toTrainingInstanceAccessToken(trainingInstance.id)}`;
         this.trainingInstancePoolIdLink = `/${this.navigator.toPool(trainingInstance.poolId)}`;
-        this.adaptiveDefinitionLink = `/${this.navigator.toAdaptiveDefinitionDetail(
+        this.adaptiveDefinitionLink = `/${this.navigator.toTrainingDefinitionDetail(
             trainingInstance.trainingDefinition.id,
         )}`;
         this.hasPool = trainingInstance.hasPool();

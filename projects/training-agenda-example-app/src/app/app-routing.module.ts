@@ -12,25 +12,25 @@ const routes: Routes = [
         canActivate: [SentinelAuthGuardWithLogin],
     },
     {
-        path: 'training-definition',
+        path: 'coop-definition',
         loadChildren: () =>
-            import('./lazy-loaded-modules/definition/overview/training-definition-overview.module').then(
-                (m) => m.TrainingDefinitionOverviewModule,
+            import('./lazy-loaded-modules/definition/overview/coop-training-definition-overview.module').then(
+                (m) => m.CoopTrainingDefinitionOverviewModule,
+            ),
+        data: {
+            breadcrumb: 'Coop Definition',
+            title: 'Coop Training Definition Overview',
+        },
+    },
+    {
+        path: 'linear-definition',
+        loadChildren: () =>
+            import('./lazy-loaded-modules/definition/overview/linear-training-definition-overview.module').then(
+                (m) => m.LinearTrainingDefinitionOverviewModule,
             ),
         data: {
             breadcrumb: 'Definition',
             title: 'Linear Training Definition Overview',
-        },
-    },
-    {
-        path: 'coop-definition',
-        loadChildren: () =>
-            import('./lazy-loaded-modules/definition/overview/training-definition-overview-coop.module').then(
-                (m) => m.TrainingDefinitionOverviewCoopModule,
-            ),
-        data: {
-            breadcrumb: 'Definition',
-            title: 'Coop Training Definition Overview',
         },
     },
     {
@@ -45,7 +45,7 @@ const routes: Routes = [
         },
     },
     {
-        path: 'training-instance',
+        path: 'linear-instance',
         loadChildren: () =>
             import('./lazy-loaded-modules/instance/overview/training-instance-overview.module').then(
                 (m) => m.TrainingInstanceOverviewModule,

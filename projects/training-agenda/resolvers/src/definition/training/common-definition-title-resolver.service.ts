@@ -1,18 +1,15 @@
-import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { TrainingDefinition } from '@crczp/training-model';
 import { Observable, of } from 'rxjs';
 import { catchError, mergeMap, take } from 'rxjs/operators';
-import {
-    TRAINING_DEFINITION_NEW_PATH,
-    TRAINING_DEFINITION_PATH,
-    TRAINING_DEFINITION_SELECTOR,
-} from '@crczp/training-agenda';
-import { TrainingDefinitionResolver } from './training-definition-resolver.service';
+import { DEFINITION_NEW_PATH, TRAINING_DEFINITION_SELECTOR } from '@crczp/training-agenda';
+import { CommonTrainingDefinitionResolver } from './common-training-definition-resolver.service';
 
-@Injectable()
-export class TrainingDefinitionTitleResolver {
-    constructor(private trainingDefinitionResolver: TrainingDefinitionResolver) {}
+export class CommonTrainingDefinitionTitleResolver {
+    constructor(
+        private trainingDefinitionResolver: CommonTrainingDefinitionResolver,
+        private basePath: string,
+    ) {}
 
     /**
      * Retrieves a specific resource title based on id provided in url
@@ -20,8 +17,8 @@ export class TrainingDefinitionTitleResolver {
      * @param state router state snapshot
      */
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<string> | Promise<string> | string {
-        if (state.url.endsWith(`${TRAINING_DEFINITION_PATH}/${TRAINING_DEFINITION_NEW_PATH}`)) {
-            return 'Create Linear Training Definition';
+        if (state.url.endsWith(`${this.basePath}/${DEFINITION_NEW_PATH}`)) {
+            return 'Create Training Definition';
         } else if (route.paramMap.has(TRAINING_DEFINITION_SELECTOR)) {
             const resolved = this.trainingDefinitionResolver.resolve(route, state) as Observable<TrainingDefinition>;
             return resolved.pipe(

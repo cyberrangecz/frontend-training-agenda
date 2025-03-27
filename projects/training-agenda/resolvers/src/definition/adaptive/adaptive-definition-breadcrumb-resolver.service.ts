@@ -7,7 +7,7 @@ import {
     ADAPTIVE_DEFINITION_SELECTOR,
     SIMULATOR_PATH,
     TRAINING_DEFINITION_EDIT_PATH,
-    TRAINING_DEFINITION_NEW_PATH,
+    DEFINITION_NEW_PATH,
 } from '@crczp/training-agenda';
 import { AdaptiveDefinitionResolver } from './adaptive-definition-resolver.service';
 
@@ -24,7 +24,7 @@ export class AdaptiveDefinitionBreadcrumbResolver {
      * @param state router state snapshot
      */
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<string> | Promise<string> | string {
-        if (state.url.endsWith(TRAINING_DEFINITION_NEW_PATH)) {
+        if (state.url.endsWith(DEFINITION_NEW_PATH)) {
             return 'Create';
         } else if (state.url.endsWith(SIMULATOR_PATH)) {
             return 'Model Simulating Tool';

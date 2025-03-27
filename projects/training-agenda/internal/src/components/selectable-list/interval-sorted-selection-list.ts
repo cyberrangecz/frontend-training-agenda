@@ -1,12 +1,14 @@
 import { SortedSelectionList } from './sorted-selection-list';
 import { BehaviorSubject } from 'rxjs';
 
+export type SelectionInterval<T> = { inverted: boolean; items: T[] };
+
 export class IntervalSortedSelectionList<T, I> extends SortedSelectionList<T, I> {
     private inversionKeyPressed: boolean = false;
     private invertSelection: boolean = false;
     private preselectionItemsInterval: { from: T; to: T } | null = null;
 
-    private selectionIntervalSubject = new BehaviorSubject<{ inverted: boolean; items: T[] }>({
+    private selectionIntervalSubject = new BehaviorSubject<SelectionInterval<T>>({
         inverted: false,
         items: [],
     });

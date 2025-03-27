@@ -3,7 +3,7 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { TrainingInstanceDetectionEventDetailComponent } from './training-instance-detection-event-detail.component';
 import { SentinelTableModule } from '@sentinel/components/table';
 import { PaginationService, TrainingAgendaContext } from '@crczp/training-agenda/internal';
-import { TrainingAgendaConfig, TrainingDefaultNavigator, TrainingNavigator } from '@crczp/training-agenda';
+import { LinearTrainingDefaultNavigator, TrainingAgendaConfig, TrainingNavigator } from '@crczp/training-agenda';
 import { DetectionEventService } from '../services/detection-event/detection-event.service';
 import { DetectionEventConcreteService } from '../services/detection-event/detection-event-concrete.service';
 import { DetectionEventParticipantService } from '../services/participant/detection-event-participant.service';
@@ -34,7 +34,7 @@ import { MatDividerModule } from '@angular/material/divider';
     providers: [
         PaginationService,
         TrainingAgendaContext,
-        { provide: TrainingNavigator, useClass: TrainingDefaultNavigator },
+        { provide: TrainingNavigator, useClass: LinearTrainingDefaultNavigator },
         { provide: DetectionEventService, useClass: DetectionEventConcreteService },
         { provide: DetectionEventParticipantService, useClass: DetectionEventParticipantConcreteService },
         { provide: DetectionEventForbiddenCommandsService, useClass: DetectionEventForbiddenCommandsConcreteService },

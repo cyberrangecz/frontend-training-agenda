@@ -1,4 +1,3 @@
-import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import {
@@ -18,6 +17,8 @@ import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } 
 import { TrainingAgendaContext } from '@crczp/training-agenda/internal';
 import { FileUploadProgressService } from '../file-upload/file-upload-progress.service';
 import { TrainingDefinitionService } from './training-definition.service';
+import { inject, Injectable } from '@angular/core';
+import { CommonTrainingDefinitionOverviewComponentsModule } from '../../components/common-training-definition-overview.module';
 
 /**
  * Basic implementation of a layer between a component and an API service.
@@ -29,7 +30,7 @@ export class TrainingDefinitionConcreteService extends TrainingDefinitionService
         private api: TrainingDefinitionApi,
         private dialog: MatDialog,
         private router: Router,
-        private context: TrainingAgendaContext,
+        context: TrainingAgendaContext,
         private navigator: TrainingNavigator,
         private notificationService: TrainingNotificationService,
         private fileUploadProgressService: FileUploadProgressService,
@@ -37,6 +38,8 @@ export class TrainingDefinitionConcreteService extends TrainingDefinitionService
     ) {
         super(context.config.defaultPaginationSize);
     }
+
+    private trainingType = inject(CommonTrainingDefinitionOverviewComponentsModule.TRAINING_TYPE_TOKEN);
 
     private lastPagination: OffsetPaginationEvent;
     private lastFilters: string;
@@ -59,7 +62,9 @@ export class TrainingDefinitionConcreteService extends TrainingDefinitionService
     getAll(pagination: OffsetPaginationEvent, filter: string): Observable<PaginatedResource<TrainingDefinition>> {
         this.lastPagination = pagination;
         this.lastFilters = filter;
-        const filters = filter ? [new SentinelFilter('title', filter)] : [];
+        const filters = (filter ? [new SentinelFilter('title', filter)] : []).concat(
+            new SentinelFilter('type', this.trainingType.toString().toUpperCase()),
+        );
         this.hasErrorSubject$.next(false);
         this.isLoadingSubject$.next(true);
         return this.callApiToGetAll(pagination, filters);

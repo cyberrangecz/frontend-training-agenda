@@ -269,6 +269,6 @@ export class AdaptiveInstanceEditComponent implements OnChanges, AfterViewInit {
     }
 
     getTrainingDefinitionUrl(id: number) {
-        return `/${this.navigator.toAdaptiveDefinitionDetail(id)}`;
+        return `/${this.navigator.toTrainingDefinitionDetail(id)}`;
     }
 }

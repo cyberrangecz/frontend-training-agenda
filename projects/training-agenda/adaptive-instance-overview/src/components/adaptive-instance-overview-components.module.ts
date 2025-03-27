@@ -3,7 +3,7 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SentinelControlsComponent } from '@sentinel/components/controls';
 import { SentinelTableModule } from '@sentinel/components/table';
-import { TrainingAgendaConfig, TrainingDefaultNavigator, TrainingNavigator } from '@crczp/training-agenda';
+import { AdaptiveTrainingDefaultNavigator, TrainingAgendaConfig, TrainingNavigator } from '@crczp/training-agenda';
 import { PaginationService, TrainingAgendaContext } from '@crczp/training-agenda/internal';
 import {
     AdaptiveInstanceBreadcrumbResolver,
@@ -35,7 +35,7 @@ import { AdaptiveInstanceOverviewMaterialModule } from './adaptive-instance-over
         AdaptiveInstanceResolver,
         AdaptiveInstanceTitleResolver,
         AdaptiveInstanceBreadcrumbResolver,
-        { provide: TrainingNavigator, useClass: TrainingDefaultNavigator },
+        { provide: TrainingNavigator, useClass: AdaptiveTrainingDefaultNavigator },
         { provide: AdaptiveInstanceOverviewService, useClass: AdaptiveInstanceOverviewConcreteService },
     ],
     exports: [AdaptiveInstanceOverviewComponent],

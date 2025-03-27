@@ -9,9 +9,9 @@ import { MatCard, MatCardContent } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
 import { MatButton, MatFabButton, MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
-import { SelectableListComponent } from '../../../internal/src/components/selectable-list/selectable-list.component';
-import { GridListComponent } from '../../../internal/src/components/grid-list/grid-list.component';
-import { PlayerViewComponent } from '../../../internal/src/components/player-view/player-view.component';
+import { SelectableListComponent } from '@crczp/training-agenda/internal';
+import { GridListComponent } from '@crczp/training-agenda/internal';
+import { PlayerViewComponent } from '@crczp/training-agenda/internal';
 import { MatInput } from '@angular/material/input';
 import { TeamOverviewComponent } from './team-overview/team-overview.component';
 

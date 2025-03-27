@@ -75,7 +75,7 @@ export class AdaptiveInstanceEditConcreteService extends AdaptiveInstanceEditSer
             return this.update();
         } else {
             return this.create().pipe(
-                switchMap((id) => from(this.router.navigate([this.navigator.toAdaptiveInstanceEdit(id)]))),
+                switchMap((id) => from(this.router.navigate([this.navigator.toTrainingInstanceEdit(id)]))),
             );
         }
     }

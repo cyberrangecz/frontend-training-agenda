@@ -1,11 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { ModuleWithProviders, NgModule } from '@angular/core';
+import { InjectionToken, ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ngfModule } from 'angular-file';
 import { SentinelControlsComponent } from '@sentinel/components/controls';
 import { SentinelTableModule } from '@sentinel/components/table';
 import { SentinelPipesModule } from '@sentinel/common/pipes';
-import { TrainingAgendaConfig, TrainingDefaultNavigator, TrainingNavigator } from '@crczp/training-agenda';
 import { PaginationService, TrainingAgendaContext } from '@crczp/training-agenda/internal';
 import { FileUploadProgressService } from '../services/file-upload/file-upload-progress.service';
 import { TrainingDefinitionService } from '../services/state/training-definition.service';
@@ -14,12 +13,9 @@ import { TrainingDefinitionDetailComponent } from './detail/training-definition-
 import { TrainingDefinitionOverviewMaterialModule } from './training-definition-overview-material.module';
 import { TrainingDefinitionOverviewComponent } from './training-definition-overview.component';
 import { TrainingDefinitionUploadDialogComponent } from './upload-dialog/training-definition-upload-dialog.component';
-import {
-    TrainingDefinitionBreadcrumbResolver,
-    TrainingDefinitionResolver,
-    TrainingDefinitionTitleResolver,
-} from '@crczp/training-agenda/resolvers';
-import { TrainingDefinitionConcreteService } from '../services/state/training-definition.concrete.service';
+import { TrainingDefinitionBreadcrumbResolver } from '@crczp/training-agenda/resolvers';
+import { TrainingDefinitionConcreteService } from '../services/state/training-definition-concrete.service';
+import { TrainingTypeEnum } from '@crczp/training-model';
 
 /**
  * Module containing components and providers for training definition overview.
@@ -41,24 +37,28 @@ import { TrainingDefinitionConcreteService } from '../services/state/training-de
         CloneDialogComponent,
         TrainingDefinitionDetailComponent,
     ],
-    providers: [
-        FileUploadProgressService,
-        PaginationService,
-        TrainingAgendaContext,
-        TrainingDefinitionBreadcrumbResolver,
-        TrainingDefinitionResolver,
-        TrainingDefinitionTitleResolver,
-        { provide: TrainingNavigator, useClass: TrainingDefaultNavigator },
-        { provide: TrainingDefinitionService, useClass: TrainingDefinitionConcreteService },
+    exports: [
+        TrainingDefinitionOverviewComponent,
+        TrainingDefinitionUploadDialogComponent,
+        CloneDialogComponent,
+        TrainingDefinitionDetailComponent,
     ],
 })
-export class TrainingDefinitionOverviewLinearComponentsModule {
-    static forRoot(
-        config: TrainingAgendaConfig,
-    ): ModuleWithProviders<TrainingDefinitionOverviewLinearComponentsModule> {
+export class CommonTrainingDefinitionOverviewComponentsModule {
+    public static TRAINING_TYPE_TOKEN = new InjectionToken<TrainingTypeEnum>('TRAINING_TYPE_TOKEN');
+
+    static forRoot(type: TrainingTypeEnum): ModuleWithProviders<CommonTrainingDefinitionOverviewComponentsModule> {
         return {
-            ngModule: TrainingDefinitionOverviewLinearComponentsModule,
-            providers: [{ provide: TrainingAgendaConfig, useValue: config }],
+            ngModule: CommonTrainingDefinitionOverviewComponentsModule,
+
+            providers: [
+                FileUploadProgressService,
+                PaginationService,
+                TrainingAgendaContext,
+                TrainingDefinitionBreadcrumbResolver,
+                { provide: this.TRAINING_TYPE_TOKEN, useValue: type },
+                { provide: TrainingDefinitionService, useClass: TrainingDefinitionConcreteService },
+            ],
         };
     }
 }

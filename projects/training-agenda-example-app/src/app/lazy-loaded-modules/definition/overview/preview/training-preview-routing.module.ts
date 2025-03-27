@@ -2,7 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TrainingPreviewComponent } from '@crczp/training-agenda/definition-preview';
 import { TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME } from '@crczp/training-agenda';
-import { TrainingDefinitionBreadcrumbResolver, TrainingDefinitionResolver } from '@crczp/training-agenda/resolvers';
+import {
+    TrainingDefinitionBreadcrumbResolver,
+    LinearTrainingDefinitionResolver,
+} from '@crczp/training-agenda/resolvers';
 
 const routes: Routes = [
     {
@@ -12,7 +15,7 @@ const routes: Routes = [
             title: undefined,
         },
         resolve: {
-            [TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME]: TrainingDefinitionResolver,
+            [TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME]: LinearTrainingDefinitionResolver,
             breadcrumb: TrainingDefinitionBreadcrumbResolver,
         },
     },

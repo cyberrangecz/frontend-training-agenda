@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { TrainingDefinitionApi } from '@crczp/training-api';
 import { TrainingDefinition } from '@crczp/training-model';
@@ -8,6 +8,7 @@ import { TrainingDefinitionChangeEvent } from '../../../model/events/training-de
 import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } from '@crczp/training-agenda';
 import { TrainingDefinitionEditService } from './training-definition-edit.service';
 import { LevelEditService } from '../level/level-edit.service';
+import { CommonTrainingDefinitionEditOverviewComponentsModule } from '@crczp/training-agenda/definition-edit';
 
 /**
  * Service handling editing of training definition and related operations.
@@ -17,6 +18,8 @@ import { LevelEditService } from '../level/level-edit.service';
 @Injectable()
 export class TrainingDefinitionEditConcreteService extends TrainingDefinitionEditService {
     private editedSnapshot: TrainingDefinition;
+
+    private trainingType = inject(CommonTrainingDefinitionEditOverviewComponentsModule.TRAINING_TYPE_TOKEN);
 
     constructor(
         private router: Router,
@@ -66,6 +69,7 @@ export class TrainingDefinitionEditConcreteService extends TrainingDefinitionEdi
         this.definitionValidSubject$.next(changeEvent.isValid);
         this.saveDisabledSubject$.next(!changeEvent.isValid);
         this.editedSnapshot = changeEvent.trainingDefinition;
+        this.editedSnapshot.type = this.trainingType;
     }
 
     private setEditMode(trainingDefinition: TrainingDefinition) {

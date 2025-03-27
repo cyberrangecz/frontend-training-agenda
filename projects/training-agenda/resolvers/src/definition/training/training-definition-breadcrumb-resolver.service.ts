@@ -5,17 +5,17 @@ import { EMPTY, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {
     TRAINING_DEFINITION_EDIT_PATH,
-    TRAINING_DEFINITION_NEW_PATH,
+    DEFINITION_NEW_PATH,
     TRAINING_DEFINITION_SELECTOR,
 } from '@crczp/training-agenda';
-import { TrainingDefinitionResolver } from './training-definition-resolver.service';
+import { CommonTrainingDefinitionResolver } from './common-training-definition-resolver.service';
 
 /**
  * Router breadcrumb title provider
  */
 @Injectable()
 export class TrainingDefinitionBreadcrumbResolver {
-    constructor(private trainingDefinitionResolver: TrainingDefinitionResolver) {}
+    constructor(private trainingDefinitionResolver: CommonTrainingDefinitionResolver) {}
 
     /**
      * Retrieves a breadcrumb title based on provided url
@@ -23,7 +23,7 @@ export class TrainingDefinitionBreadcrumbResolver {
      * @param state router state snapshot
      */
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<string> | Promise<string> | string {
-        if (state.url.endsWith(TRAINING_DEFINITION_NEW_PATH)) {
+        if (state.url.endsWith(DEFINITION_NEW_PATH)) {
             return 'Create';
         } else if (route.paramMap.has(TRAINING_DEFINITION_SELECTOR)) {
             const resolved = this.trainingDefinitionResolver.resolve(route, state) as Observable<TrainingDefinition>;

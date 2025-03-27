@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SentinelPipesModule } from '@sentinel/common/pipes';
 import { SentinelControlsComponent } from '@sentinel/components/controls';
 import { SentinelTableModule } from '@sentinel/components/table';
-import { TrainingAgendaConfig, TrainingDefaultNavigator, TrainingNavigator } from '@crczp/training-agenda';
+import { LinearTrainingDefaultNavigator, TrainingAgendaConfig, TrainingNavigator } from '@crczp/training-agenda';
 import { PaginationService, TrainingAgendaContext } from '@crczp/training-agenda/internal';
 import { CheatingDetectionConcreteService } from '../services/cheating-detection-concrete.service';
 import { CheatingDetectionService } from '../services/cheating-detection.service';
@@ -26,7 +26,7 @@ import { StageOverviewComponent } from './stage-overview/stage-overview.componen
     providers: [
         PaginationService,
         TrainingAgendaContext,
-        { provide: TrainingNavigator, useClass: TrainingDefaultNavigator },
+        { provide: TrainingNavigator, useClass: LinearTrainingDefaultNavigator },
         { provide: CheatingDetectionService, useClass: CheatingDetectionConcreteService },
     ],
 })

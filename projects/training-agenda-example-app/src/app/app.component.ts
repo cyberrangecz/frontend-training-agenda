@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { Agenda, AgendaContainer } from '@sentinel/layout';
+import { AgendaContainer } from '@sentinel/layout';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { SentinelAuthService, User } from '@sentinel/auth';
 import { LoadingService } from './services/loading.service';
+import { NavAgendaContainerConfig, NavBuilder } from '@crczp/theme';
 
 @Component({
     selector: 'app-root',
@@ -30,7 +31,63 @@ export class AppComponent {
 
         this.agendaContainers$ = this.auth.activeUser$.pipe(
             filter((user) => user !== null && user !== undefined),
-            map((user) => this.buildNav(user)),
+            map((user) => {
+                const roles = this.buildRolesDictionary(user);
+                const definition: NavAgendaContainerConfig = {
+                    label: 'Definition',
+                    agendas: [
+                        {
+                            label: 'Linear',
+                            path: 'linear-definition',
+                            canActivate: () => roles['ROLE_TRAINING_DESIGNER'],
+                        },
+                        {
+                            label: 'Coop',
+                            path: 'coop-definition',
+                            canActivate: () => roles['ROLE_TRAINING_DESIGNER'],
+                        },
+                        {
+                            label: 'Adaptive',
+                            path: 'adaptive-definition',
+                            canActivate: () => roles['ROLE_ADAPTIVE_TRAINING_DESIGNER'],
+                        },
+                    ],
+                };
+                const instance: NavAgendaContainerConfig = {
+                    label: 'Instance',
+                    agendas: [
+                        {
+                            label: 'Linear',
+                            path: 'linear-instance',
+                            canActivate: () => roles['ROLE_TRAINING_ORGANISER'],
+                        },
+                        {
+                            label: 'Coop',
+                            path: 'coop-instance',
+                            canActivate: () => roles['ROLE_TRAINING_ORGANISER'],
+                        },
+                        {
+                            label: 'Adaptive',
+                            path: 'adaptive-instance',
+                            canActivate: () => roles['ROLE_ADAPTIVE_TRAINING_ORGANIZER'],
+                        },
+                    ],
+                };
+
+                return NavBuilder.buildNav([
+                    {
+                        label: 'Trainings',
+                        agendas: [
+                            definition,
+                            instance,
+                            {
+                                label: 'Run',
+                                path: 'training-run',
+                            },
+                        ],
+                    },
+                ]);
+            }),
         );
     }
 
@@ -56,42 +113,6 @@ export class AppComponent {
 
     onLogout(): void {
         this.auth.logout();
-    }
-
-    buildNav(user: User): AgendaContainer[] {
-        const containers: AgendaContainer[] = [];
-        const agendas = [];
-        const rolesDictionary = this.buildRolesDictionary(user);
-
-        if (rolesDictionary['ROLE_TRAINING_DESIGNER'] || rolesDictionary['ROLE_ADAPTIVE_DESIGNER']) {
-            const container = new AgendaContainer('Definition', []);
-            if (rolesDictionary['ROLE_TRAINING_DESIGNER']) {
-                container.children.push(new Agenda('Linear', 'training-definition'));
-            }
-            if (rolesDictionary['ROLE_ADAPTIVE_TRAINING_DESIGNER']) {
-                container.children.push(new Agenda('Adaptive', 'adaptive-definition'));
-            }
-            agendas.push(container);
-        }
-
-        if (rolesDictionary['ROLE_TRAINING_ORGANIZER'] || rolesDictionary['ROLE_ADAPTIVE_TRAINING_ORGANIZER']) {
-            const container = new AgendaContainer('Instance', []);
-            if (rolesDictionary['ROLE_TRAINING_ORGANIZER']) {
-                container.children.push(new Agenda('Linear', 'training-instance'));
-            }
-            if (rolesDictionary['ROLE_ADAPTIVE_TRAINING_ORGANIZER']) {
-                container.children.push(new Agenda('Adaptive', 'adaptive-instance'));
-            }
-            agendas.push(container);
-        }
-
-        if (rolesDictionary['ROLE_TRAINING_TRAINEE']) {
-            agendas.push(new Agenda('Run', 'training-run'));
-        }
-        if (agendas.length > 0) {
-            containers.push(new AgendaContainer('Trainings', agendas));
-        }
-        return containers;
     }
 
     private buildRolesDictionary(user: User): { [key: string]: true } {

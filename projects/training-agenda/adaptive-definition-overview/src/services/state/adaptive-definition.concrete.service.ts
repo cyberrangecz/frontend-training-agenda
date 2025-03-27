@@ -14,7 +14,7 @@ import { EMPTY, from, Observable } from 'rxjs';
 import { map, switchMap, take, tap } from 'rxjs/operators';
 import { CloneDialogComponent } from '../../components/clone-dialog/clone-dialog.component';
 import { TrainingDefinitionUploadDialogComponent } from '../../components/upload-dialog/training-definition-upload-dialog.component';
-import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } from '@crczp/training-agenda';
+import { AdaptiveTrainingNavigator, TrainingErrorHandler, TrainingNotificationService } from '@crczp/training-agenda';
 import { TrainingAgendaContext } from '@crczp/training-agenda/internal';
 import { AdaptiveFileUploadProgressService } from '../file-upload/adaptive-file-upload-progress.service';
 import { AdaptiveDefinitionService } from './adaptive-definition.service';
@@ -29,8 +29,8 @@ export class AdaptiveDefinitionConcreteService extends AdaptiveDefinitionService
         private api: AdaptiveDefinitionApiService,
         private dialog: MatDialog,
         private router: Router,
-        private context: TrainingAgendaContext,
-        private navigator: TrainingNavigator,
+        context: TrainingAgendaContext,
+        private navigator: AdaptiveTrainingNavigator,
         private notificationService: TrainingNotificationService,
         private fileUploadProgressService: AdaptiveFileUploadProgressService,
         private errorHandler: TrainingErrorHandler,
@@ -56,11 +56,11 @@ export class AdaptiveDefinitionConcreteService extends AdaptiveDefinitionService
     }
 
     create(): Observable<any> {
-        return from(this.router.navigate([this.navigator.toNewAdaptiveDefinition()]));
+        return from(this.router.navigate([this.navigator.toNewTrainingDefinition()]));
     }
 
     edit(trainingDefinition: TrainingDefinition): Observable<any> {
-        return from(this.router.navigate([this.navigator.toAdaptiveDefinitionEdit(trainingDefinition.id)]));
+        return from(this.router.navigate([this.navigator.toTrainingDefinitionEdit(trainingDefinition.id)]));
     }
 
     preview(trainingDefinition: TrainingDefinition): Observable<any> {
@@ -68,7 +68,7 @@ export class AdaptiveDefinitionConcreteService extends AdaptiveDefinitionService
     }
 
     toAdaptivePreview(trainingDefinition: TrainingDefinition): Observable<boolean> {
-        return from(this.router.navigate([this.navigator.toAdaptiveDefinitionPreview(trainingDefinition.id)]));
+        return from(this.router.navigate([this.navigator.toTrainingDefinitionPreview(trainingDefinition.id)]));
     }
 
     showMitreTechniques(): Observable<any> {

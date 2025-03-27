@@ -4,7 +4,8 @@ import { TrainingAgendaConfig } from '@crczp/training-agenda';
 import {
     TrainingDefinitionDetailBreadcrumbResolver,
     TrainingDefinitionDetailTitleResolver,
-    TrainingDefinitionResolver,
+    LinearTrainingDefinitionResolver,
+    CommonTrainingDefinitionResolver,
 } from '@crczp/training-agenda/resolvers';
 
 /**
@@ -14,15 +15,15 @@ import {
     imports: [CommonModule],
     declarations: [],
     providers: [
-        TrainingDefinitionResolver,
+        { provide: CommonTrainingDefinitionResolver, useClass: LinearTrainingDefinitionResolver },
         TrainingDefinitionDetailTitleResolver,
         TrainingDefinitionDetailBreadcrumbResolver,
     ],
 })
-export class TrainingDefinitionDetailComponentsModule {
-    static forRoot(config: TrainingAgendaConfig): ModuleWithProviders<TrainingDefinitionDetailComponentsModule> {
+export class LinearDefinitionDetailComponentsModule {
+    static forRoot(config: TrainingAgendaConfig): ModuleWithProviders<LinearDefinitionDetailComponentsModule> {
         return {
-            ngModule: TrainingDefinitionDetailComponentsModule,
+            ngModule: LinearDefinitionDetailComponentsModule,
             providers: [{ provide: TrainingAgendaConfig, useValue: config }],
         };
     }

@@ -3,8 +3,12 @@
  */
 
 export * from './definition/training/training-definition-breadcrumb-resolver.service';
-export * from './definition/training/training-definition-title-resolver.service';
-export * from './definition/training/training-definition-resolver.service';
+export * from './definition/training/common-definition-title-resolver.service';
+export * from './definition/training/common-training-definition-resolver.service';
+export * from './definition/training/linear-training-definition-resolver.service';
+export * from './definition/training/coop-training-definition-resolver.service';
+export * from './definition/training/linear-training-definition-title-resolver.service';
+export * from './definition/training/coop-training-definition-title-resolver.service';
 export * from './definition/adaptive/adaptive-definition-breadcrumb-resolver.service';
 export * from './definition/adaptive/adaptive-definition-title-resolver.service';
 export * from './definition/adaptive/adaptive-definition-resolver.service';

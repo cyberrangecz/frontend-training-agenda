@@ -57,8 +57,8 @@ export class AdaptiveInstanceTable extends SentinelTable<AdaptiveInstanceRowAdap
         }
         const row = new Row(adapter, this.createActions(ti, service));
 
-        row.addLink('title', navigator.toAdaptiveInstanceDetail(ti.id));
-        row.addLink('tdTitle', navigator.toAdaptiveDefinitionDetail(adapter.trainingDefinition.id));
+        row.addLink('title', navigator.toTrainingInstanceDetail(ti.id));
+        row.addLink('tdTitle', navigator.toTrainingDefinitionDetail(adapter.trainingDefinition.id));
         if (ti.hasPool()) {
             row.element.poolSize = combineLatest([
                 service.getPoolSize(ti.poolId),

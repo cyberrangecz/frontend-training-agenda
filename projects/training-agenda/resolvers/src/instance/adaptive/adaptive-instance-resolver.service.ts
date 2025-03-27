@@ -52,7 +52,7 @@ export class AdaptiveInstanceResolver {
     }
 
     private navigateToNew(): Observable<never> {
-        this.router.navigate([this.navigator.toAdaptiveInstanceOverview()]);
+        this.router.navigate([this.navigator.toTrainingInstanceOverview()]);
         return EMPTY;
     }
 }

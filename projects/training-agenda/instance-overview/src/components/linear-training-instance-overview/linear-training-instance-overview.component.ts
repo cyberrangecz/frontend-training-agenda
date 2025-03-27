@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { map } from 'rxjs/operators';
-import { TrainingInstanceOverviewService } from '@crczp/training-agenda/instance-overview';
+import { TrainingInstanceOverviewService } from '../../services/state/training-instance-overview.service';
 import { TrainingNavigator } from '@crczp/training-agenda';
 import { TrainingInstanceOverviewControls } from '../../model/adapters/training-instance-overview-controls';
 import { LinearTrainingInstanceTableFactory } from '../../model/adapters/linear-training-instance-table-factory';

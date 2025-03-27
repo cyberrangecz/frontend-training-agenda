@@ -53,7 +53,7 @@ export class TrainingDefinitionTable extends SentinelTable<TrainingDefinition> {
         const datePipe = new DatePipe('en-US');
         adapter.createdAtFormatted = `${datePipe.transform(adapter.createdAt)}`;
         const row = new Row(adapter, TrainingDefinitionTable.createActions(adapter, service));
-        row.addLink('title', navigator.toAdaptiveDefinitionDetail(td.id));
+        row.addLink('title', navigator.toTrainingDefinitionDetail(td.id));
         return row;
     }
 

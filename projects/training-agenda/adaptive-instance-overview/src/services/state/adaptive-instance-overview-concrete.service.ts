@@ -54,11 +54,11 @@ export class AdaptiveInstanceOverviewConcreteService extends AdaptiveInstanceOve
     }
 
     create(): Observable<any> {
-        return of(this.router.navigate([this.navigator.toNewAdaptiveInstance()]));
+        return of(this.router.navigate([this.navigator.toNewTrainingInstance()]));
     }
 
     edit(id: number): Observable<any> {
-        return of(this.router.navigate([this.navigator.toAdaptiveInstanceEdit(id)]));
+        return of(this.router.navigate([this.navigator.toTrainingInstanceEdit(id)]));
     }
 
     download(id: number): Observable<any> {
@@ -76,19 +76,19 @@ export class AdaptiveInstanceOverviewConcreteService extends AdaptiveInstanceOve
     }
 
     runs(id: number): Observable<any> {
-        return of(this.router.navigate([this.navigator.toAdaptiveInstanceRuns(id)]));
+        return of(this.router.navigate([this.navigator.toTrainingInstanceRuns(id)]));
     }
 
     token(id: number): Observable<any> {
-        return of(this.router.navigate([this.navigator.toAdaptiveInstanceAccessToken(id)]));
+        return of(this.router.navigate([this.navigator.toTrainingInstanceAccessToken(id)]));
     }
 
     progress(id: number): Observable<any> {
-        return of(this.router.navigate([this.navigator.toAdaptiveInstanceProgress(id)]));
+        return of(this.router.navigate([this.navigator.toTrainingInstanceProgress(id)]));
     }
 
     results(id: number): Observable<any> {
-        return of(this.router.navigate([this.navigator.toAdaptiveInstanceResults(id)]));
+        return of(this.router.navigate([this.navigator.toTrainingInstanceResults(id)]));
     }
 
     /**

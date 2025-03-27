@@ -4,7 +4,7 @@ import { TrainingInstance } from '@crczp/training-model';
 import { defer, of } from 'rxjs';
 import { CoopTrainingInstanceOverviewService } from '../../services/state/coop-training-instance-overview-concrete.service';
 import { PaginatedResource } from '@sentinel/common/pagination';
-import { CoopTrainingNavigator } from '../../../../src/services/coop-training-navigator.service';
+import { CoopTrainingNavigator } from '@crczp/training-agenda';
 
 /**
  * @dynamic

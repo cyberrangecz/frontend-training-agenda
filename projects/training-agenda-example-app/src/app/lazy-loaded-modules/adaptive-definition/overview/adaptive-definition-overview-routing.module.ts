@@ -7,7 +7,7 @@ import {
     ADAPTIVE_DEFINITION_SELECTOR,
     SIMULATOR_PATH,
     TRAINING_DEFINITION_EDIT_PATH,
-    TRAINING_DEFINITION_NEW_PATH,
+    DEFINITION_NEW_PATH,
     TRAINING_DEFINITION_PREVIEW_PATH,
 } from '@crczp/training-agenda';
 import {
@@ -27,7 +27,7 @@ const routes: Routes = [
             import('./simulator/adaptive-definition-simulator.module').then((m) => m.AdaptiveDefinitionSimulatorModule),
     },
     {
-        path: TRAINING_DEFINITION_NEW_PATH,
+        path: DEFINITION_NEW_PATH,
         loadChildren: () =>
             import('./edit/adaptive-definition-edit-overview.module').then(
                 (m) => m.AdaptiveDefinitionEditOverviewModule,

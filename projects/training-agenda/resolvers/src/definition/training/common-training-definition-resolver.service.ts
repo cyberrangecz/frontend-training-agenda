@@ -1,25 +1,19 @@
-import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { TrainingDefinitionApi } from '@crczp/training-api';
 import { TrainingDefinition } from '@crczp/training-model';
 import { EMPTY, Observable, of } from 'rxjs';
 import { catchError, mergeMap, take } from 'rxjs/operators';
-import {
-    TRAINING_DEFINITION_NEW_PATH,
-    TRAINING_DEFINITION_PATH,
-    TRAINING_DEFINITION_SELECTOR,
-    TrainingErrorHandler,
-} from '@crczp/training-agenda';
+import { DEFINITION_NEW_PATH, TRAINING_DEFINITION_SELECTOR, TrainingErrorHandler } from '@crczp/training-agenda';
 
 /**
  * Router data provider
  */
-@Injectable()
-export class TrainingDefinitionResolver {
+export class CommonTrainingDefinitionResolver {
     constructor(
         private api: TrainingDefinitionApi,
         private errorHandler: TrainingErrorHandler,
         private router: Router,
+        private basePath: string,
     ) {}
 
     /**
@@ -31,7 +25,7 @@ export class TrainingDefinitionResolver {
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot,
     ): Observable<TrainingDefinition> | Promise<TrainingDefinition> | TrainingDefinition {
-        if (state.url.endsWith(`${TRAINING_DEFINITION_PATH}/${TRAINING_DEFINITION_NEW_PATH}`)) {
+        if (state.url.endsWith(`${this.basePath}/${DEFINITION_NEW_PATH}`)) {
             return null;
         } else if (route.paramMap.has(TRAINING_DEFINITION_SELECTOR)) {
             const id = Number(route.paramMap.get(TRAINING_DEFINITION_SELECTOR));
@@ -49,7 +43,7 @@ export class TrainingDefinitionResolver {
     }
 
     private navigateToNew(): Observable<never> {
-        this.router.navigate([TRAINING_DEFINITION_NEW_PATH]);
+        this.router.navigate([DEFINITION_NEW_PATH]);
         return EMPTY;
     }
 }

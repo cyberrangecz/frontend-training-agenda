@@ -44,7 +44,7 @@ describe('AdaptiveDefinitionOverviewComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(AdaptiveDefinitionOverviewComponent);
         component = fixture.componentInstance;
-        navigatorSpy.toAdaptiveDefinitionDetail.and.returnValue('');
+        navigatorSpy.toTrainingDefinitionDetail.and.returnValue('');
     });
 
     it('should create', () => {

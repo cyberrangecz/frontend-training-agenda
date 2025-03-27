@@ -13,7 +13,7 @@ import {
 import { NgTemplateOutlet } from '@angular/common';
 import { GridListComponent } from '../grid-list/grid-list.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { IntervalSortedSelectionList } from './interval-sorted-selection-list';
+import { IntervalSortedSelectionList, SelectionInterval } from './interval-sorted-selection-list';
 
 @Component({
     standalone: true,
@@ -36,7 +36,7 @@ export class SelectableListComponent<T, I> implements OnInit, OnChanges {
 
     @Output() itemsChange = new EventEmitter<T[]>();
     @Output() selectionChange = new EventEmitter<T[]>();
-    @Output() dragSelectionChange = new EventEmitter<{ inverted: boolean; items: T[] }>();
+    @Output() dragSelectionChange = new EventEmitter<SelectionInterval<T>>();
 
     private readonly destroyRef = inject(DestroyRef);
 

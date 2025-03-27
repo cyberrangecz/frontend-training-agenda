@@ -3,11 +3,7 @@ import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { TrainingDefinition } from '@crczp/training-model';
 import { Observable, of } from 'rxjs';
 import { catchError, mergeMap, take } from 'rxjs/operators';
-import {
-    ADAPTIVE_DEFINITION_PATH,
-    ADAPTIVE_DEFINITION_SELECTOR,
-    TRAINING_DEFINITION_NEW_PATH,
-} from '@crczp/training-agenda';
+import { ADAPTIVE_DEFINITION_PATH, ADAPTIVE_DEFINITION_SELECTOR, DEFINITION_NEW_PATH } from '@crczp/training-agenda';
 import { AdaptiveDefinitionResolver } from './adaptive-definition-resolver.service';
 
 @Injectable()
@@ -20,7 +16,7 @@ export class AdaptiveDefinitionTitleResolver {
      * @param state router state snapshot
      */
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<string> | Promise<string> | string {
-        if (state.url.endsWith(`${ADAPTIVE_DEFINITION_PATH}/${TRAINING_DEFINITION_NEW_PATH}`)) {
+        if (state.url.endsWith(`${ADAPTIVE_DEFINITION_PATH}/${DEFINITION_NEW_PATH}`)) {
             return 'Create Adaptive Training Definition';
         } else if (route.paramMap.has(ADAPTIVE_DEFINITION_SELECTOR)) {
             const resolved = this.adaptiveDefinitionResolver.resolve(route, state) as Observable<TrainingDefinition>;

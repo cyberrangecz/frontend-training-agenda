@@ -1,6 +1,5 @@
-import { Component, Input, Signal, signal, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { MatCardTitle } from '@angular/material/card';
-import { C } from '@angular/cdk/keycodes';
 
 @Component({
     selector: 'app-mat-card-notch-title',

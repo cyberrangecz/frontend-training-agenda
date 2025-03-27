@@ -3,52 +3,45 @@ import { TrainingNavigator } from './training-navigator.service';
 import { Injectable } from '@angular/core';
 import {
     ACCESS_TOKEN_PATH,
-    ADAPTIVE_DEFINITION_DETAIL_PATH,
-    ADAPTIVE_DEFINITION_PATH,
-    ADAPTIVE_INSTANCE_PATH,
-    ADAPTIVE_RUN_PATH,
-    ADAPTIVE_RUN_RESULTS_PATH,
     CHEATING_DETECTION_CREATE_PATH,
     CHEATING_DETECTION_EVENT_DETAIL_PATH,
     CHEATING_DETECTION_EVENTS_PATH,
     CHEATING_DETECTION_PATH,
+    DEFINITION_NEW_PATH,
+    LINEAR_RUN_PATH,
     MITRE_TECHNIQUES_PATH,
     PROGRESS_PATH,
     RESULTS_PATH,
     RUNS_PATH,
     SANDBOX_POOL_PATH,
-    SIMULATOR_PATH,
     SUMMARY_PATH,
     TRAINING_DEFINITION_DETAIL_PATH,
     TRAINING_DEFINITION_EDIT_PATH,
-    TRAINING_DEFINITION_NEW_PATH,
-    TRAINING_DEFINITION_PATH,
     TRAINING_DEFINITION_PREVIEW_PATH,
     TRAINING_INSTANCE_DETAIL_PATH,
     TRAINING_INSTANCE_EDIT_PATH,
     TRAINING_INSTANCE_NEW_PATH,
-    TRAINING_INSTANCE_PATH,
     TRAINING_RUN_ACCESS_PATH,
-    TRAINING_RUN_PATH,
     TRAINING_RUN_RESULTS_AGGREGATED_DASHBOARD_PATH,
     TRAINING_RUN_RESULTS_PATH,
     TRAINING_RUN_RESUME_PATH,
 } from '../model/default-paths';
 
 @Injectable()
-export class TrainingDefaultNavigator extends TrainingNavigator {
+export abstract class CommonTrainingNavigator extends TrainingNavigator {
+    protected constructor(
+        private trainingDefinitionBasePath: string,
+        private trainingInstanceBasePath: string,
+        private runBasePath: string,
+    ) {
+        super();
+    }
+
     /**
      * Returns route to training definition overview page
      */
     toTrainingDefinitionOverview(): string {
-        return TRAINING_DEFINITION_PATH;
-    }
-
-    /**
-     * Returns route to adaptive definition overview page
-     */
-    toAdaptiveDefinitionOverview(): string {
-        return ADAPTIVE_DEFINITION_PATH;
+        return this.trainingDefinitionBasePath;
     }
 
     /**
@@ -59,17 +52,10 @@ export class TrainingDefaultNavigator extends TrainingNavigator {
     }
 
     /**
-     * Return route to adaptive simulator
-     */
-    toSimulator(): string {
-        return `${ADAPTIVE_DEFINITION_PATH}/${SIMULATOR_PATH}`;
-    }
-
-    /**
      * Returns route to training run mitre techniques
      */
     toTrainingRunMitreTechniques(): string {
-        return `${TRAINING_RUN_PATH}/${MITRE_TECHNIQUES_PATH}`;
+        return `${LINEAR_RUN_PATH}/${MITRE_TECHNIQUES_PATH}`;
     }
 
     /**
@@ -77,15 +63,7 @@ export class TrainingDefaultNavigator extends TrainingNavigator {
      * @param id id of the training definition
      */
     toTrainingDefinitionPreview(id: number | string): string {
-        return `${TRAINING_DEFINITION_PATH}/${id}/${TRAINING_DEFINITION_PREVIEW_PATH}`;
-    }
-
-    /**
-     * Returns route to adaptive definition preview page
-     * @param id id of the training definition
-     */
-    toAdaptiveDefinitionPreview(id: number | string): string {
-        return `${ADAPTIVE_DEFINITION_PATH}/${id}/${TRAINING_DEFINITION_PREVIEW_PATH}`;
+        return `${this.trainingDefinitionBasePath}/${id}/${TRAINING_DEFINITION_PREVIEW_PATH}`;
     }
 
     /**
@@ -93,26 +71,14 @@ export class TrainingDefaultNavigator extends TrainingNavigator {
      * @param id id of the training definition
      */
     toTrainingDefinitionEdit(id: number | string): string {
-        return `${TRAINING_DEFINITION_PATH}/${id}/${TRAINING_DEFINITION_EDIT_PATH}`;
-    }
-
-    /**
-     * Returns route to training definition edit page
-     * @param id id of the training definition
-     */
-    toAdaptiveDefinitionEdit(id: number | string): string {
-        return `${ADAPTIVE_DEFINITION_PATH}/${id}/${TRAINING_DEFINITION_EDIT_PATH}`;
+        return `${this.trainingDefinitionBasePath}/${id}/${TRAINING_DEFINITION_EDIT_PATH}`;
     }
 
     /**
      * Returns route to new training definition page
      */
     toNewTrainingDefinition(): string {
-        return `${TRAINING_DEFINITION_PATH}/${TRAINING_DEFINITION_NEW_PATH}`;
-    }
-
-    toNewAdaptiveDefinition(): string {
-        return `${ADAPTIVE_DEFINITION_PATH}/${TRAINING_DEFINITION_NEW_PATH}`;
+        return `${this.trainingDefinitionBasePath}/${DEFINITION_NEW_PATH}`;
     }
 
     /**
@@ -120,21 +86,14 @@ export class TrainingDefaultNavigator extends TrainingNavigator {
      * @param id id of the training definition
      */
     toTrainingDefinitionDetail(id: number): string {
-        return `${TRAINING_DEFINITION_PATH}/${id}/${TRAINING_DEFINITION_DETAIL_PATH}`;
+        return `${this.trainingDefinitionBasePath}/${id}/${TRAINING_DEFINITION_DETAIL_PATH}`;
     }
 
     /**
      * Returns route to training instance overview page
      */
     toTrainingInstanceOverview(): string {
-        return TRAINING_INSTANCE_PATH;
-    }
-
-    /**
-     * Returns route to adaptive instance overview page
-     */
-    toAdaptiveInstanceOverview(): string {
-        return ADAPTIVE_INSTANCE_PATH;
+        return this.trainingInstanceBasePath;
     }
 
     /**
@@ -142,15 +101,7 @@ export class TrainingDefaultNavigator extends TrainingNavigator {
      * @param id id of the training instance
      */
     toTrainingInstanceEdit(id: number | string): string {
-        return `${TRAINING_INSTANCE_PATH}/${id}/${TRAINING_INSTANCE_EDIT_PATH}`;
-    }
-
-    /**
-     * Returns route to adaptive instance edit page
-     * @param id id of the training instance
-     */
-    toAdaptiveInstanceEdit(id: number | string): string {
-        return `${ADAPTIVE_INSTANCE_PATH}/${id}/${TRAINING_INSTANCE_EDIT_PATH}`;
+        return `${this.trainingInstanceBasePath}/${id}/${TRAINING_INSTANCE_EDIT_PATH}`;
     }
 
     /**
@@ -158,15 +109,7 @@ export class TrainingDefaultNavigator extends TrainingNavigator {
      * @param id id of the training instance
      */
     toTrainingInstanceDetail(id: number | string): string {
-        return `${TRAINING_INSTANCE_PATH}/${id}/${TRAINING_INSTANCE_DETAIL_PATH}`;
-    }
-
-    /**
-     * Returns route to adaptive instance detail page
-     * @param id id of the training instance
-     */
-    toAdaptiveInstanceDetail(id: number | string): string {
-        return `${ADAPTIVE_INSTANCE_PATH}/${id}/${TRAINING_INSTANCE_DETAIL_PATH}`;
+        return `${this.trainingInstanceBasePath}/${id}/${TRAINING_INSTANCE_DETAIL_PATH}`;
     }
 
     /**
@@ -178,14 +121,6 @@ export class TrainingDefaultNavigator extends TrainingNavigator {
     }
 
     /**
-     * Returns route to adaptive instance access token page
-     * @param id id of the adaptive instance
-     */
-    toAdaptiveInstanceAccessToken(id: number | string): string {
-        return `${this.toAdaptiveInstanceDetail(id)}/${ACCESS_TOKEN_PATH}`;
-    }
-
-    /**
      * Returns route to training instance summary page
      * @param id id of the training instance
      */
@@ -194,27 +129,11 @@ export class TrainingDefaultNavigator extends TrainingNavigator {
     }
 
     /**
-     * Returns route to adaptive instance summary page
-     * @param id id of the adaptive instance
-     */
-    toAdaptiveInstanceSummary(id: number | string): string {
-        return `${this.toAdaptiveInstanceDetail(id)}/${SUMMARY_PATH}`;
-    }
-
-    /**
      * Returns route to training instance progress page
      * @param id id of the training instance
      */
     toTrainingInstanceProgress(id: number | string): string {
         return `${this.toTrainingInstanceDetail(id)}/${PROGRESS_PATH}`;
-    }
-
-    /**
-     * Returns route to adaptive instance progress page
-     * @param id id of the adaptive instance
-     */
-    toAdaptiveInstanceProgress(id: number | string): string {
-        return `${this.toAdaptiveInstanceDetail(id)}/${PROGRESS_PATH}`;
     }
 
     /**
@@ -256,14 +175,6 @@ export class TrainingDefaultNavigator extends TrainingNavigator {
     }
 
     /**
-     * Returns route to adaptive instance results page
-     * @param id id of the adaptive instance
-     */
-    toAdaptiveInstanceResults(id: number | string): string {
-        return `${this.toAdaptiveInstanceDetail(id)}/${RESULTS_PATH}`;
-    }
-
-    /**
      * Returns route to training instance runs page
      * @param id id of the training instance
      */
@@ -272,29 +183,14 @@ export class TrainingDefaultNavigator extends TrainingNavigator {
     }
 
     /**
-     * Returns route to adaptive instance runs page
-     * @param id id of the adaptive instance
-     */
-    toAdaptiveInstanceRuns(id: number | string): string {
-        return `${this.toAdaptiveInstanceDetail(id)}/${RUNS_PATH}`;
-    }
-
-    /**
      * Returns route to new training instance page
      */
     toNewTrainingInstance(): string {
-        return `${TRAINING_INSTANCE_PATH}/${TRAINING_INSTANCE_NEW_PATH}`;
-    }
-
-    /**
-     * Returns route to new training instance page
-     */
-    toNewAdaptiveInstance(): string {
-        return `${ADAPTIVE_INSTANCE_PATH}/${TRAINING_INSTANCE_NEW_PATH}`;
+        return `${this.trainingInstanceBasePath}/${TRAINING_INSTANCE_NEW_PATH}`;
     }
 
     toTrainingRunOverview(): string {
-        return TRAINING_RUN_PATH;
+        return LINEAR_RUN_PATH;
     }
 
     /**
@@ -302,23 +198,11 @@ export class TrainingDefaultNavigator extends TrainingNavigator {
      * @param id id of the training run
      */
     toResumeTrainingRun(id: number | string): string {
-        return `${TRAINING_RUN_PATH}/${TRAINING_RUN_RESUME_PATH}/${id}`;
-    }
-
-    /**
-     * Returns route to adaptive run training page
-     * @param id id of the adaptive run
-     */
-    toResumeAdaptiveRun(id: number | string): string {
-        return `${TRAINING_RUN_PATH}/${ADAPTIVE_RUN_PATH}/${TRAINING_RUN_RESUME_PATH}/${id}`;
+        return `${this.runBasePath}/${TRAINING_RUN_RESUME_PATH}/${id}`;
     }
 
     toAccessTrainingRun(token: string): string {
-        return `${TRAINING_RUN_PATH}/${TRAINING_RUN_ACCESS_PATH}/${token}`;
-    }
-
-    toAccessAdaptiveRun(token: string): string {
-        return `${TRAINING_RUN_PATH}/${ADAPTIVE_RUN_PATH}/${TRAINING_RUN_ACCESS_PATH}/${token}`;
+        return `${this.runBasePath}/${TRAINING_RUN_ACCESS_PATH}/${token}`;
     }
 
     /**
@@ -326,26 +210,10 @@ export class TrainingDefaultNavigator extends TrainingNavigator {
      * @param id id of the training run
      */
     toTrainingRunResult(id: number | string): string {
-        return `${TRAINING_RUN_PATH}/${TRAINING_RUN_RESULTS_PATH}/${id}`;
-    }
-
-    /**
-     * Returns route to adaptive run results page
-     * @param id id of the adaptive run
-     */
-    toAdaptiveRunResult(id: number | string): string {
-        return `${TRAINING_RUN_PATH}/${ADAPTIVE_RUN_RESULTS_PATH}/${id}`;
+        return `${this.runBasePath}/${TRAINING_RUN_RESULTS_PATH}/${id}`;
     }
 
     toPool(id: number | string): string {
         return `${SANDBOX_POOL_PATH}/${id}`;
-    }
-
-    /**
-     * Returns route to adaptive definition detail page
-     * @param id id of the adaptive definition
-     */
-    toAdaptiveDefinitionDetail(id: number): string {
-        return `${ADAPTIVE_DEFINITION_PATH}/${id}/${ADAPTIVE_DEFINITION_DETAIL_PATH}`;
     }
 }

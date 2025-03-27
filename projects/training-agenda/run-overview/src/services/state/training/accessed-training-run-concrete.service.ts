@@ -4,7 +4,12 @@ import { AdaptiveRunApi, TrainingRunApi } from '@crczp/training-api';
 import { AccessedTrainingRun } from '@crczp/training-model';
 import { from, Observable } from 'rxjs';
 import { concatMap, map, tap } from 'rxjs/operators';
-import { TrainingErrorHandler, TrainingNavigator } from '@crczp/training-agenda';
+import {
+    AdaptiveTrainingNavigator,
+    CoopTrainingNavigator,
+    TrainingErrorHandler,
+    TrainingNavigator,
+} from '@crczp/training-agenda';
 import { TrainingAgendaContext } from '@crczp/training-agenda/internal';
 import { AccessedTrainingRunService } from './accessed-training-run.service';
 import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
@@ -20,13 +25,51 @@ export class AccessedTrainingRunConcreteService extends AccessedTrainingRunServi
         private adaptiveApi: AdaptiveRunApi,
         private router: Router,
         private context: TrainingAgendaContext,
-        private navigator: TrainingNavigator,
+        private linearNavigator: TrainingNavigator,
+        private adaptiveNavigator: AdaptiveTrainingNavigator,
+        private coopNavigator: CoopTrainingNavigator,
         private errorHandler: TrainingErrorHandler,
     ) {
         super(context.config.defaultPaginationSize);
     }
 
     private lastFilters: string;
+
+    /**
+     * Resumes in already started training run or handles error.
+     * @param id id of training run to resume
+     */
+    resumeLinear(id: number): Observable<any> {
+        return from(this.router.navigate([this.linearNavigator.toResumeTrainingRun(id)]));
+    }
+
+    resumeAdaptive(id: number): Observable<any> {
+        return from(this.router.navigate([this.adaptiveNavigator.toResumeTrainingRun(id)]));
+    }
+
+    resumeCoop(id: number): Observable<any> {
+        return from(this.router.navigate([this.coopNavigator.toResumeTrainingRun(id)]));
+    }
+
+    access(token: string): Observable<any> {
+        return from(this.router.navigate([this.linearNavigator.toAccessTrainingRun(token)]));
+    }
+
+    resultsLinear(id: number): Observable<any> {
+        return from(this.router.navigate([this.linearNavigator.toTrainingRunResult(id)]));
+    }
+
+    resultsCoop(id: number): Observable<any> {
+        return from(this.router.navigate([this.coopNavigator.toTrainingRunResult(id)]));
+    }
+
+    resultsAdaptive(id: number): Observable<any> {
+        return from(this.router.navigate([this.adaptiveNavigator.toTrainingRunResult(id)]));
+    }
+
+    showMitreTechniques(): Observable<any> {
+        return from(this.router.navigate([this.linearNavigator.toTrainingRunMitreTechniques()]));
+    }
 
     /**
      * Gets paginated accessed training runs and updates related observables or handles error.
@@ -50,34 +93,6 @@ export class AccessedTrainingRunConcreteService extends AccessedTrainingRunServi
                 },
             ),
         );
-    }
-
-    /**
-     * Resumes in already started training run or handles error.
-     * @param id id of training run to resume
-     */
-    resumeLinear(id: number): Observable<any> {
-        return from(this.router.navigate([this.navigator.toResumeTrainingRun(id)]));
-    }
-
-    resumeAdaptive(id: number): Observable<any> {
-        return from(this.router.navigate([this.navigator.toResumeAdaptiveRun(id)]));
-    }
-
-    access(token: string): Observable<any> {
-        return from(this.router.navigate([this.navigator.toAccessTrainingRun(token)]));
-    }
-
-    resultsLinear(id: number): Observable<any> {
-        return from(this.router.navigate([this.navigator.toTrainingRunResult(id)]));
-    }
-
-    resultsAdaptive(id: number): Observable<any> {
-        return from(this.router.navigate([this.navigator.toAdaptiveRunResult(id)]));
-    }
-
-    showMitreTechniques(): Observable<any> {
-        return from(this.router.navigate([this.navigator.toTrainingRunMitreTechniques()]));
     }
 
     private getAllAdaptive(

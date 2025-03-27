@@ -5,7 +5,7 @@ import { TeamManagementService } from '../services/team-management-service';
 import { Component, DestroyRef, HostListener, inject, OnInit } from '@angular/core';
 import { comparePlayersByName, compareTeamsById } from './team-util-functions';
 import { take } from 'rxjs/operators';
-import { QueueSelection } from './selection';
+import { QueueSelection } from './queue-selection';
 import { Observable } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
@@ -60,12 +60,12 @@ export class TeamsManagementComponent implements OnInit {
 
     @HostListener('document:keydown.a', ['$event'])
     onAKey($event: KeyboardEvent) {
-        this.queueSelection.setSelectedQueueUsers(this.teamsService.waitingPlayersSubject.value);
+        this.queueSelection.selectedQueueUsers = this.teamsService.waitingPlayersSubject.value;
     }
 
     @HostListener('document:keydown.shift.a', ['$event'])
     onShiftAKey($event: KeyboardEvent) {
-        this.queueSelection.setSelectedQueueUsers([]);
+        this.queueSelection.selectedQueueUsers = [];
     }
 
     @HostListener('document:keydown.l', ['$event'])
@@ -102,7 +102,7 @@ export class TeamsManagementComponent implements OnInit {
 
     assignTeamsSelectionToTeam(team: Team) {
         const usersWhoFit = this.queueSelection
-            .getTeamsSelectedUsers()
+            .selectedTeamsUsers()
             .slice(0, this.teamsService.maxTeamSizeSubject.value - team.members.length)
             .map(this.getId);
         this.subscribeUntilDestroyed(this.teamsService.assignToTeam(usersWhoFit, team.id));
@@ -149,7 +149,7 @@ export class TeamsManagementComponent implements OnInit {
         this.subscribeUntilDestroyed(
             this.teamsService.createTeam(
                 undefined,
-                this.queueSelection.getQueueSelectedUsers().slice(0, this.maxTeamSize).map(this.getId),
+                this.queueSelection.selectedQueueUsers().slice(0, this.maxTeamSize).map(this.getId),
             ),
         );
     }
@@ -158,7 +158,7 @@ export class TeamsManagementComponent implements OnInit {
         this.subscribeUntilDestroyed(
             this.teamsService.createTeam(
                 undefined,
-                this.queueSelection.getTeamsSelectedUsers().slice(0, this.maxTeamSize).map(this.getId),
+                this.queueSelection.selectedTeamsUsers().slice(0, this.maxTeamSize).map(this.getId),
             ),
         );
     }

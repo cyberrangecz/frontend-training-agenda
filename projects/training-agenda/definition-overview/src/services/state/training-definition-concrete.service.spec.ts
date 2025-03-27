@@ -19,7 +19,7 @@ import {
 import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } from '@crczp/training-agenda';
 import { TrainingAgendaContext } from '@crczp/training-agenda/internal';
 import { FileUploadProgressService } from '../file-upload/file-upload-progress.service';
-import { TrainingDefinitionConcreteService } from './training-definition.concrete.service';
+import { TrainingDefinitionConcreteService } from './training-definition-concrete.service';
 
 describe('TrainingDefinitionConcreteService', () => {
     let errorHandlerSpy: jasmine.SpyObj<TrainingErrorHandler>;

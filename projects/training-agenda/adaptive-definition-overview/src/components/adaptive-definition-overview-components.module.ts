@@ -5,7 +5,12 @@ import { ngfModule } from 'angular-file';
 import { SentinelPipesModule } from '@sentinel/common/pipes';
 import { SentinelControlsComponent } from '@sentinel/components/controls';
 import { SentinelTableModule } from '@sentinel/components/table';
-import { TrainingAgendaConfig, TrainingDefaultNavigator, TrainingNavigator } from '@crczp/training-agenda';
+import {
+    AdaptiveTrainingDefaultNavigator,
+    AdaptiveTrainingNavigator,
+    TrainingAgendaConfig,
+    TrainingNavigator,
+} from '@crczp/training-agenda';
 import { PaginationService, TrainingAgendaContext } from '@crczp/training-agenda/internal';
 import { AdaptiveFileUploadProgressService } from '../services/file-upload/adaptive-file-upload-progress.service';
 import { AdaptiveDefinitionConcreteService } from '../services/state/adaptive-definition.concrete.service';
@@ -42,7 +47,8 @@ import {
         AdaptiveDefinitionResolver,
         AdaptiveDefinitionBreadcrumbResolver,
         AdaptiveDefinitionTitleResolver,
-        { provide: TrainingNavigator, useClass: TrainingDefaultNavigator },
+        { provide: AdaptiveTrainingNavigator, useClass: AdaptiveTrainingDefaultNavigator },
+        { provide: TrainingNavigator, useClass: AdaptiveTrainingDefaultNavigator },
         { provide: AdaptiveDefinitionService, useClass: AdaptiveDefinitionConcreteService },
     ],
 })

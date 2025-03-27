@@ -59,7 +59,7 @@ export class AdaptiveDefinitionEditConcreteService extends AdaptiveDefinitionEdi
                 );
             }
         } else {
-            return this.create().pipe(map((id) => this.router.navigate([this.navigator.toAdaptiveDefinitionEdit(id)])));
+            return this.create().pipe(map((id) => this.router.navigate([this.navigator.toTrainingDefinitionEdit(id)])));
         }
     }
 

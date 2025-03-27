@@ -138,7 +138,7 @@ export class RunningAdaptiveRunConcreteService extends RunningAdaptiveRunService
                 const tmpTrainingRunId = this.trainingRunId;
                 setTimeout(() => {
                     dialog.close();
-                    this.router.navigate([this.navigator.toAdaptiveRunResult(tmpTrainingRunId)]);
+                    this.router.navigate([this.navigator.toTrainingRunResult(tmpTrainingRunId)]);
                 }, 5000);
                 return EMPTY;
             }),

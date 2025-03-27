@@ -2,17 +2,17 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TrainingDefinitionOverviewComponent } from '@crczp/training-agenda/definition-overview';
 import {
+    DEFINITION_NEW_PATH,
     TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME,
     TRAINING_DEFINITION_DETAIL_PATH,
     TRAINING_DEFINITION_EDIT_PATH,
-    TRAINING_DEFINITION_NEW_PATH,
     TRAINING_DEFINITION_PREVIEW_PATH,
     TRAINING_DEFINITION_SELECTOR,
 } from '@crczp/training-agenda';
 import {
     TrainingDefinitionBreadcrumbResolver,
-    TrainingDefinitionResolver,
-    TrainingDefinitionTitleResolver,
+    LinearTrainingDefinitionResolver,
+    LinearTrainingDefinitionTitleResolver,
 } from '@crczp/training-agenda/resolvers';
 
 const routes: Routes = [
@@ -21,17 +21,17 @@ const routes: Routes = [
         component: TrainingDefinitionOverviewComponent,
     },
     {
-        path: TRAINING_DEFINITION_NEW_PATH,
+        path: DEFINITION_NEW_PATH,
         loadChildren: () =>
-            import('./edit/training-definition-edit-overview.module').then(
-                (m) => m.TrainingDefinitionEditOverviewModule,
+            import('./edit/linear-training-definition-edit-overview.module').then(
+                (m) => m.LinearTrainingDefinitionEditOverviewModule,
             ),
     },
     {
         path: `:${TRAINING_DEFINITION_SELECTOR}/${TRAINING_DEFINITION_EDIT_PATH}`,
         loadChildren: () =>
-            import('./edit/training-definition-edit-overview.module').then(
-                (m) => m.TrainingDefinitionEditOverviewModule,
+            import('./edit/linear-training-definition-edit-overview.module').then(
+                (m) => m.LinearTrainingDefinitionEditOverviewModule,
             ),
     },
     {
@@ -41,11 +41,13 @@ const routes: Routes = [
     {
         path: `:${TRAINING_DEFINITION_SELECTOR}/${TRAINING_DEFINITION_DETAIL_PATH}`,
         loadChildren: () =>
-            import('./detail/training-definition-detail.module').then((m) => m.TrainingDefinitionDetailModule),
+            import('./detail/linear-training-definition-detail.module').then(
+                (m) => m.LinearTrainingDefinitionDetailModule,
+            ),
         resolve: {
-            [TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME]: TrainingDefinitionResolver,
+            [TRAINING_DEFINITION_DATA_ATTRIBUTE_NAME]: LinearTrainingDefinitionResolver,
             breadcrumb: TrainingDefinitionBreadcrumbResolver,
-            title: TrainingDefinitionTitleResolver,
+            title: LinearTrainingDefinitionTitleResolver,
         },
     },
 ];
@@ -57,4 +59,4 @@ const routes: Routes = [
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule],
 })
-export class TrainingDefinitionOverviewRoutingModule {}
+export class LinearTrainingDefinitionOverviewRoutingModule {}

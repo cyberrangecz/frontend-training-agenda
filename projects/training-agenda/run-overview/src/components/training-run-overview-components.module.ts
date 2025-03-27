@@ -4,7 +4,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { SentinelPipesModule } from '@sentinel/common/pipes';
 import { SentinelTableModule } from '@sentinel/components/table';
-import { TrainingAgendaConfig, TrainingDefaultNavigator, TrainingNavigator } from '@crczp/training-agenda';
+import {
+    AdaptiveTrainingDefaultNavigator,
+    AdaptiveTrainingNavigator,
+    CoopTrainingDefaultNavigator,
+    CoopTrainingNavigator,
+    LinearTrainingDefaultNavigator,
+    TrainingAgendaConfig,
+    TrainingNavigator,
+} from '@crczp/training-agenda';
 import { LoadingDialogModule, PaginationService, TrainingAgendaContext } from '@crczp/training-agenda/internal';
 import {
     RunningAdaptiveRunConcreteService,
@@ -55,7 +63,9 @@ import { RunningTrainingRunConcreteService, RunningTrainingRunService } from '@c
         AdaptiveRunResultsResolver,
         TrainingAgendaContext,
         PaginationService,
-        { provide: TrainingNavigator, useClass: TrainingDefaultNavigator },
+        { provide: TrainingNavigator, useClass: LinearTrainingDefaultNavigator },
+        { provide: AdaptiveTrainingNavigator, useClass: AdaptiveTrainingDefaultNavigator },
+        { provide: CoopTrainingNavigator, useClass: CoopTrainingDefaultNavigator },
         { provide: RunningTrainingRunService, useClass: RunningTrainingRunConcreteService },
         { provide: RunningAdaptiveRunService, useClass: RunningAdaptiveRunConcreteService },
         { provide: AccessedTrainingRunService, useClass: AccessedTrainingRunConcreteService },

@@ -4,11 +4,11 @@ import { TrainingDefinition } from '@crczp/training-model';
 import { Observable, of } from 'rxjs';
 import { catchError, mergeMap, take } from 'rxjs/operators';
 import { SUMMARY_PATH } from '@crczp/training-agenda';
-import { TrainingDefinitionResolver } from './training-definition-resolver.service';
+import { CommonTrainingDefinitionResolver } from './common-training-definition-resolver.service';
 
 @Injectable()
 export class TrainingDefinitionDetailTitleResolver {
-    constructor(private trainingDefinitionResolver: TrainingDefinitionResolver) {}
+    constructor(private trainingDefinitionResolver: CommonTrainingDefinitionResolver) {}
 
     /**
      * Retrieves a specific resource title based on id provided in url

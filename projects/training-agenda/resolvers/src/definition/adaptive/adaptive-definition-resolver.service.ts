@@ -7,7 +7,7 @@ import { catchError, mergeMap, take } from 'rxjs/operators';
 import {
     ADAPTIVE_DEFINITION_PATH,
     ADAPTIVE_DEFINITION_SELECTOR,
-    TRAINING_DEFINITION_NEW_PATH,
+    DEFINITION_NEW_PATH,
     TrainingErrorHandler,
 } from '@crczp/training-agenda';
 
@@ -31,7 +31,7 @@ export class AdaptiveDefinitionResolver {
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot,
     ): Observable<TrainingDefinition> | Promise<TrainingDefinition> | TrainingDefinition {
-        if (state.url.endsWith(`${ADAPTIVE_DEFINITION_PATH}/${TRAINING_DEFINITION_NEW_PATH}`)) {
+        if (state.url.endsWith(`${ADAPTIVE_DEFINITION_PATH}/${DEFINITION_NEW_PATH}`)) {
             return null;
         } else if (route.paramMap.has(ADAPTIVE_DEFINITION_SELECTOR)) {
             const id = Number(route.paramMap.get(ADAPTIVE_DEFINITION_SELECTOR));
@@ -49,7 +49,7 @@ export class AdaptiveDefinitionResolver {
     }
 
     private navigateToNew(): Observable<never> {
-        this.router.navigate([TRAINING_DEFINITION_NEW_PATH]);
+        this.router.navigate([DEFINITION_NEW_PATH]);
         return EMPTY;
     }
 }

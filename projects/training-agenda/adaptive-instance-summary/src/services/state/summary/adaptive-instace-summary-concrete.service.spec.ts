@@ -64,12 +64,12 @@ describe('AdaptiveInstanceSummaryConcreteService', () => {
     it('should show results', (done) => {
         const trainingInstance = createMock();
         routerSpy.navigate.and.returnValue(asyncData(true).toPromise());
-        navigatorSpy.toAdaptiveInstanceResults.and.returnValue('navigate');
+        navigatorSpy.toTrainingInstanceResults.and.returnValue('navigate');
         service.init(trainingInstance);
         service.showResults().subscribe((res) => {
             expect(res).toBeTruthy();
             expect(routerSpy.navigate).toHaveBeenCalledTimes(1);
-            expect(navigatorSpy.toAdaptiveInstanceResults).toHaveBeenCalledTimes(1);
+            expect(navigatorSpy.toTrainingInstanceResults).toHaveBeenCalledTimes(1);
             done();
         });
     });

@@ -6,7 +6,7 @@ import { EMPTY, Observable, of } from 'rxjs';
 import { catchError, mergeMap, take } from 'rxjs/operators';
 import {
     TRAINING_INSTANCE_NEW_PATH,
-    TRAINING_INSTANCE_PATH,
+    LINEAR_INSTANCE_PATH,
     TRAINING_INSTANCE_SELECTOR,
     TrainingErrorHandler,
     TrainingNavigator,
@@ -33,7 +33,7 @@ export class TrainingInstanceResolver {
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot,
     ): Observable<TrainingInstance> | Promise<TrainingInstance> | TrainingInstance {
-        if (state.url.endsWith(`${TRAINING_INSTANCE_PATH}/${TRAINING_INSTANCE_NEW_PATH}`)) {
+        if (state.url.endsWith(`${LINEAR_INSTANCE_PATH}/${TRAINING_INSTANCE_NEW_PATH}`)) {
             return null;
         }
         if (route.paramMap.has(TRAINING_INSTANCE_SELECTOR)) {
