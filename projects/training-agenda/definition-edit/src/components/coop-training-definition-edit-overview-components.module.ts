@@ -1,7 +1,7 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { TrainingAgendaConfig } from '@crczp/training-agenda';
 import { TrainingTypeEnum } from '@crczp/training-model';
-import { CommonTrainingDefinitionEditOverviewComponentsModule } from '@crczp/training-agenda/definition-edit';
+import { CommonTrainingDefinitionEditOverviewComponentsModule } from './common-training-definition-edit-overview-components.module';
 import {
     CommonTrainingDefinitionResolver,
     CommonTrainingDefinitionTitleResolver,

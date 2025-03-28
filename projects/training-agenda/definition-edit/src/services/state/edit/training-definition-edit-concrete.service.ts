@@ -8,7 +8,7 @@ import { TrainingDefinitionChangeEvent } from '../../../model/events/training-de
 import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } from '@crczp/training-agenda';
 import { TrainingDefinitionEditService } from './training-definition-edit.service';
 import { LevelEditService } from '../level/level-edit.service';
-import { CommonTrainingDefinitionEditOverviewComponentsModule } from '@crczp/training-agenda/definition-edit';
+import { CommonTrainingDefinitionEditOverviewComponentsModule } from '../../../components/common-training-definition-edit-overview-components.module';
 
 /**
  * Service handling editing of training definition and related operations.

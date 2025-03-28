@@ -59,12 +59,12 @@ export class AppComponent {
                         {
                             label: 'Linear',
                             path: 'linear-instance',
-                            canActivate: () => roles['ROLE_TRAINING_ORGANISER'],
+                            canActivate: () => roles['ROLE_TRAINING_ORGANIZER'],
                         },
                         {
                             label: 'Coop',
                             path: 'coop-instance',
-                            canActivate: () => roles['ROLE_TRAINING_ORGANISER'],
+                            canActivate: () => roles['ROLE_TRAINING_ORGANIZER'],
                         },
                         {
                             label: 'Adaptive',

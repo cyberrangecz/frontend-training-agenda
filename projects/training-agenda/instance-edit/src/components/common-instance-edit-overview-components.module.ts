@@ -33,14 +33,15 @@ import { SentinelResourceSelectorModule } from '@sentinel/components/resource-se
         SentinelListElementDirective,
         SentinelResourceSelectorModule,
     ],
+    exports: [TrainingInstanceEditOverviewComponent],
     declarations: [TrainingInstanceEditOverviewComponent, TrainingInstanceEditComponent],
-    providers: [TrainingInstanceCanDeactivate],
 })
-export class TrainingInstanceEditOverviewComponentsModule {
-    static forRoot(config: TrainingAgendaConfig): ModuleWithProviders<TrainingInstanceEditOverviewComponentsModule> {
+export class CommonTrainingInstanceEditOverviewComponentsModule {
+    static forRoot(
+        config: TrainingAgendaConfig,
+    ): ModuleWithProviders<CommonTrainingInstanceEditOverviewComponentsModule> {
         return {
-            ngModule: TrainingInstanceEditOverviewComponentsModule,
-            providers: [{ provide: TrainingAgendaConfig, useValue: config }],
+            ngModule: CommonTrainingInstanceEditOverviewComponentsModule,
         };
     }
 }

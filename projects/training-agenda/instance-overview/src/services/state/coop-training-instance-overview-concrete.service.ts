@@ -3,13 +3,13 @@ import { Router } from '@angular/router';
 import { PoolApi } from '@crczp/sandbox-api';
 import { TrainingInstanceApi } from '@crczp/training-api';
 import { Observable, of } from 'rxjs';
-import { TrainingErrorHandler, TrainingNotificationService } from '@crczp/training-agenda';
+import { CoopTrainingNavigator, TrainingErrorHandler, TrainingNotificationService } from '@crczp/training-agenda';
 import { TrainingAgendaContext } from '@crczp/training-agenda/internal';
 import { TrainingInstanceOverviewService } from './training-instance-overview.service';
 import { MatDialog } from '@angular/material/dialog';
-import { LinearTrainingInstanceOverviewConcreteService } from './linear-training-instance-overview-concrete.service';
-import { CoopTrainingNavigator } from '@crczp/training-agenda';
-import { TrainingInstance } from '@crczp/training-model';
+import { TrainingInstance, TrainingTypeEnum } from '@crczp/training-model';
+import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
+import { CommonTrainingInstanceOverviewConcreteService } from './common-training-instance-overview-concrete.service';
 
 export abstract class CoopTrainingInstanceOverviewService extends TrainingInstanceOverviewService {
     /**
@@ -27,7 +27,7 @@ export abstract class CoopTrainingInstanceOverviewService extends TrainingInstan
 
 @Injectable()
 export class CoopTrainingInstanceOverviewConcreteService
-    extends LinearTrainingInstanceOverviewConcreteService
+    extends CommonTrainingInstanceOverviewConcreteService
     implements CoopTrainingInstanceOverviewService
 {
     constructor(
@@ -40,7 +40,17 @@ export class CoopTrainingInstanceOverviewConcreteService
         notificationService: TrainingNotificationService,
         errorHandler: TrainingErrorHandler,
     ) {
-        super(trainingInstanceApi, dialog, poolApi, router, navigator, context, notificationService, errorHandler);
+        super(
+            trainingInstanceApi,
+            dialog,
+            poolApi,
+            router,
+            navigator,
+            context,
+            notificationService,
+            errorHandler,
+            TrainingTypeEnum.COOP,
+        );
     }
 
     public teamsManagement(instanceId: number): Observable<any> {

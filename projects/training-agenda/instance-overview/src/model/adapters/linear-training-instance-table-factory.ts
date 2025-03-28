@@ -7,6 +7,7 @@ import { TrainingNavigator } from '@crczp/training-agenda';
 import { TrainingInstanceOverviewService } from '../../services/state/training-instance-overview.service';
 import { TrainingInstanceRowAdapter } from './training-instance-row-adapter';
 import { DateHelper } from '@crczp/training-agenda/internal';
+import { SentinelControlItem } from '@sentinel/components/controls';
 
 /**
  * @dynamic
@@ -17,6 +18,18 @@ export class LinearTrainingInstanceTableFactory {
         protected service: TrainingInstanceOverviewService,
         private navigator: TrainingNavigator,
     ) {}
+
+    public createControls(service: TrainingInstanceOverviewService): SentinelControlItem[] {
+        return [
+            new SentinelControlItem(
+                'add',
+                'Create',
+                'primary',
+                of(false),
+                defer(() => service.create()),
+            ),
+        ];
+    }
 
     public createTable(): SentinelTable<TrainingInstanceRowAdapter> {
         const rows = this.resource.elements.map((element) => this.createRow(element, this.service, this.navigator));

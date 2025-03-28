@@ -47,8 +47,8 @@ const routes: Routes = [
     {
         path: 'linear-instance',
         loadChildren: () =>
-            import('./lazy-loaded-modules/instance/overview/training-instance-overview.module').then(
-                (m) => m.TrainingInstanceOverviewModule,
+            import('./lazy-loaded-modules/instance/overview/linear-training-instance-overview.module').then(
+                (m) => m.LinearTrainingInstanceOverviewModule,
             ),
         data: {
             breadcrumb: 'Instance',
@@ -58,8 +58,8 @@ const routes: Routes = [
     {
         path: 'coop-instance',
         loadChildren: () =>
-            import('./lazy-loaded-modules/instance/overview/training-instance-overview-coop.module').then(
-                (m) => m.TrainingInstanceOverviewCoopModule,
+            import('./lazy-loaded-modules/instance/overview/coop-training-instance-overview.module').then(
+                (m) => m.CoopTrainingInstanceOverviewModule,
             ),
         data: {
             breadcrumb: 'Instance',

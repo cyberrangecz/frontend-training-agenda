@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TrainingInstanceOverviewComponent } from '@crczp/training-agenda/instance-overview';
 import {
     TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME,
     TRAINING_INSTANCE_DETAIL_PATH,
@@ -13,11 +12,12 @@ import {
     TrainingInstanceResolver,
     TrainingInstanceTitleResolver,
 } from '@crczp/training-agenda/resolvers';
+import { CoopTrainingInstanceOverviewComponent } from '../../../../../../training-agenda/instance-overview/src/components/coop-training-instance-overview/linear-training-instance-overview.component';
 
 const routes: Routes = [
     {
         path: '',
-        component: TrainingInstanceOverviewComponent,
+        component: CoopTrainingInstanceOverviewComponent,
     },
     {
         path: `:${TRAINING_INSTANCE_SELECTOR}/${TRAINING_INSTANCE_DETAIL_PATH}`,
@@ -32,7 +32,9 @@ const routes: Routes = [
     {
         path: TRAINING_INSTANCE_NEW_PATH,
         loadChildren: () =>
-            import('./edit/training-instance-edit-overview.module').then((m) => m.TrainingInstanceEditOverviewModule),
+            import('./edit/coop-training-instance-edit-overview.module').then(
+                (m) => m.CoopTrainingInstanceEditOverviewModule,
+            ),
         resolve: {
             [TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME]: TrainingInstanceResolver,
             breadcrumb: TrainingInstanceBreadcrumbResolver,
@@ -42,7 +44,9 @@ const routes: Routes = [
     {
         path: `:${TRAINING_INSTANCE_SELECTOR}/${TRAINING_INSTANCE_EDIT_PATH}`,
         loadChildren: () =>
-            import('./edit/training-instance-edit-overview.module').then((m) => m.TrainingInstanceEditOverviewModule),
+            import('./edit/coop-training-instance-edit-overview.module').then(
+                (m) => m.CoopTrainingInstanceEditOverviewModule,
+            ),
         resolve: {
             [TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME]: TrainingInstanceResolver,
             breadcrumb: TrainingInstanceBreadcrumbResolver,
@@ -58,4 +62,4 @@ const routes: Routes = [
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule],
 })
-export class TrainingInstanceOverviewRoutingModule {}
+export class CoopTrainingInstanceOverviewRoutingModule {}

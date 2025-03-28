@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, Input, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, Input, OnInit, TemplateRef } from '@angular/core';
 import { OffsetPaginationEvent, SortDir } from '@sentinel/common/pagination';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { TrainingInstance } from '@crczp/training-model';
@@ -20,7 +20,7 @@ import { TrainingInstanceRowAdapter } from '../model/adapters/training-instance-
     styleUrls: ['./training-instance-overview.component.css'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TrainingInstanceOverviewComponent {
+export class TrainingInstanceOverviewComponent implements OnInit {
     @Input() paginationId = 'training-instance-overview';
     @Input() tableSupplier: <T extends TrainingInstanceRowAdapter>() => Observable<SentinelTable<T>>;
     @Input() controlsSupplier: () => SentinelControlItem[];
@@ -40,7 +40,9 @@ export class TrainingInstanceOverviewComponent {
         private service: TrainingInstanceOverviewService,
         private paginationService: PaginationService,
         private notificationService: TrainingNotificationService,
-    ) {
+    ) {}
+
+    ngOnInit() {
         this.controls = this.controlsSupplier();
         this.initTable();
     }
