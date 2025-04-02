@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { TrainingDefinitionApi } from '@crczp/training-api';
 import { TrainingDefinition } from '@crczp/training-model';
-import { concat, Observable } from 'rxjs';
+import { combineLatest, concat, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { TrainingDefinitionChangeEvent } from '../../../model/events/training-definition-change-event';
 import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } from '@crczp/training-agenda';
 import { TrainingDefinitionEditService } from './training-definition-edit.service';
 import { LevelEditService } from '../level/level-edit.service';
+import { LoadingTracker } from '@crczp/training-agenda/internal';
 
 /**
  * Service handling editing of training definition and related operations.
@@ -28,6 +29,12 @@ export class TrainingDefinitionEditConcreteService extends TrainingDefinitionEdi
     ) {
         super();
     }
+
+    private loadingTracker = new LoadingTracker();
+
+    public saveDisabled$ = combineLatest(this.loadingTracker.isLoading$, this.saveDisabledSubject$).pipe(
+        map(([loading, invalid]) => loading || invalid),
+    );
 
     /**
      * Sets training definition as currently edited
@@ -73,27 +80,31 @@ export class TrainingDefinitionEditConcreteService extends TrainingDefinitionEdi
     }
 
     private update(): Observable<number> {
-        return this.api.update(this.editedSnapshot).pipe(
-            tap(
-                () => {
-                    this.notificationService.emit('success', 'Changes were saved');
-                    this.onSaved();
-                },
-                (err) => this.errorHandler.emit(err, 'Editing training definition'),
+        return this.loadingTracker.trackRequest(() =>
+            this.api.update(this.editedSnapshot).pipe(
+                tap(
+                    () => {
+                        this.notificationService.emit('success', 'Changes were saved');
+                        this.onSaved();
+                    },
+                    (err) => this.errorHandler.emit(err, 'Editing training definition'),
+                ),
             ),
         );
     }
 
     private create(): Observable<number> {
-        return this.api.create(this.editedSnapshot).pipe(
-            tap(
-                () => {
-                    this.notificationService.emit('success', 'Training was created');
-                    this.onSaved();
-                },
-                (err) => this.errorHandler.emit(err, 'Creating training definition'),
+        return this.loadingTracker.trackRequest(() =>
+            this.api.create(this.editedSnapshot).pipe(
+                tap(
+                    () => {
+                        this.notificationService.emit('success', 'Training was created');
+                        this.onSaved();
+                    },
+                    (err) => this.errorHandler.emit(err, 'Creating training definition'),
+                ),
+                map((td) => td.id),
             ),
-            map((td) => td.id),
         );
     }
 

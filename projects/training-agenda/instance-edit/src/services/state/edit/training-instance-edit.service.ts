@@ -64,7 +64,7 @@ export abstract class TrainingInstanceEditService {
     /**
      * True if it is possible to save edited training instance in its current state, false otherwise
      */
-    saveDisabled$: Observable<boolean> = this.saveDisabledSubject$.asObservable();
+    abstract saveDisabled$: Observable<boolean>;
 
     protected constructor() {
         this.hasStarted$ = timer(1).pipe(
