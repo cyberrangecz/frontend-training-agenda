@@ -69,6 +69,7 @@
                     <div class="slide-toggle-container slide-toggle-container--vertical">
                         <mat-slide-toggle
                             [disabled]="showStepperBar.disabled"
+                            matTooltipPosition="after"
                             [matTooltip]="
           showStepperBar
             ? 'Show Stepper bar to allow trainees to see their progress through levels during training run.'
@@ -86,6 +87,7 @@
           "
                             formControlName="backwardMode"
                             [checked]="showStepperBar && backwardMode"
+                            matTooltipPosition="after"
                         >
                             Backward Mode
                         </mat-slide-toggle>

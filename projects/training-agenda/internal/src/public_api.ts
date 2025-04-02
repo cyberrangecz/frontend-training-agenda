@@ -19,4 +19,9 @@ export * from './loading-dialog/loading-dialog-config';
 
 export * from './loading-dialog/pipes/title-case-except.pipe';
 
+export * from './table-date-cell/table-date-cell-sync.service';
+export * from './table-date-cell/table-date-cell.component';
+
+export * from './table-state-cell/table-state-cell.component';
+
 export * from './utils/date-helper';
