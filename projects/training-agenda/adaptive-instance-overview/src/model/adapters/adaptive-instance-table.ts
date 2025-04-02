@@ -1,7 +1,7 @@
 import { PaginatedResource } from '@sentinel/common/pagination';
 import { TrainingInstance } from '@crczp/training-model';
 import { Column, DeleteAction, EditAction, Row, RowAction, SentinelTable } from '@sentinel/components/table';
-import { combineLatest, defer, of } from 'rxjs';
+import { combineLatest, defer, of, startWith } from 'rxjs';
 import { TrainingNavigator } from '@crczp/training-agenda';
 import { AdaptiveInstanceRowAdapter } from './adaptive-instance-row-adapter';
 import { AdaptiveInstanceOverviewService } from '../../services/state/adaptive-instance-overview.service';
@@ -94,7 +94,10 @@ export class AdaptiveInstanceTable extends SentinelTable<AdaptiveInstanceRowAdap
                 'vpn_key',
                 'primary',
                 'Download management SSH configs',
-                of(!ti.hasPool()),
+                service.poolExists(ti.poolId).pipe(
+                    startWith(false),
+                    map((exists) => !exists),
+                ),
                 defer(() => service.getSshAccess(ti.poolId)),
             ),
             new RowAction(

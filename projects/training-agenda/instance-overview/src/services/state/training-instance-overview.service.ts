@@ -37,5 +37,7 @@ export abstract class TrainingInstanceOverviewService extends OffsetPaginatedEle
      */
     abstract getAvailableSandboxes(poolId: number): Observable<string>;
 
+    abstract poolExists(poolId: number): Observable<boolean>;
+
     abstract getSshAccess(poolId: number): Observable<boolean>;
 }
