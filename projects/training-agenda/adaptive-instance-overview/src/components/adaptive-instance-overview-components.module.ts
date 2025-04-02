@@ -15,7 +15,7 @@ import { AdaptiveInstanceOverviewService } from '../services/state/adaptive-inst
 import { AdaptiveInstanceOverviewConcreteService } from '../services/state/adaptive-instance-overview-concrete.service';
 import { AdaptiveInstanceOverviewMaterialModule } from './adaptive-instance-overview-material.module';
 import { InstanceCountdownComponent } from './instance-countdown/instance-countdown.component';
-import { TableDateCellComponent } from '../../../internal/src/table-date-cell/table-date-cell.component';
+import { TableDateCellComponent } from '@crczp/training-agenda/internal';
 
 /**
  * Main module of training instance agenda. Contains components and providers for displaying table of training instance
