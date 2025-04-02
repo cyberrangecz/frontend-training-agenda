@@ -20,6 +20,8 @@ import {
     TrainingDefinitionResolver,
     TrainingDefinitionTitleResolver,
 } from '@crczp/training-agenda/resolvers';
+import { TableDateCellComponent } from '../../../internal/src/table-date-cell/table-date-cell.component';
+import { TableStateCellComponent } from '../../../internal/src/table-state-cell/table-state-cell.component';
 
 /**
  * Module containing components and providers for training definition overview.
@@ -34,6 +36,8 @@ import {
         SentinelTableModule,
         SentinelControlsComponent,
         SentinelPipesModule,
+        TableDateCellComponent,
+        TableStateCellComponent,
     ],
     declarations: [
         TrainingDefinitionOverviewComponent,

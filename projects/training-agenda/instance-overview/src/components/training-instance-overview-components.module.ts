@@ -14,6 +14,8 @@ import { TrainingInstanceOverviewConcreteService } from '../services/state/train
 import { TrainingInstanceOverviewService } from '../services/state/training-instance-overview.service';
 import { TrainingInstanceOverviewComponent } from './training-instance-overview.component';
 import { TrainingInstanceOverviewMaterialModule } from './training-instance-overview-material.module';
+import { InstanceCountdownComponent } from './instance-countdown/instance-countdown.component';
+import { TableDateCellComponent } from '../../../internal/src/table-date-cell/table-date-cell.component';
 
 /**
  * Main module of training instance agenda. Contains components and providers for displaying table of training instance
@@ -27,8 +29,9 @@ import { TrainingInstanceOverviewMaterialModule } from './training-instance-over
         SentinelTableModule,
         SentinelControlsComponent,
         TrainingInstanceOverviewMaterialModule,
+        TableDateCellComponent,
     ],
-    declarations: [TrainingInstanceOverviewComponent],
+    declarations: [TrainingInstanceOverviewComponent, InstanceCountdownComponent],
     providers: [
         PaginationService,
         TrainingAgendaContext,

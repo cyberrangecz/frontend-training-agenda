@@ -19,6 +19,8 @@ import {
     AdaptiveDefinitionResolver,
     AdaptiveDefinitionTitleResolver,
 } from '@crczp/training-agenda/resolvers';
+import { TableDateCellComponent } from '../../../internal/src/table-date-cell/table-date-cell.component';
+import { TableStateCellComponent } from '../../../internal/src/table-state-cell/table-state-cell.component';
 
 /**
  * Module containing components and providers for training definition overview.
@@ -33,6 +35,9 @@ import {
         ReactiveFormsModule,
         SentinelTableModule,
         SentinelControlsComponent,
+        SentinelTableModule,
+        TableDateCellComponent,
+        TableStateCellComponent,
     ],
     declarations: [AdaptiveDefinitionOverviewComponent, TrainingDefinitionUploadDialogComponent, CloneDialogComponent],
     providers: [
