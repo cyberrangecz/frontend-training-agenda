@@ -1,7 +1,7 @@
 import { Component, DestroyRef, inject, Input, OnInit } from '@angular/core';
 import { OffsetPaginationEvent } from '@sentinel/common/pagination';
 import { SentinelControlItem } from '@sentinel/components/controls';
-import { TrainingDefinition } from '@crczp/training-model';
+import { TrainingDefinition, TrainingDefinitionStateEnum } from '@crczp/training-model';
 import { SentinelTable, TableActionEvent, TableLoadEvent } from '@sentinel/components/table';
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
@@ -94,5 +94,16 @@ export class TrainingDefinitionOverviewComponent implements OnInit {
             this.INIT_SORT_DIR,
         );
         this.onLoadEvent({ pagination: initialPagination });
+    }
+
+    stateToIcon(value: TrainingDefinitionStateEnum): string {
+        switch (value) {
+            case TrainingDefinitionStateEnum.Unreleased:
+                return 'lock_open';
+            case TrainingDefinitionStateEnum.Released:
+                return 'lock';
+            case TrainingDefinitionStateEnum.Archived:
+                return 'archive';
+        }
     }
 }

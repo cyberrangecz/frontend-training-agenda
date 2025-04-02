@@ -1,4 +1,3 @@
-import { DatePipe } from '@angular/common';
 import { PaginatedResource } from '@sentinel/common/pagination';
 import { TrainingInstance } from '@crczp/training-model';
 import { Column, DeleteAction, EditAction, Row, RowAction, SentinelTable } from '@sentinel/components/table';
@@ -6,7 +5,7 @@ import { combineLatest, defer, of } from 'rxjs';
 import { TrainingNavigator } from '@crczp/training-agenda';
 import { TrainingInstanceOverviewService } from '../../services/state/training-instance-overview.service';
 import { TrainingInstanceRowAdapter } from './training-instance-row-adapter';
-import { DateHelper } from '@crczp/training-agenda/internal';
+import { map } from 'rxjs/operators';
 
 /**
  * @dynamic
@@ -19,8 +18,8 @@ export class TrainingInstanceTable extends SentinelTable<TrainingInstanceRowAdap
     ) {
         const columns = [
             new Column('title', 'Title', true),
-            new Column('startTimeFormatted', 'Start Time', true, 'startTime'),
-            new Column('endTimeFormatted', 'End Time', true, 'endTime'),
+            new Column('startTime', 'Start Time', true, 'startTime'),
+            new Column('endTime', 'End Time', true, 'endTime'),
             new Column('expiresIn', 'Expires In', false),
             new Column('tdTitle', 'Training Definition', true, 'title'),
             new Column('lastEditBy', 'Last Edit By', false),
@@ -42,12 +41,7 @@ export class TrainingInstanceTable extends SentinelTable<TrainingInstanceRowAdap
         navigator: TrainingNavigator,
     ): Row<TrainingInstanceRowAdapter> {
         const adapter = ti as TrainingInstanceRowAdapter;
-        const datePipe = new DatePipe('en-EN');
         adapter.tdTitle = adapter.trainingDefinition.title;
-        adapter.startTimeFormatted = `${datePipe.transform(adapter.startTime)}`;
-        adapter.endTimeFormatted = `${datePipe.transform(adapter.endTime)}`;
-        adapter.expiresIn =
-            DateHelper.timeToDate(adapter.endTime).length !== 0 ? DateHelper.timeToDate(adapter.endTime) : 'expired';
         if (adapter.hasPool()) {
             adapter.poolTitle = `Pool ${adapter.poolId}`;
         } else if (adapter.localEnvironment) {

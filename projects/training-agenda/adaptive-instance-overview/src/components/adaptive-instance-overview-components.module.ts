@@ -14,6 +14,8 @@ import { AdaptiveInstanceOverviewComponent } from './adaptive-instance-overview.
 import { AdaptiveInstanceOverviewService } from '../services/state/adaptive-instance-overview.service';
 import { AdaptiveInstanceOverviewConcreteService } from '../services/state/adaptive-instance-overview-concrete.service';
 import { AdaptiveInstanceOverviewMaterialModule } from './adaptive-instance-overview-material.module';
+import { InstanceCountdownComponent } from './instance-countdown/instance-countdown.component';
+import { TableDateCellComponent } from '../../../internal/src/table-date-cell/table-date-cell.component';
 
 /**
  * Main module of training instance agenda. Contains components and providers for displaying table of training instance
@@ -27,8 +29,9 @@ import { AdaptiveInstanceOverviewMaterialModule } from './adaptive-instance-over
         SentinelTableModule,
         SentinelControlsComponent,
         AdaptiveInstanceOverviewMaterialModule,
+        TableDateCellComponent,
     ],
-    declarations: [AdaptiveInstanceOverviewComponent],
+    declarations: [AdaptiveInstanceOverviewComponent, InstanceCountdownComponent],
     providers: [
         TrainingAgendaContext,
         PaginationService,

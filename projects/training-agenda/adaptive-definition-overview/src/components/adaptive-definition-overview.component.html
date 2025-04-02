@@ -11,7 +11,19 @@
     [displayedActionsCount]="7"
     (tableLoad)="onLoadEvent($event)"
     (rowAction)="onTableAction($event)">
+    <ng-container *sentinelRow="'state'; template: state"/>
+    <ng-container *sentinelRow="'createdAt'; template: createdAt"/>
+    <ng-container *sentinelRow="'lastEditTime'; template: lastEditTime"/>
 </sentinel-table>
+<ng-template #state let-row>
+    <crczp-table-state-cell [value]="row.element.state" [toIcon]="stateToIcon"/>
+</ng-template>
+<ng-template #createdAt let-row>
+    <crczp-table-date-cell [showTimeWhenPossible]="true" [displayedDate]="row.element.createdAt"/>
+</ng-template>
+<ng-template #lastEditTime let-row>
+    <crczp-table-date-cell [showTimeWhenPossible]="true" [displayedDate]="row.element.lastEditTime"/>
+</ng-template>
 <div class="bottom-controls">
     <sentinel-controls [controls]="bottomControls" [titlecased]="false"
                        (itemClicked)="onControlsAction($event)"/>
