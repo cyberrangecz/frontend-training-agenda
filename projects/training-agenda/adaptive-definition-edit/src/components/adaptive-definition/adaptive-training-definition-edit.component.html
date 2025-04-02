@@ -20,7 +20,8 @@
                 <mat-form-field appearance="outline"
                                 (keydown.enter)="$event.preventDefault()">
                     <mat-label>Description</mat-label>
-                    <textarea matInput placeholder="Description"
+                    <textarea class="description" maxlength="2048"
+                            matInput placeholder="Description"
                               formControlName="description"></textarea>
                     <button *ngIf="description.value" matSuffix mat-icon-button
                             aria-label="Clear" (click)="description.setValue('');
