@@ -24,4 +24,6 @@ export * from './table-date-cell/table-date-cell.component';
 
 export * from './table-state-cell/table-state-cell.component';
 
+export * from './utils/loading-tracker';
+
 export * from './utils/date-helper';

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { PoolApi, SandboxDefinitionApi } from '@crczp/sandbox-api';
 import { AdaptiveDefinitionApiService, AdaptiveInstanceApi } from '@crczp/training-api';
 import { TrainingDefinitionInfo, TrainingInstance } from '@crczp/training-model';
-import { from, Observable } from 'rxjs';
+import { combineLatest, from, Observable } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import {
     TrainingAgendaConfig,
@@ -16,6 +16,7 @@ import { AdaptiveInstanceEditService } from './adaptive-instance-edit.service';
 import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
 import { Pool, SandboxDefinition } from '@crczp/sandbox-model';
 import { SentinelFilter } from '@sentinel/common/filter';
+import { LoadingTracker } from '@crczp/training-agenda/internal';
 
 /**
  * Basic implementation of layer between component and API service.
@@ -38,6 +39,13 @@ export class AdaptiveInstanceEditConcreteService extends AdaptiveInstanceEditSer
     ) {
         super();
     }
+
+    private loadingTracker = new LoadingTracker();
+
+    public saveDisabled$: Observable<boolean> = combineLatest(
+        this.loadingTracker.isLoading$,
+        this.saveDisabledSubject$.asObservable(),
+    ).pipe(map(([loading, invalid]) => loading || invalid));
 
     /**
      * Updated saveDisabled$ and saved snapshot of edited training instance
@@ -170,14 +178,16 @@ export class AdaptiveInstanceEditConcreteService extends AdaptiveInstanceEditSer
         if (this.editedSnapshot) {
             if (!this.editedSnapshot.startTime) this.editedSnapshot.startTime = new Date();
         }
-        return this.trainingInstanceApi.create(this.editedSnapshot).pipe(
-            map((ti) => ti.id),
-            tap(
-                () => {
-                    this.notificationService.emit('success', 'Adaptive instance was created');
-                    this.onSaved();
-                },
-                (err) => this.errorHandler.emit(err, 'Creating adaptive instance'),
+        return this.loadingTracker.trackRequest(() =>
+            this.trainingInstanceApi.create(this.editedSnapshot).pipe(
+                map((ti) => ti.id),
+                tap(
+                    () => {
+                        this.notificationService.emit('success', 'Adaptive instance was created');
+                        this.onSaved();
+                    },
+                    (err) => this.errorHandler.emit(err, 'Creating adaptive instance'),
+                ),
             ),
         );
     }
@@ -188,20 +198,22 @@ export class AdaptiveInstanceEditConcreteService extends AdaptiveInstanceEditSer
         }
         const pagination = new OffsetPaginationEvent(0, 10, '', 'asc');
         this.saveDisabledSubject$.next(true);
-        return this.trainingInstanceApi.update(this.editedSnapshot).pipe(
-            switchMap(() => this.getAllTrainingDefinitions(pagination, 'RELEASED')),
-            switchMap(() => this.getAllTrainingDefinitions(pagination, 'UNRELEASED')),
-            switchMap(() => this.getAllPools(pagination)),
-            switchMap(() => this.getAllSandboxDefinitions(pagination)),
-            tap(
-                () => {
-                    this.notificationService.emit('success', 'Adaptive training instance was successfully saved');
-                    this.onSaved();
-                },
-                (err) => {
-                    this.saveDisabledSubject$.next(false);
-                    this.errorHandler.emit(err, 'Editing training instance');
-                },
+        return this.loadingTracker.trackRequest(() =>
+            this.trainingInstanceApi.update(this.editedSnapshot).pipe(
+                switchMap(() => this.getAllTrainingDefinitions(pagination, 'RELEASED')),
+                switchMap(() => this.getAllTrainingDefinitions(pagination, 'UNRELEASED')),
+                switchMap(() => this.getAllPools(pagination)),
+                switchMap(() => this.getAllSandboxDefinitions(pagination)),
+                tap(
+                    () => {
+                        this.notificationService.emit('success', 'Adaptive training instance was successfully saved');
+                        this.onSaved();
+                    },
+                    (err) => {
+                        this.saveDisabledSubject$.next(false);
+                        this.errorHandler.emit(err, 'Editing training instance');
+                    },
+                ),
             ),
         );
     }
