@@ -7,7 +7,7 @@ const routes: Routes = [
     {
         path: '',
         component: LinearTrainingInstanceEditOverviewComponent,
-        canDeactivate: [TrainingInstanceCanDeactivate],
+        canDeactivate: [TrainingInstanceCanDeactivate<LinearTrainingInstanceEditOverviewComponent>],
     },
 ];
 

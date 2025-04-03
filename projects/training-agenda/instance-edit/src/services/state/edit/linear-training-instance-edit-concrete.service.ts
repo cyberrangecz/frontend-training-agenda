@@ -16,7 +16,7 @@ import { SentinelFilter } from '@sentinel/common/filter';
  * Basic implementation of layer between component and API service.
  */
 @Injectable()
-export class TrainingInstanceEditConcreteService extends TrainingInstanceEditService {
+export class LinearTrainingInstanceEditConcreteService extends TrainingInstanceEditService {
     private editedSnapshot: TrainingInstance;
     private lastPagination: OffsetPaginationEvent;
 

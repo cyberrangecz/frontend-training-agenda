@@ -4,11 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SentinelControlsComponent } from '@sentinel/components/controls';
 import { SentinelTableModule } from '@sentinel/components/table';
 import { PaginationService, TrainingAgendaContext } from '@crczp/training-agenda/internal';
-import {
-    TrainingInstanceBreadcrumbResolver,
-    TrainingInstanceResolver,
-    TrainingInstanceTitleResolver,
-} from '@crczp/training-agenda/resolvers';
+import { TrainingInstanceBreadcrumbResolver } from '@crczp/training-agenda/resolvers';
 import { TrainingInstanceOverviewComponent } from './training-instance-overview.component';
 import { TrainingInstanceOverviewMaterialModule } from './training-instance-overview-material.module';
 import { TrainingTypeEnum } from '@crczp/training-model';
@@ -27,13 +23,7 @@ import { TrainingTypeEnum } from '@crczp/training-model';
         TrainingInstanceOverviewMaterialModule,
     ],
     declarations: [TrainingInstanceOverviewComponent],
-    providers: [
-        PaginationService,
-        TrainingAgendaContext,
-        TrainingInstanceResolver,
-        TrainingInstanceTitleResolver,
-        TrainingInstanceBreadcrumbResolver,
-    ],
+    providers: [PaginationService, TrainingAgendaContext, TrainingInstanceBreadcrumbResolver],
     exports: [TrainingInstanceOverviewComponent],
 })
 export class CommonTrainingInstanceOverviewComponentsModule {

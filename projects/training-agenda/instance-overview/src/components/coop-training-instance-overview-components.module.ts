@@ -10,11 +10,17 @@ import {
     CoopTrainingInstanceOverviewConcreteService,
     CoopTrainingInstanceOverviewService,
 } from '../services/state/coop-training-instance-overview-concrete.service';
-import { CoopTrainingInstanceOverviewComponent } from './coop-training-instance-overview/linear-training-instance-overview.component';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { AsyncPipe } from '@angular/common';
-import { TrainingInstanceOverviewService } from '@crczp/training-agenda/instance-overview';
+import {
+    CoopTrainingInstanceResolver,
+    CoopTrainingInstanceTitleResolver,
+    TrainingInstanceResolver,
+    TrainingInstanceTitleResolver,
+} from '@crczp/training-agenda/resolvers';
+import { CoopTrainingInstanceOverviewComponent } from './coop-training-instance-overview/coop-training-instance-overview.component';
+import { TrainingInstanceOverviewService } from '../services/state/training-instance-overview.service';
 
 /**
  * Main module of training instance agenda. Contains components and providers for displaying table of training instance
@@ -24,6 +30,8 @@ import { TrainingInstanceOverviewService } from '@crczp/training-agenda/instance
     imports: [CommonTrainingInstanceOverviewComponentsModule, MatIcon, MatTooltip, AsyncPipe],
     declarations: [CoopTrainingInstanceOverviewComponent],
     providers: [
+        { provide: TrainingInstanceResolver, useValue: CoopTrainingInstanceResolver },
+        { provide: TrainingInstanceTitleResolver, useValue: CoopTrainingInstanceTitleResolver },
         { provide: TrainingNavigator, useClass: CoopTrainingDefaultNavigator },
         { provide: CoopTrainingNavigator, useClass: CoopTrainingDefaultNavigator },
         { provide: CoopTrainingInstanceOverviewService, useClass: CoopTrainingInstanceOverviewConcreteService },

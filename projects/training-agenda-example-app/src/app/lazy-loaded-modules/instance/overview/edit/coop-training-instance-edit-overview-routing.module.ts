@@ -7,7 +7,7 @@ const routes: Routes = [
     {
         path: '',
         component: CoopTrainingInstanceEditOverviewComponent,
-        canDeactivate: [TrainingInstanceCanDeactivate],
+        canDeactivate: [TrainingInstanceCanDeactivate<CoopTrainingInstanceEditOverviewComponent>],
     },
 ];
 

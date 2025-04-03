@@ -25,6 +25,7 @@ export const visualizationConfig = {
 export const environment = {
     production: true,
     trainingAgendaConfig: {
+        localModeAllowed: true,
         pollingPeriod: 5000,
         defaultPaginationSize: 10,
         visualizationConfig,

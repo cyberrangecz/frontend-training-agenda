@@ -14,13 +14,12 @@ import { TrainingInstanceEditOverviewComponent } from '../../components/training
  * Route guard determining if navigation outside of training instance edit page should proceed
  */
 @Injectable()
-export class TrainingInstanceCanDeactivate {
+export class TrainingInstanceCanDeactivate<T extends { canDeactivate: () => boolean }> {
     constructor(private dialog: MatDialog) {}
 
-    canDeactivate(
-        component: TrainingInstanceEditOverviewComponent,
-    ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    canDeactivate(component: T): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
         if (component.canDeactivate()) {
+            console.log('CanDeactivate Guard Triggered');
             return true;
         }
 

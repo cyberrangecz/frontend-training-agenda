@@ -24,8 +24,8 @@ import { TrainingErrorHandler } from '../../../../../src/services/training-error
 import { TrainingNavigator } from '../../../../../src/services/training-navigator.service';
 import { TrainingNotificationService } from '../../../../../src/services/training-notification.service';
 import { TrainingAgendaContext } from '../../../../../internal/src/services/context/training-agenda-context.service';
-import { TrainingInstanceEditConcreteService } from './training-instance-edit-concrete.service';
 import { Pool, SandboxDefinition } from '@crczp/sandbox-model';
+import { LinearTrainingInstanceEditConcreteService } from './linear-training-instance-edit-concrete.service';
 
 describe('TrainingInstanceEditConcreteService', () => {
     let errorHandlerSpy: jasmine.SpyObj<TrainingErrorHandler>;
@@ -34,7 +34,7 @@ describe('TrainingInstanceEditConcreteService', () => {
     let poolApiSpy: jasmine.SpyObj<PoolApi>;
     let sandboxDefinitionApiSpy: jasmine.SpyObj<SandboxDefinitionApi>;
     let sandboxInstanceApiSpy: jasmine.SpyObj<SandboxInstanceApi>;
-    let service: TrainingInstanceEditConcreteService;
+    let service: LinearTrainingInstanceEditConcreteService;
     let navigatorSpy: jasmine.SpyObj<TrainingNavigator>;
     let routerSpy: jasmine.SpyObj<Router>;
     let notificationSpy: jasmine.SpyObj<TrainingNotificationService>;
@@ -54,7 +54,7 @@ describe('TrainingInstanceEditConcreteService', () => {
 
         TestBed.configureTestingModule({
             providers: [
-                TrainingInstanceEditConcreteService,
+                LinearTrainingInstanceEditConcreteService,
                 { provide: TrainingInstanceApi, useValue: trainingInstanceApiSpy },
                 { provide: SandboxInstanceApi, useValue: sandboxInstanceApiSpy },
                 { provide: PoolApi, useValue: poolApiSpy },
@@ -68,7 +68,7 @@ describe('TrainingInstanceEditConcreteService', () => {
             ],
             imports: [RouterTestingModule],
         });
-        service = TestBed.inject(TrainingInstanceEditConcreteService);
+        service = TestBed.inject(LinearTrainingInstanceEditConcreteService);
     });
 
     it('should be created', () => {

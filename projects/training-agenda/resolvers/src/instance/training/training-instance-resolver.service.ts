@@ -1,27 +1,20 @@
-import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { TrainingInstanceApi } from '@crczp/training-api';
 import { TrainingInstance } from '@crczp/training-model';
 import { EMPTY, Observable, of } from 'rxjs';
 import { catchError, mergeMap, take } from 'rxjs/operators';
-import {
-    TRAINING_INSTANCE_NEW_PATH,
-    LINEAR_INSTANCE_PATH,
-    TRAINING_INSTANCE_SELECTOR,
-    TrainingErrorHandler,
-    TrainingNavigator,
-} from '@crczp/training-agenda';
+import { TRAINING_INSTANCE_NEW_PATH, TRAINING_INSTANCE_SELECTOR, TrainingErrorHandler } from '@crczp/training-agenda';
 
 /**
  * Router data provider
  */
-@Injectable()
-export class TrainingInstanceResolver {
-    constructor(
+export abstract class TrainingInstanceResolver {
+    protected constructor(
         private api: TrainingInstanceApi,
         private errorHandler: TrainingErrorHandler,
-        private navigator: TrainingNavigator,
         private router: Router,
+        private instanceBasePath: string,
+        private instanceOverviewPath: string,
     ) {}
 
     /**
@@ -33,7 +26,7 @@ export class TrainingInstanceResolver {
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot,
     ): Observable<TrainingInstance> | Promise<TrainingInstance> | TrainingInstance {
-        if (state.url.endsWith(`${LINEAR_INSTANCE_PATH}/${TRAINING_INSTANCE_NEW_PATH}`)) {
+        if (state.url.endsWith(`${this.instanceBasePath}/${TRAINING_INSTANCE_NEW_PATH}`)) {
             return null;
         }
         if (route.paramMap.has(TRAINING_INSTANCE_SELECTOR)) {
@@ -52,7 +45,7 @@ export class TrainingInstanceResolver {
     }
 
     private navigateToNew(): Observable<never> {
-        this.router.navigate([this.navigator.toTrainingInstanceOverview()]);
+        this.router.navigate([this.instanceOverviewPath]);
         return EMPTY;
     }
 }

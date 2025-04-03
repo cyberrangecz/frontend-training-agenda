@@ -12,7 +12,7 @@ import {
     TrainingInstanceResolver,
     TrainingInstanceTitleResolver,
 } from '@crczp/training-agenda/resolvers';
-import { CoopTrainingInstanceOverviewComponent } from '../../../../../../training-agenda/instance-overview/src/components/coop-training-instance-overview/linear-training-instance-overview.component';
+import { CoopTrainingInstanceOverviewComponent } from '@crczp/training-agenda/instance-overview';
 
 const routes: Routes = [
     {
@@ -31,10 +31,18 @@ const routes: Routes = [
     },
     {
         path: TRAINING_INSTANCE_NEW_PATH,
-        loadChildren: () =>
-            import('./edit/coop-training-instance-edit-overview.module').then(
-                (m) => m.CoopTrainingInstanceEditOverviewModule,
-            ),
+        loadChildren: () => {
+            console.log('loading children');
+            return import('./edit/coop-training-instance-edit-overview.module')
+                .then((m) => {
+                    console.log(m);
+                    return m.CoopTrainingInstanceEditOverviewModule;
+                })
+                .catch((error) => {
+                    console.log('Module Load Error:', error);
+                    return null; // Optional fallback
+                });
+        },
         resolve: {
             [TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME]: TrainingInstanceResolver,
             breadcrumb: TrainingInstanceBreadcrumbResolver,

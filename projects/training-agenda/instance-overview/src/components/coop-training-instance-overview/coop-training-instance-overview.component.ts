@@ -9,9 +9,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TrainingInstance } from '@crczp/training-model';
 
 @Component({
-    selector: 'crczp-linear-training-instance-overview',
-    templateUrl: './linear-training-instance-overview.component.html',
-    styleUrl: './linear-training-instance-overview.component.css',
+    selector: 'crczp-coop-training-instance-overview',
+    templateUrl: './coop-training-instance-overview.component.html',
+    styleUrl: './coop-training-instance-overview.component.css',
 })
 export class CoopTrainingInstanceOverviewComponent {
     constructor(

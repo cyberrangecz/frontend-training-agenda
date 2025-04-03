@@ -8,11 +8,12 @@ import {
     TRAINING_INSTANCE_SELECTOR,
 } from '@crczp/training-agenda';
 import {
+    LinearTrainingInstanceResolver,
     TrainingInstanceBreadcrumbResolver,
     TrainingInstanceResolver,
     TrainingInstanceTitleResolver,
 } from '@crczp/training-agenda/resolvers';
-import { LinearTrainingInstanceOverviewComponent } from '../../../../../../training-agenda/instance-overview/src/components/linear-training-instance-overview/linear-training-instance-overview.component';
+import { LinearTrainingInstanceOverviewComponent } from '@crczp/training-agenda/instance-overview';
 
 const routes: Routes = [
     {
@@ -24,7 +25,7 @@ const routes: Routes = [
         loadChildren: () =>
             import('./detail/training-instance-detail.module').then((m) => m.TrainingInstanceDetailModule),
         resolve: {
-            [TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME]: TrainingInstanceResolver,
+            [TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME]: LinearTrainingInstanceResolver,
             breadcrumb: TrainingInstanceBreadcrumbResolver,
             title: TrainingInstanceTitleResolver,
         },

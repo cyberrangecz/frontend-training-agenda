@@ -36,12 +36,4 @@ import { SentinelResourceSelectorModule } from '@sentinel/components/resource-se
     exports: [TrainingInstanceEditOverviewComponent],
     declarations: [TrainingInstanceEditOverviewComponent, TrainingInstanceEditComponent],
 })
-export class CommonTrainingInstanceEditOverviewComponentsModule {
-    static forRoot(
-        config: TrainingAgendaConfig,
-    ): ModuleWithProviders<CommonTrainingInstanceEditOverviewComponentsModule> {
-        return {
-            ngModule: CommonTrainingInstanceEditOverviewComponentsModule,
-        };
-    }
-}
+export class CommonTrainingInstanceEditOverviewComponentsModule {}

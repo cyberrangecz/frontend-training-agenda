@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { TrainingAgendaConfig } from '@crczp/training-agenda';
+import { CoopTrainingDefaultNavigator, CoopTrainingNavigator, TrainingAgendaConfig } from '@crczp/training-agenda';
 import {
+    CoopTrainingInstanceResolver,
     TrainingInstanceDetailBreadcrumbResolver,
     TrainingInstanceDetailTitleResolver,
     TrainingInstanceResolver,
@@ -14,15 +15,16 @@ import {
     imports: [CommonModule],
     declarations: [],
     providers: [
-        TrainingInstanceResolver,
+        { provide: CoopTrainingNavigator, useClass: CoopTrainingDefaultNavigator },
+        { provide: TrainingInstanceResolver, useClass: CoopTrainingInstanceResolver },
         TrainingInstanceDetailTitleResolver,
         TrainingInstanceDetailBreadcrumbResolver,
     ],
 })
-export class TrainingInstanceDetailComponentsModule {
-    static forRoot(config: TrainingAgendaConfig): ModuleWithProviders<TrainingInstanceDetailComponentsModule> {
+export class CoopTrainingInstanceDetailComponentsModule {
+    static forRoot(config: TrainingAgendaConfig): ModuleWithProviders<CoopTrainingInstanceDetailComponentsModule> {
         return {
-            ngModule: TrainingInstanceDetailComponentsModule,
+            ngModule: CoopTrainingInstanceDetailComponentsModule,
             providers: [{ provide: TrainingAgendaConfig, useValue: config }],
         };
     }

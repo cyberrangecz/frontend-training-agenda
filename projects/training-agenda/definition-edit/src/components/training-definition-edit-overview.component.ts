@@ -18,6 +18,10 @@ import { MitreTechniquesService } from '../services/state/mitre-techniques/mitre
 import { MitreTechniquesConcreteService } from '../services/state/mitre-techniques/mitre-techniques-concrete.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { OffsetPaginationEvent } from '@sentinel/common/pagination';
+import {
+    CommonTrainingDefinitionResolver,
+    CoopTrainingDefinitionTitleResolver,
+} from '@crczp/training-agenda/resolvers';
 
 /**
  * Main smart component of training definition edit/new page.

@@ -1,20 +1,29 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, HostListener, inject, OnInit } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    DestroyRef,
+    EventEmitter,
+    HostListener,
+    inject,
+    OnInit,
+    Output,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OffsetPaginationEvent } from '@sentinel/common/pagination';
 import { SentinelControlItem } from '@sentinel/components/controls';
 import { TrainingDefinitionInfo, TrainingInstance } from '@crczp/training-model';
-import { combineLatestWith, Observable, switchMap } from 'rxjs';
+import { BehaviorSubject, combineLatest, combineLatestWith, Observable, switchMap } from 'rxjs';
 import { filter, map, take } from 'rxjs/operators';
 import { TrainingInstanceEditControls } from '../model/adapter/training-instance-edit-controls';
 import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME } from '@crczp/training-agenda';
 import { TrainingInstanceChangeEvent } from '../model/events/training-instance-change-event';
 import { PaginationService } from '@crczp/training-agenda/internal';
 import { TrainingInstanceEditService } from '../services/state/edit/training-instance-edit.service';
-import { TrainingInstanceEditConcreteService } from '../services/state/edit/training-instance-edit-concrete.service';
 import { OrganizersAssignService } from '../services/state/organizers-assign/organizers-assign.service';
 import { Pool, SandboxDefinition } from '@crczp/sandbox-model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { SentinelUserAssignService } from '@sentinel/components/user-assign';
+import { LinearTrainingInstanceEditConcreteService } from '../services/state/edit/linear-training-instance-edit-concrete.service';
 
 /**
  * Main component of training instance edit/create page. Serves mainly as a smart component wrapper
@@ -25,7 +34,7 @@ import { SentinelUserAssignService } from '@sentinel/components/user-assign';
     styleUrls: ['./training-instance-edit-overview.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
-        { provide: TrainingInstanceEditService, useClass: TrainingInstanceEditConcreteService },
+        { provide: TrainingInstanceEditService, useClass: LinearTrainingInstanceEditConcreteService },
         { provide: SentinelUserAssignService, useClass: OrganizersAssignService },
     ],
 })
@@ -40,11 +49,13 @@ export class TrainingInstanceEditOverviewComponent implements OnInit {
     editMode$: Observable<boolean>;
     tiTitle$: Observable<string>;
     instanceValid$: Observable<boolean>;
-    canDeactivateOrganizers = true;
-    canDeactivateTIEdit = true;
+    canDeactivateOrganizers = new BehaviorSubject<boolean>(true);
+    canDeactivateTIEdit = new BehaviorSubject<boolean>(true);
     defaultPaginationSize: number;
     controls: SentinelControlItem[];
     destroyRef = inject(DestroyRef);
+
+    @Output() canDeactivate = new EventEmitter<boolean>();
 
     constructor(
         private activeRoute: ActivatedRoute,
@@ -75,6 +86,8 @@ export class TrainingInstanceEditOverviewComponent implements OnInit {
         this.refreshPools();
         this.refreshSandboxDefinitions();
         this.controls = TrainingInstanceEditControls.create(this.editService, saveDisabled$, this.instanceValid$);
+
+        this.registerDeactivationListener();
     }
 
     ngOnInit(): void {
@@ -98,20 +111,22 @@ export class TrainingInstanceEditOverviewComponent implements OnInit {
      */
     @HostListener('window:beforeunload')
     canRefreshOrLeave(): boolean {
-        return this.canDeactivateTIEdit && this.canDeactivateOrganizers;
+        return this.canDeactivateTIEdit.value && this.canDeactivateOrganizers.value;
     }
 
     onControlsAction(control: SentinelControlItem): void {
-        this.canDeactivateTIEdit = true;
+        this.canDeactivateTIEdit.next(true);
         control.result$.pipe(take(1)).subscribe();
     }
 
     /**
-     * Determines if all changes in sub components are saved and user can navigate to different component
-     * @returns true if saved all his changes, false otherwise
+     * Emits current deactivation state
      */
-    canDeactivate(): boolean {
-        return this.canDeactivateTIEdit && this.canDeactivateOrganizers;
+    private registerDeactivationListener(): void {
+        combineLatest(this.canDeactivateOrganizers.asObservable(), this.canDeactivateTIEdit.asObservable()).subscribe(
+            (deactivateConditions) =>
+                this.canDeactivate.emit(deactivateConditions.reduce((prev, curr) => prev && curr, true)),
+        );
     }
 
     /**
@@ -119,7 +134,7 @@ export class TrainingInstanceEditOverviewComponent implements OnInit {
      * @param hasUnsavedChanges true if organizers component has unsaved changes, false otherwise
      */
     onOrganizersChanged(hasUnsavedChanges: boolean): void {
-        this.canDeactivateOrganizers = !hasUnsavedChanges;
+        this.canDeactivateOrganizers.next(!hasUnsavedChanges);
     }
 
     /**
@@ -128,7 +143,7 @@ export class TrainingInstanceEditOverviewComponent implements OnInit {
      */
     onTrainingInstanceChanged($event: TrainingInstanceChangeEvent): void {
         this.editService.change($event);
-        this.canDeactivateTIEdit = false;
+        this.canDeactivateTIEdit.next(false);
     }
 
     private refreshTrainingDefinitions() {
