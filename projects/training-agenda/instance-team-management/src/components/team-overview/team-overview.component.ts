@@ -6,7 +6,7 @@ import { GridListComponent, MatCardNotchTitleComponent, PlayerViewComponent } fr
 
 @Component({
     standalone: true,
-    selector: 'app-team-overview-component',
+    selector: 'crczp-team-overview-component',
     templateUrl: './team-overview.component.html',
     imports: [
         MatCardContent,

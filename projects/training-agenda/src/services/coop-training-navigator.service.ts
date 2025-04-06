@@ -4,8 +4,9 @@ import { Injectable } from '@angular/core';
 import {
     COOP_DEFINITION_PATH,
     COOP_INSTANCE_PATH,
-    COOP_INSTANCE_TEAM_MANAGEMENT_PATH,
+    LOBBY_MANAGEMENT_PATH,
     COOP_RUN_PATH,
+    TRAINING_INSTANCE_DETAIL_PATH,
 } from '../model/default-paths';
 
 /**
@@ -30,6 +31,6 @@ export class CoopTrainingDefaultNavigator extends CommonTrainingNavigator implem
      * @param id id of the training instance
      */
     toTeamsManagement(id: number): string {
-        return `${COOP_INSTANCE_PATH}/${id}/${COOP_INSTANCE_TEAM_MANAGEMENT_PATH}`;
+        return `${COOP_INSTANCE_PATH}/${id}/${TRAINING_INSTANCE_DETAIL_PATH}/${LOBBY_MANAGEMENT_PATH}`;
     }
 }

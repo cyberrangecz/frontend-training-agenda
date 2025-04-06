@@ -6,11 +6,8 @@
             [trainingDefinitionLink]="trainingDefinitionLink"
             [trainingInstance]="trainingInstance"
             [hasStarted$]="hasStarted$"
-            (showProgress)="onShowProgress()"
-            (showResults)="onShowResults()"
-            (showAggregatedResults)="onShowAggregatedResults()"
-            (exportScore)="onExportScore()"
-            (showCheatingDetection)="onShowCheatingDetection()"
+            [controls]="controls"
+            (controlClick)="handleControl($event)"
             (showNotification)="onShowNotification($event)"
         >
         </crczp-training-instance-info>

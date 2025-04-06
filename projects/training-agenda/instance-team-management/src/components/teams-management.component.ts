@@ -1,66 +1,74 @@
 import { MatDialog } from '@angular/material/dialog';
 import { SentinelConfirmationDialogComponent, SentinelConfirmationDialogConfig } from '@sentinel/components/dialogs';
-import { Team, TrainingUser } from '@crczp/training-model';
+import { Team, TrainingInstance, TrainingUser } from '@crczp/training-model';
 import { TeamManagementService } from '../services/team-management-service';
-import { Component, DestroyRef, HostListener, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, HostListener, inject, OnInit, signal } from '@angular/core';
 import { comparePlayersByName, compareTeamsById } from './team-util-functions';
-import { take } from 'rxjs/operators';
 import { QueueSelection } from './queue-selection';
+import { filter, map, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME } from '@crczp/training-agenda';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
-    selector: 'app-teams-management',
+    selector: 'crczp-teams-management',
     templateUrl: './teams-management.component.html',
     styleUrl: './teams-management.component.css',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TeamsManagementComponent implements OnInit {
     constructor(
-        private teamsService: TeamManagementService,
+        protected teamsService: TeamManagementService,
         private matDialog: MatDialog,
+        private activeRoute: ActivatedRoute,
     ) {}
 
     ngOnInit() {
-        this.teamsService.init();
+        this.activeRoute.data
+            .pipe(
+                take(1),
+                takeUntilDestroyed(this.destroyRef),
+                map((data) => data[TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME]),
+            )
+            .subscribe((data) => {
+                this.trainingInstance = data;
+                this.teamsService.init(data.id, data.maxTeamSize);
+                this.teamsService.loadLobby();
+            });
     }
 
-    showLockedTeams = false;
-    protected queueSelection: QueueSelection = new QueueSelection();
+    showLockedTeams = signal(false);
+    queueSelection: QueueSelection = new QueueSelection();
     readonly destroyRef = inject(DestroyRef);
+
+    private trainingInstance: TrainingInstance;
 
     getId: <T extends { id: number }>(item: T) => number = (item) => item.id;
 
     compareTeams(a: Team, b: Team) {
-        if (a.started !== b.started) {
-            return a.started ? -Infinity : Infinity;
+        if (a.locked !== b.locked) {
+            return a.locked ? -Infinity : Infinity;
         }
         return compareTeamsById(a, b);
     }
     readonly compareUsers = comparePlayersByName;
 
-    private subscribeUntilDestroyed<T>(observable: Observable<T>) {
-        observable.pipe(take(1), takeUntilDestroyed(this.destroyRef)).subscribe();
+    get preparedTeams$(): Observable<Team[]> {
+        return this.teamsService.lobby$.pipe(map((lobby) => lobby.teams.filter((team) => !team.locked)));
     }
 
-    get preparedTeams(): Team[] {
-        return this.teamsService.preparedTeamsSubject.value;
+    get lockedTeams$(): Observable<Team[]> {
+        return this.teamsService.lobby$.pipe(map((lobby) => lobby.teams.filter((team) => team.locked)));
     }
 
-    get startedTeams(): Team[] {
-        return this.teamsService.startedTeamsSubject.value;
-    }
-
-    get waitingPlayers(): TrainingUser[] {
-        return this.teamsService.waitingPlayersSubject.value;
-    }
-
-    get maxTeamSize(): number {
-        return this.teamsService.maxTeamSizeSubject.value;
+    get waitingPlayers$(): Observable<TrainingUser[]> {
+        return this.teamsService.lobby$.pipe(map((lobby) => lobby.usersQueue));
     }
 
     @HostListener('document:keydown.a', ['$event'])
     onAKey($event: KeyboardEvent) {
-        this.queueSelection.selectedQueueUsers = this.teamsService.waitingPlayersSubject.value;
+        this.queueSelection.selectedQueueUsers = this.teamsService.getLobbySnapshot().usersQueue;
     }
 
     @HostListener('document:keydown.shift.a', ['$event'])
@@ -70,7 +78,7 @@ export class TeamsManagementComponent implements OnInit {
 
     @HostListener('document:keydown.l', ['$event'])
     onLKKey($event: KeyboardEvent) {
-        this.showLockedTeams = !this.showLockedTeams;
+        this.showLockedTeams.set(!this.showLockedTeams);
     }
 
     autoAssignAll() {
@@ -84,28 +92,40 @@ export class TeamsManagementComponent implements OnInit {
         });
         dialogRef.afterClosed().subscribe((result) => {
             if (result === 'confirmed') {
-                this.autoAssign(this.waitingPlayers);
+                this.autoAssign(this.teamsService.getLobbySnapshot().usersQueue);
             }
         });
     }
 
     autoAssign(users: TrainingUser[]) {
-        this.subscribeUntilDestroyed(this.teamsService.autoAssign(users.map(this.getId)));
+        this.teamsService.autoAssign(users.map(this.getId));
     }
 
-    assignQueueSelectionToTeam(team: Team) {
-        const usersWhoFit = this.queueSelection
-            .getSelectedUsers()
-            .slice(0, this.teamsService.maxTeamSizeSubject.value - team.members.length);
-        this.autoAssign(usersWhoFit);
+    assignSelectionToTeam(team: Team, selection: TrainingUser[]) {
+        console.log('assignSelectionToTeam', team, selection);
+        this.teamsService.assignToTeam(
+            selection.slice(0, this.trainingInstance.maxTeamSize - team.members.length).map(this.getId),
+            team.id,
+        );
+    }
+    disbandTeam(team: Team) {
+        this.teamsService.disbandTeam(team.id);
     }
 
-    assignTeamsSelectionToTeam(team: Team) {
-        const usersWhoFit = this.queueSelection
-            .selectedTeamsUsers()
-            .slice(0, this.teamsService.maxTeamSizeSubject.value - team.members.length)
-            .map(this.getId);
-        this.subscribeUntilDestroyed(this.teamsService.assignToTeam(usersWhoFit, team.id));
+    createNewTeamFromSelection(selection: TrainingUser[]) {
+        this.teamsService.createTeam(undefined, selection.slice(0, this.trainingInstance.maxTeamSize).map(this.getId));
+    }
+
+    balanceTeams() {
+        this.teamsService.balanceTeams();
+    }
+
+    returnToQueue(users: TrainingUser[]) {
+        this.teamsService.returnToQueue(users.map(this.getId));
+    }
+
+    createNewTeam() {
+        this.teamsService.createTeam();
     }
 
     /*
@@ -140,38 +160,4 @@ export class TeamsManagementComponent implements OnInit {
             this.queue = this.queue.filter((player) => !assignedPlayerIds.includes(player.id));
             this.setUnlockedTeams(newTeams);
         }*/
-
-    disbandTeam(team: Team) {
-        this.subscribeUntilDestroyed(this.teamsService.disbandTeam(team.id));
-    }
-
-    createNewTeamFromQueueSelection() {
-        this.subscribeUntilDestroyed(
-            this.teamsService.createTeam(
-                undefined,
-                this.queueSelection.selectedQueueUsers().slice(0, this.maxTeamSize).map(this.getId),
-            ),
-        );
-    }
-
-    createNewTeamFromTeamsSelection() {
-        this.subscribeUntilDestroyed(
-            this.teamsService.createTeam(
-                undefined,
-                this.queueSelection.selectedTeamsUsers().slice(0, this.maxTeamSize).map(this.getId),
-            ),
-        );
-    }
-
-    balanceTeams() {
-        this.subscribeUntilDestroyed(this.teamsService.balanceTeams());
-    }
-
-    returnToQueue(users: TrainingUser[]) {
-        this.subscribeUntilDestroyed(this.teamsService.returnToQueue(users.map(this.getId)));
-    }
-
-    createNewTeam() {
-        this.subscribeUntilDestroyed(this.teamsService.createTeam());
-    }
 }

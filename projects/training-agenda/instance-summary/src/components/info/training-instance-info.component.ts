@@ -33,11 +33,9 @@ export class TrainingInstanceInfoComponent implements OnInit, OnChanges {
     @Input() trainingDefinitionLink: string;
     @Input() hasStarted$: Observable<boolean>;
 
-    @Output() showProgress: EventEmitter<boolean> = new EventEmitter();
-    @Output() showResults: EventEmitter<boolean> = new EventEmitter();
-    @Output() showAggregatedResults: EventEmitter<boolean> = new EventEmitter();
-    @Output() showCheatingDetection: EventEmitter<boolean> = new EventEmitter();
-    @Output() exportScore: EventEmitter<boolean> = new EventEmitter();
+    @Input({ required: true }) controls: { title: string; id: string }[];
+
+    @Output() controlClick = new EventEmitter<string>();
     @Output() showNotification: EventEmitter<string[]> = new EventEmitter();
 
     trainingDefinition: TrainingDefinition;
@@ -60,14 +58,7 @@ export class TrainingInstanceInfoComponent implements OnInit, OnChanges {
 
     private initInfoComponent() {
         const disabled$ = this.hasStarted$.pipe(map((hasStated) => !hasStated));
-        this.infoControls = TrainingInstanceInfoControls.create(
-            this.showProgress,
-            this.showResults,
-            this.showAggregatedResults,
-            this.showCheatingDetection,
-            this.exportScore,
-            disabled$,
-        );
+        this.infoControls = TrainingInstanceInfoControls.create(this.controls, this.controlClick, disabled$);
     }
 
     onCopyToken(): void {

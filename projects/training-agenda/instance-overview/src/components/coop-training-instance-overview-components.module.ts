@@ -13,12 +13,6 @@ import {
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { AsyncPipe } from '@angular/common';
-import {
-    CoopTrainingInstanceResolver,
-    CoopTrainingInstanceTitleResolver,
-    TrainingInstanceResolver,
-    TrainingInstanceTitleResolver,
-} from '@crczp/training-agenda/resolvers';
 import { CoopTrainingInstanceOverviewComponent } from './coop-training-instance-overview/coop-training-instance-overview.component';
 import { TrainingInstanceOverviewService } from '../services/state/training-instance-overview.service';
 
@@ -30,12 +24,10 @@ import { TrainingInstanceOverviewService } from '../services/state/training-inst
     imports: [CommonTrainingInstanceOverviewComponentsModule, MatIcon, MatTooltip, AsyncPipe],
     declarations: [CoopTrainingInstanceOverviewComponent],
     providers: [
-        { provide: TrainingInstanceResolver, useValue: CoopTrainingInstanceResolver },
-        { provide: TrainingInstanceTitleResolver, useValue: CoopTrainingInstanceTitleResolver },
         { provide: TrainingNavigator, useClass: CoopTrainingDefaultNavigator },
-        { provide: CoopTrainingNavigator, useClass: CoopTrainingDefaultNavigator },
+        { provide: CoopTrainingNavigator, useExisting: TrainingNavigator },
         { provide: CoopTrainingInstanceOverviewService, useClass: CoopTrainingInstanceOverviewConcreteService },
-        { provide: TrainingInstanceOverviewService, useClass: CoopTrainingInstanceOverviewConcreteService },
+        { provide: TrainingInstanceOverviewService, useExisting: CoopTrainingInstanceOverviewService },
     ],
     exports: [CoopTrainingInstanceOverviewComponent],
 })

@@ -22,7 +22,7 @@ const routes: Routes = [
     {
         path: `:${TRAINING_INSTANCE_SELECTOR}/${TRAINING_INSTANCE_DETAIL_PATH}`,
         loadChildren: () =>
-            import('./detail/training-instance-detail.module').then((m) => m.TrainingInstanceDetailModule),
+            import('./detail/coop-training-instance-detail.module').then((m) => m.CoopTrainingInstanceDetailModule),
         resolve: {
             [TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME]: TrainingInstanceResolver,
             breadcrumb: TrainingInstanceBreadcrumbResolver,
@@ -32,16 +32,9 @@ const routes: Routes = [
     {
         path: TRAINING_INSTANCE_NEW_PATH,
         loadChildren: () => {
-            console.log('loading children');
-            return import('./edit/coop-training-instance-edit-overview.module')
-                .then((m) => {
-                    console.log(m);
-                    return m.CoopTrainingInstanceEditOverviewModule;
-                })
-                .catch((error) => {
-                    console.log('Module Load Error:', error);
-                    return null; // Optional fallback
-                });
+            return import('./edit/coop-training-instance-edit-overview.module').then(
+                (m) => m.CoopTrainingInstanceEditOverviewModule,
+            );
         },
         resolve: {
             [TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME]: TrainingInstanceResolver,

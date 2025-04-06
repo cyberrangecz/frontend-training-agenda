@@ -6,6 +6,7 @@ import { environment } from '../../../../environments/environment';
 import { SharedProvidersModule } from '../../shared-providers.module';
 import { CoopTrainingInstanceOverviewComponentsModule } from '@crczp/training-agenda/instance-overview';
 import { CoopTrainingInstanceOverviewRoutingModule } from './coop-training-instance-overview-routing.module';
+import { CoopTrainingDefaultNavigator, TrainingNavigator } from '@crczp/training-agenda';
 import {
     CoopTrainingInstanceResolver,
     CoopTrainingInstanceTitleResolver,
@@ -13,7 +14,6 @@ import {
     TrainingInstanceResolver,
     TrainingInstanceTitleResolver,
 } from '@crczp/training-agenda/resolvers';
-import { CoopTrainingDefaultNavigator, CoopTrainingNavigator, TrainingNavigator } from '@crczp/training-agenda';
 
 @NgModule({
     imports: [
@@ -25,7 +25,8 @@ import { CoopTrainingDefaultNavigator, CoopTrainingNavigator, TrainingNavigator 
         CoopTrainingInstanceOverviewComponentsModule.forRoot(environment.trainingAgendaConfig),
     ],
     providers: [
-        { provide: CoopTrainingNavigator, useClass: CoopTrainingDefaultNavigator },
+        CoopTrainingInstanceResolver,
+        CoopTrainingDefaultNavigator,
         { provide: TrainingNavigator, useClass: CoopTrainingDefaultNavigator },
         { provide: TrainingInstanceResolver, useClass: CoopTrainingInstanceResolver },
         { provide: TrainingInstanceTitleResolver, useClass: CoopTrainingInstanceTitleResolver },

@@ -16,12 +16,11 @@ export class LinearTrainingInstanceOverviewComponent {
         private navigator: TrainingNavigator,
     ) {}
 
-    buildTable = () =>
-        this.service.resource$.pipe(
-            map((instances) =>
-                new LinearTrainingInstanceTableFactory(instances, this.service, this.navigator).createTable(),
-            ),
-        );
+    table$ = this.service.resource$.pipe(
+        map((instances) =>
+            new LinearTrainingInstanceTableFactory(instances, this.service, this.navigator).createTable(),
+        ),
+    );
 
     buildControls = () => TrainingInstanceOverviewControls.create(this.service);
 }

@@ -4,12 +4,6 @@ import { LinearTrainingInstanceOverviewConcreteService } from '../services/state
 import { TrainingInstanceOverviewService } from '../services/state/training-instance-overview.service';
 import { LinearTrainingInstanceOverviewComponent } from './linear-training-instance-overview/linear-training-instance-overview.component';
 import { CommonTrainingInstanceOverviewComponentsModule } from './common-training-instance-overview-components.module';
-import {
-    TrainingInstanceResolver,
-    TrainingInstanceTitleResolver,
-    LinearTrainingInstanceTitleResolver,
-} from '@crczp/training-agenda/resolvers';
-import { LinearTrainingInstanceResolver } from '@crczp/training-agenda/resolvers';
 
 /**
  * Main module of training instance agenda. Contains components and providers for displaying table of training instance
@@ -19,8 +13,6 @@ import { LinearTrainingInstanceResolver } from '@crczp/training-agenda/resolvers
     imports: [CommonTrainingInstanceOverviewComponentsModule],
     declarations: [LinearTrainingInstanceOverviewComponent],
     providers: [
-        { provide: TrainingInstanceResolver, useValue: LinearTrainingInstanceResolver },
-        { provide: TrainingInstanceTitleResolver, useValue: LinearTrainingInstanceTitleResolver },
         { provide: TrainingNavigator, useClass: LinearTrainingDefaultNavigator },
         { provide: TrainingInstanceOverviewService, useClass: LinearTrainingInstanceOverviewConcreteService },
     ],

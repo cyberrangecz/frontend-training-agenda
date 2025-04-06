@@ -35,5 +35,6 @@ import { SentinelResourceSelectorModule } from '@sentinel/components/resource-se
     ],
     exports: [TrainingInstanceEditOverviewComponent],
     declarations: [TrainingInstanceEditOverviewComponent, TrainingInstanceEditComponent],
+    providers: [TrainingInstanceCanDeactivate],
 })
 export class CommonTrainingInstanceEditOverviewComponentsModule {}

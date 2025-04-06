@@ -25,6 +25,7 @@ import {
         LinearTrainingInstanceOverviewComponentsModule.forRoot(environment.trainingAgendaConfig),
     ],
     providers: [
+        LinearTrainingInstanceResolver,
         LinearTrainingDefaultNavigator,
         { provide: TrainingNavigator, useClass: LinearTrainingDefaultNavigator },
         { provide: TrainingInstanceResolver, useClass: LinearTrainingInstanceResolver },

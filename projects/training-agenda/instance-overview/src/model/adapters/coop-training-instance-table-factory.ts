@@ -1,5 +1,5 @@
 import { LinearTrainingInstanceTableFactory } from './linear-training-instance-table-factory';
-import { RowAction } from '@sentinel/components/table';
+import { Column, RowAction } from '@sentinel/components/table';
 import { TrainingInstance } from '@crczp/training-model';
 import { defer, of } from 'rxjs';
 import { CoopTrainingInstanceOverviewService } from '../../services/state/coop-training-instance-overview-concrete.service';
@@ -16,6 +16,10 @@ export class CoopTrainingInstanceTableFactory extends LinearTrainingInstanceTabl
         navigator: CoopTrainingNavigator,
     ) {
         super(resource, service, navigator);
+    }
+
+    protected createColumns(): Column[] {
+        return super.createColumns().concat([new Column('lobbyWaiting', 'Queue state', false)]);
     }
 
     protected createActions(ti: TrainingInstance, service: CoopTrainingInstanceOverviewService): RowAction[] {

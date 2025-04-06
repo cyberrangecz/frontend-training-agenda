@@ -8,4 +8,5 @@ export class TrainingAgendaConfig {
         adaptiveBasePath: string;
     };
     topologyConfig: TopologyGraphConfig;
+    teamNameKeywords: string[][];
 }

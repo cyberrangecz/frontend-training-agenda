@@ -113,6 +113,9 @@
             "@crczp/training-agenda/instance-summary": [
                 "./instance-summary/src/public_api.ts"
             ],
+            "@crczp/training-agenda/instance-teams-management": [
+                "./instance-team-management/src/public_api.ts"
+            ],
             "@crczp/training-agenda/internal": [
                 "./internal/src/public_api.ts"
             ],

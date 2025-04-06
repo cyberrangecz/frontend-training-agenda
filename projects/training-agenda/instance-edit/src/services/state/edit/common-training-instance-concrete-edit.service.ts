@@ -1,8 +1,7 @@
-import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { PoolApi, SandboxDefinitionApi } from '@crczp/sandbox-api';
 import { TrainingDefinitionApi, TrainingInstanceApi } from '@crczp/training-api';
-import { TrainingDefinitionInfo, TrainingInstance } from '@crczp/training-model';
+import { TrainingDefinitionInfo, TrainingInstance, TrainingTypeEnum } from '@crczp/training-model';
 import { from, Observable } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { TrainingInstanceChangeEvent } from '../../../model/events/training-instance-change-event';
@@ -11,12 +10,13 @@ import { TrainingInstanceEditService } from './training-instance-edit.service';
 import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
 import { Pool, SandboxDefinition } from '@crczp/sandbox-model';
 import { SentinelFilter } from '@sentinel/common/filter';
+import { Injectable } from '@angular/core';
 
 /**
  * Basic implementation of layer between component and API service.
  */
 @Injectable()
-export class LinearTrainingInstanceEditConcreteService extends TrainingInstanceEditService {
+export class TrainingInstanceEditConcreteService extends TrainingInstanceEditService {
     private editedSnapshot: TrainingInstance;
     private lastPagination: OffsetPaginationEvent;
 
@@ -29,6 +29,7 @@ export class LinearTrainingInstanceEditConcreteService extends TrainingInstanceE
         private navigator: TrainingNavigator,
         private errorHandler: TrainingErrorHandler,
         private notificationService: TrainingNotificationService,
+        private trainingType: TrainingTypeEnum,
     ) {
         super();
     }
@@ -103,7 +104,10 @@ export class LinearTrainingInstanceEditConcreteService extends TrainingInstanceE
         this.lastPagination = offsetPaginationEvent;
         this.lastPagination.size = Number.MAX_SAFE_INTEGER;
         return this.trainingDefinitionApi
-            .getAllForOrganizer(offsetPaginationEvent, [new SentinelFilter('state', stateFilter)])
+            .getAllForOrganizer(offsetPaginationEvent, [
+                new SentinelFilter('state', stateFilter),
+                new SentinelFilter('type', this.trainingType.toString().toUpperCase()),
+            ])
             .pipe(
                 tap(
                     (definitions) => {
@@ -160,6 +164,7 @@ export class LinearTrainingInstanceEditConcreteService extends TrainingInstanceE
         if (this.editedSnapshot) {
             if (!this.editedSnapshot.startTime) this.editedSnapshot.startTime = new Date();
         }
+        this.editedSnapshot.type = this.trainingType;
         return this.trainingInstanceApi.create(this.editedSnapshot).pipe(
             map((ti) => ti.id),
             tap(
@@ -176,6 +181,7 @@ export class LinearTrainingInstanceEditConcreteService extends TrainingInstanceE
         if (!this.editedSnapshot) {
             this.editedSnapshot = this.trainingInstanceSubject$.getValue();
         }
+        this.editedSnapshot.type = this.trainingType;
         const pagination = new OffsetPaginationEvent(0, 10, '', 'asc');
         this.saveDisabledSubject$.next(true);
         return this.trainingInstanceApi.update(this.editedSnapshot).pipe(

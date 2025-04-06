@@ -12,6 +12,8 @@ import { SentinelAuthGuardWithLogin, SentinelNegativeAuthGuard } from '@sentinel
 import { HomeComponent } from './home/home.component';
 import { LoadingService } from './services/loading.service';
 import { LoadingInterceptor } from './services/loading-interceptor';
+import { TokenRefreshService } from './services/token-refresh.service';
+import { TokenRefreshInterceptor } from './services/token-refresh-interceptor';
 
 @NgModule({
     declarations: [AppComponent, HomeComponent],
@@ -28,7 +30,9 @@ import { LoadingInterceptor } from './services/loading-interceptor';
         SentinelAuthGuardWithLogin,
         SentinelNegativeAuthGuard,
         LoadingService,
+        TokenRefreshService,
         { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: TokenRefreshInterceptor, multi: true },
     ],
     bootstrap: [AppComponent],
 })

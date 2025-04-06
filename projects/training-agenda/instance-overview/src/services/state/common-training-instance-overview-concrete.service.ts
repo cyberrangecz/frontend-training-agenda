@@ -56,7 +56,6 @@ export class CommonTrainingInstanceOverviewConcreteService extends TrainingInsta
     }
 
     create(): Observable<any> {
-        console.log('create', this.navigator.toNewTrainingInstance());
         return of(this.router.navigate([this.navigator.toNewTrainingInstance()]));
     }
 

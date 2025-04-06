@@ -1,10 +1,10 @@
 import { Team, TrainingUser } from '@crczp/training-model';
-import { Signal, signal } from '@angular/core';
+import { signal } from '@angular/core';
 import { SelectionInterval } from '@crczp/training-agenda/internal';
 
 export class QueueSelection {
-    private queueSelectionSignal = signal<TrainingUser[]>([]);
-    private teamsSelectionSignal = signal<TrainingUser[]>([]);
+    queueSelectionSignal = signal<TrainingUser[]>([]);
+    teamsSelectionSignal = signal<TrainingUser[]>([]);
 
     private intervalSelectedUsersSignal = signal<SelectionInterval<TrainingUser>>({ inverted: false, items: [] });
 
@@ -22,12 +22,12 @@ export class QueueSelection {
         this.queueSelectionSignal.set([]);
     }
 
-    get selectedQueueUsers(): Signal<TrainingUser[]> {
-        return this.queueSelectionSignal.asReadonly();
+    get selectedQueueUsers(): TrainingUser[] {
+        return this.queueSelectionSignal();
     }
 
-    get selectedTeamsUsers(): Signal<TrainingUser[]> {
-        return this.teamsSelectionSignal.asReadonly();
+    get selectedTeamsUsers(): TrainingUser[] {
+        return this.teamsSelectionSignal();
     }
 
     isInSelectionInterval(TrainingUser: TrainingUser): boolean {
@@ -39,26 +39,26 @@ export class QueueSelection {
     }
 
     removeUsersFromQueueSelection(users: TrainingUser[]) {
-        this.selectedQueueUsers = this.selectedQueueUsers().filter((TrainingUser) => !users.includes(TrainingUser));
+        this.selectedQueueUsers = this.selectedQueueUsers.filter((TrainingUser) => !users.includes(TrainingUser));
     }
 
     teamSelectionChange(team: Team, users: TrainingUser[]) {
-        this.selectedTeamsUsers = this.selectedTeamsUsers().concat(users);
+        this.selectedTeamsUsers = this.selectedTeamsUsers.concat(users);
         this.removeUsersFromTeamsSelection(
             team.members.filter((member) => users.some((TrainingUser) => TrainingUser.id === member.id)),
         );
     }
 
     removeUsersFromTeamsSelection(users: TrainingUser[]) {
-        this.selectedTeamsUsers = this.selectedTeamsUsers().filter((TrainingUser) => !users.includes(TrainingUser));
+        this.selectedTeamsUsers = this.selectedTeamsUsers.filter((TrainingUser) => !users.includes(TrainingUser));
     }
 
     isQueueSelected(TrainingUser: TrainingUser): boolean {
-        return this.selectedTeamsUsers().some((selectedUser) => selectedUser.id === TrainingUser.id);
+        return this.selectedTeamsUsers.some((selectedUser) => selectedUser.id === TrainingUser.id);
     }
 
     isTeamsSelected(TrainingUser: TrainingUser): boolean {
-        return this.selectedTeamsUsers().some((selectedUser) => selectedUser.id === TrainingUser.id);
+        return this.selectedTeamsUsers.some((selectedUser) => selectedUser.id === TrainingUser.id);
     }
 
     isSelected(TrainingUser: TrainingUser) {
@@ -66,6 +66,6 @@ export class QueueSelection {
     }
 
     getSelectedUsers(): TrainingUser[] {
-        return this.selectedQueueUsers().concat(this.selectedTeamsUsers());
+        return this.selectedQueueUsers.concat(this.selectedTeamsUsers);
     }
 }

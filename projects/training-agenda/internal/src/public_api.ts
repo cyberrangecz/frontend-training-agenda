@@ -17,7 +17,6 @@ export * from './components/loading-dialog/loading-dialog.module';
 export * from './components/loading-dialog/loading-dialog.component';
 export * from './components/loading-dialog/loading-dialog-config';
 
-export * from './components/selectable-list/selectable-list.component';
 export * from './components/grid-list/grid-list.component';
 
 export * from './components/player-view/player-view.component';

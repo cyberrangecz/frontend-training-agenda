@@ -57,7 +57,6 @@ export class PersistentDividerPositionSynchronizerService extends DividerPositio
      * @returns the divider position as a ratio in range (0, 1)
      */
     public getDividerPosition(): number | undefined {
-        console.log('getDividerPosition', this.splitViewDimensionsSubject.value);
         return this.splitViewDimensionsSubject.value;
     }
 

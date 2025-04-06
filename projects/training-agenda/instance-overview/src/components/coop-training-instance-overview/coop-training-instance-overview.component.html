@@ -1,18 +1,25 @@
 <crczp-training-instance-overview
-    [tableSupplier]="buildTable"
+    [table]="table$"
     [controlsSupplier]="buildControls"
-    [sentinelRowTemplates]="[{name: 'Lobby warning', template: lobbyWaiting}]"
+    [sentinelRowTemplates]="[{name: 'lobbyWaiting', template: lobbyWaiting}]"
 />
 
 <ng-template #lobbyWaiting let-row>
     @let waiting = getPlayersWaiting$(row.element.id) | async;
-    @if (waiting > 0) {
-        <mat-icon
-            class="b-warn-50"
-            [matTooltip]="(waiting > 1 ? 'There are {{waiting}} players' : 'There is a player' ) +
-            'waiting to be assigned to a team'"
-        >
-            warning
-        </mat-icon>
-    }
+        @if (waiting > 0) {
+            <mat-icon
+                color="warn"
+                class="m-1rem-l"
+                [matTooltip]="(waiting > 1 ? 'There are ' + waiting + ' players waiting' : 'There is a player'  +
+            'waiting')">
+                warning
+            </mat-icon>
+        } @else {
+            <mat-icon
+                color="primary"
+                class="m-1rem-l"
+                [matTooltip]="'The queue is empty'">
+                check
+            </mat-icon>
+        }
 </ng-template>

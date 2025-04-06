@@ -1,1 +1,19 @@
-<crczp-training-instance-edit-overview (canDeactivate)="setCanDeactivate($event)"/>
+<crczp-training-instance-edit-overview (canDeactivate)="setCanDeactivate($event)">
+    <div class="wh-100 ai-c jc-fe">
+        <form [formGroup]="maxTeamSizeForm().formGroup">
+            <mat-form-field
+                appearance="outline"
+                class="mat-team-size-form"
+            >
+                <input
+                    matInput
+                    formControlName="maxTeamSize"
+                    type="number"
+                    min="1"
+                    max="12"
+                    required
+                />
+            </mat-form-field>
+        </form>
+    </div>
+</crczp-training-instance-edit-overview>

@@ -9,23 +9,23 @@ import {
     TrainingNavigator,
     TrainingNotificationService,
 } from '@crczp/training-agenda';
-import { TrainingInstanceSummaryService } from '../services/state/summary/training-instance-summary.service';
 import { SentinelTable, TableActionEvent, TableLoadEvent } from '@sentinel/components/table';
 import { PaginationService } from '@crczp/training-agenda/internal';
-import { TrainingRunService } from '../services/state/runs/training-run.service';
-import { TrainingRunTable } from '../model/training-run-table';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { TrainingInstanceSummaryService } from '../../services/state/summary/training-instance-summary.service';
+import { TrainingRunService } from '../../services/state/runs/training-run.service';
+import { TrainingRunTable } from '../../model/training-run-table';
 
 /**
  * Smart component of training instance summary
  */
 @Component({
-    selector: 'crczp-training-instance-summary',
-    templateUrl: './training-instance-summary.component.html',
-    styleUrls: ['./training-instance-summary.component.css'],
+    selector: 'crczp-linear-training-instance-summary',
+    templateUrl: './linear-training-instance-summary.component.html',
+    styleUrls: ['./linear-training-instance-summary.component.css'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TrainingInstanceSummaryComponent implements OnInit {
+export class LinearTrainingInstanceSummaryComponent implements OnInit {
     @Input() paginationId = 'training-instance-summary';
 
     trainingInstance$: Observable<TrainingInstance>;
@@ -36,6 +36,14 @@ export class TrainingInstanceSummaryComponent implements OnInit {
     trainingInstanceAccessTokenLink: string;
     trainingInstancePoolIdLink: string;
     trainingDefinitionLink: string;
+
+    controls: { title: string; id: string }[] = [
+        { title: 'Show Progress', id: 'progress' },
+        { title: 'Show Results', id: 'results' },
+        { title: 'Show Aggregated Results', id: 'aggregated-results' },
+        { title: 'Cheating Detection', id: 'cheating-detection' },
+        { title: 'Export Score', id: 'score' },
+    ];
 
     destroyRef = inject(DestroyRef);
 
@@ -151,5 +159,20 @@ export class TrainingInstanceSummaryComponent implements OnInit {
                 take(1),
             )
             .subscribe();
+    }
+
+    handleControl($event: string) {
+        switch ($event) {
+            case 'progress':
+                return this.trainingInstanceSummaryService.showProgress();
+            case 'results':
+                return this.trainingInstanceSummaryService.showResults();
+            case 'aggregated-results':
+                return this.trainingInstanceSummaryService.showAggregatedResults();
+            case 'cheating-detection':
+                return this.trainingInstanceSummaryService.showCheatingDetection();
+            case 'score':
+                return this.onExportScore();
+        }
     }
 }

@@ -6,71 +6,23 @@ import { defer, EMPTY, Observable } from 'rxjs';
  * @dynamic
  */
 export class TrainingInstanceInfoControls {
-    static readonly PROGRESS_ACTION_ID = 'progress';
-    static readonly RESULTS_ACTION_ID = 'results';
-    static readonly RESULTS_AGGREGATED_ID = 'stacked_bar_chart';
-    static readonly CHEATING_DETECTION_ID = 'cheating_detection';
-    static readonly EXPORT_SCORE_ID = 'export_score';
-
     static create(
-        showProgressEmitter: EventEmitter<boolean>,
-        showResultsEmitter: EventEmitter<boolean>,
-        showAggregatedResults: EventEmitter<boolean>,
-        showCheatingDetection: EventEmitter<boolean>,
-        exportScore: EventEmitter<boolean>,
+        controls: { title: string; id: string }[],
+        controlClicked: EventEmitter<string>,
         disabled$: Observable<boolean>,
     ): SentinelControlItem[] {
-        return [
-            new SentinelControlItem(
-                this.PROGRESS_ACTION_ID,
-                'Show Progress',
-                'primary',
-                disabled$,
-                defer(() => {
-                    showProgressEmitter.emit(true);
-                    return EMPTY;
-                }),
-            ),
-            new SentinelControlItem(
-                this.RESULTS_ACTION_ID,
-                'Show Results',
-                'primary',
-                disabled$,
-                defer(() => {
-                    showResultsEmitter.emit(false);
-                    return EMPTY;
-                }),
-            ),
-            new SentinelControlItem(
-                this.RESULTS_AGGREGATED_ID,
-                'Show Aggregated Results',
-                'primary',
-                disabled$,
-                defer(() => {
-                    showAggregatedResults.emit(false);
-                    return EMPTY;
-                }),
-            ),
-            new SentinelControlItem(
-                this.CHEATING_DETECTION_ID,
-                'Cheating Detection',
-                'primary',
-                disabled$,
-                defer(() => {
-                    showCheatingDetection.emit(false);
-                    return EMPTY;
-                }),
-            ),
-            new SentinelControlItem(
-                this.EXPORT_SCORE_ID,
-                'Export Score',
-                'primary',
-                disabled$,
-                defer(() => {
-                    exportScore.emit(false);
-                    return EMPTY;
-                }),
-            ),
-        ];
+        return controls.map(
+            (control) =>
+                new SentinelControlItem(
+                    control.id,
+                    control.title,
+                    'primary',
+                    disabled$,
+                    defer(() => {
+                        controlClicked.emit(control.id);
+                        return EMPTY;
+                    }),
+                ),
+        );
     }
 }

@@ -12,22 +12,22 @@ import {
 } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { GridListComponent } from '../grid-list/grid-list.component';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IntervalSortedSelectionList, SelectionInterval } from './interval-sorted-selection-list';
 
 @Component({
     standalone: true,
-    selector: 'app-selectable-list',
+    selector: 'crczp-selectable-list',
     templateUrl: './selectable-list.component.html',
     imports: [NgTemplateOutlet, GridListComponent],
     styleUrl: './selectable-list.component.css',
 })
 export class SelectableListComponent<T, I> implements OnInit, OnChanges {
     @Input({ required: true }) items: T[];
+    @Input() selectedItems: T[];
     @Input({ required: true }) compareFunction: (a: T, b: T) => number;
     @Input({ required: true }) idFunction: (item: T) => I;
     @Input({ required: true }) template!: TemplateRef<{ $implicit: T }>;
-    @Input() selectedItems: T[] | undefined = undefined;
+
     @Input() filterFunction: (item: T) => boolean = () => true;
 
     @Input() columns: number | undefined = undefined;
@@ -52,18 +52,6 @@ export class SelectableListComponent<T, I> implements OnInit, OnChanges {
         if (selectedItems) {
             selectionList.setSelectedItems(selectedItems);
         }
-        selectionList
-            .getSelectedItems$()
-            .pipe(takeUntilDestroyed(this.destroyRef))
-            .subscribe((selection) => this.selectionChange.emit(selection.filter(this.filterFunction)));
-        selectionList
-            .getSelectionInterval$()
-            .pipe(takeUntilDestroyed(this.destroyRef))
-            .subscribe((dragSelection) => this.dragSelectionChange.emit(dragSelection));
-        selectionList
-            .getAllItems$()
-            .pipe(takeUntilDestroyed(this.destroyRef))
-            .subscribe((items) => this.itemsChange.emit(items.filter(this.filterFunction)));
         return selectionList;
     }
 
@@ -78,22 +66,35 @@ export class SelectableListComponent<T, I> implements OnInit, OnChanges {
         document.addEventListener('keydown', (event) => {
             if (event.key === 'Shift') {
                 this.selectionList.multipleSelectionInvert = true;
+                this.dragSelectionChange.emit(this.selectionList.getSelectionInterval());
             }
             if (event.key === 'Escape') {
                 this.selectionList.cancelMultipleSelection();
+                this.emitDragSelectionChange();
             }
         });
         document.addEventListener('keyup', (event) => {
             if (event.key === 'Shift') {
                 this.selectionList.multipleSelectionInvert = false;
+                this.emitDragSelectionChange();
             }
         });
         window.addEventListener('blur', (event) => {
             this.selectionList.cancelMultipleSelection();
+            this.emitDragSelectionChange();
         });
     }
 
+    emitDragSelectionChange() {
+        this.dragSelectionChange.emit(this.selectionList.getSelectionInterval());
+    }
+
+    emitSelectionChange() {
+        this.selectionChange.emit(this.selectionList.getSelectedItems());
+    }
+
     ngOnChanges(changes: SimpleChanges): void {
+        console.log('changes', changes);
         if (!this.selectionList) {
             return;
         }
@@ -112,6 +113,5 @@ export class SelectableListComponent<T, I> implements OnInit, OnChanges {
             );
         }
     }
-
     protected readonly console = console;
 }

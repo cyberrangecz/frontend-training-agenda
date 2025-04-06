@@ -1,4 +1,6 @@
 // OIDC url
+import { teamNameKeywords } from './team-keywords';
+
 const OIDC_URL = 'https://172.19.0.22';
 // backend url
 const API_URL = 'https://172.19.0.22';
@@ -30,6 +32,7 @@ export const environment = {
         defaultPaginationSize: 10,
         visualizationConfig,
         topologyConfig,
+        teamNameKeywords: teamNameKeywords,
     },
 
     trainingApiConfig: {

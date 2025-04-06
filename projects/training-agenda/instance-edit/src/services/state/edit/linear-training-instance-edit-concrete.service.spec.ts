@@ -5,7 +5,7 @@ import { OffsetPagination, PaginatedResource } from '@sentinel/common/pagination
 import { asyncData } from '@sentinel/common/testing';
 import { PoolApi, SandboxDefinitionApi, SandboxInstanceApi } from '@crczp/sandbox-api';
 import { TrainingDefinitionApi, TrainingInstanceApi } from '@crczp/training-api';
-import { TrainingDefinition, TrainingInstance } from '@crczp/training-model';
+import { TrainingDefinition, TrainingInstance, TrainingTypeEnum } from '@crczp/training-model';
 import { throwError } from 'rxjs';
 import { TrainingInstanceChangeEvent } from '../../../model/events/training-instance-change-event';
 import {
@@ -25,7 +25,7 @@ import { TrainingNavigator } from '../../../../../src/services/training-navigato
 import { TrainingNotificationService } from '../../../../../src/services/training-notification.service';
 import { TrainingAgendaContext } from '../../../../../internal/src/services/context/training-agenda-context.service';
 import { Pool, SandboxDefinition } from '@crczp/sandbox-model';
-import { LinearTrainingInstanceEditConcreteService } from './linear-training-instance-edit-concrete.service';
+import { TrainingInstanceEditConcreteService } from './common-training-instance-concrete-edit.service';
 
 describe('TrainingInstanceEditConcreteService', () => {
     let errorHandlerSpy: jasmine.SpyObj<TrainingErrorHandler>;
@@ -34,7 +34,7 @@ describe('TrainingInstanceEditConcreteService', () => {
     let poolApiSpy: jasmine.SpyObj<PoolApi>;
     let sandboxDefinitionApiSpy: jasmine.SpyObj<SandboxDefinitionApi>;
     let sandboxInstanceApiSpy: jasmine.SpyObj<SandboxInstanceApi>;
-    let service: LinearTrainingInstanceEditConcreteService;
+    let service: TrainingInstanceEditConcreteService;
     let navigatorSpy: jasmine.SpyObj<TrainingNavigator>;
     let routerSpy: jasmine.SpyObj<Router>;
     let notificationSpy: jasmine.SpyObj<TrainingNotificationService>;
@@ -54,7 +54,8 @@ describe('TrainingInstanceEditConcreteService', () => {
 
         TestBed.configureTestingModule({
             providers: [
-                LinearTrainingInstanceEditConcreteService,
+                TrainingInstanceEditConcreteService,
+                { provide: TrainingTypeEnum, useValue: TrainingTypeEnum.LINEAR },
                 { provide: TrainingInstanceApi, useValue: trainingInstanceApiSpy },
                 { provide: SandboxInstanceApi, useValue: sandboxInstanceApiSpy },
                 { provide: PoolApi, useValue: poolApiSpy },
@@ -68,7 +69,7 @@ describe('TrainingInstanceEditConcreteService', () => {
             ],
             imports: [RouterTestingModule],
         });
-        service = TestBed.inject(LinearTrainingInstanceEditConcreteService);
+        service = TestBed.inject(TrainingInstanceEditConcreteService);
     });
 
     it('should be created', () => {

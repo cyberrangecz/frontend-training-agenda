@@ -3,7 +3,7 @@ import { NgTemplateOutlet } from '@angular/common';
 
 @Component({
     standalone: true,
-    selector: 'app-grid-list',
+    selector: 'crczp-grid-list',
     templateUrl: './grid-list.component.html',
     imports: [NgTemplateOutlet],
     styleUrl: './grid-list.component.css',

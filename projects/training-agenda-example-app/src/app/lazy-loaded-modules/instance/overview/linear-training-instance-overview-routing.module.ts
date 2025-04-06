@@ -23,7 +23,7 @@ const routes: Routes = [
     {
         path: `:${TRAINING_INSTANCE_SELECTOR}/${TRAINING_INSTANCE_DETAIL_PATH}`,
         loadChildren: () =>
-            import('./detail/training-instance-detail.module').then((m) => m.TrainingInstanceDetailModule),
+            import('./detail/linear-training-instance-detail.module').then((m) => m.LinearTrainingInstanceDetailModule),
         resolve: {
             [TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME]: LinearTrainingInstanceResolver,
             breadcrumb: TrainingInstanceBreadcrumbResolver,

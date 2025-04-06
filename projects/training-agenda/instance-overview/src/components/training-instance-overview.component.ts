@@ -4,7 +4,7 @@ import { SentinelControlItem } from '@sentinel/components/controls';
 import { TrainingInstance } from '@crczp/training-model';
 import { SentinelTable, TableActionEvent, TableLoadEvent } from '@sentinel/components/table';
 import { Observable } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { take, tap } from 'rxjs/operators';
 import { TrainingNotificationService } from '@crczp/training-agenda';
 import { TrainingInstanceOverviewService } from '../services/state/training-instance-overview.service';
 import { PaginationService } from '@crczp/training-agenda/internal';
@@ -22,8 +22,8 @@ import { TrainingInstanceRowAdapter } from '../model/adapters/training-instance-
 })
 export class TrainingInstanceOverviewComponent implements OnInit {
     @Input() paginationId = 'training-instance-overview';
-    @Input() tableSupplier: <T extends TrainingInstanceRowAdapter>() => Observable<SentinelTable<T>>;
-    @Input() controlsSupplier: () => SentinelControlItem[];
+    @Input({ required: true }) table: Observable<SentinelTable<TrainingInstanceRowAdapter>>;
+    @Input({ required: true }) controlsSupplier: () => SentinelControlItem[];
 
     @Input() initialSortName = 'startTime';
     @Input() initialSortDirection: SortDir = 'desc';
@@ -80,7 +80,6 @@ export class TrainingInstanceOverviewComponent implements OnInit {
                 this.initialSortDirection,
             ),
         };
-        this.instances$ = this.tableSupplier();
         this.hasError$ = this.service.hasError$;
         this.onInstancesLoadEvent(initLoadEvent);
     }

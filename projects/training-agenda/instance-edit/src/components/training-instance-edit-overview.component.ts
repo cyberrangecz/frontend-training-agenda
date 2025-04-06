@@ -23,7 +23,7 @@ import { OrganizersAssignService } from '../services/state/organizers-assign/org
 import { Pool, SandboxDefinition } from '@crczp/sandbox-model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { SentinelUserAssignService } from '@sentinel/components/user-assign';
-import { LinearTrainingInstanceEditConcreteService } from '../services/state/edit/linear-training-instance-edit-concrete.service';
+import { TrainingInstanceEditConcreteService } from '../services/state/edit/common-training-instance-concrete-edit.service';
 
 /**
  * Main component of training instance edit/create page. Serves mainly as a smart component wrapper
@@ -33,10 +33,6 @@ import { LinearTrainingInstanceEditConcreteService } from '../services/state/edi
     templateUrl: './training-instance-edit-overview.component.html',
     styleUrls: ['./training-instance-edit-overview.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [
-        { provide: TrainingInstanceEditService, useClass: LinearTrainingInstanceEditConcreteService },
-        { provide: SentinelUserAssignService, useClass: OrganizersAssignService },
-    ],
 })
 export class TrainingInstanceEditOverviewComponent implements OnInit {
     readonly PAGE_SIZE: number = 999;

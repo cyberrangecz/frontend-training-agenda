@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import {
     ACCESS_TOKEN_PATH,
     CHEATING_DETECTION_PATH,
+    LOBBY_MANAGEMENT_PATH,
     PROGRESS_PATH,
     RESULTS_PATH,
     RUNS_PATH,
@@ -38,6 +39,9 @@ export class TrainingInstanceDetailBreadcrumbResolver {
         }
         if (state.url.includes(CHEATING_DETECTION_PATH)) {
             return 'Cheating Detections';
+        }
+        if (state.url.includes(LOBBY_MANAGEMENT_PATH)) {
+            return 'Lobby Management';
         }
         return '';
     }

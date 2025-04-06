@@ -9,40 +9,44 @@ import { CommonTrainingInstanceEditOverviewComponentsModule } from './common-ins
 import { CoopTrainingInstanceEditOverviewComponent } from './coop-training-instance-edit-overview/coop-training-instance-edit-overview.component';
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
 import { CoopTrainingInstanceResolver, TrainingInstanceResolver } from '@crczp/training-agenda/resolvers';
+import { TrainingTypeEnum } from '@crczp/training-model';
+import { TrainingInstanceCanDeactivate } from '../services/can-deactivate/training-instance-can-deactivate.service';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { MatFormField } from '@angular/material/form-field';
+import { ReactiveFormsModule } from '@angular/forms';
+import { TrainingInstanceEditService } from '../services/state/edit/training-instance-edit.service';
+import { TrainingInstanceEditConcreteService } from '../services/state/edit/common-training-instance-concrete-edit.service';
+import { SentinelUserAssignService } from '@sentinel/components/user-assign';
+import { OrganizersAssignService } from '../services/state/organizers-assign/organizers-assign.service';
+import { MatInput } from '@angular/material/input';
 
 /**
  * Main module of training instance edit components and providers
  */
 @NgModule({
-    imports: [CommonTrainingInstanceEditOverviewComponentsModule],
+    imports: [
+        CommonTrainingInstanceEditOverviewComponentsModule,
+        MatProgressSpinner,
+        MatFormField,
+        ReactiveFormsModule,
+        MatInput,
+    ],
     declarations: [CoopTrainingInstanceEditOverviewComponent],
     exports: [CoopTrainingInstanceEditOverviewComponent],
-    //providers: [TrainingInstanceCanDeactivate],
+    providers: [
+        { provide: TrainingInstanceEditService, useClass: TrainingInstanceEditConcreteService },
+        { provide: SentinelUserAssignService, useClass: OrganizersAssignService },
+    ],
 })
 export class CoopTrainingInstanceEditOverviewComponentsModule {
-    constructor(private router: Router) {
-        this.router.events.subscribe((event) => {
-            if (event instanceof NavigationStart) {
-                console.log('Navigation Started:', event.url);
-            } else if (event instanceof NavigationEnd) {
-                console.log('Navigation Ended:', event.url);
-            } else if (event instanceof NavigationCancel) {
-                console.warn('Navigation Cancelled:', event.url);
-            } else if (event instanceof NavigationError) {
-                console.error('Navigation Error:', event.error);
-            }
-        });
-    }
-
     static forRoot(
         config: TrainingAgendaConfig,
     ): ModuleWithProviders<CoopTrainingInstanceEditOverviewComponentsModule> {
-        console.log('lodaing forroot');
         return {
             ngModule: CoopTrainingInstanceEditOverviewComponentsModule,
             providers: [
+                { provide: TrainingTypeEnum, useValue: TrainingTypeEnum.COOP },
                 { provide: TrainingNavigator, useClass: CoopTrainingDefaultNavigator },
-                CoopTrainingInstanceResolver,
                 { provide: TrainingAgendaConfig, useValue: config },
             ],
         };

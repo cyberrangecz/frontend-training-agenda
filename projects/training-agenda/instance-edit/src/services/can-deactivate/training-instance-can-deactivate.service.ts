@@ -19,7 +19,6 @@ export class TrainingInstanceCanDeactivate<T extends { canDeactivate: () => bool
 
     canDeactivate(component: T): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
         if (component.canDeactivate()) {
-            console.log('CanDeactivate Guard Triggered');
             return true;
         }
 
