@@ -229,12 +229,12 @@
 }
 
 .player-view--selected:hover {
-    box-shadow: 0 0 3px 2px var(--primary-50);
+    box-shadow: 0 0 3px 2px var(--primary-50) !important;
 }
 
 .player-view--selected {
-    box-shadow: 0 0 3px 2px var(--primary-50);
-    background: color-mix(in srgb, var(--primary-70) 20%, transparent);
+    box-shadow: 0 0 3px 2px var(--primary-50) !important;
+    background: color-mix(in srgb, var(--primary-70) 20%, transparent) !important;
 }
 
 .player-view--interval-selected {

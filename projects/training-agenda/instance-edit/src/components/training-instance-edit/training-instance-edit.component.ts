@@ -12,7 +12,7 @@ import {
     SimpleChanges,
     ViewChild,
 } from '@angular/core';
-import { TrainingDefinitionInfo, TrainingInstance } from '@crczp/training-model';
+import { TrainingDefinitionInfo, TrainingInstance, TrainingTypeEnum } from '@crczp/training-model';
 import { TrainingInstanceChangeEvent } from '../../model/events/training-instance-change-event';
 import { TrainingInstanceFormGroup } from './training-instance-form-group';
 import { AbstractControl } from '@angular/forms';
@@ -113,6 +113,7 @@ export class TrainingInstanceEditComponent implements OnChanges, AfterViewInit {
                     this.changeValidity(this.isPoolIdError(), this.poolSelect);
                 }
             });
+        console.log(this.trainingInstance);
     }
 
     revalidate() {
@@ -271,4 +272,6 @@ export class TrainingInstanceEditComponent implements OnChanges, AfterViewInit {
     getTrainingDefinitionUrl(id: number) {
         return `/${this.navigator.toTrainingDefinitionDetail(id)}`;
     }
+
+    protected readonly TrainingTypeEnum = TrainingTypeEnum;
 }

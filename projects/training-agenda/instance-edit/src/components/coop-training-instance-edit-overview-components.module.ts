@@ -12,7 +12,7 @@ import { CoopTrainingInstanceResolver, TrainingInstanceResolver } from '@crczp/t
 import { TrainingTypeEnum } from '@crczp/training-model';
 import { TrainingInstanceCanDeactivate } from '../services/can-deactivate/training-instance-can-deactivate.service';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { MatFormField } from '@angular/material/form-field';
+import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TrainingInstanceEditService } from '../services/state/edit/training-instance-edit.service';
 import { TrainingInstanceEditConcreteService } from '../services/state/edit/common-training-instance-concrete-edit.service';
@@ -27,7 +27,7 @@ import { MatInput } from '@angular/material/input';
     imports: [
         CommonTrainingInstanceEditOverviewComponentsModule,
         MatProgressSpinner,
-        MatFormField,
+        MatFormFieldModule,
         ReactiveFormsModule,
         MatInput,
     ],

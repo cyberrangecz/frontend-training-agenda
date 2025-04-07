@@ -1,13 +1,13 @@
 <div class="content-wrapper">
     <mat-card class="card queue-card" appearance="outlined">
         <div class="card__header">
-            @if (queueSelection.selectedQueueUsers.length > 0) {
+            @if (queueSelection().selectedQueueUsers.length > 0) {
                 <button
                     class="controls-button controls-button--top-left-radius"
                     mat-raised-button
                     matTooltipClass="multi-line-tooltip"
                     matTooltip="Deselect All [shift+A]"
-                    (click)="queueSelection.selectedQueueUsers =[]"
+                    (click)="queueSelection().selectedQueueUsers =[]"
                 >
                     <mat-icon
                         class="controls-button__icon"
@@ -19,7 +19,7 @@
                     class="controls-button controls-button--top-left-radius"
                     mat-raised-button
                     matTooltip="Select All [A]"
-                    (click)="queueSelection.selectedQueueUsers = teamsService.getLobbySnapshot().usersQueue"
+                    (click)="queueSelection().selectedQueueUsers = teamsService.getLobbySnapshot().usersQueue"
                 >
                     <mat-icon
                         class="controls-button__icon"
@@ -31,7 +31,7 @@
                 <input
                     class="search-input"
                     matInput
-                    placeholder="Find by player name"
+                    placeholder="Player name"
                 />
                 <i class="material-icons search-icon">search</i>
             </div>
@@ -39,8 +39,8 @@
                 class="card__header__title"
             >
         {{
-                    queueSelection.selectedQueueUsers.length > 0 ?
-                        'Selected ' + queueSelection.selectedQueueUsers.length + '/' + (waitingPlayers$|async).length :
+                    queueSelection().selectedQueueUsers.length > 0 ?
+                        'Selected ' + queueSelection().selectedQueueUsers.length + '/' + (waitingPlayers$|async).length :
                         (waitingPlayers$|async).length + ' players in queue'
                 }}
       </span>
@@ -48,9 +48,9 @@
         <mat-card-content
             class="card-content round-scrollbar">
             <crczp-selectable-list
-                (selectionChange)="queueSelection.selectedQueueUsers = $event"
-                (dragSelectionChange)="queueSelection.intervalSelectedUsers = $event"
-                [selectedItems]="queueSelection.selectedQueueUsers"
+                (selectionChange)="queueSelection().selectedQueueUsers = $event"
+                (dragSelectionChange)="queueSelection().intervalSelectedUsers = $event"
+                [selectedItems]="queueSelection().selectedQueueUsers"
                 [items]="waitingPlayers$ | async"
                 [template]="playerViewTemplate"
                 [idFunction]="getId"
@@ -67,13 +67,13 @@
             </mat-icon>
         </button>
         <div class="movement-controls">
-            @if (queueSelection.selectedQueueUsers.length > 0) {
+            @if (queueSelection().selectedQueueUsers.length > 0) {
                 <button
                     mat-fab
                     color="primary"
                     class="movement-controls__button"
                     matTooltip='Create a new team with selected players'
-                    (click)="createNewTeamFromSelection(queueSelection.selectedQueueUsers)"
+                    (click)="createNewTeamFromSelection(queueSelection().selectedQueueUsers)"
                 >
                     <i class="material-icons">group_add</i>
                 </button>
@@ -82,16 +82,16 @@
                     color="primary"
                     class="movement-controls__button"
                     matTooltip='Automatically assign selected players to existing teams'
-                    (click)="autoAssign(this.queueSelection.selectedQueueUsers)"
+                    (click)="autoAssign(this.queueSelection().selectedQueueUsers)"
                 >
                     <i class="material-icons">keyboard_arrow_right</i>
                 </button>
-            } @else if (queueSelection.selectedTeamsUsers.length > 0) {
+            } @else if (queueSelection().selectedTeamsUsers.length > 0) {
                 <button
                     mat-fab
                     class="movement-controls__button"
                     [matTooltip]="'Move selected players to a new team'"
-                    (click)="createNewTeamFromSelection(queueSelection.selectedTeamsUsers)"
+                    (click)="createNewTeamFromSelection(queueSelection().selectedTeamsUsers)"
                 >
                     <i class="material-icons">group_add</i>
                 </button>
@@ -99,7 +99,7 @@
                     mat-fab
                     class="movement-controls__button"
                     matTooltip='Return selected players to queue'
-                    (click)="returnToQueue(this.queueSelection.selectedTeamsUsers)"
+                    (click)="returnToQueue(this.queueSelection().selectedTeamsUsers)"
                 >
                     <i class="material-icons">keyboard_arrow_left</i>
                 </button>
@@ -144,7 +144,7 @@
                 <input
                     class="search-input"
                     matInput
-                    placeholder="Find by player name"
+                    placeholder="Player name"
                 />
                 <i class="material-icons search-icon">search</i>
             </div>
@@ -181,9 +181,9 @@
     <crczp-player-view
         class="
       player-view
-      {{queueSelection.isInSelectionInterval(player) ? 'player-view--no-hover' : ''}}
-      {{queueSelection.isSelected(player) ? 'player-view--selected' : ''}}
-      {{queueSelection.isInSelectionInterval(player) ? queueSelection.isIntervalSelectionInverted() ?
+      {{queueSelection().isInSelectionInterval(player) ? 'player-view--no-hover' : ''}}
+      {{queueSelection().isSelected(player) ? 'player-view--selected' : ''}}
+      {{queueSelection().isInSelectionInterval(player) ? queueSelection().isIntervalSelectionInverted() ?
       'player-view--inverted-interval-selected' : 'player-view--interval-selected' : ''}}
       "
         [player]="player"
@@ -202,8 +202,8 @@
                 [compareFunction]="compareUsers"
                 [gridTemplate]="'minmax(2rem, auto) / repeat(auto-fill, minmax(11rem, 1fr))'"
                 [gridGap]="'0.5rem'"
-                (selectionChange)="this.queueSelection.teamSelectionChange(team, $event)"
-                (dragSelectionChange)="queueSelection.intervalSelectedUsers = $event"
+                (selectionChange)="queueSelection().teamSelectionChange(team, $event)"
+                (dragSelectionChange)="queueSelection().intervalSelectedUsers = $event"
             />
         }
     </div>
@@ -223,10 +223,10 @@
             <button
                 class="controls-button controls-button--tertiary"
                 mat-raised-button
-                (click)="queueSelection.selectedQueueUsers.length > 0 ?
-            assignSelectionToTeam(team,queueSelection.selectedQueueUsers) :
-            assignSelectionToTeam(team,queueSelection.selectedTeamsUsers)"
-                [disabled]="queueSelection.getSelectedUsers().length === 0"
+                (click)="queueSelection().selectedQueueUsers.length > 0 ?
+            assignSelectionToTeam(team,queueSelection().selectedQueueUsers) :
+            assignSelectionToTeam(team,queueSelection().selectedTeamsUsers)"
+                [disabled]="queueSelection().getSelectedUsers().length === 0"
                 [matTooltip]="'Assign selected players to this team'"
             >
                 <i class="material-icons">add</i>

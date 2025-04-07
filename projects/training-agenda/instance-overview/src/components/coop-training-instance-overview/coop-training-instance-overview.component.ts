@@ -36,6 +36,6 @@ export class CoopTrainingInstanceOverviewComponent {
     );
 
     getPlayersWaiting$(instanceId: number): Observable<number> {
-        return of(0); //this.playersWaiting$.pipe(map((waitingDictionary) => waitingDictionary[instanceId]));
+        return this.service.playersWaiting$();
     }
 }

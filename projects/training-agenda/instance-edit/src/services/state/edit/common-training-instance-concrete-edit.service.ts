@@ -94,6 +94,7 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
             ti.backwardMode = true;
             this.instanceValidSubject$.next(false);
         }
+        ti.type = this.trainingType;
         this.trainingInstanceSubject$.next(ti);
     }
 

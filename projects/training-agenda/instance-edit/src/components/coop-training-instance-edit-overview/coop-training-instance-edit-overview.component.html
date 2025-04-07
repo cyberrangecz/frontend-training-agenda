@@ -1,19 +1,23 @@
 <crczp-training-instance-edit-overview (canDeactivate)="setCanDeactivate($event)">
-    <div class="wh-100 ai-c jc-fe">
-        <form [formGroup]="maxTeamSizeForm().formGroup">
-            <mat-form-field
-                appearance="outline"
-                class="mat-team-size-form"
-            >
-                <input
-                    matInput
-                    formControlName="maxTeamSize"
-                    type="number"
-                    min="1"
-                    max="12"
-                    required
-                />
-            </mat-form-field>
-        </form>
+    <div class="wh-100 hflex ai-c jc-fe">
+        <div class="w-50 hflex ai-c jc-fs">
+            <form [formGroup]="maxTeamSizeForm().formGroup">
+                <mat-form-field
+                    appearance="outline"
+                    class="mat-team-size-form"
+                >
+                    <mat-label>Max team size</mat-label>
+                    <input
+                        matInput
+                        formControlName="maxTeamSize"
+                        type="number"
+                        min="1"
+                        max="12"
+                        required
+                        placeholder="Max team size"
+                    />
+                </mat-form-field>
+            </form>
+        </div>
     </div>
 </crczp-training-instance-edit-overview>

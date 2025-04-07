@@ -26,7 +26,11 @@ export class MaxTeamSizeFormGroup {
         });
     }
 
-    disable(): void {
-        this.formGroup.get('maxTeamSize').disable({ emitEvent: false });
+    setDisabled(disabled: boolean): void {
+        if (disabled) {
+            this.formGroup.get('maxTeamSize').disable({ emitEvent: false });
+        } else {
+            this.formGroup.get('maxTeamSize').enable({ emitEvent: false });
+        }
     }
 }

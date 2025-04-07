@@ -7,6 +7,8 @@ import { PaginationService } from '@crczp/training-agenda/internal';
 import { TrainingInstanceEditService } from '../../services/state/edit/training-instance-edit.service';
 import { SentinelUserAssignService } from '@sentinel/components/user-assign';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { TrainingInstance } from '@crczp/training-model';
+import { TrainingInstanceChangeEvent } from '../../model/events/training-instance-change-event';
 
 @Component({
     selector: 'crczp-coop-training-instance-edit-overview',
@@ -15,6 +17,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class CoopTrainingInstanceEditOverviewComponent extends DeactivationDecorator implements OnInit {
     maxTeamSizeForm: WritableSignal<MaxTeamSizeFormGroup> = signal(new MaxTeamSizeFormGroup(12));
+
+    instance: TrainingInstance;
+    childValid: boolean;
 
     destroyRef = inject(DestroyRef);
 
@@ -25,6 +30,21 @@ export class CoopTrainingInstanceEditOverviewComponent extends DeactivationDecor
     ngOnInit() {
         this.editService.trainingInstance$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((instance) => {
             this.maxTeamSizeForm.set(new MaxTeamSizeFormGroup(instance.maxTeamSize));
+            this.maxTeamSizeForm().setDisabled(instance.hasStarted() || !!instance.id);
+            this.instance = instance;
         });
+        this.editService.instanceValid$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((valid: boolean) => {
+            this.childValid = valid;
+        });
+        this.maxTeamSizeForm()
+            .formGroup.get('maxTeamSize')
+            .valueChanges.subscribe((value: number) => {
+                const change = new TrainingInstanceChangeEvent(
+                    this.instance,
+                    this.maxTeamSizeForm().formGroup.get('maxTeamSize').valid && this.childValid,
+                );
+                change.trainingInstance.maxTeamSize = value;
+                this.editService.change(change);
+            });
     }
 }

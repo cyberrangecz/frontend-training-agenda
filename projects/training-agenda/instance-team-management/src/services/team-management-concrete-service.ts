@@ -68,23 +68,26 @@ export class TeamManagementConcreteService extends TeamManagementService {
         const newTeam = new Team() as Handle<Team>;
         newTeam.handle = uuid.v4();
         newTeam.name = !!name ? name : this.generateTeamName();
-        newTeam.members = members ? this.removeFromQueue(lobby, members) : [];
+        newTeam.members = !!members && members.length > 0 ? this.removeFromQueue(lobby, members) : [];
         console.assert(newTeam.members.length <= this.maxTeamSize, this.teamSizeWarning(undefined));
         newTeam.locked = false;
         lobby.teams.push(newTeam);
         this.lobbySubject.next(lobby);
+
+        console.log('new team', newTeam);
+        console.log('initial members', members);
 
         this.lobbyApi
             .createTeam(this.trainingInstanceId, newTeam.name)
             .pipe(
                 takeUntil(this.errorNotifier$),
                 take(1),
-                switchMap((serverTeam: Team) => this.updateTeamByHandle(lobby, serverTeam, newTeam.handle)),
+                switchMap((serverTeam: Team) => this.updateCreatedTeamByHandle(lobby, serverTeam, newTeam.handle)),
                 concatMap((serverTeam) => {
                     if (newTeam.members && newTeam.members.length > 0) {
                         return this.lobbyApi.transferPlayersToTeams(
                             this.trainingInstanceId,
-                            members.map((userId) => ({ teamId: serverTeam.id, userId })),
+                            newTeam.members.map((user) => ({ teamId: serverTeam.id, userId: user.id })),
                         );
                     } else {
                         return of(serverTeam);
@@ -240,6 +243,8 @@ export class TeamManagementConcreteService extends TeamManagementService {
     private removeFromQueue(lobby: TrainingInstanceLobby, userIds: TrainingUser['id'][]): TrainingUser[] {
         const [toRemove, toStay] = this.splitArray(lobby.usersQueue, (user) => userIds.some((id) => id === user.id));
         lobby.usersQueue = toStay;
+        console.log('Removed from queue', toRemove);
+        console.log('Remaining queue', lobby.usersQueue);
         return toRemove;
     }
 
@@ -261,12 +266,16 @@ export class TeamManagementConcreteService extends TeamManagementService {
         return item;
     }
 
-    private updateTeamByHandle(lobby: TrainingInstanceLobby, createdTeam: Team, handle: string): Observable<Team> {
+    private updateCreatedTeamByHandle(
+        lobby: TrainingInstanceLobby,
+        serverTeam: Team,
+        handle: string,
+    ): Observable<Team> {
         const team = lobby.teams.find((team: unknown) => team['handle'] && team['handle'] === handle);
         if (!!team) {
-            team.members = createdTeam.members;
-            team.name = createdTeam.name;
-            team.locked = createdTeam.locked;
+            team.id = serverTeam.id;
+            team.name = serverTeam.name;
+            team.locked = serverTeam.locked;
             return of(team);
         } else {
             return throwError(() => 'Could not update team by handle');

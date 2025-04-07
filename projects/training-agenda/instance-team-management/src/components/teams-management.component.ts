@@ -39,7 +39,7 @@ export class TeamsManagementComponent implements OnInit {
     }
 
     showLockedTeams = signal(false);
-    queueSelection: QueueSelection = new QueueSelection();
+    queueSelection = signal(new QueueSelection());
     readonly destroyRef = inject(DestroyRef);
 
     private trainingInstance: TrainingInstance;
@@ -68,12 +68,12 @@ export class TeamsManagementComponent implements OnInit {
 
     @HostListener('document:keydown.a', ['$event'])
     onAKey($event: KeyboardEvent) {
-        this.queueSelection.selectedQueueUsers = this.teamsService.getLobbySnapshot().usersQueue;
+        this.queueSelection().selectedQueueUsers = this.teamsService.getLobbySnapshot().usersQueue;
     }
 
     @HostListener('document:keydown.shift.a', ['$event'])
     onShiftAKey($event: KeyboardEvent) {
-        this.queueSelection.selectedQueueUsers = [];
+        this.queueSelection().selectedQueueUsers = [];
     }
 
     @HostListener('document:keydown.l', ['$event'])
@@ -98,6 +98,7 @@ export class TeamsManagementComponent implements OnInit {
     }
 
     autoAssign(users: TrainingUser[]) {
+        this.queueSelection().deselect(users);
         this.teamsService.autoAssign(users.map(this.getId));
     }
 
@@ -113,7 +114,9 @@ export class TeamsManagementComponent implements OnInit {
     }
 
     createNewTeamFromSelection(selection: TrainingUser[]) {
-        this.teamsService.createTeam(undefined, selection.slice(0, this.trainingInstance.maxTeamSize).map(this.getId));
+        const toMove = selection.slice(0, this.trainingInstance.maxTeamSize);
+        this.queueSelection().deselect(toMove);
+        this.teamsService.createTeam(undefined, toMove.map(this.getId));
     }
 
     balanceTeams() {
@@ -121,6 +124,7 @@ export class TeamsManagementComponent implements OnInit {
     }
 
     returnToQueue(users: TrainingUser[]) {
+        this.queueSelection().deselect(users);
         this.teamsService.returnToQueue(users.map(this.getId));
     }
 
