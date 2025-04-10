@@ -43,6 +43,10 @@
     border-radius: 0.75rem 0 0 0.75rem;
 }
 
+.team-left-panel__filler {
+    width: 4rem;
+}
+
 .controls-button--tertiary {
     background: transparent !important;
 }
@@ -93,7 +97,7 @@
     border-radius: 50%;
     position: absolute;
     bottom: 1rem;
-    right: 3rem;
+    right: 1rem;
     z-index: 2;
 }
 

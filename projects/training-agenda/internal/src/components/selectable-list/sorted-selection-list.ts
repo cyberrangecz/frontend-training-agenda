@@ -8,8 +8,8 @@ export class SortedSelectionList<T, I> {
 
     constructor(
         initItems: T[],
-        private compareFunction: (a: T, b: T) => number,
-        private idFunction: (item: T) => I,
+        protected compareFunction: (a: T, b: T) => number,
+        protected idFunction: (item: T) => I,
     ) {
         this.allItemsSubject.next(new Array(...initItems).sort(compareFunction));
     }

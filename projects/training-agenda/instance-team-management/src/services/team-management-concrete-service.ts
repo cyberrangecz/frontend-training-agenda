@@ -1,14 +1,22 @@
 import { Team, TrainingInstanceLobby, TrainingUser } from '@crczp/training-model';
-import { BehaviorSubject, concatMap, Observable, of, Subject, takeUntil, throwError } from 'rxjs';
+import { BehaviorSubject, concat, concatMap, Observable, of, Subject, takeUntil, throwError } from 'rxjs';
 import { TeamManagementService } from './team-management-service';
 import { TrainingInstanceLobbyApi } from '@crczp/training-api';
-import { catchError, switchMap, take } from 'rxjs/operators';
+import { catchError, map, switchMap, take } from 'rxjs/operators';
 import * as uuid from 'uuid';
 import { TrainingAgendaConfig } from '@crczp/training-agenda';
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ArrayHelper } from '../../../internal/src/utils/array-helper';
 
-type Handle<T> = T & { handle: string };
+type UserId = TrainingUser['id'];
+type TeamId = Team['id'];
+
+type LobbyIdMap = {
+    queue: { [userId: number]: TrainingUser };
+    teams: { [teamId: number | string]: Team };
+    lockedTeams: Team[];
+};
 
 @Injectable()
 export class TeamManagementConcreteService extends TeamManagementService {
@@ -24,10 +32,10 @@ export class TeamManagementConcreteService extends TeamManagementService {
         `Team ${teamId !== undefined ? teamId : ''} has more than ${this.maxTeamSize} members!`;
     private errorNotifier$ = new Subject<void>();
 
-    private readonly lobbySubject = new BehaviorSubject<TrainingInstanceLobby>({ teams: [], usersQueue: [] });
+    private readonly idMapSubject = new BehaviorSubject<LobbyIdMap>({ queue: [], teams: {}, lockedTeams: [] });
     private readonly loadingSubject = new BehaviorSubject<boolean>(true);
 
-    public readonly lobby$ = this.lobbySubject.asObservable();
+    public readonly lobby$ = this.idMapSubject.asObservable().pipe(map(this.idMapToLobby));
     public readonly loadingData$ = this.loadingSubject.asObservable();
 
     private maxTeamSize: number;
@@ -38,23 +46,54 @@ export class TeamManagementConcreteService extends TeamManagementService {
         this.maxTeamSize = maxTeamSize;
     }
 
-    public getLobbySnapshot(): TrainingInstanceLobby {
-        return this.lobbySubject.value;
+    private idMapToLobby(idMap: LobbyIdMap): TrainingInstanceLobby {
+        return {
+            teams: Object.values(idMap.teams).concat(idMap.lockedTeams),
+            usersQueue: Object.values(idMap.queue),
+        };
     }
 
     /**
      * Fetch all started teams
      * @return Observable of all started teams
      */
-    public loadLobby(): void {
+    public loadLobby(): Observable<void> {
         this.loadingSubject.next(true);
+        const notifier = new Subject<void>();
+
+        /*this.idMapSubject.next({
+            teams: {},
+            queue: [...Array(8).keys()].map((num) => ({
+                id: num,
+                name: 'Player ' + num,
+                login: '' + num,
+                mail: undefined,
+                picture: '',
+            })),
+        });*/
+
         this.lobbyApi
             .getInstanceLobby(this.trainingInstanceId)
             .pipe(take(1))
             .subscribe((data) => {
-                this.lobbySubject.next(data);
+                const idMap: LobbyIdMap = {
+                    teams: {},
+                    lockedTeams: [],
+                    queue: [],
+                };
+                data.teams.forEach((team: Team) => {
+                    if (team.locked) {
+                        idMap.lockedTeams = idMap.lockedTeams.concat([team]);
+                    } else {
+                        idMap.teams[team.id] = team;
+                    }
+                });
+                data.usersQueue.forEach((user: TrainingUser) => (idMap.queue[user.id] = user));
+                this.idMapSubject.next(idMap);
                 this.loadingSubject.next(false);
+                notifier.next();
             });
+        return notifier.asObservable();
     }
 
     /**
@@ -63,26 +102,24 @@ export class TeamManagementConcreteService extends TeamManagementService {
      * @param members optional parameter for the team members
      * @return Observable of the created team
      */
-    public createTeam(name?: string, members?: TrainingUser['id'][]): void {
-        const lobby = this.lobbySubject.value;
-        const newTeam = new Team() as Handle<Team>;
-        newTeam.handle = uuid.v4();
+    public createTeam(name?: string, members?: UserId[]): Observable<void> {
+        const lobbyIdMap = this.idMapSubject.value;
+        const newTeam = new Team();
+        const handle = uuid.v4();
         newTeam.name = !!name ? name : this.generateTeamName();
-        newTeam.members = !!members && members.length > 0 ? this.removeFromQueue(lobby, members) : [];
+        newTeam.members = this.removeFromQueue(lobbyIdMap, members || []);
+
         console.assert(newTeam.members.length <= this.maxTeamSize, this.teamSizeWarning(undefined));
         newTeam.locked = false;
-        lobby.teams.push(newTeam);
-        this.lobbySubject.next(lobby);
-
-        console.log('new team', newTeam);
-        console.log('initial members', members);
-
+        lobbyIdMap.teams[handle] = newTeam;
+        this.idMapSubject.next(lobbyIdMap);
+        const notifier = new Subject<void>();
         this.lobbyApi
             .createTeam(this.trainingInstanceId, newTeam.name)
             .pipe(
                 takeUntil(this.errorNotifier$),
                 take(1),
-                switchMap((serverTeam: Team) => this.updateCreatedTeamByHandle(lobby, serverTeam, newTeam.handle)),
+                switchMap((serverTeam: Team) => this.updateCreatedTeamByHandle(lobbyIdMap, serverTeam, handle)),
                 concatMap((serverTeam) => {
                     if (newTeam.members && newTeam.members.length > 0) {
                         return this.lobbyApi.transferPlayersToTeams(
@@ -95,7 +132,8 @@ export class TeamManagementConcreteService extends TeamManagementService {
                 }),
                 catchError((err) => this.handleError(err)),
             )
-            .subscribe();
+            .subscribe(() => notifier.next());
+        return notifier.asObservable();
     }
 
     /**
@@ -104,8 +142,9 @@ export class TeamManagementConcreteService extends TeamManagementService {
      * @param name new team name
      * @return Observable of the renamed team
      */
-    public renameTeam(id: Team['id'], name: string): void {
+    public renameTeam(id: TeamId, name: string): Observable<void> {
         this.updateTeamById(id, { name });
+        const notifier = new Subject<void>();
         this.lobbyApi
             .renameTeam(id, name)
             .pipe(
@@ -113,7 +152,13 @@ export class TeamManagementConcreteService extends TeamManagementService {
                 take(1),
                 catchError((err) => this.handleError(err)),
             )
-            .subscribe((renamedTeam) => this.updateTeamById(id, renamedTeam));
+            .subscribe((newName) => {
+                const lobby = this.idMapSubject.value;
+                lobby.teams[id].name = newName;
+                this.idMapSubject.next(lobby);
+                notifier.next();
+            });
+        return notifier.asObservable();
     }
 
     /**
@@ -122,12 +167,13 @@ export class TeamManagementConcreteService extends TeamManagementService {
      * @param id team id
      * @return Observable of new queue state
      */
-    public disbandTeam(id: Team['id']): void {
-        const lobby = this.lobbySubject.value;
-        const team = this.findOrThrow(lobby.teams, id);
-        lobby.teams = lobby.teams.filter((team) => team.id !== id);
-        lobby.usersQueue = lobby.usersQueue.concat(team.members);
-        this.lobbySubject.next(lobby);
+    public disbandTeam(id: TeamId): Observable<void> {
+        const lobbyIdMap = this.idMapSubject.value;
+        const team = lobbyIdMap.teams[id];
+        team.members.forEach((user: TrainingUser) => (lobbyIdMap.queue[user.id] = user));
+        delete lobbyIdMap.teams[id];
+        this.idMapSubject.next(lobbyIdMap);
+        const notifier = new Subject<void>();
         this.lobbyApi
             .disbandTeam(id)
             .pipe(
@@ -135,7 +181,31 @@ export class TeamManagementConcreteService extends TeamManagementService {
                 take(1),
                 catchError((err) => this.handleError(err)),
             )
-            .subscribe();
+            .subscribe(() => notifier.next());
+        return notifier.asObservable();
+    }
+
+    /**
+     * Lock team
+     * Locked teams can join the training once the instance starts
+     * @param id
+     */
+    public lockTeam(id: number): Observable<void> {
+        const lobbyIdMap = this.idMapSubject.value;
+        lobbyIdMap.teams[id].locked = true;
+        lobbyIdMap.lockedTeams = lobbyIdMap.lockedTeams.concat([lobbyIdMap.teams[id]]);
+        delete lobbyIdMap.teams[id];
+        this.idMapSubject.next(lobbyIdMap);
+        const notifier = new Subject<void>();
+        this.lobbyApi
+            .lockTeam(id)
+            .pipe(
+                takeUntil(this.errorNotifier$),
+                take(1),
+                catchError((err) => this.handleError(err)),
+            )
+            .subscribe(() => notifier.next());
+        return notifier.asObservable();
     }
 
     /**
@@ -144,13 +214,13 @@ export class TeamManagementConcreteService extends TeamManagementService {
      * @param teamId team id to assign to
      * @return Observable of new queue state
      */
-    public assignToTeam(players: TrainingUser['id'][], teamId: Team['id']): void {
-        console.log('Assigning players', players);
-        const lobby = this.lobbySubject.value;
-        const team = this.findOrThrow(lobby.teams, teamId);
-        team.members = team.members.concat(this.removeFromQueue(lobby, players));
+    public assignToTeam(players: UserId[], teamId: TeamId): Observable<void> {
+        const lobbyIdMap = this.idMapSubject.value;
+        const team = lobbyIdMap.teams[teamId];
+        team.members = team.members.concat(this.removeFromQueue(lobbyIdMap, players));
         console.assert(team.members.length <= this.maxTeamSize, this.teamSizeWarning(teamId));
-        this.lobbySubject.next(lobby);
+        this.idMapSubject.next(lobbyIdMap);
+        const notifier = new Subject<void>();
         this.lobbyApi
             .transferPlayersToTeams(
                 this.trainingInstanceId,
@@ -161,34 +231,41 @@ export class TeamManagementConcreteService extends TeamManagementService {
                 take(1),
                 catchError((err) => this.handleError(err)),
             )
-            .subscribe();
+            .subscribe(() => notifier.next());
+        return notifier.asObservable();
     }
 
     /**
      * Return players to the queue from prepared teams
-     * @param players player ids to return
      * @return Observable of new queue state
+     * @param removalRecord
      */
-    public returnToQueue(players: TrainingUser['id'][]): void {
-        const lobby = this.lobbySubject.value;
-        let toRemove = players;
-        const removalRecord = this.flatten(
-            lobby.teams.map((team: Team) => {
-                const [toQueue, toKeep] = this.splitArray(team.members, (member) => toRemove.includes(member.id));
-                team.members = toKeep;
-                lobby.usersQueue = lobby.usersQueue.concat(toQueue);
-                return toQueue.map((user) => ({ teamId: team.id, userId: user.id }));
-            }),
-        );
-        this.lobbySubject.next(lobby);
+    public returnToQueue(removalRecord: { teamId: TeamId; users: UserId[] }[]): Observable<void> {
+        const lobbyIdMap = this.idMapSubject.value;
+        removalRecord.forEach((record) => {
+            const [toRemove, toStay] = ArrayHelper.split(lobbyIdMap.teams[record.teamId].members, (member) =>
+                record.users.includes(member.id),
+            );
+            lobbyIdMap.teams[record.teamId].members = toStay;
+            toRemove.forEach((user) => (lobbyIdMap.queue[user.id] = user));
+        });
+
+        this.idMapSubject.next(lobbyIdMap);
+        const notifier = new Subject<void>();
         this.lobbyApi
-            .transferPlayersToQueue(this.trainingInstanceId, removalRecord)
+            .transferPlayersToQueue(
+                this.trainingInstanceId,
+                ArrayHelper.flatten(
+                    removalRecord.map((record) => record.users.map((userId) => ({ teamId: record.teamId, userId }))),
+                ),
+            )
             .pipe(
                 takeUntil(this.errorNotifier$),
                 take(1),
                 catchError((err) => this.handleError(err)),
             )
-            .subscribe();
+            .subscribe(() => notifier.next());
+        return notifier.asObservable();
     }
 
     /**
@@ -196,42 +273,179 @@ export class TeamManagementConcreteService extends TeamManagementService {
      * @param players to assign
      * @return Observable of new queue state
      */
-    public autoAssign(players: TrainingUser['id'][]): void {
-        const lobby = this.lobbySubject.value;
-        const [toMove, queue] = this.splitArray(lobby.usersQueue, (user) => players.includes(user.id));
-        lobby.usersQueue = queue;
+    public autoAssign(players: UserId[]): Observable<void> {
+        const lobbyIdMap = this.idMapSubject.value;
+        const freeSpace = Object.values(lobbyIdMap.teams).reduce(
+            (sum, team) => sum + (this.maxTeamSize - team.members.length),
+            0,
+        );
+        const movedToExistingIds = players.slice(0, freeSpace);
+        const movedToExisting = movedToExistingIds.map((playerId) => lobbyIdMap.queue[playerId]);
+        this.removeFromQueue(lobbyIdMap, movedToExistingIds);
+        const movedToNew = players.slice(freeSpace);
 
-        const freeSpace = lobby.teams.reduce((sum, team) => sum + (this.maxTeamSize - team.members.length), 0);
-        const toAssignToExistingIds = players.slice(0, freeSpace);
-        const [toExisting, toNew] = this.splitArray(toMove, (user) => toAssignToExistingIds.includes(user.id));
-        let assignmentIndex = 0;
+        console.log('toExisting', movedToExisting);
+        console.log('movedToNew', movedToNew);
+
         let changes: { teamId: number; userId: number }[] = [];
-        for (const team of lobby.teams) {
-            if (assignmentIndex >= toExisting.length) {
-                break;
-            }
-            const assigned = toExisting.slice(assignmentIndex, this.maxTeamSize - team.members.length);
+        let assignmentIndex = 0;
+        for (const team of Object.values(lobbyIdMap.teams)) {
+            if (assignmentIndex >= movedToExisting.length) break;
+            const assigned = movedToExisting.slice(
+                assignmentIndex,
+                assignmentIndex + this.maxTeamSize - team.members.length,
+            );
             changes = changes.concat(assigned.map((user) => ({ teamId: team.id, userId: user.id })));
             assignmentIndex += assigned.length;
             team.members = team.members.concat(assigned);
         }
-        this.lobbySubject.next(lobby);
+        this.idMapSubject.next(lobbyIdMap);
+        const notifier = new Subject<void>();
         this.lobbyApi
             .transferPlayersToTeams(this.trainingInstanceId, changes)
             .pipe(
                 takeUntil(this.errorNotifier$),
                 take(1),
                 catchError((err) => this.handleError(err)),
+                concatMap(() =>
+                    concat(
+                        ArrayHelper.toChunks(movedToNew, this.maxTeamSize).map((chunk) =>
+                            this.createTeam(undefined, chunk),
+                        ),
+                    ),
+                ),
             )
-            .subscribe();
+            .subscribe(() => notifier.next());
+        return notifier.asObservable();
+    }
+
+    public moveBetweenTeams(teamFromId: TeamId, teamToId: TeamId, users: UserId[]): Observable<void> {
+        const lobbyIdMap = this.idMapSubject.value;
+        const teamFrom = lobbyIdMap.teams[teamFromId];
+        const teamTo = lobbyIdMap.teams[teamToId];
+        const freeSpace = this.maxTeamSize - teamTo.members.length;
+        if (freeSpace === 0) {
+            return;
+        }
+        const usersToMove = users.slice(0, freeSpace);
+        const [toRemove, toStay] = ArrayHelper.split(teamFrom.members, (member) => usersToMove.includes(member.id));
+        teamFrom.members = toStay;
+        teamTo.members = teamTo.members.concat(toRemove);
+        this.idMapSubject.next(lobbyIdMap);
+        const notifier = new Subject<void>();
+        this.lobbyApi
+            .transferPlayersBetweenTeams(teamFromId, teamToId, usersToMove)
+            .pipe(
+                takeUntil(this.errorNotifier$),
+                take(1),
+                catchError((err) => this.handleError(err)),
+            )
+            .subscribe(() => notifier.next());
+        return notifier.asObservable();
     }
 
     /**
      * Balance teams
      * @return Observable of new prepared teams state
      */
-    public balanceTeams(): void {
-        return;
+    public balanceTeams(): Observable<void> {
+        if (Object.values(this.idMapSubject.value.teams).length === 0) {
+            return of(void 0);
+        }
+
+        const [balancedTeams, changesMade] = this.balancingAlgorithm(Object.values(this.idMapSubject.value.teams));
+
+        console.log('changes', changesMade);
+
+        const lobbyIdMap = this.idMapSubject.value;
+        balancedTeams.forEach((team) => {
+            lobbyIdMap.teams[team.id] = team;
+        });
+        this.idMapSubject.next(lobbyIdMap);
+
+        const notifier = new Subject<void>();
+
+        const observables = ArrayHelper.flatten(
+            Object.entries(changesMade).map(([teamFromId, change]) =>
+                Object.entries(change).map(([teamToId, movedPlayers]) => {
+                    console.log(teamFromId, teamToId, movedPlayers);
+                    return this.lobbyApi.transferPlayersBetweenTeams(+teamFromId, +teamToId, movedPlayers).pipe(
+                        takeUntil(this.errorNotifier$),
+                        take(1),
+                        catchError((err) => this.handleError(err)),
+                    );
+                }),
+            ),
+        );
+
+        console.log('observables', observables);
+
+        concat(...observables).subscribe(() => notifier.next());
+
+        return notifier.asObservable();
+    }
+
+    public isTeamNameValid(newName: string): boolean {
+        if (!newName) {
+            return false;
+        }
+        return !Object.values(this.idMapSubject.value.teams).some((team) => team.name === newName);
+    }
+
+    private balancingAlgorithm(teams: Team[]): [Team[], { [teamFrom: number]: { [teamTo: number]: number[] } }] {
+        const averageTeamSize = Math.floor(
+            ArrayHelper.sum(Object.values(this.idMapSubject.value.teams).map((team) => team.members.length)) /
+                Object.values(this.idMapSubject.value.teams).length,
+        );
+
+        const sizeSortedTeams = Object.values(this.idMapSubject.value.teams).sort(
+            (a, b) => a.members.length - b.members.length,
+        );
+
+        const moves = {} as { [teamFrom: number]: { [teamTo: number]: number[] } };
+        let recipientIndex = 0;
+        let donorIndex = sizeSortedTeams.length - 1;
+
+        console.log('teams', sizeSortedTeams);
+        while (recipientIndex < donorIndex) {
+            console.log('recipientIndex', recipientIndex);
+            console.log('donorIndex', donorIndex);
+            const recipientTeam = sizeSortedTeams[recipientIndex];
+            const donorTeam = sizeSortedTeams[donorIndex];
+
+            const needed = averageTeamSize - recipientTeam.members.length;
+            const available = donorTeam.members.length - averageTeamSize;
+
+            const transferCount = Math.min(needed, available);
+
+            if (transferCount > 0) {
+                const [toStay, toMove] = ArrayHelper.split(
+                    donorTeam.members,
+                    (_, index) => index < donorTeam.members.length - transferCount,
+                );
+
+                recipientTeam.members = recipientTeam.members.concat(toMove);
+                donorTeam.members = toStay;
+
+                const fromId = donorTeam.id;
+                const toId = recipientTeam.id;
+
+                if (!moves[fromId]) moves[fromId] = {};
+                if (!moves[fromId][toId]) moves[fromId][toId] = [];
+
+                moves[fromId][toId].push(...toMove.map((member) => member.id));
+            }
+
+            if (recipientTeam.members.length >= averageTeamSize) {
+                recipientIndex++;
+            }
+
+            if (donorTeam.members.length <= averageTeamSize) {
+                donorIndex--;
+            }
+        }
+
+        return [teams, moves];
     }
 
     private handleError(err: any): Observable<never> {
@@ -240,77 +454,41 @@ export class TeamManagementConcreteService extends TeamManagementService {
         return throwError(() => err);
     }
 
-    private removeFromQueue(lobby: TrainingInstanceLobby, userIds: TrainingUser['id'][]): TrainingUser[] {
-        const [toRemove, toStay] = this.splitArray(lobby.usersQueue, (user) => userIds.some((id) => id === user.id));
-        lobby.usersQueue = toStay;
-        console.log('Removed from queue', toRemove);
-        console.log('Remaining queue', lobby.usersQueue);
-        return toRemove;
+    private removeFromQueue(lobby: LobbyIdMap, userIds: UserId[]): TrainingUser[] {
+        return userIds.map((id) => {
+            const user = lobby.queue[id];
+            delete lobby.queue[id];
+            return user;
+        });
     }
 
-    private splitArray<T>(arr: T[], condition: (elem: T) => boolean): [T[], T[]] {
-        return arr.reduce(
-            ([condTrue, condFalse], item) => {
-                (condition(item) ? condTrue : condFalse).push(item);
-                return [condTrue, condFalse];
-            },
-            [[], []],
-        );
-    }
-
-    private findOrThrow<T extends { id: number }>(items: T[], id: number): T {
-        const item = items.find((elem) => elem.id === id);
-        if (!item) {
-            throw new Error(`Item with id ${id} not found`);
-        }
-        return item;
-    }
-
-    private updateCreatedTeamByHandle(
-        lobby: TrainingInstanceLobby,
-        serverTeam: Team,
-        handle: string,
-    ): Observable<Team> {
-        const team = lobby.teams.find((team: unknown) => team['handle'] && team['handle'] === handle);
-        if (!!team) {
-            team.id = serverTeam.id;
-            team.name = serverTeam.name;
-            team.locked = serverTeam.locked;
-            return of(team);
+    private updateCreatedTeamByHandle(lobbyIdMap: LobbyIdMap, serverTeam: Team, handle: string): Observable<Team> {
+        if (lobbyIdMap.teams[handle]) {
+            serverTeam.members = lobbyIdMap.teams[handle].members;
+            lobbyIdMap.teams[serverTeam.id] = serverTeam;
+            delete lobbyIdMap.teams[handle];
+            return of(serverTeam);
         } else {
             return throwError(() => 'Could not update team by handle');
         }
     }
 
     private updateTeamById(id: number, newTeam: Partial<Team>): void {
-        const lobby = this.lobbySubject.value;
-        const team = this.findOrThrow(lobby.teams, id);
+        const lobbyIdMap = this.idMapSubject.value;
+        const team = this.idMapSubject.value.teams[id];
         Object.keys(newTeam).forEach((key) => (team[key] = newTeam[key]));
-        this.lobbySubject.next(lobby);
-    }
-
-    private flatten<T>(arr: T[][]): T[] {
-        return arr.reduce((reduced, next) => reduced.concat(next), []);
+        this.idMapSubject.next(lobbyIdMap);
     }
 
     private generateTeamName(): string {
         let generatedName: string | undefined = undefined;
 
-        const takenNames = this.lobbySubject.value.teams.reduce(
-            (dict, team) => {
-                dict[team.name] = true;
-                return dict;
-            },
-            {} as { [key: string]: true },
-        );
         do {
             generatedName = this.config.teamNameKeywords.reduce(
                 (name, list) => name + ' ' + list[Math.floor(Math.random() * list.length)],
                 '',
             );
-        } while (takenNames[generatedName] !== undefined);
-
-        console.log('Generated name', generatedName);
+        } while (!this.isTeamNameValid(generatedName));
         return generatedName;
     }
 }

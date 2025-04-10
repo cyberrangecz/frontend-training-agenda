@@ -1,13 +1,10 @@
 import { Component, DestroyRef, inject } from '@angular/core';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { TrainingInstanceOverviewControls } from '../../model/adapters/training-instance-overview-controls';
 import { CoopTrainingInstanceTableFactory } from '../../model/adapters/coop-training-instance-table-factory';
 import { CoopTrainingInstanceOverviewService } from '../../services/state/coop-training-instance-overview-concrete.service';
 import { CoopTrainingNavigator } from '@crczp/training-agenda';
-import { Observable, of, timer } from 'rxjs';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TrainingInstance } from '@crczp/training-model';
-import { LinearTrainingInstanceTableFactory } from '../../model/adapters/linear-training-instance-table-factory';
 
 @Component({
     selector: 'crczp-coop-training-instance-overview',
@@ -28,14 +25,11 @@ export class CoopTrainingInstanceOverviewComponent {
 
     buildControls = () => TrainingInstanceOverviewControls.create(this.service);
 
-    private playersWaiting$: Observable<{
-        [key: TrainingInstance['id']]: number;
-    }> = timer(0, 1000).pipe(
-        takeUntilDestroyed(this.destroyRef),
-        switchMap(() => this.service.playersWaiting()),
-    );
+    getPlayersWaiting(id: number): number {
+        return this.service.playersWaiting(id);
+    }
 
-    getPlayersWaiting$(instanceId: number): Observable<number> {
-        return this.service.playersWaiting$();
+    castToInstance(element: unknown): TrainingInstance {
+        return element as TrainingInstance;
     }
 }

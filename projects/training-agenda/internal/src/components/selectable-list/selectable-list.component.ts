@@ -38,8 +38,6 @@ export class SelectableListComponent<T, I> implements OnInit, OnChanges {
     @Output() selectionChange = new EventEmitter<T[]>();
     @Output() dragSelectionChange = new EventEmitter<SelectionInterval<T>>();
 
-    private readonly destroyRef = inject(DestroyRef);
-
     selectionList: IntervalSortedSelectionList<T, I>;
 
     private createSelectionList(
@@ -94,7 +92,6 @@ export class SelectableListComponent<T, I> implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        console.log('changes', changes);
         if (!this.selectionList) {
             return;
         }
@@ -114,4 +111,33 @@ export class SelectableListComponent<T, I> implements OnInit, OnChanges {
         }
     }
     protected readonly console = console;
+
+    onItemMouseEnter(item: T) {
+        const pre = this.selectionList.getSelectionInterval();
+        this.selectionList.intervalSelectionSetEnd(item);
+        const post = this.selectionList.getSelectionInterval();
+        if (this.hasIntervalChanged(pre, post)) {
+            this.emitDragSelectionChange();
+        }
+    }
+
+    onConfirm() {
+        const selectionCount = this.selectionList.getSelectionInterval().items.length;
+        this.selectionList.confirmMultipleSelection();
+        this.emitDragSelectionChange();
+        if (selectionCount > 0) {
+            this.emitSelectionChange();
+        }
+    }
+
+    onItemMouseDown(item: T) {
+        this.selectionList.intervalSelectionSetStart(item);
+        this.emitDragSelectionChange();
+    }
+
+    private hasIntervalChanged(pre: SelectionInterval<T>, post: SelectionInterval<T>) {
+        const preIds = pre.items.map(this.idFunction);
+        const postIds = post.items.map(this.idFunction);
+        return pre.inverted === pre.inverted && preIds.every((id) => postIds.includes(id));
+    }
 }

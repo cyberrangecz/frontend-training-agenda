@@ -1,11 +1,12 @@
 .title-overlap {
-  background: var(--mat-app-background-color);
-  border-radius: 1rem;
-  position: absolute;
-  top: -17px;
-  left: 20px;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  box-shadow: var(--mdc-elevated-card-container-elevation, var(--mat-app-elevation-shadow-level-1));
-  font-size: 1.25rem;
+    background: var(--mat-app-background-color);
+    border-radius: 1rem;
+    position: absolute;
+    top: -17px;
+    left: 20px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    box-shadow: var(--mdc-elevated-card-container-elevation, var(--mat-app-elevation-shadow-level-1));
+    font-size: 1.25rem;
+    z-index: 2;
 }

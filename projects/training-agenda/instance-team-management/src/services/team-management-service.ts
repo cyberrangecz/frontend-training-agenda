@@ -7,8 +7,6 @@ import { Team, TrainingInstanceLobby, TrainingUser } from '@crczp/training-model
 export abstract class TeamManagementService {
     abstract lobby$: Observable<TrainingInstanceLobby>;
 
-    abstract getLobbySnapshot(): TrainingInstanceLobby;
-
     abstract loadingData$: Observable<boolean>;
 
     /**
@@ -23,7 +21,7 @@ export abstract class TeamManagementService {
      * Fetch all started teams
      * @return Observable of all started teams
      */
-    public abstract loadLobby(): void;
+    public abstract loadLobby(): Observable<void>;
 
     /**
      * Create a new team
@@ -31,7 +29,7 @@ export abstract class TeamManagementService {
      * @param members optional parameter for the team members
      * @return Observable of the created team
      */
-    public abstract createTeam(name?: string, members?: TrainingUser['id'][]): void;
+    public abstract createTeam(name?: string, members?: TrainingUser['id'][]): Observable<void>;
 
     /**
      * Change the team name
@@ -39,7 +37,7 @@ export abstract class TeamManagementService {
      * @param name new team name
      * @return Observable of the renamed team
      */
-    public abstract renameTeam(id: Team['id'], name: string): void;
+    public abstract renameTeam(id: Team['id'], name: string): Observable<void>;
 
     /**
      * Return players to the queue from prepared team and
@@ -47,7 +45,7 @@ export abstract class TeamManagementService {
      * @param id team id
      * @return Observable of new queue state
      */
-    public abstract disbandTeam(id: Team['id']): void;
+    public abstract disbandTeam(id: Team['id']): Observable<void>;
 
     /**
      * Assign players to a team
@@ -55,25 +53,52 @@ export abstract class TeamManagementService {
      * @param teamId team id to assign to
      * @return Observable of new queue state
      */
-    public abstract assignToTeam(players: TrainingUser['id'][], teamId: Team['id']): void;
+    public abstract assignToTeam(players: TrainingUser['id'][], teamId: Team['id']): Observable<void>;
 
     /**
      * Return players to the queue from prepared teams
-     * @param players player ids to return
      * @return Observable of new queue state
+     * @param removalRecord
      */
-    public abstract returnToQueue(players: TrainingUser['id'][]): void;
+    public abstract returnToQueue(
+        removalRecord: { teamId: Team['id']; users: TrainingUser['id'][] }[],
+    ): Observable<void>;
 
     /**
      * Assign players to teams automatically
      * @param players to assign
      * @return Observable of new queue state
      */
-    public abstract autoAssign(players: TrainingUser['id'][]): void;
+    public abstract autoAssign(players: TrainingUser['id'][]): Observable<void>;
 
     /**
-     * Balance teams
+     * Balance teams to maximum difference of 1 in team sizes
      * @return Observable of new prepared teams state
      */
-    public abstract balanceTeams(): void;
+    public abstract balanceTeams(): Observable<void>;
+
+    /**
+     * Move select players from one team to the other
+     * @param teamFrom
+     * @param teamTo
+     * @param selectedTeamsUsers
+     */
+    public abstract moveBetweenTeams(
+        teamFrom: Team['id'],
+        teamTo: Team['id'],
+        selectedTeamsUsers: TrainingUser['id'][],
+    ): Observable<void>;
+
+    /**
+     * Check name validity, especially uniqueness
+     * @param newName
+     */
+    public abstract isTeamNameValid(newName: string): boolean;
+
+    /**
+     * Lock team
+     * Locked teams can join the training once the instance starts
+     * @param id
+     */
+    public abstract lockTeam(id: number): Observable<void>;
 }

@@ -1,13 +1,13 @@
 <div class="content-wrapper">
     <mat-card class="card queue-card" appearance="outlined">
         <div class="card__header">
-            @if (queueSelection().selectedQueueUsers.length > 0) {
+            @if (queueSelection.selectedQueueUsers.length > 0) {
                 <button
                     class="controls-button controls-button--top-left-radius"
                     mat-raised-button
                     matTooltipClass="multi-line-tooltip"
                     matTooltip="Deselect All [shift+A]"
-                    (click)="queueSelection().selectedQueueUsers =[]"
+                    (click)="queueSelection.setSelectedQueueUsers([])"
                 >
                     <mat-icon
                         class="controls-button__icon"
@@ -19,7 +19,7 @@
                     class="controls-button controls-button--top-left-radius"
                     mat-raised-button
                     matTooltip="Select All [A]"
-                    (click)="queueSelection().selectedQueueUsers = teamsService.getLobbySnapshot().usersQueue"
+                    (click)="queueSelection.setSelectedQueueUsers(this.filteredPlayersSubject.value)"
                 >
                     <mat-icon
                         class="controls-button__icon"
@@ -31,26 +31,27 @@
                 <input
                     class="search-input"
                     matInput
-                    placeholder="Player name"
+                    placeholder="Search player"
+                    (change)="filterQueue($event.target.value)"
+                    [value]="playerNameFilterSubject.value"
                 />
-                <i class="material-icons search-icon">search</i>
+                <i class="material-icons search-icon"
+                   (click)="filterQueue('')"
+                >{{ playerNameFilterSubject.value.length > 0 ? 'close' : '' }}</i>
             </div>
             <span
                 class="card__header__title"
             >
-        {{
-                    queueSelection().selectedQueueUsers.length > 0 ?
-                        'Selected ' + queueSelection().selectedQueueUsers.length + '/' + (waitingPlayers$|async).length :
-                        (waitingPlayers$|async).length + ' players in queue'
-                }}
+                {{ getPlayersCountLabel() }}
       </span>
         </div>
         <mat-card-content
             class="card-content round-scrollbar">
             <crczp-selectable-list
-                (selectionChange)="queueSelection().selectedQueueUsers = $event"
-                (dragSelectionChange)="queueSelection().intervalSelectedUsers = $event"
-                [selectedItems]="queueSelection().selectedQueueUsers"
+                class="h-100"
+                (selectionChange)="queueSelection.setSelectedQueueUsers($event)"
+                (dragSelectionChange)="queueSelection.intervalSelectedUsers = $event"
+                [selectedItems]="queueSelection.selectedQueueUsers"
                 [items]="waitingPlayers$ | async"
                 [template]="playerViewTemplate"
                 [idFunction]="getId"
@@ -67,13 +68,14 @@
             </mat-icon>
         </button>
         <div class="movement-controls">
-            @if (queueSelection().selectedQueueUsers.length > 0) {
+            @if (queueSelection.selectedQueueUsers.length > 0) {
                 <button
                     mat-fab
                     color="primary"
                     class="movement-controls__button"
                     matTooltip='Create a new team with selected players'
-                    (click)="createNewTeamFromSelection(queueSelection().selectedQueueUsers)"
+                    matTooltipPosition="after"
+                    (click)="createNewTeamFromQueueSelection()"
                 >
                     <i class="material-icons">group_add</i>
                 </button>
@@ -82,24 +84,18 @@
                     color="primary"
                     class="movement-controls__button"
                     matTooltip='Automatically assign selected players to existing teams'
-                    (click)="autoAssign(this.queueSelection().selectedQueueUsers)"
+                    matTooltipPosition="after"
+                    (click)="autoAssignQueueSelection()"
                 >
                     <i class="material-icons">keyboard_arrow_right</i>
                 </button>
-            } @else if (queueSelection().selectedTeamsUsers.length > 0) {
-                <button
-                    mat-fab
-                    class="movement-controls__button"
-                    [matTooltip]="'Move selected players to a new team'"
-                    (click)="createNewTeamFromSelection(queueSelection().selectedTeamsUsers)"
-                >
-                    <i class="material-icons">group_add</i>
-                </button>
+            } @else if (queueSelection.selectedTeamsUsers.length > 0) {
                 <button
                     mat-fab
                     class="movement-controls__button"
                     matTooltip='Return selected players to queue'
-                    (click)="returnToQueue(this.queueSelection().selectedTeamsUsers)"
+                    matTooltipPosition="after"
+                    (click)="returnSelectionToQueue()"
                 >
                     <i class="material-icons">keyboard_arrow_left</i>
                 </button>
@@ -109,6 +105,7 @@
                 color="primary"
                 class="movement-controls__button"
                 matTooltip='Automatically assign all players to teams, creating new teams if necessary'
+                matTooltipPosition="after"
                 (click)="autoAssignAll()"
             >
                 <i class="material-icons">keyboard_double_arrow_right</i>
@@ -120,7 +117,7 @@
             <button
                 class="controls-button controls-button--top-left-radius"
                 mat-raised-button
-                matTooltip='Balance teams'
+                matTooltip='Balance teams [B]'
                 (click)="balanceTeams()"
             >
                 <mat-icon
@@ -131,7 +128,7 @@
             <button
                 class="controls-button"
                 mat-raised-button
-                [matTooltip]="showLockedTeams() ? 'Hide Locked Teams [L]' : 'Show Locked Teams [L]}}'"
+                [matTooltip]="showLockedTeams() ? 'Hide Locked Teams [L]' : 'Show Locked Teams [L]'"
                 (click)="showLockedTeams.set(!showLockedTeams())"
             >
                 <mat-icon
@@ -144,16 +141,16 @@
                 <input
                     class="search-input"
                     matInput
-                    placeholder="Player name"
+                    placeholder="Search team"
+                    (change)="filterTeams($event.target.value)"
+                    [value]="teamNameFilterSubject.value"
                 />
-                <i class="material-icons search-icon">search</i>
+                <i class="material-icons search-icon"
+                   (click)="filterTeams('')"
+                >{{ teamNameFilterSubject.value.length > 0 ? 'close' : '' }}</i>
             </div>
             <span class="card__header__title">
-                {{
-                    showLockedTeams() ?
-                        (preparedTeams$ | async).length + ' unlocked ' + ' / ' + (preparedTeams$ | async).length + (lockedTeams$ | async).length + ' total teams' :
-                        (lockedTeams$ | async).length + ' unlocked teams'
-                }}
+                {{ getTeamsCountLabel() }}
             </span>
         </div>
         <mat-card-content class="card-content round-scrollbar">
@@ -181,9 +178,9 @@
     <crczp-player-view
         class="
       player-view
-      {{queueSelection().isInSelectionInterval(player) ? 'player-view--no-hover' : ''}}
-      {{queueSelection().isSelected(player) ? 'player-view--selected' : ''}}
-      {{queueSelection().isInSelectionInterval(player) ? queueSelection().isIntervalSelectionInverted() ?
+      {{queueSelection.isInSelectionInterval(player) ? 'player-view--no-hover' : ''}}
+      {{queueSelection.isSelected(player) ? 'player-view--selected' : ''}}
+      {{queueSelection.isInSelectionInterval(player) ? queueSelection.isIntervalSelectionInverted() ?
       'player-view--inverted-interval-selected' : 'player-view--interval-selected' : ''}}
       "
         [player]="player"
@@ -202,8 +199,9 @@
                 [compareFunction]="compareUsers"
                 [gridTemplate]="'minmax(2rem, auto) / repeat(auto-fill, minmax(11rem, 1fr))'"
                 [gridGap]="'0.5rem'"
-                (selectionChange)="queueSelection().teamSelectionChange(team, $event)"
-                (dragSelectionChange)="queueSelection().intervalSelectedUsers = $event"
+                [selectedItems]="queueSelection.getSelectionForTeam(team.id)"
+                (selectionChange)="queueSelection.setSelectedTeamsUsers(team.id, $event)"
+                (dragSelectionChange)="queueSelection.intervalSelectedUsers = $event"
             />
         }
     </div>
@@ -211,32 +209,45 @@
 
 <ng-template #teamOverviewTemplate let-team>
     <div class="team-left-panel">
-        <div class="team-content__left_controls">
-            <button
-                class="controls-button controls-button--top-left-radius controls-button--tertiary"
-                mat-raised-button
-                [matTooltip]="'Disband team'"
-                (click)="disbandTeam(team)"
-            >
-                <i class="material-icons tertiary-icon">delete</i>
-            </button>
-            <button
-                class="controls-button controls-button--tertiary"
-                mat-raised-button
-                (click)="queueSelection().selectedQueueUsers.length > 0 ?
-            assignSelectionToTeam(team,queueSelection().selectedQueueUsers) :
-            assignSelectionToTeam(team,queueSelection().selectedTeamsUsers)"
-                [disabled]="queueSelection().getSelectedUsers().length === 0"
-                [matTooltip]="'Assign selected players to this team'"
-            >
-                <i class="material-icons">add</i>
-            </button>
-        </div>
+        @if (!team.locked) {
+            <div class="team-content__left_controls">
+                <button
+                    class="controls-button controls-button--top-left-radius controls-button--tertiary"
+                    mat-raised-button
+                    [matTooltip]="'Disband team'"
+                    matTooltipPosition="before"
+                    [disabled]="team.id === undefined"
+                    (click)="disbandTeam(team.id)"
+                >
+                    <i class="material-icons tertiary-icon">delete</i>
+                </button>
+                <button
+                    class="controls-button controls-button--tertiary"
+                    mat-raised-button
+                    (click)="queueSelection.selectedQueueUsers.length > 0 ?
+                moveSelectedFromQueueToTeam(team) :
+                moveSelectedUsersBetweenTeams(team)"
+                    [disabled]="queueSelection.getSelectedUsers().length === 0 ||
+                    trainingInstance.maxTeamSize - team.members.length <= 0 ||
+                    team.id === undefined"
+                    [matTooltip]="'Assign selected players to this team'"
+                    matTooltipPosition="before"
+                >
+                    <i class="material-icons">add</i>
+                </button>
+            </div>
+            } @else {
+            <div class="team-left-panel__filler"></div>
+            }
         <crczp-team-overview-component
             class="team-card"
-            [disabled]="team.started"
+            [editMode]="!team.locked"
+            [disabled]="team.locked"
             [team]="team"
             [template]="teamContentTemplate"
+            (lockTeam)="lockTeam(team.id)"
+            (updateName)="renameTeam(team.id, $event)"
+            [nameError]="getError(team.id)"
         />
     </div>
 </ng-template>

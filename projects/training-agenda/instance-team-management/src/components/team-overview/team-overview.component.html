@@ -1,28 +1,73 @@
 <mat-card class="team-card"
           [appearance]="appearance"
           disabled
+          (mouseenter)="contentHovered.set(true)"
+          (mouseleave)="contentHovered.set(false)"
 >
-  <mat-card-header>
-    <crczp-mat-card-notch-title>{{ team.name }}</crczp-mat-card-notch-title>
-  </mat-card-header>
-  <mat-card-content>
-    <ng-template [ngTemplateOutlet]="template || defaultTemplate"
-                 [ngTemplateOutletContext]="{$implicit: team }"/>
-  </mat-card-content>
+    <mat-card-header class="team-name__title">
+        <crczp-mat-card-notch-title
+            [childStyle]="{width: 'fit-content'}"
+            (mouseenter)="titleHovered.set(true)"
+            (mouseleave)="titleHovered.set(false)"
+        >
+            <input
+                matInput
+                class="team-name-edit
+                        {{editMode && !disabled ? 'team-name-edit--editable' : ''}}
+                        {{ highlighted() && editMode && !disabled ? 'team-name-edit--editing': '' }}"
+                [formControl]="teamNameFormControl"
+                (keydown.enter)="onEnterPressed()"
+                [readonly]="!editMode || !highlighted()"
+            >
+            @if (titleHovered() && editMode && !disabled){
+                <button mat-button
+                        class="edit-button"
+                        (click)="submit()"
+                >
+                    <mat-icon>
+                        {{highlighted() ? 'check' : 'edit'}}
+                    </mat-icon>
+                </button>
+            }
+         @if(nameErrorSignal()) {
+                <span class="team-name__error-message">{{nameErrorSignal()}}</span>
+         }
+        </crczp-mat-card-notch-title>
+    </mat-card-header>
+    <mat-card-content class="team-card__team-content">
+        @if(disabled){
+            <div class="team-content__disable-overlay"></div>
+        }
+        <ng-template [ngTemplateOutlet]="template || defaultTemplate"
+                     [ngTemplateOutletContext]="{$implicit: team }" />
+        @if((editMode && contentHovered()) || disabled && team.locked){
+            <button
+                class="card-content__lock-button"
+                (mouseleave)="confirmingLock.set(false)"
+                mat-mini-fab
+                [matTooltip]="'Lock team'"
+                [disabled]="disabled"
+                (click)="onLockClicked()">
+                <mat-icon class="lock_button__icon">
+                    {{confirmingLock() && !team.locked ? 'check' : 'lock'}}
+                </mat-icon>
+            </button>
+        }
+    </mat-card-content>
 </mat-card>
 
 <ng-template #playerViewTeplate let-player>
-  <crczp-player-view
-    [player]="player">
-  </crczp-player-view>
+    <crczp-player-view
+        [player]="player">
+    </crczp-player-view>
 </ng-template>
 
 <ng-template #defaultTemplate let-team>
-  <div class="team-card__players">
-    <crczp-grid-list
-      [items]="team.members"
-      [template]="playerViewTeplate"
-      [trackBy]="playerTrackBy"
-    />
-</div>
+    <div class="team-card__players">
+        <crczp-grid-list
+            [items]="team.members"
+            [template]="playerViewTeplate"
+            [trackBy]="playerTrackBy"
+        />
+    </div>
 </ng-template>

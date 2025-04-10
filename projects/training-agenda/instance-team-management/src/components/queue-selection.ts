@@ -1,10 +1,11 @@
-import { Team, TrainingUser } from '@crczp/training-model';
+import { TrainingUser } from '@crczp/training-model';
 import { signal } from '@angular/core';
 import { SelectionInterval } from '@crczp/training-agenda/internal';
+import { ArrayHelper } from '../../../internal/src/utils/array-helper';
 
 export class QueueSelection {
-    queueSelectionSignal = signal<TrainingUser[]>([]);
-    teamsSelectionSignal = signal<TrainingUser[]>([]);
+    private queueSelectionSignal = signal<TrainingUser[]>([]);
+    private teamsSelectionSignal = signal<{ [key: number]: TrainingUser[] }>({});
 
     private intervalSelectedUsersSignal = signal<SelectionInterval<TrainingUser>>({ inverted: false, items: [] });
 
@@ -12,14 +13,19 @@ export class QueueSelection {
         this.intervalSelectedUsersSignal.set(interval);
     }
 
-    set selectedQueueUsers(selectedQueueUsers: TrainingUser[]) {
+    setSelectedQueueUsers(selectedQueueUsers: TrainingUser[]) {
         this.queueSelectionSignal.set(selectedQueueUsers);
         this.teamsSelectionSignal.set([]);
+        this.cancelIntervalSelection();
     }
 
-    set selectedTeamsUsers(selectedTeams: TrainingUser[]) {
-        this.teamsSelectionSignal.set(selectedTeams);
+    setSelectedTeamsUsers(teamId: number, members: TrainingUser[]) {
+        this.teamsSelectionSignal.update((selection) => {
+            selection[teamId] = members;
+            return selection;
+        });
         this.queueSelectionSignal.set([]);
+        this.cancelIntervalSelection();
     }
 
     get selectedQueueUsers(): TrainingUser[] {
@@ -27,7 +33,15 @@ export class QueueSelection {
     }
 
     get selectedTeamsUsers(): TrainingUser[] {
+        return ArrayHelper.flatten(Object.values(this.teamsSelectionSignal()));
+    }
+
+    get selectedTeamsUsersDictionary(): { [key: number]: TrainingUser[] } {
         return this.teamsSelectionSignal();
+    }
+
+    getSelectionForTeam(id: number): TrainingUser[] {
+        return id in this.teamsSelectionSignal() ? this.teamsSelectionSignal()[id] : [];
     }
 
     isInSelectionInterval(user: TrainingUser): boolean {
@@ -38,16 +52,8 @@ export class QueueSelection {
         return this.intervalSelectedUsersSignal().inverted;
     }
 
-    removeUsersFromQueueSelection(users: TrainingUser[]) {
-        this.selectedQueueUsers = this.selectedQueueUsers.filter((user) => !users.includes(user));
-    }
-
-    teamSelectionChange(team: Team, users: TrainingUser[]) {
-        this.selectedTeamsUsers = users;
-    }
-
-    removeUsersFromTeamsSelection(users: TrainingUser[]) {
-        this.selectedTeamsUsers = this.selectedTeamsUsers.filter((user) => !users.includes(user));
+    cancelIntervalSelection() {
+        this.intervalSelectedUsers = { inverted: false, items: [] };
     }
 
     isQueueSelected(user: TrainingUser): boolean {
@@ -66,8 +72,33 @@ export class QueueSelection {
         return this.selectedQueueUsers.concat(this.selectedTeamsUsers);
     }
 
+    deselectFromQueue(users: TrainingUser[]) {
+        this.setSelectedQueueUsers(this.selectedQueueUsers.filter((user) => !users.includes(user)));
+        this.cancelIntervalSelection();
+    }
+
+    deselectFromTeams(users: TrainingUser[]) {
+        this.teamsSelectionSignal.update((teamsSelection) => {
+            Object.entries(teamsSelection).forEach(
+                ([key, value]) =>
+                    (teamsSelection[key] = value.filter((member) => !users.some((user) => member.id === user.id))),
+            );
+            return teamsSelection;
+        });
+        this.cancelIntervalSelection();
+    }
+
     deselect(users: TrainingUser[]) {
-        this.queueSelectionSignal.set(this.queueSelectionSignal().filter((user) => !users.includes(user)));
-        this.teamsSelectionSignal.set(this.teamsSelectionSignal().filter((user) => !users.includes(user)));
+        this.deselectFromQueue(users);
+        this.deselectFromTeams(users);
+        this.cancelIntervalSelection();
+    }
+
+    deselectAllQueueUsers() {
+        this.setSelectedQueueUsers([]);
+    }
+
+    deselectAllTeamsUsers() {
+        this.teamsSelectionSignal.set({});
     }
 }

@@ -5,13 +5,15 @@
 />
 
 <ng-template #lobbyWaiting let-row>
-    @let waiting = getPlayersWaiting$(row.element.id) | async;
+    @let instance = castToInstance(row.element);
+    @let waiting = getPlayersWaiting(instance.id);
         @if (waiting > 0) {
             <mat-icon
-                color="warn"
+                [color]="instance.hasStarted() ? 'warn' : '' "
                 class="m-1rem-l"
-                [matTooltip]="(waiting > 1 ? 'There are ' + waiting + ' players waiting' : 'There is a player'  +
-            'waiting')">
+                [matTooltip]="(waiting > 1 ?
+                'There are ' + waiting + ' players waiting' :
+                'There is a player waiting')">
                 warning
             </mat-icon>
         } @else {

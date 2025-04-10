@@ -5,11 +5,11 @@ import { TeamManagementService } from '../services/team-management-service';
 import { ChangeDetectionStrategy, Component, DestroyRef, HostListener, inject, OnInit, signal } from '@angular/core';
 import { comparePlayersByName, compareTeamsById } from './team-util-functions';
 import { QueueSelection } from './queue-selection';
-import { filter, map, take } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME } from '@crczp/training-agenda';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { map, take, tap } from 'rxjs/operators';
 
 @Component({
     selector: 'crczp-teams-management',
@@ -39,10 +39,10 @@ export class TeamsManagementComponent implements OnInit {
     }
 
     showLockedTeams = signal(false);
-    queueSelection = signal(new QueueSelection());
+    queueSelection = new QueueSelection();
     readonly destroyRef = inject(DestroyRef);
 
-    private trainingInstance: TrainingInstance;
+    protected trainingInstance: TrainingInstance;
 
     getId: <T extends { id: number }>(item: T) => number = (item) => item.id;
 
@@ -52,33 +52,82 @@ export class TeamsManagementComponent implements OnInit {
         }
         return compareTeamsById(a, b);
     }
+
     readonly compareUsers = comparePlayersByName;
 
+    teamNameFilterSubject = new BehaviorSubject('');
+    playerNameFilterSubject = new BehaviorSubject('');
+
+    preparedTeamsCountSubject = new BehaviorSubject(0);
+    lockedTeamsCountSubject = new BehaviorSubject(0);
+
     get preparedTeams$(): Observable<Team[]> {
-        return this.teamsService.lobby$.pipe(map((lobby) => lobby.teams.filter((team) => !team.locked)));
+        return combineLatest([
+            this.teamsService.lobby$.pipe(
+                map((lobby) => lobby.teams.filter((team) => !team.locked)),
+                tap((teams) => this.preparedTeamsCountSubject.next(teams.length)),
+            ),
+            this.teamNameFilterSubject.asObservable(),
+        ]).pipe(
+            takeUntilDestroyed(this.destroyRef),
+            map(([teams, filter]) =>
+                teams.filter((t) => t.name.toLowerCase().includes(filter.toLowerCase())).sort(this.compareTeams),
+            ),
+        );
     }
 
     get lockedTeams$(): Observable<Team[]> {
-        return this.teamsService.lobby$.pipe(map((lobby) => lobby.teams.filter((team) => team.locked)));
+        return combineLatest([
+            this.teamsService.lobby$.pipe(
+                map((lobby) => lobby.teams.filter((team) => team.locked)),
+                tap((teams) => this.lockedTeamsCountSubject.next(teams.length)),
+            ),
+            this.teamNameFilterSubject.asObservable(),
+        ]).pipe(
+            takeUntilDestroyed(this.destroyRef),
+            map(([teams, filter]) =>
+                teams.filter((t) => t.name.toLowerCase().includes(filter.toLowerCase())).sort(this.compareTeams),
+            ),
+        );
     }
 
+    waitingPlayersCountSubject = new BehaviorSubject(0);
+    filteredPlayersSubject = new BehaviorSubject([] as TrainingUser[]);
+
     get waitingPlayers$(): Observable<TrainingUser[]> {
-        return this.teamsService.lobby$.pipe(map((lobby) => lobby.usersQueue));
+        return combineLatest([
+            this.teamsService.lobby$.pipe(
+                map((queue) => queue.usersQueue),
+                tap((queue) => this.waitingPlayersCountSubject.next(queue.length)),
+            ),
+            this.playerNameFilterSubject.asObservable(),
+        ]).pipe(
+            takeUntilDestroyed(this.destroyRef),
+            map(([players, filter]) =>
+                players.filter((t) => t.name.toLowerCase().includes(filter.toLowerCase())).sort(this.compareUsers),
+            ),
+            tap((queue) => this.filteredPlayersSubject.next(queue)),
+        );
     }
 
     @HostListener('document:keydown.a', ['$event'])
     onAKey($event: KeyboardEvent) {
-        this.queueSelection().selectedQueueUsers = this.teamsService.getLobbySnapshot().usersQueue;
+        this.queueSelection.setSelectedQueueUsers(this.filteredPlayersSubject.value);
     }
 
     @HostListener('document:keydown.shift.a', ['$event'])
     onShiftAKey($event: KeyboardEvent) {
-        this.queueSelection().selectedQueueUsers = [];
+        this.queueSelection.deselectAllQueueUsers();
     }
 
     @HostListener('document:keydown.l', ['$event'])
     onLKKey($event: KeyboardEvent) {
-        this.showLockedTeams.set(!this.showLockedTeams);
+        this.showLockedTeams.set(!this.showLockedTeams());
+    }
+
+    @HostListener('document:keydown.b', ['$event'])
+    onBKey($event: KeyboardEvent) {
+        this.balanceTeams();
     }
 
     autoAssignAll() {
@@ -92,30 +141,53 @@ export class TeamsManagementComponent implements OnInit {
         });
         dialogRef.afterClosed().subscribe((result) => {
             if (result === 'confirmed') {
-                this.autoAssign(this.teamsService.getLobbySnapshot().usersQueue);
+                this.queueSelection.setSelectedQueueUsers(this.filteredPlayersSubject.value);
+                this.autoAssignQueueSelection();
             }
+        });
+        this.queueSelection.deselectAllQueueUsers();
+        this.queueSelection.deselectAllTeamsUsers();
+    }
+
+    autoAssignQueueSelection() {
+        this.teamsService.autoAssign(this.queueSelection.selectedQueueUsers.map(this.getId));
+        this.queueSelection.deselectAllQueueUsers();
+    }
+
+    moveSelectedFromQueueToTeam(team: Team) {
+        const movedUsers = this.queueSelection.selectedQueueUsers.slice(
+            0,
+            this.trainingInstance.maxTeamSize - team.members.length,
+        );
+        this.teamsService.assignToTeam(movedUsers.map(this.getId), team.id);
+        this.queueSelection.deselectAllQueueUsers();
+    }
+
+    moveSelectedUsersBetweenTeams(teamTo: Team) {
+        let freeSpace = this.trainingInstance.maxTeamSize - teamTo.members.length;
+
+        Object.entries(this.queueSelection.selectedTeamsUsersDictionary).forEach(([teamFromId, users]) => {
+            const movedUsers = users.slice(users.length - freeSpace, users.length);
+            if (movedUsers.length === 0) return;
+            freeSpace -= movedUsers.length;
+            this.queueSelection.setSelectedTeamsUsers(
+                +teamFromId,
+                this.queueSelection
+                    .getSelectionForTeam(+teamFromId)
+                    .filter((user) => !movedUsers.some((movedUser) => movedUser.id === user.id)),
+            );
+            this.teamsService.moveBetweenTeams(+teamFromId, teamTo.id, movedUsers.map(this.getId));
         });
     }
 
-    autoAssign(users: TrainingUser[]) {
-        this.queueSelection().deselect(users);
-        this.teamsService.autoAssign(users.map(this.getId));
+    disbandTeam(teamId: number) {
+        this.teamsService.disbandTeam(teamId);
+        this.queueSelection.setSelectedTeamsUsers(teamId, []);
     }
 
-    assignSelectionToTeam(team: Team, selection: TrainingUser[]) {
-        console.log('assignSelectionToTeam', team, selection);
-        this.teamsService.assignToTeam(
-            selection.slice(0, this.trainingInstance.maxTeamSize - team.members.length).map(this.getId),
-            team.id,
-        );
-    }
-    disbandTeam(team: Team) {
-        this.teamsService.disbandTeam(team.id);
-    }
-
-    createNewTeamFromSelection(selection: TrainingUser[]) {
-        const toMove = selection.slice(0, this.trainingInstance.maxTeamSize);
-        this.queueSelection().deselect(toMove);
+    createNewTeamFromQueueSelection() {
+        const toMove = this.queueSelection.selectedQueueUsers.slice(0, this.trainingInstance.maxTeamSize);
+        this.queueSelection.deselect(toMove);
         this.teamsService.createTeam(undefined, toMove.map(this.getId));
     }
 
@@ -123,45 +195,73 @@ export class TeamsManagementComponent implements OnInit {
         this.teamsService.balanceTeams();
     }
 
-    returnToQueue(users: TrainingUser[]) {
-        this.queueSelection().deselect(users);
-        this.teamsService.returnToQueue(users.map(this.getId));
+    returnSelectionToQueue() {
+        const teamsSelection = this.queueSelection.selectedTeamsUsersDictionary;
+        this.teamsService.returnToQueue(
+            Object.entries(teamsSelection).map(([key, value]) => ({
+                teamId: +key,
+                users: value.map(this.getId),
+            })),
+        );
+        this.queueSelection.deselectFromTeams(this.queueSelection.selectedTeamsUsers);
     }
 
     createNewTeam() {
         this.teamsService.createTeam();
     }
 
-    /*
-        autoAssign(players: TrainingUser[], createNewTeams: boolean) {
-            const freeSlots = this.getUnlockedTeams().reduce(
-                (acc, team) => acc + this.maxTeamMembers - team.members.length,
-                0,
-            );
-            const difference = players.length - freeSlots;
-            const newTeamsNeeded = Math.ceil(difference / this.maxTeamMembers);
-            const newTeams = this.getUnlockedTeams()
-                .concat(createNewTeams ? generateTeams(newTeamsNeeded, 0, this.maxTeamMembers, false) : [])
-                .sort((a: Team, b: Team) => a.members.length - b.members.length);
+    filterTeams(filter: string) {
+        this.queueSelection.deselectAllTeamsUsers();
+        this.teamNameFilterSubject.next(filter);
+    }
 
-            const assignedPlayerIds: number[] = [];
-            for (let emptinessLevel = this.maxTeamMembers; emptinessLevel > 0; emptinessLevel--) {
-                let teamIndex = 0;
-                while (
-                    teamIndex < newTeams.length &&
-                    players.length > 0 &&
-                    this.maxTeamMembers - newTeams[teamIndex].members.length === emptinessLevel
-                ) {
-                    const movedPlayer = players.pop() as TrainingUser;
-                    newTeams[teamIndex].members.push(movedPlayer);
-                    assignedPlayerIds.push(movedPlayer.id);
-                    teamIndex++;
-                }
-            }
-            (this.queueSelection.length > 0 ? this.setSelectedQueueUsers : this.setSelectedTeamsUsers)(
-                this.getSelectedUsers().filter((player) => !assignedPlayerIds.includes(player.id)),
-            );
-            this.queue = this.queue.filter((player) => !assignedPlayerIds.includes(player.id));
-            this.setUnlockedTeams(newTeams);
-        }*/
+    filterQueue(filter: string) {
+        this.queueSelection.deselectAllQueueUsers();
+        this.playerNameFilterSubject.next(filter);
+    }
+
+    teamNameErrors = signal<Map<number, string>>(new Map());
+
+    renameTeam(id: number, newName: string) {
+        console.log(id, newName);
+        newName = newName.trim();
+        if (newName.length === 0) {
+            this.teamNameErrors.set(this.teamNameErrors().set(id, 'Team name cannot be blank'));
+            return;
+        }
+        if (!this.teamsService.isTeamNameValid(newName)) {
+            this.teamNameErrors.set(this.teamNameErrors().set(id, 'This name is already taken.'));
+            return;
+        }
+        this.teamsService.renameTeam(id, newName);
+    }
+
+    getError(id: number): string | undefined {
+        return this.teamNameErrors().get(id);
+    }
+
+    lockTeam(id: number) {
+        this.teamsService.lockTeam(id);
+    }
+
+    getPlayersCountLabel() {
+        return this.queueSelection.selectedQueueUsers.length > 0
+            ? 'Selected ' + this.queueSelection.selectedQueueUsers.length + '/' + this.waitingPlayersCountSubject.value
+            : this.waitingPlayersCountSubject.value !== 1
+              ? this.waitingPlayersCountSubject.value + ' players queued'
+              : '1 player queued';
+    }
+
+    getTeamsCountLabel() {
+        return this.showLockedTeams()
+            ? this.preparedTeamsCountSubject.value +
+                  ' unlocked ' +
+                  ' / ' +
+                  +this.preparedTeamsCountSubject.value +
+                  +this.lockedTeamsCountSubject.value +
+                  ' total teams'
+            : this.preparedTeamsCountSubject.value !== 1
+              ? this.preparedTeamsCountSubject.value + ' unlocked teams'
+              : '1 unlocked team';
+    }
 }

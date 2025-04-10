@@ -57,6 +57,7 @@ export class IntervalSortedSelectionList<T, I> extends SortedSelectionList<T, I>
 
     public confirmMultipleSelection() {
         const items = this.findItemsInSelectionInterval();
+
         if (this.invertSelection) {
             items.forEach((item) => this.setSelected(item, false));
         } else {

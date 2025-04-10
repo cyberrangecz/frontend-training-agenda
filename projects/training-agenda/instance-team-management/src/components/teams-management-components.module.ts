@@ -4,10 +4,16 @@ import { RouterModule } from '@angular/router';
 import { TrainingAgendaConfig } from '@crczp/training-agenda';
 import { TeamManagementService } from '../services/team-management-service';
 import { TeamsManagementComponent } from './teams-management.component';
-import { GridListComponent, PlayerViewComponent, SelectableListComponent } from '@crczp/training-agenda/internal';
+import {
+    GridListComponent,
+    MatCardNotchTitleComponent,
+    PlayerViewComponent,
+    SelectableListComponent,
+} from '@crczp/training-agenda/internal';
 import { TeamOverviewComponent } from './team-overview/team-overview.component';
 import { TeamsManagementMaterialModule } from './teams-management-material.module';
 import { TeamManagementConcreteService } from '../services/team-management-concrete-service';
+import { ReactiveFormsModule } from '@angular/forms';
 
 /**
  * Main module of training instance edit components and providers
@@ -20,9 +26,10 @@ import { TeamManagementConcreteService } from '../services/team-management-concr
         GridListComponent,
         PlayerViewComponent,
         TeamsManagementMaterialModule,
-        TeamOverviewComponent,
+        ReactiveFormsModule,
+        MatCardNotchTitleComponent,
     ],
-    declarations: [TeamsManagementComponent],
+    declarations: [TeamsManagementComponent, TeamOverviewComponent],
     providers: [{ provide: TeamManagementService, useClass: TeamManagementConcreteService }],
 })
 export class TeamsManagementComponentsModule {

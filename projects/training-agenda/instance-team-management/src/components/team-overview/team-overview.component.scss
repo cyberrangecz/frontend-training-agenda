@@ -35,3 +35,83 @@
 .player-view--deselection:hover {
   background-color: color-mix(in srgb, var(--tertiary-50) 20%, transparent);
 }
+
+.team-name__title {
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+    flex-basis: fit-content;
+}
+
+.edit-button {
+    height: 100%;
+    right: -2rem;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    background-color: var(--primary-90);
+    box-shadow: var(--mdc-elevated-card-container-elevation, var(--mat-app-elevation-shadow-level-1));
+}
+
+.team-name-edit {
+    background: transparent !important;
+    outline: none !important;
+    border: none !important;
+    font-size: 1.25rem !important;
+    border-radius: 0.5rem !important;
+    padding: 0.25rem 0.5rem;
+    margin: 0 0.5rem;
+    cursor: default;
+    width: fit-content;
+}
+
+.team-name-edit--editable {
+    cursor: text;
+}
+
+.team-name-edit--editing {
+    background: var(--primary-95) !important;
+}
+
+.team-name__error-message {
+    position: absolute;
+    bottom: -1.5rem;
+    left: 0.5rem;
+    background: var(--error-50);
+    color: var(--neutral-98);
+    font-weight: 800;
+    padding: 0 0.5rem;
+    height: fit-content;
+    border-radius: 0.5rem;
+    z-index: 1000;
+    font-size: 0.75rem;
+}
+
+.team-card__team-content {
+    position: relative;
+    overflow: visible;
+}
+
+.team-content__disable-overlay {
+    position: absolute;
+    top: -1rem;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: color-mix(in srgb, var(--neutral-70) 20%, transparent);
+    border-radius: 0.75rem;
+}
+
+.card-content__lock-button {
+    position: absolute;
+    right: 0.25rem;
+    bottom: 0.25rem;
+    background-color: var(--error-50);
+}
+
+.lock_button__icon {
+    color: white;
+}

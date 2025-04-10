@@ -1,6 +1,6 @@
 <crczp-grid-list
-  (mouseup)="selectionList.confirmMultipleSelection();this.emitSelectionChange();this.emitDragSelectionChange();"
-  (mouseleave)="selectionList.cancelMultipleSelection();this.emitSelectionChange();this.emitDragSelectionChange();"
+  (mouseup)="onConfirm()"
+  (mouseleave)="onConfirm();"
   [items]="selectionList.getAllItems()"
   [template]="selectionElement"
   [trackBy]="idFunction"
@@ -12,8 +12,8 @@
   <span
     class="click-wrapper"
     (click)="selectionList.setSelected(item, !selectionList.isSelected(item));this.emitSelectionChange();"
-    (mousedown)="selectionList.intervalSelectionSetStart(item);this.emitDragSelectionChange();"
-    (mouseenter)="selectionList.intervalSelectionSetEnd(item);this.emitDragSelectionChange();"
+    (mousedown)="onItemMouseDown(item)"
+    (mouseenter)="onItemMouseEnter(item)"
   >
      <ng-container
        [ngTemplateOutlet]="template"
