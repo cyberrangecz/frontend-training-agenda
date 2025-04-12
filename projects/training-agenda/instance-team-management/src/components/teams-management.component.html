@@ -117,23 +117,10 @@
             <button
                 class="controls-button controls-button--top-left-radius"
                 mat-raised-button
-                matTooltip='Balance teams [B]'
-                (click)="balanceTeams()"
-            >
-                <mat-icon
-                    class="controls-button__icon"
-                >shuffle
-                </mat-icon>
-            </button>
-            <button
-                class="controls-button"
-                mat-raised-button
                 [matTooltip]="showLockedTeams() ? 'Hide Locked Teams [L]' : 'Show Locked Teams [L]'"
                 (click)="showLockedTeams.set(!showLockedTeams())"
             >
-                <mat-icon
-                    class="controls-button__icon"
-                >
+                <mat-icon class="controls-button__icon">
                     {{ showLockedTeams() ? "visibility_off" : "visibility_on" }}
                 </mat-icon>
             </button>
@@ -154,15 +141,44 @@
             </span>
         </div>
         <mat-card-content class="card-content round-scrollbar">
-            <button
-                mat-fab
-                color="primary"
-                class="teams-card__add-button"
-                [matTooltip]="'Add Team'"
-                (click)="createNewTeam()"
-            >
-                <i class="material-icons">add</i>
-            </button>
+            <div
+                (mouseenter)="lockButtonsHover.set(true)"
+                (mouseleave)="lockButtonsHover.set(false)"
+                class="teams-card__team_buttons">
+                @if (lockButtonsHover()) {
+                    <div class="vflex jc-sb ai-c g-0-5rem">
+                        <button
+                            mat-mini-fab
+                            class="teams-card__secondary-button"
+                            matTooltip='Balance teams [B]'
+                            matTooltipPosition="before"
+                            (click)="balanceTeams()"
+                        >
+                            <i class="material-icons">shuffle</i>
+                        </button>
+                        <button
+                            mat-mini-fab
+                            class="teams-card__secondary-button teams-card__secondary-button--lock"
+                            [matTooltip]="'Lock all teams [shift+L]'"
+                            matTooltipPosition="before"
+                            (click)="lockAllTeams()"
+                        >
+                            <i class="material-icons">lock</i>
+                        </button>
+                    </div>
+                }
+                <button
+                    mat-fab
+                    color="primary"
+                    class="teams-card__add-button"
+                    [matTooltip]="'Add Team [N]'"
+                    (click)="createNewTeam()"
+                >
+                    <i class="material-icons">
+                        {{ lockButtonsHover() ? 'add' : 'group' }}
+                    </i>
+                </button>
+            </div>
             <crczp-grid-list
                 [items]="(preparedTeams$ | async).concat(showLockedTeams() ? (lockedTeams$ | async) : [])"
                 [template]="teamOverviewTemplate"
@@ -236,9 +252,9 @@
                     <i class="material-icons">add</i>
                 </button>
             </div>
-            } @else {
+        } @else {
             <div class="team-left-panel__filler"></div>
-            }
+        }
         <crczp-team-overview-component
             class="team-card"
             [editMode]="!team.locked"

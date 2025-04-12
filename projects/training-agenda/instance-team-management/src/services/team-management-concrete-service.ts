@@ -6,8 +6,13 @@ import { catchError, map, switchMap, take } from 'rxjs/operators';
 import * as uuid from 'uuid';
 import { TrainingAgendaConfig } from '@crczp/training-agenda';
 import { Injectable } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { ArrayHelper } from '../../../internal/src/utils/array-helper';
+import { MatDialog } from '@angular/material/dialog';
+import {
+    SentinelConfirmationDialogComponent,
+    SentinelConfirmationDialogConfig,
+    SentinelDialogResultEnum,
+} from '@sentinel/components/dialogs';
 
 type UserId = TrainingUser['id'];
 type TeamId = Team['id'];
@@ -23,7 +28,7 @@ export class TeamManagementConcreteService extends TeamManagementService {
     constructor(
         private lobbyApi: TrainingInstanceLobbyApi,
         private config: TrainingAgendaConfig,
-        private activeRoute: ActivatedRoute,
+        private dialog: MatDialog,
     ) {
         super();
     }
@@ -284,9 +289,6 @@ export class TeamManagementConcreteService extends TeamManagementService {
         this.removeFromQueue(lobbyIdMap, movedToExistingIds);
         const movedToNew = players.slice(freeSpace);
 
-        console.log('toExisting', movedToExisting);
-        console.log('movedToNew', movedToNew);
-
         let changes: { teamId: number; userId: number }[] = [];
         let assignmentIndex = 0;
         for (const team of Object.values(lobbyIdMap.teams)) {
@@ -345,6 +347,50 @@ export class TeamManagementConcreteService extends TeamManagementService {
     }
 
     /**
+     * Batch lock teams
+     * @param teamIds
+     */
+    public lockAll(teamIds: Team['id'][]): Observable<void> {
+        const averageTeamSize = Math.floor(
+            ArrayHelper.sum(Object.values(this.idMapSubject.value.teams).map((team) => team.members.length)) /
+                Object.values(this.idMapSubject.value.teams).length,
+        );
+        let dialogObservable: Observable<SentinelDialogResultEnum>;
+        if (
+            teamIds.some(
+                (id) =>
+                    this.idMapSubject.value.teams[id].members.length < averageTeamSize ||
+                    this.idMapSubject.value.teams[id].members.length > averageTeamSize + 1,
+            )
+        ) {
+            dialogObservable = this.dialog
+                .open(SentinelConfirmationDialogComponent, {
+                    data: new SentinelConfirmationDialogConfig(
+                        'Unbalanced teams',
+                        `Some teams are not balanced,
+                    do you wish to continue?`,
+                        'Cancel',
+                        'Lock all',
+                    ),
+                })
+                .afterClosed();
+        } else {
+            dialogObservable = of(SentinelDialogResultEnum.CONFIRMED);
+        }
+        const endNotifier = new Subject<void>();
+        dialogObservable
+            .pipe(
+                takeUntil(this.errorNotifier$),
+                take(1),
+                catchError((err) => this.handleError(err)),
+                map((result) => result === SentinelDialogResultEnum.CONFIRMED),
+                concatMap((proceed) => (proceed ? concat(...teamIds.map((teamId) => this.lockTeam(teamId))) : of())),
+            )
+            .subscribe(() => endNotifier.next());
+        return endNotifier;
+    }
+
+    /**
      * Balance teams
      * @return Observable of new prepared teams state
      */
@@ -354,8 +400,6 @@ export class TeamManagementConcreteService extends TeamManagementService {
         }
 
         const [balancedTeams, changesMade] = this.balancingAlgorithm(Object.values(this.idMapSubject.value.teams));
-
-        console.log('changes', changesMade);
 
         const lobbyIdMap = this.idMapSubject.value;
         balancedTeams.forEach((team) => {
@@ -368,7 +412,6 @@ export class TeamManagementConcreteService extends TeamManagementService {
         const observables = ArrayHelper.flatten(
             Object.entries(changesMade).map(([teamFromId, change]) =>
                 Object.entries(change).map(([teamToId, movedPlayers]) => {
-                    console.log(teamFromId, teamToId, movedPlayers);
                     return this.lobbyApi.transferPlayersBetweenTeams(+teamFromId, +teamToId, movedPlayers).pipe(
                         takeUntil(this.errorNotifier$),
                         take(1),
@@ -377,11 +420,7 @@ export class TeamManagementConcreteService extends TeamManagementService {
                 }),
             ),
         );
-
-        console.log('observables', observables);
-
         concat(...observables).subscribe(() => notifier.next());
-
         return notifier.asObservable();
     }
 
@@ -406,10 +445,7 @@ export class TeamManagementConcreteService extends TeamManagementService {
         let recipientIndex = 0;
         let donorIndex = sizeSortedTeams.length - 1;
 
-        console.log('teams', sizeSortedTeams);
         while (recipientIndex < donorIndex) {
-            console.log('recipientIndex', recipientIndex);
-            console.log('donorIndex', donorIndex);
             const recipientTeam = sizeSortedTeams[recipientIndex];
             const donorTeam = sizeSortedTeams[donorIndex];
 

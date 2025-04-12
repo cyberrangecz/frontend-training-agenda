@@ -93,12 +93,37 @@
     overflow-y: auto;
 }
 
+.teams-card__team_buttons {
+    position: absolute;
+    bottom: -1rem;
+    right: 0.25rem;
+    height: 6rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-items: flex-end;
+    gap: 0.25rem;
+    padding: 0.5rem;
+    overflow: visible;
+}
+
 .teams-card__add-button {
     border-radius: 50%;
-    position: absolute;
-    bottom: 1rem;
-    right: 1rem;
+    z-index: 3;
+}
+
+.teams-card__secondary-button {
+    border-radius: 50%;
     z-index: 2;
+}
+
+.teams-card__secondary-button:hover {
+    z-index: 4;
+}
+
+.teams-card__secondary-button--lock {
+    background: var(--error-40);
+    color: var(--neutral-98);
 }
 
 .team-card__players--empty {

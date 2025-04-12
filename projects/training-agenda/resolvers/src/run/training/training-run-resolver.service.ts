@@ -11,6 +11,8 @@ import {
     TrainingNavigator,
 } from '@crczp/training-agenda';
 import { RunningTrainingRunService } from '@crczp/training-agenda/run-detail';
+import { MatDialog } from '@angular/material/dialog';
+import { SentinelConfirmationDialogComponent, SentinelConfirmationDialogConfig } from '@sentinel/components/dialogs';
 
 /**
  * Router data provider
@@ -23,6 +25,7 @@ export class AccessTrainingRunResolver {
         private errorHandler: TrainingErrorHandler,
         private navigator: TrainingNavigator,
         private router: Router,
+        private dialog: MatDialog,
     ) {}
 
     /**
@@ -63,6 +66,18 @@ export class AccessTrainingRunResolver {
         return this.api.access(token).pipe(
             tap((trainingRunInfo) => this.runningTrainingRunService.init(trainingRunInfo)),
             catchError((err) => {
+                if (err && err.status === 425) {
+                    this.navigateToOverview();
+                    const dialogRef = this.dialog.open(SentinelConfirmationDialogComponent, {
+                        data: new SentinelConfirmationDialogConfig(
+                            'Reveal Hint',
+                            `Do you want to reveal hint "${hint.title}"?
+ It will cost you ${hint.penalty} points.`,
+                            'Cancel',
+                            'Reveal',
+                        ),
+                    });
+                }
                 this.errorHandler.emit(err, 'Accessing training run');
                 return this.navigateToOverview();
             }),

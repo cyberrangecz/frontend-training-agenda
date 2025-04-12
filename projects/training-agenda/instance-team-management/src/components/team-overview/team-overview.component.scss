@@ -45,14 +45,41 @@
     flex-basis: fit-content;
 }
 
-.edit-button {
+.highlight-button {
     height: 100%;
-    right: -2rem;
+    z-index: 2;
     margin: 0;
     padding: 0;
     position: absolute;
     background-color: var(--primary-90);
     box-shadow: var(--mdc-elevated-card-container-elevation, var(--mat-app-elevation-shadow-level-1));
+    width: 3rem !important;
+    min-width: 3rem !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.highlight-button:hover {
+    z-index: 3;
+}
+
+.edit-button--highlighted{
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.edit-button {
+    right: -1rem;
+    bottom: 0;
+}
+
+.cancel-button {
+    border-left: 1px solid var(--primary-50);
+    right: -4rem;
+    bottom: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
 }
 
 .team-name-edit {
@@ -109,7 +136,7 @@
     position: absolute;
     right: 0.25rem;
     bottom: 0.25rem;
-    background-color: var(--error-50);
+    background-color: var(--error-40);
 }
 
 .lock_button__icon {

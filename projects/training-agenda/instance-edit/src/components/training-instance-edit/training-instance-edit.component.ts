@@ -113,7 +113,6 @@ export class TrainingInstanceEditComponent implements OnChanges, AfterViewInit {
                     this.changeValidity(this.isPoolIdError(), this.poolSelect);
                 }
             });
-        console.log(this.trainingInstance);
     }
 
     revalidate() {

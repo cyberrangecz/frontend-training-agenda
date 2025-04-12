@@ -101,4 +101,10 @@ export abstract class TeamManagementService {
      * @param id
      */
     public abstract lockTeam(id: number): Observable<void>;
+
+    /**
+     * Batch lock teams
+     * @param teamIds
+     */
+    public abstract lockAll(teamIds: Team['id'][]): Observable<void>;
 }

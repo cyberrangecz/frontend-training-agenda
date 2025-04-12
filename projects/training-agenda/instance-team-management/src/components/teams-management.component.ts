@@ -38,6 +38,7 @@ export class TeamsManagementComponent implements OnInit {
             });
     }
 
+    lockButtonsHover = signal(false);
     showLockedTeams = signal(false);
     queueSelection = new QueueSelection();
     readonly destroyRef = inject(DestroyRef);
@@ -61,6 +62,8 @@ export class TeamsManagementComponent implements OnInit {
     preparedTeamsCountSubject = new BehaviorSubject(0);
     lockedTeamsCountSubject = new BehaviorSubject(0);
 
+    filteredPreparedTeamsSubject = new BehaviorSubject([] as Team[]);
+
     get preparedTeams$(): Observable<Team[]> {
         return combineLatest([
             this.teamsService.lobby$.pipe(
@@ -73,6 +76,7 @@ export class TeamsManagementComponent implements OnInit {
             map(([teams, filter]) =>
                 teams.filter((t) => t.name.toLowerCase().includes(filter.toLowerCase())).sort(this.compareTeams),
             ),
+            tap((teams) => this.filteredPreparedTeamsSubject.next(teams)),
         );
     }
 
@@ -125,9 +129,19 @@ export class TeamsManagementComponent implements OnInit {
         this.showLockedTeams.set(!this.showLockedTeams());
     }
 
+    @HostListener('document:keydown.shift.l', ['$event'])
+    onShiftLKKey($event: KeyboardEvent) {
+        this.lockAllTeams();
+    }
+
     @HostListener('document:keydown.b', ['$event'])
     onBKey($event: KeyboardEvent) {
         this.balanceTeams();
+    }
+
+    @HostListener('document:keydown.n', ['$event'])
+    onNKey($event: KeyboardEvent) {
+        this.createNewTeam();
     }
 
     autoAssignAll() {
@@ -223,7 +237,6 @@ export class TeamsManagementComponent implements OnInit {
     teamNameErrors = signal<Map<number, string>>(new Map());
 
     renameTeam(id: number, newName: string) {
-        console.log(id, newName);
         newName = newName.trim();
         if (newName.length === 0) {
             this.teamNameErrors.set(this.teamNameErrors().set(id, 'Team name cannot be blank'));
@@ -257,11 +270,17 @@ export class TeamsManagementComponent implements OnInit {
             ? this.preparedTeamsCountSubject.value +
                   ' unlocked ' +
                   ' / ' +
-                  +this.preparedTeamsCountSubject.value +
-                  +this.lockedTeamsCountSubject.value +
+                  (+this.preparedTeamsCountSubject.value + +this.lockedTeamsCountSubject.value) +
                   ' total teams'
             : this.preparedTeamsCountSubject.value !== 1
               ? this.preparedTeamsCountSubject.value + ' unlocked teams'
               : '1 unlocked team';
+    }
+
+    lockAllTeams() {
+        const toLock = this.filteredPreparedTeamsSubject.value.filter((team) => team.members.length > 0);
+        if (toLock.length > 0) {
+            this.teamsService.lockAll(toLock.map(this.getId));
+        }
     }
 }

@@ -4,9 +4,9 @@
           (mouseenter)="contentHovered.set(true)"
           (mouseleave)="contentHovered.set(false)"
 >
-    <mat-card-header class="team-name__title">
+    <mat-card-header
+        class="team-name__title">
         <crczp-mat-card-notch-title
-            [childStyle]="{width: 'fit-content'}"
             (mouseenter)="titleHovered.set(true)"
             (mouseleave)="titleHovered.set(false)"
         >
@@ -19,14 +19,22 @@
                 (keydown.enter)="onEnterPressed()"
                 [readonly]="!editMode || !highlighted()"
             >
-            @if (titleHovered() && editMode && !disabled){
+            @if ((titleHovered() && editMode && !disabled) || highlighted()){
                 <button mat-button
-                        class="edit-button"
+                        class="highlight-button edit-button {{highlighted() ? 'edit-button--highlighted' : ''}}"
                         (click)="submit()"
                 >
-                    <mat-icon>
+                    <i class="material-icons hflex center">
                         {{highlighted() ? 'check' : 'edit'}}
-                    </mat-icon>
+                    </i>
+                </button>
+            }
+            @if(highlighted()){
+                <button mat-button
+                        class="highlight-button cancel-button"
+                        (click)="highlighted.set(false)"
+                >
+                    <mat-icon>cancel</mat-icon>
                 </button>
             }
          @if(nameErrorSignal()) {
@@ -40,7 +48,7 @@
         }
         <ng-template [ngTemplateOutlet]="template || defaultTemplate"
                      [ngTemplateOutletContext]="{$implicit: team }" />
-        @if((editMode && contentHovered()) || disabled && team.locked){
+        @if((editMode && contentHovered() && team.members.length > 0 )  || disabled && team.locked){
             <button
                 class="card-content__lock-button"
                 (mouseleave)="confirmingLock.set(false)"
