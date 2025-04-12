@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AdaptiveDefinitionApiService } from '@crczp/training-api';
 import { TrainingDefinition } from '@crczp/training-model';
-import { concat, Observable } from 'rxjs';
+import { combineLatest, concat, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { TrainingDefinitionChangeEvent } from '../../../model/events/training-definition-change-event';
 import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } from '@crczp/training-agenda';
 import { AdaptiveDefinitionEditService } from './adaptive-definition-edit.service';
 import { PhaseEditService } from '../phase/phase-edit.service';
+import { LoadingTracker } from '@crczp/training-agenda/internal';
 
 /**
  * Service handling editing of training definition and related operations.
@@ -28,6 +29,12 @@ export class AdaptiveDefinitionEditConcreteService extends AdaptiveDefinitionEdi
     ) {
         super();
     }
+
+    private loadingTracker: LoadingTracker = new LoadingTracker();
+
+    public saveDisabled$ = combineLatest(this.formValidSubject.asObservable(), this.loadingTracker.isLoading$).pipe(
+        map(([valid, loading]) => loading || !valid),
+    );
 
     /**
      * Sets training definition as currently edited
@@ -68,7 +75,7 @@ export class AdaptiveDefinitionEditConcreteService extends AdaptiveDefinitionEdi
      * @param changeEvent training definition object and its validity
      */
     change(changeEvent: TrainingDefinitionChangeEvent): void {
-        this.saveDisabledSubject$.next(!changeEvent.isValid);
+        this.formValidSubject.next(changeEvent.isValid);
         this.definitionValidSubject$.next(changeEvent.isValid);
         this.editedSnapshot = changeEvent.trainingDefinition;
     }
@@ -78,33 +85,37 @@ export class AdaptiveDefinitionEditConcreteService extends AdaptiveDefinitionEdi
     }
 
     private update(): Observable<number> {
-        return this.api.update(this.editedSnapshot).pipe(
-            tap(
-                () => {
-                    this.notificationService.emit('success', 'Changes were saved');
-                    this.onSaved();
-                },
-                (err) => this.errorHandler.emit(err, 'Editing training definition'),
+        return this.loadingTracker.trackRequest(() =>
+            this.api.update(this.editedSnapshot).pipe(
+                tap(
+                    () => {
+                        this.notificationService.emit('success', 'Changes were saved');
+                        this.onSaved();
+                    },
+                    (err) => this.errorHandler.emit(err, 'Editing training definition'),
+                ),
             ),
         );
     }
 
     private create(): Observable<number> {
-        return this.api.create(this.editedSnapshot).pipe(
-            tap(
-                () => {
-                    this.notificationService.emit('success', 'Training was created');
-                    this.onSaved();
-                },
-                (err) => this.errorHandler.emit(err, 'Creating training definition'),
+        return this.loadingTracker.trackRequest(() =>
+            this.api.create(this.editedSnapshot).pipe(
+                tap(
+                    () => {
+                        this.notificationService.emit('success', 'Training was created');
+                        this.onSaved();
+                    },
+                    (err) => this.errorHandler.emit(err, 'Creating training definition'),
+                ),
+                map((td) => td.id),
             ),
-            map((td) => td.id),
         );
     }
 
     private onSaved() {
         this.editModeSubject$.next(true);
-        this.saveDisabledSubject$.next(true);
+        this.formValidSubject.next(false);
         this.trainingDefinitionSubject$.next(this.editedSnapshot);
         this.editedSnapshot = null;
     }

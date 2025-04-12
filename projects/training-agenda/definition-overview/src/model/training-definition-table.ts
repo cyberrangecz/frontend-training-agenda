@@ -1,5 +1,4 @@
 import { PaginatedResource } from '@sentinel/common/pagination';
-import { DatePipe } from '@angular/common';
 import { TrainingDefinition, TrainingDefinitionStateEnum } from '@crczp/training-model';
 import {
     Column,
@@ -14,6 +13,7 @@ import { defer, of } from 'rxjs';
 import { TrainingDefinitionService } from '../services/state/training-definition.service';
 import { TrainingNavigator } from '@crczp/training-agenda';
 import { TrainingDefinitionRowAdapter } from './training-definition-row-adapter';
+import { DateHelper } from '@crczp/training-agenda/internal';
 
 /**
  * Helper class transforming paginated resource to class for common table component
@@ -27,18 +27,17 @@ export class TrainingDefinitionTable extends SentinelTable<TrainingDefinition> {
     ) {
         const columns = [
             new Column('title', 'title', true),
-            new Column('state', 'state', true),
-            new Column('estimatedDuration', 'estimated duration', true, 'estimatedDuration'),
-            new Column('createdAtFormatted', 'created at', true, 'createdAt'),
-            new Column('lastEditTimeFormatted', 'last edit', true, 'lastEdited'),
+            new Column('duration', 'estimated duration', true, 'estimatedDuration'),
+            new Column('createdAt', 'created at', true, 'createdAt'),
+            new Column('lastEditTime', 'last edit', true, 'lastEdited'),
             new Column('lastEditBy', 'last edit by', false),
+            new Column('state', 'state', true),
         ];
 
         const rows = resource.elements.map((definition) =>
             TrainingDefinitionTable.createRow(definition, service, navigator),
         );
         super(rows, columns);
-
         this.pagination = resource.pagination;
         this.filterLabel = 'Filter by title';
         this.filterable = true;
@@ -51,8 +50,7 @@ export class TrainingDefinitionTable extends SentinelTable<TrainingDefinition> {
         navigator: TrainingNavigator,
     ): Row<TrainingDefinition> {
         const adapter = td as TrainingDefinitionRowAdapter;
-        const datePipe = new DatePipe('en-EN');
-        adapter.createdAtFormatted = `${datePipe.transform(adapter.createdAt)}`;
+        adapter.duration = DateHelper.formatDurationFull(td.estimatedDuration * 60);
         const row = new Row(adapter, TrainingDefinitionTable.createActions(adapter, service));
         row.addLink('title', navigator.toTrainingDefinitionDetail(td.id));
         return row;

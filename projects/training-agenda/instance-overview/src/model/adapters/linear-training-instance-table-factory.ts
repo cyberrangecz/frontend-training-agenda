@@ -1,13 +1,13 @@
-import { DatePipe } from '@angular/common';
 import { PaginatedResource } from '@sentinel/common/pagination';
 import { TrainingInstance } from '@crczp/training-model';
 import { Column, DeleteAction, EditAction, Row, RowAction, SentinelTable } from '@sentinel/components/table';
-import { combineLatest, defer, of } from 'rxjs';
+import { combineLatest, defer, of, startWith } from 'rxjs';
 import { TrainingNavigator } from '@crczp/training-agenda';
 import { TrainingInstanceOverviewService } from '../../services/state/training-instance-overview.service';
 import { TrainingInstanceRowAdapter } from './training-instance-row-adapter';
 import { DateHelper } from '@crczp/training-agenda/internal';
 import { SentinelControlItem } from '@sentinel/components/controls';
+import { map } from 'rxjs/operators';
 
 /**
  * @dynamic
@@ -48,8 +48,8 @@ export class LinearTrainingInstanceTableFactory {
     protected createColumns() {
         return [
             new Column('title', 'Title', true),
-            new Column('startTimeFormatted', 'Start Time', true, 'startTime'),
-            new Column('endTimeFormatted', 'End Time', true, 'endTime'),
+            new Column('startTime', 'Start Time', true, 'startTime'),
+            new Column('endTime', 'End Time', true, 'endTime'),
             new Column('expiresIn', 'Expires In', false),
             new Column('tdTitle', 'Training Definition', true, 'title'),
             new Column('lastEditBy', 'Last Edit By', false),
@@ -65,12 +65,7 @@ export class LinearTrainingInstanceTableFactory {
         navigator: TrainingNavigator,
     ): Row<TrainingInstanceRowAdapter> {
         const adapter = ti as TrainingInstanceRowAdapter;
-        const datePipe = new DatePipe('en-EN');
         adapter.tdTitle = adapter.trainingDefinition.title;
-        adapter.startTimeFormatted = `${datePipe.transform(adapter.startTime)}`;
-        adapter.endTimeFormatted = `${datePipe.transform(adapter.endTime)}`;
-        adapter.expiresIn =
-            DateHelper.timeToDate(adapter.endTime).length !== 0 ? DateHelper.timeToDate(adapter.endTime) : 'expired';
         if (adapter.hasPool()) {
             adapter.poolTitle = `Pool ${adapter.poolId}`;
         } else if (adapter.localEnvironment) {
@@ -121,7 +116,10 @@ export class LinearTrainingInstanceTableFactory {
                 'vpn_key',
                 'primary',
                 'Download management SSH configs',
-                of(!ti.hasPool()),
+                service.poolExists(ti.poolId).pipe(
+                    startWith(false),
+                    map((exists) => !exists),
+                ),
                 defer(() => service.getSshAccess(ti.poolId)),
             ),
             new RowAction(
@@ -159,15 +157,6 @@ export class LinearTrainingInstanceTableFactory {
                 'Show results of training runs',
                 of(!ti.hasStarted()),
                 defer(() => service.results(ti.id)),
-            ),
-            new RowAction(
-                'aggregated_results',
-                'Show Aggregated Results',
-                'stacked_bar_chart',
-                'primary',
-                'Show aggregated results of training runs across same training instances',
-                of(!ti.hasStarted()),
-                defer(() => service.aggregatedResults(ti.id)),
             ),
         ];
     }

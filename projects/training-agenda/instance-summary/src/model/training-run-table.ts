@@ -37,7 +37,7 @@ export class TrainingRunTable extends ExpandableSentinelTable<TrainingRun, Train
         adapter.startTimeFormatted = `${datePipe.transform(adapter.startTime)}`;
         if (adapter.state === TrainingRunStateEnum.FINISHED) {
             adapter.endTimeFormatted = `${datePipe.transform(adapter.endTime)}`;
-            adapter.duration = DateHelper.timeBetweenDates(adapter.startTime, adapter.endTime);
+            adapter.duration = DateHelper.timeBetweenDatesSimple(adapter.startTime, adapter.endTime);
         } else {
             adapter.endTimeFormatted = '-';
             adapter.duration = '-';

@@ -1,12 +1,13 @@
 import { PaginatedResource } from '@sentinel/common/pagination';
 import { TrainingInstance } from '@crczp/training-model';
 import { Column, DeleteAction, EditAction, Row, RowAction, SentinelTable } from '@sentinel/components/table';
-import { combineLatest, defer, of } from 'rxjs';
+import { combineLatest, defer, of, startWith } from 'rxjs';
 import { TrainingNavigator } from '@crczp/training-agenda';
 import { AdaptiveInstanceRowAdapter } from './adaptive-instance-row-adapter';
 import { AdaptiveInstanceOverviewService } from '../../services/state/adaptive-instance-overview.service';
 import { DateHelper } from '@crczp/training-agenda/internal';
 import { DatePipe } from '@angular/common';
+import { map } from 'rxjs/operators';
 
 /**
  * @dynamic
@@ -19,8 +20,8 @@ export class AdaptiveInstanceTable extends SentinelTable<AdaptiveInstanceRowAdap
     ) {
         const columns = [
             new Column('title', 'Title', true),
-            new Column('startTimeFormatted', 'Start Time', true, 'startTime'),
-            new Column('endTimeFormatted', 'End Time', true, 'endTime'),
+            new Column('startTime', 'Start Time', true, 'startTime'),
+            new Column('endTime', 'End Time', true, 'endTime'),
             new Column('expiresIn', 'Expires In', true, 'endTime'),
             new Column('tdTitle', 'Adaptive Definition', true, 'title'),
             new Column('lastEditBy', 'Last Edit By', false),
@@ -42,12 +43,7 @@ export class AdaptiveInstanceTable extends SentinelTable<AdaptiveInstanceRowAdap
         navigator: TrainingNavigator,
     ): Row<AdaptiveInstanceRowAdapter> {
         const adapter = ti as AdaptiveInstanceRowAdapter;
-        const datePipe = new DatePipe('en-EN');
         adapter.tdTitle = adapter.trainingDefinition.title;
-        adapter.startTimeFormatted = `${datePipe.transform(adapter.startTime)}`;
-        adapter.endTimeFormatted = `${datePipe.transform(adapter.endTime)}`;
-        adapter.expiresIn =
-            DateHelper.timeToDate(adapter.endTime).length !== 0 ? DateHelper.timeToDate(adapter.endTime) : 'expired';
         if (adapter.hasPool()) {
             adapter.poolTitle = `Pool ${adapter.poolId}`;
         } else if (adapter.localEnvironment) {
@@ -98,7 +94,10 @@ export class AdaptiveInstanceTable extends SentinelTable<AdaptiveInstanceRowAdap
                 'vpn_key',
                 'primary',
                 'Download management SSH configs',
-                of(!ti.hasPool()),
+                service.poolExists(ti.poolId).pipe(
+                    startWith(false),
+                    map((exists) => !exists),
+                ),
                 defer(() => service.getSshAccess(ti.poolId)),
             ),
             new RowAction(
@@ -127,15 +126,6 @@ export class AdaptiveInstanceTable extends SentinelTable<AdaptiveInstanceRowAdap
                 'Show progress of training runs',
                 of(!ti.hasStarted()),
                 defer(() => service.progress(ti.id)),
-            ),
-            new RowAction(
-                'results',
-                'Show Results',
-                'assessment',
-                'primary',
-                'Show results of training runs',
-                of(true), //of(!ti.hasStarted()),
-                defer(() => service.results(ti.id)),
             ),
         ];
     }

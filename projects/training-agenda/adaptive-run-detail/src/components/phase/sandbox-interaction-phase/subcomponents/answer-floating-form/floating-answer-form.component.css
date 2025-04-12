@@ -10,12 +10,11 @@
     max-width: 75%;
     min-width: max(25rem, 25%);
     position: fixed;
-    bottom: 1rem;
+    bottom: 0.5rem;
     z-index: 1000;
     overflow-x: hidden;
     resize: horizontal;
     transform: translateX(-50%);
-    background: var(--neutral-100);
 
     /* soften the appearance when unloading and loading level */
     opacity: 1;

@@ -28,6 +28,8 @@ export abstract class AdaptiveInstanceOverviewService extends OffsetPaginatedEle
      */
     abstract getPoolSize(poolId: number): Observable<string>;
 
+    abstract poolExists(poolId: number): Observable<boolean>;
+
     /**
      * Gets available sandboxes of pool specified by @poolId and returns an empty
      * string if pool does not exist.

@@ -13,7 +13,7 @@ export class AccessedTrainingRunTable extends SentinelTable<AccessedTrainingRunR
     constructor(resource: PaginatedResource<AccessedTrainingRun>, service: AccessedTrainingRunService) {
         const columns = [
             new Column('trainingInstanceTitle', 'title', false),
-            new Column('trainingInstanceFormattedDuration', 'Date', false),
+            new Column('trainingInstanceFormattedDuration', 'Time slot', false),
             new Column('completedLevels', 'Completed Levels', false),
         ];
 

@@ -2,15 +2,21 @@ import { Router } from '@angular/router';
 import { PoolApi, SandboxDefinitionApi } from '@crczp/sandbox-api';
 import { TrainingDefinitionApi, TrainingInstanceApi } from '@crczp/training-api';
 import { TrainingDefinitionInfo, TrainingInstance, TrainingTypeEnum } from '@crczp/training-model';
-import { from, Observable } from 'rxjs';
+import { combineLatest, from, Observable } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { TrainingInstanceChangeEvent } from '../../../model/events/training-instance-change-event';
-import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } from '@crczp/training-agenda';
+import {
+    TrainingAgendaConfig,
+    TrainingErrorHandler,
+    TrainingNavigator,
+    TrainingNotificationService,
+} from '@crczp/training-agenda';
 import { TrainingInstanceEditService } from './training-instance-edit.service';
 import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
 import { Pool, SandboxDefinition } from '@crczp/sandbox-model';
 import { SentinelFilter } from '@sentinel/common/filter';
 import { Injectable } from '@angular/core';
+import { LoadingTracker } from '@crczp/training-agenda/internal';
 
 /**
  * Basic implementation of layer between component and API service.
@@ -30,9 +36,16 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
         private errorHandler: TrainingErrorHandler,
         private notificationService: TrainingNotificationService,
         private trainingType: TrainingTypeEnum,
+        private config: TrainingAgendaConfig,
     ) {
         super();
     }
+
+    private loadingTracker = new LoadingTracker();
+
+    public saveDisabled$ = combineLatest(this.loadingTracker.isLoading$, this.saveDisabledSubject$.asObservable()).pipe(
+        map(([loading, invalid]) => loading || invalid),
+    );
 
     /**
      * Updated saveDisabled$ and saved snapshot of edited training instance
@@ -151,6 +164,10 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
         );
     }
 
+    isLocalEnvironmentAllowed(): boolean {
+        return !!this.config.localModeAllowed;
+    }
+
     private checkInstanceValidity(): void {
         this.saveDisabledSubject$.next(
             !this.instanceValidSubject$.value || (!this.editedSnapshot.localEnvironment && !this.editedSnapshot.poolId),
@@ -166,14 +183,16 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
             if (!this.editedSnapshot.startTime) this.editedSnapshot.startTime = new Date();
         }
         this.editedSnapshot.type = this.trainingType;
-        return this.trainingInstanceApi.create(this.editedSnapshot).pipe(
-            map((ti) => ti.id),
-            tap(
-                () => {
-                    this.notificationService.emit('success', 'Training instance was created');
-                    this.onSaved();
-                },
-                (err) => this.errorHandler.emit(err, 'Creating training instance'),
+        return this.loadingTracker.trackRequest(() =>
+            this.trainingInstanceApi.create(this.editedSnapshot).pipe(
+                map((ti) => ti.id),
+                tap(
+                    () => {
+                        this.notificationService.emit('success', 'Training instance was created');
+                        this.onSaved();
+                    },
+                    (err) => this.errorHandler.emit(err, 'Creating training instance'),
+                ),
             ),
         );
     }
@@ -185,20 +204,22 @@ export class TrainingInstanceEditConcreteService extends TrainingInstanceEditSer
         this.editedSnapshot.type = this.trainingType;
         const pagination = new OffsetPaginationEvent(0, 10, '', 'asc');
         this.saveDisabledSubject$.next(true);
-        return this.trainingInstanceApi.update(this.editedSnapshot).pipe(
-            switchMap(() => this.getAllTrainingDefinitions(pagination, 'RELEASED')),
-            switchMap(() => this.getAllTrainingDefinitions(pagination, 'UNRELEASED')),
-            switchMap(() => this.getAllPools(pagination)),
-            switchMap(() => this.getAllSandboxDefinitions(pagination)),
-            tap(
-                () => {
-                    this.notificationService.emit('success', 'Training instance was successfully saved');
-                    this.onSaved();
-                },
-                (err) => {
-                    this.saveDisabledSubject$.next(false);
-                    this.errorHandler.emit(err, 'Editing training instance');
-                },
+        return this.loadingTracker.trackRequest(() =>
+            this.trainingInstanceApi.update(this.editedSnapshot).pipe(
+                switchMap(() => this.getAllTrainingDefinitions(pagination, 'RELEASED')),
+                switchMap(() => this.getAllTrainingDefinitions(pagination, 'UNRELEASED')),
+                switchMap(() => this.getAllPools(pagination)),
+                switchMap(() => this.getAllSandboxDefinitions(pagination)),
+                tap(
+                    () => {
+                        this.notificationService.emit('success', 'Training instance was successfully saved');
+                        this.onSaved();
+                    },
+                    (err) => {
+                        this.saveDisabledSubject$.next(false);
+                        this.errorHandler.emit(err, 'Editing training instance');
+                    },
+                ),
             ),
         );
     }

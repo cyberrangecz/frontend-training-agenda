@@ -115,6 +115,13 @@ export class CommonTrainingInstanceOverviewConcreteService extends TrainingInsta
         );
     }
 
+    poolExists(poolId: number): Observable<boolean> {
+        return this.poolApi.getPool(poolId).pipe(
+            map(() => true),
+            catchError(() => of(false)),
+        );
+    }
+
     /**
      * Gets available sandboxes of pool specified by @poolId and returns an empty
      * string if pool does not exist.

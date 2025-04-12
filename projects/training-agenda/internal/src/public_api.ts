@@ -26,4 +26,11 @@ export * from './components/mat-card-notch-title/mat-card-notch-title.component'
 export * from './components/selectable-list/selectable-list.component';
 export * from './components/selectable-list/interval-sorted-selection-list';
 
+export * from './table-date-cell/table-date-cell-sync.service';
+export * from './table-date-cell/table-date-cell.component';
+
+export * from './table-state-cell/table-state-cell.component';
+
+export * from './utils/loading-tracker';
+
 export * from './utils/date-helper';

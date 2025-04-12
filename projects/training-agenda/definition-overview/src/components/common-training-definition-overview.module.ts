@@ -16,6 +16,8 @@ import { TrainingDefinitionUploadDialogComponent } from './upload-dialog/trainin
 import { TrainingDefinitionBreadcrumbResolver } from '@crczp/training-agenda/resolvers';
 import { TrainingDefinitionConcreteService } from '../services/state/training-definition-concrete.service';
 import { TrainingTypeEnum } from '@crczp/training-model';
+import { TableDateCellComponent } from '@crczp/training-agenda/internal';
+import { TableStateCellComponent } from '@crczp/training-agenda/internal';
 
 /**
  * Module containing components and providers for training definition overview.
@@ -30,6 +32,8 @@ import { TrainingTypeEnum } from '@crczp/training-model';
         SentinelTableModule,
         SentinelControlsComponent,
         SentinelPipesModule,
+        TableDateCellComponent,
+        TableStateCellComponent,
     ],
     declarations: [
         TrainingDefinitionOverviewComponent,

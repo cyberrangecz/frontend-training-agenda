@@ -64,7 +64,7 @@ export abstract class TrainingInstanceEditService {
     /**
      * True if it is possible to save edited training instance in its current state, false otherwise
      */
-    saveDisabled$: Observable<boolean> = this.saveDisabledSubject$.asObservable();
+    abstract saveDisabled$: Observable<boolean>;
 
     protected constructor() {
         this.hasStarted$ = timer(1).pipe(
@@ -112,6 +112,12 @@ export abstract class TrainingInstanceEditService {
     abstract getAllSandboxDefinitions(
         OffsetPaginationEvent: OffsetPaginationEvent,
     ): Observable<PaginatedResource<SandboxDefinition>>;
+
+    /**
+     * Check whether to give the user the option to
+     * create local environment training instance
+     */
+    abstract isLocalEnvironmentAllowed(): boolean;
 
     protected initTrainingDefinitions(pageSize: number): PaginatedResource<TrainingDefinitionInfo> {
         return new PaginatedResource([], new OffsetPagination(0, 0, pageSize, 0, 0));
