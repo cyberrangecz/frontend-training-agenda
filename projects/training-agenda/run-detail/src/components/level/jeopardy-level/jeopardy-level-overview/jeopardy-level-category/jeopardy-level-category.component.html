@@ -1,0 +1,41 @@
+<mat-card
+  appearance="outlined"
+  class="category-card"
+  [style.border-color]="!!color? color.toRgba() : undefined"
+  [style.box-shadow]="!!color? 'inset 0 0 4px ' + color.toRgba() : undefined"
+>
+  <mat-card-header>
+    <app-mat-card-notch-title
+      class="category-title"
+      [childStyle]="!!color ? {
+      'background-color': color.toRgba(),
+      'color': color.isDark() ? 'white' : 'black'
+      } : undefined"
+    >
+      {{title}}
+    </app-mat-card-notch-title>
+  </mat-card-header>
+  <mat-card-content
+    class="category-content"
+  >
+    @if (levelData.length === 0) {
+      <p>No tasks available for this category</p>
+    } @else {
+      <div class="sublevel-list">
+        @for (sublevel of levelData; track getLevelDataId(sublevel)) {
+          <ng-container *ngTemplateOutlet="sublevelTemplate; context: { $implicit: sublevel }"/>
+        }
+      </div>
+    }
+  </mat-card-content>
+</mat-card>
+
+
+<ng-template #sublevelTemplate let-data>
+  <app-jeopardy-level-sublevel
+    #sublevel
+    class="sublevel"
+    [levelData]="data"
+    [color]="color"
+  />
+</ng-template>

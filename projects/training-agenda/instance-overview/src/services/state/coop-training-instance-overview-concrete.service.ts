@@ -7,7 +7,7 @@ import { CoopTrainingNavigator, TrainingErrorHandler, TrainingNotificationServic
 import { TrainingAgendaContext } from '@crczp/training-agenda/internal';
 import { TrainingInstanceOverviewService } from './training-instance-overview.service';
 import { MatDialog } from '@angular/material/dialog';
-import { TrainingInstance, TrainingTypeEnum } from '@crczp/training-model';
+import { TrainingInstance } from '@crczp/training-model';
 import { CommonTrainingInstanceOverviewConcreteService } from './common-training-instance-overview-concrete.service';
 import { take } from 'rxjs/operators';
 
@@ -41,17 +41,7 @@ export class CoopTrainingInstanceOverviewConcreteService
         notificationService: TrainingNotificationService,
         errorHandler: TrainingErrorHandler,
     ) {
-        super(
-            trainingInstanceApi,
-            dialog,
-            poolApi,
-            router,
-            navigator,
-            context,
-            notificationService,
-            errorHandler,
-            TrainingTypeEnum.COOP,
-        );
+        super(trainingInstanceApi, dialog, poolApi, router, navigator, context, notificationService, errorHandler);
         this.resource$.subscribe((instances) => {
             instances.elements.forEach((element) => {
                 if (this.playersWaitingSubject.value[element.id] === undefined) {

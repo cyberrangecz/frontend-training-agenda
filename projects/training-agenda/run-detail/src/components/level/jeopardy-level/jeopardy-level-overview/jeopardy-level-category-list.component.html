@@ -1,0 +1,15 @@
+<div class="category-list">
+  @for (category of jeopardyLevel.categories; track category.name){
+    <ng-container *ngTemplateOutlet="categoryTemplate; context: { $implicit: category }"/>
+  }
+</div>
+
+<ng-template #categoryTemplate let-category>
+  <app-jeopardy-level-category
+    class="category-card"
+    [title]="category.name"
+    [color]="category.color"
+    [levelData]="getLevelData(category)"
+    />
+</ng-template>
+

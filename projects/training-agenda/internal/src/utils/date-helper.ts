@@ -12,6 +12,9 @@ export class DateHelper {
 
     static formatDurationSimple(endTime: Date): string {
         const now = new Date();
+        if (endTime.getTime() < now.getTime()) {
+            return '';
+        }
         return this.timeBetweenDatesCalculator(now, endTime);
     }
 
@@ -41,15 +44,19 @@ export class DateHelper {
      *
      * @param estimatedDurationSec duration in seconds
      * @return duration in format 'xx m xx d xx min xx s', omitting any zero values
-     * if total duration is zero, N/A is returned
+     * if total duration is zero or less, '' is returned
      */
     static formatDurationFull(estimatedDurationSec: number): string {
+        if (estimatedDurationSec <= 0) {
+            return '';
+        }
         const momentTime = moment.duration(estimatedDurationSec, 'seconds');
         const months = momentTime.months() > 0 ? momentTime.months() + ' m ' : '';
         const days = momentTime.days() > 0 ? momentTime.days() + ' d ' : '';
         const hours = momentTime.hours() > 0 ? momentTime.hours() + ' h ' : '';
-        const minutes = momentTime.minutes() > 0 ? momentTime.minutes() + ' min' : '';
-        const total = months + days + hours + minutes;
-        return total.length === 0 ? 'N/A' : total.trim();
+        const minutes = momentTime.minutes() > 0 ? momentTime.minutes() + ' min ' : '';
+        const seconds = momentTime.seconds() > 0 ? momentTime.seconds() + ' s ' : '';
+        const total = months + days + hours + minutes + seconds;
+        return total.trim();
     }
 }

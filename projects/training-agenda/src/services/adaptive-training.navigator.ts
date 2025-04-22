@@ -1,4 +1,4 @@
-import { CommonTrainingNavigator } from './training-default-navigator.service';
+import { CommonTrainingNavigator } from './common-training-navigator.service';
 import { Injectable } from '@angular/core';
 import {
     ADAPTIVE_DEFINITION_PATH,

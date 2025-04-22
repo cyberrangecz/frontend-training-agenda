@@ -12,7 +12,7 @@ import {
 } from '@crczp/training-agenda';
 import { RunningTrainingRunService } from '@crczp/training-agenda/run-detail';
 import { MatDialog } from '@angular/material/dialog';
-import { SentinelConfirmationDialogComponent, SentinelConfirmationDialogConfig } from '@sentinel/components/dialogs';
+import { LobbyWaitingDialogComponent } from './lobby-waiting-dialog/lobby-waiting-dialog.component';
 
 /**
  * Router data provider
@@ -68,15 +68,10 @@ export class AccessTrainingRunResolver {
             catchError((err) => {
                 if (err && err.status === 425) {
                     this.navigateToOverview();
-                    const dialogRef = this.dialog.open(SentinelConfirmationDialogComponent, {
-                        data: new SentinelConfirmationDialogConfig(
-                            'Reveal Hint',
-                            `Do you want to reveal hint "${hint.title}"?
- It will cost you ${hint.penalty} points.`,
-                            'Cancel',
-                            'Reveal',
-                        ),
+                    this.dialog.open(LobbyWaitingDialogComponent, {
+                        data: token,
                     });
+                    return EMPTY;
                 }
                 this.errorHandler.emit(err, 'Accessing training run');
                 return this.navigateToOverview();

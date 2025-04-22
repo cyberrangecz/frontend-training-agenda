@@ -9,8 +9,8 @@ import {
     MatCardNotchTitleComponent,
     PlayerViewComponent,
     SelectableListComponent,
+    TeamOverviewComponent,
 } from '@crczp/training-agenda/internal';
-import { TeamOverviewComponent } from './team-overview/team-overview.component';
 import { TeamsManagementMaterialModule } from './teams-management-material.module';
 import { TeamManagementConcreteService } from '../services/team-management-concrete-service';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -28,8 +28,9 @@ import { ReactiveFormsModule } from '@angular/forms';
         TeamsManagementMaterialModule,
         ReactiveFormsModule,
         MatCardNotchTitleComponent,
+        TeamOverviewComponent,
     ],
-    declarations: [TeamsManagementComponent, TeamOverviewComponent],
+    declarations: [TeamsManagementComponent],
     providers: [{ provide: TeamManagementService, useClass: TeamManagementConcreteService }],
 })
 export class TeamsManagementComponentsModule {

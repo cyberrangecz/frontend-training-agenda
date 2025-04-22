@@ -1,0 +1,98 @@
+.sublever-wrapper{
+  position: relative;
+}
+
+.sublevel-card{
+  width: 100%;
+  overflow: visible;
+  height: 6.25rem;
+}
+
+.sublevel-title {
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.hide-overflow{
+  overflow: hidden;
+}
+
+.sublevel-card--completed {
+  background: var(--neutral-90);
+  box-shadow: none;
+}
+
+.sublevel-overlay{
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: visible;
+  z-index: 1;
+}
+
+.sublevel-card--overlay {
+  height: 100%;
+}
+
+.card-title{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.completed-title {
+  text-decoration: line-through;
+}
+
+.card-content{
+  transition: all 0.25s;
+}
+
+.card-content--overlay {
+  height: 100%;
+}
+
+.hover-details{
+  position: relative;
+  animation: grow 0.2s;
+  background: #faf8fd;
+  height: 100%;
+}
+
+@keyframes grow {
+  0% {
+    transform: scaleY(0.5);
+    height: 0;
+    translate: 0 -50%;
+  }
+  100% {
+    translate: 0;
+    transform: scaleY(1);
+    height: 100%;
+  }
+}
+
+.play-button{
+  position: absolute;
+  bottom: -1rem;
+  right: 0;
+  border-radius: 50%;
+  animation: fade-in 0.5s;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.completed-check{
+  color: var(--primary-50);
+  font-size: 1.5rem;
+}

@@ -15,6 +15,7 @@ import { MatTooltip } from '@angular/material/tooltip';
 import { AsyncPipe } from '@angular/common';
 import { CoopTrainingInstanceOverviewComponent } from './coop-training-instance-overview/coop-training-instance-overview.component';
 import { TrainingInstanceOverviewService } from '../services/state/training-instance-overview.service';
+import { TrainingTypeEnum } from '@crczp/training-model';
 
 /**
  * Main module of training instance agenda. Contains components and providers for displaying table of training instance
@@ -35,7 +36,13 @@ export class CoopTrainingInstanceOverviewComponentsModule {
     static forRoot(config: TrainingAgendaConfig): ModuleWithProviders<CoopTrainingInstanceOverviewComponentsModule> {
         return {
             ngModule: CoopTrainingInstanceOverviewComponentsModule,
-            providers: [{ provide: TrainingAgendaConfig, useValue: config }],
+            providers: [
+                { provide: TrainingAgendaConfig, useValue: config },
+                {
+                    provide: CommonTrainingInstanceOverviewComponentsModule.TRAINING_TYPE_TOKEN,
+                    useValue: TrainingTypeEnum.COOP,
+                },
+            ],
         };
     }
 }

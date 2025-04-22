@@ -1,0 +1,29 @@
+.dialog-header {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+.dialog-content {
+    width: 35rem !important;
+    max-width: 720px;
+    max-height: 50dvh;
+    overflow: visible;
+}
+
+.team-timer {
+    width: 100%;
+    text-align: center;
+}
+
+.time-font {
+    font-size: 1.2rem;
+    font-family: "Lekton", monospace;
+}
+
+@media (max-width: 720px) {
+    .dialog-content {
+        width: 90vw;
+    }
+}

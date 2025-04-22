@@ -6,7 +6,7 @@
         [data]="table | async"
         [hasError]="hasError$ | async"
         [titlecasedActions]="false"
-        [displayedActionsCount]="9"
+        [displayedActionsCount]="3"
         (rowAction)="onInstanceAction($event)"
         (tableLoad)="onInstancesLoadEvent($event)">
         <ng-container *sentinelRow="'startTime'; template: startTime"/>

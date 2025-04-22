@@ -1,15 +1,4 @@
-import {
-    Component,
-    DestroyRef,
-    EventEmitter,
-    inject,
-    Input,
-    OnChanges,
-    OnInit,
-    Output,
-    SimpleChanges,
-    TemplateRef,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, TemplateRef } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { GridListComponent } from '../grid-list/grid-list.component';
 import { IntervalSortedSelectionList, SelectionInterval } from './interval-sorted-selection-list';

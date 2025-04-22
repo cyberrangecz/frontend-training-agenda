@@ -10,17 +10,38 @@ import {
     SimpleChanges,
     TemplateRef,
 } from '@angular/core';
-import { MatCardAppearance } from '@angular/material/card';
+import { MatCardAppearance, MatCardModule } from '@angular/material/card';
 import { Team } from '@crczp/training-model';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { Subject, takeUntil, timer } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { FormControl } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { CommonModule } from '@angular/common';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatCardNotchTitleComponent } from '../mat-card-notch-title/mat-card-notch-title.component';
+import { PlayerViewComponent } from '../player-view/player-view.component';
+import { GridListComponent } from '../grid-list/grid-list.component';
 
 @Component({
+    standalone: true,
     selector: 'crczp-team-overview-component',
     templateUrl: './team-overview.component.html',
     styleUrl: './team-overview.component.scss',
+    imports: [
+        CommonModule,
+        MatButtonModule,
+        ReactiveFormsModule,
+        MatCardNotchTitleComponent,
+        MatCardModule,
+        MatTooltipModule,
+        MatIconModule,
+        PlayerViewComponent,
+        GridListComponent,
+        MatInputModule,
+    ],
 })
 export class TeamOverviewComponent<T> implements OnChanges {
     @Input({ required: true }) team: Team;

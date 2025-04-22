@@ -1,4 +1,4 @@
-import { CommonTrainingNavigator } from './training-default-navigator.service';
+import { CommonTrainingNavigator } from './common-training-navigator.service';
 import { Injectable } from '@angular/core';
 import { LINEAR_DEFINITION_PATH, LINEAR_INSTANCE_PATH, LINEAR_RUN_PATH } from '../model/default-paths';
 
