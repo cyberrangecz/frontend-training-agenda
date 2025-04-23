@@ -11,4 +11,6 @@ export abstract class MitreTechniquesService {
     mitreTechniques$ = this.mitreTechniquesSubject$.asObservable();
 
     abstract getAll(): Observable<any>;
+
+    abstract emitDeferredErrors(): void;
 }
