@@ -15,12 +15,19 @@ export class MitreTechniquesConcreteService extends MitreTechniquesService {
         super();
     }
 
+    private deferredErrors = [];
+
     getAll(): Observable<MitreTechnique[]> {
         return this.api.getMitreTechniquesList().pipe(
             tap(
                 (res) => this.mitreTechniquesSubject$.next(res),
-                (err) => this.errorHandler.emit(err, 'Loading MITRE techniques list'),
+                (err) => this.deferredErrors.push(err),
             ),
         );
+    }
+
+    emitDeferredErrors(): void {
+        this.deferredErrors.forEach((err) => this.errorHandler.emit(err, 'Loading MITRE techniques list'));
+        this.deferredErrors = [];
     }
 }

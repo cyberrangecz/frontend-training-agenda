@@ -4,6 +4,7 @@ import { COMMA, ENTER, SEMICOLON } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { UntypedFormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MitreTechniquesService } from '../../../../../services/state/mitre-techniques/mitre-techniques.service';
 
 @Component({
     selector: 'crczp-mitre-technique-select',
@@ -17,6 +18,8 @@ export class MitreTechniqueSelectComponent implements OnChanges {
     @Output() mitreTechniquesChange: EventEmitter<MitreTechnique[]> = new EventEmitter();
 
     @ViewChild('techniqueInput') techniqueInput: ElementRef<HTMLInputElement>;
+
+    constructor(private mitreTechniquesService: MitreTechniquesService) {}
 
     chipListCtrl = new UntypedFormControl();
     filteredTechniquesList: MitreTechnique[];
@@ -93,5 +96,9 @@ export class MitreTechniqueSelectComponent implements OnChanges {
             const techniqueString = `${technique.techniqueKey} - ${technique.techniqueName}`;
             return techniqueString.toLowerCase().includes(filterValue);
         });
+    }
+
+    emitDeferredErrors() {
+        this.mitreTechniquesService.emitDeferredErrors();
     }
 }
