@@ -152,6 +152,7 @@
                             class="teams-card__secondary-button"
                             matTooltip='Balance teams [B]'
                             matTooltipPosition="before"
+                            [disabled]="preparedTeamsCountSubject.value === 0"
                             (click)="balanceTeams()"
                         >
                             <i class="material-icons">shuffle</i>
@@ -161,9 +162,13 @@
                             class="teams-card__secondary-button teams-card__secondary-button--lock"
                             [matTooltip]="'Lock all teams [shift+L]'"
                             matTooltipPosition="before"
-                            (click)="lockAllTeams()"
+                            [disabled]="preparedTeamsCountSubject.value === 0"
+                            (mouseleave)="confirmingLockAll.set(false)"
+                            (click)="confirmingLockAll() ? lockAllTeams() : confirmingLockAll.set(true)"
                         >
-                            <i class="material-icons">lock</i>
+                            <i class="material-icons">
+                               {{confirmingLockAll() ? 'check' : 'lock'}}
+                            </i>
                         </button>
                     </div>
                 }

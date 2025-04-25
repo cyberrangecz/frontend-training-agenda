@@ -16,10 +16,13 @@ import {
 } from '@sentinel/components/dialogs';
 import { MatDialog } from '@angular/material/dialog';
 import { SentinelFilter } from '@sentinel/common/filter';
+import { inject } from '@angular/core';
+import { CommonTrainingInstanceOverviewComponentsModule } from '../../components/common-training-instance-overview-components.module';
 
 export class CommonTrainingInstanceOverviewConcreteService extends TrainingInstanceOverviewService {
     private lastPagination: OffsetPaginationEvent;
     private lastFilter: string;
+    private trainingType: TrainingTypeEnum;
 
     protected constructor(
         protected trainingInstanceApi: TrainingInstanceApi,
@@ -30,9 +33,9 @@ export class CommonTrainingInstanceOverviewConcreteService extends TrainingInsta
         context: TrainingAgendaContext,
         protected notificationService: TrainingNotificationService,
         protected errorHandler: TrainingErrorHandler,
-        protected trainingType: TrainingTypeEnum,
     ) {
         super(context.config.defaultPaginationSize);
+        this.trainingType = inject(CommonTrainingInstanceOverviewComponentsModule.TRAINING_TYPE_TOKEN);
     }
 
     getAll(pagination: OffsetPaginationEvent, filter: string = null): Observable<PaginatedResource<TrainingInstance>> {

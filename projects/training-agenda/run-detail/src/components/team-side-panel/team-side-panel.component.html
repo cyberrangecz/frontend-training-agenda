@@ -1,0 +1,53 @@
+<div class="team-wrapper">
+  @if(!expanded){
+    <button
+      mat-fab
+      class="handle"
+      matTooltip="Show team"
+      (click)="expanded = !expanded"
+    >
+      <mat-icon>group</mat-icon>
+    </button>
+  }
+  @if (expanded){
+    <div class="team-title"
+      (click)="expanded = !expanded"
+    >
+      <mat-icon class="handle-icon">group</mat-icon>
+      <h4 class="team-name">{{team.name}}</h4>
+    </div>
+    <div class="team">
+      <div class="team-list-wrapper">
+        <app-grid-list
+          class="team-list round-scrollbar"
+          [items]="memberData"
+          [gridGap]="'1rem'"
+          [trackBy]="getId"
+          [template]="teamTemplate"
+        />
+      </div>
+      <button mat-flat-button>
+        Open mattermost
+        <i class="material-icons">open_in_new</i>
+      </button>
+    </div>
+  }
+</div>
+
+<ng-template #teamTemplate let-member>
+  <mat-card class="team-member">
+      <img src='../../../assets/avatar.svg' alt="avatar" class="avatar">
+      <div class="member-info">
+        <span class="member-name">{{ member.user.name }}</span>
+        <div class="level-info">
+          @if (member.level) {
+            <i class="material-icons">{{member.level.icon}}</i>
+            <span class="member-level">{{ member.level.title }}</span>
+          } @else {
+            <i class="material-icons">cloud_off</i>
+            <span class="member-level">Not in a level</span>
+          }
+        </div>
+      </div>
+  </mat-card>
+</ng-template>

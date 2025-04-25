@@ -1,0 +1,51 @@
+<div
+  (mouseenter)="hovered = true"
+  (mouseleave)="hovered = false"
+  class="sublever-wrapper"
+>
+  <mat-card
+    class="sublevel-card {{completed ? 'sublevel-card--completed' : ''}} hide-overflow"
+  >
+    <mat-card-header>
+      <mat-card-title class="card-title">
+        <span class="{{completed ? 'completed-title' : '' }}">{{levelData.maxPoints}} pts</span>
+        @if (completed) {<i class="material-icons completed-check">check</i>}
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="card-content">
+      <p class="sublevel-title">{{levelData.title}}</p>
+    </mat-card-content>
+  </mat-card>
+  @if(hovered) {
+    <div class="sublevel-overlay">
+      <mat-card
+        class="sublevel-card sublevel-card--overlay"
+        [style.box-shadow]=" completed ? '' : '0 4px 4px '+ color.ligter(0.3).toRgba()"
+      >
+        <mat-card-header>
+          <mat-card-title class="card-title">
+            <span class="{{completed ? 'completed-title' : '' }}">{{levelData.maxPoints}} pts</span>
+            @if (completed) {<i class="material-icons completed-check">check</i>}
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="card-content card-content--overlay">
+          {{levelData.title}}
+          <div class="hover-details">
+            <p>{{levelData.description}}</p>
+            <p>Max points: {{levelData.maxPoints}}</p>
+            @if (!completed){
+              <button
+                mat-mini-fab
+                class="play-button"
+                color="primary"
+                (click)="completed = true"
+              >
+                <i class="material-icons">play_arrow</i>
+              </button>
+            }
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  }
+</div>

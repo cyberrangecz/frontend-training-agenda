@@ -1,9 +1,72 @@
-<h1 mat-dialog-title>Starting in: {{(timeToStart$ | async)}}</h1>
-<div mat-dialog-content>
-    <p>(timeToStart</p>
+<div mat-dialog-title class="dialog-header">
+    @if (!!teamSignal()) {
+        Waiting for start
+    } @else {
+        Waiting for team
+    }
+</div>
+
+<div mat-dialog-content class="dialog-content">
+    @if (!!timeToStartSignal()) {
+        @if (timeToStartSignal() !== 'started') {
+            <h4 class="team-timer m-0-5rem-b">Training instance starts in:</h4>
+            <h3 class="team-timer time-font m-0-5rem-t">{{ timeToStartSignal() }}</h3>
+        } @else {
+            <h3 class="team-timer">The training instance has already started</h3>
+        }
+    }
+    @if(!!teamSignal()){
+        <ng-container *ngTemplateOutlet="teamView"></ng-container>
+    } @else {
+        <ng-container *ngTemplateOutlet="waitingForTeamView"></ng-container>
+    }
 </div>
 <div mat-dialog-actions>
-    <button mat-button color="warn" (click)="closeDialog()">
+    <button mat-button
+            color="warn"
+            matTooltip="Closing the waiting screen will not remove you from the training run.
+            You can return anytime using the access token."
+            (click)="closeDialog()">
         Close
     </button>
 </div>
+
+<ng-template #waitingForTeamView>
+    <div class="vflex center">
+        <crczp-logo-spinner/>
+        <p class="m-1rem-b">
+            Please wait to be assigned to a team
+        </p>
+        @if (!!playersWaitingSignal()) {
+            <p class="hflex ai-c g-0-5rem">
+                <mat-icon>people</mat-icon>
+                {{ playersWaitingSignal() === 1 ? '1 user' : playersWaitingSignal() + ' users' }} in queue
+            </p>
+        }
+    </div>
+</ng-template>
+
+<ng-template #teamView>
+    <crczp-team-overview-component
+        [editMode]="false"
+        [team]="teamSignal()"
+        [template]="teamContentTemplate" />
+</ng-template>
+
+
+<ng-template #playerTemplate let-player>
+    <crczp-player-view
+        [player]="player">
+    </crczp-player-view>
+</ng-template>
+
+
+<ng-template #teamContentTemplate let-team>
+    <crczp-grid-list
+        [items]="team.members"
+        [template]="playerTemplate"
+        [trackBy]="getId"
+        [gridTemplate]="'minmax(2rem, auto) / repeat(auto-fill, minmax(11rem, 1fr))'"
+    />
+</ng-template>
+

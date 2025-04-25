@@ -4,6 +4,7 @@ import { LinearTrainingInstanceOverviewConcreteService } from '../services/state
 import { TrainingInstanceOverviewService } from '../services/state/training-instance-overview.service';
 import { LinearTrainingInstanceOverviewComponent } from './linear-training-instance-overview/linear-training-instance-overview.component';
 import { CommonTrainingInstanceOverviewComponentsModule } from './common-training-instance-overview-components.module';
+import { TrainingTypeEnum } from '@crczp/training-model';
 
 /**
  * Main module of training instance agenda. Contains components and providers for displaying table of training instance
@@ -22,7 +23,13 @@ export class LinearTrainingInstanceOverviewComponentsModule {
     static forRoot(config: TrainingAgendaConfig): ModuleWithProviders<LinearTrainingInstanceOverviewComponentsModule> {
         return {
             ngModule: LinearTrainingInstanceOverviewComponentsModule,
-            providers: [{ provide: TrainingAgendaConfig, useValue: config }],
+            providers: [
+                { provide: TrainingAgendaConfig, useValue: config },
+                {
+                    provide: CommonTrainingInstanceOverviewComponentsModule.TRAINING_TYPE_TOKEN,
+                    useValue: TrainingTypeEnum.LINEAR,
+                },
+            ],
         };
     }
 }

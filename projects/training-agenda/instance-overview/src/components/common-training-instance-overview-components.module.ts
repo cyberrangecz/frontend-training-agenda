@@ -3,11 +3,12 @@ import { InjectionToken, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SentinelControlsComponent } from '@sentinel/components/controls';
 import { SentinelTableModule } from '@sentinel/components/table';
-import { PaginationService, TrainingAgendaContext } from '@crczp/training-agenda/internal';
+import { PaginationService, TableDateCellComponent, TrainingAgendaContext } from '@crczp/training-agenda/internal';
 import { TrainingInstanceBreadcrumbResolver } from '@crczp/training-agenda/resolvers';
 import { TrainingInstanceOverviewComponent } from './training-instance-overview.component';
 import { TrainingInstanceOverviewMaterialModule } from './training-instance-overview-material.module';
 import { TrainingTypeEnum } from '@crczp/training-model';
+import { InstanceCountdownComponent } from './instance-countdown/instance-countdown.component';
 
 /**
  * Main module of training instance agenda. Contains components and providers for displaying table of training instance
@@ -21,8 +22,9 @@ import { TrainingTypeEnum } from '@crczp/training-model';
         SentinelTableModule,
         SentinelControlsComponent,
         TrainingInstanceOverviewMaterialModule,
+        TableDateCellComponent,
     ],
-    declarations: [TrainingInstanceOverviewComponent],
+    declarations: [TrainingInstanceOverviewComponent, InstanceCountdownComponent],
     providers: [PaginationService, TrainingAgendaContext, TrainingInstanceBreadcrumbResolver],
     exports: [TrainingInstanceOverviewComponent],
 })

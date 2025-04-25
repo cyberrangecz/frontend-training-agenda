@@ -1,5 +1,5 @@
 import { TrainingNavigator } from './training-navigator.service';
-import { CommonTrainingNavigator } from './training-default-navigator.service';
+import { CommonTrainingNavigator } from './common-training-navigator.service';
 import { Injectable } from '@angular/core';
 import {
     COOP_DEFINITION_PATH,

@@ -8,7 +8,6 @@ import { TrainingDefinitionChangeEvent } from '../../../model/events/training-de
 import { TrainingErrorHandler, TrainingNavigator, TrainingNotificationService } from '@crczp/training-agenda';
 import { TrainingDefinitionEditService } from './training-definition-edit.service';
 import { LevelEditService } from '../level/level-edit.service';
-import { LoadingTracker } from '@crczp/training-agenda/internal';
 import { CommonTrainingDefinitionEditOverviewComponentsModule } from '../../../components/common-training-definition-edit-overview-components.module';
 import { LoadingTracker } from '@crczp/training-agenda/internal';
 

@@ -114,34 +114,51 @@ export class TeamsManagementComponent implements OnInit {
         );
     }
 
+    private isOutsideInput($event: KeyboardEvent) {
+        const target = event.target as HTMLElement;
+        return target.tagName !== 'INPUT' && target.tagName !== 'TEXTAREA' && !target.isContentEditable;
+    }
+
     @HostListener('document:keydown.a', ['$event'])
     onAKey($event: KeyboardEvent) {
-        this.queueSelection.setSelectedQueueUsers(this.filteredPlayersSubject.value);
+        if (this.isOutsideInput($event)) {
+            this.queueSelection.setSelectedQueueUsers(this.filteredPlayersSubject.value);
+        }
     }
 
     @HostListener('document:keydown.shift.a', ['$event'])
     onShiftAKey($event: KeyboardEvent) {
-        this.queueSelection.deselectAllQueueUsers();
+        if (this.isOutsideInput($event)) {
+            this.queueSelection.deselectAllQueueUsers();
+        }
     }
 
     @HostListener('document:keydown.l', ['$event'])
     onLKKey($event: KeyboardEvent) {
-        this.showLockedTeams.set(!this.showLockedTeams());
+        if (this.isOutsideInput($event)) {
+            this.showLockedTeams.set(!this.showLockedTeams());
+        }
     }
 
     @HostListener('document:keydown.shift.l', ['$event'])
     onShiftLKKey($event: KeyboardEvent) {
-        this.lockAllTeams();
+        if (this.isOutsideInput($event)) {
+            this.lockAllTeams();
+        }
     }
 
     @HostListener('document:keydown.b', ['$event'])
     onBKey($event: KeyboardEvent) {
-        this.balanceTeams();
+        if (this.isOutsideInput($event)) {
+            this.balanceTeams();
+        }
     }
 
     @HostListener('document:keydown.n', ['$event'])
     onNKey($event: KeyboardEvent) {
-        this.createNewTeam();
+        if (this.isOutsideInput($event)) {
+            this.createNewTeam();
+        }
     }
 
     autoAssignAll() {
@@ -235,6 +252,7 @@ export class TeamsManagementComponent implements OnInit {
     }
 
     teamNameErrors = signal<Map<number, string>>(new Map());
+    confirmingLockAll = signal<boolean>(false);
 
     renameTeam(id: number, newName: string) {
         newName = newName.trim();

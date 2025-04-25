@@ -20,16 +20,6 @@ export class LinearTrainingInstanceOverviewConcreteService extends CommonTrainin
         notificationService: TrainingNotificationService,
         errorHandler: TrainingErrorHandler,
     ) {
-        super(
-            trainingInstanceApi,
-            dialog,
-            poolApi,
-            router,
-            navigator,
-            context,
-            notificationService,
-            errorHandler,
-            TrainingTypeEnum.LINEAR,
-        );
+        super(trainingInstanceApi, dialog, poolApi, router, navigator, context, notificationService, errorHandler);
     }
 }

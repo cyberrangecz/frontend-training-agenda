@@ -1,0 +1,39 @@
+<div class=center-content>
+  <div class="level-content {{isStepperDisplayed ?
+        'content-height-with-stepper' :
+        'content-height-without-stepper'}}">
+
+    <!-- LEFT PANEL -->
+    <mat-card
+      class="panel panel--left"
+      appearance="outlined">
+      <app-mat-card-notch-title>
+        Leaderboard
+      </app-mat-card-notch-title>
+      <div class="list-scroll round-scrollbar">
+        <app-teams-scoreboard/>
+      </div>
+    </mat-card>
+
+    <!-- RIGHT PANEL -->
+    <mat-card
+      class="panel panel--right"
+      appearance="outlined">
+      <app-mat-card-notch-title class="header-title">
+        Jeopardy levels
+      </app-mat-card-notch-title>
+      <div class="list-scroll list-scroll--right round-scrollbar">
+        <app-jeopardy-level-category-list
+          class="jeopardy-category-list"
+          [jeopardyLevel]="level"
+        />
+      </div>
+    </mat-card>
+
+    <button
+      class="next-button"
+      mat-raised-button>
+        Finish jeopardy
+    </button>
+  </div>
+</div>
