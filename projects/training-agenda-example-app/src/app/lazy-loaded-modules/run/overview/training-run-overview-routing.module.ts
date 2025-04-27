@@ -7,13 +7,15 @@ import {
     ADAPTIVE_RUN_PATH,
     ADAPTIVE_RUN_RESULTS_PATH,
     ADAPTIVE_RUN_SELECTOR,
+    COOP_TRAINING_RUN_ACCESS_PATH,
+    COOP_TRAINING_RUN_RESUME_PATH,
+    LINEAR_TRAINING_RUN_ACCESS_PATH,
+    LINEAR_TRAINING_RUN_RESUME_PATH,
     MITRE_TECHNIQUES_PATH,
     TRAINING_RUN_ACCESS_INFO_DATA_ATTRIBUTE_NAME,
-    TRAINING_RUN_ACCESS_PATH,
     TRAINING_RUN_ACCESS_SELECTOR,
     TRAINING_RUN_DATA_ATTRIBUTE_NAME,
     TRAINING_RUN_RESULTS_PATH,
-    TRAINING_RUN_RESUME_PATH,
     TRAINING_RUN_SELECTOR,
 } from '@crczp/training-agenda';
 import {
@@ -29,7 +31,7 @@ const routes: Routes = [
         component: TrainingRunOverviewComponent,
     },
     {
-        path: `${ADAPTIVE_RUN_PATH}/${TRAINING_RUN_ACCESS_PATH}/:${TRAINING_RUN_ACCESS_SELECTOR}`,
+        path: `${ADAPTIVE_RUN_PATH}/${LINEAR_TRAINING_RUN_ACCESS_PATH}/:${TRAINING_RUN_ACCESS_SELECTOR}`,
         loadChildren: () =>
             import('./detail/adaptive/adaptive-run-detail.module').then((m) => m.AdaptiveRunDetailModule),
         data: {
@@ -39,7 +41,7 @@ const routes: Routes = [
         resolve: { [ADAPTIVE_RUN_ACCESS_INFO_DATA_ATTRIBUTE_NAME]: AccessAdaptiveRunResolver },
     },
     {
-        path: `${ADAPTIVE_RUN_PATH}/${TRAINING_RUN_RESUME_PATH}/:${TRAINING_RUN_SELECTOR}`,
+        path: `${ADAPTIVE_RUN_PATH}/${LINEAR_TRAINING_RUN_RESUME_PATH}/:${TRAINING_RUN_SELECTOR}`,
         loadChildren: () =>
             import('./detail/adaptive/adaptive-run-detail.module').then((m) => m.AdaptiveRunDetailModule),
         data: {
@@ -49,9 +51,9 @@ const routes: Routes = [
         resolve: { [ADAPTIVE_RUN_ACCESS_INFO_DATA_ATTRIBUTE_NAME]: AccessAdaptiveRunResolver },
     },
     {
-        path: `${TRAINING_RUN_ACCESS_PATH}/:${TRAINING_RUN_ACCESS_SELECTOR}`,
+        path: `${LINEAR_TRAINING_RUN_ACCESS_PATH}/:${TRAINING_RUN_ACCESS_SELECTOR}`,
         loadChildren: () =>
-            import('./detail/training/training-run-detail.module').then((m) => m.TrainingRunDetailModule),
+            import('./detail/linear/linear-training-run-detail.module').then((m) => m.LinearTrainingRunDetailModule),
         data: {
             breadcrumb: 'Game',
             title: undefined,
@@ -59,9 +61,29 @@ const routes: Routes = [
         resolve: { [TRAINING_RUN_ACCESS_INFO_DATA_ATTRIBUTE_NAME]: AccessTrainingRunResolver },
     },
     {
-        path: `${TRAINING_RUN_RESUME_PATH}/:${TRAINING_RUN_SELECTOR}`,
+        path: `${LINEAR_TRAINING_RUN_RESUME_PATH}/:${TRAINING_RUN_SELECTOR}`,
         loadChildren: () =>
-            import('./detail/training/training-run-detail.module').then((m) => m.TrainingRunDetailModule),
+            import('./detail/linear/linear-training-run-detail.module').then((m) => m.LinearTrainingRunDetailModule),
+        data: {
+            breadcrumb: 'Game',
+            title: undefined,
+        },
+        resolve: { [TRAINING_RUN_ACCESS_INFO_DATA_ATTRIBUTE_NAME]: AccessTrainingRunResolver },
+    },
+    {
+        path: `${COOP_TRAINING_RUN_ACCESS_PATH}/:${TRAINING_RUN_ACCESS_SELECTOR}`,
+        loadChildren: () =>
+            import('./detail/coop/coop-training-run-detail.module').then((m) => m.CoopTrainingRunDetailModule),
+        data: {
+            breadcrumb: 'Game',
+            title: undefined,
+        },
+        resolve: { [TRAINING_RUN_ACCESS_INFO_DATA_ATTRIBUTE_NAME]: AccessTrainingRunResolver },
+    },
+    {
+        path: `${COOP_TRAINING_RUN_RESUME_PATH}/:${TRAINING_RUN_SELECTOR}`,
+        loadChildren: () =>
+            import('./detail/coop/coop-training-run-detail.module').then((m) => m.CoopTrainingRunDetailModule),
         data: {
             breadcrumb: 'Game',
             title: undefined,

@@ -1,0 +1,39 @@
+<crczp-grid-list
+  class="leaderboard"
+  [items]="teamsScores"
+  [gridGap]="'1rem'"
+  [trackBy]="trackByFn"
+  [gridTemplate]="'auto / 1fr'"
+  [template]="teamTemplate"
+/>
+
+<ng-template #teamTemplate let-teamData>
+  @if (isFiller(teamData)) {
+      <div class="filler">
+        <h2>... {{ teamData }} teams</h2>
+      </div>
+  } @else {
+    <mat-card class="team-score
+         {{ teamData.team.id === usersTeamId ? 'current' : '' }}">
+      <div class="place-name-wrapper">
+        <div class="place-wrapper">
+          <span class="place">{{ teamData.place }}</span>
+        </div>
+        <div class="team-info">
+          <span class="name">{{ teamData.team.name }}</span>
+          <div class="avatars">
+            @for (member of teamData.team.members; track member.id) {
+              <img
+                class="avatar"
+                src="{{'data:image/jpg;base64,' + member.picture}}"
+                alt="{{ member.name }}"/>
+            }
+          </div>
+        </div>
+      </div>
+      <h3>{{ teamData.score }} pts</h3>
+    </mat-card>
+  }
+</ng-template>
+
+

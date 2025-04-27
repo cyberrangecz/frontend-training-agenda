@@ -66,7 +66,7 @@ export class AccessTrainingRunResolver {
         return this.api.access(token).pipe(
             tap((trainingRunInfo) => this.runningTrainingRunService.init(trainingRunInfo)),
             catchError((err) => {
-                if (err && err.status === 425) {
+                if (err && err.status === 425 && token.endsWith('C')) {
                     this.navigateToOverview();
                     this.dialog.open(LobbyWaitingDialogComponent, {
                         data: token,

@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
-import { TeamInfo } from '@crczp/training-model';
-import { Observable, switchMap, timer } from 'rxjs';
-import { TeamSyncService } from '../services/training-run/running/team-sync.service';
+import { BehaviorSubject, filter, Observable, skipUntil, Subject, switchMap, timer } from 'rxjs';
+import { CoopRunService } from '../services/training-run/running/coop-run.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { LimitedScoreboard, Team, TeamMessage } from '@crczp/training-model';
 
 @Component({
     selector: 'crczp-coop-training-run-detail',
@@ -15,16 +15,48 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
  * Optionally displays stepper with progress of the training and timer counting time from the start of a training.
  */
 export class CoopTrainingRunDetailComponent implements OnInit {
-    teamInfo$: Observable<TeamInfo>;
+    private static readonly TEAM_INFO_REFRESH_INTERVAL = 30000; // 30 seconds
+    private static readonly SCOREBOARD_REFRESH_INTERVAL = 5000; // 5 seconds
+    private static readonly MESSAGES_REFRESH_INTERVAL = 5000; // 5 seconds
+
+    teamInfoSubject = new BehaviorSubject<Team>(undefined);
+    messagesSubject = new BehaviorSubject<TeamMessage[]>(undefined);
+    newMessageSubject = new Subject<TeamMessage[]>();
+
+    teamInfo$: Observable<Team> = this.teamInfoSubject.asObservable();
+
+    scoreboard$: Observable<LimitedScoreboard>;
+
+    messages$: Observable<TeamMessage[]> = this.messagesSubject.asObservable();
+    newMessages$: Observable<TeamMessage[]> = this.newMessageSubject.asObservable();
 
     private readonly destroyRef = inject(DestroyRef);
 
-    constructor(private service: TeamSyncService) {}
+    constructor(private service: CoopRunService) {}
 
     ngOnInit() {
-        this.teamInfo$ = timer(0, 5000).pipe(
+        timer(0, CoopTrainingRunDetailComponent.TEAM_INFO_REFRESH_INTERVAL)
+            .pipe(
+                takeUntilDestroyed(this.destroyRef),
+                switchMap(() => this.service.fetchTeamInfo()),
+            )
+            .subscribe((team) => this.teamInfoSubject.next(team));
+        this.scoreboard$ = timer(0, CoopTrainingRunDetailComponent.SCOREBOARD_REFRESH_INTERVAL).pipe(
             takeUntilDestroyed(this.destroyRef),
-            switchMap(() => this.service.updateTeamInfo()),
+            switchMap(() => this.service.fetchScoreboard()),
         );
+        timer(0, CoopTrainingRunDetailComponent.MESSAGES_REFRESH_INTERVAL)
+            .pipe(
+                takeUntilDestroyed(this.destroyRef),
+                skipUntil(this.teamInfo$),
+                filter(() => !!this.teamInfoSubject.value),
+                switchMap(() => this.service.fetchMessages(this.teamInfoSubject.value.id)),
+            )
+            .subscribe((msgs) => {
+                this.messagesSubject.next(this.messagesSubject.value.concat(msgs));
+                if (msgs.length > 0) {
+                    this.newMessageSubject.next(msgs);
+                }
+            });
     }
 }

@@ -1,7 +1,7 @@
 import { TrainingUser } from '@crczp/training-model';
 import { signal } from '@angular/core';
 import { SelectionInterval } from '@crczp/training-agenda/internal';
-import { ArrayHelper } from '../../../internal/src/utils/array-helper';
+import { ArrayHelper } from '@crczp/training-agenda/internal';
 
 export class QueueSelection {
     private queueSelectionSignal = signal<TrainingUser[]>([]);

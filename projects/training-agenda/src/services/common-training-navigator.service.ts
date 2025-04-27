@@ -8,7 +8,7 @@ import {
     CHEATING_DETECTION_EVENTS_PATH,
     CHEATING_DETECTION_PATH,
     DEFINITION_NEW_PATH,
-    LINEAR_RUN_PATH,
+    RUN_PATH,
     MITRE_TECHNIQUES_PATH,
     PROGRESS_PATH,
     RESULTS_PATH,
@@ -21,10 +21,10 @@ import {
     TRAINING_INSTANCE_DETAIL_PATH,
     TRAINING_INSTANCE_EDIT_PATH,
     TRAINING_INSTANCE_NEW_PATH,
-    TRAINING_RUN_ACCESS_PATH,
+    LINEAR_TRAINING_RUN_ACCESS_PATH,
     TRAINING_RUN_RESULTS_AGGREGATED_DASHBOARD_PATH,
     TRAINING_RUN_RESULTS_PATH,
-    TRAINING_RUN_RESUME_PATH,
+    LINEAR_TRAINING_RUN_RESUME_PATH,
 } from '../model/default-paths';
 
 @Injectable()
@@ -32,7 +32,7 @@ export abstract class CommonTrainingNavigator extends TrainingNavigator {
     protected constructor(
         private trainingDefinitionBasePath: string,
         private trainingInstanceBasePath: string,
-        private runBasePath: string,
+        protected runBasePath: string,
     ) {
         super();
     }
@@ -55,7 +55,7 @@ export abstract class CommonTrainingNavigator extends TrainingNavigator {
      * Returns route to training run mitre techniques
      */
     toTrainingRunMitreTechniques(): string {
-        return `${LINEAR_RUN_PATH}/${MITRE_TECHNIQUES_PATH}`;
+        return `${RUN_PATH}/${MITRE_TECHNIQUES_PATH}`;
     }
 
     /**
@@ -190,7 +190,7 @@ export abstract class CommonTrainingNavigator extends TrainingNavigator {
     }
 
     toTrainingRunOverview(): string {
-        return LINEAR_RUN_PATH;
+        return RUN_PATH;
     }
 
     /**
@@ -198,11 +198,11 @@ export abstract class CommonTrainingNavigator extends TrainingNavigator {
      * @param id id of the training run
      */
     toResumeTrainingRun(id: number | string): string {
-        return `${this.runBasePath}/${TRAINING_RUN_RESUME_PATH}/${id}`;
+        return `${this.runBasePath}/${LINEAR_TRAINING_RUN_RESUME_PATH}/${id}`;
     }
 
     toAccessTrainingRun(token: string): string {
-        return `${this.runBasePath}/${TRAINING_RUN_ACCESS_PATH}/${token}`;
+        return `${this.runBasePath}/${LINEAR_TRAINING_RUN_ACCESS_PATH}/${token}`;
     }
 
     /**

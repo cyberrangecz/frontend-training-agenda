@@ -6,7 +6,7 @@ import { catchError, map, switchMap, take } from 'rxjs/operators';
 import * as uuid from 'uuid';
 import { TrainingAgendaConfig } from '@crczp/training-agenda';
 import { Injectable } from '@angular/core';
-import { ArrayHelper } from '../../../internal/src/utils/array-helper';
+import { ArrayHelper } from '@crczp/training-agenda/internal';
 import { MatDialog } from '@angular/material/dialog';
 import {
     SentinelConfirmationDialogComponent,

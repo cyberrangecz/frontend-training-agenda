@@ -1,118 +1,118 @@
 .team-wrapper {
-  position: fixed;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  top: 30dvh;
-  right: -0.25rem;
-  padding-right: 0.25rem;
-  z-index: 1000;
-  max-width: 20rem;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    top: 30dvh;
+    right: -0.25rem;
+    padding-right: 0.25rem;
+    z-index: 1000;
+    max-width: 20rem;
 }
 
 .handle {
-  border-radius: 1rem 0 0 1rem;
-  background-color: var(--primary-80);
-  box-shadow: none;
+    border-radius: 2rem 0 0 2rem;
+    background-color: var(--primary-80);
+    box-shadow: none;
 }
 
 .handle:hover {
-  cursor: pointer;
-  background: var(--primary-70);
+    cursor: pointer;
+    background: var(--primary-70);
 }
 
 .handle-icon {
-  width: 3.5rem;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    width: 3.5rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .team {
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--primary-95);
-  border-radius: 0 0 0 1rem;
-  padding-bottom: 1rem;
-  margin-left: 3.5rem;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--primary-95);
+    border-radius: 0 0 0 1rem;
+    padding-bottom: 1rem;
+    margin-left: 3.5rem;
 }
 
-.team-title {
-  z-index: 1001;
-  min-height: 3.5rem;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: stretch;
-  border-radius: 1rem 0 0 1rem;
-  font-size: 1.5rem;
-  font-weight: 800;
-  background-color: var(--primary-80);
-  color: var(--primary-10);
-  text-wrap: wrap;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1);
+.extended-header {
+    z-index: 1001;
+    min-height: 3.5rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: stretch;
+    border-radius: 2rem 0 0 2rem;
+    font-size: 1.5rem;
+    font-weight: 800;
+    background-color: var(--primary-80);
+    color: var(--primary-10);
+    text-wrap: wrap;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1);
 }
 
-.team-title:hover {
-  cursor: pointer;
-  background: var(--primary-70);
+.extended-header:hover {
+    cursor: pointer;
+    background: var(--primary-70);
 }
 
-.team-name {
-  padding: 0;
-  margin: 0 0.5rem;
-  text-align: center;
+.extended-label {
+    padding: 0;
+    margin: 0 0.5rem;
+    text-align: center;
 }
 
 .team-list-wrapper {
-  padding: 0.5rem 0.5rem 0 1rem;
-  margin-bottom: 0.5rem;
-  overflow-y: auto;
-  max-height: 50dvh;
-  width: 100%;
+    padding: 0.5rem 0.5rem 0 1rem;
+    margin-bottom: 0.5rem;
+    overflow-y: auto;
+    max-height: 50dvh;
+    width: 100%;
 }
 
 .team-list {
-  width: 100%;
-  max-height: 50dvh;
-  padding-right: 1.25rem;
-  padding-left: 0.5rem;
+    width: 100%;
+    max-height: 50dvh;
+    padding-right: 1.25rem;
+    padding-left: 0.5rem;
 }
 
 .team-member {
-  width: 100%;
-  padding: 0.5rem 0 0.5rem 0.5rem;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
+    width: 100%;
+    margin: 0 0.5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 .member-name {
-  font-size: 1.5rem;
-  font-weight: 500;
+    font-size: 1.5rem;
+    font-weight: 500;
 }
 
 .member-level {
-  margin-left: 0.25rem;
+    margin-left: 0.25rem;
 }
 
 .avatar {
-  width: 3rem;
-  height: 3rem;
-  border-radius: 50%;
-  margin-right: 0.5rem;
-  border: 2px white solid;
-  box-shadow: 0 0 5px 1px gainsboro;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+    border: 2px white solid;
+    box-shadow: 0 0 5px 1px gainsboro;
 }
 
 .level-info {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
 }

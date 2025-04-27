@@ -1,11 +1,30 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { TeamInfo } from '@crczp/training-model';
+import { Component, Input, signal, WritableSignal } from '@angular/core';
+import { LimitedScoreboard, Team, TeamMessage } from '@crczp/training-model';
+
+type ViewType = 'team' | 'chat' | 'scoreboard' | null;
 
 @Component({
-    selector: 'crczp-team-side-panel',
+    selector: 'crczp-run-side-panel',
     templateUrl: './team-side-panel.component.html',
     styleUrl: './team-side-panel.component.css',
 })
 export class TeamSidePanelComponent {
-    @Input({ required: true }) teamInfo: TeamInfo;
+    @Input({ required: true }) team: Team;
+    @Input({ required: true }) limitedScoreboard: LimitedScoreboard;
+    @Input({ required: true }) messages: TeamMessage[];
+
+    selectedView: WritableSignal<ViewType> = signal(null);
+
+    getId: (item: { id: number }) => number = (item) => item.id;
+
+    getTeamPositionStr(): string {
+        if (!this.team || !this.limitedScoreboard) {
+            return '-';
+        }
+        const teamEntry = this.limitedScoreboard.scoreboard.find((entry) => entry.team.id === this.team.id);
+        if (!teamEntry) {
+            return '-';
+        }
+        return String(teamEntry.position);
+    }
 }

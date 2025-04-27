@@ -20,7 +20,7 @@ import {
 import { catchError, filter, map, take, tap } from 'rxjs/operators';
 import { MatTooltip } from '@angular/material/tooltip';
 import { Team } from '@crczp/training-model';
-import { TrainingNavigator } from '@crczp/training-agenda';
+import { CoopTrainingNavigator, TrainingNavigator } from '@crczp/training-agenda';
 import { MatIcon } from '@angular/material/icon';
 import { LogoSpinnerComponent } from '@crczp/theme';
 import { Router } from '@angular/router';
@@ -103,7 +103,7 @@ export class LobbyWaitingDialogComponent {
             .subscribe((dateStr) => this.timeToStartSignal.set(dateStr));
     }
 
-    private trainingNavigator = inject(TrainingNavigator);
+    private trainingNavigator = inject(CoopTrainingNavigator);
     private router = inject(Router);
 
     private readonly destroyRef = inject(DestroyRef);

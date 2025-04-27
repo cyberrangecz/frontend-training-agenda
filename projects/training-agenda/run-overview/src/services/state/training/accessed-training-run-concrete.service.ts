@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AdaptiveRunApi, TrainingRunApi } from '@crczp/training-api';
-import { AccessedTrainingRun } from '@crczp/training-model';
+import { AccessedTrainingRun, TrainingTypeEnum } from '@crczp/training-model';
 import { from, Observable } from 'rxjs';
 import { concatMap, map, tap } from 'rxjs/operators';
 import {
@@ -51,16 +51,16 @@ export class AccessedTrainingRunConcreteService extends AccessedTrainingRunServi
         return from(this.router.navigate([this.coopNavigator.toResumeTrainingRun(id)]));
     }
 
-    access(token: string): Observable<any> {
+    accessLinear(token: string): Observable<any> {
         return from(this.router.navigate([this.linearNavigator.toAccessTrainingRun(token)]));
+    }
+
+    accessCoop(token: string): Observable<any> {
+        return from(this.router.navigate([this.coopNavigator.toAccessTrainingRun(token)]));
     }
 
     resultsLinear(id: number): Observable<any> {
         return from(this.router.navigate([this.linearNavigator.toTrainingRunResult(id)]));
-    }
-
-    resultsCoop(id: number): Observable<any> {
-        return from(this.router.navigate([this.coopNavigator.toTrainingRunResult(id)]));
     }
 
     resultsAdaptive(id: number): Observable<any> {

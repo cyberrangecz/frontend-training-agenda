@@ -1,4 +1,7 @@
 <crczp-training-run-detail>
-    <crczp-team-side-panel
-        [teamInfo]="(teamInfo$|async)"/>
+    <crczp-run-side-panel
+        [team]="(teamInfo$|async)"
+        [limitedScoreboard]="(scoreboard$|async)"
+        [messages]="(messages$|async)"
+    />
 </crczp-training-run-detail>

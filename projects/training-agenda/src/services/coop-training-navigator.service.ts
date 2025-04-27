@@ -4,8 +4,10 @@ import { Injectable } from '@angular/core';
 import {
     COOP_DEFINITION_PATH,
     COOP_INSTANCE_PATH,
+    COOP_TRAINING_RUN_ACCESS_PATH,
+    COOP_TRAINING_RUN_RESUME_PATH,
     LOBBY_MANAGEMENT_PATH,
-    COOP_RUN_PATH,
+    RUN_PATH,
     TRAINING_INSTANCE_DETAIL_PATH,
 } from '../model/default-paths';
 
@@ -23,7 +25,7 @@ export abstract class CoopTrainingNavigator extends TrainingNavigator {
 @Injectable()
 export class CoopTrainingDefaultNavigator extends CommonTrainingNavigator implements CoopTrainingNavigator {
     constructor() {
-        super(COOP_DEFINITION_PATH, COOP_INSTANCE_PATH, COOP_RUN_PATH);
+        super(COOP_DEFINITION_PATH, COOP_INSTANCE_PATH, RUN_PATH);
     }
 
     /**
@@ -32,5 +34,17 @@ export class CoopTrainingDefaultNavigator extends CommonTrainingNavigator implem
      */
     toTeamsManagement(id: number): string {
         return `${COOP_INSTANCE_PATH}/${id}/${TRAINING_INSTANCE_DETAIL_PATH}/${LOBBY_MANAGEMENT_PATH}`;
+    }
+
+    /**
+     * Returns route to training run training page
+     * @param id id of the training run
+     */
+    toResumeTrainingRun(id: number | string): string {
+        return `${this.runBasePath}/${COOP_TRAINING_RUN_RESUME_PATH}/${id}`;
+    }
+
+    toAccessTrainingRun(token: string): string {
+        return `${this.runBasePath}/${COOP_TRAINING_RUN_ACCESS_PATH}/${token}`;
     }
 }

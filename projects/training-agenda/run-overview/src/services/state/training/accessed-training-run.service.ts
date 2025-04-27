@@ -1,6 +1,6 @@
 import { OffsetPaginatedElementsService } from '@sentinel/common';
 import { OffsetPaginationEvent, PaginatedResource } from '@sentinel/common/pagination';
-import { AccessedTrainingRun } from '@crczp/training-model';
+import { AccessedTrainingRun, TrainingTypeEnum } from '@crczp/training-model';
 import { Observable } from 'rxjs';
 
 /**
@@ -25,13 +25,17 @@ export abstract class AccessedTrainingRunService extends OffsetPaginatedElements
      */
     abstract resumeLinear(trainingRunId: number): Observable<any>;
 
+    abstract resumeCoop(trainingRunId: number): Observable<any>;
+
     abstract resumeAdaptive(id: number): Observable<any>;
 
     abstract resultsLinear(trainingRunId: number): Observable<any>;
 
     abstract resultsAdaptive(trainingRunId: number): Observable<any>;
 
-    abstract access(token: string): Observable<any>;
+    abstract accessLinear(token: string): Observable<any>;
+
+    abstract accessCoop(token: string): Observable<any>;
 
     abstract showMitreTechniques(): Observable<any>;
 }

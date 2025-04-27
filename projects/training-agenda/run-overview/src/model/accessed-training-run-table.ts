@@ -50,11 +50,16 @@ export class AccessedTrainingRunTable extends SentinelTable<AccessedTrainingRunR
                 'primary',
                 'Resume training run',
                 of(trainingRun.action !== TraineeAccessTrainingRunActionEnum.Resume),
-                defer(() =>
-                    trainingRun.type === TrainingRunTypeEnum.LINEAR
-                        ? service.resumeLinear(trainingRun.trainingRunId)
-                        : service.resumeAdaptive(trainingRun.trainingRunId),
-                ),
+                defer(() => {
+                    switch (trainingRun.type) {
+                        case TrainingRunTypeEnum.ADAPTIVE:
+                            return service.resumeAdaptive(trainingRun.trainingRunId);
+                        case TrainingRunTypeEnum.LINEAR:
+                            return service.resumeLinear(trainingRun.trainingRunId);
+                        case TrainingRunTypeEnum.COOP:
+                            return service.resumeCoop(trainingRun.trainingRunId);
+                    }
+                }),
             ),
             new RowAction(
                 'results',

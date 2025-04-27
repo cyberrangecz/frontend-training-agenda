@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { OffsetPaginationEvent } from '@sentinel/common/pagination';
-import { AccessedTrainingRun } from '@crczp/training-model';
+import { AccessedTrainingRun, TrainingTypeEnum } from '@crczp/training-model';
 import { SentinelTable, TableActionEvent, TableLoadEvent } from '@sentinel/components/table';
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
@@ -51,9 +51,14 @@ export class TrainingRunOverviewComponent implements OnInit {
                 .access(accessToken)
                 .pipe(takeUntilDestroyed(this.destroyRef))
                 .subscribe(() => (this.isLoading = false));
+        } else if (this.isCoopToken(accessToken)) {
+            this.trainingRunOverviewService
+                .accessCoop(accessToken)
+                .pipe(takeUntilDestroyed(this.destroyRef))
+                .subscribe(() => (this.isLoading = false));
         } else {
             this.trainingRunOverviewService
-                .access(accessToken)
+                .accessLinear(accessToken)
                 .pipe(takeUntilDestroyed(this.destroyRef))
                 .subscribe(() => (this.isLoading = false));
         }
@@ -92,6 +97,10 @@ export class TrainingRunOverviewComponent implements OnInit {
     private isAdaptiveToken(accessToken: string): boolean {
         const re = new RegExp(/^[5-9].+$/);
         return re.test(accessToken.split('-')[1]);
+    }
+
+    private isCoopToken(accessToken: string): boolean {
+        return accessToken.endsWith('C');
     }
 
     onControlsAction(control: SentinelControlItem): void {

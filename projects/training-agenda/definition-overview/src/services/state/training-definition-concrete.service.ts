@@ -145,7 +145,7 @@ export class TrainingDefinitionConcreteService extends TrainingDefinitionService
         return dialogRef.componentInstance.onUpload$.pipe(
             take(1),
             tap(() => this.fileUploadProgressService.start()),
-            switchMap((file) => this.api.upload(file)),
+            switchMap((file) => this.api.upload(file, this.trainingType)),
             tap(
                 () => {
                     this.notificationService.emit('success', 'Training definition was uploaded');
