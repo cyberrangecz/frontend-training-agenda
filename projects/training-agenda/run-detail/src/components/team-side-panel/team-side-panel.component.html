@@ -1,5 +1,4 @@
 <div class="team-wrapper">
-
     @switch (selectedView()) {
         @case (null) {
             <div class="vflex">
@@ -31,7 +30,7 @@
                     [disabled]="!team"
                     (click)="selectedView.set('scoreboard')"
                 >
-                    <span class="team-position-number">{{getTeamPositionStr()}}</span>
+                    <div class="team-position-number">#{{getTeamPositionStr()}}</div>
                 </button>
             </div>
         }
@@ -42,16 +41,14 @@
                 <mat-icon class="handle-icon">group</mat-icon>
                 <h4 class="extended-label">{{ team.name }}</h4>
             </div>
-            <div class="team">
-                <div class="team-list-wrapper">
-                    <crczp-grid-list
-                        class="team-list round-scrollbar"
-                        [items]="team.members"
-                        [gridGap]="'0.5rem'"
-                        [trackBy]="getId"
-                        [template]="teamTemplate"
-                    />
-                </div>
+            <div class="list-wrapper">
+                <crczp-grid-list
+                    class="round-scrollbar"
+                    [items]="team.members"
+                    [gridGap]="'0.5rem'"
+                    [trackBy]="getId"
+                    [template]="teamTemplate"
+                />
             </div>
         }
         @case ('chat'){
@@ -61,12 +58,14 @@
                 <mat-icon class="handle-icon">chat</mat-icon>
                 <h4 class="extended-label">Chat</h4>
             </div>
-            <div class="team">
-                <div class="team-list-wrapper">
-                    <crczp-chat-view
-                        [messages]="messages"
-                    />
-                </div>
+            <div class="list-wrapper">
+                <crczp-chat-view
+                    class="wh-100"
+                    [team]="team"
+                    [messages]="messages"
+                    [currentUserId]="currentUser?.id"
+                    [numberOfMessagesToDisplay]="20"
+                />
             </div>
         }
         @case ('scoreboard'){
@@ -76,14 +75,13 @@
                 <mat-icon class="handle-icon">scoreboard</mat-icon>
                 <h4 class="extended-label">Scoreboard</h4>
             </div>
-            <div class="team">
-                <div class="team-list-wrapper">
-                    <crczp-teams-scoreboard
-                        [usersTeamId]="team?.id"
-                        [teamsScores]="limitedScoreboard.scoreboard"
-                        [positionsBeforeUserTeam]="limitedScoreboard.countBeforeUserTeam"
-                        [positionsAfterUserTeam]="limitedScoreboard.countAfterUserTeam"/>
-                </div>
+            <div class="list-wrapper">
+                <crczp-teams-scoreboard
+                    class="scoreboard"
+                    [usersTeamId]="team?.id"
+                    [teamsScores]="limitedScoreboard.scoreboard"
+                    [positionsBeforeUserTeam]="limitedScoreboard.countBeforeUserTeam"
+                    [positionsAfterUserTeam]="limitedScoreboard.countAfterUserTeam"/>
             </div>
         }
     }

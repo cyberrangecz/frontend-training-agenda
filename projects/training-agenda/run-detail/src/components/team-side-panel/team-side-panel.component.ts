@@ -1,5 +1,6 @@
 import { Component, Input, signal, WritableSignal } from '@angular/core';
-import { LimitedScoreboard, Team, TeamMessage } from '@crczp/training-model';
+import { LimitedScoreboard, Team, TeamMessage, TrainingUser } from '@crczp/training-model';
+import { User } from '@sentinel/auth';
 
 type ViewType = 'team' | 'chat' | 'scoreboard' | null;
 
@@ -12,6 +13,7 @@ export class TeamSidePanelComponent {
     @Input({ required: true }) team: Team;
     @Input({ required: true }) limitedScoreboard: LimitedScoreboard;
     @Input({ required: true }) messages: TeamMessage[];
+    @Input() currentUser!: User | null;
 
     selectedView: WritableSignal<ViewType> = signal(null);
 

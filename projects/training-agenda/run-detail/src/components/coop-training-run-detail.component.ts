@@ -3,6 +3,7 @@ import { BehaviorSubject, filter, Observable, skipUntil, Subject, switchMap, tim
 import { CoopRunService } from '../services/training-run/running/coop-run.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { LimitedScoreboard, Team, TeamMessage } from '@crczp/training-model';
+import { SentinelAuthService } from '@sentinel/auth';
 
 @Component({
     selector: 'crczp-coop-training-run-detail',
@@ -20,19 +21,23 @@ export class CoopTrainingRunDetailComponent implements OnInit {
     private static readonly MESSAGES_REFRESH_INTERVAL = 5000; // 5 seconds
 
     teamInfoSubject = new BehaviorSubject<Team>(undefined);
-    messagesSubject = new BehaviorSubject<TeamMessage[]>(undefined);
-    newMessageSubject = new Subject<TeamMessage[]>();
+    messagesSubject = new BehaviorSubject<TeamMessage[]>([]);
+    scoreboardSubject = new BehaviorSubject<LimitedScoreboard>(undefined);
 
     teamInfo$: Observable<Team> = this.teamInfoSubject.asObservable();
 
-    scoreboard$: Observable<LimitedScoreboard>;
+    scoreboard$: Observable<LimitedScoreboard> = this.scoreboardSubject.asObservable();
 
     messages$: Observable<TeamMessage[]> = this.messagesSubject.asObservable();
-    newMessages$: Observable<TeamMessage[]> = this.newMessageSubject.asObservable();
+
+    currentUser$ = this.auth.activeUser$;
 
     private readonly destroyRef = inject(DestroyRef);
 
-    constructor(private service: CoopRunService) {}
+    constructor(
+        private service: CoopRunService,
+        private auth: SentinelAuthService,
+    ) {}
 
     ngOnInit() {
         timer(0, CoopTrainingRunDetailComponent.TEAM_INFO_REFRESH_INTERVAL)
@@ -41,22 +46,30 @@ export class CoopTrainingRunDetailComponent implements OnInit {
                 switchMap(() => this.service.fetchTeamInfo()),
             )
             .subscribe((team) => this.teamInfoSubject.next(team));
-        this.scoreboard$ = timer(0, CoopTrainingRunDetailComponent.SCOREBOARD_REFRESH_INTERVAL).pipe(
-            takeUntilDestroyed(this.destroyRef),
-            switchMap(() => this.service.fetchScoreboard()),
-        );
+        timer(0, CoopTrainingRunDetailComponent.SCOREBOARD_REFRESH_INTERVAL)
+            .pipe(
+                takeUntilDestroyed(this.destroyRef),
+                switchMap(() => this.service.fetchScoreboard()),
+            )
+            .subscribe(
+                (scoreboard) => {
+                    this.scoreboardSubject.next(scoreboard);
+                }, //debug
+                (err) => {
+                    console.log('CoopTrainingRunDetailComponent.ERROR', err);
+                },
+                () => {
+                    console.log('CoopTrainingRunDetailComponent.COMPLETE');
+                },
+            );
         timer(0, CoopTrainingRunDetailComponent.MESSAGES_REFRESH_INTERVAL)
             .pipe(
                 takeUntilDestroyed(this.destroyRef),
-                skipUntil(this.teamInfo$),
                 filter(() => !!this.teamInfoSubject.value),
                 switchMap(() => this.service.fetchMessages(this.teamInfoSubject.value.id)),
             )
             .subscribe((msgs) => {
                 this.messagesSubject.next(this.messagesSubject.value.concat(msgs));
-                if (msgs.length > 0) {
-                    this.newMessageSubject.next(msgs);
-                }
             });
     }
 }

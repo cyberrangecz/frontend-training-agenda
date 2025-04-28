@@ -1,79 +1,80 @@
-.leaderboard{
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+.leaderboard {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
 }
 
 .team-score {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
 }
 
 .place-name-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
 }
 
-.place-wrapper{
-  display: flex;
-  justify-items: center;
-  align-items: center;
-  padding-right: 0.5rem;
-  border-right: 1px solid black;
+.place-wrapper {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    padding-right: 0.5rem;
+    border-right: 1px solid black;
 }
 
 .place {
-  font-weight: bold;
-  font-style: italic;
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 3rem;
+    font-weight: bold;
+    font-style: italic;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 3rem;
 }
 
 .current {
 }
 
 .current .name, .current .place {
-  font-weight: bold;
-  color: var(--primary-40);
+    font-weight: bold;
+    color: var(--primary-40);
 }
 
 .team-info {
-  margin-left: 1rem;
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
+    margin-left: 1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 
-.name{
-  font-size: 1.75rem;
+.name {
+    font-size: 1.75rem;
 }
 
 .avatar {
-  height: 2rem;
-  margin-left: -0.75rem;
-  padding: 0;
-  border-radius: 50%;
-  background: white;
-  border: 2px solid rgba(0, 0, 0, 0.27);
+    height: 2rem;
+    margin-left: -0.75rem;
+    padding: 0;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid rgba(0, 0, 0, 0.27);
 }
 
-.avatars{
-  margin-top: 0.25rem;
-  padding-left: 0.75rem;
-  flex-shrink: 2;
+.avatars {
+    margin-top: 0.25rem;
+    padding-left: 0.75rem;
+    flex-shrink: 2;
 }
 
 .filler {
-  width: 100%;
-  height: 5rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  border-top: 2px solid gainsboro;
-  border-bottom: 2px solid gainsboro;
-  border-radius: 0.75rem;
+    width: 100%;
+    height: 5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-top: 2px solid gainsboro;
+    border-bottom: 2px solid gainsboro;
+    border-radius: 0.75rem;
 }
