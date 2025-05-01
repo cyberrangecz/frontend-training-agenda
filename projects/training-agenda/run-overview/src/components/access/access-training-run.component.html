@@ -29,7 +29,7 @@
 
                 <mat-label>Access Token PIN</mat-label>
                 <input #pin matInput (paste)="onPaste($event)" placeholder="Access Token PIN"
-                       pattern="[0-9]*" maxlength="4" minlength="4"
+                       pattern="[0-9CL]*" maxlength="4" minlength="4"
                        formControlName="accessTokenPin" required>
                 <button *ngIf="accessTokenPin.value" matSuffix
                         mat-icon-button aria-label="Clear"

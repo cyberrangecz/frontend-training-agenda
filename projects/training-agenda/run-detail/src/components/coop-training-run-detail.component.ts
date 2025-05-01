@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
-import { BehaviorSubject, filter, Observable, skipUntil, Subject, switchMap, timer } from 'rxjs';
-import { CoopRunService } from '../services/training-run/running/coop-run.service';
+import { merge, timer } from 'rxjs';
+import { CoopTrainingRunService } from '../services/training-run/running/coop-training-run.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { LimitedScoreboard, Team, TeamMessage } from '@crczp/training-model';
 import { SentinelAuthService } from '@sentinel/auth';
+import { filter } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'crczp-coop-training-run-detail',
@@ -17,59 +18,39 @@ import { SentinelAuthService } from '@sentinel/auth';
  */
 export class CoopTrainingRunDetailComponent implements OnInit {
     private static readonly TEAM_INFO_REFRESH_INTERVAL = 30000; // 30 seconds
-    private static readonly SCOREBOARD_REFRESH_INTERVAL = 5000; // 5 seconds
-    private static readonly MESSAGES_REFRESH_INTERVAL = 5000; // 5 seconds
-
-    teamInfoSubject = new BehaviorSubject<Team>(undefined);
-    messagesSubject = new BehaviorSubject<TeamMessage[]>([]);
-    scoreboardSubject = new BehaviorSubject<LimitedScoreboard>(undefined);
-
-    teamInfo$: Observable<Team> = this.teamInfoSubject.asObservable();
-
-    scoreboard$: Observable<LimitedScoreboard> = this.scoreboardSubject.asObservable();
-
-    messages$: Observable<TeamMessage[]> = this.messagesSubject.asObservable();
+    private static readonly SCOREBOARD_REFRESH_INTERVAL = 3000;
+    private static readonly MESSAGES_REFRESH_INTERVAL = 2000;
+    private static readonly RUN_REFRESH_INTERVAL = 5000;
 
     currentUser$ = this.auth.activeUser$;
 
     private readonly destroyRef = inject(DestroyRef);
 
     constructor(
-        private service: CoopRunService,
+        protected service: CoopTrainingRunService,
+        protected route: ActivatedRoute,
         private auth: SentinelAuthService,
     ) {}
 
     ngOnInit() {
         timer(0, CoopTrainingRunDetailComponent.TEAM_INFO_REFRESH_INTERVAL)
-            .pipe(
-                takeUntilDestroyed(this.destroyRef),
-                switchMap(() => this.service.fetchTeamInfo()),
-            )
-            .subscribe((team) => this.teamInfoSubject.next(team));
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe(() => this.service.fetchTeamInfo());
         timer(0, CoopTrainingRunDetailComponent.SCOREBOARD_REFRESH_INTERVAL)
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe(() => this.service.fetchScoreboard());
+        merge(timer(0, CoopTrainingRunDetailComponent.MESSAGES_REFRESH_INTERVAL), this.service.teams$)
             .pipe(
+                filter(() => !!this.service.getTeam()),
                 takeUntilDestroyed(this.destroyRef),
-                switchMap(() => this.service.fetchScoreboard()),
             )
-            .subscribe(
-                (scoreboard) => {
-                    this.scoreboardSubject.next(scoreboard);
-                }, //debug
-                (err) => {
-                    console.log('CoopTrainingRunDetailComponent.ERROR', err);
-                },
-                () => {
-                    console.log('CoopTrainingRunDetailComponent.COMPLETE');
-                },
-            );
-        timer(0, CoopTrainingRunDetailComponent.MESSAGES_REFRESH_INTERVAL)
-            .pipe(
-                takeUntilDestroyed(this.destroyRef),
-                filter(() => !!this.teamInfoSubject.value),
-                switchMap(() => this.service.fetchMessages(this.teamInfoSubject.value.id)),
-            )
-            .subscribe((msgs) => {
-                this.messagesSubject.next(this.messagesSubject.value.concat(msgs));
-            });
+            .subscribe(() => this.service.fetchMessages(this.service.getTeam()?.id));
+        timer(0, CoopTrainingRunDetailComponent.RUN_REFRESH_INTERVAL)
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe(() => this.service.refetchRun());
+    }
+
+    onMessageSend(message: string) {
+        this.service.sendMessage(message, this.service.getTeam()?.id);
     }
 }

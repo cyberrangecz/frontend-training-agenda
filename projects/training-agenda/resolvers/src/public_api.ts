@@ -3,8 +3,6 @@
  */
 
 export * from './definition/training/training-definition-breadcrumb-resolver.service';
-export * from './definition/training/common-definition-title-resolver.service';
-export * from './definition/training/common-training-definition-resolver.service';
 export * from './definition/training/linear-training-definition-resolver.service';
 export * from './definition/training/coop-training-definition-resolver.service';
 export * from './definition/training/linear-training-definition-title-resolver.service';
@@ -16,6 +14,8 @@ export * from './definition/training/training-definition-detail-title-resolver.s
 export * from './definition/training/training-definition-detail-breadcrumb-resolver.service';
 export * from './definition/adaptive/adaptive-definition-detail-title-resolver.service';
 export * from './definition/adaptive/adaptive-definition-detail-breadcrumb-resolver.service';
+export * from './definition/training/common-training-definition-resolver.service';
+export * from './definition/training/common-definition-title-resolver.service';
 
 export * from './instance/training/training-instance-breadcrumb-resolver.service';
 export * from './instance/training/training-instance-detail-title-resolver.service';
@@ -35,7 +35,8 @@ export * from './instance/adaptive/adaptive-instance-resolver.service';
 export * from './instance/adaptive/adaptive-instance-title-resolver.service';
 export * from './instance/adaptive/adaptive-instance-detail-breadcrumb-resolver.service';
 export * from './instance/adaptive/adaptive-instance-detail-title-resolver.service';
-export * from './run/training/training-run-resolver.service';
+export * from './run/training/linear-training-run-resolver.service';
+export * from './run/training/coop-training-run-resolver.service';
 export * from './run/training/training-run-results-resolver.service';
 export * from './run/adaptive/adaptive-run-resolver.service';
 export * from './run/adaptive/adaptive-run-results-resolver.service';

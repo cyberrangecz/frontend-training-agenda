@@ -1,4 +1,14 @@
-import { AfterViewInit, Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import {
+    AfterViewInit,
+    Component,
+    ElementRef,
+    EventEmitter,
+    Input,
+    OnChanges,
+    Output,
+    SimpleChanges,
+    ViewChild,
+} from '@angular/core';
 import { Team, TeamMessage, TrainingUser } from '@crczp/training-model';
 import { FormControl } from '@angular/forms';
 
@@ -12,6 +22,8 @@ export class ChatViewComponent implements OnChanges, AfterViewInit {
     @Input({ required: true }) team: Team;
     @Input({ required: true }) currentUserId: TrainingUser['id'];
     @Input() numberOfMessagesToDisplay: number = 20;
+
+    @Output() sendMessage = new EventEmitter<string>();
 
     teamUsersById: { [key: number]: TrainingUser } = {};
 
@@ -32,6 +44,9 @@ export class ChatViewComponent implements OnChanges, AfterViewInit {
         this.chatFormControl.valueChanges.subscribe((value) => {
             this.updateChatInputHeight();
         });
+        if (this.chatWrapper) {
+            this.chatWrapper.nativeElement.scrollTo(0, this.chatWrapper.nativeElement.scrollHeight);
+        }
     }
 
     private updateChatInputHeight() {
@@ -50,10 +65,19 @@ export class ChatViewComponent implements OnChanges, AfterViewInit {
     }
 
     getUserImage(userId: number): string {
-        return this.teamUsersById[userId].picture;
+        return this.teamUsersById[userId]?.picture;
     }
 
-    messageUpdated($event: Event) {}
+    emitSendMessage() {
+        if (!this.chatFormControl.value) {
+            return;
+        }
+        this.sendMessage.emit(this.chatFormControl.value);
+        console.log('sendMessage', this.chatFormControl.value);
+        this.chatFormControl.setValue('');
+    }
 
-    messageContent() {}
+    getUserName(userId: any) {
+        return this.teamUsersById[userId]?.name;
+    }
 }

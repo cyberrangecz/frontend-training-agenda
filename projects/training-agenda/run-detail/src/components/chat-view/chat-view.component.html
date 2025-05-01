@@ -1,6 +1,6 @@
 <div #chatWrapper
      (scroll)="onScroll($event)"
-     class="vflex wh-100 chat-wrapper">
+     class="vflex chat-wrapper round-scrollbar">
     <crczp-grid-list
         class="wh-100"
         [gridGap]="'0.5rem'"
@@ -12,27 +12,37 @@
 <div class="hflex chat-controls-wrapper">
     <mat-form-field
         class="w-100 message-input-form"
-        [appearance]="'outline'"
+        appearance="outline"
+        subscriptSizing="dynamic"
+    >
+    <textarea
+        #chatInput
+        [maxlength]="1024"
+        class="message-input"
+        matInput
         [formControl]="chatFormControl"
-        [subscriptSizing]="'dynamic'"
-        >
-        <textarea
-            #chatInput
-            [maxlength]="1024"
-            class="message-input"
-            matInput
-            [formControl]="chatFormControl"
-            placeholder="send message..."
-        ></textarea>
+        placeholder="send message..."
+        (keydown.enter)="emitSendMessage();$event.preventDefault()"
+    ></textarea>
     </mat-form-field>
-    <button mat-mini-fab class="sent-button">
+
+    <button
+        mat-mini-fab
+        class="sent-button"
+        (click)="emitSendMessage()"
+        [disabled]="chatFormControl.invalid || chatFormControl.value.trim().length === 0"
+    >
         <mat-icon>send</mat-icon>
     </button>
 </div>
 
 <ng-template #teamMessage let-message>
     <div class="message-wrapper {{isCurrentUser(message.userId) ? 'message-wrapper--current-user':''}}">
-        <img src="{{ ''+getUserImage(message.userId)}}">
+        <img
+            [matTooltip]="isCurrentUser(message.userId) ? '': getUserName(message.userId)"
+            matTooltipPosition="before"
+            class="sender-avatar"
+            src="{{ 'data:image/jpg;base64,' +getUserImage(message.userId)}}">
         <div class="message-text-bubble">
       <span class="message">
         {{message.message}}

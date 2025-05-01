@@ -80,9 +80,15 @@
     text-align: center;
 }
 
-.list-wrapper {
+.chat-view {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    max-height: calc(50dvh - 5rem);
+}
+
+.content-wrapper {
     margin-bottom: 0.5rem;
-    overflow-y: auto;
     max-height: 50dvh;
     background: var(--primary-80);
     display: flex;
@@ -92,6 +98,7 @@
     margin-left: 2rem;
     padding: 0.5rem 0.5rem;
     border-radius: 0 0 0 0.75rem;
+    overflow-y: auto;
 }
 
 .list {

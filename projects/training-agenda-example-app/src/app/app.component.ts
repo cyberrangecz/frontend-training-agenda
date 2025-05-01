@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, NavigationError, Router } from '@angular/router';
 import { AgendaContainer } from '@sentinel/layout';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
@@ -12,7 +12,7 @@ import { NavAgendaContainerConfig, NavBuilder } from '@crczp/theme';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
     isLoading$: Observable<boolean>;
     activeUser$: Observable<User>;
     title$: Observable<string>;
@@ -123,5 +123,13 @@ export class AppComponent {
             },
             {} as { [key: string]: true },
         );
+    }
+
+    ngOnInit(): void {
+        this.router.events.subscribe((event: any) => {
+            if (event instanceof NavigationError) {
+                console.error('NavigationError:', event.error);
+            }
+        });
     }
 }

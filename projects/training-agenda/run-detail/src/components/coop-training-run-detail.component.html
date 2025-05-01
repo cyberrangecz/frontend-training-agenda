@@ -1,8 +1,9 @@
 <crczp-training-run-detail>
     <crczp-run-side-panel
-        [team]="(teamInfo$|async)"
-        [limitedScoreboard]="(scoreboard$|async)"
-        [messages]="(messages$|async)"
-        [currentUser]="currentUser$|async"
+        [team]="service.teams$ | async"
+        [limitedScoreboard]="service.scoreboard$ | async"
+        [messages]="service.messages$ | async"
+        [currentUser]="currentUser$ | async"
+        (sendMessage)="onMessageSend($event)"
     />
 </crczp-training-run-detail>

@@ -27,7 +27,7 @@
                     class="handle"
                     matTooltip="View scoreboard"
                     matTooltipPosition="before"
-                    [disabled]="!team"
+                    [disabled]="!limitedScoreboard"
                     (click)="selectedView.set('scoreboard')"
                 >
                     <div class="team-position-number">#{{getTeamPositionStr()}}</div>
@@ -41,7 +41,7 @@
                 <mat-icon class="handle-icon">group</mat-icon>
                 <h4 class="extended-label">{{ team.name }}</h4>
             </div>
-            <div class="list-wrapper">
+            <div class="content-wrapper round-scrollbar">
                 <crczp-grid-list
                     class="round-scrollbar"
                     [items]="team.members"
@@ -58,13 +58,14 @@
                 <mat-icon class="handle-icon">chat</mat-icon>
                 <h4 class="extended-label">Chat</h4>
             </div>
-            <div class="list-wrapper">
+            <div class="content-wrapper">
                 <crczp-chat-view
-                    class="wh-100"
+                    class="chat-view"
                     [team]="team"
                     [messages]="messages"
                     [currentUserId]="currentUser?.id"
                     [numberOfMessagesToDisplay]="20"
+                    (sendMessage)="sendMessage.emit($event)"
                 />
             </div>
         }
@@ -75,7 +76,7 @@
                 <mat-icon class="handle-icon">scoreboard</mat-icon>
                 <h4 class="extended-label">Scoreboard</h4>
             </div>
-            <div class="list-wrapper">
+            <div class="content-wrapper round-scrollbar">
                 <crczp-teams-scoreboard
                     class="scoreboard"
                     [usersTeamId]="team?.id"

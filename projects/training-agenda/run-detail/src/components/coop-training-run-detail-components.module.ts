@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
-import { TrainingRunDetailComponentsModule } from '@crczp/training-agenda/run-detail';
 import { TeamSidePanelComponent } from './team-side-panel/team-side-panel.component';
 import { CoopTrainingRunDetailComponent } from './coop-training-run-detail.component';
-import { CoopRunService } from '../services/training-run/running/coop-run.service';
-import { CoopRunConcreteService } from '../services/training-run/running/coop-run-concrete.service';
+import { CoopTrainingRunService } from '../services/training-run/running/coop-training-run.service';
+import { CoopTrainingRunConcreteService } from '../services/training-run/running/coop-training-run-concrete.service';
 import { AsyncPipe, DatePipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { GridListComponent, PlayerViewComponent } from '@crczp/training-agenda/internal';
@@ -14,6 +13,7 @@ import { TeamsScoreboardComponent } from '../../../internal/src/components/teams
 import { ChatViewComponent } from './chat-view/chat-view.component';
 import { MatFormField, MatInput } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TrainingRunDetailComponentsModule } from './training-run-detail-components.module';
 
 /**
  * Contains all components of training run detail
@@ -35,7 +35,7 @@ import { ReactiveFormsModule } from '@angular/forms';
         ReactiveFormsModule,
     ],
     declarations: [CoopTrainingRunDetailComponent, TeamSidePanelComponent, ChatViewComponent],
-    providers: [{ provide: CoopRunService, useClass: CoopRunConcreteService }],
+    providers: [{ provide: CoopTrainingRunService, useClass: CoopTrainingRunConcreteService }],
     exports: [CoopTrainingRunDetailComponent],
 })
 export class CoopTrainingRunDetailComponentsModule {}

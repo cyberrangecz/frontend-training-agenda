@@ -13,7 +13,7 @@ export class TraineeAccessTrainingFormGroup {
             accessTokenPrefix: new UntypedFormControl('', SentinelValidators.noWhitespace),
             accessTokenPin: new UntypedFormControl('', [
                 Validators.required,
-                Validators.pattern('^[0-9]*$'),
+                Validators.pattern('^[0-9CL]*$'),
                 Validators.minLength(accessTokenPinLimitations),
                 Validators.maxLength(accessTokenPinLimitations),
             ]),

@@ -1,9 +1,9 @@
 .chat-wrapper {
-    padding: 0.5rem 0.5rem 0 1rem;
-    margin-bottom: 0.5rem;
+    flex-grow: 1;
     overflow-y: auto;
-    width: 20rem;
-    min-height: 10rem;
+    padding: 0.5rem 0.5rem 0.25rem 1rem;
+    min-height: 0;
+    height: 100%;
 }
 
 .chat-controls-wrapper{
@@ -12,7 +12,7 @@
     justify-content: space-between;
     align-items: flex-end;
     gap: 0.25rem;
-    width: 100%;
+    height: 100%;
 }
 
 .message-input-form {
@@ -42,11 +42,19 @@
     flex-direction: row-reverse;
 }
 
+.sender-avatar {
+    aspect-ratio: 1;
+    width: 24px;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px var(--neutral-80);
+    background: var(--neutral-98);
+}
+
 .message-text-bubble {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    background-color: var(--primary-80);
+    background-color: var(--primary-98);
     padding: 1rem 1rem 0.5rem 1rem;
     border-radius: 1.5rem;
     gap: 0.25rem;

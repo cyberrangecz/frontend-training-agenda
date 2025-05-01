@@ -1,4 +1,3 @@
-import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Router } from '@angular/router';
 import { TrainingRunApi } from '@crczp/training-api';
 import { AccessTrainingRunInfo } from '@crczp/training-model';
@@ -17,15 +16,14 @@ import { LobbyWaitingDialogComponent } from './lobby-waiting-dialog/lobby-waitin
 /**
  * Router data provider
  */
-@Injectable()
-export class AccessTrainingRunResolver {
+export class CommonTrainingRunResolver {
     constructor(
-        private api: TrainingRunApi,
-        private runningTrainingRunService: RunningTrainingRunService,
-        private errorHandler: TrainingErrorHandler,
-        private navigator: TrainingNavigator,
-        private router: Router,
-        private dialog: MatDialog,
+        protected api: TrainingRunApi,
+        protected runningTrainingRunService: RunningTrainingRunService,
+        protected errorHandler: TrainingErrorHandler,
+        protected navigator: TrainingNavigator,
+        protected router: Router,
+        protected dialog: MatDialog,
     ) {}
 
     /**

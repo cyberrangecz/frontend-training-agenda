@@ -20,8 +20,9 @@ import {
 } from '@crczp/training-agenda';
 import {
     AccessAdaptiveRunResolver,
-    AccessTrainingRunResolver,
     AdaptiveRunResultsResolver,
+    CoopTrainingRunResolver,
+    LinearTrainingRunResolver,
     TrainingRunResultsResolver,
 } from '@crczp/training-agenda/resolvers';
 
@@ -58,7 +59,7 @@ const routes: Routes = [
             breadcrumb: 'Game',
             title: undefined,
         },
-        resolve: { [TRAINING_RUN_ACCESS_INFO_DATA_ATTRIBUTE_NAME]: AccessTrainingRunResolver },
+        resolve: { [TRAINING_RUN_ACCESS_INFO_DATA_ATTRIBUTE_NAME]: LinearTrainingRunResolver },
     },
     {
         path: `${LINEAR_TRAINING_RUN_RESUME_PATH}/:${TRAINING_RUN_SELECTOR}`,
@@ -68,7 +69,7 @@ const routes: Routes = [
             breadcrumb: 'Game',
             title: undefined,
         },
-        resolve: { [TRAINING_RUN_ACCESS_INFO_DATA_ATTRIBUTE_NAME]: AccessTrainingRunResolver },
+        resolve: { [TRAINING_RUN_ACCESS_INFO_DATA_ATTRIBUTE_NAME]: LinearTrainingRunResolver },
     },
     {
         path: `${COOP_TRAINING_RUN_ACCESS_PATH}/:${TRAINING_RUN_ACCESS_SELECTOR}`,
@@ -78,7 +79,7 @@ const routes: Routes = [
             breadcrumb: 'Game',
             title: undefined,
         },
-        resolve: { [TRAINING_RUN_ACCESS_INFO_DATA_ATTRIBUTE_NAME]: AccessTrainingRunResolver },
+        resolve: { [TRAINING_RUN_ACCESS_INFO_DATA_ATTRIBUTE_NAME]: CoopTrainingRunResolver },
     },
     {
         path: `${COOP_TRAINING_RUN_RESUME_PATH}/:${TRAINING_RUN_SELECTOR}`,
@@ -88,7 +89,7 @@ const routes: Routes = [
             breadcrumb: 'Game',
             title: undefined,
         },
-        resolve: { [TRAINING_RUN_ACCESS_INFO_DATA_ATTRIBUTE_NAME]: AccessTrainingRunResolver },
+        resolve: { [TRAINING_RUN_ACCESS_INFO_DATA_ATTRIBUTE_NAME]: CoopTrainingRunResolver },
     },
     {
         path: `${TRAINING_RUN_RESULTS_PATH}/:${TRAINING_RUN_SELECTOR}`,

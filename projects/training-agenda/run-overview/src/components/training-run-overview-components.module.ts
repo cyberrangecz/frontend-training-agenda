@@ -20,8 +20,9 @@ import {
 } from '@crczp/training-agenda/adaptive-run-detail';
 import {
     AccessAdaptiveRunResolver,
-    AccessTrainingRunResolver,
     AdaptiveRunResultsResolver,
+    CoopTrainingRunResolver,
+    LinearTrainingRunResolver,
     TrainingRunResultsResolver,
 } from '@crczp/training-agenda/resolvers';
 import { AccessedTrainingRunConcreteService } from '../services/state/training/accessed-training-run-concrete.service';
@@ -57,7 +58,8 @@ import { RunningTrainingRunConcreteService, RunningTrainingRunService } from '@c
     ],
     declarations: [TrainingRunOverviewComponent, AccessTrainingRunComponent],
     providers: [
-        AccessTrainingRunResolver,
+        LinearTrainingRunResolver,
+        CoopTrainingRunResolver,
         AccessAdaptiveRunResolver,
         TrainingRunResultsResolver,
         AdaptiveRunResultsResolver,
