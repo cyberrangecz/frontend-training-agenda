@@ -18,9 +18,9 @@ import { ActivatedRoute } from '@angular/router';
  */
 export class CoopTrainingRunDetailComponent implements OnInit {
     private static readonly TEAM_INFO_REFRESH_INTERVAL = 30000; // 30 seconds
-    private static readonly SCOREBOARD_REFRESH_INTERVAL = 3000;
+    private static readonly SCOREBOARD_REFRESH_INTERVAL = 30000;
     private static readonly MESSAGES_REFRESH_INTERVAL = 2000;
-    private static readonly RUN_REFRESH_INTERVAL = 5000;
+    private static readonly RUN_REFRESH_INTERVAL = 50000;
 
     currentUser$ = this.auth.activeUser$;
 

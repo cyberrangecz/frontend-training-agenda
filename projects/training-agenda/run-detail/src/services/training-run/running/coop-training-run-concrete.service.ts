@@ -1,9 +1,9 @@
 import { CoopTrainingRunService } from './coop-training-run.service';
-import { BehaviorSubject, of } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { LimitedScoreboard, Team, TeamMessage } from '@crczp/training-model';
 import { CoopTrainingRunApi } from '@crczp/training-api';
 import { Injectable } from '@angular/core';
-import { catchError, map, mergeMap, take, tap } from 'rxjs/operators';
+import { map, take, tap } from 'rxjs/operators';
 import { SentinelAuthService } from '@sentinel/auth';
 import { RunningTrainingRunService } from './running-training-run.service';
 
@@ -16,17 +16,21 @@ export class CoopTrainingRunConcreteService implements CoopTrainingRunService {
     ) {}
 
     teamInfoSubject = new BehaviorSubject<Team>(null);
-    messagesSubject = new BehaviorSubject<TeamMessage[]>([]);
+    messagesSubject = new BehaviorSubject<Record<number, TeamMessage>>({});
     scoreboardSubject = new BehaviorSubject<LimitedScoreboard>(null);
 
-    public teams$ = this.teamInfoSubject.asObservable().pipe(tap(() => console.log('executed teams')));
-    public messages$ = this.messagesSubject.asObservable().pipe(tap(() => console.log('executed messages$')));
-    public scoreboard$ = this.scoreboardSubject.asObservable().pipe(tap(() => console.log('executed scoreboard$')));
-
+    public teams$ = this.teamInfoSubject.asObservable();
+    public messages$ = this.messagesSubject.asObservable().pipe(
+        map((messages) => Object.values(messages).sort((a, b) => a.time.getTime() - b.time.getTime())),
+        tap((sortedMessages) => {
+            if (sortedMessages.length > 0) {
+                this.lastFetch = sortedMessages[sortedMessages.length - 1].time;
+            }
+        }),
+    );
     private lastFetch = new Date(1970);
 
-    // ensure no duplicates caused by clock desync
-    private seenMessageIds = new Set<number>();
+    public scoreboard$ = this.scoreboardSubject.asObservable();
 
     getScoreboard(): LimitedScoreboard | null {
         return this.scoreboardSubject.value;
@@ -37,7 +41,7 @@ export class CoopTrainingRunConcreteService implements CoopTrainingRunService {
     }
 
     getMessages(): TeamMessage[] {
-        return this.messagesSubject.value;
+        return Object.values(this.messagesSubject.value);
     }
 
     fetchTeamInfo(): void {
@@ -51,38 +55,29 @@ export class CoopTrainingRunConcreteService implements CoopTrainingRunService {
     }
 
     fetchMessages(teamId: number): void {
-        this.api
-            .getTeamMessages(teamId, this.lastFetch)
-            .pipe(map((messages: TeamMessage[]) => this.handleNewMessages(messages)))
-            .subscribe((messages) => this.messagesSubject.next(this.messagesSubject.value.concat(messages)));
+        this.api.getTeamMessages(teamId, this.lastFetch).subscribe((messages) => {
+            const currentMessages = this.messagesSubject.value;
+            messages.forEach((message) => {
+                currentMessages[message.id] = message;
+            });
+            this.messagesSubject.next(currentMessages);
+        });
     }
 
     sendMessage(message: string, teamId: number): void {
         this.api
             .postTeamMessage(teamId, <number>this.authService.getActiveUser().id, message)
             .subscribe((message: TeamMessage) => {
-                this.seenMessageIds.add(message.id);
-                this.messagesSubject.next(this.messagesSubject.value.concat(message));
+                const updated = this.messagesSubject.value;
+                updated[message.id] = message;
+                this.messagesSubject.next(updated);
             });
-    }
-
-    private handleNewMessages(messages: TeamMessage[]): TeamMessage[] {
-        const filtered = messages.filter((message) => !this.seenMessageIds.has(message.id));
-        filtered.forEach((message) => this.seenMessageIds.add(message.id));
-        const sorted = filtered.sort((a, b) => a.time.getTime() - b.time.getTime());
-        if (sorted.length > 0 && typeof sorted[sorted.length - 1].time?.getTime() === 'number') {
-            this.lastFetch.setTime(sorted[sorted.length - 1].time.getTime());
-        }
-        return sorted;
     }
 
     refetchRun(): void {
         this.api
             .resume(this.runningService.trainingRunId)
-            .pipe(
-                take(1),
-                tap((trainingRunInfo) => console.log(trainingRunInfo)),
-            )
+            .pipe(take(1))
             .subscribe((trainingRunInfo) => this.runningService.init(trainingRunInfo));
     }
 }
