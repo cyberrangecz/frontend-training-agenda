@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { TrainingInstance } from '@crczp/training-model';
+import { TrainingInstance, TrainingTypeEnum } from '@crczp/training-model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME } from '@crczp/training-agenda';
@@ -19,7 +19,10 @@ export class TrainingInstanceProgressComponent implements OnInit {
     @Input() trainingInstance$: Observable<TrainingInstance>;
     destroyRef = inject(DestroyRef);
 
-    constructor(private activeRoute: ActivatedRoute) {}
+    constructor(
+        private activeRoute: ActivatedRoute,
+        protected trainingType: TrainingTypeEnum,
+    ) {}
 
     ngOnInit(): void {
         this.trainingInstance$ = this.activeRoute.data.pipe(
@@ -27,4 +30,6 @@ export class TrainingInstanceProgressComponent implements OnInit {
             map((data) => data[TRAINING_INSTANCE_DATA_ATTRIBUTE_NAME]),
         );
     }
+
+    protected readonly TrainingTypeEnum = TrainingTypeEnum;
 }

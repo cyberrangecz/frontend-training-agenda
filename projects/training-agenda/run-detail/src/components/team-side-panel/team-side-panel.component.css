@@ -85,6 +85,8 @@
     flex-direction: column;
     flex-grow: 1;
     max-height: calc(50dvh - 5rem);
+    width: 20rem;
+    max-width: 20rem;
 }
 
 .content-wrapper {

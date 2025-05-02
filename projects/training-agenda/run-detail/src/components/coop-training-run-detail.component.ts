@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
-import { merge, timer } from 'rxjs';
+import { exhaustMap, merge, timer } from 'rxjs';
 import { CoopTrainingRunService } from '../services/training-run/running/coop-training-run.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { SentinelAuthService } from '@sentinel/auth';
-import { filter } from 'rxjs/operators';
+import { filter, tap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -18,13 +18,20 @@ import { ActivatedRoute } from '@angular/router';
  */
 export class CoopTrainingRunDetailComponent implements OnInit {
     private static readonly TEAM_INFO_REFRESH_INTERVAL = 30000; // 30 seconds
-    private static readonly SCOREBOARD_REFRESH_INTERVAL = 30000;
-    private static readonly MESSAGES_REFRESH_INTERVAL = 2000;
-    private static readonly RUN_REFRESH_INTERVAL = 50000;
+    private static readonly SCOREBOARD_REFRESH_INTERVAL = 4000;
+    private static readonly MESSAGES_REFRESH_INTERVAL = 4000;
+    private static readonly RUN_REFRESH_INTERVAL = 4000;
 
     currentUser$ = this.auth.activeUser$;
 
     private readonly destroyRef = inject(DestroyRef);
+
+    private lastMessageCount = 0;
+
+    filteredMessages$ = this.service.messages$.pipe(
+        filter((messages) => Object.keys(messages).length > this.lastMessageCount),
+        tap((messages) => (this.lastMessageCount = Object.keys(messages).length)),
+    );
 
     constructor(
         protected service: CoopTrainingRunService,
@@ -34,23 +41,33 @@ export class CoopTrainingRunDetailComponent implements OnInit {
 
     ngOnInit() {
         timer(0, CoopTrainingRunDetailComponent.TEAM_INFO_REFRESH_INTERVAL)
-            .pipe(takeUntilDestroyed(this.destroyRef))
-            .subscribe(() => this.service.fetchTeamInfo());
+            .pipe(
+                takeUntilDestroyed(this.destroyRef),
+                exhaustMap(() => this.service.fetchTeamInfo()),
+            )
+            .subscribe();
         timer(0, CoopTrainingRunDetailComponent.SCOREBOARD_REFRESH_INTERVAL)
-            .pipe(takeUntilDestroyed(this.destroyRef))
-            .subscribe(() => this.service.fetchScoreboard());
+            .pipe(
+                takeUntilDestroyed(this.destroyRef),
+                exhaustMap(() => this.service.fetchScoreboard()),
+            )
+            .subscribe();
         merge(timer(0, CoopTrainingRunDetailComponent.MESSAGES_REFRESH_INTERVAL), this.service.teams$)
             .pipe(
                 filter(() => !!this.service.getTeam()),
                 takeUntilDestroyed(this.destroyRef),
+                exhaustMap(() => this.service.fetchMessages(this.service.getTeam()?.id)),
             )
-            .subscribe(() => this.service.fetchMessages(this.service.getTeam()?.id));
-        timer(0, CoopTrainingRunDetailComponent.RUN_REFRESH_INTERVAL)
-            .pipe(takeUntilDestroyed(this.destroyRef))
-            .subscribe(() => this.service.refetchRun());
+            .subscribe();
+        timer(CoopTrainingRunDetailComponent.RUN_REFRESH_INTERVAL, CoopTrainingRunDetailComponent.RUN_REFRESH_INTERVAL)
+            .pipe(
+                takeUntilDestroyed(this.destroyRef),
+                exhaustMap(() => this.service.refetchRun()),
+            )
+            .subscribe();
     }
 
     onMessageSend(message: string) {
-        this.service.sendMessage(message, this.service.getTeam()?.id);
+        this.service.sendMessage(message, this.service.getTeam()?.id).subscribe();
     }
 }

@@ -40,7 +40,7 @@ const routes: Routes = [
             title: TrainingInstanceDetailTitleResolver,
         },
         loadChildren: () =>
-            import('./progress/training-instance-progress.module').then((m) => m.TrainingInstanceProgressModule),
+            import('./progress/coop-instance-progress.module').then((m) => m.CoopInstanceProgressModule),
     },
     {
         path: RESULTS_PATH,

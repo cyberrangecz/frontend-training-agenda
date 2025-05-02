@@ -15,6 +15,14 @@
     height: 100%;
 }
 
+.jump-to-bottom-button {
+    position: absolute;
+    bottom: 5rem;
+    right: 0.5rem;
+    z-index: 1;
+    animation: fadeIn 0.25s;
+}
+
 .message-input-form {
     border-radius: 0.5rem !important;
     background-color: var(--neutral-98);

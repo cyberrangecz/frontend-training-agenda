@@ -1,13 +1,20 @@
-<div #chatWrapper
-     class="vflex chat-wrapper round-scrollbar">
+<div #chatWrapper class="vflex chat-wrapper round-scrollbar">
     <crczp-grid-list
         class="wh-100"
         [gridGap]="'0.5rem'"
         [template]="teamMessage"
-        [items]="messages()"
+        [items]="visibleMessages"
         [trackBy]="getMessageId"
     />
 </div>
+@if(this.showJumpToBottom){
+    <button
+        mat-mini-fab
+        class="jump-to-bottom-button"
+        (click)="jumpToBottom()">
+        <mat-icon>arrow_downward</mat-icon>
+    </button>
+}
 <div class="hflex chat-controls-wrapper">
     <mat-form-field
         class="w-100 message-input-form"

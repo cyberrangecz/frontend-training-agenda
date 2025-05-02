@@ -2,7 +2,7 @@
     <crczp-run-side-panel
         [team]="service.teams$ | async"
         [limitedScoreboard]="service.scoreboard$ | async"
-        [messages]="service.messages$ | async"
+        [messages]="filteredMessages$ | async"
         [currentUser]="currentUser$ | async"
         (sendMessage)="onMessageSend($event)"
     />

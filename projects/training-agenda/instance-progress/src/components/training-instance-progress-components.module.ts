@@ -7,6 +7,7 @@ import { TrainingInstanceProgressComponent } from './training-instance-progress.
 import { MatIconModule } from '@angular/material/icon';
 import { TimelineModule } from '@crczp/command-visualizations/timeline';
 import { MatTabsModule } from '@angular/material/tabs';
+import { TrainingTypeEnum } from '@crczp/training-model';
 
 /**
  * Component imports, declarations and providers for training instance progress page
@@ -24,7 +25,10 @@ import { MatTabsModule } from '@angular/material/tabs';
     providers: [],
 })
 export class TrainingInstanceProgressComponentsModule {
-    static forRoot(config: TrainingAgendaConfig): ModuleWithProviders<TrainingInstanceProgressComponentsModule> {
+    static forRoot(
+        config: TrainingAgendaConfig,
+        trainingType: TrainingTypeEnum,
+    ): ModuleWithProviders<TrainingInstanceProgressComponentsModule> {
         const visualizationConfig: HurdlingVisualizationConfig = {
             trainingServiceUrl: config.visualizationConfig.trainingBasePath,
         };
@@ -35,6 +39,10 @@ export class TrainingInstanceProgressComponentsModule {
                 {
                     provide: HurdlingVisualizationConfig,
                     useValue: visualizationConfig,
+                },
+                {
+                    provide: TrainingTypeEnum,
+                    useValue: trainingType,
                 },
                 { provide: TrainingAgendaConfig, useValue: config },
             ],

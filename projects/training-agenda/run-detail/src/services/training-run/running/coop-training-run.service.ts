@@ -13,29 +13,29 @@ export abstract class CoopTrainingRunService {
     /**
      * Retrieves team information from training run
      */
-    abstract fetchTeamInfo(): void;
+    abstract fetchTeamInfo(): Observable<void>;
 
     /**
      * Retrieves scoreboard showing position of user's team in the training instance
      */
-    abstract fetchScoreboard(): void;
+    abstract fetchScoreboard(): Observable<void>;
 
     /**
      * Retrieves messages of the team
      * The fetches are incremental, returning only new data on each fetch
      * @param teamId user's team
      */
-    abstract fetchMessages(teamId: number): void;
+    abstract fetchMessages(teamId: number): Observable<void>;
 
     /**
      * Sends a new message in the team chat
      * @param message
      * @param teamId
      */
-    abstract sendMessage(message: string, teamId: number): void;
+    abstract sendMessage(message: string, teamId: number): Observable<void>;
 
     /**
      * Updates the training run information in the RunningTrainingRunService
      */
-    abstract refetchRun(): void;
+    abstract refetchRun(): Observable<void>;
 }

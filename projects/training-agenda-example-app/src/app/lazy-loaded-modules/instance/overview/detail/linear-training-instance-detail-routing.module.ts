@@ -41,7 +41,7 @@ const routes: Routes = [
             title: TrainingInstanceDetailTitleResolver,
         },
         loadChildren: () =>
-            import('./progress/training-instance-progress.module').then((m) => m.TrainingInstanceProgressModule),
+            import('./progress/linear-instance-progress.module').then((m) => m.LinearInstanceProgressModule),
     },
     {
         path: CHEATING_DETECTION_PATH,
