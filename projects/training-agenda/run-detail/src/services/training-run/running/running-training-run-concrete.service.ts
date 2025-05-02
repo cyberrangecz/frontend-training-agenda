@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { TrainingRunApi } from '@crczp/training-api';
-import { AccessTrainingRunInfo, Level } from '@crczp/training-model';
+import { AccessTrainingRunInfo, Hint, Level, TrainingLevel } from '@crczp/training-model';
 import { EMPTY, Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { TrainingErrorHandler, TrainingNavigator } from '@crczp/training-agenda';
@@ -116,6 +116,26 @@ export class RunningTrainingRunConcreteService extends RunningTrainingRunService
 
     getBackwardMode(): boolean {
         return this.backwardMode;
+    }
+
+    solutionRevealed(solution: string): void {
+        const level = this.getActiveLevel();
+        if (!(level instanceof TrainingLevel)) {
+            return;
+        }
+        level.solution = solution;
+        this.setActiveLevel(level);
+    }
+
+    hintRevealed(hint: Hint) {
+        const level = this.getActiveLevel();
+        if (!(level instanceof TrainingLevel)) {
+            return;
+        }
+        if (hint) {
+            level.hints = level.hints.map((oldHint) => (oldHint.id === hint.id ? hint : oldHint));
+            this.setActiveLevel(level);
+        }
     }
 
     private setActiveLevel(level: Level) {

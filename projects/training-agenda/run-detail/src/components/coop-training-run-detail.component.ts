@@ -17,10 +17,11 @@ import { ActivatedRoute } from '@angular/router';
  * Optionally displays stepper with progress of the training and timer counting time from the start of a training.
  */
 export class CoopTrainingRunDetailComponent implements OnInit {
-    private static readonly TEAM_INFO_REFRESH_INTERVAL = 30000; // 30 seconds
-    private static readonly SCOREBOARD_REFRESH_INTERVAL = 4000;
-    private static readonly MESSAGES_REFRESH_INTERVAL = 4000;
-    private static readonly RUN_REFRESH_INTERVAL = 4000;
+    private static readonly TEAM_INFO_REFRESH_INTERVAL = 30_000;
+    private static readonly SCOREBOARD_REFRESH_INTERVAL = 6_000;
+    private static readonly SCOREBOARD_INIT_INTERVAL = 5_000;
+    private static readonly MESSAGES_REFRESH_INTERVAL = 10_000;
+    private static readonly RUN_REFRESH_INTERVAL = 2_000;
 
     currentUser$ = this.auth.activeUser$;
 
@@ -46,7 +47,10 @@ export class CoopTrainingRunDetailComponent implements OnInit {
                 exhaustMap(() => this.service.fetchTeamInfo()),
             )
             .subscribe();
-        timer(0, CoopTrainingRunDetailComponent.SCOREBOARD_REFRESH_INTERVAL)
+        timer(
+            CoopTrainingRunDetailComponent.SCOREBOARD_INIT_INTERVAL,
+            CoopTrainingRunDetailComponent.SCOREBOARD_REFRESH_INTERVAL,
+        )
             .pipe(
                 takeUntilDestroyed(this.destroyRef),
                 exhaustMap(() => this.service.fetchScoreboard()),

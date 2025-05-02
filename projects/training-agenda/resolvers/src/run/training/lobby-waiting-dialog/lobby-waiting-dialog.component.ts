@@ -8,9 +8,9 @@ import {
     MatDialogTitle,
 } from '@angular/material/dialog';
 import { NgTemplateOutlet } from '@angular/common';
-import { combineLatest, of, switchMap, throwError, timer } from 'rxjs';
+import { combineLatest, of, switchMap, takeUntil, throwError, timer } from 'rxjs';
 import { TrainingInstanceLobbyApi } from '@crczp/training-api';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import {
     DateHelper,
     GridListComponent,
@@ -75,6 +75,7 @@ export class LobbyWaitingDialogComponent {
         timer(0, LobbyWaitingDialogComponent.PLAYERS_COUNT_RELOAD_TIMEOUT)
             .pipe(
                 takeUntilDestroyed(this.destroyRef),
+                filter((team) => team !== null),
                 switchMap(() => this.api.getPlayersWaiting(this.accessToken, false)),
             )
             .subscribe((count) => this.playersWaitingSignal.set(count));
@@ -86,6 +87,7 @@ export class LobbyWaitingDialogComponent {
 
         combineLatest([deadline$, timer(0, 1000)])
             .pipe(
+                takeUntilDestroyed(this.destroyRef),
                 tap(([date]) => {
                     if (date.getTime() < Date.now() && this.teamSignal()) {
                         timer(1000)

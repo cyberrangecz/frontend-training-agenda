@@ -1,4 +1,4 @@
-import { AccessTrainingRunInfo, Level } from '@crczp/training-model';
+import { AccessTrainingRunInfo, Hint, Level } from '@crczp/training-model';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { skipWhile } from 'rxjs/operators';
 import { ConsoleUrl } from '@crczp/topology-graph';
@@ -45,4 +45,8 @@ export abstract class RunningTrainingRunService {
     abstract moveToLevel(levelId: number): Observable<Level>;
 
     abstract getBackwardMode(): boolean;
+
+    abstract solutionRevealed(solution: string): void;
+
+    abstract hintRevealed(hint: Hint): void;
 }

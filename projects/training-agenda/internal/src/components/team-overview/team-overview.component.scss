@@ -29,11 +29,11 @@
 }
 
 .player-view--deselection {
-  background-color: color-mix(in srgb, var(--tertiary-70) 20%, transparent);
+  background-color: color-mix(in srgb, var(--error-70) 20%, transparent);
 }
 
 .player-view--deselection:hover {
-  background-color: color-mix(in srgb, var(--tertiary-50) 20%, transparent);
+  background-color: color-mix(in srgb, var(--error-50) 20%, transparent);
 }
 
 .team-name__title {

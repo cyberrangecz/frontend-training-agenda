@@ -57,6 +57,10 @@ export class CoopTrainingRunConcreteService implements CoopTrainingRunService {
         );
     }
 
+    private isFullTeam(team: Team): boolean {
+        return Array.isArray(team.members) && team.members.length > 0;
+    }
+
     fetchScoreboard(): Observable<void> {
         return this.api
             .getLocalizedScoreboard(
@@ -65,17 +69,25 @@ export class CoopTrainingRunConcreteService implements CoopTrainingRunService {
             )
             .pipe(
                 map((scoreboard) => {
-                    const entries = scoreboard.scoreboard.map((entry) => ({
-                        ...entry,
-                        team: entry.team.id in this.cachedTeams ? this.cachedTeams[entry.team.id] : entry.team,
-                    }));
-                    entries.forEach((entry) => {
-                        this.cachedTeams[entry.team.id] = entry.team;
+                    const entries = scoreboard.scoreboard.map((entry) => {
+                        const teamId = entry.team.id;
+                        const isCached = teamId in this.cachedTeams;
+                        const team = isCached ? this.cachedTeams[teamId] : entry.team;
+                        if (!isCached || this.isFullTeam(entry.team)) {
+                            this.cachedTeams[teamId] = entry.team;
+                        }
+                        return {
+                            ...entry,
+                            team,
+                        };
                     });
-                    return {
+
+                    const updatedScoreboard: LimitedScoreboard = {
                         ...scoreboard,
-                        entries,
+                        scoreboard: entries,
                     };
+
+                    return updatedScoreboard;
                 }),
                 tap((scoreboard) => {
                     this.scoreboardSubject.next(scoreboard);
@@ -121,11 +133,9 @@ export class CoopTrainingRunConcreteService implements CoopTrainingRunService {
             )
             .pipe(
                 take(1),
-                tap((trainingRunInfo) => {
-                    this.runningService.init(trainingRunInfo);
-                }),
                 catchError((err) => {
-                    if (err.status === 409 && this.runningService.isLast()) {
+                    console.error('Error', err);
+                    if (err.status === 410) {
                         this.router.navigate([this.navigator.toTrainingRunResult(this.runningService.trainingRunId)]);
                         return EMPTY;
                     }
@@ -134,6 +144,7 @@ export class CoopTrainingRunConcreteService implements CoopTrainingRunService {
                     }
                     return throwError(() => err);
                 }),
+                tap((trainingRunInfo) => this.runningService.init(trainingRunInfo)),
                 map(() => void 0),
             );
     }
