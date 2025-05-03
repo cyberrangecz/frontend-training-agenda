@@ -8,9 +8,9 @@ import {
     MatDialogTitle,
 } from '@angular/material/dialog';
 import { NgTemplateOutlet } from '@angular/common';
-import { combineLatest, of, switchMap, takeUntil, throwError, timer } from 'rxjs';
+import { combineLatest, of, switchMap, throwError, timer } from 'rxjs';
 import { TrainingInstanceLobbyApi } from '@crczp/training-api';
-import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
     DateHelper,
     GridListComponent,
@@ -20,7 +20,7 @@ import {
 import { catchError, filter, map, take, tap } from 'rxjs/operators';
 import { MatTooltip } from '@angular/material/tooltip';
 import { Team } from '@crczp/training-model';
-import { CoopTrainingNavigator, TrainingNavigator } from '@crczp/training-agenda';
+import { CoopTrainingNavigator } from '@crczp/training-agenda';
 import { MatIcon } from '@angular/material/icon';
 import { LogoSpinnerComponent } from '@crczp/theme';
 import { Router } from '@angular/router';

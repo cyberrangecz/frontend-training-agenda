@@ -10,6 +10,7 @@ import {
     CoopTrainingDefaultNavigator,
     CoopTrainingNavigator,
     LinearTrainingDefaultNavigator,
+    LinearTrainingNavigator,
     TrainingAgendaConfig,
     TrainingNavigator,
 } from '@crczp/training-agenda';
@@ -68,6 +69,7 @@ import { RunningTrainingRunConcreteService, RunningTrainingRunService } from '@c
         { provide: TrainingNavigator, useClass: LinearTrainingDefaultNavigator },
         { provide: AdaptiveTrainingNavigator, useClass: AdaptiveTrainingDefaultNavigator },
         { provide: CoopTrainingNavigator, useClass: CoopTrainingDefaultNavigator },
+        { provide: LinearTrainingNavigator, useClass: LinearTrainingDefaultNavigator },
         { provide: RunningTrainingRunService, useClass: RunningTrainingRunConcreteService },
         { provide: RunningAdaptiveRunService, useClass: RunningAdaptiveRunConcreteService },
         { provide: AccessedTrainingRunService, useClass: AccessedTrainingRunConcreteService },

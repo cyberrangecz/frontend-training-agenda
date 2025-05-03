@@ -33,6 +33,6 @@ export class CoopTrainingInstanceTableFactory extends LinearTrainingInstanceTabl
                 of(false),
                 defer(() => service.teamsManagement(ti.id)),
             ),
-        ].concat(super.createActions(ti, service));
+        ].concat(super.createActions(ti, service).filter((action) => action.id !== 'results'));
     }
 }
