@@ -2,7 +2,7 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { GridListComponent } from '../grid-list/grid-list.component';
 import { MatCard } from '@angular/material/card';
 import { ScoreboardEntry } from '@crczp/training-model';
-import { ArrayHelper } from '@crczp/training-agenda/internal';
+import { ArrayHelper } from '../../utils/array-helper';
 
 @Component({
     selector: 'crczp-teams-scoreboard',

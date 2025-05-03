@@ -5,11 +5,10 @@ import { CoopTrainingRunService } from '../services/training-run/running/coop-tr
 import { CoopTrainingRunConcreteService } from '../services/training-run/running/coop-training-run-concrete.service';
 import { AsyncPipe, DatePipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import { GridListComponent, PlayerViewComponent } from '@crczp/training-agenda/internal';
+import { GridListComponent, PlayerViewComponent, TeamsScoreboardComponent } from '@crczp/training-agenda/internal';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { TeamsScoreboardComponent } from '../../../internal/src/components/teams-scoreboard/teams-scoreboard.component';
 import { ChatViewComponent } from './chat-view/chat-view.component';
 import { MatFormField, MatInput } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
