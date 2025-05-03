@@ -3,3 +3,4 @@
  */
 export * from './components/linear-training-instance-detail-components.module';
 export * from './components/adaptive-instance-detail-components.module';
+export * from './components/coop-training-instance-detail-components.module';

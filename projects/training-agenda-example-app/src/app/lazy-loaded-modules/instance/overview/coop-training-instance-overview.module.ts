@@ -24,13 +24,5 @@ import {
         CoopTrainingInstanceOverviewRoutingModule,
         CoopTrainingInstanceOverviewComponentsModule.forRoot(environment.trainingAgendaConfig),
     ],
-    providers: [
-        CoopTrainingInstanceResolver,
-        CoopTrainingDefaultNavigator,
-        { provide: TrainingNavigator, useClass: CoopTrainingDefaultNavigator },
-        { provide: TrainingInstanceResolver, useClass: CoopTrainingInstanceResolver },
-        { provide: TrainingInstanceTitleResolver, useClass: CoopTrainingInstanceTitleResolver },
-        TrainingInstanceBreadcrumbResolver,
-    ],
 })
 export class CoopTrainingInstanceOverviewModule {}

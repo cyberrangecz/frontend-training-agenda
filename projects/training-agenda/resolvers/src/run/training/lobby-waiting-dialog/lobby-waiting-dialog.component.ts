@@ -8,7 +8,7 @@ import {
     MatDialogTitle,
 } from '@angular/material/dialog';
 import { NgTemplateOutlet } from '@angular/common';
-import { combineLatest, of, switchMap, throwError, timer } from 'rxjs';
+import { combineLatest, EMPTY, of, switchMap, throwError, timer } from 'rxjs';
 import { TrainingInstanceLobbyApi } from '@crczp/training-api';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
@@ -20,7 +20,7 @@ import {
 import { catchError, filter, map, take, tap } from 'rxjs/operators';
 import { MatTooltip } from '@angular/material/tooltip';
 import { Team } from '@crczp/training-model';
-import { CoopTrainingNavigator } from '@crczp/training-agenda';
+import { CoopTrainingNavigator, TrainingAgendaConfig } from '@crczp/training-agenda';
 import { MatIcon } from '@angular/material/icon';
 import { LogoSpinnerComponent } from '@crczp/theme';
 import { Router } from '@angular/router';
@@ -45,16 +45,13 @@ import { Router } from '@angular/router';
     styleUrl: './lobby-waiting-dialog.component.css',
 })
 export class LobbyWaitingDialogComponent {
-    private static readonly INSTANCE_END_TIME_RELOAD_TIMEOUT = 1000 * 60; // 1 minute
-    private static readonly CHECK_TEAM_TIMEOUT = 1000 * 5; // 5 seconds
-    private static readonly PLAYERS_COUNT_RELOAD_TIMEOUT = 1000 * 5; // 5 seconds
-
     constructor(
         public dialogRef: MatDialogRef<LobbyWaitingDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public accessToken: string,
         private api: TrainingInstanceLobbyApi,
+        config: TrainingAgendaConfig,
     ) {
-        timer(0, LobbyWaitingDialogComponent.CHECK_TEAM_TIMEOUT)
+        timer(0, config.coopTrainingShortPollingPeriod)
             .pipe(
                 takeUntilDestroyed(this.destroyRef),
                 switchMap(() =>
@@ -72,15 +69,22 @@ export class LobbyWaitingDialogComponent {
             )
             .subscribe((team) => this.teamSignal.set(team));
 
-        timer(0, LobbyWaitingDialogComponent.PLAYERS_COUNT_RELOAD_TIMEOUT)
+        timer(0, config.coopTrainingShortPollingPeriod)
             .pipe(
                 takeUntilDestroyed(this.destroyRef),
                 filter((team) => team !== null),
-                switchMap(() => this.api.getPlayersWaiting(this.accessToken, false)),
+                switchMap(() =>
+                    this.api.getPlayersWaiting(this.accessToken, false).pipe(
+                        catchError((err) => {
+                            console.error('Polling players waiting error:', err);
+                            return EMPTY;
+                        }),
+                    ),
+                ),
             )
             .subscribe((count) => this.playersWaitingSignal.set(count));
 
-        const deadline$ = timer(0, LobbyWaitingDialogComponent.INSTANCE_END_TIME_RELOAD_TIMEOUT).pipe(
+        const deadline$ = timer(0, config.coopTrainingLongPollingPeriod).pipe(
             takeUntilDestroyed(this.destroyRef),
             switchMap(() => this.api.getInstanceStartDate(this.accessToken)),
         );

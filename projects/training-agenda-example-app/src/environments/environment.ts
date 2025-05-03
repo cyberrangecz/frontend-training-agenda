@@ -32,6 +32,8 @@ export const environment = {
     production: false,
     trainingAgendaConfig: {
         pollingPeriod: 5000,
+        coopTrainingShortPollingPeriod: 2000,
+        coopTrainingLongPollingPeriod: 30000,
         defaultPaginationSize: 10,
         localModeAllowed: true,
         visualizationConfig,

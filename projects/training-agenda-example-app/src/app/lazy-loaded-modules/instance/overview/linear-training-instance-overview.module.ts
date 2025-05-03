@@ -24,13 +24,5 @@ import {
         LinearTrainingInstanceOverviewRoutingModule,
         LinearTrainingInstanceOverviewComponentsModule.forRoot(environment.trainingAgendaConfig),
     ],
-    providers: [
-        LinearTrainingInstanceResolver,
-        { provide: LinearTrainingNavigator, useClass: LinearTrainingDefaultNavigator },
-        { provide: TrainingNavigator, useExisting: LinearTrainingNavigator },
-        { provide: TrainingInstanceResolver, useClass: LinearTrainingInstanceResolver },
-        { provide: TrainingInstanceTitleResolver, useClass: LinearTrainingInstanceTitleResolver },
-        TrainingInstanceBreadcrumbResolver,
-    ],
 })
 export class LinearTrainingInstanceOverviewModule {}
