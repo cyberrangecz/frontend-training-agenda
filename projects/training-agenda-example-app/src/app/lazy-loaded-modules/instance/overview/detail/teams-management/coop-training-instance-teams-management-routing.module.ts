@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TeamsManagementComponent } from '@crczp/training-agenda/instance-team-management';
+import { TeamsManagementComponent } from '../../../../../../../../training-agenda/instance-team-management/src/components/teams-management.component';
 
 const routes: Routes = [
     {
