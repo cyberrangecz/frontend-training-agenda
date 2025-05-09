@@ -66,17 +66,6 @@ export class TeamManagementConcreteService extends TeamManagementService {
         this.loadingSubject.next(true);
         const notifier = new Subject<void>();
 
-        /*this.idMapSubject.next({
-            teams: {},
-            queue: [...Array(8).keys()].map((num) => ({
-                id: num,
-                name: 'Player ' + num,
-                login: '' + num,
-                mail: undefined,
-                picture: '',
-            })),
-        });*/
-
         this.lobbyApi
             .getInstanceLobby(this.trainingInstanceId)
             .pipe(take(1))
@@ -520,10 +509,9 @@ export class TeamManagementConcreteService extends TeamManagementService {
         let generatedName: string | undefined = undefined;
 
         do {
-            generatedName = this.config.teamNameKeywords.reduce(
-                (name, list) => name + ' ' + list[Math.floor(Math.random() * list.length)],
-                '',
-            );
+            generatedName = this.config.teamNameKeywords
+                .reduce((name, list) => name + ' ' + list[Math.floor(Math.random() * list.length)], '')
+                .trim();
         } while (!this.isTeamNameValid(generatedName));
         return generatedName;
     }
