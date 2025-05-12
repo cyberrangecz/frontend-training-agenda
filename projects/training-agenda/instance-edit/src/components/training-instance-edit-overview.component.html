@@ -2,7 +2,7 @@
     <mat-expansion-panel-header>
         <mat-panel-title>
             <ng-container *ngIf="(editMode$ | async) else newTrainingTitle">
-                Linear Training Instance
+                Edit Training Instance
             </ng-container>
             <ng-template #newTrainingTitle>
                 Create Training Instance
