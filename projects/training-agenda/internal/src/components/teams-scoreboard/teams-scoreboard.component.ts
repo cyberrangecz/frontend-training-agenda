@@ -12,7 +12,7 @@ import { ArrayHelper } from '../../utils/array-helper';
     standalone: true,
 })
 export class TeamsScoreboardComponent implements OnChanges {
-    @Input({ required: true }) teamsScores: ScoreboardEntry[];
+    @Input() teamsScores: ScoreboardEntry[];
     @Input() positionsBeforeUserTeam: number;
     @Input() positionsAfterUserTeam: number;
     @Input() usersTeamId: number;
@@ -41,8 +41,6 @@ export class TeamsScoreboardComponent implements OnChanges {
                 .concat(this.positionsAfterUserTeam > 0 ? [this.positionsAfterUserTeam] : []);
         }
     }
-
-    getId: (team: any) => number = (team) => team.id;
 
     isFiller(teamData: ScoreboardEntry | number) {
         return typeof teamData === 'number';

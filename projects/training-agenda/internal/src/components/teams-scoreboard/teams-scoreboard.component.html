@@ -1,6 +1,6 @@
 <crczp-grid-list
   class="leaderboard"
-  [items]="teamsScores"
+  [items]="mappedScoreboard"
   [gridGap]="'1rem'"
   [trackBy]="trackByFn"
   [gridTemplate]="'auto / 1fr'"
@@ -10,7 +10,7 @@
 <ng-template #teamTemplate let-teamData>
   @if (isFiller(teamData)) {
       <div class="filler">
-        <h2>... {{ teamData }} teams</h2>
+        <h2>{{ teamData }} teams...</h2>
       </div>
   } @else {
     <mat-card class="team-score

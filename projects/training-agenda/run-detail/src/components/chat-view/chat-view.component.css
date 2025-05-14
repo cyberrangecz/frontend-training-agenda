@@ -52,10 +52,18 @@
 
 .sender-avatar {
     aspect-ratio: 1;
+    margin-top: 1rem;
     width: 24px;
     border-radius: 50%;
     box-shadow: 0 2px 5px var(--neutral-80);
     background: var(--neutral-98);
+}
+
+.avatar-spacer {
+    width: 24px;
+    min-width: 24px;
+    max-width: 24px;
+    height: 100%;
 }
 
 .message-text-bubble {
