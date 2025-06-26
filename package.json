@@ -47,7 +47,7 @@
         "@crczp/overview-visualization": "^1.0.0",
         "@crczp/statistical-visualizations": "^1.0.0",
         "@crczp/clustering-visualization": "^1.0.0",
-        "@crczp/topology-graph": "^1.0.0",
+        "@crczp/topology-graph": "^1.0.1",
         "@crczp/topology-graph-model": "^1.0.0",
         "@crczp/visualization-dashboard": "^1.0.0",
         "@crczp/walkthrough-visualization": "^1.0.0",
