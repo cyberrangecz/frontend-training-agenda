@@ -1,3 +1,5 @@
+> The code from this repository has been integrated to the [frontend-platform monorepo](https://github.com/cyberrangecz/frontend-platform), where development and maintenance continue.
+
 # CyberRangeᶜᶻ Platform Training Agenda
 
 Training Agenda is a library containing components and services to design, organize and play training.
